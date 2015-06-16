@@ -1,0 +1,25 @@
+{
+  "name": "tpc-trainco",
+  "version": "1.0.0",
+  "description": "TPCTrainco website",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "gulp": "^3.9.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.1",
+    "gulp-util": "^3.0.5",
+    "gulp-watch": "^4.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imulus/TPCTrainco.git"
+  },
+  "author": "Imulus.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imulus/TPCTrainco/issues"
+  },
+  "homepage": "https://github.com/imulus/TPCTrainco#readme"
+}

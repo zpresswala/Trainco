@@ -86,3 +86,6 @@ pkg/
 
 *[Rr]e[Ss]harper.user
 _ReSharper.*/
+
+node_modules
+
