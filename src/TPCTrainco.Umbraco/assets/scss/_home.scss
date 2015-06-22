@@ -1,0 +1,38 @@
+.course-cost {
+	margin-bottom: 25px;
+	@include font-italic(18px, $headline-black);
+}
+
+.container {
+	margin: 10px auto 45px;
+}
+
+.home-highlight-circle {
+	border-radius: 50%;
+	margin-top: 40px;
+	max-width: 300px;
+	@include tablet-portrait-and-up {
+		max-width: 100%;
+		padding: 6.5%;
+	}
+
+	@include medium-sizes {
+		margin-top: 10px;
+	}
+
+}
+
+.callout-headline {
+	position: relative;
+	@include font-headline($headline-size, $headline-black);
+
+	&:after {
+		position: absolute;
+		content: '';
+		left: 0;
+		bottom: -15px;
+		width: 125px;
+		height: 1px;
+		background-color: $body-copy;
+	}
+}

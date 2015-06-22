@@ -1,3 +1,56 @@
+body {
+  color: #8A8A8A;
+  font-weight: 300; }
+
+.btn-reg {
+  background-color: #C6211F;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600; }
+
+.offwhite-section {
+  background-color: #F9F9F9; }
+
+.carousel .container {
+  margin: 0; }
+
+.course-cost {
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 18px;
+  font-style: italic;
+  color: #3E3E3E; }
+
+.container {
+  margin: 10px auto 45px; }
+
+.home-highlight-circle {
+  border-radius: 50%;
+  margin-top: 40px;
+  max-width: 300px; }
+  @media (min-width: 768px) {
+    .home-highlight-circle {
+      max-width: 100%;
+      padding: 6.5%; } }
+  @media (min-width: 992px) {
+    .home-highlight-circle {
+      margin-top: 10px; } }
+
+.callout-headline {
+  position: relative;
+  font-weight: 300;
+  font-size: 2.25em;
+  color: #3E3E3E; }
+  .callout-headline:after {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: -15px;
+    width: 125px;
+    height: 1px;
+    background-color: #8A8A8A; }
+
 footer {
   color: blue;
   font-size: 33px; }

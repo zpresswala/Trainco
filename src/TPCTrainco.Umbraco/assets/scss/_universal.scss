@@ -1,0 +1,34 @@
+body {
+	color: $body-copy;
+	font-weight: 300;
+}
+
+.btn-reg {
+	background-color: $red-button;
+	color: $white;
+	padding: 10px 20px;
+	border-radius: 50px;
+	font-weight: 600;
+}
+
+// .copy-right {
+// 	@include tablet-portrait-and-up {
+// 		float: right;
+// 	}
+// }
+
+// .image-left {
+// 	@include tablet-portrait-and-up {
+// 		float: left;
+// 	}
+// }
+
+.offwhite-section {
+	background-color: $gray-background;
+}
+
+.carousel {
+	.container {
+		margin: 0;
+	}
+}

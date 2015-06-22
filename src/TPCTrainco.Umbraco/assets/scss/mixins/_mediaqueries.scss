@@ -1,0 +1,32 @@
+$mq-tablet-portrait-and-up   : 768px !default; // !default means it won't be overwritten.
+$mq-below-tablet-portrait   : 767px !default;
+$mq-tablet-landscape-and-up : 1024px !default;
+$screen-md:                  992px !default;
+
+// Everything above and including the tablet portrait
+@mixin tablet-portrait-and-up {
+  @media (min-width : $mq-tablet-portrait-and-up) {
+    @content;
+  }
+}
+
+@mixin medium-sizes {
+	@media (min-width: $screen-md) { // 992px
+		@content;
+	}
+}
+
+ 
+// Sizes below tablet portrait
+@mixin below-tablet-portrait {
+  @media (max-width : $mq-below-tablet-portrait) {
+    @content;
+  }
+}
+ 
+// Sizes above and including tablet landscape
+@mixin tablet-landscape-and-up {
+  @media (min-width : $mq-tablet-landscape-and-up) {
+    @content;
+  }
+}
