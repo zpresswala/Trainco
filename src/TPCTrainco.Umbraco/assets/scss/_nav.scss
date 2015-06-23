@@ -1,0 +1,148 @@
+.navbar-default {
+    background-color: rgba(58,58,58,0.95);
+    border: none;
+    margin-bottom: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+    height: 60px;
+
+    .navbar-toggle {
+        border: none;
+        margin-top: 13px;
+        &:hover, &:focus {
+            background-color: transparent;
+        }
+
+        &:hover > .icon-bar {
+            background-color: $blue !important;
+            @include transition(0.25s);
+        }
+
+        &.collapsed .icon-bar {
+            background-color: $white;
+            @include transition(0.25s);
+        }
+
+        .icon-bar {
+            background-color: $blue;
+            @include transition(0.25s);
+        }
+    }
+
+    .navbar-nav > li {
+
+        > a {
+            color: $white;
+            display: inline-block;
+            vertical-align: middle;
+            margin: .4em;
+            padding: 1em 10px 6px;
+            cursor: pointer;
+            text-decoration: none;
+
+            &:hover {
+                color: $white;
+            }
+        }
+
+        .btn-reg {
+            padding: 10px 20px;
+            margin: 9px 10px 0;
+            &:hover, &:focus {
+                background-color: $red-button !important;
+                padding: 10px 20px;
+                color: $white;
+            }
+        }
+    }
+
+    .navbar-nav > li > .regular-link {
+        @include transform(translateZ(0));
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        @include backface-visibility(hidden);
+        -moz-osx-font-smoothing: grayscale;
+        position: relative;
+        overflow: hidden;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+        &:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: 1em;
+            right: 100%;
+            bottom: 0;
+            background: $white;
+            height: 3px;
+            @include transition-property(right);
+            @include transition-duration(0.3s);
+            @include transition-timing-function(ease-out);
+        }
+
+        &:hover {
+            color: $white;
+        }
+
+        &:hover:before {
+            right: 50%;
+        }
+    }
+}
+
+.contain {
+    @media screen and (max-width: 768px) {
+        max-width: 1200px;
+        width: 97%;
+    }
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-nav {
+    @include tablet-portrait-and-up {
+        float: right;
+    }
+}
+
+.navbar-header {
+    height: 60px;
+    // width: 100%;
+}
+
+// .navbar-collapse {
+//     // border-top: none;
+//     background-color: rgba(58,58,58,0.95);
+//     box-shadow: none;
+// }
+
+.logo {
+    margin: 4px 0 0 0;
+    font-family: "Arial Black", Arial, sans-serif;
+    .tpc {
+        color: $blue;
+    }
+    .tagline {
+        font-family: "Arial Narrow", Arial, sans-serif;
+        font-style: italic;
+        font-size: 12px;
+        display: block;
+        margin-top: 5px;
+    }
+    .navbar-brand {
+        color: $white;
+        font-size: 25px;
+        padding: 5.5px 15px;
+        @include tablet-portrait-and-up {
+            font-size: 28px;
+        }
+        
+
+        &:hover {
+            color: $white;
+        }
+    }
+}

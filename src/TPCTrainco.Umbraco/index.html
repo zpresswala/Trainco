@@ -35,7 +35,38 @@
 
     <body>
 
-        <div class="container-fluid">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid contain">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h1 class="logo">
+                        <a class="navbar-brand" href="/"><span class="tpc">TPC</span>TRAINCO<span class="tagline">Real World Training...for Real World Needs</span></a>
+                    </h1>
+                </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" class="btn btn-primary btn-sm btn-reg" role="button">Register</a></li>
+                        <li><a href="#" class="regular-link">Training Seminars</a></li>
+                        <li><a href="#" class="regular-link">On-Site Training</a></li>
+                        <li><a href="#" class="regular-link">About Us</a></li>
+                        <li><a href="#" class="regular-link">Blog</a></li>
+                        <li><a href="#" class="regular-link">Contact Us</a></li>
+                        <li><a href="tel:877-978-7246" class="regular-link">877-978-7246</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+
+        <div class="container-fluid intro-section">
             <div class="container">
                 <div class="jumbotron">
                     <h1>Find an industrial training seminar near you.</h1>
@@ -43,30 +74,59 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1"></div>
-                    <ul class="col-md-10 topic-circles">
-                        <li class="seminar-topic">
-                            <div class="overlay"></div>
-                            <img src="/assets/images/selectall-icon.jpg" alt="Mechanical + Industrial" />
-                        </li>
-                        <li class="seminar-topic">
-                            <div class="overlay"></div>
-                            <img src="/assets/images/electrical.jpg" alt="Mechanical + Industrial" />
-                        </li>
-                        <li class="seminar-topic">
-                            <div class="overlay"></div>
-                            <img src="/assets/images/plantmgmt-icon.jpg" alt="Mechanical + Industrial" />
-                        </li>
-                        <li class="seminar-topic">
-                            <div class="overlay"></div>
-                            <img src="/assets/images/hvac-icon.jpg" alt="Mechanical + Industrial" />
-                        </li>
-                        <li class="seminar-topic">
-                            <div class="overlay"></div>
-                            <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical + Industrial" />
-                        </li>
+                    <div class="col-md-10 topic-circles">
+                        <h3>Select one or more topics and choose your location</h3>
+                        <ul>
+                            <li class="seminar-topic">
+                                <div class="overlay-contain">
+                                    <div class="overlay"></div>
+                                    <img src="/assets/images/selectall-icon.jpg" alt="Mechanical + Industrial" />
+                                </div>
+                                <p>Search All Seminars</p>
+                            </li>
+                            <li class="seminar-topic">
+                                <div class="overlay-contain">
+                                    <div class="overlay"></div>
+                                    <img src="/assets/images/electrical.jpg" alt="Mechanical + Industrial" />
+                                </div>
+                                <p>Electrical</p>
+                            </li>
+                            <li class="seminar-topic">
+                                <div class="overlay-contain">
+                                    <div class="overlay"></div>
+                                    <img src="/assets/images/plantmgmt-icon.jpg" alt="Mechanical + Industrial" />
+                                </div>
+                                <p>Plant Management</p>
+                            </li>
+                            <li class="seminar-topic">
+                                <div class="overlay-contain">
+                                    <div class="overlay"></div>
+                                    <img src="/assets/images/hvac-icon.jpg" alt="Mechanical + Industrial" />
+                                </div>
+                                <p>HVAC</p>
+                            </li>
+                            <li class="seminar-topic">
+                                <div class="overlay-contain">
+                                    <div class="overlay"></div>
+                                    <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical + Industrial" />
+                                </div>
+                                <p>Mechanical & Industrial</p>
+                            </li>
 
-                    </ul>
+                        </ul>
+                    </div>
                     <div class="col-md-1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid onsite-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-7">
+                    </div>
+                    <div class="col-sm-5">
+                    </div>
                 </div>
             </div>
         </div>
@@ -214,6 +274,7 @@
     	<!-- use modernizr generator for production -->
     	<script type="text/javascript" src="/assets/js/vendor/modernizr-dev.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
+        <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
 
         <script type="text/javascript" src="/assets/js/TPCapp.js"></script>
