@@ -36,3 +36,55 @@
 		background-color: $body-copy;
 	}
 }
+
+.carousel {
+	background-image: url('/assets/images/carousel-bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center top;
+	width: 100%;
+	height: 385px;
+
+	.item {
+		height: 385px;
+	}
+
+	.carousel-caption {
+		@include transform(translateY(-50%));
+	}
+
+	.arrow {
+		width: 70px;
+		height: 70px;
+		position: absolute;
+		top: 50%;
+		margin-top: -35px;
+		@include rotate(-45deg);
+	}
+
+	.left, .right {
+		// position: relative;
+
+		img {
+			position: absolute;
+			top: 50%;
+			margin-top: -40px;
+		}
+	}
+
+	.left img {
+		margin-left: -15px;
+	}
+
+	.right img {
+		margin-left: -15px;
+	}
+
+	// .arrow-left {
+	// 	right: -20px;
+	// }
+
+	// .arrow-right {
+	// 	right: -20px;
+	// }
+}

@@ -10,3 +10,11 @@
   font-style: italic;
   color: $color;
 }
+
+@mixin transform($var...){
+    -webkit-transform: $var;
+    -moz-transform: $var;
+    -ms-transform: $var;
+    -o-transform: $var;
+    transform: $var;
+}
