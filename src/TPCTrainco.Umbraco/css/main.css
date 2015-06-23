@@ -2392,10 +2392,11 @@ body {
     .navbar-default .navbar-nav > li > .regular-link:hover:before {
       right: 50%; }
 
-@media screen and (max-width: 768px) {
+@media (min-width: 768px) {
   .contain {
-    max-width: 1200px;
-    width: 97%; } }
+    border: 1px solid white;
+    width: 97%;
+    margin: 0 auto; } }
 
 .navbar {
   border-radius: 0; }
@@ -2505,7 +2506,7 @@ body {
       top: 50%;
       left: 50%;
       margin-top: -13px;
-      margin-left: -92%;
+      margin-left: -95%;
       display: block; }
 
 .home-highlight-circle {
@@ -2587,6 +2588,58 @@ body {
   .jumbotron h1 {
     font-size: 38px;
     font-weight: 300; }
+
+.onsite-section {
+  position: relative;
+  height: 335px;
+  padding-left: 0;
+  color: #FFFFFF;
+  overflow: hidden; }
+  .onsite-section .left-skew {
+    background-color: #D81D1C;
+    float: left;
+    width: 90%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    -webkit-transform: skewX(-15deg) skewY(0);
+    -ms-transform: skewX(-15deg) skewY(0);
+    -o-transform: skewX(-15deg) skewY(0);
+    transform: skewX(-15deg) skewY(0); }
+    @media (min-width: 768px) {
+      .onsite-section .left-skew {
+        width: 75%; } }
+  .onsite-section .skewed-side {
+    width: 85%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #D81D1C;
+    -webkit-transform: skewX(15deg) skewY(0);
+    -ms-transform: skewX(15deg) skewY(0);
+    -o-transform: skewX(15deg) skewY(0);
+    transform: skewX(15deg) skewY(0); }
+    @media (min-width: 768px) {
+      .onsite-section .skewed-side {
+        width: 90%; } }
+  .onsite-section .inner {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 700px;
+    padding-left: 5%; }
+  .onsite-section .right-img {
+    position: absolute;
+    right: 0;
+    z-index: 0;
+    height: 335px; }
+    @media (min-width: 1400px) {
+      .onsite-section .right-img {
+        width: 35%; } }
+    .onsite-section .right-img img {
+      float: right;
+      width: 100%;
+      height: 100%; }
 
 footer {
   color: #FFFFFF;
