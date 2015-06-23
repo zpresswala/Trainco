@@ -7,6 +7,75 @@
 	margin: 10px auto 45px;
 }
 
+.topic-circles {
+	background-color: $black-background;
+	opacity: 0.75;
+}
+
+.seminar-topic {
+	border: 5px solid $white;
+	display: inline-block;
+	background-color: $white;
+	border-radius: 50%;
+	position: relative;
+	@include transition(all 0.25s ease-in-out);
+
+	// &:hover > img {
+	// 	// @include transform(scale3d(1.1, 1.1, 1));
+	// }
+
+	&:hover > .overlay {
+		opacity: 1;
+		background-color: rgba(0, 144, 197, 0.8);
+		@include transition(all 0.3s ease-in-out);
+		@include transform(scale(1.01, 1.01));
+	}
+
+	img {
+		width: 120px;
+		border-radius: 50%;
+		// @include transition(all 0.25s ease-in-out);
+		// @include transform-origin(50% 50%);
+	}
+
+	// a {
+	// 	display: block;
+	// }
+
+	.overlay {
+		// border: 5px solid #fff;
+		width: 100%;
+		max-width: 120px;
+		max-height: 120px;
+		background-color: rgba(0, 144, 197, 0);
+		opacity: 0;
+		height: 100%;
+		position: absolute;
+		border-radius: 50%;
+		z-index: 1;
+		@include transform(scale(0, 0));
+		@include transition(all 0.3s ease-in-out);
+
+		&:after {
+			content: url('/assets/images/checkmark.svg');
+			position: relative;
+			top: 50%;
+			left: 50%;
+			margin-top: -13px;
+			margin-left: -17px;
+			display: block;
+		}
+	}
+}
+
+.chosen {
+	background-color: red !important;
+	opacity: 1;
+	// background-color: rgba(0, 144, 197, 0.8);
+	@include transition(all 0.3s ease-in-out);
+	@include transform(scale(1.01, 1.01));
+}
+
 .home-highlight-circle {
 	border-radius: 50%;
 	margin-top: 40px;
@@ -79,12 +148,4 @@
 	.right img {
 		margin-left: -15px;
 	}
-
-	// .arrow-left {
-	// 	right: -20px;
-	// }
-
-	// .arrow-right {
-	// 	right: -20px;
-	// }
 }

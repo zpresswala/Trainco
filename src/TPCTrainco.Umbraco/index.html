@@ -35,6 +35,41 @@
 
     <body>
 
+        <div class="container-fluid">
+            <div class="container">
+                <div class="jumbotron">
+                    <h1>Find an industrial training seminar near you.</h1>
+                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <ul class="col-md-10 topic-circles">
+                        <li class="seminar-topic">
+                            <div class="overlay"></div>
+                            <img src="/assets/images/selectall-icon.jpg" alt="Mechanical + Industrial" />
+                        </li>
+                        <li class="seminar-topic">
+                            <div class="overlay"></div>
+                            <img src="/assets/images/electrical.jpg" alt="Mechanical + Industrial" />
+                        </li>
+                        <li class="seminar-topic">
+                            <div class="overlay"></div>
+                            <img src="/assets/images/plantmgmt-icon.jpg" alt="Mechanical + Industrial" />
+                        </li>
+                        <li class="seminar-topic">
+                            <div class="overlay"></div>
+                            <img src="/assets/images/hvac-icon.jpg" alt="Mechanical + Industrial" />
+                        </li>
+                        <li class="seminar-topic">
+                            <div class="overlay"></div>
+                            <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical + Industrial" />
+                        </li>
+
+                    </ul>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+        </div>
 
     	
         <div class="container-fluid">
@@ -48,7 +83,7 @@
                         <a href="#" class="btn btn-primary btn-sm btn-reg" role="button">Register</a>
                     </div>
                     <div class="col-sm-4 col-sm-pull-8">
-                        <img src="/assets/images/paper.png" class="img-responsive center-block home-highlight-circle" alt="image">
+                        <img src="/assets/images/electrical-hvac.jpg" class="img-responsive center-block home-highlight-circle" alt="image">
                     </div>
                 </div>
             </div>
@@ -65,7 +100,7 @@
                         <a href="#" class="btn btn-primary btn-sm btn-reg" role="button">Register</a>
                     </div>
                     <div class="col-sm-4">
-                        <img src="/assets/images/paper.png" class="img-responsive center-block home-highlight-circle" alt="image">
+                        <img src="/assets/images/plantmgmt.jpg" class="img-responsive center-block home-highlight-circle" alt="image">
                     </div>
                 </div>
             </div>
@@ -82,7 +117,7 @@
                         <a href="#" class="btn btn-primary btn-sm btn-reg" role="button">Register</a>
                     </div>
                     <div class="col-sm-4 col-sm-pull-8">
-                        <img src="/assets/images/paper.png" class="img-responsive center-block home-highlight-circle" alt="image">
+                        <img src="/assets/images/hvac.jpg" class="img-responsive center-block home-highlight-circle" alt="image">
                     </div>
                 </div>
             </div>
@@ -99,7 +134,7 @@
                         <a href="#" class="btn btn-primary btn-sm btn-reg" role="button">Register</a>
                     </div>
                     <div class="col-sm-4">
-                        <img src="/assets/images/paper.png" class="img-responsive center-block home-highlight-circle" alt="image">
+                        <img src="/assets/images/mechanical.jpg" class="img-responsive center-block home-highlight-circle" alt="image">
                     </div>
                 </div>
             </div>
@@ -181,12 +216,13 @@
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
 
-        <script type="text/javascript" src="/assets/js/app.js"></script>
+        <script type="text/javascript" src="/assets/js/TPCapp.js"></script>
+        <script type="text/javascript" src="/assets/js/HomePage.js"></script>
     	<script type="text/javascript">
            var temp;
 
            $(window).load(function() {
-               // temp = new TPCApp();
+               temp = new TPCApp();
            });
     	</script>
     </body>
