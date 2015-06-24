@@ -15,6 +15,7 @@
         border: none;
         margin-top: 10px;
         margin-right: 5px;
+        padding-right: 23px;
         &:hover, &:focus {
             background-color: transparent;
         }
@@ -74,17 +75,23 @@
 
     .navbar-collapse {
         border-top: 1px solid #626262;
+        width: 103%;
+        @include tablet-landscape-and-up {
+            width: 100%;
+        }
     }
 }
 
 .contain {
     background-color: rgba(58, 58, 58, 0.95);
+    padding-right: 0;
     @include tablet-landscape-and-up {
         width: 97%;
         margin: 0 auto;
         background-color: transparent;
         max-width: 1200px; 
-        height: 80px;    
+        height: 80px; 
+        padding-right: 15px;   
     }
 }
 
@@ -109,6 +116,9 @@
 .logo {
     margin: 2px 0 0 0;
     font-family: "ArialBlack", arial-black, Arial, sans-serif;
+    @include tablet-landscape-and-up {
+        margin: 12px 0 0 0;
+    }
     .tpc {
         color: $blue;
         margin-right: 2px;
@@ -119,7 +129,7 @@
         font-size: 11px;
         display: block;
         font-weight: 100;
-        letter-spacing: -0.3px;
+        letter-spacing: 0.1px;
         @include tablet-landscape-and-up {
             letter-spacing: 0.5px;
             font-size: 12px;
@@ -130,7 +140,7 @@
         color: $white;
         font-size: 25px;
         padding: 5.5px 0 15px 9px;
-        letter-spacing: -0.5px;
+        letter-spacing: -0.2px;
         @include tablet-landscape-and-up {
             font-size: 28px;
             padding: 5.5px 15px;
