@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'ArialBlack';
+  src: url('/assets/fonts/arial-black.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+
 body {
 	color: $body-copy;
 	font-weight: 300;
@@ -15,7 +21,7 @@ body {
 	&:hover {
 		color: $white;
 		text-decoration: none;
-		background-color: #F32C29;
+		background-color: #F04B49;
 	}
 
 	&:before {
@@ -72,3 +78,42 @@ body {
 		margin: 0;
 	}
 }
+
+.regular-link {
+    @include transform(translateZ(0));
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    @include backface-visibility(hidden);
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+    &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: 10px;
+        right: 100%;
+        bottom: 0;
+        background: $white;
+        height: 3px;
+        @include transition-property(right);
+        @include transition-duration(0.3s);
+        @include transition-timing-function(ease-out);
+        
+        @include tablet-landscape-and-up {
+            left: 10px;
+        }
+    }
+
+    &:hover {
+        color: $white;
+    }
+
+    &:hover:before {
+        right: 6%;
+    }
+}
+
+
+

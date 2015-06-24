@@ -3,9 +3,10 @@ footer {
 	background-color: $black-background;
 
 	.wrapper {
-		width: 94%;
+		width: 96%;
 		margin: 0 auto;
 		padding: 30px 0;
+		position: relative;
 	}
 	ul {
 		margin: 0;
@@ -16,6 +17,11 @@ footer {
 			a {
 				color: $white;
 				cursor: pointer;
+
+				&:hover, &:focus {
+					color: $white;
+					text-decoration: none;
+				}
 			}
 		}
 	}
@@ -32,13 +38,14 @@ footer {
 
 	.links {
 		text-align: center;
+		font-size: 14px;
 		@include tablet-portrait-and-up {
 			display: table;
 			margin: 0 auto;
 		}
 		@include tablet-landscape-and-up {
 			display: block;
-			width: 90%;
+			width: 81%;
 		}
 		li {
 			margin: 18px 0;
@@ -54,6 +61,10 @@ footer {
 
 		span {
 			display: none;
+			@include tablet-portrait-and-up {
+				display: inline;
+				margin: 0 9px;
+			}
 		}
 	}
 
@@ -65,13 +76,35 @@ footer {
 		}
 		@include tablet-landscape-and-up {
 			margin: 0;
-			float: right;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			margin-top: -12px;
+			// float: right;
 		}
 		li {
 			display: inline-block;
 			@include tablet-portrait-and-up {
 				float: none;
 			}
+		}
+
+		a {
+			display: block;
+		}
+
+		.regular-link {
+
+			&:hover:before {
+				right: 0;
+			}
+		}
+
+		svg {
+			fill: $white;
+			width: 24px;
+			height: 24px;
+			margin-left: 6px;
 		}
 	}
 }

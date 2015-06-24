@@ -4,7 +4,10 @@
 }
 
 .container {
-	margin: 45px auto 60px;
+	margin: 0 auto 60px;
+	@include tablet-landscape-and-up {
+		margin: 45px auto 60px;
+	}
 }
 
 .topic-circles {
@@ -16,11 +19,14 @@
 	float: none;
 
 	h3 {
-		font-weight: 100;
+		font-weight: 300;
 		font-size: 20px;
 		letter-spacing: 0.5px;
 		color: $white;
 		text-align: center;
+		@include tablet-landscape-and-up {
+			font-weight: 100;
+		}
 	}
 
 	ul {
@@ -37,7 +43,7 @@
 }
 
 .seminar-topic {
-	margin: 18px;
+	margin: 5px;
 	list-style-type: none;
 	display: inline-block;
 	@include tablet-portrait-and-up {
@@ -56,12 +62,8 @@
 	border-radius: 50%;
 	position: relative;
 	@include transition(all 0.25s ease-in-out);
-	// margin: 15px;
-	// &:hover > img {
-	// 	// @include transform(scale3d(1.1, 1.1, 1));
-	// }
 
-	&:hover > .overlay {
+	&:hover > .overlay, &.chosen > .overlay {
 		opacity: 1;
 		background-color: rgba(0, 144, 197, 0.8);
 		@include transition(all 0.3s ease-in-out);
@@ -71,16 +73,9 @@
 	img {
 		width: 120px;
 		border-radius: 50%;
-		// @include transition(all 0.25s ease-in-out);
-		// @include transform-origin(50% 50%);
 	}
 
-	// a {
-	// 	display: block;
-	// }
-
 	.overlay {
-		// border: 5px solid #fff;
 		width: 100%;
 		max-width: 120px;
 		max-height: 120px;
@@ -140,7 +135,9 @@
 
 .callout-headline {
 	position: relative;
-	@include font-headline($headline-size, $headline-black);
+	@include tablet-landscape-and-up {
+		@include font-headline($headline-size, $headline-black);
+	}
 
 	&:after {
 		position: absolute;
@@ -166,7 +163,48 @@
 	}
 
 	.carousel-caption {
-		@include transform(translateY(-50%));
+		max-width: 700px;
+		margin: 0 auto;
+		bottom: 27px;
+		text-shadow: none;
+		@include tablet-landscape-and-up {
+			bottom: 56px;
+		}
+
+		.quote {
+			position: relative;
+			font-size: 17px;
+			@include tablet-landscape-and-up {
+				font-size: 22px;
+			}
+
+			&:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				bottom: -35px;
+				background-image: url("/assets/images/line.png");
+				background-repeat: no-repeat;
+				background-position: center bottom;
+				background-size: cover;
+				height: 16px;
+				width: 100%;
+			}
+		}
+
+		.citation {
+			font-size: 19px;
+			font-style: italic;
+			margin-top: 50px;
+
+			span {
+				font-weight: 400;
+			}
+		}
+	}
+
+	.carousel-indicators {
+		z-index: 2;
 	}
 
 	.arrow {
@@ -204,48 +242,58 @@
 	margin: 40px auto;
 	letter-spacing: 0.5px;
 	h1 {
-		font-size: 38px;
-		font-weight: 100;
+		font-weight: 300;
+		@include tablet-landscape-and-up {
+			font-size: 38px;
+			font-weight: 100;
+		}
 	}
 	p {
 		max-width: 700px;
 		margin: 0 auto;
 		line-height: 1.7;
-		font-weight: 100;
-		 font-size: 16px;
+		font-weight: 300;
+		font-size: 16px;
+		@include tablet-landscape-and-up {
+			font-weight: 100;
+		}
 	}
 }
 
 .onsite-section {
 	position: relative;
-	height: 350px;
-	padding-left: 0;
+	padding: 0;
 	color: $white;
 	overflow: hidden;
+	@include tablet-landscape-and-up {
+		height: 350px;
+		padding-left: 0;
+	}
 
 	.left-skew {
 		background-color: $red-background;
 		float: left;
-		width: 90%;
+		width: 100%;
 		height: 100%;
 		position: relative;
 		z-index: 1;
-		@include skew(-15deg, 0);
-		@include tablet-portrait-and-up {
+		@include tablet-landscape-and-up {
 			width: 75%;
+			@include skew(-15deg, 0);
 		}
 	}
 
 	.skewed-side {
-		width: 85%;
+		width: 100%;
 		height: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
+		margin: 0 0 40px;
 		background-color: $red-background;
-		@include skew(15deg, 0);
-		@include tablet-portrait-and-up {
+		@include tablet-landscape-and-up {
 			width: 90%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			@include skew(15deg, 0);
 		}
 	}
 
@@ -253,14 +301,20 @@
 		width: 80%;
 		margin: 0 auto;
 		max-width: 700px;
-		padding-left: 5.5%;
+		@include tablet-landscape-and-up {
+			padding-left: 5.5%;
+		}
 	}
 
 	.right-img {
-		position: absolute;
-		right: 0;
-		z-index: 0;
-		height: 350px;
+		display: none;
+		@include tablet-portrait-and-up {
+			position: absolute;
+			right: 0;
+			z-index: 0;
+			height: 350px;
+			display: block;
+		}
 		@include large-desktop {
 			width: 35%;
 		}
@@ -274,6 +328,7 @@
 	h2 {
 		color: $white;
 		max-width: 500px;
+		font-weight: 300;
 
 		&:after {
 			background-color: $white;
@@ -284,7 +339,7 @@
 	}
 
 	p {
-		font-weight: 100;
+		font-weight: 300;
 		line-height: 1.75;
 		letter-spacing: 0.65px;
 		margin: 36px 0;
