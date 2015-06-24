@@ -38,19 +38,30 @@ body {
 		transform: scale3d(1.04, 1.15, 1);
 		opacity: 1;
 	}
+
+	&:focus {
+		text-decoration: none;
+		color: $white;
+	}
 }
 
-// .copy-right {
-// 	@include tablet-portrait-and-up {
-// 		float: right;
-// 	}
-// }
+// .btn-white must be used with the .btn-reg class
+.btn-white {
+	background-color: transparent;
+	border: 3px solid #fff;
+	padding: 10px 37px;
+	&:hover {
+		color: $headline-black;
+		text-decoration: none;
+		background-color: $white;
+	}
 
-// .image-left {
-// 	@include tablet-portrait-and-up {
-// 		float: left;
-// 	}
-// }
+	&:before {
+		background-color: $white;
+		border: none;
+		z-index: -1;
+	}
+}
 
 .offwhite-section {
 	background-color: $gray-background;
