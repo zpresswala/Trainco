@@ -32,13 +32,16 @@
     }
 
     .navbar-nav > li {
-
+        border-bottom: 1px solid #626262;
+        &:last-child {
+            border-bottom: none;
+        }
         > a {
             color: $white;
             display: inline-block;
             vertical-align: middle;
             margin: .4em;
-            padding: 1em 10px 6px;
+            padding: 10px;
             cursor: pointer;
             text-decoration: none;
 
@@ -48,12 +51,11 @@
         }
 
         .btn-reg {
-            padding: 10px 20px;
-            margin: 9px 10px 0;
+            padding: 6px 20px;
+            margin: 9px 10px 10px;
             &:hover, &:focus {
-                background-color: $red-button !important;
-                padding: 10px 20px;
-                color: $white;
+                background-color: #F32C29;
+                // color: $white;
             }
         }
     }
@@ -71,7 +73,7 @@
             content: "";
             position: absolute;
             z-index: -1;
-            left: 1em;
+            left: 10px;
             right: 100%;
             bottom: 0;
             background: $white;
@@ -79,6 +81,9 @@
             @include transition-property(right);
             @include transition-duration(0.3s);
             @include transition-timing-function(ease-out);
+            @include tablet-portrait-and-up {
+                left: 1em;
+            }
         }
 
         &:hover {
@@ -89,10 +94,14 @@
             right: 50%;
         }
     }
+
+    .navbar-collapse {
+        border-top: 1px solid #626262;
+    }
 }
 
 .contain {
-
+    background-color: rgba(58, 58, 58, 0.95);
     @include tablet-portrait-and-up {
         border: 1px solid white;
         width: 97%;
@@ -110,6 +119,7 @@
 }
 
 .navbar-nav {
+    margin: 0 -15px 7.25px;
     @include tablet-portrait-and-up {
         float: right;
     }

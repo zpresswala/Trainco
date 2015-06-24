@@ -9,10 +9,34 @@ body {
 	padding: 10px 20px;
 	border-radius: 50px;
 	font-weight: 600;
+	position: relative;
+	@include transition(background-color 0.25s);
 
 	&:hover {
 		color: $white;
 		text-decoration: none;
+		background-color: #F32C29;
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 3px solid $red-button;
+		z-index: 1;
+		border-radius: inherit;
+		opacity: 0;
+		@include transform(scale3d(0.6, 0.6, 1));
+		@include transition-transform(0.25s, opacity 0.25s ease);
+	}
+
+	&:hover:before {
+		-webkit-transform: scale3d(1.04, 1.15, 1);
+		transform: scale3d(1.04, 1.15, 1);
+		opacity: 1;
 	}
 }
 
