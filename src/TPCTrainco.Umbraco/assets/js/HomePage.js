@@ -7,7 +7,6 @@ function HomePage() {
 }
 
 HomePage.prototype.showActiveSelection = function() {
-	// console.log(this.$overlay);
 	this.$overlay.on('click', function() { 
 	    var $this = $(this);
 	    if($this.hasClass('chosen')) {
