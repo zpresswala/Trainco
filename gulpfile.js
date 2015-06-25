@@ -29,9 +29,12 @@ gulp.task('sass', function() {
 gulp.task('webserver', function() {
     gulp.src(config.htmlPath)
         .pipe(webserver({
-            // root: '/src',
+            // root: [__dirname],
             livereload: true,
-            // directoryListing: true,
+            directoryListing: {
+                enable: true,
+                path: config.htmlPath + '*.html'
+            },
             open: true,
             port: 3000
     }));
