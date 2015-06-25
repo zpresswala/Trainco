@@ -2898,20 +2898,23 @@ body {
     .headline-section {
       background: url("/assets/images/content-pg-header-large.jpg") center top/cover no-repeat; } }
   .headline-section .jumbotron {
-    padding-top: 80px;
-    position: relative; }
-    .headline-section .jumbotron:after, .headline-section .jumbotron:before {
-      position: absolute;
-      content: '';
-      top: 50%;
-      left: 0;
-      right: auto;
-      width: 40px;
-      height: 1px;
-      background-color: #FFFFFF; }
-    .headline-section .jumbotron:after {
-      right: 0;
-      left: auto; }
+    margin: 80px auto 40px; }
+    .headline-section .jumbotron h1 {
+      display: inline-block;
+      position: relative; }
+      .headline-section .jumbotron h1:after, .headline-section .jumbotron h1:before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: 0;
+        right: auto;
+        width: 60px;
+        height: 1px;
+        margin-top: -1px;
+        background-color: #FFFFFF; }
+      .headline-section .jumbotron h1:after {
+        right: 0;
+        left: auto; }
 
 .main-content .container {
   margin: 75px auto 95px; }
