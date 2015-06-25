@@ -40,35 +40,43 @@
         border-bottom: 1px solid #626262;
         @include tablet-landscape-and-up {
             border-bottom: none;
+            line-height: 80px;
         }
+
         &:last-child {
             border-bottom: none;
         }
         > a {
             color: $white;
-            display: inline-block;
-            vertical-align: middle;
-            margin: .4em;
-            padding: 10px;
+            display: block;
+            vertical-align: top;
+            margin: 0;
+            padding: 20px;
             cursor: pointer;
             text-decoration: none;
             @include tablet-landscape-and-up {
-                margin-top: .5em;
+                margin: 0 0 0 7px;
+                display: inline-block;
+                line-height: 80px;
+                padding: 0 0.6em;
             }
 
-            &:hover {
+            &:hover, &:focus {
                 color: $white;
             }
         }
 
         .btn-reg {
             padding: 6px 20px;
-            margin: 4px 10px 10px;
+            margin: 4px 15px 10px;
+            display: inline-block;
+            vertical-align: middle;
             &:hover, &:focus {
                 background-color: $red-button-hover;
             }
             @include tablet-landscape-and-up {
                 margin: 11px 10px 10px;
+                line-height: 2;
             }
         }
     }
@@ -86,7 +94,7 @@
     background-color: rgba(58, 58, 58, 0.95);
     padding-right: 0;
     @include tablet-landscape-and-up {
-        width: 97%;
+        width: 98%;
         margin: 0 auto;
         background-color: transparent;
         max-width: 1200px; 
@@ -100,9 +108,12 @@
 }
 
 .navbar-nav {
-    margin: 10px -15px 7.25px;
+    margin: 10px -15px 0;
     @include tablet-landscape-and-up {
         float: right;
+        margin: 0;
+        height: 80px;
+        width: 75%;
     }
 }
 

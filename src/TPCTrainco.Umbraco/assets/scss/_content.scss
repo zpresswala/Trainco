@@ -6,6 +6,23 @@
 
 	.jumbotron {
 		padding-top: 80px;
+		position: relative;
+
+		&:after, &:before {
+			position: absolute;
+			content: '';
+			top: 50%;
+			left: 0;
+			right: auto;
+			width: 40px;
+			height: 1px;
+			background-color: $white;
+		}
+
+		&:after {
+			right: 0;
+			left: auto;
+		}
 	}
 }
 
