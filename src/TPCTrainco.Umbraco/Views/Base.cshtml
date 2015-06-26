@@ -1,0 +1,142 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+
+    IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
+    IPublishedContent currentPage = Model.Content;
+
+    // Redirect
+    if (currentPage.GetPropertyValue("pageRedirect") != null && currentPage.GetPropertyValue("pageRedirect").ToString().Length > 0)
+    {
+        var redirectUrl = currentPage.GetPropertyValue<UrlPicker.Umbraco.Models.UrlPicker>("pageRedirect");
+
+        if (false == string.IsNullOrEmpty(redirectUrl.Url))
+        {
+            Response.Redirect(redirectUrl.Url);
+        }
+    }
+    
+    string siteName = siteSettings.GetPropertyValue<string>("siteName");
+    string htmlTitle = currentPage.GetPropertyValue<string>("htmlTitle");
+
+    string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
+    string copyrightText = siteSettings.GetPropertyValue<string>("copyrightText");
+
+    IEnumerable<IPublishedContent> socialLinks = Nodes.Instance.SocialLinks;
+}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+ <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>@htmlTitle - @siteName</title>
+    <link rel="canonical" href="http://www.XXXXX.com/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="XXXX" />
+    <meta property="og:description" content="XXXXX a sentence goeshere" />
+    <meta property="og:url" content="http://www.XXXXX.com/" />
+    <meta property="og:site_name" content="TPC Trainco" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="a sentence XXXXX" />
+    <meta name="twitter:title" content="TPC Trainco training" />
+    <meta name="twitter:domain" content="TPC Trainco" />
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic' rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"> -->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<!--[if lt IE 9]>
+    <body class="ie8 html" >
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="/assets/js/bower_components/Respond/dest/respond.min.js"></script>
+<![endif]-->
+
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid contain">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h1 class="logo">
+                    <a class="navbar-brand" href="/"><span class="tpc">TPC</span>TRAINCO<span class="tagline">Real World Training...for Real World Needs</span></a>
+                </h1>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#" class="btn-reg" role="button">Register</a></li>
+                    <li><a href="#" class="regular-link nav-link">Training Seminars</a></li>
+                    <li><a href="#" class="regular-link nav-link">On-Site Training</a></li>
+                    <li><a href="#" class="regular-link nav-link">About</a></li>
+                    <li><a href="#" class="regular-link nav-link">Blog</a></li>
+                    <li><a href="#" class="regular-link nav-link">Contact</a></li>
+                    <li><a href="tel:@phoneNumber" class="regular-link nav-link">@phoneNumber</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+@RenderBody()
+
+    <footer>
+        <ul class="wrapper">
+            <li class="copyright">&copy; @copyrightText</li>
+
+            <ul class="links">
+                <li><a href="#">Training Seminar Schedule<span>|</span></a></li>
+                <li><a href="#">Instructor Lounge<span>|</span></a></li>
+                <li><a href="#">Privacy Policy<span>|</span></a></li>
+                <li><a href="#">Legal Terms<span>|</span></a></li>
+                <li><a href="#">AR, MA, &amp; NH Residents<span>|</span></a></li>
+                <li><a href="#">Sitemap</a></li>
+                <ul class="social">
+                    @foreach (IPublishedContent social in socialLinks)
+                    { 
+                    <li>
+                        <a href="@(social.GetPropertyValue<string>("socialLink"))" class="regular-link">
+                            @(Html.Raw(social.GetPropertyValue<string>("svgHtml")))
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </ul>
+        </ul>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- use modernizr generator for production -->
+    <script type="text/javascript" src="/assets/js/vendor/modernizr-dev.js"></script>
+    <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
+    <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
+    <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
+
+    <script type="text/javascript" src="/assets/js/TPCapp.js"></script>
+    <script type="text/javascript" src="/assets/js/HomePage.js"></script>
+    <script type="text/javascript">
+           var temp;
+
+           $(window).load(function() {
+               temp = new TPCApp();
+           });
+    </script>
+</body>
+</html>
