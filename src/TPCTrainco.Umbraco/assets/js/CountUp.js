@@ -1,13 +1,14 @@
 'use strict';
 
 function CountUp($win) {
-	var _this = this;
+	this.$win = $win;
 	this.$numbers = $('.number-callout').find('h3');
 	this.endValuesArr = [];
-	this.$win = $win;
+	this.triggered = false;
+	this.$counterStartMarker = $('#js-counter-start');
+
 	this.getMaxVal();
 	this.resetVals();
-	this.triggered = false;
 }
 
 CountUp.prototype.getMaxVal = function() {
@@ -101,7 +102,7 @@ CountUp.prototype.handleWindowScroll = function(currentScrollTop) {
 	this.currentScrollTop = currentScrollTop;
 
 	// if the headline is scrolled up out of view, set a variable to true
-	if($('#js-counter-start').offset().top.toFixed(0) <= this.currentScrollTop) {
+	if(this.$counterStartMarker.offset().top.toFixed(0) <= this.currentScrollTop) {
 		_this.triggered = true;
 	} 
 
