@@ -141,6 +141,16 @@
 	@include tablet-portrait-and-up {
 		background-image: url('/assets/images/bg-large.jpg');
 	}
+
+	.jumbotron h1 {
+		&:after {
+			right: -15%;
+		}
+
+		&:before {
+			left: -15%;
+		}
+	}
 }
 
 // overriding bootstrap's carousel styles. override here, do not modify.
@@ -229,7 +239,7 @@
 	letter-spacing: 0.5px;
 	color: $white;
 	h1 {
-		font-weight: 300;
+		// font-weight: 300;
 		@include tablet-landscape-and-up {
 			@include font-headline(38px, $white);
 			font-weight: 100;
