@@ -6,11 +6,9 @@
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
 
-    IPublishedContent homePageSectionFolder = Nodes.Instance.SiteSettings.Children.FirstOrDefault(n => n.IsDocumentType("HomePageSections"));
-    IEnumerable<IPublishedContent> homePageSections = homePageSectionFolder.Children;
-
-    IPublishedContent homePageQuoteSliderFolder = Nodes.Instance.SiteSettings.Children.FirstOrDefault(n => n.IsDocumentType("HomePageQuoteSlider"));
-    IEnumerable<IPublishedContent> homePageQuoteSlides = homePageQuoteSliderFolder.Children;
+    IPublishedContent onsitePromo = currentPage.GetPropertyValue<IPublishedContent>("activePromo");
+    IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
+    IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
 }
 
 <div class="container-fluid intro-section">
@@ -75,30 +73,52 @@
 </div>
 
 @{
-    int calloutCount = 0;
-    int trainingCount = 0;
-    
-    foreach (IPublishedContent section in homePageSections)
+    if (onsitePromo != null && onsitePromo.Id > 0)
     {
-        if (section.DocumentTypeAlias == "HomePageSectionCallout")
-        {
-            var displayOpposite = calloutCount % 2 == 0;
+        string headline = onsitePromo.GetPropertyValue<string>("promoHeadline");
+        string message = onsitePromo.GetPropertyValue<string>("promoText");
+        string buttonText = onsitePromo.GetPropertyValue<string>("promoButtonText");
+        UrlPicker.Umbraco.Models.UrlPicker link = onsitePromo.GetPropertyValue<UrlPicker.Umbraco.Models.UrlPicker>("promoLink");
+        var promoMedia = Umbraco.Media(onsitePromo.GetPropertyValue<int>("promoImage"));
+        string promoImageUrl = null;
 
-            @Html.Raw(RenderCallout(section, !displayOpposite))
-            calloutCount++;
-        }
-        else if (section.DocumentTypeAlias == "HomePageSectionTrainingType")
+        if (promoMedia != null)
         {
-            var displayOpposite = trainingCount % 2 == 0;
-
-            @Html.Raw(RenderTraining(section, !displayOpposite))
-            trainingCount++;
+            promoImageUrl = promoMedia.Url;
         }
+
+        <div class="container-fluid onsite-section">
+            <div class="left-skew">
+                <div class="skewed-side">
+                    <div class="inner">
+                        <h2 class="callout-headline">@headline</h2>
+                        @Html.Raw(message)
+                        <a href="@link.Url" class="btn-reg btn-white" role="button">@buttonText</a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-img">
+                @if (false == string.IsNullOrEmpty(promoImageUrl))
+                {
+                    <img src="/assets/images/on-site.jpg" alt="@headline">
+                }
+            </div>
+        </div>
     }
 }
 
+@{
+    int seminarCount = 0;
 
+    foreach (IPublishedContent section in activeSeminarList)
+    {
+        var displayOpposite = seminarCount % 2 == 0;
 
+        @Html.Raw(RenderSeminar(section, !displayOpposite))
+    
+        seminarCount++;
+    }
+}
 
 <!-- Carousel -->
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -107,12 +127,12 @@
         @{
             int slideCount = 0;
 
-            foreach (IPublishedContent slide in homePageQuoteSlides)
+            foreach (IPublishedContent slide in userQuoteList)
             {
                 string classActive = slideCount == 0 ? " class=\"active\"" : "";
 
-                <li data-target="#carousel-example-generic" data-slide-to="@slideCount"@(Html.Raw(classActive))></li>
-            
+                <li data-target="#carousel-example-generic" data-slide-to="@slideCount" @(Html.Raw(classActive))></li>
+
                 slideCount++;
             }
         }
@@ -123,7 +143,7 @@
         @{
             slideCount = 0;
 
-            foreach (IPublishedContent slide in homePageQuoteSlides)
+            foreach (IPublishedContent slide in userQuoteList)
             {
                 string classActive = slideCount == 0 ? " active" : "";
 
@@ -133,7 +153,7 @@
                         <p class="citation"><span>@(slide.GetPropertyValue<string>("quoteAuthor"))</span>, @(slide.GetPropertyValue<string>("quoteCompany"))</p>
                     </div>
                 </div>
-            
+
                 slideCount++;
             }
         }
@@ -151,37 +171,13 @@
     </a>
 </div> <!-- end carousel -->
 
-@helper RenderCallout(IPublishedContent section, bool displayOpposite = false)
-{
-    string headline = section.GetPropertyValue<string>("calloutHeadline");
-    string message = section.GetPropertyValue<string>("calloutText");
-    string buttonText = section.GetPropertyValue<string>("calloutButtonText");
-    UrlPicker.Umbraco.Models.UrlPicker link = section.GetPropertyValue<UrlPicker.Umbraco.Models.UrlPicker>("calloutLink");
-
-    <div class="container-fluid onsite-section">
-        <div class="left-skew">
-            <div class="skewed-side">
-                <div class="inner">
-                    <h2 class="callout-headline">@headline</h2>
-                    @Html.Raw(message)
-                    <a href="@link.Url" class="btn-reg btn-white" role="button">@buttonText</a>
-                </div>
-            </div>
-        </div>
-        <div class="right-img">
-            <img src="/assets/images/on-site.jpg" alt="See our on-site programs">
-        </div>
-    </div>
-}
-
-@helper RenderTraining(IPublishedContent section, bool displayOpposite = false)
+@helper RenderSeminar(IPublishedContent section, bool displayOpposite = false)
 {
     string headline = section.GetPropertyValue<string>("trainingHeadline");
     string message = section.GetPropertyValue<string>("trainingDescription");
-    string buttonText = section.GetPropertyValue<string>("calloutButtonText");
-    var mediaItem = Umbraco.Media(section.GetPropertyValue<int>("trainingImageIcon"));
+    IPublishedContent trainingImageIcon = section.GetPropertyValue<IPublishedContent>("trainingImageIcon");
 
-    <div class="container-fluid">
+    <div class="container-fluid@(displayOpposite ? " offwhite-section" : "")">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8@(!displayOpposite ? " col-sm-push-4" : "")">
@@ -192,7 +188,7 @@
                     <a href="#" class="btn-reg" role="button">Register</a>
                 </div>
                 <div class="col-sm-4@(!displayOpposite ? " col-sm-pull-8" : "")">
-                    <img src="@mediaItem.Url" class="img-responsive home-highlight-circle" alt="image">
+                    <img src="@trainingImageIcon.Url" class="img-responsive home-highlight-circle" alt="image">
                 </div>
             </div>
         </div>
