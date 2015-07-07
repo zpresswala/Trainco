@@ -126,4 +126,8 @@
     line-height: 1.7;
     margin-bottom: 30px;
     display: inline-block;
+    @include tablet-portrait-and-up {
+        width: 550px;
+        display: table;
+    }
 }

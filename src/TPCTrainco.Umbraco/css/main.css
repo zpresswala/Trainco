@@ -3088,6 +3088,10 @@ a:hover {
   line-height: 1.7;
   margin-bottom: 30px;
   display: inline-block; }
+  @media (min-width: 768px) {
+    .post-snippet {
+      width: 550px;
+      display: table; } }
 
 footer {
   color: #FFFFFF;
@@ -3096,7 +3100,8 @@ footer {
     width: 96%;
     margin: 0 auto;
     padding: 30px 0;
-    position: relative; }
+    position: relative;
+    max-width: 1200px; }
   footer ul {
     margin: 0;
     padding: 0; }
