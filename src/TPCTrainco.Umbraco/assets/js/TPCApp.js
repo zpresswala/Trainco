@@ -8,7 +8,9 @@ function TPCApp() {
 	
 	this.homePage = new HomePage();
 
-	this.countUp = new CountUp(this.$win);
+	if($('#count').length) {
+		this.countUp = new CountUp(this.$win);
+	}
 
 	this.bindScroll();
 }

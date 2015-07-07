@@ -1,0 +1,41 @@
+.featured-post {
+    padding-top: 60px;
+    h1 {
+        color: $headline-black;
+    }
+}
+
+.feature-author {
+    display: inline-block;
+    width: 92%;
+    max-width: 300px;
+    margin: 0 auto;
+
+    .author-img {
+        float: right;
+        margin: 0 5px;
+    }
+}
+
+.jumbotron {
+    .publish-info {
+        color: $headline-black;
+        margin-top: 10px
+    }
+}
+
+.publish-info {
+    float: left;
+    margin: 10px 5px 0;
+    span {
+        font-style: italic;
+        margin-left: 6px;
+    }
+}
+
+.author-img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    float: left;
+}
