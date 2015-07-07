@@ -10,6 +10,12 @@
 body {
 	color: $body-copy;
 	font-weight: 300;
+	overflow-x: hidden;
+}
+
+a:hover {
+	text-decoration: none;
+	color: $blue;
 }
 
 // the red pill-shaped buttons w/hover state. just add this class 

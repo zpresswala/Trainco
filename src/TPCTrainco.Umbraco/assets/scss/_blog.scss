@@ -1,19 +1,52 @@
 .featured-post {
     padding-top: 60px;
-    h1 {
+    margin: 40px auto 100px;
+
+    .feature-snippet {
         color: $headline-black;
+        font-weight: 300;
+        font-size: 18px;
+        margin: 25px 0 35px;
+        text-align: left;
+        max-width: 800px;
+        position: relative;
+        @include tablet-portrait-and-up {
+            margin: 25px auto 35px;
+        }
+
+        &:after {
+            position: absolute;
+            bottom: -130px;
+            content: ' ';
+            width: 94%;
+            left: 3%;
+            height: 1px;
+            background-color: rgba(138, 138, 138, 0.21);
+        }
+    }
+
+    .btn-reg {
+        display: inline-block;
+    }
+
+    .container {
+        margin: 0 auto 40px;
+    }
+
+    .post-title {
+        display: block;
     }
 }
 
-.feature-author {
+.post-author {
     display: inline-block;
     width: 92%;
     max-width: 300px;
     margin: 0 auto;
 
     .author-img {
-        float: right;
-        margin: 0 5px;
+        float: left;
+        margin: 0 0 0 22px;
     }
 }
 
@@ -26,7 +59,7 @@
 
 .publish-info {
     float: left;
-    margin: 10px 5px 0;
+    margin: 10px 5px 0 0;
     span {
         font-style: italic;
         margin-left: 6px;
@@ -38,4 +71,59 @@
     width: 50px;
     height: 50px;
     float: left;
+}
+
+.post-title {
+    a {
+        color: $headline-black;
+        @include transition(0.25s);
+
+        &:hover {
+            color: $blue;
+        }
+    }
+}
+
+.blog-listings {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+
+    .author-img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .post-title {
+        margin-bottom: 9px;
+        margin-top: 19px;
+        @include tablet-portrait-and-up {
+            width: 62%;
+            float: left;
+        }
+    }
+
+    .post-author {
+        @include tablet-portrait-and-up {
+            float: right;
+            width: 34%;
+            margin-top: 19px;
+            min-width: 230px;
+        }
+    }
+}
+
+.blog-listing {
+    margin-bottom: 60px;
+    max-width: 800px;
+    @include tablet-portrait-and-up {
+        margin: 0 auto 60px;
+    }
+}
+
+.post-snippet {
+    letter-spacing: 0.5px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    display: inline-block;
 }
