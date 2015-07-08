@@ -50,8 +50,7 @@ a:hover {
 	}
 
 	&:hover:before {
-		-webkit-transform: scale3d(1.04, 1.15, 1);
-		transform: scale3d(1.04, 1.15, 1);
+		@include transform(scale3d(1.04, 1.15, 1));
 		opacity: 1;
 	}
 
@@ -100,16 +99,13 @@ a:hover {
 
 .btn-blue-solid {
 	background-color: $blue;
-	// border: 3px solid $blue;
 
 	&:hover {
 		background-color: #00AAFF;
 	}
 
 	&:before {
-		background-color: $blue;
-		border: none;
-		z-index: -1;
+		border: 3px solid $blue;
 	}
 
 }
