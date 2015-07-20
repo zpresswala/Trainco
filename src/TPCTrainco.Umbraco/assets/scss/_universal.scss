@@ -1,16 +1,32 @@
 // universal styles shared across the site. hopefully reusable.
 
 // loading Arial Black here because it's not on iOS.
-@font-face {
-  font-family: 'ArialBlack';
-  src: url('/assets/fonts/arial-black.ttf')  format('truetype'); /* Safari, Android, iOS */
-}
+// @font-face {
+//   font-family: 'ArialBlack';
+//   src: url('/assets/fonts/arial-black.ttf')  format('truetype'); /* Safari, Android, iOS */
+// }
 
+// sticky footer style
+html {
+	@include tablet-portrait-and-up {
+		position: relative;
+		min-height: 100%;
+	}
+}
 
 body {
 	color: $body-copy;
 	font-weight: 300;
 	overflow-x: hidden;
+
+	// sticky footer styles
+	@include tablet-portrait-and-up {
+		margin-bottom: 230px;
+	}
+
+	@include tablet-landscape-and-up {
+		margin-bottom: 80px;
+	}
 }
 
 a:hover {
@@ -99,6 +115,7 @@ a:hover {
 
 .btn-blue-solid {
 	background-color: $blue;
+	padding: 6px 24px;
 
 	&:hover {
 		background-color: #00AAFF;
@@ -107,7 +124,10 @@ a:hover {
 	&:before {
 		border: 3px solid $blue;
 	}
+}
 
+.btn-share {
+	padding: 2px 24px;
 }
 
 // offwhite sections have the slightly gray background color
@@ -186,45 +206,10 @@ a:hover {
 	}
 }
 
-// the logo, made with fonts
-.logo {
-    margin: 2px 0 0 0;
-    font-family: "ArialBlack", arial-black, Arial, sans-serif;
+.navbar-brand img {
+    margin-top: -7px;
     @include tablet-landscape-and-up {
-        margin: 12px 0 0 0;
-    }
-    .tpc {
-        color: $blue;
-        margin-right: 2px;
-    }
-    .tagline {
-        font-family: "Arial Narrow", arial-black, Arial, sans-serif;
-        font-style: italic;
-        font-size: 11px;
-        display: block;
-        font-weight: 100;
-        letter-spacing: 0.1px;
-        @include tablet-landscape-and-up {
-            letter-spacing: 0.5px;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-    }
-    .navbar-brand {
-        color: $white;
-        font-size: 25px;
-        padding: 5.5px 0 15px 9px;
-        letter-spacing: -0.2px;
-        @include tablet-landscape-and-up {
-            font-size: 28px;
-            padding: 5.5px 15px;
-            letter-spacing: 0.7px;
-        }
-        
-
-        &:hover {
-            color: $white;
-        }
+        margin: 7px 0 0 0;
     }
 }
 
@@ -254,22 +239,26 @@ a:hover {
 		position: relative;
 		
 		&:after, &:before {
-			position: absolute;
-			content: '';
-			top: 55%;
-			width: 60px;
-			height: 1px;
-			margin-top: -1px;
-			background-color: $white;
+			display: none;
+			@include tablet-landscape-and-up {
+				display: block;
+				position: absolute;
+				content: '';
+				top: 55%;
+				width: 60px;
+				height: 1px;
+				margin-top: -1px;
+				background-color: $white;
+			}
 		}
 
 		&:before {
-			left: -20%;
+			left: -80px;
 			right: auto;
 		}
 
 		&:after {
-			right: -20%;
+			right: -80px;
 			left: auto;
 		}
 	}

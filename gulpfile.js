@@ -1,19 +1,30 @@
 'use strict';
 
 // grab our gulp packages
-var gulp  = require('gulp'),
-    gutil = require('gulp-util'),
-    sass = require('gulp-sass'),
-    imagemin = require('gulp-imagemin'),
-    watch = require('gulp-watch'),
-    webserver = require('gulp-webserver'),
+var gulp       = require('gulp'),
+    gutil      = require('gulp-util'),
+    sass       = require('gulp-sass'),
+    concat     = require('gulp-concat'),
+    uglify     = require('gulp-uglify'),
+    imagemin   = require('gulp-imagemin'),
+    watch      = require('gulp-watch'),
+    webserver  = require('gulp-webserver'),
     serverPort = 3000;
 
 // set the paths for css compiling
 var config = {
-	sassPath: 'src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets',
-    sassPathCustom: 'src/TPCTrainco.Umbraco/assets/scss',
-	sassDest: 'src/TPCTrainco.Umbraco/css',
+	sassPaths: [
+                    'src/TPCTrainco.Umbraco/assets/**/*.scss',
+                    'src/TPCTrainco.Umbraco/assets/*/*.scss'
+                ],
+	sassDest: 'src/TPCTrainco.Umbraco/css/',
+
+    jsPaths: [
+                'src/TPCTrainco.Umbraco/assets/js/vendor/**/*.js',
+                'src/TPCTrainco.Umbraco/assets/js/custom/**/*.js'
+            ],
+    jsDest: 'src/TPCTrainco.Umbraco/js',
+
     htmlPath: 'src/TPCTrainco.Umbraco/',
     imgPath: 'src/TPCTrainco.Umbraco/assets/images/*',
     imgPathDest: 'src/TPCTrainco.Umbraco/img'
@@ -21,9 +32,21 @@ var config = {
 
 // gulp sass task, compiling all bootstrap sass files and our custom sass files
 gulp.task('sass', function() {
-    gulp.src([config.sassPath + '/**/*.scss', config.sassPathCustom + '/*.scss', config.sassPathCustom + '/**/*.scss'])
+    return gulp.src(config.sassPaths)
 		.pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest(config.sassDest));
+});
+
+// gulp js minify task, minifies javascript
+gulp.task('js', function() {
+    return gulp.src(config.jsPaths)
+        .pipe(concat('main.js').on('error', function(err) {
+            console.log(err);
+        }))
+        .pipe(uglify().on('error', function(err) {
+            console.log(err);
+        }))
+        .pipe(gulp.dest(config.jsDest));
 });
 
 gulp.task('webserver', function() {
@@ -42,12 +65,14 @@ gulp.task('webserver', function() {
 
 // watching all bootstrap sass files and our custom sass files
 gulp.task('watch', function () {
-    gulp.watch([config.sassPath + '/**/*.scss', config.sassPathCustom + '/*.scss'], ['sass']);
-    // js watch call goes here
+    gulp.watch(config.sassPaths, ['sass']);
+    gulp.watch(config.jsPaths, ['js']);
 });
 
 
-gulp.task('default', ['sass', 'webserver', 'watch']);
+gulp.task('default', ['sass', 'js', 'webserver', 'watch']);
+
+gulp.task('build', ['sass', 'js', 'webserver', 'watch']);
 
 // run 'gulp smush' to minify images
 gulp.task('img-opt', function() { 
@@ -60,7 +85,3 @@ gulp.task('img-opt', function() {
 });
 
 gulp.task('smush', ['img-opt']);
-
-// need: 
-// css, js concatenate
-// css, js minify

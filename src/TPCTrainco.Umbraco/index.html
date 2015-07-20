@@ -24,7 +24,7 @@
 
         <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic' rel='stylesheet' type='text/css'>
         <!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"> -->
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/scss/main.css">
     </head>
 
     <!--[if lt IE 9]>
@@ -46,7 +46,8 @@
                         <span class="icon-bar"></span>
                     </button>
                     <h1 class="logo">
-                        <a class="navbar-brand" href="/"><span class="tpc">TPC</span>TRAINCO<span class="tagline">Real World Training...for Real World Needs</span></a>
+                        TCPTrainco
+                        <a class="navbar-brand" href="/"><img src="/assets/images/tcptraincologo.png" alt="TCPTrainco Logo" /></a>
                     </h1>
                 </div>
 
@@ -54,7 +55,22 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#" class="btn-reg" role="button">Register</a></li>
-                        <li><a href="#" class="regular-link nav-link">Training Seminars</a></li>
+                        
+                        <!-- new -->
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle regular-link nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Training Seminars<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class="nav-link regular-link">Electrical Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">HVAC Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">Plant Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">Mechanical and Industrial Training</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- end -->
+
+
                         <li><a href="#" class="regular-link nav-link">On-Site Training</a></li>
                         <li><a href="#" class="regular-link nav-link">About</a></li>
                         <li><a href="#" class="regular-link nav-link">Blog</a></li>
@@ -325,10 +341,15 @@
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
+        <script type="text/javascript" src="/assets/js/vendor/bootstrap-dropdown.js"></script>
 
-        <script type="text/javascript" src="/assets/js/TPCapp.js"></script>
-        <script type="text/javascript" src="/assets/js/HomePage.js"></script>
-        <script type="text/javascript" src="/assets/js/CountUp.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
+
+        <!-- for production:
+        <script type="text/javascript" src="/js/main.js"></script> -->
+
     	<script type="text/javascript">
            var temp;
 
