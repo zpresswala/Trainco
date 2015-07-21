@@ -5,12 +5,17 @@ function DatePicker() {
 	//     bounds: {min: new Date(2013, 0, 1), max: new Date(2013, 0, 1, 23, 59, 59)},
 	//     defaultValues: {min: new Date(2013, 0, 1, 8), max: new Date(2013, 0, 1, 18)}
 	// });
+	var _this = this;
 	var startDate = '2015, 8';
 	var endDate = '2015, 10';
 
 	var year = ['2016'];
 
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
+	if($(window).width()<= 700) {
+		var months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+	}
 	  	$('#date-range-slider').dateRangeSlider({
 
 	  		// bounds: the months in the range
@@ -37,7 +42,7 @@ function DatePicker() {
 		      	},
 		      	label: function(value){
 		      		var firstMonth = months[value.getMonth()];
-		      		if(firstMonth === 'Jan') {
+		      		if(firstMonth === 'Jan' && $(window).width() >= 701) {
 		      			return firstMonth + ' ' + year;
 		      		}
 		        	return months[value.getMonth()];
@@ -55,17 +60,23 @@ function DatePicker() {
 		    }]
 	});
 
-	this.addYearLabel();
-
-	this.initialLoad = false;
+	if($(window).width() >= 700) {
+		this.addYearLabel();
+	}
 
 	this.valuesChanged();
+
+	this.sendToSearch();
+	setTimeout(function() {
+		_this.fixWidth();
+	}, 10);
 }
 
 
 DatePicker.prototype.addYearLabel = function() {
 	
 	var _this = this;
+
 	$($('.first')[0]).css({
 		'line-height': 1.27,
 		'marginTop': -7 + 'px',
@@ -88,34 +99,60 @@ DatePicker.prototype.sizeHandle = function() {
 };
 
 DatePicker.prototype.valuesChanged = function() {
-		console.log('hi')
-		var _this = this;
+	var _this = this;
 
-	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-	console.log(this.initialLoad)
-	if(!this.initialLoad){
-		$('.ui-rangeSlider-rightHandle').text('Sept');
-		$('.ui-rangeSlider-leftHandle').text('Jun');
-	} else {
-		$('#date-range-slider').on("valuesChanged", function(e, data){
-			_this.initialLoad = true;
-			var minMonth = new Date(data.values.min);
-			var maxMonth = new Date(data.values.max);
-			maxMonth.setDate(maxMonth.getDate() - 1);
-			minMonth.setDate(maxMonth.getDate() - 1);
-			console.log(maxMonth)
-			var maxMonthAbbr = months[maxMonth.getMonth()];
-			var minMonthAbbr = months[minMonth.getMonth()];
-		  	console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
-		  	$('.ui-rangeSlider-rightHandle').text(maxMonthAbbr);
-		  	$('.ui-rangeSlider-leftHandle').text(minMonthAbbr);
-		});
-	}
+	var rHandle = $('.ui-rangeSlider-rightHandle');
+	var lHandle = $('.ui-rangeSlider-leftHandle');
 
-	this.initialLoad = true;
-	// setTimeout(function() {
-	// 	$('#date-range-slider').trigger('valuesChanged', function(e, data));
-	// }, 50);
+	var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
+
+	// set initial values, need to make dynamic
+	rHandle.text('SEPT');
+	lHandle.text('JUL');
+
+	$('#date-range-slider').on("valuesChanged", function(e, data){
+		var minMonth = new Date(data.values.min);
+		var maxMonth = new Date(data.values.max);
+		maxMonth.setDate(maxMonth.getDate() - 1);
+		minMonth.setDate(maxMonth.getDate() - 1);
+		var maxMonthAbbr = months[maxMonth.getMonth()];
+		var minMonthAbbr = months[minMonth.getMonth()];
+	  	console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
+	  	rHandle.text(maxMonthAbbr);
+	  	lHandle.text(minMonthAbbr);
+	});
+};
+
+DatePicker.prototype.sendToSearch = function() {
+	var _this = this;
+	document.getElementById('search-btn').addEventListener('click', function() {
+		var dateValues = $('#date-range-slider').dateRangeSlider("values");
+		var minDate = new Date(dateValues.min);
+		var minMonth = minDate.getMonth() + 1;
+		var minYear = minDate.getFullYear();
+		var minMonthYear = {
+			minMonthVal: minMonth,
+			minYearVal: minYear
+		};
+
+		var maxDate = new Date(dateValues.max);
+		var maxMonth = maxDate.getMonth() + 1;
+		var maxYear = maxDate.getFullYear();
+		var maxMonthYear = {
+			maxMonthVal: maxMonth,
+			maxYearVal: maxYear
+		};
+
+		var dataToSend = [minMonthYear, maxMonthYear];
+		console.log(dataToSend)
+	});
+};
+
+DatePicker.prototype.fixWidth = function() {
+	var containerWidth = $('.ui-rangeSlider-container').width();
+	console.log(containerWidth)
+	$('.ui-rangeSlider-innerBar').css('width', containerWidth + 'px');
+
 };
 
 DatePicker.prototype.getStartMonth = function() {

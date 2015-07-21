@@ -1,9 +1,19 @@
+.search-page {
+	h4 {
+		text-align: center;
+		color: $white;
+		font-weight: 100;
+		font-size: 18px;
+	}
+}
+
 #date-range-slider {
 	margin: 30px 0 40px;
 }
 
 .month-label {
 	text-align: center;
+	text-transform: uppercase;
 	color: $white;
 }
 
@@ -18,22 +28,29 @@
 		height: 40px;
 		margin: 0 6px;
 		background: rgba(255, 255, 255, 0.2);
+		border-radius: 25px;
 	}
 
 	.ui-rangeSlider-bar {
 		height: 40px;
+		border-radius: 25px;
 		background-color: rgba(228, 79, 77, 0.50);
 	}
 
 	.ui-rangeSlider-handle {
 		width: 40px;
 		height: 40px;
-		background-color: red;
+		border-radius: 25px;
+		background-color: $red-button;
 	}
 
 	.ui-rangeSlider-rightHandle, .ui-rangeSlider-leftHandle {
 		text-align: center;
-		color: white;
+		color: $white;
 		padding-top: 10px;
 	}
+}
+
+.ui-rangeSlider-arrow {
+	display: none;
 }
