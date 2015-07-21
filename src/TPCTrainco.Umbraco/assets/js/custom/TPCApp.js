@@ -7,6 +7,7 @@ function TPCApp() {
 	$('.carousel').carousel();
 	
 	this.homePage = new HomePage();
+	this.datePicker = new DatePicker();
 
 	if($('#count').length) {
 		this.countUp = new CountUp(this.$win);

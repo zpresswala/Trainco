@@ -3270,6 +3270,34 @@ a:hover {
 .blog-post .container {
   margin: 35px auto 95px; }
 
+#date-range-slider {
+  margin: 30px 0 40px; }
+
+.month-label {
+  text-align: center;
+  color: #FFFFFF; }
+
+.ui-ruler-scale {
+  line-height: 40px; }
+
+.ui-rangeSlider {
+  height: 40px; }
+  .ui-rangeSlider .ui-rangeSlider-innerBar {
+    height: 40px;
+    margin: 0 6px;
+    background: rgba(255, 255, 255, 0.2); }
+  .ui-rangeSlider .ui-rangeSlider-bar {
+    height: 40px;
+    background-color: rgba(228, 79, 77, 0.5); }
+  .ui-rangeSlider .ui-rangeSlider-handle {
+    width: 40px;
+    height: 40px;
+    background-color: red; }
+  .ui-rangeSlider .ui-rangeSlider-rightHandle, .ui-rangeSlider .ui-rangeSlider-leftHandle {
+    text-align: center;
+    color: white;
+    padding-top: 10px; }
+
 footer {
   color: #FFFFFF;
   background-color: #3A3A3A;
