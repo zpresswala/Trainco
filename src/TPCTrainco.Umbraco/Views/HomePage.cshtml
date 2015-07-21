@@ -6,7 +6,7 @@
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
 
-    IPublishedContent onsitePromo = currentPage.GetPropertyValue<IPublishedContent>("activePromo");
+    IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
     IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
     IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
 }
@@ -72,40 +72,7 @@
     </div>
 </div>
 
-@{
-    if (onsitePromo != null && onsitePromo.Id > 0)
-    {
-        string headline = onsitePromo.GetPropertyValue<string>("promoHeadline");
-        string message = onsitePromo.GetPropertyValue<string>("promoText");
-        string buttonText = onsitePromo.GetPropertyValue<string>("promoButtonText");
-        UrlPicker.Umbraco.Models.UrlPicker link = onsitePromo.GetPropertyValue<UrlPicker.Umbraco.Models.UrlPicker>("promoLink");
-        var promoMedia = Umbraco.Media(onsitePromo.GetPropertyValue<int>("promoImage"));
-        string promoImageUrl = null;
-
-        if (promoMedia != null)
-        {
-            promoImageUrl = promoMedia.Url;
-        }
-
-        <div class="container-fluid onsite-section">
-            <div class="left-skew">
-                <div class="skewed-side">
-                    <div class="inner">
-                        <h2 class="callout-headline">@headline</h2>
-                        @Html.Raw(message)
-                        <a href="@link.Url" class="btn-reg btn-white" role="button">@buttonText</a>
-                    </div>
-                </div>
-            </div>
-            <div class="right-img">
-                @if (false == string.IsNullOrEmpty(promoImageUrl))
-                {
-                    <img src="/assets/images/on-site.jpg" alt="@headline">
-                }
-            </div>
-        </div>
-    }
-}
+@Html.Partial("Promos/OnsitePromo", currentPage);
 
 @{
     int seminarCount = 0;
@@ -115,7 +82,7 @@
         var displayOpposite = seminarCount % 2 == 0;
 
         @Html.Raw(RenderSeminar(section, !displayOpposite))
-    
+
         seminarCount++;
     }
 }
@@ -170,7 +137,6 @@
         <span class="sr-only">Next</span>
     </a>
 </div> <!-- end carousel -->
-
 @helper RenderSeminar(IPublishedContent section, bool displayOpposite = false)
 {
     string headline = section.GetPropertyValue<string>("trainingHeadline");
