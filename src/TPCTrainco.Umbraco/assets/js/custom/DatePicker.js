@@ -1,5 +1,7 @@
 'use strict';
 
+// the site for the plugin used: http://ghusse.github.io/jQRangeSlider/index.html
+
 function DatePicker() {
 
 	// date, month, year vars
@@ -92,7 +94,9 @@ function DatePicker() {
 	this.sendToSearch();
 	setTimeout(function() {
 		_this.fixWidth();
-		_this.sizeHandle();
+		if($(window).width() >= 700) {
+			_this.sizeHandle();
+		}
 	}, 10);
 }
 
