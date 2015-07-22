@@ -1,104 +1,116 @@
 'use strict';
 
 function DatePicker() {
-	// $("#slider").dateRangeSlider({
-	//     bounds: {min: new Date(2013, 0, 1), max: new Date(2013, 0, 1, 23, 59, 59)},
-	//     defaultValues: {min: new Date(2013, 0, 1, 8), max: new Date(2013, 0, 1, 18)}
-	// });
-	var _this = this;
-	var startDate = '2015, 8';
-	var endDate = '2015, 10';
 
-	var year = ['2016'];
+	// date, month, year vars
+	this.date = new Date();
+	this.month = 9;
+	// this.date.getMonth() + 1
+	this.year = this.date.getFullYear();
+
+	var _this = this;
+
+	// where the red buttons should start
+	var selectorStartDate = this.getStartDate(this.year, this.month);
+	var selectorEndDate = this.getEndDate(this.year, this.month);
+
+	console.log(selectorStartDate, selectorEndDate, '---')
+
+	// the last month showing on the date range
+	var rangeEndDate = selectorStartDate[1] + 2;
+
+	// range selector start month
+	this.startMonth = selectorStartDate[1];
+	
+	// range selector end month
+	this.endMonth = selectorEndDate[1];
+
+	// insert the next year under january
+	var nextYearNumber = [this.year];
 
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 	if($(window).width()<= 700) {
 		var months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 	}
-	  	$('#date-range-slider').dateRangeSlider({
+  	$('#date-range-slider').dateRangeSlider({
 
-	  		// bounds: the months in the range
-	    	bounds: {min: new Date(2015, 6), max: new Date(2016, 11)},
+  		// bounds: the months in the range
+    	bounds: {min: new Date(selectorStartDate), max: new Date(nextYearNumber, rangeEndDate)},
 
-	    	step: {
-	    		months: 1
-	    	},
+    	step: {
+    		months: 1
+    	},
 
-	    	valueLabels: 'hide',
+    	valueLabels: 'hide',
 
-	    	// defaultValues: where the slider starts
-	    	defaultValues: {min: new Date(2015, 6), max: new Date(endDate)},
-	    	scales: [{
-	      		first: function(value){ 
-	      			return value; 
-	      		},
-	      		end: function(value) {
-	      			console.log(value)
-	      			return value; },
-	      		next: function(value){
-	        	var next = new Date(value);
-	        	return new Date(next.setMonth(value.getMonth() + 1));
-		      	},
-		      	label: function(value){
-		      		var firstMonth = months[value.getMonth()];
-		      		if(firstMonth === 'Jan' && $(window).width() >= 701) {
-		      			return firstMonth + ' ' + year;
-		      		}
-		        	return months[value.getMonth()];
-		      	},
-		      	format: function(tickContainer, tickStart, tickEnd){
-		        	tickContainer.addClass('month-label');
+    	// defaultValues: where the slider starts
+    	defaultValues: {min: new Date(selectorStartDate), max: new Date(selectorEndDate)},
+    	scales: [{
+      		first: function(value){ 
+      			return value; 
+      		},
+      		end: function(value) {
+      			console.log(value)
+      			return value; },
+      		next: function(value){
+        	var next = new Date(value);
+        	return new Date(next.setMonth(value.getMonth() + 1));
+	      	},
+	      	label: function(value){
+	      		var firstMonth = months[value.getMonth()];
+	      		console.log(value)
+	      		if(firstMonth === 'Jan' && $(window).width() >= 701) {
+	      			var brk = '<br/>';
+	      			return firstMonth + ' ' + brk  + ' ' + nextYearNumber;
+	      		}
+	        	return months[value.getMonth()];
+	      	},
+	      	format: function(tickContainer, tickStart, tickEnd){
+	        	tickContainer.addClass('month-label');
 
-		        	var tickNewYear = tickStart.getFullYear();
-		        	var nextYear = new Date().getFullYear() + 1;
+	        	var tickNewYear = tickStart.getFullYear();
 
-	        		if(tickNewYear === nextYear) {
-	        			tickContainer.addClass('first')
-	        		}
-		      	}
-		    }]
+	        	// this must be a date obj.
+	        	var nextYear = new Date().getFullYear() + 1;
+
+        		if(tickNewYear === nextYear) {
+        			tickContainer.addClass('first')
+        		}
+	      	}
+	    }]
 	});
 
 	if($(window).width() >= 700) {
 		this.addYearLabel();
 	}
 
-	this.valuesChanged();
+	this.valuesChanged(this.startMonth, this.endMonth);
 
 	this.sendToSearch();
 	setTimeout(function() {
 		_this.fixWidth();
+		_this.sizeHandle();
 	}, 10);
 }
 
-
 DatePicker.prototype.addYearLabel = function() {
-	
-	var _this = this;
-
 	$($('.first')[0]).css({
 		'line-height': 1.27,
 		'marginTop': -7 + 'px',
 		'position': 'relative',
 		'top': 8 + 'px',
-		'height': 42 + 'px',
-		'max-width': 50 + 'px'
+		'height': 42 + 'px'
+		// 'max-width': 50 + 'px'
 	});
-
-	setTimeout(function() {
-		_this.sizeHandle();
-	}, 10);
-
 };
 
 DatePicker.prototype.sizeHandle = function() {
 	var monthWidth = $($('.ui-ruler-tick-inner')[0]).outerWidth();
-	console.log(monthWidth)
 	$('.ui-rangeSlider-handle').css('width', monthWidth + 'px');
 };
 
-DatePicker.prototype.valuesChanged = function() {
+DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 	var _this = this;
 
 	var rHandle = $('.ui-rangeSlider-rightHandle');
@@ -107,8 +119,8 @@ DatePicker.prototype.valuesChanged = function() {
 	var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
 
 	// set initial values, need to make dynamic
-	rHandle.text('SEPT');
-	lHandle.text('JUL');
+	rHandle.text(months[endMonth - 2]);
+	lHandle.text(months[startMonth - 1]);
 
 	$('#date-range-slider').on("valuesChanged", function(e, data){
 		var minMonth = new Date(data.values.min);
@@ -155,10 +167,26 @@ DatePicker.prototype.fixWidth = function() {
 
 };
 
-DatePicker.prototype.getStartMonth = function() {
-	var date = new D
+DatePicker.prototype.getStartDate = function(year, month) {
+	var startDate = [year, month];
+	return startDate;
 };
 
-DatePicker.prototype.getEndMonth = function() {
-
-}
+DatePicker.prototype.getEndDate = function(year, month) {
+	this.monthEndRange = month + 5;
+	this.year = year;
+	console.log(this.monthEndRange)
+	if(this.monthEndRange > 12) {
+		var difference = this.monthEndRange - 12;
+		console.log(difference)
+		this.monthEndRange = difference;
+		this.year = this.year + 1;
+		var endDate = [this.year, this.monthEndRange];
+		console.log(endDate)
+	} else {
+		var endDate = [this.year, this.monthEndRange];
+	}
+	
+	console.log(endDate)
+	return endDate;
+};

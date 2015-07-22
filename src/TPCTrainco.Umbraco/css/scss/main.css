@@ -3291,7 +3291,7 @@ a:hover {
   height: 40px; }
   .ui-rangeSlider .ui-rangeSlider-innerBar {
     height: 40px;
-    margin: 0 6px;
+    margin: 0;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 25px; }
   .ui-rangeSlider .ui-rangeSlider-bar {
