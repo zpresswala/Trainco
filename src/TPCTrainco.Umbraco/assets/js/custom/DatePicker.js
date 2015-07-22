@@ -4,8 +4,7 @@ function DatePicker() {
 
 	// date, month, year vars
 	this.date = new Date();
-	this.month = 9;
-	// this.date.getMonth() + 1
+	this.month = this.date.getMonth() + 1;
 	this.year = this.date.getFullYear();
 
 	var _this = this;
@@ -14,10 +13,8 @@ function DatePicker() {
 	var selectorStartDate = this.getStartDate(this.year, this.month);
 	var selectorEndDate = this.getEndDate(this.year, this.month);
 
-	console.log(selectorStartDate, selectorEndDate, '---')
-
-	// the last month showing on the date range
-	var rangeEndDate = selectorStartDate[1] + 2;
+	// the last month showing on the date range, a total of 13 months after current month
+	var rangeEndDate = selectorEndDate[1] + 9;
 
 	// range selector start month
 	this.startMonth = selectorStartDate[1];
@@ -33,6 +30,7 @@ function DatePicker() {
 	if($(window).width()<= 700) {
 		var months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 	}
+
   	$('#date-range-slider').dateRangeSlider({
 
   		// bounds: the months in the range
@@ -50,33 +48,37 @@ function DatePicker() {
       		first: function(value){ 
       			return value; 
       		},
+
       		end: function(value) {
-      			console.log(value)
-      			return value; },
-      		next: function(value){
-        	var next = new Date(value);
-        	return new Date(next.setMonth(value.getMonth() + 1));
+      			return value; 
+      		},
+
+      		next: function(value) {
+        		var next = new Date(value);
+        		return new Date(next.setMonth(value.getMonth() + 1));
 	      	},
+
 	      	label: function(value){
+
+	      		// display year under january.
 	      		var firstMonth = months[value.getMonth()];
-	      		console.log(value)
+
 	      		if(firstMonth === 'Jan' && $(window).width() >= 701) {
-	      			var brk = '<br/>';
-	      			return firstMonth + ' ' + brk  + ' ' + nextYearNumber;
+	      			return firstMonth + ' ' + value.getFullYear();
 	      		}
+
 	        	return months[value.getMonth()];
 	      	},
+
 	      	format: function(tickContainer, tickStart, tickEnd){
 	        	tickContainer.addClass('month-label');
+	        	var tickMonth = tickStart.getMonth();
 
-	        	var tickNewYear = tickStart.getFullYear();
-
-	        	// this must be a date obj.
-	        	var nextYear = new Date().getFullYear() + 1;
-
-        		if(tickNewYear === nextYear) {
-        			tickContainer.addClass('first')
-        		}
+	        	// add class to January because we display year too.
+	        	var jan = months[tickMonth];
+	        	if(jan === 'Jan') {
+	        		tickContainer.addClass('first');
+	        	}
 	      	}
 	    }]
 	});
@@ -95,13 +97,16 @@ function DatePicker() {
 }
 
 DatePicker.prototype.addYearLabel = function() {
-	$($('.first')[0]).css({
+	$('.first').css({
 		'line-height': 1.27,
 		'marginTop': -7 + 'px',
 		'position': 'relative',
 		'top': 8 + 'px',
 		'height': 42 + 'px'
-		// 'max-width': 50 + 'px'
+	})
+	.find('.ui-ruler-tick-label').css({
+		display: 'inline-block',
+		width: 84 + '%'
 	});
 };
 
@@ -118,7 +123,7 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 
 	var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
 
-	// set initial values, need to make dynamic
+	// set initial values, dynamic based on date
 	rHandle.text(months[endMonth - 2]);
 	lHandle.text(months[startMonth - 1]);
 
@@ -129,7 +134,6 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 		minMonth.setDate(maxMonth.getDate() - 1);
 		var maxMonthAbbr = months[maxMonth.getMonth()];
 		var minMonthAbbr = months[minMonth.getMonth()];
-	  	console.log("Values just changed. min: " + data.values.min + " max: " + data.values.max);
 	  	rHandle.text(maxMonthAbbr);
 	  	lHandle.text(minMonthAbbr);
 	});
@@ -156,13 +160,11 @@ DatePicker.prototype.sendToSearch = function() {
 		};
 
 		var dataToSend = [minMonthYear, maxMonthYear];
-		console.log(dataToSend)
 	});
 };
 
 DatePicker.prototype.fixWidth = function() {
 	var containerWidth = $('.ui-rangeSlider-container').width();
-	console.log(containerWidth)
 	$('.ui-rangeSlider-innerBar').css('width', containerWidth + 'px');
 
 };
@@ -173,20 +175,15 @@ DatePicker.prototype.getStartDate = function(year, month) {
 };
 
 DatePicker.prototype.getEndDate = function(year, month) {
-	this.monthEndRange = month + 5;
+	this.monthEndRange = month + 4;
 	this.year = year;
-	console.log(this.monthEndRange)
 	if(this.monthEndRange > 12) {
 		var difference = this.monthEndRange - 12;
-		console.log(difference)
 		this.monthEndRange = difference;
 		this.year = this.year + 1;
 		var endDate = [this.year, this.monthEndRange];
-		console.log(endDate)
 	} else {
 		var endDate = [this.year, this.monthEndRange];
 	}
-	
-	console.log(endDate)
 	return endDate;
 };
