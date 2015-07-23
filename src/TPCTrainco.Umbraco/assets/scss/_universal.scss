@@ -80,7 +80,8 @@ a:hover {
 .btn-white {
 	background-color: transparent;
 	border: 3px solid $white;
-	padding: 10px 37px;
+	padding: 8px 37px;
+	z-index: 10;
 	&:hover {
 		color: $headline-black;
 		text-decoration: none;
@@ -127,7 +128,44 @@ a:hover {
 }
 
 .btn-share {
-	padding: 2px 24px;
+	padding: 5px 24px;
+}
+
+.popover {
+	top: 35px !important;
+	border-radius: 10px;
+	box-shadow: none;
+}
+
+.popover.bottom {
+	width: 160px;
+	left: -35px;
+}
+
+.popover-content {
+	padding: 8px 14px 3px;
+	.social {
+		margin: 0;
+		padding: 0;
+		text-align: center;
+
+		li {
+			display: inline;
+			margin: 0 6px;
+		}
+	}
+
+	.regular-link:hover {
+
+		> svg {
+			@include transition(0.25s);
+			fill: $blue;
+		} 
+	}
+	.regular-link svg {
+		width: 30px;
+		height: 30px;
+	}
 }
 
 // offwhite sections have the slightly gray background color

@@ -120,8 +120,6 @@ DatePicker.prototype.sizeHandle = function() {
 };
 
 DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
-	var _this = this;
-
 	var rHandle = $('.ui-rangeSlider-rightHandle');
 	var lHandle = $('.ui-rangeSlider-leftHandle');
 
@@ -144,7 +142,6 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 };
 
 DatePicker.prototype.sendToSearch = function() {
-	var _this = this;
 	document.getElementById('search-btn').addEventListener('click', function() {
 		var dateValues = $('#date-range-slider').dateRangeSlider("values");
 		var minDate = new Date(dateValues.min);

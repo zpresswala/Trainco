@@ -7,13 +7,23 @@ function TPCApp() {
 	$('.carousel').carousel();
 	
 	this.homePage = new HomePage();
-	this.datePicker = new DatePicker();
+
+	if($('#date-range-slider').length) {
+		this.datePicker = new DatePicker();
+	}
 
 	if($('#count').length) {
 		this.countUp = new CountUp(this.$win);
 	}
 
 	this.bindScroll();
+
+	// $('[data-toggle="popover"]').popover({
+	// 	animation: true,
+	// 	container: '.btn-share',
+	// 	trigger: 'click',
+	// 	html: true
+	// });
 }
 
 TPCApp.prototype.bindScroll = function() {
