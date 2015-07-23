@@ -302,10 +302,116 @@ a:hover {
 	}
 }
 
-.select2-container {
-	width: 400px !important;
-	margin: 0 auto !important;
+.select2.select2-container {
+	margin: 0 auto 45px;
+	display: block;
+	// position: relative;
+	// width: 100%;
+	border-radius: 50px;
+	background-color: $blue;
+	// color: $white;
+	border: none;
+	padding: 6px 14px 1px 18px;
+	font-size: 18px;
+
+	&:focus {
+		outline: 0;
+	}
+
+	// &:after {
+	// 	content: '';
+	// 	position: absolute;
+	// 	top: 50%;
+	// 	right: 20px;
+	// 	margin-top: -11px;
+	// 	background: url("/assets/images/svg/dropdown-arrow.svg") center top / 22px 22px no-repeat;
+	// 	width: 22px;
+	// 	height: 22px;
+	// }
+
+	// input {
+	// 	width: 100%;
+	// 	border-radius: 50px;
+	// 	background-color: $blue;
+	// 	color: $white;
+	// 	border: none;
+	// 	padding: 14px 14px 14px 18px;
+	// 	font-size: 18px;
+	// 	letter-spacing: 0.5px;
+
+	// 	&:focus {
+	// 		outline: 0;
+	// 	}
+	// }
+
+	// make the placeholder white
+	::-webkit-input-placeholder {
+	   color: $white;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: $white;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: $white;  
+	}
+
+	:-ms-input-placeholder {  
+	   color: $white;  
+	}
 }
 
+.select2-container--default .select2-selection--multiple {
+	border: none !important;
+	background-color: transparent;
+
+	&:focus {
+		outline: none;
+		border: none;
+	}
+
+	.select2-selection__choice {
+		border-radius: 0;
+		letter-spacing: 0.5px;
+		padding: 5px;
+		margin: 0;
+		border: 0;
+		font-size: 19px;
+	}
+	
+	.select2-selection__rendered {
+		background-color: $blue;
+		border: none;
+		border-radius: 0;
+		// margin-top: 5px;
+	}
+
+	.select2-selection__choice__remove {
+		margin-right: 5px;
+		font-size: 20px;
+	}
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+	background-color: $blue;
+}
+
+.select2-container {
+	padding-top: 5px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background-color: $white;
+	color: $headline-black;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+	color: $headline-black;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+	color: $white;
+}
 
 
