@@ -33,7 +33,7 @@
                 <!-- AUTOFILL PLUGIN CDN -->
         <!-- ####### NEW  #########-->
         <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-        
+
         <link rel="stylesheet" type="text/css" href="/css/scss/main.css">
 
         
@@ -108,35 +108,40 @@
                         <h3>Select one or more topics and choose your location</h3>
                         <ul>
                             <li class="seminar-topic">
-                                <div class="overlay-contain">
+                                <!-- ####### NEW added data-attrs  #########-->
+                                <div class="overlay-contain" data-topic="all">
                                     <div class="overlay"></div>
-                                    <img src="/assets/images/selectall-icon.jpg" alt="Mechanical + Industrial" />
+                                    <img src="/assets/images/selectall-icon.jpg" alt="All Seminars" />
                                 </div>
                                 <p>Search All Seminars</p>
                             </li>
                             <li class="seminar-topic">
-                                <div class="overlay-contain">
+                                <!-- ####### NEW added data-attrs  #########-->
+                                <div class="overlay-contain" data-topic="electrical">
                                     <div class="overlay"></div>
                                     <img src="/assets/images/electrical.jpg" alt="Mechanical + Industrial" />
                                 </div>
                                 <p>Electrical</p>
                             </li>
                             <li class="seminar-topic">
-                                <div class="overlay-contain">
+                                <!-- ####### NEW  added data-attrs #########-->
+                                <div class="overlay-contain" data-topic="management">
                                     <div class="overlay"></div>
                                     <img src="/assets/images/plantmgmt-icon.jpg" alt="Mechanical + Industrial" />
                                 </div>
                                 <p>Plant Management</p>
                             </li>
                             <li class="seminar-topic">
-                                <div class="overlay-contain">
+                                <!-- ####### NEW added data-attrs  #########-->
+                                <div class="overlay-contain" data-topic="hvac">
                                     <div class="overlay"></div>
                                     <img src="/assets/images/hvac-icon.jpg" alt="Mechanical + Industrial" />
                                 </div>
                                 <p>HVAC</p>
                             </li>
                             <li class="seminar-topic">
-                                <div class="overlay-contain">
+                                <!-- ####### NEW added data-attrs  #########-->
+                                <div class="overlay-contain" data-topic="mechanical">
                                     <div class="overlay"></div>
                                     <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical + Industrial" />
                                 </div>
@@ -152,6 +157,11 @@
 
                         <!-- ####### NEW  #########-->
                         <select multiple id="main-search" style="width:80%" data-placeholder="Choose a City or Enter a Zip Code" class="populate">
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Vermont">Vermont</option>
                         </select>
 
                         <!-- <input type="hidden" id="main-search" style="width:300px"/> -->

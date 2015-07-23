@@ -91,7 +91,7 @@ function DatePicker() {
 
 	this.valuesChanged(this.startMonth, this.endMonth);
 
-	this.sendToSearch();
+	// this.sendToSearch();
 	setTimeout(function() {
 		_this.fixWidth();
 		if($(window).width() >= 700) {
@@ -142,26 +142,26 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 };
 
 DatePicker.prototype.sendToSearch = function() {
-	document.getElementById('search-btn').addEventListener('click', function() {
-		var dateValues = $('#date-range-slider').dateRangeSlider("values");
-		var minDate = new Date(dateValues.min);
-		var minMonth = minDate.getMonth() + 1;
-		var minYear = minDate.getFullYear();
-		var minMonthYear = {
-			minMonthVal: minMonth,
-			minYearVal: minYear
-		};
+	// document.getElementById('search-btn').addEventListener('click', function() {
+	// 	var dateValues = $('#date-range-slider').dateRangeSlider("values");
+	// 	var minDate = new Date(dateValues.min);
+	// 	var minMonth = minDate.getMonth() + 1;
+	// 	var minYear = minDate.getFullYear();
+	// 	var minMonthYear = {
+	// 		minMonthVal: minMonth,
+	// 		minYearVal: minYear
+	// 	};
 
-		var maxDate = new Date(dateValues.max);
-		var maxMonth = maxDate.getMonth() + 1;
-		var maxYear = maxDate.getFullYear();
-		var maxMonthYear = {
-			maxMonthVal: maxMonth,
-			maxYearVal: maxYear
-		};
+	// 	var maxDate = new Date(dateValues.max);
+	// 	var maxMonth = maxDate.getMonth() + 1;
+	// 	var maxYear = maxDate.getFullYear();
+	// 	var maxMonthYear = {
+	// 		maxMonthVal: maxMonth,
+	// 		maxYearVal: maxYear
+	// 	};
 
-		var dataToSend = [minMonthYear, maxMonthYear];
-	});
+	// 	var dataToSend = [minMonthYear, maxMonthYear];
+	// });
 };
 
 DatePicker.prototype.fixWidth = function() {
