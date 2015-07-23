@@ -8,6 +8,8 @@ function TPCApp() {
 	
 	this.homePage = new HomePage();
 
+	this.mainSearchSelect = new MainSearchSelect();
+
 	if($('#date-range-slider').length) {
 		this.datePicker = new DatePicker();
 	}

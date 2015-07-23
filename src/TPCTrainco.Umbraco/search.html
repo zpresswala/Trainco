@@ -30,6 +30,13 @@
         <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/classic-min.css">
         <!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"> -->
         <link rel="stylesheet" type="text/css" href="/css/scss/main.css">
+
+
+        <!-- AUTOFILL PLUGIN CDN -->
+        <!-- ####### NEW  #########-->
+        <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+        
+
     </head>
 
     <!--[if lt IE 9]>
@@ -51,7 +58,7 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <!-- new -->
+                    <!-- ####### NEW  #########-->
 
                     <h1 class="logo">
                         TCPTrainco
@@ -67,7 +74,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="#" class="btn-reg" role="button">Register</a></li>
                         
-                        <!-- new -->
+                        <!-- ####### NEW  #########-->
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle regular-link nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Training Seminars<span class="caret"></span></a>
@@ -138,12 +145,18 @@
                         </ul>
 
                         <!-- search bar here -->
-                        <form name="main-search" class="main-search-form">
+<!--                         <form name="main-search" class="main-search-form">
                             <input type="text" name="seminar-search" placeholder="Choose a Location">
-                        </form>
+                        </form> -->
+
+                        <!-- ####### NEW  #########-->
+                        <select multiple id="main-search" style="width:300px" data-placeholder="Choose a City or Enter a Zip Code" class="populate">
+                        </select>
+
+                        <!-- <input type="hidden" id="main-search" style="width:300px"/> -->
 
                         <!-- datepicker goes here -->
-
+                        <!-- ####### NEW  #########-->
                         <h4>Select a date range</h4>
 
                         <div id="date-range-slider"></div>
@@ -231,8 +244,10 @@
     	<!-- use modernizr generator for production -->
     	<script type="text/javascript" src="/assets/js/vendor/modernizr-dev.js"></script>
 
-
-        <script type="text/javascript" src="/assets/js/vendor/jquery-ui.min.js"></script>
+        <!-- ####### NEW  #########-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <!-- <script type="text/javascript" src="/assets/js/vendor/jquery-ui.min.js"></script> -->
+        
 
 
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
@@ -240,10 +255,16 @@
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-dropdown.js"></script>
 
+        <!-- ####### NEW  #########-->
         <script type="text/javascript" src="/assets/js/vendor/jQDateRangeSlider-withRuler-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
         <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
         <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
+
+        <!-- ####### NEW  #########-->
+        <script type="text/javascript" src="/assets/js/custom/MainSearchSelect.js"></script>
+
         <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
         <script type="text/javascript" src="/assets/js/custom/DatePicker.js"></script>
 
