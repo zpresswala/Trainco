@@ -13,13 +13,19 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
     public class SearchController : ApiController
     {
         [HttpGet]
-        public object Index()
+        public string[] Get()
         {
             return new string[] { "value1", "value2" };
         }
 
         [HttpGet]
-        public object Get()
+        public string[] Index()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        [HttpGet]
+        public string[] Test()
         {
             return new string[] { "value1", "value2" };
         }
