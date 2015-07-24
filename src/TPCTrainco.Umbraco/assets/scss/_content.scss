@@ -11,7 +11,10 @@
 
 .main-content {
 	.container {
-		margin: 75px auto 95px;
+		margin: 35px auto 95px;
+		@include tablet-portrait-and-up {
+			margin: 75px auto 95px;
+		}
 	}
 }
 

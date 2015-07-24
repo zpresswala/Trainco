@@ -54,3 +54,13 @@
 .ui-rangeSlider-arrow {
 	display: none;
 }
+
+.secondary-search {
+	.ui-rangeSlider-innerBar {
+		background-color: rgba(0,0,0,0.10);
+	}
+
+	.month-label {
+		color: $headline-black;
+	}
+}

@@ -2621,7 +2621,7 @@ a:hover {
   background-color: transparent;
   border: 3px solid #FFFFFF;
   padding: 8px 37px;
-  z-index: 10; }
+  z-index: 2; }
   .btn-white:hover {
     color: #3E3E3E;
     text-decoration: none;
@@ -3283,7 +3283,10 @@ a:hover {
     margin: 100px auto 40px; }
 
 .main-content .container {
-  margin: 75px auto 95px; }
+  margin: 35px auto 95px; }
+  @media (min-width: 768px) {
+    .main-content .container {
+      margin: 75px auto 95px; } }
 
 .text-wrap {
   line-height: 1.7;
@@ -3485,6 +3488,12 @@ a:hover {
 .ui-rangeSlider-arrow {
   display: none; }
 
+.secondary-search .ui-rangeSlider-innerBar {
+  background-color: rgba(0, 0, 0, 0.1); }
+
+.secondary-search .month-label {
+  color: #3E3E3E; }
+
 .seminar-detail .btn-white {
   padding: 8px 20px; }
 
@@ -3500,6 +3509,22 @@ a:hover {
     text-align: center; }
   .button-wrapper .btn-first {
     margin-bottom: 30px; }
+
+.share-btn-wrap {
+  text-align: right; }
+
+.cart {
+  padding: 0; }
+
+.cart-items {
+  list-style: none;
+  padding-left: 0; }
+
+.cart-item {
+  display: inline-block;
+  width: 100%; }
+  .cart-item h4, .cart-item p {
+    display: inline; }
 
 footer {
   color: #FFFFFF;

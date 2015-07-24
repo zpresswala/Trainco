@@ -8,7 +8,9 @@ function TPCApp() {
 	
 	this.homePage = new HomePage();
 
-	this.mainSearchSelect = new MainSearchSelect();
+	if($('#main-search').length) {
+		this.mainSearchSelect = new MainSearchSelect();
+	}
 
 	if($('#date-range-slider').length) {
 		this.datePicker = new DatePicker();
@@ -18,14 +20,16 @@ function TPCApp() {
 		this.countUp = new CountUp(this.$win);
 	}
 
-	this.bindScroll();
+	if($('.share-btn-wrap').length) {
+		$('[data-toggle="popover"]').popover({
+			animation: true,
+			container: '.btn-share',
+			trigger: 'click',
+			html: true
+		});
+	}
 
-	// $('[data-toggle="popover"]').popover({
-	// 	animation: true,
-	// 	container: '.btn-share',
-	// 	trigger: 'click',
-	// 	html: true
-	// });
+	this.bindScroll();
 }
 
 TPCApp.prototype.bindScroll = function() {

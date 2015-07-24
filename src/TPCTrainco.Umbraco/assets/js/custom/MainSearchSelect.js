@@ -89,8 +89,6 @@ MainSearchSelect.prototype.getSearchParams = function() {
 		topicsArray.push(selectedTopic);
 	});
 
-	console.log(topicsArray)
-
 	// get the date range
 	var dateValues = $('#date-range-slider').dateRangeSlider("values");
 	var minDate = new Date(dateValues.min);
@@ -121,7 +119,8 @@ MainSearchSelect.prototype.getSearchParams = function() {
 		dates: selectedDates
 	};
 
-	console.log(searchResults)
+	console.log(JSON.stringify(searchResults));
 
+	console.log(searchResults)
 
 };
