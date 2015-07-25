@@ -1,16 +1,91 @@
 .cart {
 	padding: 0;
+
+	.container {
+		margin: 0 auto;
+	}
 }
 
 .cart-items {
 	list-style: none;
 	padding-left: 0;
+	margin-top: 0;
 }
 
 .cart-item {
 	display: inline-block;
 	width: 100%;
-	h4, p {
-		display: inline;
+
+	&:nth-child(odd) { 
+		background-color: $gray-background;
 	}
+}
+
+.cart-bottom {
+	background-color: #f1f1f1;
+	display: inline-block;
+	width: 100%;
+
+	.btn-reg {
+		// why a new button font weight?
+		float: right;
+		margin-right: 15px;
+	}
+
+	.wrap {
+		position: relative;
+	}
+
+	.btn-wrapper {
+		top: 50%;
+		position: absolute;
+		margin-top: -13px;
+	}
+}
+
+.cart-top {
+	background-color: #f1f1f1;
+	text-align: center;
+	h2 {
+		margin: 10px 0;
+	}
+
+	img {
+		margin: 0 10px 8px 0;
+	}
+}
+
+.cart-total {
+	list-style: none;
+	padding: 0;
+	// display: inline-block;
+	text-align: left;
+}
+
+.qty-wrap {
+	// display: inline-block;;
+}
+
+.remove {
+	// why are we introducing a new red here?
+	color: $red-button;
+	@include transition(0.25s);
+
+	&:hover {
+		color: $red-button-hover;
+		@include transition(0.25s);
+	}
+
+	span {
+		margin-right: 5px;
+		font-size: 14px;
+	}
+}
+
+.class-qty {
+	width: 30px;
+	text-align: center;
+	border: 1px solid #D6D6D6;
+	border-radius: 2px;
+	background-color: #FCFCFC;
 }
