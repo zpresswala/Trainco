@@ -37,3 +37,10 @@ $mq-lg-desktop: 1400px !default;
     @content;
   }
 }
+
+@mixin retina-screen {
+  @media (-webkit-min-device-pixel-ratio: 2), 
+    (min-resolution: 192dpi) { 
+        @content;
+  }
+}
