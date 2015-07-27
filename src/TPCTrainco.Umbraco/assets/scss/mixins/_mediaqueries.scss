@@ -1,7 +1,8 @@
 $mq-tablet-portrait-and-up   : 768px !default; // !default means it won't be overwritten.
 $mq-below-tablet-portrait   : 767px !default;
-$mq-tablet-landscape-and-up : 1025px !default;
 $screen-md:                  992px !default;
+$mq-tablet-landscape-and-up : 1025px !default;
+$mq-md-desktop-and-up : $screen-md !default;
 $mq-lg-desktop: 1400px !default;
 
 // Everything above and including the tablet portrait
@@ -28,6 +29,12 @@ $mq-lg-desktop: 1400px !default;
 // Sizes above and including tablet landscape
 @mixin tablet-landscape-and-up {
   @media (min-width : $mq-tablet-landscape-and-up) {
+    @content;
+  }
+}
+
+@mixin med-desktop-and-up {
+  @media (min-width : $mq-md-desktop-and-up) {
     @content;
   }
 }

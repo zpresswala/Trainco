@@ -4,31 +4,40 @@
 	.container {
 		margin: 0 auto;
 	}
+
+	h3 {
+		font-weight: 400;
+		color: #000000;
+
+		@include med-desktop-and-up {
+			float: left;
+		}
+	}
 }
 
 .cart-items {
 	list-style: none;
 	padding-left: 0;
-	margin-top: 0;
+	margin: 0;
+	color: $cart-copy;
 }
 
 .cart-item {
-	display: inline-block;
-	width: 100%;
+	// width: 100%;
 
 	&:nth-child(odd) { 
 		background-color: $gray-background;
 	}
 
-	.col-lg-1, .col-lg-2, .col-lg-4 {
-		float: none;
+	.col-md-1, .col-md-2, .col-md-4 {
+		@include med-desktop-and-up {
+			float: none;			
+		}
 	}
 
 	ul {
 		list-style: none;
 		padding: 0;
-		display: table;
-		width: 100%;
 
 		li {
 			margin: 15px 0;
@@ -37,15 +46,56 @@
 		}
 
 		h4 {
-			font-weight: 300;
+			font-weight: 400;
+			font-size: 16px;
 		}
 	}
 
-	.class-title, .date, .location, .remove, .qty-wrap, .sub-total {
-		@include tablet-portrait-and-up {
-			// width: 49%;
-			// float: left;
-			border: 1px solid blue;
+	.location, .date, .remove, .qty-wrap, .sub-total {
+		// @include tablet-portrait-and-up {
+		// 	// width: 49%;
+		// 	// text-align: center;
+		// 	border: 1px solid blue;
+		// }
+
+		@include med-desktop-and-up {
+			text-align: center;
+		}
+	}
+
+	.qty-wrap, .sub-total {
+		span {
+			@include med-desktop-and-up {
+				display: none;
+			}
+		}
+	}
+
+	.qty-wrap {
+		span {
+			margin-right: 10px;
+		}
+	}
+
+	&:first-of-type {
+		.qty-wrap, .sub-total {
+			position: relative;
+
+			&:after {
+				display: none;
+				@include med-desktop-and-up {
+					position: absolute;
+					left: 50%;
+					top: -44px;
+					content: 'Attendees:';
+					display: block;
+					@include transform(translateX(-50%));
+				}
+			}
+		}
+
+		.sub-total:after {
+			content: 'Subtotal';
 		}
 	}
 }
@@ -60,16 +110,25 @@
 		// why a new button font weight?
 		float: right;
 		margin-right: 15px;
+		@include med-desktop-and-up {
+			margin-right: 0;
+		}
 	}
 
 	.wrap {
 		position: relative;
+		margin-bottom: 20px;
 	}
 
 	.btn-wrapper {
 		top: 50%;
 		position: absolute;
 		margin-top: -13px;
+		@include med-desktop-and-up {
+			position: static;
+			padding-right: 0;
+			// border: 1px solid yellow;
+		}
 	}
 }
 
@@ -111,15 +170,37 @@
 .cart-total {
 	list-style: none;
 	padding: 0;
-	// display: inline-block;
 	text-align: left;
+	@include med-desktop-and-up {
+		// border: 1px solid blue;
+		float: right;
+		text-align: right;
+		margin: 25px 0 35px;
+	}
+
+	li {
+		@include med-desktop-and-up {
+			display: inline;
+			float: none;
+		}
+	}
+
+	.items {
+		font-style: italic;
+		@include med-desktop-and-up {
+			margin-right: 15px;
+		}
+	}
 }
 
-.qty-wrap {
-	// display: inline-block;;
+.total {
+	font-weight: 500;
+	font-size: 20px;
+	color: $headline-black;
+	margin-left: 5px;
 }
 
-.remove {
+.remove a {
 	// why are we introducing a new red here?
 	color: $red-button;
 	@include transition(0.25s);
