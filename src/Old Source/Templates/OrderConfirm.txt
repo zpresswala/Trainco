@@ -1,0 +1,113 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>American Trainco Order Confirmation</title>
+</head>
+<body leftmargin="0" topmargin="0">
+    <table width="550" border="0" cellpadding="0" cellspacing="0" style="margin-left: 10px; margin-right: 10px">
+        <tr>
+            <td colspan="3" nowrap="nowrap" style="height: 34px">
+            <img src="http://www.americantrainco.com/Images/logo.gif" />
+            <img src="http://www.americantrainco.com/Images/r1_01.jpg" /></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align: center">
+                <strong>American Trainco Order Receipt</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+         </tr>
+        <tr>
+            <td colspan="3">
+                Thank you for your order.&nbsp; Please print this receipt for your records.&nbsp;
+                If you require customer service, please call 1-877-97-TRAIN or email us at sales@americantrainco.com.</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+        </tr>
+         <tr>
+            <td style="width: 70px; text-align: right;" valign="top">
+                Authorizing &nbsp;&nbsp;<br />
+                Information:&nbsp;&nbsp;</td>
+            <td style="width: 300px;">
+                &lt;AUTHINFO&gt;</td>
+             <td style="text-align: right; width: 180px;" valign="top">
+                 &lt;DATE&gt;<br />
+                 Order No.: &lt;ORDERNO&gt;</td>
+       </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+        </tr>
+        <tr>
+            <td style="width: 70px; text-align: right" valign="top">
+                Billing &nbsp;&nbsp;<br />
+                Information: &nbsp;&nbsp;</td>
+            <td style="width: 300px;">
+                &lt;BILLINFO&gt;</td>
+            <td style="text-align: right width: 180px;" valign="top">
+                &lt;PAYMENTINFO&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+       </tr>
+        <tr>
+            <td colspan="3" style="text-align: center">
+                <hr noshade />
+                Order Summary
+                <hr noshade />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                &lt;ORDERSUMMARY&gt;</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+        </tr>
+        <tr><td colspan="3" style="text-align: center">
+            <hr noshade />
+            Seminar Detail
+            <hr noshade />
+        </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+        </tr>
+&lt;DETAILINFO&gt;
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+        </tr>
+        <tr>
+            <td style="width: 70px; text-align: right;" valign="top">
+                Thank You!&nbsp;&nbsp;</td>
+            <td colspan="2">
+                If you have questions concerning this order, please call us at (303) 531-4560.&nbsp;
+                You may also send a fax to (303) 531-4565, or Email us at CustomerService@AmericanTrainco.com.&nbsp;<br />
+                <br />
+                American Trainco, Inc., P.O. Box 3397, Englewood, CO  80155<br />
+                <br />
+                Sincerely, Your Customer Service Staff at American Trainco</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+        </tr>
+
+    </table>
+
+</body>
+</html>
