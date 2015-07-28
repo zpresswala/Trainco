@@ -11,10 +11,12 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 {
     public class CoursesController : ApiController
     {
-        [HttpGet]
+        [HttpPost]
         public void Search(string json)
         {
             CoursesSearchRequest searchRequest = JsonConvert.DeserializeObject<CoursesSearchRequest>(json);
+
+
         }
     }
 }
