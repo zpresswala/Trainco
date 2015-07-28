@@ -12,11 +12,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
     public class CoursesController : ApiController
     {
         [HttpPost]
-        public void Search(string json)
+        public void Search([FromBody] dynamic json)
         {
-            CoursesSearchRequest searchRequest = JsonConvert.DeserializeObject<CoursesSearchRequest>(json);
+            //{"location":"Vermont","classTopics":["electrical","management"],"dates":{"min":{"minMonthVal":9,"minYearVal":2015},"max":{"maxMonthVal":1,"maxYearVal":2016}}}
 
-
+            CoursesSearchRequest searchRequest = JsonConvert.DeserializeObject<CoursesSearchRequest>(json.ToString());
         }
     }
 }
