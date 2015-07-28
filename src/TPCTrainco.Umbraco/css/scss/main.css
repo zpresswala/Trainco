@@ -3003,10 +3003,11 @@ a:hover {
   font-style: italic;
   color: #3E3E3E; }
 
-.container {
-  margin: 0 auto 60px; }
+.row {
+  margin: 0 auto 60px;
+  max-width: 1200px; }
   @media (min-width: 1025px) {
-    .container {
+    .row {
       margin: 45px auto 60px; } }
 
 .topic-circles {
@@ -3118,7 +3119,9 @@ a:hover {
 
 .intro-section {
   background: url("/assets/images/bg-small.jpg") center top/cover no-repeat;
-  padding-top: 60px; }
+  padding-top: 60px;
+  position: relative;
+  z-index: 2; }
   @media (min-width: 768px) {
     .intro-section {
       background-image: url("/assets/images/bg-large.jpg"); } }
@@ -3450,7 +3453,7 @@ a:hover {
 .blog-post .container {
   margin: 35px auto 95px; }
 
-.search-page h4 {
+.select-date-text {
   text-align: center;
   color: #FFFFFF;
   font-weight: 100;
@@ -3494,8 +3497,11 @@ a:hover {
 .secondary-search .ui-rangeSlider-innerBar {
   background-color: rgba(0, 0, 0, 0.1); }
 
-.secondary-search .month-label {
+.secondary-search .month-label, .secondary-search .select-date-text {
   color: #3E3E3E; }
+
+.secondary-search .select2-container {
+  margin: 0 auto 27px; }
 
 .seminar-detail .btn-white {
   padding: 8px 20px; }
@@ -3503,23 +3509,40 @@ a:hover {
 .seminar-detail .jumbotron {
   margin: 100px auto 30px; }
 
-.button-wrapper {
-  width: 60%;
-  margin: 0 auto;
-  max-width: 200px; }
-  .button-wrapper a {
-    display: block;
-    text-align: center; }
-  .button-wrapper .btn-first {
-    margin-bottom: 30px; }
+.button-wrapper a {
+  display: block;
+  text-align: center;
+  max-width: 200px;
+  margin: 0 auto; }
+
+.button-wrapper .btn-first {
+  margin-bottom: 30px; }
 
 .share-btn-wrap {
   text-align: right; }
 
+@media (min-width: 992px) {
+  .second-btn {
+    margin-left: 0; } }
+
+.single-day-description {
+  padding-left: 20px; }
+  @media (min-width: 768px) {
+    .single-day-description {
+      padding-left: 40px; } }
+  .single-day-description h3 {
+    font-weight: 300;
+    color: #5C5C5C;
+    font-size: 24px; }
+
 .cart {
-  padding: 0; }
+  padding: 0;
+  z-index: 0;
+  display: none; }
   .cart .container {
     margin: 0 auto; }
+  .cart .row {
+    margin: 0; }
   .cart h3 {
     font-weight: 400;
     color: #000000; }
@@ -3584,10 +3607,9 @@ a:hover {
   content: 'Subtotal'; }
 
 .cart-bottom {
-  background-color: #f1f1f1;
   width: 100%;
   position: relative;
-  border-bottom: 1px solid #D7D7D7; }
+  background-color: #f1f1f1; }
   .cart-bottom .btn-reg {
     float: right;
     margin-right: 15px; }
@@ -3595,8 +3617,7 @@ a:hover {
       .cart-bottom .btn-reg {
         margin-right: 0; } }
   .cart-bottom .wrap {
-    position: relative;
-    margin-bottom: 20px; }
+    position: relative; }
   .cart-bottom .btn-wrapper {
     top: 50%;
     position: absolute;
@@ -3605,6 +3626,20 @@ a:hover {
       .cart-bottom .btn-wrapper {
         position: static;
         padding-right: 0; } }
+
+.cart-visible {
+  height: 30px;
+  position: relative;
+  border-bottom: 1px solid #D7D7D7;
+  background-color: #f1f1f1; }
+  .cart-visible .cart-total {
+    margin: 0;
+    display: block; }
+    .cart-visible .cart-total li {
+      display: inline;
+      float: none; }
+  .cart-visible.down .cart-total {
+    display: none; }
 
 .cart-tab {
   position: absolute;
@@ -3704,15 +3739,14 @@ a:hover {
     border-radius: 50%;
     margin: 25px auto 0;
     display: block; }
+  .result .container {
+    width: 100%; }
   .result .text-desc {
     padding-bottom: 30px;
     background-color: #FFFFFF; }
   .result .btn-blue-hollow {
     padding: 6px 30px;
     float: left; }
-  @media (min-width: 992px) {
-    .result .location, .result .date, .result .remove, .result .qty-wrap, .result .sub-total {
-      text-align: left; } }
   .result .cart-item {
     padding: 30px 0; }
     .result .cart-item:last-child {
@@ -3722,9 +3756,18 @@ a:hover {
       display: none; }
     .result .cart-item .container {
       max-width: 1000px; }
+    @media (min-width: 992px) {
+      .result .cart-item .attendees {
+        text-align: center; } }
+    @media (min-width: 992px) {
+      .result .cart-item .sub-total {
+        text-align: right; } }
   .result .cart-items {
     float: left;
     width: 100%; }
+
+.attendees-label {
+  margin-right: 10px; }
 
 footer {
   color: #FFFFFF;

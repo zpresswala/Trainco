@@ -1,10 +1,8 @@
-.search-page {
-	h4 {
-		text-align: center;
-		color: $white;
-		font-weight: 100;
-		font-size: 18px;
-	}
+.select-date-text {
+	text-align: center;
+	color: $white;
+	font-weight: 100;
+	font-size: 18px;
 }
 
 #date-range-slider {
@@ -60,7 +58,11 @@
 		background-color: rgba(0,0,0,0.10);
 	}
 
-	.month-label {
+	.month-label, .select-date-text {
 		color: $headline-black;
+	}
+
+	.select2-container {
+		margin: 0 auto 27px;
 	}
 }

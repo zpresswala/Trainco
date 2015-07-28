@@ -10,12 +10,11 @@
 }
 
 .button-wrapper {
-	width: 60%;
-	margin: 0 auto;
-	max-width: 200px;
 	a {
 		display: block;
 		text-align: center;
+		max-width: 200px;
+		margin: 0 auto;
 	}
 
 	.btn-first {
@@ -26,4 +25,23 @@
 
 .share-btn-wrap {
 	text-align: right;
+}
+
+.second-btn {
+	@include med-desktop-and-up {
+		margin-left: 0;
+	}
+}
+
+.single-day-description {
+	padding-left: 20px;
+	@include tablet-portrait-and-up {
+		padding-left: 40px;
+	}
+
+	h3 {
+		font-weight: 300;
+		color: #5C5C5C;
+		font-size: 24px;
+	}
 }

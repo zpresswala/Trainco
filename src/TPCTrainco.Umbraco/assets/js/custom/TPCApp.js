@@ -29,6 +29,8 @@ function TPCApp() {
 		});
 	}
 
+	this.animateCart();
+
 	this.bindScroll();
 }
 
@@ -46,4 +48,22 @@ TPCApp.prototype.handleWindowScroll = function() {
 	if($('#count').length) {
 		this.countUp.handleWindowScroll(this.currentScrollTop);
 	}
+};
+
+// this should go in the Backbone app eventually
+TPCApp.prototype.animateCart = function() {
+	if(Modernizr.csstransitions) {
+		$('.cart-tab').on('click', function() {
+			// $('.cart, .results-container').toggleClass('down');
+			$('.cart').slideToggle(300, function() {
+				$(this).toggleClass('down');
+				$('.cart-visible').toggleClass('down');
+			});
+		});
+	} else {
+		$('.cart-tab').on('click', function() {
+			$('.cart').slideToggle('fast');
+		});
+	}
+
 };

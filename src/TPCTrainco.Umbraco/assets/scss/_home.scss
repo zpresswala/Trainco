@@ -3,8 +3,9 @@
 	@include font-italic(18px, $headline-black);
 }
 
-.container {
+.row {
 	margin: 0 auto 60px;
+	max-width: 1200px;
 	@include tablet-landscape-and-up {
 		margin: 45px auto 60px;
 	}
@@ -138,6 +139,8 @@
 .intro-section {
 	background: url('/assets/images/bg-small.jpg') center top / cover no-repeat;
 	padding-top: 60px;
+	position: relative;
+	z-index: 2;
 	@include tablet-portrait-and-up {
 		background-image: url('/assets/images/bg-large.jpg');
 	}

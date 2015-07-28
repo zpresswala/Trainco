@@ -94,19 +94,119 @@
         </nav>
 
         <div class="container-fluid headline-section seminar-detail">
-            <div class="container">
+            <div class="row">
                 <div class="jumbotron">
                     <h1>Seminar Detail Page Title Here</h1>
                 </div>
-                <div class="button-wrapper">
-                    <a href="#" class="btn-reg btn-first" role="button">Register Now</a>
-                    <a href="#" class="btn-reg btn-white" role="button">Get an On-Site Quote</a>
+                <div class="button-wrapper col-xs-12 col-md-8 col-md-offset-2">
+                    <div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-2">
+                        <a href="#" class="btn-reg btn-first" role="button">Register Now</a>
+                    </div>
+                    <div class="col-xs-8 col-xs-offset-2 col-md-4 second-btn">
+                        <a href="#" class="btn-reg btn-white" role="button">Get an On-Site Quote</a>
+                    </div>
+                    
                 </div>
             </div>
         </div>
 
-        <div class="container-fluid gradient-bg main-content">
+
+        <!-- THE CART -->
+        <!-- ####### NEW  #########-->
+        <div class="container-fluid cart">
+            <div class="cart-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="cart-top col-xs-12">
+                            <h3><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="cart-items">
+                <li class="cart-item">
+                    <ul class="container">
+                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                        <li class="remove col-xs-12 col-sm-4 col-md-2">
+                            <a href="javascript:void(0);"><span>X</span>Remove</a>
+                        </li>
+                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                    </ul>
+                </li>
+                <li class="cart-item">
+                    <ul class="container">
+                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                        <li class="remove col-xs-12 col-sm-4 col-md-2">
+                            <a href="javascript:void(0);"><span>X</span>Remove</a>
+                        </li>
+                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                    </ul>
+                </li>
+                <li class="cart-item">
+                    <ul class="container">
+                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                        <li class="remove col-xs-12 col-sm-4 col-md-2">
+                            <a href="javascript:void(0);"><span>X</span>Remove</a>
+                        </li>
+                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                    </ul>
+                </li>
+                <li class="cart-item">
+                    <ul class="container">
+                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                        <li class="remove col-xs-12 col-sm-4 col-md-2">
+                            <a href="javascript:void(0);"><span>X</span>Remove</a>
+                        </li>
+                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="cart-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 wrap">
+                            <ul class="cart-total col-xs-6 col-md-4">
+                                <li class="items">6 items</li>
+                                <li>Total:<span class="total">$4999</span></li>
+                            </ul>
+                            <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
+                                <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-visible">
+            <a class="cart-tab" href="javascript:void(0);">
+                <img src="/assets/images/icon-cart-tab.png" />
+            </a>
             <div class="container">
+                <!-- <div class="row"> -->
+                    <ul class="cart-total col-xs-6 col-md-4">
+                        <li class="items">6 items</li>
+                        <li>Total:<span class="total">$4999</span></li>
+                    </ul>
+                <!-- </div> -->
+            </div>
+        </div>
+
+
+
+        <div class="container-fluid gradient-bg main-content">
+            <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-wrap">
 
                     
@@ -214,12 +314,29 @@
                         </select>
 
                         <!-- datepicker -->
-                        <h4>Select a date range</h4>
+                        <h4 class="select-date-text">Select a date range</h4>
                         <div id="date-range-slider"></div>
 
                     </div>
 
                 </div>
+            </div>
+        </div>
+
+
+        <!-- the red section -->
+        <div class="container-fluid onsite-section">
+            <div class="left-skew">
+                <div class="skewed-side">
+                    <div class="inner">
+                        <h2 class="callout-headline">Take advantage of our on-site training program.</h2>
+                        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                        <a href="#" class="btn-reg btn-white" role="button">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-img">
+                <img src="/assets/images/on-site.jpg" alt="See our on-site programs">
             </div>
         </div>
 

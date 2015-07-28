@@ -4,6 +4,7 @@ function MainSearchSelect() {
 
 	var _this = this;
 
+
 	// var sampleArray = [
 	// 					{	
 	// 						id: 0,
@@ -72,6 +73,8 @@ function MainSearchSelect() {
 		// }
 	// });
 
+	this.autofillLocation();
+
 	$('#search-btn').on('click', function() {
 		_this.getSearchParams();
 	});
@@ -81,7 +84,7 @@ MainSearchSelect.prototype.getSearchParams = function() {
 	var topicsArray = [];
 
 	// get the city or zip
-	var city = $('#main-search').select2('val').toString();
+	var location = $('#main-search').select2('val').toString();
 
 	// get the selected class topic
 	$('.chosen').each(function() {
@@ -114,7 +117,7 @@ MainSearchSelect.prototype.getSearchParams = function() {
 	// [minMonthYear, maxMonthYear];
 
 	var searchResults = {
-		city: city,
+		location: location,
 		classTopics: topicsArray,
 		dates: selectedDates
 	};
@@ -122,5 +125,15 @@ MainSearchSelect.prototype.getSearchParams = function() {
 	console.log(JSON.stringify(searchResults));
 
 	console.log(searchResults)
+
+};
+
+MainSearchSelect.prototype.autofillLocation = function() {
+
+	var visitorLocation = $('#main-search').data('location');
+	console.log(visitorLocation)
+
+	$('#visitor-location').val(visitorLocation).text(visitorLocation);
+	
 
 };

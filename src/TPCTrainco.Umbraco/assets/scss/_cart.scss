@@ -1,8 +1,13 @@
 .cart {
 	padding: 0;
-
+	z-index: 0;
+	display: none;
 	.container {
 		margin: 0 auto;
+	}
+
+	.row {
+		margin: 0;
 	}
 
 	h3 {
@@ -98,10 +103,9 @@
 }
 
 .cart-bottom {
-	background-color: #f1f1f1;
 	width: 100%;
 	position: relative;
-	border-bottom: 1px solid $cart-border;
+	background-color: #f1f1f1;
 
 	.btn-reg {
 		// why a new button font weight?
@@ -114,7 +118,7 @@
 
 	.wrap {
 		position: relative;
-		margin-bottom: 20px;
+		// margin-bottom: 20px;
 	}
 
 	.btn-wrapper {
@@ -126,6 +130,27 @@
 			padding-right: 0;
 		}
 	}
+}
+
+.cart-visible {
+	height: 30px;
+	position: relative;
+	border-bottom: 1px solid $cart-border;
+	background-color: #f1f1f1;
+
+	.cart-total {
+		margin: 0;
+		display: block;
+
+		li {
+			display: inline;
+			float: none;
+		}
+	}
+
+	&.down .cart-total {
+		display: none;
+	} 
 }
 
 .cart-tab {
@@ -253,6 +278,10 @@
 		display: block;
 	}
 
+	.container {
+		width: 100%;
+	}
+
 	.text-desc {
 		padding-bottom: 30px;
 		background-color: $white;
@@ -263,11 +292,11 @@
 		float: left;
 	}
 
-	.location, .date, .remove, .qty-wrap, .sub-total {
-		@include med-desktop-and-up {
-			text-align: left;
-		}
-	}
+	// .location, .date, .remove, .qty-wrap, .sub-total {
+	// 	@include med-desktop-and-up {
+	// 		text-align: left;
+	// 	}
+	// }
 
 	.cart-item {
 		padding: 30px 0;
@@ -289,6 +318,17 @@
 		.container {
 			max-width: 1000px;
 		}
+
+		.attendees {
+			@include med-desktop-and-up {
+				text-align: center;
+			}
+		}
+		.sub-total {
+			@include med-desktop-and-up {
+				text-align: right;
+			}
+		}
 	}
 
 	.cart-items {
@@ -296,4 +336,8 @@
 		width: 100%;
 
 	}
+}
+
+.attendees-label {
+	margin-right: 10px;
 }
