@@ -12,9 +12,6 @@
 	display: table;
 	width: 100%;
 	position: relative;
-	// @include med-desktop-and-up {
-	// 	position: relative;
-	// }
 
 	.form-wrap {
 		@include med-desktop-and-up {
@@ -55,6 +52,7 @@
 
 		@include med-desktop-and-up {
 			float: left;
+			margin: 40px auto 20px;
 		}
 	}
 
@@ -67,14 +65,20 @@
 			margin-top: -190px;
 			left: 0;
 		}
-	}
 
-	.carousel-caption {
-		bottom: auto;
+		.carousel-caption {
+			bottom: 7%;
+			@include med-desktop-and-up {
+				bottom: auto;
+			}
+		}
 	}
 
 	.carousel-indicators {
 		bottom: 0;
+		@include med-desktop-and-up {
+			bottom: -30px;
+		}
 	}
 }
 

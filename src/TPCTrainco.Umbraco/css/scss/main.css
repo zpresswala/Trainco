@@ -3516,7 +3516,7 @@ a:hover {
 .button-wrapper a {
   display: block;
   text-align: center;
-  max-width: 200px;
+  max-width: 195px;
   margin: 0 auto; }
 
 .button-wrapper .btn-first {
@@ -3828,7 +3828,8 @@ a:hover {
       outline: none; }
     @media (min-width: 992px) {
       .caro-form-container .btn-reg {
-        float: left; } }
+        float: left;
+        margin: 40px auto 20px; } }
   .caro-form-container .carousel {
     background: none; }
     @media (min-width: 992px) {
@@ -3838,10 +3839,16 @@ a:hover {
         top: 50%;
         margin-top: -190px;
         left: 0; } }
-  .caro-form-container .carousel-caption {
-    bottom: auto; }
+    .caro-form-container .carousel .carousel-caption {
+      bottom: 7%; }
+      @media (min-width: 992px) {
+        .caro-form-container .carousel .carousel-caption {
+          bottom: auto; } }
   .caro-form-container .carousel-indicators {
     bottom: 0; }
+    @media (min-width: 992px) {
+      .caro-form-container .carousel-indicators {
+        bottom: -30px; } }
 
 .company-state-wrap {
   display: inline-block;
@@ -3849,6 +3856,10 @@ a:hover {
 
 .promo-wrap {
   display: none; }
+
+.secondary-browse-btn {
+  margin: 30px 0 0;
+  float: left; }
 
 footer {
   color: #FFFFFF;
