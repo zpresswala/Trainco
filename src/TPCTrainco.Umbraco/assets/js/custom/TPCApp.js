@@ -29,6 +29,8 @@ function TPCApp() {
 		});
 	}
 
+	this.onSiteForm = new OnSiteForm();
+
 	this.animateCart();
 
 	this.bindScroll();

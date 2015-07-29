@@ -118,6 +118,12 @@
 	}
 }
 
+.container-fluid {
+	.container {
+		margin: 50px auto;
+	}
+}
+
 // offwhite sections have the slightly gray background color
 .offwhite-section {
 	.home-highlight-circle {
@@ -238,6 +244,10 @@
 	.right img {
 		margin-left: -15px;
 	}
+}
+
+.carousel-control.right, .carousel-control.left {
+	background-image: none;
 }
 
 .jumbotron {

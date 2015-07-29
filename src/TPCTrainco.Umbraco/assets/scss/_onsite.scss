@@ -8,6 +8,34 @@
 }
 
 .caro-form-container {
+	background: url("/assets/images/carousel-mobile-bg.jpg") center top/cover no-repeat;
+	display: table;
+	width: 100%;
+	position: relative;
+	// @include med-desktop-and-up {
+	// 	position: relative;
+	// }
+
+	.form-wrap {
+		@include med-desktop-and-up {
+			margin-bottom: 40px;
+		}
+	}
+
+	> .container {
+		position: relative;
+	}
+
+	h3 {
+		color: $white;
+		font-weight: 300;
+		text-align: center;
+		margin: 40px 0 30px;
+		@include med-desktop-and-up {
+			text-align: left;
+			margin: 40px 0 20px;
+		}
+	}
 	.company-wrap {
 		padding-left: 0;
 	}
@@ -15,9 +43,46 @@
 	.state-wrap {
 		padding: 0;
 	}
+
+	.btn-reg {
+		border: none;
+		display: block;
+		margin: 20px auto 0;
+		width: 150px;
+		&:focus {
+			outline: none;
+		}
+
+		@include med-desktop-and-up {
+			float: left;
+		}
+	}
+
+	.carousel {
+		background: none;
+		@include med-desktop-and-up {
+			width: 50%;
+			position: absolute;
+			top: 50%;
+			margin-top: -190px;
+			left: 0;
+		}
+	}
+
+	.carousel-caption {
+		bottom: auto;
+	}
+
+	.carousel-indicators {
+		bottom: 0;
+	}
 }
 
 .company-state-wrap {
 	display: inline-block;
 	width: 100%;
+}
+
+.promo-wrap {
+	display: none;
 }

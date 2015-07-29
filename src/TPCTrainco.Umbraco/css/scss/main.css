@@ -3106,6 +3106,9 @@ a:hover {
     .home-highlight-circle {
       float: left; } }
 
+.container-fluid .container {
+  margin: 50px auto; }
+
 @media (min-width: 1025px) {
   .offwhite-section .home-highlight-circle {
     float: right; } }
@@ -3187,6 +3190,9 @@ a:hover {
     margin-left: -15px; }
   .carousel .right img {
     margin-left: -15px; }
+
+.carousel-control.right, .carousel-control.left {
+  background-image: none; }
 
 .jumbotron {
   text-align: center;
@@ -3790,19 +3796,64 @@ a:hover {
   display: block;
   max-width: 160px; }
 
-.caro-form-container .company-wrap {
-  padding-left: 0; }
-
-.caro-form-container .state-wrap {
-  padding: 0; }
+.caro-form-container {
+  background: url("/assets/images/carousel-mobile-bg.jpg") center top/cover no-repeat;
+  display: table;
+  width: 100%;
+  position: relative; }
+  @media (min-width: 992px) {
+    .caro-form-container .form-wrap {
+      margin-bottom: 40px; } }
+  .caro-form-container > .container {
+    position: relative; }
+  .caro-form-container h3 {
+    color: #FFFFFF;
+    font-weight: 300;
+    text-align: center;
+    margin: 40px 0 30px; }
+    @media (min-width: 992px) {
+      .caro-form-container h3 {
+        text-align: left;
+        margin: 40px 0 20px; } }
+  .caro-form-container .company-wrap {
+    padding-left: 0; }
+  .caro-form-container .state-wrap {
+    padding: 0; }
+  .caro-form-container .btn-reg {
+    border: none;
+    display: block;
+    margin: 20px auto 0;
+    width: 150px; }
+    .caro-form-container .btn-reg:focus {
+      outline: none; }
+    @media (min-width: 992px) {
+      .caro-form-container .btn-reg {
+        float: left; } }
+  .caro-form-container .carousel {
+    background: none; }
+    @media (min-width: 992px) {
+      .caro-form-container .carousel {
+        width: 50%;
+        position: absolute;
+        top: 50%;
+        margin-top: -190px;
+        left: 0; } }
+  .caro-form-container .carousel-caption {
+    bottom: auto; }
+  .caro-form-container .carousel-indicators {
+    bottom: 0; }
 
 .company-state-wrap {
   display: inline-block;
   width: 100%; }
 
+.promo-wrap {
+  display: none; }
+
 footer {
   color: #FFFFFF;
   background-color: #3A3A3A;
+  display: inline-block;
   width: 100%;
   height: auto; }
   @media (min-width: 768px) {
