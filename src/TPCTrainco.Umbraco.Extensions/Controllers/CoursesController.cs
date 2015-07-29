@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TPCTrainco.Umbraco.Extensions.Models;
+using TPCTrainco.Umbraco.Extensions.Objects;
 
 namespace TPCTrainco.Umbraco.Extensions.Controllers
 {
@@ -16,7 +17,15 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         {
             //{"location":"Vermont","classTopics":["electrical","management"],"dates":{"min":{"minMonthVal":9,"minYearVal":2015},"max":{"maxMonthVal":1,"maxYearVal":2016}}}
 
-            CoursesSearchRequest searchRequest = JsonConvert.DeserializeObject<CoursesSearchRequest>(json.ToString());
+            SeminarsSearchRequest searchRequest = JsonConvert.DeserializeObject<SeminarsSearchRequest>(json.ToString());
+
+            List<COURS> courseList = CacheObjects.GetCourseList();
+
+            if (courseList != null)
+            {
+
+            }
+
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TPCTrainco.Umbraco.Extensions.Models
 {
-    public class CoursesSearchRequest
+    public class SeminarsSearchRequest
     {
         public string Location { get; set; }
         public string[] classTopics { get; set; }

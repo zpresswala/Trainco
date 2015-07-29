@@ -58,6 +58,12 @@
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Examine, Version=0.1.65.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Examine.0.1.65.0\lib\Examine.dll</HintPath>
@@ -114,6 +120,8 @@
       <HintPath>..\packages\UmbracoCms.Core.7.2.8\lib\SQLCE4Umbraco.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -128,6 +136,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -205,18 +217,134 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CATEGORY.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CATEGORYTYPE.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Country.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="COURS.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseFormat.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseTopic.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseType.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\Nodes.cs" />
-    <Compile Include="Models\CoursesSearchRequest.cs" />
+    <Compile Include="INSTRUCTOR.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LocationType.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SeminarsSearchRequest.cs" />
+    <Compile Include="Objects\CacheObjects.cs" />
+    <Compile Include="Objects\Seminars.cs" />
+    <Compile Include="OnSite.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductType.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegBillCCType.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegBillPaymentMethodType.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegContactMethodType.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REGISTRATION.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationAttendee.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationAttendeeSchedule.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SCHEDULE.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduleCourseInstructor.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SearchList_Category.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SearchList_Locations.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SearchList_RegLocation.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Seminar_Catalog.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="State.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TraincoModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TraincoModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TraincoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TraincoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TraincoModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Location.cs" />
+    <Compile Include="ViewModels\Schedule.cs" />
+    <Compile Include="ViewModels\Seminar.cs" />
+    <Compile Include="ZipLookup.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="TraincoModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TraincoModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="TraincoModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TraincoModel.edmx</DependentUpon>
+      <LastGenOutput>TraincoModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="TraincoModel.edmx.diagram">
+      <DependentUpon>TraincoModel.edmx</DependentUpon>
+    </None>
+    <None Include="TraincoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TraincoModel.edmx</DependentUpon>
+      <LastGenOutput>TraincoModel.cs</LastGenOutput>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
