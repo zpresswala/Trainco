@@ -89,6 +89,7 @@ MainSearchSelect.prototype.getSearchParams = function() {
 	// get the selected class topic
 	$('.chosen').each(function() {
 		var selectedTopic = $(this).data('topic');
+		console.log('hi')
 		topicsArray.push(selectedTopic);
 	});
 
@@ -114,8 +115,12 @@ MainSearchSelect.prototype.getSearchParams = function() {
 		min: minMonthYear,
 		max: maxMonthYear
 	};
-	// [minMonthYear, maxMonthYear];
-
+	console.log(topicsArray.length)
+	if(topicsArray.length == 0) {
+		topicsArray.push('all');
+		alert('hi')
+	}
+	console.log(topicsArray)
 	var searchResults = {
 		location: location,
 		classTopics: topicsArray,
@@ -131,9 +136,6 @@ MainSearchSelect.prototype.getSearchParams = function() {
 MainSearchSelect.prototype.autofillLocation = function() {
 
 	var visitorLocation = $('#main-search').data('location');
-	console.log(visitorLocation)
 
-	$('#visitor-location').val(visitorLocation).text(visitorLocation);
-	
-
+	$('#main-search').prepend('<option value="'+ visitorLocation +'" selected>'+ visitorLocation +'</option>').trigger('change');
 };
