@@ -7,14 +7,18 @@
 	.jumbotron {
 		margin: 100px auto 40px;
 	}
+
+	.row {
+		margin: 25px auto 45px;
+	}
 }
 
 .main-content {
-	.container {
-		margin: 35px auto 95px;
-		@include tablet-portrait-and-up {
-			margin: 75px auto 95px;
-		}
+	.row {
+		margin: 35px auto 55px;
+		// @include tablet-portrait-and-up {
+		// 	margin: 75px auto 95px;
+		// }
 	}
 }
 

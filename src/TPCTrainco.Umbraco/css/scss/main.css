@@ -3003,13 +3003,6 @@ a:hover {
   font-style: italic;
   color: #3E3E3E; }
 
-.row {
-  margin: 0 auto 60px;
-  max-width: 1200px; }
-  @media (min-width: 1025px) {
-    .row {
-      margin: 45px auto 60px; } }
-
 .topic-circles {
   background-color: rgba(0, 0, 0, 0.75);
   opacity: 0.75;
@@ -3129,11 +3122,21 @@ a:hover {
     right: -15%; }
   .intro-section .jumbotron h1:before {
     left: -15%; }
+  .intro-section .row {
+    margin: 0 auto 60px;
+    max-width: 1200px; }
+    @media (min-width: 1025px) {
+      .intro-section .row {
+        margin: 45px auto 60px; } }
 
 .carousel {
-  background: url("/assets/images/carousel-bg.jpg") center top/cover no-repeat;
+  background: url("/assets/images/carousel-mobile-bg.jpg") center top/cover no-repeat;
   width: 100%;
-  height: 385px; }
+  height: 100%; }
+  @media (min-width: 768px) {
+    .carousel {
+      background: url("/assets/images/carousel-bg.jpg") center top/cover no-repeat;
+      height: 385px; } }
   .carousel .item {
     height: 385px; }
   .carousel .carousel-caption {
@@ -3287,12 +3290,11 @@ a:hover {
       background: url("/assets/images/content-pg-header-large.jpg") center top/cover no-repeat; } }
   .headline-section .jumbotron {
     margin: 100px auto 40px; }
+  .headline-section .row {
+    margin: 25px auto 45px; }
 
-.main-content .container {
-  margin: 35px auto 95px; }
-  @media (min-width: 768px) {
-    .main-content .container {
-      margin: 75px auto 95px; } }
+.main-content .row {
+  margin: 35px auto 55px; }
 
 .text-wrap {
   line-height: 1.7;
@@ -3494,14 +3496,10 @@ a:hover {
 .ui-rangeSlider-arrow {
   display: none; }
 
-.secondary-search .ui-rangeSlider-innerBar {
-  background-color: rgba(0, 0, 0, 0.1); }
-
-.secondary-search .month-label, .secondary-search .select-date-text {
-  color: #3E3E3E; }
-
-.secondary-search .select2-container {
-  margin: 0 auto 27px; }
+.location-select-wrap {
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto; }
 
 .seminar-detail .btn-white {
   padding: 8px 20px; }
@@ -3534,6 +3532,23 @@ a:hover {
     font-weight: 300;
     color: #5C5C5C;
     font-size: 24px; }
+
+.secondary-search {
+  padding: 0; }
+  @media (min-width: 992px) {
+    .secondary-search {
+      padding-left: 15px;
+      padding-right: 15px; } }
+  .secondary-search .row {
+    margin: 0 auto 60px; }
+  .secondary-search h2 {
+    text-align: center; }
+  .secondary-search .ui-rangeSlider-innerBar {
+    background-color: rgba(0, 0, 0, 0.1); }
+  .secondary-search .month-label, .secondary-search .select-date-text {
+    color: #3E3E3E; }
+  .secondary-search .select2-container {
+    margin: 0 auto 27px; }
 
 .cart {
   padding: 0;
@@ -3768,6 +3783,22 @@ a:hover {
 
 .attendees-label {
   margin-right: 10px; }
+
+.onsite .btn-reg {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  max-width: 160px; }
+
+.caro-form-container .company-wrap {
+  padding-left: 0; }
+
+.caro-form-container .state-wrap {
+  padding: 0; }
+
+.company-state-wrap {
+  display: inline-block;
+  width: 100%; }
 
 footer {
   color: #FFFFFF;

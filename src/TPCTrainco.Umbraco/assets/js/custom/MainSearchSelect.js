@@ -137,5 +137,7 @@ MainSearchSelect.prototype.autofillLocation = function() {
 
 	var visitorLocation = $('#main-search').data('location');
 
-	$('#main-search').prepend('<option value="'+ visitorLocation +'" selected>'+ visitorLocation +'</option>').trigger('change');
+	if(!visitorLocation == 'undefiend') {
+		$('#main-search').prepend('<option value="'+ visitorLocation +'" selected>'+ visitorLocation +'</option>').trigger('change');
+	}
 };

@@ -53,16 +53,8 @@
 	display: none;
 }
 
-.secondary-search {
-	.ui-rangeSlider-innerBar {
-		background-color: rgba(0,0,0,0.10);
-	}
-
-	.month-label, .select-date-text {
-		color: $headline-black;
-	}
-
-	.select2-container {
-		margin: 0 auto 27px;
-	}
+.location-select-wrap {
+	max-width: 1000px;
+	width: 90%;
+	margin: 0 auto;
 }

@@ -45,3 +45,28 @@
 		font-size: 24px;
 	}
 }
+
+.secondary-search {
+	padding: 0;
+	@include med-desktop-and-up {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.row {
+		margin: 0 auto 60px;
+	}
+	h2 {
+		text-align: center;
+	}
+	.ui-rangeSlider-innerBar {
+		background-color: rgba(0,0,0,0.10);
+	}
+
+	.month-label, .select-date-text {
+		color: $headline-black;
+	}
+
+	.select2-container {
+		margin: 0 auto 27px;
+	}
+}
