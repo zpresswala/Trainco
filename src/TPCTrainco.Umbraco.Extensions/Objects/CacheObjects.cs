@@ -100,5 +100,28 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             return scheduleCourseList;
         }
+
+
+        public static List<CourseFormat> GetCourseFormatList()
+        {
+            string cacheKey = "CourseFormatList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CourseFormats"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<CourseFormat> courseFormatList = cache.Get(cacheKey) as List<CourseFormat>;
+
+            if (courseFormatList == null)
+            {
+                using (var db = new ATI_DevelopmentEntities1())
+                {
+                    courseFormatList = db.CourseFormats.Where(p => p.Active == 1).ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, courseFormatList, policy);
+            }
+
+            return courseFormatList;
+        }
     }
 }

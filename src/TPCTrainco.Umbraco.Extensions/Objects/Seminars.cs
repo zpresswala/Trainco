@@ -16,6 +16,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public List<SCHEDULE> ScheduleList = null;
         public List<COURS> CourseList = null;
         public List<ScheduleCourseInstructor> ScheduleCourseList = null;
+        public List<CourseFormat> CourseFormatList { get; set; }
 
         public Seminars()
         {
@@ -23,9 +24,15 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             ScheduleList = CacheObjects.GetScheduleList();
             CourseList = CacheObjects.GetCourseList();
             ScheduleCourseList = CacheObjects.GetScheduleCourseList();
+            CourseFormatList = CacheObjects.GetCourseFormatList();
         }
 
 
+        /// <summary>
+        /// Search Seminars/Courses
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public List<Seminar> Search(SeminarsSearchRequest request)
         {
             List<Seminar> resultsList = null;
@@ -157,6 +164,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        /// <summary>
+        /// Convert the legacy seminar to the new ViewModel
+        /// </summary>
+        /// <param name="seminarCatalog"></param>
+        /// <returns></returns>
         private Seminar ConvertSeminarCatalogToViewModel(Seminar_Catalog seminarCatalog)
         {
             Seminar result = new Seminar();
@@ -170,6 +182,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        /// <summary>
+        /// Convert the legacy schedule to the new ViewModel
+        /// </summary>
+        /// <param name="schedule"></param>
+        /// <returns></returns>
         private Schedule ConvertScheduleToViewModel(SCHEDULE schedule)
         {
             Schedule result = new Schedule();
@@ -182,7 +199,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 if (course != null)
                 {
                     result.Id = schedule.ScheduleID;
-                    result.DaysTitle = CleanDaysTitle(course.TitlePlain, course.CourseFeeDescription);
+                    result.DaysTitle = GetDaysTitle(course.CourseFormatID);
                     result.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");
                     result.Date = schedule.ScheduleDateDescription;
                     result.Price = Convert.ToDouble(course.CourseFee);
@@ -192,29 +209,29 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             return result;
         }
+        
 
-        //Basic Electricity for the Non-Electrician - Day 2 Only
-
-        private string CleanDaysTitle(string description, string feeDescription)
+        /// <summary>
+        /// Get the schedule's days title (Day 1, Day 2, Both Days, etc)
+        /// </summary>
+        /// <param name="courseFormatId"></param>
+        /// <returns></returns>
+        private string GetDaysTitle(int courseFormatId)
         {
-            string returnValue = "";
+            string daysTitle = "";
 
-            if (false == string.IsNullOrWhiteSpace(description))
-            {
-                returnValue = Regex.Match(description, @"Day \d[\w\W]{3,10}").ToString().Trim();
-            }
-            if (true == string.IsNullOrWhiteSpace(returnValue) && false == string.IsNullOrWhiteSpace(feeDescription))
-            {
-                returnValue = Regex.Replace(feeDescription, @"[\d\$,]{3,7}", "").Trim();
+            CourseFormat courseFormat = CourseFormatList.Where(p => p.CourseFormatID == courseFormatId).FirstOrDefault();
 
-                if (false == string.IsNullOrWhiteSpace(returnValue) && returnValue.IndexOf("Each Day") >= 0)
-                {
-                    returnValue = "Both Days";
-                }
+            if (courseFormat != null)
+            {
+                daysTitle = courseFormat.CourseFormatName;
             }
 
-            return returnValue;
+            return daysTitle;
         }
+
+
+        
     }
 }
 
