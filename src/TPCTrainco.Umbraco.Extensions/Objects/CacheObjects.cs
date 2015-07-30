@@ -86,13 +86,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             ObjectCache cache = MemoryCache.Default;
 
             List<ScheduleCourseInstructor> scheduleCourseList = cache.Get(cacheKey) as List<ScheduleCourseInstructor>;
-            List<COURS> courseList = GetCourseList();
 
             if (scheduleCourseList == null)
             {
                 using (var db = new ATI_DevelopmentEntities1())
                 {
-                    scheduleCourseList = db.ScheduleCourseInstructors.Where(p => courseList.Any(x => x.CourseID.Equals(p.CourseID))).ToList();
+                    scheduleCourseList = db.Set<ScheduleCourseInstructor>().ToList();
                 }
 
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };

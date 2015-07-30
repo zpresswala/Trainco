@@ -12,7 +12,6 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
         public string SubTitle { get; set; }
         public string ImageUrl { get; set; }
         public string DetailsUrl { get; set; }
-        public string Date { get; set; }
         public List<Location> Locations { get; set; }
 
     }

@@ -9,6 +9,6 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
     public class Location
     {
         public string Title { get; set; }
-        public List<Schedule> MyProperty { get; set; }
+        public List<Schedule> Schedules { get; set; }
     }
 }

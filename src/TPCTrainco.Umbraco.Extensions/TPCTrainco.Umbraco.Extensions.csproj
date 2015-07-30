@@ -107,6 +107,9 @@
     <Reference Include="MiniProfiler">
       <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
     </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>..\packages\morelinq.1.1.1\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
@@ -224,7 +227,7 @@
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CoursesController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
@@ -252,7 +255,9 @@
     </Compile>
     <Compile Include="Models\SeminarsSearchRequest.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
+    <Compile Include="Objects\SearchLocation.cs" />
     <Compile Include="Objects\Seminars.cs" />
+    <Compile Include="Objects\Topics.cs" />
     <Compile Include="OnSite.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
