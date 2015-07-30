@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TPCTrainco.Umbraco.Extensions.Models
+namespace TPCTrainco.Umbraco.Extensions
 {
     using System;
     using System.Collections.Generic;

@@ -7,14 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TPCTrainco.Umbraco.Extensions.Models
+namespace TPCTrainco.Umbraco.Extensions
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class SearchList_Category
+    public partial class CourseType
     {
-        public int CourseTopicID { get; set; }
-        public string CourseTopicName { get; set; }
+        public int CourseTypeID { get; set; }
+        public string CourseTypeName { get; set; }
+        public int Active { get; set; }
+        public System.DateTime Created { get; set; }
+        public Nullable<System.DateTime> Modified { get; set; }
+        public int CreatedMemberID { get; set; }
+        public Nullable<int> ModifiedMemberID { get; set; }
     }
 }

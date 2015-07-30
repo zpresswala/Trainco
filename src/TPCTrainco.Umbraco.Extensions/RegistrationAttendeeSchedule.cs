@@ -7,19 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TPCTrainco.Umbraco.Extensions.Models
+namespace TPCTrainco.Umbraco.Extensions
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseFormat
+    public partial class RegistrationAttendeeSchedule
     {
-        public int CourseFormatID { get; set; }
-        public string CourseFormatName { get; set; }
-        public int Active { get; set; }
-        public System.DateTime Created { get; set; }
-        public Nullable<System.DateTime> Modified { get; set; }
-        public int CreatedMemberID { get; set; }
-        public Nullable<int> ModifiedMemberID { get; set; }
+        public int RegAttendeeScheduleID { get; set; }
+        public int RegistrationAttendeeID { get; set; }
+        public int ScheduleID { get; set; }
     }
 }

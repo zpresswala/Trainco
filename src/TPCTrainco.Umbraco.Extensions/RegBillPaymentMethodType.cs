@@ -7,17 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TPCTrainco.Umbraco.Extensions.Models
+namespace TPCTrainco.Umbraco.Extensions
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CourseTopic
+    public partial class RegBillPaymentMethodType
     {
-        public int CourseTopicID { get; set; }
-        public string CourseTopicName { get; set; }
-        public string CourseTopicAbbreviation { get; set; }
-        public Nullable<double> CourseTopicParentID { get; set; }
+        public int RegBillPaymentMethodTypeID { get; set; }
+        public string RegBillPaymentMethodTypeName { get; set; }
         public int Active { get; set; }
         public System.DateTime Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }

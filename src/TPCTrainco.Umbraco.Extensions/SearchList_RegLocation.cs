@@ -7,15 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TPCTrainco.Umbraco.Extensions.Models
+namespace TPCTrainco.Umbraco.Extensions
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class SearchList_Locations
+    public partial class SearchList_RegLocation
     {
-        public int StateID { get; set; }
-        public string StateName { get; set; }
+        public int SchID { get; set; }
+        public string Title { get; set; }
+        public string PlaceDate { get; set; }
         public Nullable<int> isCanadian { get; set; }
     }
 }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TPCTrainco.Umbraco.Extensions.Models
 {
-    public class CoursesSearchRequest
+    public class SeminarsSearchRequest
     {
         public string Location { get; set; }
-        public List<string> classTopics { get; set; }
+        public string[] classTopics { get; set; }
         public Dates Dates { get; set; }
     }
 
@@ -22,12 +22,12 @@ namespace TPCTrainco.Umbraco.Extensions.Models
     public class Min
     {
         public int MinMonthVal { get; set; }
-        public int MinYearhVal { get; set; }
+        public int MinYearVal { get; set; }
     }
 
     public class Max
     {
         public int MaxMonthVal { get; set; }
-        public int MaxYearhVal { get; set; }
+        public int MaxYearVal { get; set; }
     }
 }

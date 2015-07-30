@@ -10,7 +10,7 @@ using System.Net.Http.Headers;
 
 namespace TPCTrainco.Umbraco.Extensions.Controllers
 {
-    public class SearchController : ApiController
+    public class TestController : ApiController
     {
         [HttpGet]
         public string[] Get()
