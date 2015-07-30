@@ -9,11 +9,10 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
     public class Schedule
     {
         public int Id { get; set; }
-        public string Title { get; set; }
         public string DaysTitle { get; set; }
         public string DaysDescription { get; set; }
         public string Date { get; set; }
-        public string Price { get; set; }
+        public double Price { get; set; }
         public string Description { get; set; }
     }
 }

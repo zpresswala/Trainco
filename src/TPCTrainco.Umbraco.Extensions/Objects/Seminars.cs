@@ -162,7 +162,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             Seminar result = new Seminar();
 
             result.Title = seminarCatalog.TitlePlain;
-            result.SubTitle = seminarCatalog.Subtitle;
+            result.SubTitle = seminarCatalog.WebToolTip;
             result.ImageUrl = "/test.gif";
             result.DetailsUrl = "/seminars/test";
 
@@ -182,11 +182,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 if (course != null)
                 {
                     result.Id = schedule.ScheduleID;
-                    result.Title = course.TitlePlain;
                     result.DaysTitle = CleanDaysTitle(course.TitlePlain, course.CourseFeeDescription);
                     result.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");
                     result.Date = schedule.ScheduleDateDescription;
-                    result.Price = string.Format("{0:c}", course.CourseFee);
+                    result.Price = Convert.ToDouble(course.CourseFee);
                     result.Description = course.GoogleDesc;
                 }
             }
@@ -207,6 +206,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             if (true == string.IsNullOrWhiteSpace(returnValue) && false == string.IsNullOrWhiteSpace(feeDescription))
             {
                 returnValue = Regex.Replace(feeDescription, @"[\d\$,]{3,7}", "").Trim();
+
+                if (false == string.IsNullOrWhiteSpace(returnValue) && returnValue.IndexOf("Each Day") >= 0)
+                {
+                    returnValue = "Both Days";
+                }
             }
 
             return returnValue;
