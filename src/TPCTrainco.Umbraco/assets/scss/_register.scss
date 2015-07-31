@@ -1,0 +1,121 @@
+.register-top {
+	background-color: #f1f1f1;
+	padding-top: 35px;
+	.jumbotron {
+		max-width: 435px;
+		h1 {
+			color: $headline-black;
+			&:before, &:after {
+				content: none;
+			}
+		}	
+	}
+}
+
+.indicator {
+	width: 95%;
+	margin: 0 auto;
+	position: relative;
+	display: inline-block;
+	padding: 0; 
+
+	li {
+		float: left;
+	}
+}
+
+.line {
+	width: 50%;
+	height: 14px;
+	background-color: #D6D6D6;
+}
+
+.step {
+	position: absolute;
+	background-color: #D6D6D6;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	top: 50%;
+	margin-top: -14px;
+
+	&:after {
+		position: relative;
+		bottom: -10px;
+		font-style: italic;
+		// color: $headline-black;
+		color: #B8B8B8;
+		width: 60px;
+		left: -50%;
+		font-weight: 100;
+		display: inline-block;
+		bottom: -35px;
+	}
+}
+
+.active {
+	&:after {
+		color: $headline-black;
+	}
+}
+
+.step1 {
+	left: -10px;
+	background-color: $red-button;
+	&:after {
+		content: 'Step 1';
+	}
+}
+
+.step2 {
+	left: 50%;
+	margin-left: -14px;
+	&:after {
+		content: 'Step 2';
+	}
+}
+
+.step3 {
+	right: -10px;
+	&:after {
+		content: 'Step 3';
+	}
+}
+
+.form-container {
+	background-color: #f1f1f1;
+	.container {
+		margin: 10px auto;
+	}
+}
+
+.form-item-wrapper {
+	.form-control {
+		background-color: #FCFCFC;
+	}
+}
+
+.top-info {
+	padding: 0;
+
+	li, p {
+		display: inline;
+	}
+
+	.date {
+		float: right;
+		font-style: italic;
+	}
+
+	h2 {
+		@include tablet-portrait-and-up {
+			display: inline;
+		}
+	}
+}
+
+.class-option {
+	text-align: center;
+	margin: 25px 0;
+	font-style: italic;
+}

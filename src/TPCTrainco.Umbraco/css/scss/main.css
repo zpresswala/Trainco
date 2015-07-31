@@ -3200,12 +3200,10 @@ a:hover {
   margin: 40px auto;
   letter-spacing: 0.5px;
   color: #FFFFFF; }
-  @media (min-width: 1025px) {
-    .jumbotron h1 {
-      font-weight: 300;
-      font-size: 38px;
-      color: #FFFFFF;
-      font-weight: 100; } }
+  .jumbotron h1 {
+    font-weight: 300;
+    font-size: 38px;
+    color: #FFFFFF; }
   .jumbotron p {
     max-width: 700px;
     margin: 0 auto;
@@ -3860,6 +3858,93 @@ a:hover {
 .secondary-browse-btn {
   margin: 30px 0 0;
   float: left; }
+
+.register-top {
+  background-color: #f1f1f1;
+  padding-top: 35px; }
+  .register-top .jumbotron {
+    max-width: 435px; }
+    .register-top .jumbotron h1 {
+      color: #3E3E3E; }
+      .register-top .jumbotron h1:before, .register-top .jumbotron h1:after {
+        content: none; }
+
+.indicator {
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+  display: inline-block;
+  padding: 0; }
+  .indicator li {
+    float: left; }
+
+.line {
+  width: 50%;
+  height: 14px;
+  background-color: #D6D6D6; }
+
+.step {
+  position: absolute;
+  background-color: #D6D6D6;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  top: 50%;
+  margin-top: -14px; }
+  .step:after {
+    position: relative;
+    bottom: -10px;
+    font-style: italic;
+    color: #B8B8B8;
+    width: 60px;
+    left: -50%;
+    font-weight: 100;
+    display: inline-block;
+    bottom: -35px; }
+
+.active:after {
+  color: #3E3E3E; }
+
+.step1 {
+  left: -10px;
+  background-color: #C6211F; }
+  .step1:after {
+    content: 'Step 1'; }
+
+.step2 {
+  left: 50%;
+  margin-left: -14px; }
+  .step2:after {
+    content: 'Step 2'; }
+
+.step3 {
+  right: -10px; }
+  .step3:after {
+    content: 'Step 3'; }
+
+.form-container {
+  background-color: #f1f1f1; }
+  .form-container .container {
+    margin: 10px auto; }
+
+.form-item-wrapper .form-control {
+  background-color: #FCFCFC; }
+
+.top-info {
+  padding: 0; }
+  .top-info li, .top-info p {
+    display: inline; }
+  .top-info .date {
+    float: right;
+    font-style: italic; }
+  @media (min-width: 768px) {
+    .top-info h2 {
+      display: inline; } }
+
+.class-option {
+  text-align: center;
+  margin: 25px 0;
+  font-style: italic; }
 
 footer {
   color: #FFFFFF;
