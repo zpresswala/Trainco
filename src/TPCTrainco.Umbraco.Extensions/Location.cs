@@ -7,15 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TPCTrainco.Umbraco.Extensions.Models
+namespace TPCTrainco.Umbraco.Extensions
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class LocationType
+    public partial class Location
     {
+        public int LocationID { get; set; }
         public int LocationTypeID { get; set; }
-        public string LocationTypeName { get; set; }
+        public string LocationCode { get; set; }
+        public string LocationName { get; set; }
+        public string LocationNotes { get; set; }
+        public string HotelSleepRate { get; set; }
+        public string HotelMeetingRate { get; set; }
         public int Active { get; set; }
         public System.DateTime Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
