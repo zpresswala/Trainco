@@ -29,7 +29,9 @@ function TPCApp() {
 		});
 	}
 
-	this.onSiteForm = new OnSiteForm();
+	if($('.caro-form-container').length) {
+		this.onSiteForm = new OnSiteForm();
+	}
 
 	this.animateCart();
 

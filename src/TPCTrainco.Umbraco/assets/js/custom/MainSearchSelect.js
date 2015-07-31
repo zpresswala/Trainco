@@ -118,7 +118,6 @@ MainSearchSelect.prototype.getSearchParams = function() {
 	console.log(topicsArray.length)
 	if(topicsArray.length == 0) {
 		topicsArray.push('all');
-		alert('hi')
 	}
 	console.log(topicsArray)
 	var searchResults = {
