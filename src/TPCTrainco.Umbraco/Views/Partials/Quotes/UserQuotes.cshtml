@@ -1,6 +1,6 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
 @{
-    IEnumerable<IPublishedContent> userQuoteList = CurrentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+    IEnumerable<IPublishedContent> userQuoteList = Model.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
 }
 <!-- Carousel -->
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">

@@ -21,9 +21,7 @@
     string htmlTitle = currentPage.GetPropertyValue<string>("htmlTitle", currentPage.Name);
 
     string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
-    string copyrightText = siteSettings.GetPropertyValue<string>("copyrightText");
-
-    IEnumerable<IPublishedContent> socialLinks = Nodes.Instance.SocialLinks;
+    
 }
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -52,7 +50,16 @@
     <meta name="twitter:domain" content="TPC Trainco" />
 
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/jquery-ui.structure.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/jquery-ui.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/classic-min.css">
     <!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"> -->
+    <!-- AUTOFILL PLUGIN CDN -->
+    <!-- ####### NEW  #########-->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" type="text/css" href="/css/scss/main.css">
 </head>
 
@@ -64,65 +71,45 @@
 
 <body>
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid contain">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <h1 class="logo">
-                    TCPTrainco
-                    <a class="navbar-brand" href="/"><img src="/assets/images/tcptraincologo.png" alt="TCPTrainco Logo" /></a>
-                </h1>
-            </div>
-
-            @Html.Partial("~/Views/Partials/Navigation/Main.cshtml")
-        </div><!-- /.container-fluid -->
-    </nav>
+@Html.Partial("Navigation/Top")
 
 @RenderBody()
 
-    <footer>
-        <ul class="wrapper">
-            <li class="copyright">&copy; @copyrightText</li>
+@Html.Partial("Navigation/Bottom")
 
-            <ul class="links">
-                <li><a href="#">Training Seminar Schedule<span>|</span></a></li>
-                <li><a href="#">Instructor Lounge<span>|</span></a></li>
-                <li><a href="#">Privacy Policy<span>|</span></a></li>
-                <li><a href="#">Legal Terms<span>|</span></a></li>
-                <li><a href="#">AR, MA, &amp; NH Residents<span>|</span></a></li>
-                <li><a href="#">Sitemap</a></li>
-                <ul class="social">
-                    @foreach (IPublishedContent social in socialLinks)
-                    { 
-                    <li>
-                        <a href="@(social.GetPropertyValue<string>("socialLink"))" class="regular-link">
-                            @(Html.Raw(social.GetPropertyValue<string>("svgHtml")))
-                        </a>
-                    </li>
-                    }
-                </ul>
-            </ul>
-        </ul>
-    </footer>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <!-- use modernizr generator for production -->
     <script type="text/javascript" src="/assets/js/vendor/modernizr-dev.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <!-- <script type="text/javascript" src="/assets/js/vendor/jquery-ui.min.js"></script> -->
+    <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+
+
     <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
     <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
     <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
     <script type="text/javascript" src="/assets/js/vendor/bootstrap-dropdown.js"></script>
 
-    <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
+    <script type="text/javascript" src="/assets/js/vendor/jQDateRangeSlider-withRuler-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+
+
+
     <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
+
+    <script type="text/javascript" src="/assets/js/custom/MainSearchSelect.js"></script>
+
     <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
+    <script type="text/javascript" src="/assets/js/custom/DatePicker.js"></script>
+
+    <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
 
     <!-- for production:
     <script type="text/javascript" src="/js/main.js"></script> -->

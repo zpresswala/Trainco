@@ -1,0 +1,48 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits UmbracoTemplatePage
+@{
+    // Model.Content is the current page that we're on
+    // AncestorsOrSelf is all of the ancestors this page has in the tree
+    // (1) means: go up to level 1 and stop looking for more ancestors when you get there
+    // First() gets the first ancestor found (the home page, on level 1)
+    IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
+    IEnumerable<IPublishedContent> socialLinks = Nodes.Instance.SocialLinks;
+
+    string copyrightText = siteSettings.GetPropertyValue<string>("copyrightText");
+
+    var homePage = CurrentPage.AncestorsOrSelf(1).First();
+
+    // The menu items we want are all of the children of the homepage
+    // We also check if "Hide in navigation" is on in the menu, we shouldn't show hidden items
+    IEnumerable<IPublishedContent> menuItems = homePage.Children.Where("navigationBottom == true");
+}
+<footer>
+    <ul class="wrapper">
+        <li class="copyright">&copy; @copyrightText</li>
+
+        <ul class="links">
+            @{
+                int i = 0;
+                int navCount = menuItems.Count();
+
+                foreach (IPublishedContent item in menuItems.OrderBy("SortOrder"))
+                {
+                    i++;
+                    
+                    <li><a href="@item.Url">@(item.GetPropertyValue<string>("navigationTitle", item.Name))@(Html.Raw(i != navCount ? "<span>|</span>" : ""))</a></li>
+                }
+            }
+
+            <ul class="social">
+                @foreach (IPublishedContent social in socialLinks)
+                {
+                    <li>
+                        <a href="@(social.GetPropertyValue<string>("socialLink"))" class="regular-link">
+                            @(Html.Raw(social.GetPropertyValue<string>("svgHtml")))
+                        </a>
+                    </li>
+                }
+            </ul>
+        </ul>
+    </ul>
+</footer>

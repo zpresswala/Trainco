@@ -19,14 +19,15 @@ namespace TPCTrainco.Umbraco
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
+                name: "DefaultApi1",
+                routeTemplate: "umbraco/BackOffice/Api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi2",
-                routeTemplate: "api/{controller}/{action}"
+                routeTemplate: "api/v1/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
         }
     }
