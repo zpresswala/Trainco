@@ -8,7 +8,7 @@
 
     IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
     IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
-    IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+    
 }
 
 <div class="container-fluid intro-section">
@@ -87,56 +87,9 @@
     }
 }
 
-<!-- Carousel -->
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        @{
-            int slideCount = 0;
+@Html.Partial("Quotes/UserQuotes", currentPage);
 
-            foreach (IPublishedContent slide in userQuoteList)
-            {
-                string classActive = slideCount == 0 ? " class=\"active\"" : "";
 
-                <li data-target="#carousel-example-generic" data-slide-to="@slideCount" @(Html.Raw(classActive))></li>
-
-                slideCount++;
-            }
-        }
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-        @{
-            slideCount = 0;
-
-            foreach (IPublishedContent slide in userQuoteList)
-            {
-                string classActive = slideCount == 0 ? " active" : "";
-
-                <div class="item@(Html.Raw(classActive))">
-                    <div class="carousel-caption">
-                        <p class="quote">@Html.Raw(slide.GetPropertyValue<string>("quoteText"))</p>
-                        <p class="citation"><span>@(slide.GetPropertyValue<string>("quoteAuthor"))</span>, @(slide.GetPropertyValue<string>("quoteCompany"))</p>
-                    </div>
-                </div>
-
-                slideCount++;
-            }
-        }
-    </div>
-
-    <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <img src="/assets/images/left-arrow.png" class="arrow-left" aria-hidden="true" />
-        <span class="sr-only">Previous</span>
-    </a>
-
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-        <img src="/assets/images/right-arrow.png" class="arrow-right" aria-hidden="true" />
-        <span class="sr-only">Next</span>
-    </a>
-</div> <!-- end carousel -->
 @helper RenderSeminar(IPublishedContent section, bool displayOpposite = false)
 {
     string headline = section.GetPropertyValue<string>("trainingHeadline");

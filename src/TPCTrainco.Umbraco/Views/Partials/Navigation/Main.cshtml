@@ -1,0 +1,47 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    // Model.Content is the current page that we're on
+    // AncestorsOrSelf is all of the ancestors this page has in the tree
+    // (1) means: go up to level 1 and stop looking for more ancestors when you get there
+    // First() gets the first ancestor found (the home page, on level 1)
+    var homePage = CurrentPage.AncestorsOrSelf(1).First();
+
+    // The menu items we want are all of the children of the homepage
+    // We also check if "Hide in navigation" is on in the menu, we shouldn't show hidden items
+    var menuItems = homePage.Children.Where("UmbracoNaviHide == false");
+}
+
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li><a href="#" class="btn-reg" role="button">Register</a></li>
+
+        @foreach (IPublishedContent item in menuItems.OrderBy("SortOrder"))
+        {
+            if (item.DocumentTypeAlias == "SeminarMainOverview")
+            {
+                string navName = item.GetPropertyValue<string>("navigationTitle", item.Name);
+
+                <li class="dropdown">
+                    <a href="@item.Url" class="dropdown-toggle regular-link nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@navName<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        @foreach (IPublishedContent subItem in item.Children)
+                        {
+                            string subNavName = subItem.GetPropertyValue<string>("navigationTitle", subItem.Name);
+
+                            <li><a href="@subItem.Url" class="nav-link regular-link">@subNavName</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li><a href="#" class="regular-link nav-link">On-Site Training</a></li>
+            }
+            <li><a class="@(CurrentPage.Id == item.Id ? "current" : null) track-click" href="@item.Url" data-ctitle="Nav: @item.Name">@item.Name</a></li>
+        }
+
+        <li><a href="tel:877-978-7246" class="regular-link nav-link">877-978-7246</a></li>
+    </ul>
+</div><!-- /.navbar-collapse -->
