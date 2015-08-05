@@ -17,6 +17,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public List<COURS> CourseList = null;
         public List<ScheduleCourseInstructor> ScheduleCourseList = null;
         public List<CourseFormat> CourseFormatList { get; set; }
+        public List<CourseTopic> CourseTopicList { get; set; }
 
         public Seminars()
         {
@@ -25,6 +26,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             CourseList = CacheObjects.GetCourseList();
             ScheduleCourseList = CacheObjects.GetScheduleCourseList();
             CourseFormatList = CacheObjects.GetCourseFormatList();
+            CourseTopicList = CacheObjects.GetCourseTopicList();
         }
 
 
@@ -164,6 +166,84 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public Course GetCourseById(int id)
+        {
+            Course result = null;
+
+            COURS course = CourseList.Where(p => p.CourseID == id).FirstOrDefault();
+
+            if (course != null)
+            {
+                result = ConvertCourseToViewModel(course);
+            }
+
+            return result;
+        }
+
+
+        public CourseCategory GetCourseCategoryById(int id)
+        {
+            CourseCategory result = null;
+
+            CourseTopic courseTopic = CourseTopicList.Where(p => p.CourseTopicID == id).FirstOrDefault();
+
+            if (courseTopic != null)
+            {
+                result = ConvertCourseCategoryToViewModel(courseTopic);
+            }
+
+            return result;
+        }
+
+
+        public List<Course> GetCourseList()
+        {
+            List<Course> result = null;
+
+            if (CourseList != null && CourseList.Count > 0)
+            {
+                result = new List<Course>();
+
+                foreach (COURS courseLegacy in CourseList)
+                {
+                    Course course = ConvertCourseToViewModel(courseLegacy);
+
+                    if (course != null)
+                    {
+                        result.Add(course);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+
+        public List<CourseCategory> GetCourseCategoryList()
+        {
+            List<CourseCategory> result = null;
+
+            List<CourseTopic> courseTopicList = CourseTopicList;
+
+            if (courseTopicList != null && courseTopicList.Count > 0)
+            {
+                result = new List<CourseCategory>();
+
+                foreach (CourseTopic courseTopicLegacy in courseTopicList)
+                {
+                    CourseCategory courseCategory = ConvertCourseCategoryToViewModel(courseTopicLegacy);
+
+                    if (courseCategory != null)
+                    {
+                        result.Add(courseCategory);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+
         /// <summary>
         /// Convert the legacy seminar to the new ViewModel
         /// </summary>
@@ -209,7 +289,56 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             return result;
         }
-        
+
+
+        private Course ConvertCourseToViewModel(COURS course)
+        {
+            Course result = new Course();
+
+            if (course != null)
+            {
+                CourseFormat courseFormat = CourseFormatList.Where(p => p.CourseFormatID == course.CourseFormatID).FirstOrDefault();
+                CourseTopic courseTopic = CourseTopicList.Where(p => p.CourseTopicID == course.CourseTopicID).FirstOrDefault();
+                CourseCategory category = null;
+
+                if (courseTopic != null)
+                {
+                    category = ConvertCourseCategoryToViewModel(courseTopic);
+                }
+
+                result.Id = course.CourseID;
+                result.CategoryId = course.CourseTopicID;
+                result.Category = category;
+                result.TypeId = course.CourseTypeID;
+                result.CountryId = course.CountryID ?? 0;
+                result.FormatName = courseFormat != null ? courseFormat.CourseFormatName : null;
+                result.CreditsText = course.CourseCredits;
+                result.ToolTip = course.WebToolTip;
+                result.TimesText = course.CourseTimes;
+                result.Title = course.TitlePlain;
+                result.FeeText = course.CourseFeeDescription;
+                result.CourseFee = course.CourseFee;
+                result.CertTitle = course.CertTitle1;
+                result.CertTitle2 = course.CertTitle2;
+            }
+
+            return result;
+        }
+
+
+        private CourseCategory ConvertCourseCategoryToViewModel(CourseTopic courseTopic)
+        {
+            CourseCategory result = new CourseCategory();
+
+            if (courseTopic != null)
+            {
+                result.Id = courseTopic.CourseTopicID;
+                result.Title = courseTopic.CourseTopicName;
+            }
+
+            return result;
+        }
+
 
         /// <summary>
         /// Get the schedule's days title (Day 1, Day 2, Both Days, etc)
@@ -231,7 +360,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        
+
     }
 }
 

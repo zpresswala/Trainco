@@ -324,6 +324,7 @@
     <Content Include="Views\Partials\Quotes\UserQuotes.cshtml" />
     <Content Include="Views\Partials\Navigation\Bottom.cshtml" />
     <Content Include="Views\SeminarCategory.cshtml" />
+    <Content Include="Views\MacroPartials\CalloutNumbers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

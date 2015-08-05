@@ -8,7 +8,25 @@
 
     IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
     IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
-    
+
+}
+
+@{
+    TPCTrainco.Umbraco.Extensions.Objects.Seminars seminars = new TPCTrainco.Umbraco.Extensions.Objects.Seminars();
+
+    List<TPCTrainco.Umbraco.Extensions.ViewModels.CourseCategory> courseCategoryList = seminars.GetCourseCategoryList();
+
+    <select style="margin-top: 100px;">
+        @foreach (TPCTrainco.Umbraco.Extensions.ViewModels.CourseCategory category in courseCategoryList.OrderBy(o => o.Title))
+        {
+            <optgroup value="0" label="@category.Title">
+                @foreach (TPCTrainco.Umbraco.Extensions.ViewModels.Course course in category.Courses.Where(p => (p.TypeId == 3 || p.TypeId == 5) && p.CountryId == 0).OrderBy(o => o.Title))
+                {
+                    <option value="@course.Id">@course.Title</option>
+                }
+            </optgroup>
+        }
+    </select>
 }
 
 <div class="container-fluid intro-section">
@@ -25,7 +43,6 @@
                     <h3>Select one or more topics and choose your location</h3>
                     <ul>
                         <li class="seminar-topic">
-                            <!-- ####### NEW added data-attrs  #########-->
                             <div class="overlay-contain" data-topic="all">
                                 <div class="overlay"></div>
                                 <img src="/assets/images/selectall-icon.jpg" alt="All Seminars" />
@@ -33,7 +50,6 @@
                             <p>Search All Seminars</p>
                         </li>
                         <li class="seminar-topic">
-                            <!-- ####### NEW added data-attrs  #########-->
                             <div class="overlay-contain" data-topic="electrical">
                                 <div class="overlay"></div>
                                 <img src="/assets/images/electrical.jpg" alt="Mechanical + Industrial" />
@@ -41,7 +57,6 @@
                             <p>Electrical</p>
                         </li>
                         <li class="seminar-topic">
-                            <!-- ####### NEW  added data-attrs #########-->
                             <div class="overlay-contain" data-topic="management">
                                 <div class="overlay"></div>
                                 <img src="/assets/images/plantmgmt-icon.jpg" alt="Mechanical + Industrial" />
@@ -49,7 +64,6 @@
                             <p>Plant Management</p>
                         </li>
                         <li class="seminar-topic">
-                            <!-- ####### NEW added data-attrs  #########-->
                             <div class="overlay-contain" data-topic="hvac">
                                 <div class="overlay"></div>
                                 <img src="/assets/images/hvac-icon.jpg" alt="Mechanical + Industrial" />
@@ -57,7 +71,6 @@
                             <p>HVAC</p>
                         </li>
                         <li class="seminar-topic">
-                            <!-- ####### NEW added data-attrs  #########-->
                             <div class="overlay-contain" data-topic="mechanical">
                                 <div class="overlay"></div>
                                 <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical + Industrial" />
@@ -68,10 +81,9 @@
                     </ul>
 
                     <!-- search bar here -->
-                    <!--                         <form name="main-search" class="main-search-form">
+                    <!--                <form name="main-search" class="main-search-form">
                                             <input type="text" name="seminar-search" placeholder="Choose a Location">
                                         </form> -->
-                    <!-- ####### NEW  #########-->
                     <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="Silver City, NM">
                         <option value="Alabama">Alabama</option>
                         <option value="Alaska">Alaska</option>
@@ -82,7 +94,6 @@
 
                     <!-- <input type="hidden" id="main-search" style="width:300px"/> -->
                     <!-- datepicker goes here -->
-                    <!-- ####### NEW  #########-->
                     <h4 class="select-date-text">Select a date range</h4>
 
                     <div id="date-range-slider"></div>
