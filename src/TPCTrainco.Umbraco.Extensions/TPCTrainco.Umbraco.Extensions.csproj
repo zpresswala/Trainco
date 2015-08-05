@@ -227,7 +227,6 @@
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CoursesController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
@@ -319,6 +318,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TraincoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Course.cs" />
+    <Compile Include="ViewModels\CourseCategory.cs" />
     <Compile Include="ViewModels\Location.cs" />
     <Compile Include="ViewModels\Schedule.cs" />
     <Compile Include="ViewModels\Seminar.cs" />

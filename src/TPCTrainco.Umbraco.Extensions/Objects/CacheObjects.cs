@@ -123,5 +123,29 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             return courseFormatList;
         }
+
+        public static List<CourseTopic> GetCourseTopicList()
+        {
+            string cacheKey = "CourseTopicList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CourseTopics"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<CourseTopic> courseTopicList = cache.Get(cacheKey) as List<CourseTopic>;
+
+            if (courseTopicList == null)
+            {
+                using (var db = new ATI_DevelopmentEntities1())
+                {
+                    courseTopicList = db.CourseTopics.Where(p => p.Active == 1 && p.CourseTopicName.Substring(0, 1) != "x" &&
+                        p.CourseTopicName.Substring(0, 1) != "y" &&
+                        p.CourseTopicName.Substring(0, 1) != "z").ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, courseTopicList, policy);
+            }
+
+            return courseTopicList;
+        }
     }
 }
