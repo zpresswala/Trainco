@@ -68,6 +68,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Examine.0.1.65.0\lib\Examine.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleMaps.LocationServices">
+      <HintPath>..\packages\GoogleMaps.LocationServices.0.9.8.5\lib\net40\GoogleMaps.LocationServices.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -142,6 +145,8 @@
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Channels" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -226,7 +231,11 @@
     <Compile Include="CATEGORYTYPE.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="City.cs">
+      <DependentUpon>TraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\GeoLocationController.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
@@ -252,9 +261,12 @@
     <Compile Include="LocationType.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CoordinateDetails.cs" />
     <Compile Include="Models\SeminarsSearchRequest.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
-    <Compile Include="Objects\SearchLocation.cs" />
+    <Compile Include="Objects\GeoCoordinates.cs" />
+    <Compile Include="Models\GeoLocation.cs" />
+    <Compile Include="Models\SearchLocation.cs" />
     <Compile Include="Objects\Seminars.cs" />
     <Compile Include="Objects\Topics.cs" />
     <Compile Include="OnSite.cs">
@@ -320,6 +332,7 @@
     </Compile>
     <Compile Include="ViewModels\Course.cs" />
     <Compile Include="ViewModels\CourseCategory.cs" />
+    <Compile Include="ViewModels\GeoLocation.cs" />
     <Compile Include="ViewModels\Location.cs" />
     <Compile Include="ViewModels\Schedule.cs" />
     <Compile Include="ViewModels\Seminar.cs" />
@@ -348,7 +361,9 @@
       <LastGenOutput>TraincoModel.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="GoogleMaps.LocationServices.readme.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

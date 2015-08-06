@@ -7,6 +7,7 @@ using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.ViewModels;
 using MoreLinq;
 using System.Text.RegularExpressions;
+using System.Data.Entity.SqlServer;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -44,28 +45,45 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             // filter location
             if (false == string.IsNullOrEmpty(request.Location) && request.Location != "all")
             {
-                SearchLocation searchLocation = new SearchLocation(request.Location);
+                CoordinateDetails coordinateDetails = GeoCoordinates.GetCoordinateDetailsFromCityState(request.Location);
 
-                if (searchLocation != null)
+                if (coordinateDetails != null)
                 {
-                    seminarListSearch = seminarListSearch.Where(p => p.City == searchLocation.City && p.State == searchLocation.State).ToList();
+                    seminarListSearch = FindLocationSeminarCatalog(seminarListSearch, coordinateDetails);
+                }
+                else
+                {
+                    seminarListSearch = null;
                 }
             }
 
-            // filter date min
+            // Dates are required, if not present, create default;
+            if (request.Dates == null || request.Dates.Min == null || request.Dates.Max == null)
+            {
+                DateTime nowDate = DateTime.Now;
+
+                request.Dates = new Dates();
+
+                request.Dates.Min = new Min();
+                request.Dates.Max = new Max();
+
+                request.Dates.Min.MinMonthVal = nowDate.Month;
+                request.Dates.Min.MinYearVal = nowDate.Year;
+
+                request.Dates.Max.MaxMonthVal = nowDate.AddMonths(3).Month;
+                request.Dates.Max.MaxYearVal = nowDate.AddMonths(3).Year;
+            }
+
             if (request.Dates != null)
             {
+                // filter date min
                 if (request.Dates.Min != null)
                 {
                     DateTime minDate = DateTime.Parse(request.Dates.Min.MinMonthVal + "/1/" + request.Dates.Min.MinYearVal);
 
                     seminarListSearch = seminarListSearch.Where(p => p.SchDate >= minDate).ToList();
                 }
-            }
-
-            // filter date max
-            if (request.Dates != null)
-            {
+                // filter date max
                 if (request.Dates.Max != null)
                 {
                     DateTime maxDate = DateTime.Parse(request.Dates.Max.MaxMonthVal + "/1/" + request.Dates.Max.MaxYearVal).AddMonths(1).AddDays(-1);
@@ -73,6 +91,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     seminarListSearch = seminarListSearch.Where(p => p.SchDate <= maxDate).ToList();
                 }
             }
+
 
             // filter 
             if (request.classTopics != null && request.classTopics.Length > 0)
@@ -94,6 +113,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 //seminarListSearch = seminarListSearch.Where(p => p.TopicID.Equals(topicArray)).ToList();
             }
 
+            // Create Seminar object list
             if (seminarListSearch != null && seminarListSearch.Count > 0)
             {
                 resultsList = new List<Seminar>();
@@ -241,6 +261,40 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             }
 
             return result;
+        }
+
+
+        private List<Seminar_Catalog> FindLocationSeminarCatalog(List<Seminar_Catalog> seminarListSearch, CoordinateDetails coordinateDetails)
+        {
+            List<Seminar_Catalog> resultSearch = null;
+            double radiusSearch = 20;
+
+            while ((resultSearch == null || resultSearch.Count <= 0) && radiusSearch < 1500)
+            {
+                resultSearch = RadialSearchSeminarCatalog(seminarListSearch, coordinateDetails, radiusSearch);
+
+                radiusSearch *= 2;
+            }
+
+            return resultSearch;
+        }
+
+
+        /// <summary>
+        /// Perform a radial search in miles on seminar catalog
+        /// </summary>
+        /// <param name="seminarListSearch"></param>
+        /// <param name="coordinateDetails"></param>
+        /// <param name="radiusInMiles"></param>
+        /// <returns></returns>
+        private List<Seminar_Catalog> RadialSearchSeminarCatalog(List<Seminar_Catalog> seminarListSearch, CoordinateDetails coordinateDetails, double radiusInMiles)
+        {
+            List<Seminar_Catalog> tempSearch = null;
+
+            tempSearch = seminarListSearch.Where(x => x.Coordinates.Distance(coordinateDetails.DbGeography) * 0.00062 <= radiusInMiles)
+                    .OrderBy(p => p.Coordinates.Distance(coordinateDetails.DbGeography)).ToList();
+
+            return tempSearch;
         }
 
 

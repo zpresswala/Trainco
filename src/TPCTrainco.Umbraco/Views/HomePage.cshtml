@@ -11,24 +11,6 @@
 
 }
 
-@{
-    TPCTrainco.Umbraco.Extensions.Objects.Seminars seminars = new TPCTrainco.Umbraco.Extensions.Objects.Seminars();
-
-    List<TPCTrainco.Umbraco.Extensions.ViewModels.CourseCategory> courseCategoryList = seminars.GetCourseCategoryList();
-
-    <select style="margin-top: 100px;">
-        @foreach (TPCTrainco.Umbraco.Extensions.ViewModels.CourseCategory category in courseCategoryList.OrderBy(o => o.Title))
-        {
-            <optgroup value="0" label="@category.Title">
-                @foreach (TPCTrainco.Umbraco.Extensions.ViewModels.Course course in category.Courses.Where(p => (p.TypeId == 3 || p.TypeId == 5) && p.CountryId == 0).OrderBy(o => o.Title))
-                {
-                    <option value="@course.Id">@course.Title</option>
-                }
-            </optgroup>
-        }
-    </select>
-}
-
 <div class="container-fluid intro-section">
     <div class="container">
         <div class="jumbotron">

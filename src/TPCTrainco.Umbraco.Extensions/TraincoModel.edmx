@@ -28,6 +28,26 @@
           <Property Name="CREATED" Type="datetime" Nullable="false" />
           <Property Name="MODIFIED" Type="datetime" />
         </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="int" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CityCode" Type="varchar" MaxLength="255" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="MailCode" Type="varchar" MaxLength="255" />
+          <Property Name="PrimSCF" Type="varchar" MaxLength="255" />
+          <Property Name="MailSCF" Type="varchar" MaxLength="255" />
+          <Property Name="Active" Type="float" />
+          <Property Name="Created" Type="smalldatetime" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="float" />
+          <Property Name="ModifiedMemberID" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Coordinates" Type="geography" />
+        </EntityType>
         <EntityType Name="Countries">
           <Key>
             <PropertyRef Name="Seq" />
@@ -516,6 +536,7 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
           <Property Name="WebHeading" Type="varchar" MaxLength="800" />
           <Property Name="WebToolTip" Type="varchar" MaxLength="800" />
           <Property Name="WebPageIH" Type="varchar" MaxLength="80" />
+          <Property Name="Coordinates" Type="geography" />
         </EntityType>
         <Association Name="FK__CATEGORY__CATEGO__457442E6">
           <End Role="CATEGORYTYPE" Type="Self.CATEGORYTYPE" Multiplicity="1" />
@@ -559,6 +580,7 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
         <EntityContainer Name="TraincoModelStoreContainer">
           <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORYTYPE" EntityType="Self.CATEGORYTYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseFormats" EntityType="Self.CourseFormats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COURSES" EntityType="Self.COURSES" Schema="dbo" store:Type="Tables" />
@@ -643,7 +665,8 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
     [Seminar_Catalog].[WebPage] AS [WebPage], 
     [Seminar_Catalog].[WebHeading] AS [WebHeading], 
     [Seminar_Catalog].[WebToolTip] AS [WebToolTip], 
-    [Seminar_Catalog].[WebPageIH] AS [WebPageIH]
+    [Seminar_Catalog].[WebPageIH] AS [WebPageIH], 
+    [Seminar_Catalog].[Coordinates] AS [Coordinates]
     FROM [dbo].[Seminar_Catalog] AS [Seminar_Catalog]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__CATEGORY__CATEGO__457442E6" Association="Self.FK__CATEGORY__CATEGO__457442E6">
@@ -1156,6 +1179,7 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
           <Property Name="WebHeading" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
           <Property Name="WebToolTip" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
           <Property Name="WebPageIH" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Coordinates" Type="Geography" />
         </EntityType>
         <Association Name="FK__CATEGORY__CATEGO__457442E6">
           <End Role="CATEGORYTYPE" Type="Self.CATEGORYTYPE" Multiplicity="1" />
@@ -1235,6 +1259,7 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
           <Parameter Name="cartID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="ScheduleCourseInstructors" EntityType="TraincoModel.ScheduleCourseInstructor" />
+          <EntitySet Name="Cities" EntityType="TraincoModel.City" />
         </EntityContainer>
         <EntityType Name="ScheduleCourseInstructor">
           <Key>
@@ -1249,6 +1274,26 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
           <Property Name="CourseFee" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PriceCode" Type="Int16" />
           <Property Name="InstrStatus" Type="Int16" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <Property Name="CityName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CityCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="MailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PrimSCF" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MailSCF" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Double" />
+          <Property Name="Created" Type="DateTime" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Double" />
+          <Property Name="ModifiedMemberID" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Coordinates" Type="Geography" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1732,6 +1777,7 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
           <EntitySetMapping Name="Seminar_Catalog">
             <EntityTypeMapping TypeName="TraincoModel.Seminar_Catalog">
               <MappingFragment StoreEntitySet="Seminar_Catalog">
+                <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
                 <ScalarProperty Name="SchID" ColumnName="SchID" />
                 <ScalarProperty Name="TopicID" ColumnName="TopicID" />
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
@@ -1769,6 +1815,27 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="ScheduleCourseID" ColumnName="ScheduleCourseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="TraincoModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MailSCF" ColumnName="MailSCF" />
+                <ScalarProperty Name="PrimSCF" ColumnName="PrimSCF" />
+                <ScalarProperty Name="MailCode" ColumnName="MailCode" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

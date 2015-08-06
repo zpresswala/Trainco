@@ -19,6 +19,10 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             List<Seminar> resultsList = null;
             Objects.Seminars seminarsObj = new Seminars();
 
+            //http://localhost:49712/api/v1/courses/search
+
+            //Content-Type: application/json
+
             //{"location":"Denver, CO","classTopics":["electrical","management"],"dates":{"min":{"minMonthVal":9,"minYearVal":2015},"max":{"maxMonthVal":1,"maxYearVal":2016}}}
             //{"location":"Denver, CO","classTopics":["electrical","management"]}
 

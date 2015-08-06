@@ -53,6 +53,7 @@ namespace TPCTrainco.Umbraco.Extensions
         public virtual DbSet<SearchList_RegLocation> SearchList_RegLocation { get; set; }
         public virtual DbSet<Seminar_Catalog> Seminar_Catalog { get; set; }
         public virtual DbSet<ScheduleCourseInstructor> ScheduleCourseInstructors { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
     
         public virtual ObjectResult<Nullable<int>> add_Registration(Nullable<int> cartID)
         {

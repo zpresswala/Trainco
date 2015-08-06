@@ -35,5 +35,6 @@ namespace TPCTrainco.Umbraco.Extensions
         public string WebHeading { get; set; }
         public string WebToolTip { get; set; }
         public string WebPageIH { get; set; }
+        public System.Data.Entity.Spatial.DbGeography Coordinates { get; set; }
     }
 }

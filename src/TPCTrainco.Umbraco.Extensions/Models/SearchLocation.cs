@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPCTrainco.Umbraco.Extensions.Objects
+namespace TPCTrainco.Umbraco.Extensions.Models
 {
     public class SearchLocation
     {
