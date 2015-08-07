@@ -307,6 +307,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             Seminar result = new Seminar();
 
+            result.Id = seminarCatalog.TopicID ?? 0;
             result.Title = seminarCatalog.TitlePlain;
             result.SubTitle = seminarCatalog.WebToolTip;
             result.ImageUrl = "/test.gif";
