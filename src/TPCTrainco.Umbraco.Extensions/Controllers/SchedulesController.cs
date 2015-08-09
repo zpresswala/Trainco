@@ -14,15 +14,15 @@ using TPCTrainco.Umbraco.Extensions.ViewModels.Backbone;
 
 namespace TPCTrainco.Umbraco.Extensions.Controllers
 {
-    public class LocationsController : ApiController
+    public class SchedulesController : ApiController
     {
         [HttpPost]
-        public List<Loc> SearchBySeminar([FromBody] dynamic json)
+        public List<Sch> SearchByLocation([FromBody] dynamic json)
         {
-            List<Loc> resultsList = null;
+            List<Sch> resultsList = null;
             Objects.Seminars seminarsObj = new Seminars();
 
-            //http://localhost:49712/api/locations/searchbyseminar
+            //http://localhost:49712/api/locations/searchbylocation
 
             //Content-Type: application/json
 
@@ -31,14 +31,13 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             if (false == string.IsNullOrWhiteSpace(json))
             {
-                LocationsSearchRequest searchRequest = JsonConvert.DeserializeObject<LocationsSearchRequest>(json.ToString());
+                SchedulesSearchRequest searchRequest = JsonConvert.DeserializeObject<SchedulesSearchRequest>(json.ToString());
 
-                if (searchRequest != null && searchRequest.CourseId > 0 && false == string.IsNullOrWhiteSpace(searchRequest.SearchId))
+                if (searchRequest != null && searchRequest.CourseId > 0 && searchRequest.CityId > 0 && false == string.IsNullOrWhiteSpace(searchRequest.SearchId))
                 {
-                    resultsList = seminarsObj.SearchLocations(searchRequest);
+                    resultsList = seminarsObj.SearchSchedules(searchRequest);
                 }
             }
-
 
 
             return resultsList;

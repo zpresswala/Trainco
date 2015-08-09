@@ -16,12 +16,12 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
     public class SeminarsController : ApiController
     {
         [HttpPost]
-        public List<Sem> Search([FromBody] dynamic json)
+        public object Search([FromBody] dynamic json)
         {
             List<Sem> resultsList = null;
             Objects.Seminars seminarsObj = new Seminars();
 
-            //http://localhost:49712/api/courses/search
+            //http://localhost:49712/api/seminars/search
 
             //Content-Type: application/json
 
