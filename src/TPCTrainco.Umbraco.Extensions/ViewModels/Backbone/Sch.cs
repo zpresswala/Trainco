@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPCTrainco.Umbraco.Extensions.ViewModels
+namespace TPCTrainco.Umbraco.Extensions.ViewModels.Backbone
 {
-    public class Schedule
+    public class Sch
     {
         public int Id { get; set; }
         public int CourseId { get; set; }

@@ -26,7 +26,7 @@ namespace TPCTrainco.Umbraco
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi2",
-                routeTemplate: "api/v1/{controller}/{action}/{id}",
+                routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }
