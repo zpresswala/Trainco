@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPCTrainco.Umbraco.Extensions.ViewModels
+namespace TPCTrainco.Umbraco.Extensions.ViewModels.Backbone
 {
-    public class Seminar
+    public class Sem
     {
         public int SeminarId { get; set; }
         public string Title { get; set; }
@@ -14,6 +14,5 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
         public string ImageUrl { get; set; }
         public string DetailsUrl { get; set; }
         public string SearchId { get; set; }
-        public List<Location> Locations { get; set; }
     }
 }

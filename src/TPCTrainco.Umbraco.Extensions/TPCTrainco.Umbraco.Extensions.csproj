@@ -234,6 +234,8 @@
     <Compile Include="City.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="Controllers\SeminarsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\GeoLocationController.cs" />
     <Compile Include="Country.cs">
@@ -262,7 +264,8 @@
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CoordinateDetails.cs" />
-    <Compile Include="Models\SeminarsSearchRequest.cs" />
+    <Compile Include="Models\SearchRequest\LocationsSearchRequest.cs" />
+    <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
     <Compile Include="Objects\GeoCoordinates.cs" />
     <Compile Include="Models\GeoLocation.cs" />
@@ -330,6 +333,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TraincoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Backbone\Loc.cs" />
+    <Compile Include="ViewModels\Backbone\Sch.cs" />
+    <Compile Include="ViewModels\Backbone\Sem.cs" />
     <Compile Include="ViewModels\Course.cs" />
     <Compile Include="ViewModels\CourseCategory.cs" />
     <Compile Include="ViewModels\GeoLocation.cs" />

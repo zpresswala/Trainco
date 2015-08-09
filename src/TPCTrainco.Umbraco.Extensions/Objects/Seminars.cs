@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TPCTrainco.Umbraco.Extensions.Models;
+using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.ViewModels;
+using TPCTrainco.Umbraco.Extensions.ViewModels.Backbone;
 using MoreLinq;
 using System.Text.RegularExpressions;
 using System.Data.Entity.SqlServer;
+using System.Web;
+using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -31,14 +35,109 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public List<Sem> SearchSeminars(SeminarsSearchRequest request)
+        {
+            List<Sem> resultsList = null;
+            List<Seminar> finalSeminarList = null;
+
+            finalSeminarList = SearchReturnFullList(request);
+
+            if (finalSeminarList != null && finalSeminarList.Count > 0)
+            {
+                resultsList = new List<Sem>();
+
+                foreach (Seminar seminar in finalSeminarList)
+                {
+                    resultsList.Add(ConvertSeminarToBackboneModel(seminar));
+                }
+            }
+
+            return resultsList;
+        }
+
+
+        public List<Loc> SearchLocations(LocationsSearchRequest request)
+        {
+            List<Loc> resultsList = null;
+            List<Seminar> finalSeminarList = null;
+
+            //"Search:" + finalSeminarList[0].SearchId
+
+            if (request != null && request.CourseId > 0 && false == string.IsNullOrWhiteSpace(request.SearchId))
+            {
+                finalSeminarList = (List<Seminar>)HttpContext.Current.Session["Search:" + request.SearchId];
+
+                if (finalSeminarList != null && finalSeminarList.Count > 0)
+                {
+                    Seminar selectedSeminar = finalSeminarList.Where(p => p.SeminarId == request.CourseId).FirstOrDefault();
+
+                    if (selectedSeminar != null)
+                    {
+                        resultsList = new List<Loc>();
+
+                        foreach (TPCTrainco.Umbraco.Extensions.ViewModels.Location location in selectedSeminar.Locations)
+                        {
+                            resultsList.Add(ConvertLocationToBackboneModel(location));
+                        }
+                    }
+                }
+            }
+
+            return resultsList;
+        }
+
+
+        public List<Sch> SearchSchedules(SchedulesSearchRequest request)
+        {
+            List<Sch> resultsList = null;
+            List<Seminar> finalSeminarList = null;
+
+            //"Search:" + finalSeminarList[0].SearchId
+
+            if (request != null && request.CourseId > 0 && false == string.IsNullOrWhiteSpace(request.SearchId))
+            {
+                finalSeminarList = (List<Seminar>)HttpContext.Current.Session["Search:" + request.SearchId];
+
+                if (finalSeminarList != null && finalSeminarList.Count > 0)
+                {
+                    Seminar selectedSeminar = finalSeminarList.Where(p => p.SeminarId == request.CourseId).FirstOrDefault();
+
+                    if (selectedSeminar != null)
+                    {
+                        List<TPCTrainco.Umbraco.Extensions.ViewModels.Location> locationsList = selectedSeminar.Locations;
+
+                        if (locationsList != null && locationsList.Count > 0)
+                        {
+                            TPCTrainco.Umbraco.Extensions.ViewModels.Location selectedLocation = locationsList
+                                .Where(p => p.CourseId == request.CourseId && p.CityId == request.CityId).FirstOrDefault();
+
+
+                            if (selectedLocation != null)
+                            {
+                                resultsList = new List<Sch>();
+
+                                foreach(TPCTrainco.Umbraco.Extensions.ViewModels.Schedule schedule in selectedLocation.Schedules)
+                                {
+                                    resultsList.Add(ConvertScheduleToBackboneModel(schedule));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return resultsList;
+        }
+
+
         /// <summary>
         /// Search Seminars/Courses
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public List<Seminar> Search(SeminarsSearchRequest request)
+        public List<Seminar> SearchReturnFullList(SeminarsSearchRequest request)
         {
-            List<Seminar> resultsList = null;
+            List<Seminar> finalSeminarList = null;
 
             List<Seminar_Catalog> seminarListSearch = SeminarList;
 
@@ -116,15 +215,17 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             // Create Seminar object list
             if (seminarListSearch != null && seminarListSearch.Count > 0)
             {
-                resultsList = new List<Seminar>();
+                finalSeminarList = new List<Seminar>();
 
                 List<Seminar_Catalog> seminarDistinctList = seminarListSearch.DistinctBy(p => p.TitlePlain).ToList();
 
                 if (seminarDistinctList != null && seminarDistinctList.Count > 0)
                 {
+                    string searchId = new Guid().ToString().ToLower();
+
                     foreach (Seminar_Catalog seminarDistinct in seminarDistinctList)
                     {
-                        Seminar seminar = ConvertSeminarCatalogToViewModel(seminarDistinct);
+                        Seminar seminar = ConvertSeminarCatalogToViewModel(seminarDistinct, searchId);
 
                         if (seminar != null)
                         {
@@ -136,7 +237,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 {
                                     ViewModels.Location location = new ViewModels.Location();
 
-                                    location.Title = seminarCatalog.City + ", " + seminarCatalog.State;
+                                    location.CityState = seminarCatalog.City + ", " + seminarCatalog.State;
+                                    location.SearchId = searchId;
 
                                     // Main Schedule
                                     ViewModels.Schedule schedule = null;
@@ -174,15 +276,19 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 }
                             }
 
-                            resultsList.Add(seminar);
+                            finalSeminarList.Add(seminar);
                         }
 
                     }
                 }
             }
 
+            if (finalSeminarList != null && finalSeminarList.Count > 0)
+            {
+                HttpContext.Current.Session["Search:" + finalSeminarList[0].SearchId] = finalSeminarList;
+            }
 
-            return resultsList;
+            return finalSeminarList;
         }
 
 
@@ -303,15 +409,78 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         /// </summary>
         /// <param name="seminarCatalog"></param>
         /// <returns></returns>
-        private Seminar ConvertSeminarCatalogToViewModel(Seminar_Catalog seminarCatalog)
+        private Seminar ConvertSeminarCatalogToViewModel(Seminar_Catalog seminarCatalog, string searchId)
         {
             Seminar result = new Seminar();
 
-            result.Id = seminarCatalog.TopicID ?? 0;
+            result.SeminarId = seminarCatalog.SchID;
             result.Title = seminarCatalog.TitlePlain;
             result.SubTitle = seminarCatalog.WebToolTip;
             result.ImageUrl = "/test.gif";
             result.DetailsUrl = "/seminars/test";
+            result.SearchId = searchId;
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Convert the seminar to the Backbone model
+        /// </summary>
+        /// <param name="seminarCatalog"></param>
+        /// <returns></returns>
+        private Sem ConvertSeminarToBackboneModel(Seminar seminar)
+        {
+            Sem result = new Sem();
+
+            result.SeminarId = seminar.SeminarId;
+            result.Title = seminar.Title;
+            result.SubTitle = seminar.SubTitle;
+            result.ImageUrl = seminar.ImageUrl;
+            result.DetailsUrl = seminar.DetailsUrl;
+            result.SearchId = seminar.SearchId;
+
+            return result;
+        }
+
+
+
+        /// <summary>
+        /// Convert the location to the Backbone model
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        private Loc ConvertLocationToBackboneModel(TPCTrainco.Umbraco.Extensions.ViewModels.Location location)
+        {
+            Loc result = new Loc();
+
+            result.CityId = location.CityId;
+            result.CourseId = location.CourseId;
+            result.CityState = location.CityState;
+            result.SearchId = location.SearchId;
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Convert the location to the Backbone model
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        private Sch ConvertScheduleToBackboneModel(TPCTrainco.Umbraco.Extensions.ViewModels.Schedule schedule)
+        {
+            Sch result = new Sch();
+
+            result.Id = schedule.Id;
+            result.CourseId = schedule.CourseId;
+            result.CityId = schedule.CityId;
+            result.CityState = schedule.CityState;
+            result.DaysTitle = schedule.DaysTitle;
+            result.DaysDescription = schedule.DaysDescription;
+            result.Date = schedule.Date;
+            result.Price = schedule.Price;
+            result.Description = schedule.Description;
 
             return result;
         }

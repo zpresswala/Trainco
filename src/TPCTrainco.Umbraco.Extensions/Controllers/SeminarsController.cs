@@ -9,15 +9,16 @@ using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
 using TPCTrainco.Umbraco.Extensions.Objects;
 using TPCTrainco.Umbraco.Extensions.ViewModels;
+using TPCTrainco.Umbraco.Extensions.ViewModels.Backbone;
 
 namespace TPCTrainco.Umbraco.Extensions.Controllers
 {
-    public class CoursesController : ApiController
+    public class SeminarsController : ApiController
     {
         [HttpPost]
-        public List<Seminar> Search([FromBody] dynamic json)
+        public List<Sem> Search([FromBody] dynamic json)
         {
-            List<Seminar> resultsList = null;
+            List<Sem> resultsList = null;
             Objects.Seminars seminarsObj = new Seminars();
 
             //http://localhost:49712/api/courses/search
@@ -28,9 +29,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             //{"location":"Denver, CO","classTopics":["electrical","management"]}
 
 
-            SeminarsSearchRequest searchRequest = JsonConvert.DeserializeObject<Seminars>(json.ToString());
+            SeminarsSearchRequest searchRequest = JsonConvert.DeserializeObject<SeminarsSearchRequest>(json.ToString());
 
-            resultsList = seminarsObj.SearchReturnFullList(searchRequest);
+            resultsList = seminarsObj.SearchSeminars(searchRequest);
 
             return resultsList;
         }
