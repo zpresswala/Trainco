@@ -28,7 +28,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             //{"location":"Denver, CO","classTopics":["electrical","management"]}
 
 
-            SeminarsSearchRequest searchRequest = JsonConvert.DeserializeObject<Seminars>(json.ToString());
+            SeminarsSearchRequest searchRequest = JsonConvert.DeserializeObject<SeminarsSearchRequest>(json.ToString());
 
             resultsList = seminarsObj.SearchReturnFullList(searchRequest);
 

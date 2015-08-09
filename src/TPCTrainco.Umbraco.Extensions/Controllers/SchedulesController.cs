@@ -22,21 +22,20 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             List<Sch> resultsList = null;
             Objects.Seminars seminarsObj = new Seminars();
 
-            //http://localhost:49712/api/locations/searchbylocation
+            //http://localhost:49712/api/schedules/searchbylocation
 
             //Content-Type: application/json
 
             //POST
             //{"courseId":123,"cityId":12,"searchId":""}
 
-            if (false == string.IsNullOrWhiteSpace(json))
-            {
-                SchedulesSearchRequest searchRequest = JsonConvert.DeserializeObject<SchedulesSearchRequest>(json.ToString());
+            SchedulesSearchRequest searchRequest = JsonConvert.DeserializeObject<SchedulesSearchRequest>(json.ToString());
 
-                if (searchRequest != null && searchRequest.CourseId > 0 && searchRequest.CityId > 0 && false == string.IsNullOrWhiteSpace(searchRequest.SearchId))
-                {
-                    resultsList = seminarsObj.SearchSchedules(searchRequest);
-                }
+            if (searchRequest != null && searchRequest.CourseId > 0 && searchRequest.CityId > 0 && false == string.IsNullOrWhiteSpace(searchRequest.SearchId))
+            {
+                searchRequest.SearchId = searchRequest.SearchId.ToLower();
+
+                resultsList = seminarsObj.SearchSchedules(searchRequest);
             }
 
 

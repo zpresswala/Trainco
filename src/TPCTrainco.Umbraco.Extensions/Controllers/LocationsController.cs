@@ -27,18 +27,15 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             //Content-Type: application/json
 
             //POST
-            //{"courseId":123,"cityId":12,"searchId":""}
+            //{"courseId":55890,"searchId":"acb4eba9-3868-4987-a224-5b77077cbb4b"}
+            LocationsSearchRequest searchRequest = JsonConvert.DeserializeObject<LocationsSearchRequest>(json.ToString());
 
-            if (false == string.IsNullOrWhiteSpace(json))
+            if (searchRequest != null && searchRequest.CourseId > 0 && false == string.IsNullOrWhiteSpace(searchRequest.SearchId))
             {
-                LocationsSearchRequest searchRequest = JsonConvert.DeserializeObject<LocationsSearchRequest>(json.ToString());
+                searchRequest.SearchId = searchRequest.SearchId.ToLower();
 
-                if (searchRequest != null && searchRequest.CourseId > 0 && false == string.IsNullOrWhiteSpace(searchRequest.SearchId))
-                {
-                    resultsList = seminarsObj.SearchLocations(searchRequest);
-                }
+                resultsList = seminarsObj.SearchLocations(searchRequest);
             }
-
 
 
             return resultsList;

@@ -12,6 +12,8 @@ using System.Text.RegularExpressions;
 using System.Data.Entity.SqlServer;
 using System.Web;
 using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
+using System.Configuration;
+using System.Runtime.Caching;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -23,6 +25,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public List<ScheduleCourseInstructor> ScheduleCourseList = null;
         public List<CourseFormat> CourseFormatList { get; set; }
         public List<CourseTopic> CourseTopicList { get; set; }
+
+        private string CacheSearchKey = "SeminarSearch:";
 
         public Seminars()
         {
@@ -65,10 +69,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (request != null && request.CourseId > 0 && false == string.IsNullOrWhiteSpace(request.SearchId))
             {
-                finalSeminarList = (List<Seminar>)HttpContext.Current.Session["Search:" + request.SearchId];
+                finalSeminarList = GetSearchCache(request.SearchId);
 
                 if (finalSeminarList != null && finalSeminarList.Count > 0)
                 {
+                    RefreshSearchCache(finalSeminarList, request.SearchId);
+
                     Seminar selectedSeminar = finalSeminarList.Where(p => p.SeminarId == request.CourseId).FirstOrDefault();
 
                     if (selectedSeminar != null)
@@ -96,10 +102,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (request != null && request.CourseId > 0 && false == string.IsNullOrWhiteSpace(request.SearchId))
             {
-                finalSeminarList = (List<Seminar>)HttpContext.Current.Session["Search:" + request.SearchId];
+                finalSeminarList = GetSearchCache(request.SearchId);
 
                 if (finalSeminarList != null && finalSeminarList.Count > 0)
                 {
+                    RefreshSearchCache(finalSeminarList, request.SearchId);
+
                     Seminar selectedSeminar = finalSeminarList.Where(p => p.SeminarId == request.CourseId).FirstOrDefault();
 
                     if (selectedSeminar != null)
@@ -221,7 +229,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (seminarDistinctList != null && seminarDistinctList.Count > 0)
                 {
-                    string searchId = new Guid().ToString().ToLower();
+                    string searchId = Guid.NewGuid().ToString().ToLower();
 
                     foreach (Seminar_Catalog seminarDistinct in seminarDistinctList)
                     {
@@ -237,6 +245,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 {
                                     ViewModels.Location location = new ViewModels.Location();
 
+                                    
+                                    location.CourseId = seminarCatalog.SchID;
                                     location.CityState = seminarCatalog.City + ", " + seminarCatalog.State;
                                     location.SearchId = searchId;
 
@@ -249,6 +259,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                     if (schedule != null)
                                     {
+                                        schedule.CourseId = schedule.Id;
+
+                                        location.CityId = schedule.CityId;
+
                                         location.Schedules = new List<Schedule>();
 
                                         location.Schedules.Add(schedule);
@@ -265,6 +279,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                                 if (subSchedule != null)
                                                 {
+                                                    subSchedule.CourseId = seminarCatalog.SchID;
+
                                                     location.Schedules.Add(subSchedule);
                                                 }
                                             }
@@ -285,7 +301,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (finalSeminarList != null && finalSeminarList.Count > 0)
             {
-                HttpContext.Current.Session["Search:" + finalSeminarList[0].SearchId] = finalSeminarList;
+                RefreshSearchCache(finalSeminarList, finalSeminarList[0].SearchId);
             }
 
             return finalSeminarList;
@@ -475,7 +491,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             result.Id = schedule.Id;
             result.CourseId = schedule.CourseId;
             result.CityId = schedule.CityId;
-            result.CityState = schedule.CityState;
             result.DaysTitle = schedule.DaysTitle;
             result.DaysDescription = schedule.DaysDescription;
             result.Date = schedule.Date;
@@ -503,6 +518,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 if (course != null)
                 {
                     result.Id = schedule.ScheduleID;
+                    result.CityId = schedule.CityID;
                     result.DaysTitle = GetDaysTitle(course.CourseFormatID);
                     result.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");
                     result.Date = schedule.ScheduleDateDescription;
@@ -584,7 +600,35 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        /// <summary>
+        /// Get search cache by search id
+        /// </summary>
+        /// <param name="searchId"></param>
+        /// <returns></returns>
+        private List<Seminar> GetSearchCache(string searchId)
+        {
+            List<Seminar> seminarList = null;
+            ObjectCache cache = MemoryCache.Default;
 
+            seminarList = cache.Get(CacheSearchKey + searchId) as List<Seminar>;
+
+            return seminarList;
+        }
+
+
+        /// <summary>
+        /// Refresh search cache by search id
+        /// </summary>
+        /// <param name="seminarList"></param>
+        private void RefreshSearchCache(List<Seminar> seminarList, string searchId)
+        {
+            string cacheKey = CacheSearchKey + searchId;
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:SeminarSearch"));
+            ObjectCache cache = MemoryCache.Default;
+
+            CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+            cache.Add(cacheKey, seminarList, policy);
+        }
     }
 }
 

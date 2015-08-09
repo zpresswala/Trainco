@@ -11,7 +11,6 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels.Backbone
         public int Id { get; set; }
         public int CourseId { get; set; }
         public int CityId { get; set; }
-        public string CityState { get; set; }
         public string DaysTitle { get; set; }
         public string DaysDescription { get; set; }
         public string Date { get; set; }

@@ -235,6 +235,7 @@
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\SeminarsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\GeoLocationController.cs" />
@@ -265,6 +266,7 @@
     </Compile>
     <Compile Include="Models\CoordinateDetails.cs" />
     <Compile Include="Models\SearchRequest\LocationsSearchRequest.cs" />
+    <Compile Include="Models\SearchRequest\SchedulesSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
     <Compile Include="Objects\GeoCoordinates.cs" />
@@ -366,9 +368,6 @@
       <DependentUpon>TraincoModel.edmx</DependentUpon>
       <LastGenOutput>TraincoModel.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="GoogleMaps.LocationServices.readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
