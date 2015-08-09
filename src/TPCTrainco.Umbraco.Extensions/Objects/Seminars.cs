@@ -245,7 +245,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 {
                                     ViewModels.Location location = new ViewModels.Location();
 
-                                    
                                     location.CourseId = seminarCatalog.SchID;
                                     location.CityState = seminarCatalog.City + ", " + seminarCatalog.State;
                                     location.SearchId = searchId;
@@ -262,6 +261,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                         schedule.CourseId = schedule.Id;
 
                                         location.CityId = schedule.CityId;
+                                        location.Date = schedule.Date;
+                                        location.Price = schedule.Price;
 
                                         location.Schedules = new List<Schedule>();
 
@@ -473,6 +474,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             result.CityId = location.CityId;
             result.CourseId = location.CourseId;
             result.CityState = location.CityState;
+            result.Date = location.Date;
+            result.Price = location.Price;
             result.SearchId = location.SearchId;
 
             return result;
@@ -523,7 +526,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     result.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");
                     result.Date = schedule.ScheduleDateDescription;
                     result.Price = Convert.ToDouble(course.CourseFee);
-                    result.Description = course.GoogleDesc;
+                    result.Description = course.GoogleDesc ?? course.TitlePlain;
                 }
             }
 

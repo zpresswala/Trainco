@@ -11,6 +11,8 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
         public int CityId { get; set; }
         public int CourseId { get; set; }
         public string CityState { get; set; }
+        public string Date { get; set; }
+        public double Price { get; set; }
         public string SearchId { get; set; }
         public List<Schedule> Schedules { get; set; }
     }
