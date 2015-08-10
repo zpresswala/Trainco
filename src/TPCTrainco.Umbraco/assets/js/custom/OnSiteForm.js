@@ -1,3 +1,5 @@
+'use strict';
+
 function OnSiteForm() {
 	this.showPromoField();
 }

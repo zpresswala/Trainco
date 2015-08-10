@@ -3977,8 +3977,11 @@ a:hover {
 
 .register-two {
   background-color: #f1f1f1; }
-  .register-two h1 {
-    font-weight: 400; }
+  .register-two h2 {
+    font-weight: 300; }
+    @media (min-width: 1025px) {
+      .register-two h2 {
+        font-weight: 400; } }
   .register-two .container {
     padding: 0; }
     @media (min-width: 768px) {
@@ -3987,8 +3990,11 @@ a:hover {
         padding-right: 15px; } }
 
 .billing-opts-wrapper h2 {
-  font-weight: 400;
-  margin-bottom: 6px; }
+  margin-bottom: 6px;
+  font-weight: 300; }
+  @media (min-width: 1025px) {
+    .billing-opts-wrapper h2 {
+      font-weight: 400; } }
 
 .billing-opts-wrapper label {
   font-weight: 300;
@@ -4017,6 +4023,37 @@ a:hover {
   text-align: center;
   line-height: 17px;
   text-shadow: 0px 0px 3px #eee; }
+
+.hidden {
+  display: none; }
+
+.disabled {
+  pointer-events: none;
+  background-color: gray; }
+
+.cc-info {
+  display: none;
+  float: left; }
+
+.hidden-different-check {
+  display: none;
+  float: left;
+  margin-bottom: 25px; }
+
+.cvv-info {
+  font-style: italic;
+  margin: 6px 0 10px; }
+
+.cvv-text {
+  display: inline-block;
+  margin-top: 0; }
+
+.popover {
+  width: 100% !important;
+  max-width: 280px; }
+  .popover img {
+    margin: 0 auto;
+    display: block; }
 
 footer {
   color: #FFFFFF;

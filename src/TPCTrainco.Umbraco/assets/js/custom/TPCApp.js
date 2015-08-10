@@ -20,17 +20,35 @@ function TPCApp() {
 		this.countUp = new CountUp(this.$win);
 	}
 
+	// share popover init
 	if($('.share-btn-wrap').length) {
 		$('[data-toggle="popover"]').popover({
 			animation: true,
-			container: '.btn-share',
+			// container: '.btn-share',
 			trigger: 'click',
 			html: true
 		});
 	}
 
+	// cvv info init
+	if($('.cvv-info').length) {
+		var image = "<img src='/assets/images/cvv_visa.gif' /><p>Three-digit number on the back of your card.</p>";
+		$('[data-toggle="popover"]').popover({
+			animation: true,
+			container: '.cvv-info',
+			trigger: 'hover',
+			html: true,
+			content: image
+		});
+	}
+
 	if($('.caro-form-container').length || $('.register-two').length) {
 		this.onSiteForm = new OnSiteForm();
+	}
+
+	// register
+	if($('.register-two').length) {
+		this.register = new Register();
 	}
 
 	this.animateCart();
