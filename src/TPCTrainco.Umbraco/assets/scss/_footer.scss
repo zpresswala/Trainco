@@ -84,6 +84,7 @@ footer {
 	.social {
 		text-align: center;
 		margin: 35px 0 10px;
+		width: 100%;
 		@include tablet-portrait-and-up {
 			margin: 20px 0 10px;
 		}
@@ -92,8 +93,8 @@ footer {
 			position: absolute;
 			right: 0;
 			top: 50%;
-			margin-top: -12px;
-			// float: right;
+			margin-top: -12px !important;
+			width: auto;
 		}
 		li {
 			display: inline-block;

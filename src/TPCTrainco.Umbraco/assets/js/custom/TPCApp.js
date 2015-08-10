@@ -29,7 +29,7 @@ function TPCApp() {
 		});
 	}
 
-	if($('.caro-form-container').length) {
+	if($('.caro-form-container').length || $('.register-two').length) {
 		this.onSiteForm = new OnSiteForm();
 	}
 
