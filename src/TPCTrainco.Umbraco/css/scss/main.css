@@ -2560,7 +2560,8 @@ tbody.collapse.in {
 body {
   color: #8A8A8A;
   font-weight: 300;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  background-color: #f1f1f1; }
   @media (min-width: 768px) {
     body {
       margin-bottom: 230px; } }
@@ -4033,8 +4034,38 @@ a:hover {
   background-color: gray; }
 
 .cc-info {
-  display: none;
   float: left; }
+
+.cvv-text {
+  position: relative; }
+  .cvv-text span {
+    opacity: 0;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: -190px;
+    left: 0;
+    z-index: 1000;
+    width: auto;
+    max-width: 320px;
+    min-height: 128px;
+    padding: 15px;
+    -webkit-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s; }
+    .cvv-text span img {
+      margin-bottom: 7px; }
+  .cvv-text:hover > span {
+    opacity: 1;
+    -webkit-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s; }
+
+#pop-container {
+  border: 1px solid red;
+  display: inline-block;
+  width: 200px; }
 
 .hidden-different-check {
   display: none;
@@ -4059,18 +4090,66 @@ a:hover {
 .summary-top .step, .summary-top .line {
   background-color: #C6211F; }
 
+.summary-top .container {
+  margin: 50px auto 10px; }
+
 .summary-main .container {
   margin: 20px auto;
   padding: 0; }
 
 .summary-main .edit-btn {
-  float: right; }
+  float: right;
+  margin-bottom: 20px; }
 
 .summary-main ul {
   padding: 0; }
 
 .summary-main h2 {
-  font-weight: 300; }
+  font-weight: 300;
+  margin-bottom: 5px; }
+  @media (min-width: 768px) {
+    .summary-main h2 {
+      margin: 1em 0; } }
+
+.summary-main .attendee-info {
+  line-height: 2;
+  margin: 15px 0;
+  display: inline-block;
+  width: 100%; }
+  @media (min-width: 768px) {
+    .summary-main .attendee-info {
+      line-height: inherit;
+      margin: 10px 0; } }
+  .summary-main .attendee-info .summary-opts {
+    font-style: italic; }
+
+.summary-item-top {
+  width: 100%;
+  display: inline-block;
+  position: relative; }
+  @media (min-width: 768px) {
+    .summary-item-top .price {
+      text-align: right;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      transform: translateY(-50%); } }
+
+.summary-item {
+  float: left;
+  width: 100%; }
+
+.purchaser-info {
+  line-height: 1.75;
+  margin-top: 60px; }
+
+.purchaser-name {
+  font-weight: 500;
+  font-size: 17px; }
 
 footer {
   color: #FFFFFF;

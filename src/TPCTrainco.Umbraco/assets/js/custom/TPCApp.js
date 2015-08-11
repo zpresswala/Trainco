@@ -30,18 +30,6 @@ function TPCApp() {
 		});
 	}
 
-	// cvv info init
-	if($('.cvv-info').length) {
-		var image = "<img src='/assets/images/cvv_visa.gif' /><p>Three-digit number on the back of your card.</p>";
-		$('[data-toggle="popover"]').popover({
-			animation: true,
-			container: '.cvv-info',
-			trigger: 'hover',
-			html: true,
-			content: image
-		});
-	}
-
 	if($('.caro-form-container').length || $('.register-two').length) {
 		this.onSiteForm = new OnSiteForm();
 	}

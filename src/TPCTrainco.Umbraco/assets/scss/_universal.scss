@@ -18,6 +18,7 @@ body {
 	color: $body-copy;
 	font-weight: 300;
 	overflow-x: hidden;
+	background-color: #f1f1f1;
 
 	// sticky footer styles
 	@include tablet-portrait-and-up {
