@@ -4062,11 +4062,6 @@ a:hover {
     -o-transition: 0.25s;
     transition: 0.25s; }
 
-#pop-container {
-  border: 1px solid red;
-  display: inline-block;
-  width: 200px; }
-
 .hidden-different-check {
   display: none;
   float: left;
@@ -4079,13 +4074,6 @@ a:hover {
 .cvv-text {
   display: inline-block;
   margin-top: 0; }
-
-.popover {
-  width: 100% !important;
-  max-width: 280px; }
-  .popover img {
-    margin: 0 auto;
-    display: block; }
 
 .summary-top .step, .summary-top .line {
   background-color: #C6211F; }
@@ -4150,6 +4138,11 @@ a:hover {
 .purchaser-name {
   font-weight: 500;
   font-size: 17px; }
+
+.total-price {
+  text-align: center; }
+  .total-price .btn {
+    display: block; }
 
 footer {
   color: #FFFFFF;
