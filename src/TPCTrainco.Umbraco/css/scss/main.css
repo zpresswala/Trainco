@@ -3983,7 +3983,8 @@ a:hover {
       .register-two h2 {
         font-weight: 400; } }
   .register-two .container {
-    padding: 0; }
+    padding: 0;
+    margin: 0 auto; }
     @media (min-width: 768px) {
       .register-two .container {
         padding-left: 15px;
@@ -4054,6 +4055,22 @@ a:hover {
   .popover img {
     margin: 0 auto;
     display: block; }
+
+.summary-top .step, .summary-top .line {
+  background-color: #C6211F; }
+
+.summary-main .container {
+  margin: 20px auto;
+  padding: 0; }
+
+.summary-main .edit-btn {
+  float: right; }
+
+.summary-main ul {
+  padding: 0; }
+
+.summary-main h2 {
+  font-weight: 300; }
 
 footer {
   color: #FFFFFF;

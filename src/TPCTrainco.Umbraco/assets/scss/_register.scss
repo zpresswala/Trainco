@@ -172,6 +172,7 @@
 
 	.container {
 		padding: 0;
+		margin: 0 auto;
 		@include tablet-portrait-and-up {
 			padding-left: 15px;
 			padding-right: 15px;
@@ -260,5 +261,27 @@
 	img {
 		margin: 0 auto;
 		display: block;
+	}
+}
+
+.summary-top {
+	.step, .line {
+		background-color: $red-button;
+	}
+}
+
+.summary-main {
+	.container {
+		margin: 20px auto;
+		padding: 0;
+	}
+	.edit-btn {
+		float: right;
+	}
+	ul {
+		padding: 0;
+	}
+	h2 {
+		font-weight: 300;
 	}
 }
