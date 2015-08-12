@@ -293,9 +293,15 @@
 }
 
 .summary-main {
+	position: relative;
+	padding-bottom: 40px;
+	margin-bottom: 40px;
 	.container {
 		margin: 20px auto;
 		padding: 0;
+		@include med-desktop-and-up {
+			padding: 0 15px;
+		}
 	}
 	.edit-btn {
 		float: right;
@@ -315,9 +321,7 @@
 	.attendee-info {
 		line-height: 2;
 		margin: 15px 0;
-		display: inline-block;
-		width: 100%;
-		@include tablet-portrait-and-up {
+		@include med-desktop-and-up {
 			line-height: inherit;
 			margin: 10px 0;
 		}
@@ -333,6 +337,7 @@
     position: relative;
 
     .price {
+    	font-size: 21px;
     	@include tablet-portrait-and-up {
     		text-align: right;
     		position: absolute;
@@ -343,9 +348,13 @@
     }
 }
 
-.summary-item {
-	float: left;
-	width: 100%;
+// .summary-item {
+// 	float: left;
+// 	width: 100%;
+// }
+
+.purchaser-info-wrap {
+	position: relative;
 }
 
 .purchaser-info {
@@ -358,10 +367,26 @@
 	font-size: 17px;
 }
 
+.summary-submit-btn {
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 150px;
+	@include transform(translateX(-50%));
+	@include tablet-portrait-and-up {
+		float: right;
+		position: static;
+		@include transform(translateX(0));
+	}
+}
+
 .total-price {
 	text-align: center;
-
-	.btn {
-		display: block;
+	margin-top: 40px;
+	@include tablet-portrait-and-up {
+		position: absolute;
+		bottom: 0;
+		right: 15px;
 	}
 }
