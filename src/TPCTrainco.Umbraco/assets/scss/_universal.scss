@@ -1,10 +1,4 @@
-// universal styles shared across the site. hopefully reusable.
-
-// loading Arial Black here because it's not on iOS.
-// @font-face {
-//   font-family: 'ArialBlack';
-//   src: url('/assets/fonts/arial-black.ttf')  format('truetype'); /* Safari, Android, iOS */
-// }
+// universal styles shared across the site.
 
 // sticky footer style
 html {
@@ -18,7 +12,7 @@ body {
 	color: $body-copy;
 	font-weight: 300;
 	overflow-x: hidden;
-	background-color: #f1f1f1;
+	background-color: #F9F9F9;
 
 	// sticky footer styles
 	@include tablet-portrait-and-up {
@@ -34,7 +28,7 @@ ul {
 	list-style: none;
 }
 
-a:hover {
+a:hover, a:focus {
 	text-decoration: none;
 	color: $blue;
 }

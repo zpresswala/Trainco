@@ -55,6 +55,7 @@
 	background-color: $white;
 	border-radius: 50%;
 	position: relative;
+	cursor: pointer;
 	@include transition(all 0.25s ease-in-out);
 
 	&:hover > .overlay, &.chosen > .overlay {
@@ -72,7 +73,8 @@
 	}
 
 	img {
-		width: 120px;
+		width: 100%;
+		max-width: 120px;
 		border-radius: 50%;
 	}
 

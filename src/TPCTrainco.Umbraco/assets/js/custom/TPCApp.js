@@ -5,6 +5,8 @@ function TPCApp() {
 	this.$win = $(window);
 	
 	$('.carousel').carousel();
+
+	this.catalog = new Catalog();
 	
 	this.homePage = new HomePage();
 

@@ -1,7 +1,7 @@
 'use strict';
 
 function HomePage() {
-	this.$overlay = $('.overlay-contain');
+	this.$overlay = $('.topic-circles .overlay-contain');
 
 	this.showActiveSelection();
 }
