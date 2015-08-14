@@ -1,0 +1,55 @@
+.contact {
+
+	h3 {
+		font-weight: 400;
+	}
+
+	button {
+		border: none;
+		display: block;
+		width: 150px;
+		&:focus {
+			outline: none;
+		}
+	}
+
+	label {
+		font-weight: 300;
+		position: relative;
+	}
+
+	.container {
+		padding: 0;
+		@include tablet-portrait-and-up {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	}
+}
+
+.contact-list {
+	padding: 0;
+	margin-top: 25px;
+	margin-bottom: 25px;
+
+	li {
+		margin-bottom: 25px;
+	}
+
+	p {
+		margin: 2px 0;
+	}
+
+	h4 {
+		margin: 10px 0;
+		font-weight: 400;
+	}
+}
+
+.email-list {
+	padding: 0;
+}
+
+.contact-item {
+	margin-bottom: 25px;
+}

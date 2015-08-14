@@ -4001,10 +4001,10 @@ a:hover, a:focus {
   position: relative;
   margin-bottom: 20px; }
 
-.billing-opts-wrapper input[type=checkbox] {
+input[type=checkbox] {
   display: none; }
 
-.billing-opts-wrapper input[type=checkbox] + label:before {
+input[type=checkbox] + label:before {
   content: "";
   display: block;
   width: 20px;
@@ -4017,7 +4017,7 @@ a:hover, a:focus {
   top: 50%;
   margin-top: -10px; }
 
-.billing-opts-wrapper input[type=checkbox]:checked + label:before {
+input[type=checkbox]:checked + label:before {
   content: "\2713";
   color: #0090C5;
   text-align: center;
@@ -4264,6 +4264,45 @@ a:hover, a:focus {
   .current a:before {
     right: 0;
     background: #F04B49; }
+
+.contact h3 {
+  font-weight: 400; }
+
+.contact button {
+  border: none;
+  display: block;
+  width: 150px; }
+  .contact button:focus {
+    outline: none; }
+
+.contact label {
+  font-weight: 300;
+  position: relative; }
+
+.contact .container {
+  padding: 0; }
+  @media (min-width: 768px) {
+    .contact .container {
+      padding-left: 15px;
+      padding-right: 15px; } }
+
+.contact-list {
+  padding: 0;
+  margin-top: 25px;
+  margin-bottom: 25px; }
+  .contact-list li {
+    margin-bottom: 25px; }
+  .contact-list p {
+    margin: 2px 0; }
+  .contact-list h4 {
+    margin: 10px 0;
+    font-weight: 400; }
+
+.email-list {
+  padding: 0; }
+
+.contact-item {
+  margin-bottom: 25px; }
 
 footer {
   color: #FFFFFF;
