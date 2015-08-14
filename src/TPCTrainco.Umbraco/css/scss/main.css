@@ -2601,7 +2601,7 @@ h2, h3, h4 {
     left: 0;
     width: 100%;
     height: 100%;
-    border: 3px solid #C6211F;
+    border: 4px solid #C6211F;
     z-index: 1;
     border-radius: inherit;
     opacity: 0;
@@ -4301,6 +4301,26 @@ input[type=checkbox]:checked + label:before {
 
 .sitemap-section li {
   margin: 12px 0; }
+
+.success {
+  text-align: center;
+  margin-top: 80px; }
+  @media (min-width: 992px) {
+    .success {
+      margin-top: 100px; } }
+
+.receipt-links {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-size: 18px; }
+  .receipt-links div {
+    margin: 12px 0; }
+
+.btn-first {
+  padding: 13px 20px; }
+
+.second-btn {
+  color: #0090C5; }
 
 footer {
   color: #FFFFFF;
