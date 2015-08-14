@@ -3375,16 +3375,12 @@ a:hover, a:focus {
 .post-author {
   display: table;
   width: 92%;
-  max-width: 300px; }
-  @media (min-width: 768px) {
-    .post-author {
-      margin: 0 auto; } }
+  max-width: 300px;
+  margin: 0 auto; }
   .post-author .author-img {
-    float: left;
     margin: 0 0 0 22px; }
 
 .jumbotron .publish-info {
-  color: #3E3E3E;
   margin-top: 10px; }
 
 .publish-info {
@@ -4174,9 +4170,19 @@ a:hover, a:focus {
       right: 15px; } }
 
 .catalog-top {
-  margin: 40px 0; }
+  margin-top: 40px;
+  margin-bottom: 40px; }
   .catalog-top p {
-    margin-bottom: 25px; }
+    margin-bottom: 25px;
+    line-height: 1.75;
+    font-size: 16px;
+    text-align: center; }
+  @media (min-width: 992px) {
+    .catalog-top li {
+      text-align: left; } }
+  @media (min-width: 992px) {
+    .catalog-top li:last-child {
+      text-align: right; } }
 
 .catalog-top .regular-link, .sort .regular-link {
   font-weight: 400; }
@@ -4190,23 +4196,29 @@ a:hover, a:focus {
     left: 0; }
 
 .catalog-top ul, .sort ul {
-  padding-left: 0; }
+  padding-left: 0;
+  text-align: center; }
 
 .catalog-top li, .sort li {
   padding: 0;
   margin: 10px 0 20px 0; }
 
-.sort .regular-link {
-  color: #C6211F; }
-  .sort .regular-link:hover {
-    color: #F04B49; }
-  .sort .regular-link:before {
-    background: #F04B49; }
+.sort {
+  text-align: center; }
+  @media (min-width: 992px) {
+    .sort {
+      text-align: left; } }
+  .sort .regular-link {
+    color: #C6211F; }
+    .sort .regular-link:hover {
+      color: #F04B49; }
+    .sort .regular-link:before {
+      background: #F04B49; }
 
 .course-section {
   border: 1px solid #D7D7D7;
   background-color: #FFFFFF;
-  border-radius: 4px;
+  border-radius: 8px;
   margin: 0 auto 40px; }
   .course-section h2 {
     color: #0090C5;
@@ -4215,13 +4227,17 @@ a:hover, a:focus {
     padding: 0; }
   .course-section .seminar-topic {
     margin: 10px 0px;
-    width: 49.5%;
-    vertical-align: top; }
+    vertical-align: top;
+    height: 240px; }
     .course-section .seminar-topic a:hover > p {
       color: #0090C5; }
     .course-section .seminar-topic p {
       color: #8A8A8A;
-      text-align: center; }
+      text-align: center;
+      margin: 10px auto 0; }
+      @media (min-width: 992px) {
+        .course-section .seminar-topic p {
+          width: 63%; } }
   .course-section .overlay-contain {
     display: block;
     text-align: center; }
@@ -4230,9 +4246,18 @@ a:hover, a:focus {
       max-width: 150px; }
     .course-section .overlay-contain .overlay {
       left: 50%;
-      margin-left: -75px;
       max-width: 150px;
-      max-height: 150px; }
+      max-height: 150px;
+      -webkit-transform: translateX(-50%);
+      -moz-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      -o-transform: translateX(-50%);
+      transform: translateX(-50%); }
+
+@media (min-width: 992px) {
+  .elec-description {
+    width: 90%;
+    float: left; } }
 
 .current a {
   color: #F04B49 !important; }

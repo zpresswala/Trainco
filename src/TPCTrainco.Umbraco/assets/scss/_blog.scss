@@ -42,19 +42,17 @@
     display: table;
     width: 92%;
     max-width: 300px;
-    @include tablet-portrait-and-up {
-        margin: 0 auto;
-    }
+    margin: 0 auto;
 
     .author-img {
-        float: left;
+        // float: left;
         margin: 0 0 0 22px;
     }
 }
 
 .jumbotron {
     .publish-info {
-        color: $headline-black;
+        // color: $headline-black;
         margin-top: 10px
     }
 }

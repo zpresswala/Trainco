@@ -1,8 +1,24 @@
 .catalog-top {
-	margin: 40px 0;
+	margin-top: 40px;
+	margin-bottom: 40px;
 
 	p {
 		margin-bottom: 25px;
+		line-height: 1.75;
+		font-size: 16px;
+		text-align: center;
+	}
+
+	li {
+		@include med-desktop-and-up {
+			text-align: left;
+		}
+
+		&:last-child {
+			@include med-desktop-and-up {
+				text-align: right;
+			}
+		}
 	}
 }
 
@@ -25,6 +41,7 @@
 	}
 	ul {
 		padding-left: 0;
+		text-align: center;
 	}
 	li {
 		padding: 0;
@@ -33,6 +50,10 @@
 }
 
 .sort {
+	text-align: center;
+	@include med-desktop-and-up {
+		text-align: left;
+	}
 	.regular-link {
 		color: $red-button;
 		&:hover {
@@ -48,7 +69,7 @@
 .course-section {
 	border: 1px solid $cart-border;
 	background-color: $white;
-	border-radius: 4px;
+	border-radius: 8px;
 	margin: 0 auto 40px;
 	@include tablet-portrait-and-up {
 
@@ -65,8 +86,13 @@
 
 	.seminar-topic {
 		margin: 10px 0px;
-		width: 49.5%;
+		// width: 49.5%;
 		vertical-align: top;
+		height: 240px;
+		// @include med-desktop-and-up {
+		// 	width: 33.3%;
+		// 	float: left;
+		// }
 
 		a:hover > p {
 			color: $blue;
@@ -75,6 +101,10 @@
 		p {
 			color: $body-copy;
 			text-align: center;
+			margin: 10px auto 0;
+			@include med-desktop-and-up {
+				width: 63%;
+			}
 		}
 	}
 
@@ -89,13 +119,21 @@
 
 		.overlay {
 			left: 50%;
-			margin-left: -75px;
+			// margin-left: -50%;
+
 			max-width: 150px;
 			max-height: 150px;
+			@include transform(translateX(-50%));
 		}
 	}
 }
 
+.elec-description {
+	@include med-desktop-and-up {
+		width: 90%;
+		float: left;
+	}
+}
 .current {
 	a {
 		color: $red-button-hover !important;
@@ -106,3 +144,13 @@
 		}
 	}
 }
+
+// .offset-margin {
+// 	margin-top: 25px;
+// 	@include tablet-portrait-and-up {
+// 		margin-left: 5%;
+// 	}
+// 	@include med-desktop-and-up {
+// 		margin-left: 8%;
+// 	}
+// }
