@@ -81,7 +81,8 @@
 <div class="caro-form-container">
     <div class="container">
         <div class="form-wrap pull-right col-xs-12 col-md-6">
-            <h3>Contact us to plan an On&ndash;Site Seminar</h3>
+            @CurrentPage.form
+            @*<h3>Contact us to plan an On&ndash;Site Seminar</h3>
             <form>
                 <div class="form-group">
                     <input type="text" class="form-control" id="fname" placeholder="First Name">
@@ -194,7 +195,7 @@
                 </div>
 
                 <button type="submit" class="btn-reg btn-blue-solid" id="caro-form-submit">Submit</button>
-            </form>
+            </form>*@
         </div>
 
         @Html.Partial("Quotes/UserQuotes", currentPage);
