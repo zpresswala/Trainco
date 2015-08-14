@@ -71,14 +71,7 @@
 	background-color: $white;
 	border-radius: 8px;
 	margin: 0 auto 40px;
-	@include tablet-portrait-and-up {
-
-	}
-
-	h2 {
-		color: $blue;
-		font-weight: 400;
-	}
+	padding-top: 35px;
 
 	ul {
 		padding: 0;
@@ -86,13 +79,8 @@
 
 	.seminar-topic {
 		margin: 10px 0px;
-		// width: 49.5%;
 		vertical-align: top;
 		height: 240px;
-		// @include med-desktop-and-up {
-		// 	width: 33.3%;
-		// 	float: left;
-		// }
 
 		a:hover > p {
 			color: $blue;
@@ -119,8 +107,6 @@
 
 		.overlay {
 			left: 50%;
-			// margin-left: -50%;
-
 			max-width: 150px;
 			max-height: 150px;
 			@include transform(translateX(-50%));
@@ -144,13 +130,3 @@
 		}
 	}
 }
-
-// .offset-margin {
-// 	margin-top: 25px;
-// 	@include tablet-portrait-and-up {
-// 		margin-left: 5%;
-// 	}
-// 	@include med-desktop-and-up {
-// 		margin-left: 8%;
-// 	}
-// }

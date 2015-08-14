@@ -47,7 +47,6 @@
 		position: relative;
 		bottom: -10px;
 		font-style: italic;
-		// color: $headline-black;
 		color: #B8B8B8;
 		width: 60px;
 		left: -50%;
@@ -163,12 +162,6 @@
 
 .register-two {
 	background-color: #f1f1f1;
-	h2 {
-		font-weight: 300;
-		@include tablet-landscape-and-up {
-			font-weight: 400;
-		}
-	}
 
 	.container {
 		padding: 0;
@@ -184,10 +177,6 @@
 	
 	h2 {
 		margin-bottom: 6px;
-		font-weight: 300;
-		@include tablet-landscape-and-up {
-			font-weight: 400;
-		}
 	}
 
 	label {
@@ -218,8 +207,7 @@ input[type=checkbox] + label:before {
 
 input[type=checkbox]:checked + label:before {
 	content:"\2713";
-	color: $blue;
-    // background-color: #666; 
+	color: $blue; 
 	text-align:center;
 	line-height:17px;
     text-shadow:0px 0px 3px #eee;
@@ -235,8 +223,8 @@ input[type=checkbox]:checked + label:before {
 }
 
 .cc-info {
-	// display: none;
 	float: left;
+	display: none;
 }
 
 .cvv-text {
@@ -347,11 +335,6 @@ input[type=checkbox]:checked + label:before {
     	}
     }
 }
-
-// .summary-item {
-// 	float: left;
-// 	width: 100%;
-// }
 
 .purchaser-info-wrap {
 	position: relative;

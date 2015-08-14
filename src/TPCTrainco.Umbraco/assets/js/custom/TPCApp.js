@@ -37,7 +37,7 @@ function TPCApp() {
 	}
 
 	// register
-	if($('.register-two').length) {
+	if($('.register-two').length || $('.contact').length) {
 		this.register = new Register();
 	}
 

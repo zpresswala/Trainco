@@ -2,7 +2,16 @@
 
 function Register() {
 
-	this.$differentInfo = $('#supervisor-diff');
+	if($('#supervisor-diff').length) {
+		this.$differentInfo = $('#supervisor-diff');
+	}
+
+	if($('#mail-checkbox').length) {
+		this.$differentInfo = $('#mail-checkbox');
+	}
+
+	console.log(this.$differentInfo, 'hi')
+
 	this.$differentInfoFields = $('.hidden-different-check');
 	this.$billingInfoText = $('.billing-info-desc');
 	this.$billingOptsSelect = $('#billing-opts');

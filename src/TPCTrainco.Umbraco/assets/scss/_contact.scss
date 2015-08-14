@@ -1,9 +1,4 @@
 .contact {
-
-	h3 {
-		font-weight: 400;
-	}
-
 	button {
 		border: none;
 		display: block;
@@ -11,6 +6,10 @@
 		&:focus {
 			outline: none;
 		}
+	}
+
+	.hidden-different-check {
+		float: none;
 	}
 
 	label {
@@ -42,7 +41,6 @@
 
 	h4 {
 		margin: 10px 0;
-		font-weight: 400;
 	}
 }
 

@@ -2576,6 +2576,10 @@ a:hover, a:focus {
   text-decoration: none;
   color: #0090C5; }
 
+h2, h3, h4 {
+  font-weight: 400;
+  color: #5C5C5C; }
+
 .btn-reg {
   background-color: #C6211F;
   color: #FFFFFF;
@@ -3561,12 +3565,9 @@ a:hover, a:focus {
     margin: 0 auto; }
   .cart .row {
     margin: 0; }
-  .cart h3 {
-    font-weight: 400;
-    color: #000000; }
-    @media (min-width: 992px) {
-      .cart h3 {
-        float: left; } }
+  @media (min-width: 992px) {
+    .cart h3 {
+      float: left; } }
 
 .cart-items {
   padding-left: 0;
@@ -3589,7 +3590,6 @@ a:hover, a:focus {
       display: table-cell;
       vertical-align: middle; }
     .cart-item ul h4 {
-      font-weight: 400;
       font-size: 16px; }
   @media (min-width: 992px) {
     .cart-item .location, .cart-item .date, .cart-item .remove, .cart-item .qty-wrap, .cart-item .sub-total {
@@ -3702,7 +3702,6 @@ a:hover, a:focus {
 .total {
   font-weight: 500;
   font-size: 20px;
-  color: #3E3E3E;
   margin-left: 5px; }
 
 .remove a {
@@ -3745,8 +3744,6 @@ a:hover, a:focus {
   margin-bottom: 30px;
   display: inline-block;
   width: 100%; }
-  .result h2 {
-    font-weight: 400; }
   .result img {
     border-radius: 50%;
     margin: 25px auto 0;
@@ -3976,11 +3973,6 @@ a:hover, a:focus {
 
 .register-two {
   background-color: #f1f1f1; }
-  .register-two h2 {
-    font-weight: 300; }
-    @media (min-width: 1025px) {
-      .register-two h2 {
-        font-weight: 400; } }
   .register-two .container {
     padding: 0;
     margin: 0 auto; }
@@ -3990,11 +3982,7 @@ a:hover, a:focus {
         padding-right: 15px; } }
 
 .billing-opts-wrapper h2 {
-  margin-bottom: 6px;
-  font-weight: 300; }
-  @media (min-width: 1025px) {
-    .billing-opts-wrapper h2 {
-      font-weight: 400; } }
+  margin-bottom: 6px; }
 
 .billing-opts-wrapper label {
   font-weight: 300;
@@ -4032,7 +4020,8 @@ input[type=checkbox]:checked + label:before {
   background-color: gray; }
 
 .cc-info {
-  float: left; }
+  float: left;
+  display: none; }
 
 .cvv-text {
   position: relative; }
@@ -4219,10 +4208,8 @@ input[type=checkbox]:checked + label:before {
   border: 1px solid #D7D7D7;
   background-color: #FFFFFF;
   border-radius: 8px;
-  margin: 0 auto 40px; }
-  .course-section h2 {
-    color: #0090C5;
-    font-weight: 400; }
+  margin: 0 auto 40px;
+  padding-top: 35px; }
   .course-section ul {
     padding: 0; }
   .course-section .seminar-topic {
@@ -4265,15 +4252,15 @@ input[type=checkbox]:checked + label:before {
     right: 0;
     background: #F04B49; }
 
-.contact h3 {
-  font-weight: 400; }
-
 .contact button {
   border: none;
   display: block;
   width: 150px; }
   .contact button:focus {
     outline: none; }
+
+.contact .hidden-different-check {
+  float: none; }
 
 .contact label {
   font-weight: 300;
@@ -4295,14 +4282,25 @@ input[type=checkbox]:checked + label:before {
   .contact-list p {
     margin: 2px 0; }
   .contact-list h4 {
-    margin: 10px 0;
-    font-weight: 400; }
+    margin: 10px 0; }
 
 .email-list {
   padding: 0; }
 
 .contact-item {
   margin-bottom: 25px; }
+
+.sitemap ul {
+  padding: 0; }
+
+.sitemap-section h2 {
+  margin-bottom: 0; }
+
+.sitemap-section ul {
+  margin-top: 0; }
+
+.sitemap-section li {
+  margin: 12px 0; }
 
 footer {
   color: #FFFFFF;

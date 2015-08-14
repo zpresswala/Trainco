@@ -33,6 +33,11 @@ a:hover, a:focus {
 	color: $blue;
 }
 
+h2, h3, h4 {
+	font-weight: 400;
+	color: $headline-black-on-white;
+}
+
 // the red pill-shaped buttons w/hover state. just add this class 
 .btn-reg {
 	background-color: $red-button;
@@ -314,17 +319,6 @@ a:hover, a:focus {
 	&:focus {
 		outline: 0;
 	}
-
-	// &:after {
-	// 	content: '';
-	// 	position: absolute;
-	// 	top: 50%;
-	// 	right: 20px;
-	// 	margin-top: -11px;
-	// 	background: url("/assets/images/svg/dropdown-arrow.svg") center top / 22px 22px no-repeat;
-	// 	width: 22px;
-	// 	height: 22px;
-	// }
 
 	// make the placeholder white
 	::-webkit-input-placeholder {
