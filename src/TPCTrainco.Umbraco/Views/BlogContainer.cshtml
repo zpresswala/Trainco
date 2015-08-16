@@ -1,0 +1,95 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+}
+<!-- Featured blog post -->
+@if (CurrentPage.HasValue("featuredBlog"))
+{
+    <div class="jumbotron js-jumbo featured-post">
+        <div class="container">
+            <h1 class="post-title">
+                @if (!String.IsNullOrEmpty(CurrentPage.featuredBlog.pageTitle))
+                {
+                    <a href="@CurrentPage.featuredBlog.Url">@CurrentPage.featuredBlog.pageTitle</a>
+                }
+                else
+                {
+                    <a href="@CurrentPage.featuredBlog.Url">@CurrentPage.featuredBlog.name</a>
+                }
+            </h1>
+            @if (CurrentPage.featuredBlog.HasValue("date") || CurrentPage.featuredBlog.HasValue("author"))
+            {
+                <div class="post-author">
+                    <p class="publish-info">
+                        @if (CurrentPage.featuredBlog.HasValue("date"))
+                        {
+                            <span>@CurrentPage.featuredBlog.date.ToString("M/dd/yy")</span>
+                        }
+                        @if (CurrentPage.featuredBlog.HasValue("author"))
+                        {
+                            var author = CurrentPage.featuredBlog.author;
+                            
+                            <span>by @author.name</span>
+                            if (author.HasValue("image"))
+                            {
+                                <img src="@author.GetCropUrl("image", "Image")" class="author-img" alt="@author.name">
+                            }
+                        }
+                    </p>
+                </div>
+            }
+            @if (!String.IsNullOrEmpty(CurrentPage.featuredBlog.summary))
+            {
+                <p class="feature-snippet">
+                    @CurrentPage.featuredBlog.summary
+                </p>
+            }
+            <a class="btn-reg btn-blue-hollow" href="@CurrentPage.featuredBlog.Url">Read More</a>
+        </div>
+    </div>
+}
+
+<div class="container blog-listings">
+    <!-- blog list -->
+    @foreach (var blogPost in CurrentPage.blogItems.Where("Visible").OrderBy("date desc"))
+    {
+        <div class="blog-listing">
+            <h2 class="post-title">
+                @if (!String.IsNullOrEmpty(blogPost.pageTitle))
+                {
+                    <a href="@blogPost.Url">@blogPost.pageTitle</a>
+                }
+                else
+                {
+                    <a href="@blogPost.Url">@blogPost.name</a>
+                }
+            </h2>
+            @if (blogPost.HasValue("date") || blogPost.HasValue("author"))
+            {
+                <div class="post-author">
+                    <p class="publish-info">
+                        @if (blogPost.HasValue("date"))
+                        {
+                            <span>@blogPost.date.ToString("M/dd/yy")</span>
+                        }
+                        @if (blogPost.HasValue("author"))
+                        {
+                            <span>by @blogPost.author.name</span>
+                        }
+                    </p>
+                    @if (blogPost.author.HasValue("image"))
+                    {
+                        <img src="@blogPost.author.GetCropUrl("image", "Image")" class="author-img" alt="@blogPost.author.name">
+                    }
+                </div>
+            }
+            @if (!String.IsNullOrEmpty(blogPost.summary))
+            {
+                <p class="post-snippet">
+                    @blogPost.summary
+                </p>
+            }
+            <a class="btn-reg btn-blue-solid" href="@blogPost.Url">Read More</a>
+        </div>
+    }
+</div>

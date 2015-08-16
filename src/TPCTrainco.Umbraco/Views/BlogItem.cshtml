@@ -1,0 +1,45 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+}
+<div class="container-fluid headline-section">
+    <div class="container">
+        <div class="jumbotron">
+            @if (!String.IsNullOrEmpty(CurrentPage.pageTitle))
+            {
+                <h1>@CurrentPage.pageTitle</h1>
+            }
+            else
+            {
+                <h1>@CurrentPage.name</h1>
+            }
+        </div>
+    </div>
+</div>
+<div class="container-fluid gradient-bg main-content blog-post">
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2 text-wrap">
+            <a href="javascript:void(0);" class="btn-reg btn-blue-solid btn-share">Share</a>
+            @if (CurrentPage.HasValue("date") || CurrentPage.HasValue("author"))
+            {
+                <div class="post-author">
+                    @if (CurrentPage.author.HasValue("image"))
+                    {
+                        <img src="@CurrentPage.author.GetCropUrl("image", "Image")" class="author-img" alt="@CurrentPage.author.name">
+                    }
+                    <p class="publish-info">
+                        @if (CurrentPage.HasValue("date"))
+                        {
+                            @CurrentPage.date.ToString("M/dd/yy")
+                        }
+                        @if (CurrentPage.HasValue("author"))
+                        {
+                            <span>by @CurrentPage.author.name</span>
+                        }
+                    </p>
+                </div>
+            }
+            @CurrentPage.mainContent
+        </div>
+    </div>
+</div>
