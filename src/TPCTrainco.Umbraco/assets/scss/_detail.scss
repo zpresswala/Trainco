@@ -1,7 +1,7 @@
 .seminar-detail {
 
 	.btn-white {
-		padding: 8px 20px;
+		padding: 10px 20px;
 	}
 
 	.jumbotron {
@@ -25,6 +25,7 @@
 
 .share-btn-wrap {
 	text-align: right;
+	margin-top: 30px;
 }
 
 .second-btn {
@@ -34,9 +35,13 @@
 }
 
 .single-day-description {
-	padding-left: 20px;
+	// padding-left: 20px;
 	@include tablet-portrait-and-up {
 		padding-left: 40px;
+	}
+
+	ul {
+		padding-left: 15px;
 	}
 
 	h3 {

@@ -73,4 +73,10 @@ Register.prototype.billingOptions = function() {
 			_this.$nextBtn.bind('click', false).removeClass('disabled');
 		}
 	});
+
+
+	// show/hide cvv text info
+	$('.cvv-text').on('click', function() {
+		$(this).find('span').toggleClass('showing');
+	});
 };

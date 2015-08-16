@@ -2,6 +2,7 @@
 
 // sticky footer style
 html {
+	overflow-x: hidden;
 	@include tablet-portrait-and-up {
 		position: relative;
 		min-height: 100%;
@@ -12,7 +13,6 @@ body {
 	color: $body-copy;
 	font-weight: 300;
 	overflow-x: hidden;
-	background-color: #F9F9F9;
 
 	// sticky footer styles
 	@include tablet-portrait-and-up {
@@ -142,8 +142,11 @@ h2, h3, h4 {
 }
 
 .popover.bottom {
-	width: 160px;
+	width: 180px;
 	left: -35px;
+	// @include tablet-portrait-and-up {
+	// 	margin-top: 9%;
+	// }
 }
 
 .popover-content {

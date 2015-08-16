@@ -135,9 +135,16 @@
 		margin: 0;
 		display: block;
 
+		.total {
+			float: right;
+		}
+
+		.items {
+			line-height: 1.8;
+		}
+
 		li {
 			display: inline;
-			float: none;
 		}
 	}
 
