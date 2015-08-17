@@ -34,38 +34,105 @@
     <![endif]-->
 
     <body class="gradient-bg">
+        
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid contain">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <h1 class="logo">
-                        <a class="navbar-brand" href="/"><span class="tpc">TPC</span>TRAINCO<span class="tagline">Real World Training...for Real World Needs</span></a>
-                    </h1>
+
+            
+
+            <!-- Fyin: this is a read-only implemetation of the cart. No need to do anything with this. The data will be pulled in from Local Storage. Resume again on line 169. -->
+
+
+
+
+            <!-- THE CART -->
+            <div class="cart">
+                <div class="cart-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="cart-top col-xs-12">
+                                <h3><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <ul class="cart-items">
+                    <li class="cart-item">
+                        <ul class="container">
+                            <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                            <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                            <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                            <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
+                            <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                        </ul>
+                    </li>
+                    <li class="cart-item">
+                        <ul class="container">
+                            <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                            <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                            <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                            <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
+                            <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                        </ul>
+                    </li>
+                    <li class="cart-item">
+                        <ul class="container">
+                            <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                            <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                            <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                            <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
+                            <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                        </ul>
+                    </li>
+                    <li class="cart-item">
+                        <ul class="container">
+                            <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                            <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                            <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                            <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
+                            <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="cart-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 wrap">
+                                <ul class="cart-total col-xs-6 col-md-4">
+                                    <li class="items">6 items</li>
+                                    <li>Total:<span class="total">$4999</span></li>
+                                </ul>
+                                <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
+                                    <a href="#" class="btn-reg btn-blue-solid" id="edit">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#" class="btn-reg" role="button">Register</a></li>
-                        <li><a href="#" class="regular-link nav-link">Training Seminars</a></li>
-                        <li><a href="#" class="regular-link nav-link">On-Site Training</a></li>
-                        <li><a href="#" class="regular-link nav-link">About</a></li>
-                        <li><a href="#" class="regular-link nav-link">Blog</a></li>
-                        <li><a href="#" class="regular-link nav-link">Contact</a></li>
-                        <li><a href="tel:877-978-7246" class="regular-link nav-link">877-978-7246</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+
+            <!-- 
+
+                ================
+
+                end read-only cart 
+                
+                ==================
+
+            -->
 
         <div class="container-fluid register-top">
+            <div class="cart-visible">
+                <a class="cart-tab" href="javascript:void(0);">
+                    <img src="/assets/images/icon-cart-tab.png" />
+                </a>
+                <div class="container">
+                    <ul class="cart-total col-xs-12 col-md-4">
+                        <li class="items">6 items</li>
+                        <li>Total:<span class="total">$4999</span></li>
+                    </ul>
+                </div>
+            </div>
             <div class="container">
                 <div class="jumbotron">
                     <h1>Register</h1>
@@ -327,6 +394,7 @@
         <script type="text/javascript" src="/assets/js/custom/OnSiteForm.js"></script>
         <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
         <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/Catalog.js"></script>
         <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
     	<script type="text/javascript">
            var temp;

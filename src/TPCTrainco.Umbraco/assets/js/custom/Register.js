@@ -10,8 +10,6 @@ function Register() {
 		this.$differentInfo = $('#mail-checkbox');
 	}
 
-	console.log(this.$differentInfo, 'hi')
-
 	this.$differentInfoFields = $('.hidden-different-check');
 	this.$billingInfoText = $('.billing-info-desc');
 	this.$billingOptsSelect = $('#billing-opts');

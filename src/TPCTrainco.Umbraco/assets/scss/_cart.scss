@@ -2,9 +2,6 @@
 	padding: 0;
 	z-index: 0;
 	display: none;
-	.container {
-		margin: 0 auto;
-	}
 
 	.row {
 		margin: 0;
@@ -130,6 +127,10 @@
 	position: relative;
 	border-bottom: 1px solid $cart-border;
 	background-color: #f1f1f1;
+
+	.container {
+		margin: 0 auto;
+	}
 
 	.cart-total {
 		margin: 0;
