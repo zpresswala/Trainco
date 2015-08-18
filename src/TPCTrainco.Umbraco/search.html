@@ -252,107 +252,57 @@
         <div class="container-fluid results-container gradient-bg">
             <div class="container">
                 <!-- <div class="row"> -->
-                    <ul class="results">
-
-                        <!-- start single cart item -->
-                        <li class="result">
+                <div class="results">
+                    <div class="result">
+                        <div class="spinner class-loader">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                        <script type="text/template" id="classTemplate">
                             <div class="result-description">
                                 <div class="col-md-2">
-                                    <img src="/assets/images/selectall-icon.jpg" alt="All Seminars">
+                                    <img src="<%= imageUrl %>" alt="All Seminars" />
                                 </div>
                                 <div class="col-xs-12 col-md-8 text-desc">
-                                    <h2>Air Conditioning and Refrigeration</h2>
-                                    <p>Don't want your columns to simply stack in smaller devices? Use the extra small and medium device grid classes by adding .col-xs-* .col-md-* to your columns. See the example below for a better idea of how it all works.</p>
-                                    <a href="#"><span class="plus">+</span>View More</a>
+                                    <h2><a href="<%= detailsUrl %>"><%= title %></a></h2>
+                                    <p><%= subTitle %></p>
+                                    <a href="javascript:void(0);" class="view-opts" data-seminar="<%= seminarId %>"><span class="plus">+</span>View More</a>
                                 </div>
+                                <ul class="cart-items"></ul>
                             </div>
-                            <ul class="cart-items">
-
-                                <li class="cart-item">
-                                    <ul>
-                                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                                        <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                                        <li class="col-xs-12 col-sm-4 col-md-2"><a href="#" class="btn-reg btn-blue-hollow">Add to Cart</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="cart-item">
-                                    <ul>
-                                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                                        <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                                        <li class="col-xs-12 col-sm-4 col-md-2"><a href="#" class="btn-reg btn-blue-hollow">Add to Cart</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="cart-item">
-                                    <ul>
-                                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                                        <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                                        <li class="col-xs-12 col-sm-4 col-md-2"><a href="#" class="btn-reg btn-blue-hollow">Add to Cart</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- end single cart item -->
-
-                                                <!-- start single cart item -->
-                        <li class="result">
-                            <div class="result-description">
-                                <div class="col-md-2">
-                                    <img src="/assets/images/selectall-icon.jpg" alt="All Seminars">
-                                </div>
-                                <div class="col-xs-12 col-md-8 text-desc">
-                                    <h2>Air Conditioning and Refrigeration</h2>
-                                    <p>Don't want your columns to simply stack in smaller devices? Use the extra small and medium device grid classes by adding .col-xs-* .col-md-* to your columns. See the example below for a better idea of how it all works.</p>
-                                    <a href="#"><span class="plus">+</span>View More</a>
-                                </div>
-                            </div>
-                            <ul class="cart-items">
-
-                                <li class="cart-item">
-                                    <ul>
-                                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                                        <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                                        <li class="col-xs-12 col-sm-4 col-md-2"><a href="#" class="btn-reg btn-blue-hollow">Add to Cart</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="cart-item">
-                                    <ul>
-                                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                                        <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                                        <li class="col-xs-12 col-sm-4 col-md-2"><a href="#" class="btn-reg btn-blue-hollow">Add to Cart</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="cart-item">
-                                    <ul>
-                                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                                        <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                                        <li class="col-xs-12 col-sm-4 col-md-2"><a href="#" class="btn-reg btn-blue-hollow">Add to Cart</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- end single cart item -->
-                    </ul>
-                <!-- </div> -->
+                        </script>
+                        <!-- <ul class="cart-items"></ul> -->
+                        <ul class="schedules"></ul>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <script type="text/template" id="locationTemplate">
+            <li class="spinner location-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </li>
+            <li class="cart-item">
+                <ul>
+                    <li class="location col-xs-12 col-sm-4 col-md-2"><%= cityState %></li>
+                    <li class="schedule-wrap">
+                        <ul class="schedule">
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </script>
+
+
+        <script type="text/template" id="scheduleTemplate">
+            <li class="date col-xs-12 col-sm-4 col-md-2"></li><%= date%></li>
+            <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span><%= price %></li>
+            <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+            <li class="col-xs-12 col-sm-4 col-md-2"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
+        </script>
        
         <footer>
             <ul class="wrapper">
@@ -447,11 +397,8 @@
 
         <!-- ####### NEW  #########-->
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-        <!-- <script type="text/javascript" src="/assets/js/vendor/jquery-ui.min.js"></script> -->
-
-        <!-- ####### NEW  #########-->
-        <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
-        <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
         
 
 
@@ -477,6 +424,32 @@
         <script type="text/javascript" src="/assets/js/custom/Catalog.js"></script>
 
         <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
+
+        <!-- <script src="/assets/js/custom/cartApp/models/classModel.js"></script>
+        <script src="/assets/js/custom/cartApp/models/locationModel.js"></script>
+        <script src="/assets/js/custom/cartApp/models/scheduleModel.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/classCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/locationCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/views/classView.js"></script>
+        <script src="/assets/js/custom/cartApp/views/singleSeminarView.js"></script>
+        <script src="/assets/js/custom/cartApp/views/scheduleView.js"></script>
+        <script src="/assets/js/custom/cartApp/views/locationView.js"></script> -->
+
+
+        <script src="/assets/js/custom/cartApp/models/classModel.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/classCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/views/classView.js"></script>
+        <script src="/assets/js/custom/cartApp/models/locationModel.js"></script>
+        <script src="/assets/js/custom/cartApp/views/singleSeminarView.js"></script>
+        <script src="/assets/js/custom/cartApp/models/scheduleModel.js"></script>
+        <script src="/assets/js/custom/cartApp/views/scheduleView.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/views/locationView.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/locationCollection.js"></script> 
+        <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
+ 
+        
 
         <!-- for production:
         <script type="text/javascript" src="/js/main.js"></script> -->
