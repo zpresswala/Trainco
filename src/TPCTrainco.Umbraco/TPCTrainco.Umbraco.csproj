@@ -325,6 +325,10 @@
     <Content Include="Views\Partials\Navigation\Bottom.cshtml" />
     <Content Include="Views\SeminarCategory.cshtml" />
     <Content Include="Views\MacroPartials\CalloutNumbers.cshtml" />
+    <Content Include="Views\BlogContainer.cshtml" />
+    <Content Include="Views\BlogItem.cshtml" />
+    <Content Include="Views\CampaignContainer.cshtml" />
+    <Content Include="Views\CampaignItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
