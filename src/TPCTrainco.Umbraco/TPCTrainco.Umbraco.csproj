@@ -2979,8 +2979,6 @@
     <Content Include="Views\MacroPartials\CalloutNumbers.cshtml" />
     <Content Include="Views\BlogContainer.cshtml" />
     <Content Include="Views\BlogItem.cshtml" />
-    <Content Include="Views\CampaignContainer.cshtml" />
-    <Content Include="Views\CampaignItem.cshtml" />
     <Content Include="Views\SeminarItem.cshtml" />
     <Content Include="Views\Seminars.cshtml" />
     <Content Include="Views\Sitemap.cshtml" />
