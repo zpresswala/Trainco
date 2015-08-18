@@ -101,6 +101,8 @@ MainSearchSelect.prototype.getSearchParams = function() {
 		dates: selectedDates
 	};
 
+	var resStringified = JSON.stringify(searchResults);
+
 	console.log(JSON.stringify(searchResults));
 
 	console.log(searchResults)
