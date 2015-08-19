@@ -4421,6 +4421,13 @@ input[type=checkbox]:checked + label:before {
       padding-left: 15px;
       padding-right: 15px; } }
 
+.contact .form-wrap {
+  margin-bottom: 45px; }
+
+.contact .text-wrap {
+  margin-top: 50px;
+  margin-bottom: 10px; }
+
 .contact-list {
   padding: 0;
   margin-top: 25px;
@@ -4438,17 +4445,20 @@ input[type=checkbox]:checked + label:before {
 .contact-item {
   margin-bottom: 25px; }
 
-.sitemap ul {
-  padding: 0; }
+.sitemap {
+  padding-top: 60px;
+  padding-bottom: 60px; }
+  .sitemap ul {
+    padding: 0; }
 
-.sitemap-section h2 {
-  margin-bottom: 0; }
-
-.sitemap-section ul {
-  margin-top: 0; }
-
-.sitemap-section li {
-  margin: 12px 0; }
+.sitemap-section {
+  margin-bottom: 30px; }
+  .sitemap-section h2 {
+    margin-bottom: 0; }
+  .sitemap-section ul {
+    margin-top: 0; }
+  .sitemap-section li {
+    margin: 12px 0; }
 
 .success {
   text-align: center;
