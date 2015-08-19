@@ -34,7 +34,7 @@
 <div class="container">
     @foreach (var seminarCategory in CurrentPage.SeminarCategories)
     {
-        var pages = seminarCategory.SeminarItems;
+        var pages = seminarCategory.Children;
         var allNodesWithTags = pages.Where("tags != \"\"");
         List<string> taglist = new List<string>();
         foreach (var node in allNodesWithTags)
@@ -68,7 +68,7 @@
                 @if (seminarCategory.SeminarItems.Count() > 0)
                 {
                     <ul class="col-xs-12">
-                        @foreach (var seminar in seminarCategory.SeminarItems)
+                        @foreach (var seminar in seminarCategory.Children)
                         {
                             <li class="seminar-topic col-xs-6 col-md-4" data-type="all @foreach(var tag in seminar.tags.Replace(" ","-").Split(',')){<text>@tag </text>}">
                                 <a href="@seminar.Url">
