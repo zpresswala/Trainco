@@ -3379,7 +3379,8 @@ h2, h3, h4 {
       height: 1px;
       background-color: rgba(138, 138, 138, 0.21); }
   .featured-post .btn-reg {
-    display: inline-block; }
+    display: inline-block;
+    float: none; }
   .featured-post .container {
     margin: 0 auto 40px; }
   .featured-post .post-title {
@@ -3469,10 +3470,19 @@ h2, h3, h4 {
   margin-bottom: 40px; }
   @media (min-width: 768px) {
     .blog-post .btn-blue-solid {
-      margin-top: 40px; } }
+      margin-top: 15px; } }
 
 .blog-post .container {
   margin: 35px auto 95px; }
+
+.blog-post .text-wrap {
+  margin-bottom: 0; }
+
+#disqus_thread {
+  margin-top: 80px;
+  padding-top: 80px;
+  border-top: 1px solid #D7D7D7;
+  opacity: 0.5; }
 
 .select-date-text {
   text-align: center;
