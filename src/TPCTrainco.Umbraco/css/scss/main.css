@@ -3742,46 +3742,47 @@ h2, h3, h4 {
 .result-description {
   margin: 0 auto;
   max-width: 1000px; }
+  .result-description img {
+    display: block;
+    margin: 10px auto 5px; }
 
-.result {
+.text-desc {
+  background-color: #FFFFFF;
+  position: relative; }
+  .text-desc:after {
+    position: absolute;
+    content: '';
+    width: 100%; }
+
+.btn-blue-hollow {
+  padding: 6px 30px;
+  float: left; }
+
+.schedule {
+  display: inline-block;
+  width: 100%; }
+  .schedule:nth-child(odd) {
+    background-color: #F9F9F9; }
+
+.view-opts {
+  position: relative;
+  padding-left: 16px; }
+
+.plus {
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: -6px; }
+
+.seminar-item {
   background-color: #FFFFFF;
   border: 1px solid #D7D7D7;
   border-radius: 10px;
-  color: #646464;
-  margin-bottom: 30px;
-  display: inline-block;
-  width: 100%; }
-  .result img {
-    border-radius: 50%;
-    margin: 25px auto 0;
-    display: block; }
-  .result .text-desc {
-    padding-bottom: 30px;
-    background-color: #FFFFFF; }
-  .result .btn-blue-hollow {
-    padding: 6px 30px;
-    float: left; }
-  .result .cart-item {
-    padding: 10px 0; }
-    @media (min-width: 992px) {
-      .result .cart-item {
-        padding: 30px 0; } }
-    .result .cart-item:last-child {
-      border-bottom-right-radius: 10px;
-      border-bottom-left-radius: 10px; }
-    .result .cart-item:first-of-type .qty-wrap:after, .result .cart-item:first-of-type .sub-total:after {
-      display: none; }
-    .result .cart-item ul {
-      max-width: 1000px; }
-    @media (min-width: 992px) {
-      .result .cart-item .attendees {
-        text-align: center; } }
-    @media (min-width: 992px) {
-      .result .cart-item .sub-total {
-        text-align: right; } }
-  .result .cart-items {
-    float: left;
-    width: 100%; }
+  padding-top: 20px;
+  padding-bottom: 25px;
+  margin-bottom: 30px; }
+  .seminar-item ul {
+    padding-left: 0; }
 
 .attendees-label {
   margin-right: 10px; }

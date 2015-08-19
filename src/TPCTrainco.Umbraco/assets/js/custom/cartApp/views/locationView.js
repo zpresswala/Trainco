@@ -14,6 +14,7 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         this.render();
+        console.log(this.$el)
     },
 
     render: function() {
@@ -31,9 +32,9 @@ app.LocationView = Backbone.View.extend({
         var courseIdToGet = theModel.get('courseId');
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
-
+        console.log(this.$el)
         app.scheduleCollection = new app.ScheduleCollection;
-        var elemToAppendSchedules = this.$el.next();
+        var elemToAppendSchedules = this.$el.find('.schedule-items-wrap');
         console.log(elemToAppendSchedules)
         app.scheduleCollection.fetch({
             data: JSON.stringify({

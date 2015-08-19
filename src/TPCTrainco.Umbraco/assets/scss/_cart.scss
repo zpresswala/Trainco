@@ -257,26 +257,40 @@
 .result-description {
 	margin: 0 auto;
 	max-width: 1000px;
-}
-
-.result {
-	background-color: $white;
-	border: 1px solid $cart-border;
-	border-radius: 10px;
-	color: $cart-copy;
-	margin-bottom: 30px;
-	display: inline-block;
-	width: 100%;
 
 	img {
-		border-radius: 50%;
-		margin: 25px auto 0;
 		display: block;
+		margin: 10px auto 5px;
 	}
+}
+
+// .result-items {
+// 	background-color: $white;
+// 	border: 1px solid $cart-border;
+// 	border-radius: 10px;
+// 	color: $cart-copy;
+// 	margin-bottom: 30px;
+// 	display: inline-block;
+// 	width: 100%;
+
+// 	img {
+// 		border-radius: 50%;
+// 		margin: 25px auto 0;
+// 		// display: block;
+// 		border: 2px solid blue;
+// 	}
 
 	.text-desc {
-		padding-bottom: 30px;
+		// padding-bottom: 30px;
 		background-color: $white;
+		position: relative;
+		// border-bottom: 1px solid $cart-border;
+
+		&:after {
+			position: absolute;
+			content: '';
+			width: 100%;
+		}
 	}
 
 	.btn-blue-hollow {
@@ -284,45 +298,78 @@
 		float: left;
 	}
 
-	.cart-item {
-		padding: 10px 0;
-		@include med-desktop-and-up {
-			padding: 30px 0;
-		}
+	// .cart-item {
+	// 	padding: 10px 0;
+	// 	@include med-desktop-and-up {
+	// 		padding: 30px 0;
+	// 	}
 
-		&:last-child {
-			border-bottom-right-radius: 10px;
-			border-bottom-left-radius: 10px;
-		}
+	// 	&:last-child {
+	// 		border-bottom-right-radius: 10px;
+	// 		border-bottom-left-radius: 10px;
+	// 	}
 
-		&:first-of-type {
-			.qty-wrap, .sub-total {
-				&:after {
-					display: none;
-				}
-			}
-		}
+	// 	&:first-of-type {
+	// 		.qty-wrap, .sub-total {
+	// 			&:after {
+	// 				display: none;
+	// 			}
+	// 		}
+	// 	}
 
-		ul {
-			max-width: 1000px;
-		}
+	// 	ul {
+	// 		max-width: 1000px;
+	// 	}
 
-		.attendees {
-			@include med-desktop-and-up {
-				text-align: center;
-			}
-		}
-		.sub-total {
-			@include med-desktop-and-up {
-				text-align: right;
-			}
-		}
+	// 	.attendees {
+	// 		@include med-desktop-and-up {
+	// 			text-align: center;
+	// 		}
+	// 	}
+	// 	.sub-total {
+	// 		@include med-desktop-and-up {
+	// 			text-align: right;
+	// 		}
+	// 	}
+	// }
+
+	// .cart-items {
+	// 	float: left;
+	// 	width: 100%;
+
+	// }
+// }
+
+.schedule {
+	display: inline-block;
+	width: 100%;
+	&:nth-child(odd) { 
+		background-color: $gray-background;
 	}
+}
 
-	.cart-items {
-		float: left;
-		width: 100%;
+.view-opts {
+	position: relative;
+	padding-left: 16px;
+}
 
+.plus {
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: -6px;
+}
+
+.seminar-item {
+	background-color: $white;
+	border: 1px solid $cart-border;
+	border-radius: 10px;
+	padding-top: 20px;
+	padding-bottom: 25px;
+	margin-bottom: 30px;
+
+	ul {
+		padding-left: 0;
 	}
 }
 

@@ -12,7 +12,7 @@ app.globalCollection = new app.ClassCollection;
 
 $('.class-loader').css('display', 'block');
 app.globalCollection.fetch({
-    data: JSON.stringify({"location":"Los Angeles, CA"}),
+    data: JSON.stringify({"location":"San Francisco, CA"}),
     type: "POST",
     contentType: "application/json",
 
@@ -20,7 +20,7 @@ app.globalCollection.fetch({
         $('.class-loader').css('display', 'none');
         app.classView = new app.ClassView({
             collection: app.globalCollection,
-            el: '.result'
+            el: '.results'
         });
     }
 });

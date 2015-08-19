@@ -240,44 +240,43 @@
                 <img src="/assets/images/icon-cart-tab.png" />
             </a>
             <div class="container">
-                <!-- <div class="row"> -->
-                    <ul class="cart-total col-xs-12 col-md-4">
-                        <li class="items">6 items</li>
-                        <li class="total">Total:<span>$4999</span></li>
-                    </ul>
-                <!-- </div> -->
+                <ul class="cart-total col-xs-12 col-md-4">
+                    <li class="items">6 items</li>
+                    <li class="total">Total:<span>$4999</span></li>
+                </ul>
             </div>
         </div>
 
         <div class="container-fluid results-container gradient-bg">
             <div class="container">
-                <!-- <div class="row"> -->
-                <div class="results">
-                    <div class="result">
-                        <div class="spinner class-loader">
-                            <div class="bounce1"></div>
-                            <div class="bounce2"></div>
-                            <div class="bounce3"></div>
-                        </div>
-                        <script type="text/template" id="classTemplate">
-                            <div class="result-description">
-                                <div class="col-md-2">
-                                    <img src="<%= imageUrl %>" alt="All Seminars" />
-                                </div>
-                                <div class="col-xs-12 col-md-8 text-desc">
-                                    <h2><a href="<%= detailsUrl %>"><%= title %></a></h2>
-                                    <p><%= subTitle %></p>
-                                    <a href="javascript:void(0);" class="view-opts" data-seminar="<%= seminarId %>"><span class="plus">+</span>View More</a>
-                                </div>
-                                <ul class="cart-items"></ul>
-                            </div>
-                        </script>
-                        <!-- <ul class="cart-items"></ul> -->
-                        <ul class="schedules"></ul>
+                <div class="row">
+                    <div class="spinner class-loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
                     </div>
+                    <ul class="results">
+
+                    </ul>
                 </div>
             </div>
         </div>
+
+        <script type="text/template" id="classTemplate">
+            <div class="result-description">
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <img src="/assets/images/hvac-icon.jpg" alt="All Seminars" />
+                    </div>
+                    <div class="col-xs-12 col-md-10 text-desc">
+                        <h2><a href="<%= detailsUrl %>"><%= title %></a></h2>
+                        <p><%= subTitle %></p>
+                        <a href="javascript:void(0);" class="view-opts" data-seminar="<%= seminarId %>"><span class="plus">+</span>View Upcoming Seminars</a>
+                    </div>
+                </div>
+            </div>
+            <ul class="schedule-item-wrap"></ul>
+        </script>
 
         <script type="text/template" id="locationTemplate">
             <li class="spinner location-loader">
@@ -285,25 +284,27 @@
                 <div class="bounce2"></div>
                 <div class="bounce3"></div>
             </li>
-            <li class="cart-item">
-                <ul>
-                    <li class="location col-xs-12 col-sm-4 col-md-2"><%= cityState %></li>
-                    <li class="schedule-wrap">
-                        <ul class="schedule">
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+            <div class="location">
+                <p><%= cityState %></p>
+            </div>
+            <div class="schedule-items-wrap row"></div>
         </script>
 
 
         <script type="text/template" id="scheduleTemplate">
-            <li class="date col-xs-12 col-sm-4 col-md-2"></li><%= date%></li>
-            <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span><%= price %></li>
-            <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-            <li class="col-xs-12 col-sm-4 col-md-2"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
+            <ul class="schedule">
+                <li class="date col-xs-12"><%= date%></li>
+                <li class="sub-total col-xs-12">$<span class="sub-total"></span><%= price %></li>
+                <li class="attendees col-xs-12"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+                <li class="col-xs-12"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
+            </ul>
         </script>
-       
+                 <!--   <ul class="schedule col-xs-12">
+                <li class="date col-xs-12 col-sm-4 col-md-2"><%= date%></li>
+                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span><%= price %></li>
+                <li class="attendees col-xs-12 col-sm-4 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+                <li class="col-xs-12 col-sm-4 col-md-2"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
+            </ul> -->
         <footer>
             <ul class="wrapper">
                 <li class="copyright">&copy;TPCTrainco</li>
