@@ -3124,6 +3124,8 @@
     <Content Include="umbraco\Xslt\Web.config" />
     <Content Include="umbraco_client\CodeMirror\Js\Mode\Razor\LICENSE" />
     <Content Include="umbraco_client\CodeMirror\Js\Mode\Sieve\LICENSE" />
+    <Content Include="Views\OnSiteTraining.cshtml" />
+    <Content Include="Views\OnSiteItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
