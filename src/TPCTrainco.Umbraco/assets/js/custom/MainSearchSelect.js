@@ -4,7 +4,6 @@ function MainSearchSelect() {
 
 	var _this = this;
 
-
 	$('#main-search').select2({
 		// data:sampleArray,
 		tags: true,	

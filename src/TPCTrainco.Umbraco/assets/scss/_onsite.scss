@@ -56,12 +56,12 @@
 
 	.carousel {
 		background: none;
-		padding-top: 40px;
+		// padding-top: 40px;
 		@include med-desktop-and-up {
 			width: 50%;
 			position: absolute;
 			top: 50%;
-			margin-top: -190px;
+			margin-top: -230px;
 			left: 0;
 		}
 
@@ -73,10 +73,20 @@
 		}
 	}
 
+	.carousel-inner {
+		height: 100%;
+	}
+
 	.carousel-indicators {
-		bottom: 0;
 		@include med-desktop-and-up {
-			bottom: -30px;
+			bottom: -60px;
+		}
+	}
+
+	.item {
+		@include tablet-portrait-and-up {
+			height: 260px;
+			margin: 20px 0 0;
 		}
 	}
 }
