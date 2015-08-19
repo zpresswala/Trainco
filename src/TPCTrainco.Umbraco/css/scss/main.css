@@ -3149,7 +3149,12 @@ h2, h3, h4 {
       background: url("/assets/images/carousel-bg.jpg") center top/cover no-repeat;
       height: 385px; } }
   .carousel .item {
-    height: 385px; }
+    height: 300px;
+    margin: 50px 0; }
+    @media (min-width: 768px) {
+      .carousel .item {
+        height: 260px;
+        margin: 20px 0 0; } }
   .carousel .carousel-caption {
     max-width: 700px;
     margin: 0 auto;
@@ -3307,7 +3312,11 @@ h2, h3, h4 {
 
 .text-wrap {
   line-height: 1.7;
-  letter-spacing: 0.4px; }
+  letter-spacing: 0.4px;
+  margin-top: 20px;
+  margin-bottom: 50px; }
+  .text-wrap .share-btn-wrap {
+    margin-bottom: 40px; }
   .text-wrap .row {
     margin-top: 30px;
     margin-bottom: 48px; }
@@ -3960,8 +3969,7 @@ h2, h3, h4 {
         float: left;
         margin: 40px auto 20px; } }
   .caro-form-container .carousel {
-    background: none;
-    padding-top: 40px; }
+    background: none; }
     @media (min-width: 992px) {
       .caro-form-container .carousel {
         width: 50%;

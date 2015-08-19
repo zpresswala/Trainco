@@ -176,7 +176,12 @@
 	}
 
 	.item {
-		height: 385px;
+		height: 300px;
+		margin: 50px 0;
+		@include tablet-portrait-and-up {
+			height: 260px;
+			margin: 20px 0 0;
+		}
 	}
 
 	.carousel-caption {
