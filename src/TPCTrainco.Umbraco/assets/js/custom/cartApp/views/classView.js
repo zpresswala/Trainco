@@ -18,7 +18,7 @@ app.ClassView = Backbone.View.extend({
     renderSeminars: function(seminarModel) {
         this.$el.append(new app.SingleSeminarView({
             model: seminarModel
-        }).render().el);
+        }).render().el).hide().slideDown(500).fadeIn(700);
     }
 
 });

@@ -2666,13 +2666,13 @@ h2, h3, h4 {
   padding: 5px 24px; }
 
 .popover {
-  top: 35px !important;
   border-radius: 10px;
   box-shadow: none; }
 
 .popover.bottom {
   width: 180px;
-  left: -35px; }
+  left: -35px;
+  margin-top: 18px; }
 
 .popover-content {
   padding: 8px 14px 3px; }
@@ -3515,6 +3515,12 @@ h2, h3, h4 {
 .seminar-detail .jumbotron {
   margin: 100px auto 30px; }
 
+.detail-page-app {
+  background-color: #FFFFFF !important;
+  padding-top: 0 !important; }
+  .detail-page-app .results {
+    margin-top: 0; }
+
 .button-wrapper a {
   display: block;
   text-align: center;
@@ -3562,7 +3568,6 @@ h2, h3, h4 {
     margin: 0 auto 27px; }
 
 .cart {
-  padding: 0;
   z-index: 0;
   display: none; }
   .cart .row {
@@ -3732,59 +3737,188 @@ h2, h3, h4 {
   border-radius: 2px;
   background-color: #FCFCFC; }
 
+.empty-message {
+  display: block;
+  text-align: center;
+  margin: 70px 0 60px; }
+
 .results-container {
   background-color: #F9F9F9;
-  padding-top: 35px; }
+  padding-top: 45px;
+  position: relative;
+  min-height: 170px; }
 
 .results {
-  padding: 0; }
+  padding: 0;
+  margin-top: 100px; }
 
 .result-description {
   margin: 0 auto;
-  max-width: 1000px; }
+  max-width: 1000px;
+  position: relative; }
+  .result-description img {
+    display: block;
+    margin: 10px auto 5px;
+    border-radius: 50%; }
 
-.result {
+.location p {
+  font-style: italic;
+  font-size: 17px;
+  font-weight: 400;
+  position: relative;
+  display: inline-block;
+  width: 85%;
+  max-width: 320px; }
+  .location p .location-msg {
+    opacity: 0;
+    border-radius: 4px;
+    border: 2px solid #D7D7D7;
+    position: absolute;
+    background: #FFFFFF;
+    width: 60%;
+    right: 0;
+    bottom: -52%;
+    max-width: 185px;
+    text-align: center;
+    -webkit-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s; }
+    .location p .location-msg.showing {
+      opacity: 1; }
+    .location p .location-msg:after, .location p .location-msg:before {
+      right: 100%;
+      top: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none; }
+    .location p .location-msg:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-right-color: #fff;
+      border-width: 10px;
+      margin-top: -10px; }
+    .location p .location-msg:before {
+      border-color: rgba(245, 0, 0, 0);
+      border-right-color: #D7D7D7;
+      border-width: 13px;
+      margin-top: -13px; }
+
+.location-icon {
+  margin: 0 0 3px 10px;
+  cursor: pointer; }
+
+.text-desc {
+  background-color: #FFFFFF;
+  position: relative; }
+  .text-desc:after {
+    position: absolute;
+    content: '';
+    width: 100%; }
+
+.btn-blue-hollow {
+  padding: 6px 30px;
+  float: left; }
+
+.red {
+  color: #C6211F;
+  -webkit-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s; }
+  .red:hover, .red:focus {
+    color: #C6211F; }
+
+.turn {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg); }
+
+.schedule {
+  display: table;
+  width: 100%;
+  padding: 20px 0 7px; }
+  .schedule:nth-child(odd) {
+    background-color: #F9F9F9; }
+  .schedule:last-child {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px; }
+  .schedule li {
+    margin-top: 15px;
+    margin-bottom: 15px; }
+
+.view-opts {
+  position: relative;
+  padding-left: 16px; }
+
+.plus {
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: -6px; }
+
+.seminar-item {
   background-color: #FFFFFF;
   border: 1px solid #D7D7D7;
   border-radius: 10px;
-  color: #646464;
+  padding-top: 20px;
+  padding-bottom: 25px;
   margin-bottom: 30px;
-  display: inline-block;
-  width: 100%; }
-  .result img {
-    border-radius: 50%;
-    margin: 25px auto 0;
-    display: block; }
-  .result .text-desc {
-    padding-bottom: 30px;
-    background-color: #FFFFFF; }
-  .result .btn-blue-hollow {
-    padding: 6px 30px;
-    float: left; }
-  .result .cart-item {
-    padding: 10px 0; }
-    @media (min-width: 992px) {
-      .result .cart-item {
-        padding: 30px 0; } }
-    .result .cart-item:last-child {
-      border-bottom-right-radius: 10px;
-      border-bottom-left-radius: 10px; }
-    .result .cart-item:first-of-type .qty-wrap:after, .result .cart-item:first-of-type .sub-total:after {
-      display: none; }
-    .result .cart-item ul {
-      max-width: 1000px; }
-    @media (min-width: 992px) {
-      .result .cart-item .attendees {
-        text-align: center; } }
-    @media (min-width: 992px) {
-      .result .cart-item .sub-total {
-        text-align: right; } }
-  .result .cart-items {
-    float: left;
-    width: 100%; }
+  position: relative; }
+  .seminar-item ul {
+    padding-left: 0; }
 
 .attendees-label {
   margin-right: 10px; }
+
+.spinner {
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
+  width: 70px; }
+
+.location-loader {
+  bottom: 13px;
+  display: none; }
+
+.class-loader {
+  top: 33px; }
+
+.detail-page-app .class-loader {
+  top: 5px; }
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #0090C5;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both; }
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s; }
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s; }
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0); }
+  40% {
+    -webkit-transform: scale(1); } }
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0); }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1); } }
 
 .onsite .btn-reg {
   text-align: center;
@@ -4387,6 +4521,9 @@ footer {
         footer .links span {
           display: inline;
           margin: 0 9px; } }
+  @media (min-width: 1025px) {
+    footer .footer-text-links {
+      width: 96%; } }
   footer .social {
     text-align: center;
     margin: 35px 0 10px;

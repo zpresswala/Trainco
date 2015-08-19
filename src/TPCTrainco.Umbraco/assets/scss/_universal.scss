@@ -136,7 +136,7 @@ h2, h3, h4 {
 }
 
 .popover {
-	top: 35px !important;
+	// top: 35px !important;
 	border-radius: 10px;
 	box-shadow: none;
 }
@@ -144,6 +144,7 @@ h2, h3, h4 {
 .popover.bottom {
 	width: 180px;
 	left: -35px;
+	margin-top: 18px;
 	// @include tablet-portrait-and-up {
 	// 	margin-top: 9%;
 	// }

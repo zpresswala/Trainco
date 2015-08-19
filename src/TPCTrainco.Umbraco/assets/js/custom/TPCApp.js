@@ -106,6 +106,7 @@ TPCApp.prototype.animateCart = function(retinaScreen) {
 				_this.$cartvis.toggleClass('down').find('img').attr('src', '/assets/images/icon-cart-close-arrow.png');
 				if(!$(this).hasClass('down')) {
 					_this.$cartTopImg.attr('src', '/assets/images/icon-cart-tab.png');
+					_this.$carttab.find('img').attr('src', '/assets/images/icon-cart-tab.png');
 				}
 			}
 		});

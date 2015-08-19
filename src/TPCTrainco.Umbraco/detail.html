@@ -112,7 +112,6 @@
 
 
         <!-- THE CART -->
-        <!-- ####### NEW  #########-->
         <div class="container-fluid cart">
             <div class="cart-top">
                 <div class="container">
@@ -206,9 +205,6 @@
         <div class="container-fluid gradient-bg main-content">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-wrap">
-
-
-                    <!-- ####### NEW  #########-->
                     <div class="share-btn-wrap">
                         <a href="javascript:void(0);" class="btn-reg btn-blue-solid btn-share" data-toggle="popover" data-placement="auto bottom" data-content='<ul class="social">
                             <li><a href="#" class="regular-link"><svg
@@ -260,25 +256,8 @@
                         <p>Being able to understand, operate, maintain, and troubleshoot your own air conditioning system is what this HVAC course is all about. It was created to bring students up to speed in their skills and knowledge as quickly and safely as possible. Taught by instructors who have been in the technicians’ shoes, the practical, commonsense approach we take in presenting this course makes it perfect for novice technicians and experience HVAC technicians alike.  This air conditioning and refrigeration training course is designed for anyone who needs to understand basic operation, maintenance, and troubleshooting of air conditioning and refrigeration systems in order to improve efficiencies and uptime in commercial, industrial, or residential locations</p>
                     </div>
 
-<!--                     <div class="page-content">
-                        <h2>who should take our boiler maintenance course</h2>
-                        <p>gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party</p>
-                        <ul>
-                            <li>one</li>
-                            <li>two</li>
-                            <li>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof</li>
-                            <li>four</li>
-                        </ul>
-                    </div> -->
-
-<!--                     <div class="page-content">
-                        <h2>Purpose of Seminar</h2>
-                        <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch American Apparel PBR cray Intelligentsia. Banjo pug Etsy Vice bitters blog, sartorial meh before they sold out. Letterpress sartorial blog seitan crucifix, pug gentrify Marfa. Yr single-origin coffee fingerstache post-ironic farm-to-table. Yr gluten-free Vice taxidermy next level, flannel XOXO banjo butcher. Fashion axe before they sold out Thundercats, tousled scenester mlkshk direct trade Brooklyn blog hoodie shabby chic</p>
-                    </div> -->
-
                     <div class="page-content">
                         <h2>Discussion Topics</h2>
-<!--                         <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch</p> -->
                         <div class="day-descriptions-wrap">
                             <div class="single-day-description">
                                 <h3>Day One</h3>
@@ -411,6 +390,69 @@
         </div>
 
 
+
+        <!-- John: just added, no need for Umbraco, this is the Backbone app -->
+        <!-- note: new class added, "detail-page-app", and I have a class on the body -->
+        <div class="container-fluid results-container detail-page-app">
+            <div id="cart"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="empty-message">
+                        <p>Select a topic, city, and date range to find classes.</p>
+                    </div>
+                    <div class="spinner class-loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <ul class="results"></ul>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/template" id="classTemplate">
+            <div class="result-description">
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <img src="/assets/images/hvac-icon.jpg" alt="All Seminars" />
+                    </div>
+                    <div class="col-xs-12 col-md-8 text-desc">
+                        <h2><a href="<%= detailsUrl %>"><%= title %></a></h2>
+                        <p><%= subTitle %></p>
+                        <a href="javascript:void(0);" class="view-opts" data-seminar="<%= seminarId %>"><span class="plus">+</span>View Upcoming Seminars</a>
+                    </div>
+                    <li class="spinner location-loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </li>
+                </div>
+            </div>
+            <ul class="schedule-item-wrap row"></ul>
+        </script>
+
+        <script type="text/template" id="locationTemplate">
+            <div class="location col-xs-12 col-sm-10 col-sm-offset-1">
+                <p><%= cityState %><img src="/assets/images/icon-question.png" class="location-icon" /><span class="location-msg">We will email you the exact location.</span></p>
+            </div>
+            <div class="schedule-items-wrap"></div>
+        </script>
+
+
+        <script type="text/template" id="scheduleTemplate">
+            <ul class="schedule col-xs-12">
+                <li class="date col-xs-12 col-sm-3 col-sm-offset-1 col-md-3"><%= date%></li>
+                <li class="sub-total col-xs-12 col-sm-2 col-md-2">$<span class="sub-total"></span><%= price %></li>
+                <li class="attendees col-xs-12 col-sm-3 col-md-3"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+                <li class="col-xs-12 col-sm-3 col-md-3"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
+            </ul>
+        </script>
+
+        <!-- End Backbone app-->
+
+
+
+
         <!-- the red section -->
         <div class="container-fluid onsite-section">
             <div class="left-skew">
@@ -432,7 +474,9 @@
                 <li class="copyright">&copy;TPCTrainco</li>
                 
                 <li class="links">
-                    <ul>
+
+                    <!-- new class name on the ul -->
+                    <ul class="footer-text-links">
                         <li><a href="#">Training Seminar Schedule<span>|</span></a></li>
                         <li><a href="#">Instructor Lounge<span>|</span></a></li>
                         <li><a href="#">Privacy Policy<span>|</span></a></li>
@@ -533,6 +577,30 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
         <script type="text/javascript" src="/assets/js/custom/MainSearchSelect.js"></script>
+
+
+        <!-- Backbone app scripts -->
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+        <script src="/assets/js/custom/cartApp/models/classModel.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/classCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/views/classView.js"></script>
+        <script src="/assets/js/custom/cartApp/models/locationModel.js"></script>
+        <script src="/assets/js/custom/cartApp/views/singleSeminarView.js"></script>
+        <script src="/assets/js/custom/cartApp/models/scheduleModel.js"></script>
+        <script src="/assets/js/custom/cartApp/models/cartItemModel.js"></script>
+        <script src="/assets/js/custom/cartApp/views/scheduleView.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/views/locationView.js"></script>
+        <script src="/assets/js/custom/cartApp/views/cartItemView.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/locationCollection.js"></script> 
+        <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/cartCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/views/cartNotifyView.js"></script>
+
+        <!-- end Backbone app scripts -->
 
         
         <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>

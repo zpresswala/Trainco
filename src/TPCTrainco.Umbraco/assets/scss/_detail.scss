@@ -9,6 +9,14 @@
 	}
 }
 
+.detail-page-app {
+	background-color: $white !important;
+	padding-top: 0 !important;
+	.results {
+		margin-top: 0;
+	}
+}
+
 .button-wrapper {
 	a {
 		display: block;

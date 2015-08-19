@@ -7,7 +7,7 @@ app.LocationView = Backbone.View.extend({
     className: 'one-location',
 
     events: {
-
+        'click .location-icon': 'showClassLocationMsg'
     },
 
     template: _.template($('#locationTemplate').html()),
@@ -31,10 +31,8 @@ app.LocationView = Backbone.View.extend({
         var courseIdToGet = theModel.get('courseId');
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
-
         app.scheduleCollection = new app.ScheduleCollection;
-        var elemToAppendSchedules = this.$el.next();
-        console.log(elemToAppendSchedules)
+        var elemToAppendSchedules = this.$el.find('.schedule-items-wrap');
         app.scheduleCollection.fetch({
             data: JSON.stringify({
                 "courseId": courseIdToGet,
@@ -52,5 +50,9 @@ app.LocationView = Backbone.View.extend({
                 });
             }
         });
+    },
+
+    showClassLocationMsg: function() {
+        this.$el.find('.location-msg').toggleClass('showing');
     }
 });
