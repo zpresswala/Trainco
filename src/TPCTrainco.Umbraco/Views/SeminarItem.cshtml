@@ -166,11 +166,13 @@
                             </svg></a></li></ul>'>Share</a>
             </div>
             <!-- end -->
-
-            <div class="page-content">
-                <h2>Seminar Overview</h2>
-                <p>Being able to understand, operate, maintain, and troubleshoot your own air conditioning system is what this HVAC course is all about. It was created to bring students up to speed in their skills and knowledge as quickly and safely as possible. Taught by instructors who have been in the technicians’ shoes, the practical, commonsense approach we take in presenting this course makes it perfect for novice technicians and experience HVAC technicians alike.  This air conditioning and refrigeration training course is designed for anyone who needs to understand basic operation, maintenance, and troubleshooting of air conditioning and refrigeration systems in order to improve efficiencies and uptime in commercial, industrial, or residential locations</p>
-            </div>
+            @if (CurrentPage.HasValue("seminarOverview"))
+            {
+                <div class="page-content">
+                    <h2>Seminar Overview</h2>
+                    @CurrentPage.seminarOverview
+                </div>
+            }
             <!-- <div class="page-content">
                         <h2>who should take our boiler maintenance course</h2>
                         <p>gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party</p>
@@ -185,94 +187,96 @@
                     <h2>Purpose of Seminar</h2>
                     <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch American Apparel PBR cray Intelligentsia. Banjo pug Etsy Vice bitters blog, sartorial meh before they sold out. Letterpress sartorial blog seitan crucifix, pug gentrify Marfa. Yr single-origin coffee fingerstache post-ironic farm-to-table. Yr gluten-free Vice taxidermy next level, flannel XOXO banjo butcher. Fashion axe before they sold out Thundercats, tousled scenester mlkshk direct trade Brooklyn blog hoodie shabby chic</p>
                 </div> -->
-            <div class="page-content">
-                <h2>Discussion Topics</h2>
-                <!-- <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch</p> -->
-                <div class="day-descriptions-wrap">
-                    <div class="single-day-description">
-                        <h3>Day One</h3>
-                        <p>Day One of this air conditioning and refrigeration training provides a broad introduction to air conditioning and refrigeration systems, including every-day operation & important refrigerant safety practices. The course is a great overview for maintenance technicians, multi-craft tradespeople, building managers, HVAC technicians or anyone who wants to improve their AC&R operation and maintenance skills. The goal of the first day of this training course is to understand basic AC&R operation & how to properly handle EPA regulated refrigerants.</p>
-                        <h4>Fundamentals of AC&R</h4>
-                        <ul>
-                            <li>Air Conditioning versus Refrigeration</li>
-                            <li>Laws of Thermodynamics and Heat Transfer</li>
-                            <li>Regulation, Codes and Standards</li>
-                            <li>New Energy Efficiency Standards (S.E.E.R.)</li>
-                            <li>EPA Section 608 of the Clean Air Act</li>
-                            <li>ASHRAE, ASME</li>
-                            <li>Technician Licensing, Testing and Certification</li>
-                        </ul>
-                        <h4>Compression Refrigeration Cycle</h4>
-                        <ul>
-                            <li>Basic System Design</li>
-                            <li>Follow-the-Heat TM</li>
-                        </ul>
-                        <h4>Refrigerants</h4>
-                        <ul>
-                            <li>CFCs, HCFCs, HFCs, Inorganics </li>
-                            <li>Zeotropic and Azeotropic Refrigerant Mixtures</li>
-                            <li>Refrigerant Safety Including R-410a</li>
-                            <li>EPA 608 Significant New Alternative Policy</li>
-                        </ul>
-                        <h4>Refrigerant Oils</h4>
-                        <ul>
-                            <li>CFCs, HCFCs, HFCs, Inorganics</li>
-                            <li>Zeotropic and Azeotropic Refrigerant Mixtures</li>
-                            <li>Refrigerant Safety Including R-410a</li>
-                            <li>EPA 608 Significant New Alternative Policy</li>
-                        </ul>
-                    </div>
-                    <div class="single-day-description">
-                        <h3>Day 2</h3>
-                        <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch</p>
-                        <h4>Auxiliary System Components</h4>
-                        <ul>
-                            <li>Crankcase Heater</li>
-                            <li>Sight Glass with Moisture Indicator</li>
-                            <li>Oil Separator</li>
-                            <li>Refrigerant Controls</li>
-                            <li>Refrigerant Controls</li>
-                            <li>Refrigerant Controls</li>
-                            <li>EPA Section 608 of the Clean Air Act</li>
-                            <li>ASHRAE, ASME</li>
-                            <li>Technician Licensing, Testing and Certification</li>
-                        </ul>
-                        <h4>AC&R Electrical Control Circuits </h4>
-                        <ul>
-                            <li>Relays and Contactors</li>
-                            <li>Other specialty refrigeration systems</li>
-                            <li>Oil Separator</li>
-                            <li>Refrigerant Controls</li>
-                        </ul>
-                        <h4>System Diagnostics, Servicing & Troubleshooting</h4>
-                        <ul>
-                            <li>Service Tools and Equipment</li>
-                            <li>Manifold Gauge Set</li>
-                            <li>Recovery Machine</li>
-                            <li>Vacuum Pump</li>
-                            <li>Micron Gauge</li>
-                            <li>Leak Detection Equipment</li>
-                            <li>Recovering Refrigerant</li>
-                            <li>Charging the AC&R System</li>
-                            <li>Troubleshooting AC&R System Problems</li>
-                            <li>Energy Conservation & Operating Efficiency</li>
-                        </ul>
-                        <h4>Air Handling Systems</h4>
-                        <ul>
-                            <li>Service Tools and Equipment</li>
-                            <li>Manifold Gauge Set</li>
-                            <li>Recovery Machine</li>
-                        </ul>
-                        <h4>Heat Pumps and Chillers</h4>
-                        <ul>
-                            <li>Service Tools and Equipment</li>
-                            <li>Manifold Gauge Set</li>
-                            <li>Recovery Machine</li>
-                        </ul>
+            @if (CurrentPage.HasValue("discussionTopics"))
+            {
+                <div class="page-content">
+                    <h2>Discussion Topics</h2>
+                    <!-- <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch</p> -->
+                    <div class="day-descriptions-wrap">
+                        <div class="single-day-description">
+                            <h3>Day One</h3>
+                            <p>Day One of this air conditioning and refrigeration training provides a broad introduction to air conditioning and refrigeration systems, including every-day operation & important refrigerant safety practices. The course is a great overview for maintenance technicians, multi-craft tradespeople, building managers, HVAC technicians or anyone who wants to improve their AC&R operation and maintenance skills. The goal of the first day of this training course is to understand basic AC&R operation & how to properly handle EPA regulated refrigerants.</p>
+                            <h4>Fundamentals of AC&R</h4>
+                            <ul>
+                                <li>Air Conditioning versus Refrigeration</li>
+                                <li>Laws of Thermodynamics and Heat Transfer</li>
+                                <li>Regulation, Codes and Standards</li>
+                                <li>New Energy Efficiency Standards (S.E.E.R.)</li>
+                                <li>EPA Section 608 of the Clean Air Act</li>
+                                <li>ASHRAE, ASME</li>
+                                <li>Technician Licensing, Testing and Certification</li>
+                            </ul>
+                            <h4>Compression Refrigeration Cycle</h4>
+                            <ul>
+                                <li>Basic System Design</li>
+                                <li>Follow-the-Heat TM</li>
+                            </ul>
+                            <h4>Refrigerants</h4>
+                            <ul>
+                                <li>CFCs, HCFCs, HFCs, Inorganics </li>
+                                <li>Zeotropic and Azeotropic Refrigerant Mixtures</li>
+                                <li>Refrigerant Safety Including R-410a</li>
+                                <li>EPA 608 Significant New Alternative Policy</li>
+                            </ul>
+                            <h4>Refrigerant Oils</h4>
+                            <ul>
+                                <li>CFCs, HCFCs, HFCs, Inorganics</li>
+                                <li>Zeotropic and Azeotropic Refrigerant Mixtures</li>
+                                <li>Refrigerant Safety Including R-410a</li>
+                                <li>EPA 608 Significant New Alternative Policy</li>
+                            </ul>
+                        </div>
+                        <div class="single-day-description">
+                            <h3>Day 2</h3>
+                            <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch</p>
+                            <h4>Auxiliary System Components</h4>
+                            <ul>
+                                <li>Crankcase Heater</li>
+                                <li>Sight Glass with Moisture Indicator</li>
+                                <li>Oil Separator</li>
+                                <li>Refrigerant Controls</li>
+                                <li>Refrigerant Controls</li>
+                                <li>Refrigerant Controls</li>
+                                <li>EPA Section 608 of the Clean Air Act</li>
+                                <li>ASHRAE, ASME</li>
+                                <li>Technician Licensing, Testing and Certification</li>
+                            </ul>
+                            <h4>AC&R Electrical Control Circuits </h4>
+                            <ul>
+                                <li>Relays and Contactors</li>
+                                <li>Other specialty refrigeration systems</li>
+                                <li>Oil Separator</li>
+                                <li>Refrigerant Controls</li>
+                            </ul>
+                            <h4>System Diagnostics, Servicing & Troubleshooting</h4>
+                            <ul>
+                                <li>Service Tools and Equipment</li>
+                                <li>Manifold Gauge Set</li>
+                                <li>Recovery Machine</li>
+                                <li>Vacuum Pump</li>
+                                <li>Micron Gauge</li>
+                                <li>Leak Detection Equipment</li>
+                                <li>Recovering Refrigerant</li>
+                                <li>Charging the AC&R System</li>
+                                <li>Troubleshooting AC&R System Problems</li>
+                                <li>Energy Conservation & Operating Efficiency</li>
+                            </ul>
+                            <h4>Air Handling Systems</h4>
+                            <ul>
+                                <li>Service Tools and Equipment</li>
+                                <li>Manifold Gauge Set</li>
+                                <li>Recovery Machine</li>
+                            </ul>
+                            <h4>Heat Pumps and Chillers</h4>
+                            <ul>
+                                <li>Service Tools and Equipment</li>
+                                <li>Manifold Gauge Set</li>
+                                <li>Recovery Machine</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-
-            </div>
+            }
             <div class="page-content">
                 <h2>EPA 608 Technician Certification Testing</h2>
                 <p>Testing for EPA section 608 certification is optional. Section 608 of the Federal Clean Air Act requires that all persons who maintain, service, repair, or dispose of appliances that contain regulated refrigerants be certified in proper refrigerant handling techniques by passing the EPA 608 Technician Certification exam. Students may take the test at the end of day 2. While we cover material relevant to the test and make every attempt to help our students pass this exam, we cannot guarantee individual success. Therefore it is recommended that students who want to take the test attend both days and plan time to study beforehand.</p>
