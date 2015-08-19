@@ -1,0 +1,193 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
+    IPublishedContent currentPage = Model.Content;
+
+    IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
+    IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
+    IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+}
+
+<div class="container-fluid headline-section onsite">
+    <div class="row">
+        <div class="jumbotron">
+            <h1>@(currentPage.GetPropertyValue<string>("pageTitle", currentPage.Name))</h1>
+        </div>
+        <a href="#" class="btn-reg" role="button">Learn More</a>
+    </div>
+</div>
+<div class="container-fluid gradient-bg main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-wrap">
+                <!-- ####### NEW  #########-->
+                <div class="share-btn-wrap">
+                    <a href="javascript:void(0);" class="btn-reg btn-blue-solid btn-share" data-toggle="popover" data-placement="bottom" data-content='<ul class="social">
+                                <li><a href="#" class="regular-link"><svg
+                                     width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+                                <path id="facebook-icon" d="M204.067,184.692h-43.144v70.426h43.144V462h82.965V254.238h57.882l6.162-69.546h-64.044
+
+                                    c0,0,0-25.97,0-39.615c0-16.398,3.302-22.89,19.147-22.89c12.766,0,44.896,0,44.896,0V50c0,0-47.326,0-57.441,0
+
+                                    c-61.734,0-89.567,27.179-89.567,79.231C204.067,174.566,204.067,184.692,204.067,184.692z"/>
+                                </svg></a></li>
+
+                                <li><a href="#" class="regular-link"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+                                    <path id="twitter-icon" d="M462,128.223c-15.158,6.724-31.449,11.269-48.547,13.31c17.449-10.461,30.854-27.025,37.164-46.764
+
+                                    c-16.333,9.687-34.422,16.721-53.676,20.511c-15.418-16.428-37.386-26.691-61.698-26.691c-54.56,0-94.668,50.916-82.337,103.787
+
+                                    c-70.25-3.524-132.534-37.177-174.223-88.314c-22.142,37.983-11.485,87.691,26.158,112.85c-13.854-0.438-26.891-4.241-38.285-10.574
+
+                                    c-0.917,39.162,27.146,75.781,67.795,83.949c-11.896,3.237-24.926,3.978-38.17,1.447c10.754,33.58,41.972,58.018,78.96,58.699
+
+                                    C139.604,378.282,94.846,390.721,50,385.436c37.406,23.982,81.837,37.977,129.571,37.977c156.932,0,245.595-132.551,240.251-251.435
+
+                                    C436.339,160.061,450.668,145.174,462,128.223z"/>
+
+                                </svg></a></li>
+
+                                <li><a href="#" class="regular-link"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+
+                                     width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+                                <path id="linkedin-icon" d="M150.65,100.682c0,27.992-22.508,50.683-50.273,50.683c-27.765,0-50.273-22.691-50.273-50.683
+
+                                    C50.104,72.691,72.612,50,100.377,50C128.143,50,150.65,72.691,150.65,100.682z M143.294,187.333H58.277V462h85.017V187.333z
+
+                                     M279.195,187.333h-81.541V462h81.541c0,0,0-101.877,0-144.181c0-38.624,17.779-61.615,51.807-61.615
+
+                                    c31.268,0,46.289,22.071,46.289,61.615c0,39.545,0,144.181,0,144.181h84.605c0,0,0-100.344,0-173.915
+
+                                    s-41.689-109.131-99.934-109.131s-82.768,45.369-82.768,45.369V187.333z"/>
+
+                                </svg></a></li></ul>'>Share</a>
+                </div>
+                <!-- end -->
+
+                <div class="page-content">
+                    @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="caro-form-container">
+    <div class="container">
+        <div class="form-wrap pull-right col-xs-12 col-md-6">
+            @CurrentPage.form
+            @*<h3>Contact us to plan an On&ndash;Site Seminar</h3>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="fname" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="lname" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="form-group company-state-wrap">
+                    <div class="col-xs-8 company-wrap">
+                        <input type="text" class="form-control" id="company" placeholder="Company">
+                    </div>
+                    <div class="col-xs-4 state-wrap">
+                        <select class="form-control" id="state" name="state">
+                            <option value="" disabled selected>State</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DC">District of Columbia</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="IA">Iowa</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MD">Maryland</option>
+                            <option value="ME">Maine</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MT">Montana</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NY">New York</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VA">Virginia</option>
+                            <option value="VT">Vermont</option>
+                            <option value="WA">Washington</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="phone" placeholder="Phone">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="trainees" placeholder="# of Trainees">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="subject" name="subject">
+                        <option value="" disabled selected>Subject of Interest</option>
+                        <option value="">Electrical</option>
+                        <option value="">HVAC</option>
+                        <option value="">Plant Management</option>
+                        <option value="">Mechanical &amp; Industrial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="hear" name="hear">
+                        <option value="" disabled selected>How did you hear about us?</option>
+                        <option value="direct-mail">Direct Mail</option>
+                        <option value="internet">Internet</option>
+                        <option value="print">Print Ad</option>
+                        <option value="email">Email</option>
+                        <option value="referral">Referral</option>
+                        <option value="tradeshow">Trade Show</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group promo-wrap">
+                    <input type="text" class="form-control" id="promo" placeholder="Enter promo code">
+                </div>
+                <button type="submit" class="btn-reg btn-blue-solid" id="caro-form-submit">Submit</button>
+            </form>*@
+        </div>
+        @Html.Partial("Quotes/UserQuotes", currentPage);
+    </div>
+</div> <!-- end container -->
