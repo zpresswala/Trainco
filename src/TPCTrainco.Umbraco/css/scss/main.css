@@ -3153,8 +3153,7 @@ h2, h3, h4 {
     margin: 50px 0; }
     @media (min-width: 768px) {
       .carousel .item {
-        height: 260px;
-        margin: 20px 0 0; } }
+        margin: 70px 0 0; } }
   .carousel .carousel-caption {
     max-width: 700px;
     margin: 0 auto;
@@ -3307,6 +3306,9 @@ h2, h3, h4 {
       background: url("/assets/images/content-pg-header-large.jpg") center top/cover no-repeat; } }
   .headline-section .jumbotron {
     margin: 100px auto 40px; }
+    @media (min-width: 992px) {
+      .headline-section .jumbotron {
+        margin: 120px auto 60px; } }
   .headline-section .row {
     margin: 25px auto 45px; }
 
@@ -3975,18 +3977,22 @@ h2, h3, h4 {
         width: 50%;
         position: absolute;
         top: 50%;
-        margin-top: -190px;
+        margin-top: -230px;
         left: 0; } }
     .caro-form-container .carousel .carousel-caption {
       bottom: 1%; }
       @media (min-width: 992px) {
         .caro-form-container .carousel .carousel-caption {
           bottom: auto; } }
-  .caro-form-container .carousel-indicators {
-    bottom: 0; }
-    @media (min-width: 992px) {
-      .caro-form-container .carousel-indicators {
-        bottom: -30px; } }
+  .caro-form-container .carousel-inner {
+    height: 100%; }
+  @media (min-width: 992px) {
+    .caro-form-container .carousel-indicators {
+      bottom: -60px; } }
+  @media (min-width: 768px) {
+    .caro-form-container .item {
+      height: 260px;
+      margin: 20px 0 0; } }
 
 .company-state-wrap {
   display: inline-block;
