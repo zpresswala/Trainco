@@ -3562,14 +3562,22 @@ h2, h3, h4 {
     margin: 0 auto 27px; }
 
 .cart {
-  padding: 0;
   z-index: 0;
-  display: none; }
+  display: block; }
   .cart .row {
     margin: 0; }
   @media (min-width: 992px) {
     .cart h3 {
       float: left; } }
+
+#cart {
+  position: absolute;
+  top: 0;
+  right: 300px;
+  width: 60%;
+  border: 3px solid green;
+  background-color: aliceblue;
+  height: 100px; }
 
 .cart-items {
   padding-left: 0;
@@ -3744,7 +3752,8 @@ h2, h3, h4 {
   min-height: 170px; }
 
 .results {
-  padding: 0; }
+  padding: 0;
+  margin-top: 100px; }
 
 .result-description {
   margin: 0 auto;

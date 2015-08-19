@@ -14,7 +14,6 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         this.render();
-        console.log(this.$el)
     },
 
     render: function() {
@@ -54,7 +53,6 @@ app.LocationView = Backbone.View.extend({
     },
 
     showClassLocationMsg: function() {
-        console.log(this.$el)
         this.$el.find('.location-msg').toggleClass('showing');
     }
 });

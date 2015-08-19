@@ -1,7 +1,8 @@
 .cart {
-	padding: 0;
+	// padding: 0;
 	z-index: 0;
-	display: none;
+	// display: none;
+	display: block;
 
 	.row {
 		margin: 0;
@@ -12,6 +13,18 @@
 			float: left;
 		}
 	}
+}
+
+#cart {
+	// remove when done
+	position: absolute;
+    top: 0;
+    right: 300px;
+    width: 60%;
+    border: 3px solid green;
+    background-color: aliceblue;
+    height: 100px;
+    // end remove
 }
 
 .cart-items {
@@ -259,6 +272,7 @@
 }
 .results {
 	padding: 0;
+	margin-top: 100px;
 }
 
 .result-description {

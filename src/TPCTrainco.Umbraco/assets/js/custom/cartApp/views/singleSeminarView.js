@@ -23,7 +23,6 @@ app.SingleSeminarView = Backbone.View.extend({
 
     showClassOptions: function(e) {
         e.preventDefault();
-        console.log(this.model)
         var _this = this;
         var open = this.model.get('open');
         var schedulesLoaded = this.model.get('schedulesLoaded');
@@ -52,12 +51,10 @@ app.SingleSeminarView = Backbone.View.extend({
             "margin-top": 30 + 'px',
             "border-top": '1px solid #D7D7D7'
         });
-        console.log(schedulesLoaded, 'one')
         if(!schedulesLoaded) {
             var seminarIdToGet = this.model.get('seminarId');
             var searchIdToGet = this.model.get('searchId');
             var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
-            console.log(schedulesLoaded, 'two')
             app.locationCollection = new app.LocationCollection;
             app.locationCollection.fetch({
                 data: JSON.stringify({
@@ -78,7 +75,32 @@ app.SingleSeminarView = Backbone.View.extend({
                 }
             });
         }
+    },
+
+    // quantity for single item. sends to cart view.
+    updateQuantity: function(model, quantity) {
+        this.quantity = quantity;
+
+        Backbone.trigger('calculateSubtotal', quantity);
+
+        // updates the quantity of the original element if changed from the cart.
+        // listener attached here so it only runs once
+        Backbone.on('updateOriginalModelQuantity', this.updateOriginalModelQuantity, this);
+    },
+
+    // on update of quantity in cart item, sends back to class list
+    updateOriginalModelQuantity: function(updatedQuantity) {
+        this.model.set('quantity', updatedQuantity);
+        this.$('.qty').val(updatedQuantity);
+        Backbone.off('updateOriginalModelQuantity');
+    },
+
+    showTotalPrice: function(e) {
+        e.preventDefault();
+        var price = this.model.get('price');
+        Backbone.trigger('displayTotalPrice', this.quantity, price);
     }
+
 });
 
 app.singleSeminarView = new app.SingleSeminarView();

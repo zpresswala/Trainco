@@ -157,97 +157,41 @@
             <!-- </div> -->
         </div>
 
-        <!-- THE CART -->
+
+
+        <script type="text/template" id="cartItemTemplate">
+            <li class="cart-item">
+                <p><%= title %></p>
+                <p><%= city %></p>
+                <p><%= date %></p>
+                <p>$<%= price %></p>
+                <form class="cart-item-qty">
+                  <input type="number" name="quantity" class="class-qty">
+                </form>
+                <p>SubTotal: $<span class="sub-total"></span></p>
+                <span class="remove">X</span>
+            </li>
+        </script>
+
+
         <!-- ####### NEW  #########-->
-        <div class="container-fluid cart">
-            <div class="cart-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="cart-top col-xs-12">
-                            <h3><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ul class="cart-items">
-                <li class="cart-item">
-                    <ul class="container">
-                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                        <li class="remove col-xs-12 col-sm-4 col-md-2">
-                            <a href="javascript:void(0);"><span>X</span>Remove</a>
-                        </li>
-                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                    </ul>
-                </li>
-                <li class="cart-item">
-                    <ul class="container">
-                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                        <li class="remove col-xs-12 col-sm-4 col-md-2">
-                            <a href="javascript:void(0);"><span>X</span>Remove</a>
-                        </li>
-                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                    </ul>
-                </li>
-                <li class="cart-item">
-                    <ul class="container">
-                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                        <li class="remove col-xs-12 col-sm-4 col-md-2">
-                            <a href="javascript:void(0);"><span>X</span>Remove</a>
-                        </li>
-                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                    </ul>
-                </li>
-                <li class="cart-item">
-                    <ul class="container">
-                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                        <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                        <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                        <li class="remove col-xs-12 col-sm-4 col-md-2">
-                            <a href="javascript:void(0);"><span>X</span>Remove</a>
-                        </li>
-                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="cart-bottom">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12 wrap">
-                            <ul class="cart-total col-xs-12 col-md-4">
-                                <li class="items">6 items</li>
-                                <li class="totat">Total:<span>$4999</span></li>
-                            </ul>
-                            <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
-                                <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="cart-visible">
-            <a class="cart-tab" href="javascript:void(0);">
-                <img src="/assets/images/icon-cart-tab.png" />
-            </a>
-            <div class="container">
-                <ul class="cart-total col-xs-12 col-md-4">
-                    <li class="items">6 items</li>
-                    <li class="total">Total:<span>$4999</span></li>
-                </ul>
-            </div>
-        </div>
+        <script type="text/template" id="cartNotifyTemplate">
+            <div id="num-items">0</div>
+            <div id="total-cost">0</div>
+            <p id="add-confirm">'Item Added'</p>
+            <a href="javascript:void(0);" id="view-cart">View Cart</a>
+            <button type="button" id="check-out">Check Out</button>
+            <ul id="cart-item-list"></ul>
+            
+        </script>
+        
 
         <div class="container-fluid results-container gradient-bg">
+            <!-- THE CART -->
+
+            <div id="cart"></div>
+
+
             <div class="container">
                 <div class="row">
                     <div class="empty-message">
@@ -300,6 +244,60 @@
                 <li class="col-xs-12 col-sm-3 col-md-3"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
             </ul>
         </script>
+
+        <!-- <div class="container-fluid cart">
+            <div class="cart-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="cart-top col-xs-12">
+                            <h3><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="cart-items">
+                <li class="cart-item">
+                    <ul class="container">
+                        <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4><%= title %></h4></li>
+                        <li class="location col-xs-12 col-sm-4 col-md-2"><%= cityState %></li>
+                        <li class="date col-xs-12 col-sm-4 col-md-2"><%= date %></li>
+                        <li class="remove col-xs-12 col-sm-4 col-md-2">
+                            <a href="javascript:void(0);"><span>X</span>Remove</a>
+                        </li>
+                        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+                        <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="cart-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 wrap">
+                            <ul class="cart-total col-xs-12 col-md-4">
+                                <li class="items">6 items</li>
+                                <li>Total: $<span class="total-cost">4999</span></li>
+                            </ul>
+                            <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
+                                <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-visible">
+            <a class="cart-tab" href="javascript:void(0);">
+                <img src="/assets/images/icon-cart-tab.png" />
+            </a>
+            <div class="container">
+                <ul class="cart-total col-xs-12 col-md-4">
+                    <li><span class="items">6</span> items</li>
+                    <li>Total: $<span class="total-cost">4999</span></li>
+                </ul>
+            </div>
+        </div> -->
+
+
                  <!--   <ul class="schedule col-xs-12">
                 <li class="date col-xs-12 col-sm-4 col-md-2"><%= date%></li>
                 <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span><%= price %></li>
@@ -414,8 +412,6 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
 
-
-
         <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
 
         <!-- ####### NEW  #########-->
@@ -427,29 +423,22 @@
 
         <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
 
-        <!-- <script src="/assets/js/custom/cartApp/models/classModel.js"></script>
-        <script src="/assets/js/custom/cartApp/models/locationModel.js"></script>
-        <script src="/assets/js/custom/cartApp/models/scheduleModel.js"></script>
-        <script src="/assets/js/custom/cartApp/collections/classCollection.js"></script>
-        <script src="/assets/js/custom/cartApp/collections/locationCollection.js"></script>
-        <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
-        <script src="/assets/js/custom/cartApp/views/classView.js"></script>
-        <script src="/assets/js/custom/cartApp/views/singleSeminarView.js"></script>
-        <script src="/assets/js/custom/cartApp/views/scheduleView.js"></script>
-        <script src="/assets/js/custom/cartApp/views/locationView.js"></script> -->
-
-
         <script src="/assets/js/custom/cartApp/models/classModel.js"></script>
         <script src="/assets/js/custom/cartApp/collections/classCollection.js"></script>
         <script src="/assets/js/custom/cartApp/views/classView.js"></script>
         <script src="/assets/js/custom/cartApp/models/locationModel.js"></script>
         <script src="/assets/js/custom/cartApp/views/singleSeminarView.js"></script>
         <script src="/assets/js/custom/cartApp/models/scheduleModel.js"></script>
+        <script src="/assets/js/custom/cartApp/models/cartItemModel.js"></script>
         <script src="/assets/js/custom/cartApp/views/scheduleView.js"></script>
         <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
         <script src="/assets/js/custom/cartApp/views/locationView.js"></script>
+        <script src="/assets/js/custom/cartApp/views/cartItemView.js"></script>
+
         <script src="/assets/js/custom/cartApp/collections/locationCollection.js"></script> 
         <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/collections/cartCollection.js"></script>
+        <script src="/assets/js/custom/cartApp/views/cartNotifyView.js"></script>
  
         
 
