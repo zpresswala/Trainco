@@ -2666,13 +2666,13 @@ h2, h3, h4 {
   padding: 5px 24px; }
 
 .popover {
-  top: 35px !important;
   border-radius: 10px;
   box-shadow: none; }
 
 .popover.bottom {
   width: 180px;
-  left: -35px; }
+  left: -35px;
+  margin-top: 18px; }
 
 .popover-content {
   padding: 8px 14px 3px; }
@@ -3515,6 +3515,12 @@ h2, h3, h4 {
 .seminar-detail .jumbotron {
   margin: 100px auto 30px; }
 
+.detail-page-app {
+  background-color: #FFFFFF !important;
+  padding-top: 0 !important; }
+  .detail-page-app .results {
+    margin-top: 0; }
+
 .button-wrapper a {
   display: block;
   text-align: center;
@@ -3563,21 +3569,12 @@ h2, h3, h4 {
 
 .cart {
   z-index: 0;
-  display: block; }
+  display: none; }
   .cart .row {
     margin: 0; }
   @media (min-width: 992px) {
     .cart h3 {
       float: left; } }
-
-#cart {
-  position: absolute;
-  top: 0;
-  right: 300px;
-  width: 60%;
-  border: 3px solid green;
-  background-color: aliceblue;
-  height: 100px; }
 
 .cart-items {
   padding-left: 0;
@@ -3743,7 +3740,7 @@ h2, h3, h4 {
 .empty-message {
   display: block;
   text-align: center;
-  margin: 40px 0 60px; }
+  margin: 70px 0 60px; }
 
 .results-container {
   background-color: #F9F9F9;
@@ -3888,6 +3885,9 @@ h2, h3, h4 {
 
 .class-loader {
   top: 33px; }
+
+.detail-page-app .class-loader {
+  top: 5px; }
 
 .spinner > div {
   width: 18px;
@@ -4521,6 +4521,9 @@ footer {
         footer .links span {
           display: inline;
           margin: 0 9px; } }
+  @media (min-width: 1025px) {
+    footer .footer-text-links {
+      width: 96%; } }
   footer .social {
     text-align: center;
     margin: 35px 0 10px;

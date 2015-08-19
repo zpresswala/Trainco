@@ -81,6 +81,12 @@ footer {
 		}
 	}
 
+	.footer-text-links {
+		@include tablet-landscape-and-up {
+			width: 96%;
+		}
+	}
+
 	.social {
 		text-align: center;
 		margin: 35px 0 10px;
