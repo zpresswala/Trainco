@@ -110,9 +110,12 @@ app.CartItemView = Backbone.View.extend({
     // removes item from cart, re-calculates total price
     removeItemFromCart: function(e) {
         e.preventDefault();
+        var _this = this;
 
         // remove the item from the DOM
-        this.remove();
+        this.$el.slideUp(150, function() {
+            _this.remove();
+        });
 
         // remove the item from the collection
         this.model.destroy();

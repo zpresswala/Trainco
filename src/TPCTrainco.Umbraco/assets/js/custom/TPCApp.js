@@ -6,7 +6,9 @@ function TPCApp() {
 	
 	$('.carousel').carousel();
 
-	this.catalog = new Catalog();
+	if($('.catalog-top').length) {
+		this.catalog = new Catalog();
+	}
 	
 	this.homePage = new HomePage();
 

@@ -7,7 +7,9 @@ app.ScheduleView = Backbone.View.extend({
     className: 'seminar',
 
     events: {
-        'click .add-to-cart': 'addToCart'
+        'click .add-to-cart': function(e) {
+            this.addToCart(e);
+        }
     },
 
     template: _.template($('#scheduleTemplate').html()),
@@ -19,9 +21,14 @@ app.ScheduleView = Backbone.View.extend({
     render:function () {
         var _this = this;
         this.collection.each(function(singleClass) {
-            _this.$el.append(_this.template(singleClass.toJSON()));
+            var hasBeenRendered = singleClass.get('hasBeenRendered');
+            if(hasBeenRendered) {
+                return false;
+            } else {
+                _this.$el.append(_this.template(singleClass.toJSON()));
+                singleClass.set('hasBeenRendered', true);
+            }
         }, this);
-        return this;
     },
 
 
@@ -29,6 +36,7 @@ app.ScheduleView = Backbone.View.extend({
     addToCart: function(e) {
         e.preventDefault();
 
+        this.$el.find('.btn-blue-hollow:focus').blur();
         var id = $(e.currentTarget).data("id");
         var modelData = this.collection.get(id);
         var courseIdNum = modelData.get('courseId');
@@ -47,9 +55,6 @@ app.ScheduleView = Backbone.View.extend({
 
         var titleOfClass = relatedClassModel.get('title');
         var cityOfClass = relatedLocationModel.get('cityState');
-
-        console.log("clicked", courseIdNum, titleOfClass);
-
 
         var loadedFromLocalStore = [],
             isItemInCollection = false,

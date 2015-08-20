@@ -51,29 +51,33 @@ app.SingleSeminarView = Backbone.View.extend({
             "margin-top": 30 + 'px',
             "border-top": '1px solid #D7D7D7'
         });
+
         if(!schedulesLoaded) {
             var seminarIdToGet = this.model.get('seminarId');
             var searchIdToGet = this.model.get('searchId');
             var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
-            app.locationCollection = new app.LocationCollection;
             app.locationCollection.fetch({
+                remove: false,
                 data: JSON.stringify({
                     "courseId": seminarIdToGet,
                     "searchId": searchIdToGet
                 }),
                 type: "POST",
                 contentType: "application/json",
-
+                
                 success: function(data) {
                     $('.location-loader').css('display', 'none');
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
                     });
+                    // this.model = seminar
                     _this.model.set('open', true);
                     _this.model.set('schedulesLoaded', true);
                 }
             });
+        } else {
+            return false;
         }
     },
 

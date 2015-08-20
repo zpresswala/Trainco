@@ -4,9 +4,9 @@
 	display: none;
 	// display: block;
 
-	.row {
-		margin: 0;
-	}
+	// .row {
+	// 	margin: 0;
+	// }
 
 	h3 {
 		@include med-desktop-and-up {
@@ -27,6 +27,11 @@
     // end remove
 }
 
+#cart-item-list {
+	padding: 0;
+	margin: 0;
+}
+
 .cart-items {
 	padding-left: 0;
 	margin: 0;
@@ -36,6 +41,9 @@
 .cart-item {
 	width: 100%;
 	display: table;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: $white;
 
 	&:nth-child(odd) { 
 		background-color: $gray-background;
@@ -60,6 +68,14 @@
 		h4 {
 			font-size: 16px;
 		}
+	}
+
+	.container {
+		margin-right: auto;
+	    margin-left: auto;
+	    padding-left: 15px;
+	    padding-right: 15px;
+		display: table;
 	}
 
 	.location, .date, .remove, .qty-wrap, .sub-total {
@@ -91,7 +107,7 @@
 				@include med-desktop-and-up {
 					position: absolute;
 					left: 50%;
-					top: -44px;
+					top: -62px;
 					content: 'Attendees:';
 					display: block;
 					@include transform(translateX(-50%));
@@ -106,9 +122,8 @@
 }
 
 .cart-bottom {
-	width: 100%;
 	position: relative;
-	background-color: #f1f1f1;
+	background-color: #f2f2f2;
 
 	.btn-reg {
 		// why a new button font weight?
@@ -139,7 +154,7 @@
 	height: 30px;
 	position: relative;
 	border-bottom: 1px solid $cart-border;
-	background-color: #f1f1f1;
+	background-color: #f2f2f2;
 
 	.container {
 		margin: 0 auto;
@@ -176,7 +191,7 @@
 	margin-left: -48px;
 	border-bottom-right-radius: 8px;
 	border-bottom-left-radius: 8px;
-	background-color: #f1f1f1;
+	background-color: #f2f2f2;
 	z-index: 2;
 	border-bottom: 1px solid $cart-border;
 	border-left: 1px solid $cart-border;
@@ -191,7 +206,7 @@
 }
 
 .cart-top {
-	background-color: #f1f1f1;
+	background-color: #f2f2f2;
 	text-align: center;
 	h2 {
 		margin: 10px 0;
@@ -394,6 +409,23 @@
 		margin-bottom: 15px;
 		// display: table-cell;
 		// vertical-align: middle;
+		@include med-desktop-and-up {
+			text-align: center;
+		}
+	}
+
+	.btn-reg {
+		float: none;
+		text-align: right;
+	}
+}
+
+.attendees {
+	@include tablet-portrait-and-up {
+		text-align: center;
+	}
+	@include med-desktop-and-up {
+		text-align: left;
 	}
 }
 
@@ -435,7 +467,7 @@
 }
 
 .location-loader {
-	bottom: 13px;
+	bottom: 0;
 	display: none;
 }
 
