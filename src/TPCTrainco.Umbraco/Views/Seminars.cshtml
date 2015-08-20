@@ -5,19 +5,26 @@
 <div class="container-fluid headline-section">
     <div class="container">
         <div class="jumbotron">
-            <h1>Course Catalog</h1>
+            @if (!String.IsNullOrEmpty(CurrentPage.pageTitle))
+            {
+                <h1>@CurrentPage.pageTitle</h1>
+            }
+            else
+            {
+                <h1>@CurrentPage.name</h1>
+            }
         </div>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 catalog-top">
-            <p>Craft beer organic Truffaut literally. Skateboard lo-fi narwhal Thundercats. Chillwave letterpress bicycle rights, tote bag tofu umami occupy kogi selfies VHS cardigan. Cray cronut small batch Marfa. Meditation art party ugh chia mumblecore keytar try-hard, cliche fixie mixtape tousled.</p>
-            <ul class="col-md-8 col-md-offset-2">
-                <li class="col-xs-6 col-md-3"><a href="#electrical" class="regular-link class-category">Electrical</a></li>
-                <li class="col-xs-6 col-md-2"><a href="#hvac" class="regular-link class-category">HVAC</a></li>
-                <li class="col-xs-6 col-md-3"><a href="#plant" class="regular-link class-category">Plant Management</a></li>
-                <li class="col-xs-6 col-md-4"><a href="#mechanical" class="regular-link class-category">Mechanical and Industrial</a></li>
+            @CurrentPage.mainContent
+            <ul class="col-md-12 text-center">
+                @foreach (var category in CurrentPage.SeminarCategories)
+                {
+                    <li class="col-xs-6 col-md-3"><a href="#@category.name.Replace(" ", "-")" class="regular-link class-category">@category.name</a></li>
+                }
             </ul>
         </div>
     </div>
@@ -25,9 +32,9 @@
 <!-- Fyin: in this section, the items have additional attributes due to the sorting functionality. -->
 
 <div class="container">
-    @*foreach (var seminarCategory in CurrentPage.SeminarCategories)
+    @foreach (var seminarCategory in CurrentPage.SeminarCategories)
     {
-        var pages = seminarCategory.SeminarItems;
+        var pages = seminarCategory.Children;
         var allNodesWithTags = pages.Where("tags != \"\"");
         List<string> taglist = new List<string>();
         foreach (var node in allNodesWithTags)
@@ -39,12 +46,12 @@
         <div class="col-xs-12 course-section">
             <div class="row">
                 <div class="col-md-9 col-md-offset-1">
-                    <h2>@seminarCategory.name</h2>
+                    <h2 id="@seminarCategory.name.Replace(" ", "-")">@seminarCategory.name</h2>
                     @if (taglist.Count != 0)
                     {
                         <ul class="sort">
                             <li class="current col-xs-6 col-md-2">
-                                <a href="#" class="elec-sort-category regular-link" data-category="all">All</a>
+                                <a href="#" class="elec-sort-category regular-link" data-category="All">All</a>
                             </li>
                             @foreach (string tag in taglist.Distinct())
                             {
@@ -55,10 +62,40 @@
                         </ul>
                     }
                 </div>
+                <div class="col-md-9 col-md-offset-1">
+                    @seminarCategory.summary
+                </div>
+                @if (seminarCategory.SeminarItems.Count() > 0)
+                {
+                    <ul class="col-xs-12">
+                        @foreach (var seminar in seminarCategory.Children)
+                        {
+                            <li class="seminar-topic col-xs-6 col-md-4" data-type="all @foreach(var tag in seminar.tags.Replace(" ","-").Split(',')){<text>@tag </text>}">
+                                <a href="@seminar.Url">
+                                    @if (seminar.HasValue("image"))
+                                    {
+                                        <div class="overlay-contain">
+                                            <div class="overlay"></div>
+                                            <img src="@seminar.GetCropUrl("image", "Image")" alt="@seminar.name" />
+                                        </div>
+                                    }
+                                    @if (!String.IsNullOrEmpty(seminar.pageTitle))
+                                    {
+                                        <p>@seminar.pageTitle</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@seminar.name</p>
+                                    }
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
             </div>
         </div>
-    }*@
-    <div class="col-xs-12 course-section electric">
+    }
+    @*<div class="col-xs-12 course-section electric">
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
                 <h2 id="electrical">Electrical</h2>
@@ -339,5 +376,5 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div>*@
 </div>

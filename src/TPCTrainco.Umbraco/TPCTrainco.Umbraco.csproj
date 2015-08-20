@@ -3124,6 +3124,15 @@
     <Content Include="umbraco\Xslt\Web.config" />
     <Content Include="umbraco_client\CodeMirror\Js\Mode\Razor\LICENSE" />
     <Content Include="umbraco_client\CodeMirror\Js\Mode\Sieve\LICENSE" />
+    <Content Include="Views\OnSiteTraining.cshtml" />
+    <Content Include="Views\OnSiteItem.cshtml" />
+    <Content Include="Views\Partials\Cart\MiniCart.cshtml" />
+    <Content Include="Views\MacroPartials\InsertUmbracoForm.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\MacroPartials\RenderUmbracoFormScripts.cshtml" />
+    <Content Include="Views\Partials\SeminarSearch\HomeSearch.cshtml" />
+    <Content Include="Views\Contact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
