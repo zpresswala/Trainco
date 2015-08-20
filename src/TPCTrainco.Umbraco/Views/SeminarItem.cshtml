@@ -8,6 +8,7 @@
     var dynamicPromo = Umbraco.Content(onsitePromo.Id);
     var seminarContainer = CurrentPage.AncestorOrSelf(2);
 }
+
 <div class="container-fluid headline-section seminar-detail">
     <div class="row">
         <div class="jumbotron">
@@ -42,95 +43,274 @@
     </div>
 </div>
 
-<!-- THE CART -->
-<!-- ####### NEW  #########-->
-<div class="container-fluid cart">
-    <div class="cart-top">
-        <div class="container">
-            <div class="row">
-                <div class="cart-top col-xs-12">
-                    <h3><img src="/assets/images/icon-cart.png" alt="Cart" />Cart</h3>
-                </div>
+@Html.Partial("Cart/MiniCart")
+
+<div class="container-fluid gradient-bg main-content">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-wrap">
+            <div class="share-btn-wrap">
+                <a href="javascript:void(0);" class="btn-reg btn-blue-solid btn-share" data-toggle="popover" data-placement="auto bottom" data-content='<ul class="social">
+                            <li><a href="#" class="regular-link"><svg
+                                 width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+                            <path id="facebook-icon" d="M204.067,184.692h-43.144v70.426h43.144V462h82.965V254.238h57.882l6.162-69.546h-64.044
+
+                                c0,0,0-25.97,0-39.615c0-16.398,3.302-22.89,19.147-22.89c12.766,0,44.896,0,44.896,0V50c0,0-47.326,0-57.441,0
+
+                                c-61.734,0-89.567,27.179-89.567,79.231C204.067,174.566,204.067,184.692,204.067,184.692z"/>
+                            </svg></a></li>
+
+                            <li><a href="#" class="regular-link"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+                                <path id="twitter-icon" d="M462,128.223c-15.158,6.724-31.449,11.269-48.547,13.31c17.449-10.461,30.854-27.025,37.164-46.764
+
+                                c-16.333,9.687-34.422,16.721-53.676,20.511c-15.418-16.428-37.386-26.691-61.698-26.691c-54.56,0-94.668,50.916-82.337,103.787
+
+                                c-70.25-3.524-132.534-37.177-174.223-88.314c-22.142,37.983-11.485,87.691,26.158,112.85c-13.854-0.438-26.891-4.241-38.285-10.574
+
+                                c-0.917,39.162,27.146,75.781,67.795,83.949c-11.896,3.237-24.926,3.978-38.17,1.447c10.754,33.58,41.972,58.018,78.96,58.699
+
+                                C139.604,378.282,94.846,390.721,50,385.436c37.406,23.982,81.837,37.977,129.571,37.977c156.932,0,245.595-132.551,240.251-251.435
+
+                                C436.339,160.061,450.668,145.174,462,128.223z"/>
+
+                            </svg></a></li>
+
+                            <li><a href="#" class="regular-link"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+
+                                 width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+                            <path id="linkedin-icon" d="M150.65,100.682c0,27.992-22.508,50.683-50.273,50.683c-27.765,0-50.273-22.691-50.273-50.683
+
+                                C50.104,72.691,72.612,50,100.377,50C128.143,50,150.65,72.691,150.65,100.682z M143.294,187.333H58.277V462h85.017V187.333z
+
+                                 M279.195,187.333h-81.541V462h81.541c0,0,0-101.877,0-144.181c0-38.624,17.779-61.615,51.807-61.615
+
+                                c31.268,0,46.289,22.071,46.289,61.615c0,39.545,0,144.181,0,144.181h84.605c0,0,0-100.344,0-173.915
+
+                                s-41.689-109.131-99.934-109.131s-82.768,45.369-82.768,45.369V187.333z"/>
+
+                            </svg></a></li></ul>'>Share</a>
             </div>
-        </div>
-    </div>
-    <ul class="cart-items">
-        <li class="cart-item">
-            <ul class="container">
-                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                <li class="remove col-xs-12 col-sm-4 col-md-2">
-                    <a href="javascript:void(0);"><span>X</span>Remove</a>
-                </li>
-                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-            </ul>
-        </li>
-        <li class="cart-item">
-            <ul class="container">
-                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                <li class="remove col-xs-12 col-sm-4 col-md-2">
-                    <a href="javascript:void(0);"><span>X</span>Remove</a>
-                </li>
-                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-            </ul>
-        </li>
-        <li class="cart-item">
-            <ul class="container">
-                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                <li class="remove col-xs-12 col-sm-4 col-md-2">
-                    <a href="javascript:void(0);"><span>X</span>Remove</a>
-                </li>
-                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-            </ul>
-        </li>
-        <li class="cart-item">
-            <ul class="container">
-                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                <li class="remove col-xs-12 col-sm-4 col-md-2">
-                    <a href="javascript:void(0);"><span>X</span>Remove</a>
-                </li>
-                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
-                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-            </ul>
-        </li>
-    </ul>
-    <div class="cart-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 wrap">
-                    <ul class="cart-total col-xs-6 col-md-4">
-                        <li class="items">6 items</li>
-                        <li>Total:<span class="total">$4999</span></li>
-                    </ul>
-                    <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
-                        <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+            <!-- end -->
+
+            @if (CurrentPage.HasValue("seminarOverview"))
+            {
+                <div class="page-content">
+                    <h2>Seminar Overview</h2>
+                    @CurrentPage.seminarOverview
+                </div>
+            }
+
+            <div class="page-content">
+                <h2>Discussion Topics</h2>
+                <div class="day-descriptions-wrap">
+                    <div class="single-day-description">
+                        <h3>Day One</h3>
+                        <p>Day One of this air conditioning and refrigeration training provides a broad introduction to air conditioning and refrigeration systems, including every-day operation & important refrigerant safety practices. The course is a great overview for maintenance technicians, multi-craft tradespeople, building managers, HVAC technicians or anyone who wants to improve their AC&R operation and maintenance skills. The goal of the first day of this training course is to understand basic AC&R operation & how to properly handle EPA regulated refrigerants.</p>
+                        <h4>Fundamentals of AC&R</h4>
+                        <ul>
+                            <li>Air Conditioning versus Refrigeration</li>
+                            <li>Laws of Thermodynamics and Heat Transfer</li>
+                            <li>Regulation, Codes and Standards</li>
+                            <li>New Energy Efficiency Standards (S.E.E.R.)</li>
+                            <li>EPA Section 608 of the Clean Air Act</li>
+                            <li>ASHRAE, ASME</li>
+                            <li>Technician Licensing, Testing and Certification</li>
+                        </ul>
+                        <h4>Compression Refrigeration Cycle</h4>
+                        <ul>
+                            <li>Basic System Design</li>
+                            <li>Follow-the-Heat TM</li>
+                        </ul>
+                        <h4>Refrigerants</h4>
+                        <ul>
+                            <li>CFCs, HCFCs, HFCs, Inorganics </li>
+                            <li>Zeotropic and Azeotropic Refrigerant Mixtures</li>
+                            <li>Refrigerant Safety Including R-410a</li>
+                            <li>EPA 608 Significant New Alternative Policy</li>
+                        </ul>
+                        <h4>Refrigerant Oils</h4>
+                        <ul>
+                            <li>CFCs, HCFCs, HFCs, Inorganics</li>
+                            <li>Zeotropic and Azeotropic Refrigerant Mixtures</li>
+                            <li>Refrigerant Safety Including R-410a</li>
+                            <li>EPA 608 Significant New Alternative Policy</li>
+                        </ul>
+                    </div>
+                    <div class="single-day-description">
+                        <h3>Day 2</h3>
+                        <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch</p>
+                        <h4>Auxiliary System Components</h4>
+                        <ul>
+                            <li>Crankcase Heater</li>
+                            <li>Sight Glass with Moisture Indicator</li>
+                            <li>Oil Separator</li>
+                            <li>Refrigerant Controls</li>
+                            <li>Refrigerant Controls</li>
+                            <li>Refrigerant Controls</li>
+                            <li>EPA Section 608 of the Clean Air Act</li>
+                            <li>ASHRAE, ASME</li>
+                            <li>Technician Licensing, Testing and Certification</li>
+                        </ul>
+                        <h4>AC&R Electrical Control Circuits </h4>
+                        <ul>
+                            <li>Relays and Contactors</li>
+                            <li>Other specialty refrigeration systems</li>
+                            <li>Oil Separator</li>
+                            <li>Refrigerant Controls</li>
+                        </ul>
+                        <h4>System Diagnostics, Servicing & Troubleshooting</h4>
+                        <ul>
+                            <li>Service Tools and Equipment</li>
+                            <li>Manifold Gauge Set</li>
+                            <li>Recovery Machine</li>
+                            <li>Vacuum Pump</li>
+                            <li>Micron Gauge</li>
+                            <li>Leak Detection Equipment</li>
+                            <li>Recovering Refrigerant</li>
+                            <li>Charging the AC&R System</li>
+                            <li>Troubleshooting AC&R System Problems</li>
+                            <li>Energy Conservation & Operating Efficiency</li>
+                        </ul>
+                        <h4>Air Handling Systems</h4>
+                        <ul>
+                            <li>Service Tools and Equipment</li>
+                            <li>Manifold Gauge Set</li>
+                            <li>Recovery Machine</li>
+                        </ul>
+                        <h4>Heat Pumps and Chillers</h4>
+                        <ul>
+                            <li>Service Tools and Equipment</li>
+                            <li>Manifold Gauge Set</li>
+                            <li>Recovery Machine</li>
+                        </ul>
                     </div>
                 </div>
+
             </div>
+
+            <div class="page-content">
+                <h2>EPA 608 Technician Certification Testing</h2>
+                <p>Testing for EPA section 608 certification is optional. Section 608 of the Federal Clean Air Act requires that all persons who maintain, service, repair, or dispose of appliances that contain regulated refrigerants be certified in proper refrigerant handling techniques by passing the EPA 608 Technician Certification exam. Students may take the test at the end of day 2. While we cover material relevant to the test and make every attempt to help our students pass this exam, we cannot guarantee individual success. Therefore it is recommended that students who want to take the test attend both days and plan time to study beforehand.</p>
+            </div>
+
+            <div class="page-content">
+                <a href="#">Download your free EPA 608 Study Guide here!</a>
+                <h2>Continuing Education Units (CEUs)</h2>
+                <p>Upon completion of this seminar, the student will receive a certification of completion with 8 classroom hours (.8 American Trainco CEUs) per day attended. Visit our continuing education units page to determine if this class is accepted by your state licensing agency.</p>
+                <a href="#">Click HERE to read our No Risk Registration and Money-Back Guarantee policy</a>
+            </div>
+            <div class="page-content">
+                <h2>Block Purchase Program</h2>
+                <p>If you have a large number of people attending a variety of different training seminars, a block purchase might be right for you.</p>
+            </div>
+
         </div>
     </div>
 </div>
-<div class="cart-visible">
-    <a class="cart-tab" href="javascript:void(0);">
-        <img src="/assets/images/icon-cart-tab.png" />
-    </a>
-    <div class="container">
-        <ul class="cart-total col-xs-12 col-md-4">
-            <li class="items">6 items</li>
-            <li>Total:<span class="total">$4999</span></li>
-        </ul>
+
+<div class="container secondary-search">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+
+            <h2>Upcoming HVAC Workshop - Air Conditioning &amp; Boilers</h2>
+
+            <!-- location select -->
+            <div class="location-select-wrap">
+                <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate">
+                    <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Vermont">Vermont</option>
+                </select>
+            </div>
+
+            <!-- datepicker -->
+            <h4 class="select-date-text">Select a date range</h4>
+            <div id="date-range-slider"></div>
+
+        </div>
     </div>
 </div>
+
+
+
+<!-- John: just added, no need for Umbraco, this is the Backbone app -->
+<!-- note: new class added, "detail-page-app", and I have a class on the body -->
+<div class="container-fluid results-container detail-page-app">
+    <div id="cart"></div>
+    <div class="container">
+        <div class="row">
+            <div class="empty-message">
+                <p>Select a topic, city, and date range to find classes.</p>
+            </div>
+            <div class="spinner class-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <ul class="results"></ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/template" id="classTemplate">
+    <div class="result-description">
+        <div class="row">
+            <div class="col-xs-12 col-md-2">
+                <img src="/assets/images/hvac-icon.jpg" alt="All Seminars" />
+            </div>
+            <div class="col-xs-12 col-md-8 text-desc">
+                <h2><a href="<%= detailsUrl %>"><%= title %></a></h2>
+                <p><%= subTitle %></p>
+                <a href="javascript:void(0);" class="view-opts" data-seminar="<%= seminarId %>"><span class="plus">+</span>View Upcoming Seminars</a>
+            </div>
+            <li class="spinner location-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </li>
+        </div>
+    </div>
+    <ul class="schedule-item-wrap row"></ul>
+</script>
+
+<script type="text/template" id="locationTemplate">
+    <div class="location col-xs-12 col-sm-10 col-sm-offset-1">
+        <p><%= cityState %><img src="/assets/images/icon-question.png" class="location-icon" /><span class="location-msg">We will email you the exact location.</span></p>
+    </div>
+    <div class="schedule-items-wrap"></div>
+</script>
+
+
+<script type="text/template" id="scheduleTemplate">
+    <ul class="schedule col-xs-12">
+        <li class="date col-xs-12 col-sm-3 col-sm-offset-1 col-md-3"><%= date%></li>
+        <li class="sub-total col-xs-12 col-sm-2 col-md-2">$<span class="sub-total"></span><%= price %></li>
+        <li class="attendees col-xs-12 col-sm-3 col-md-3"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
+        <li class="col-xs-12 col-sm-3 col-md-3"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
+    </ul>
+</script>
+
+<!-- End Backbone app-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="container-fluid gradient-bg main-content">
     <div class="row">
