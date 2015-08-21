@@ -220,8 +220,9 @@
     <Reference Include="UmbracoExamine">
       <HintPath>..\packages\UmbracoCms.Core.7.2.8\lib\UmbracoExamine.dll</HintPath>
     </Reference>
-    <Reference Include="UrlPicker">
-      <HintPath>..\packages\UrlPicker.0.12.0\lib\net40\UrlPicker.dll</HintPath>
+    <Reference Include="UrlPicker, Version=0.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\UrlPicker.0.13.0\lib\net40\UrlPicker.dll</HintPath>
     </Reference>
     <Reference Include="UrlRewritingNet.UrlRewriter">
       <HintPath>..\packages\UmbracoCms.Core.7.2.8\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
@@ -265,7 +266,6 @@
     <Content Include="App_Plugins\UrlPicker\views\default.type.html" />
     <Content Include="App_Plugins\UrlPicker\views\url.picker.html" />
     <Content Include="assets\javascript\application.js" />
-    <Content Include="App_Plugins\UrlPicker\package.manifest" />
     <Content Include="App_Browsers\Form.browser" />
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="App_Data\access.config" />
@@ -321,6 +321,7 @@
     <Content Include="App_Data\TEMP\PluginCache\umbraco-plugins.SYX.hash" />
     <Content Include="App_Data\TEMP\PluginCache\umbraco-plugins.SYX.list" />
     <Content Include="App_Data\umbraco.config" />
+    <Content Include="App_Plugins\UrlPicker\package.manifest" />
     <None Include="assets\stylesheets\application.sass" />
     <Content Include="assets\js\custom\CountUp.js" />
     <Content Include="assets\js\custom\DatePicker.js" />
@@ -3133,6 +3134,7 @@
     <Content Include="Views\MacroPartials\RenderUmbracoFormScripts.cshtml" />
     <Content Include="Views\Partials\SeminarSearch\HomeSearch.cshtml" />
     <Content Include="Views\Contact.cshtml" />
+    <Content Include="Views\PageNotFound404.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

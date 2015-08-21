@@ -255,6 +255,7 @@
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Nodes.cs" />
+    <Compile Include="Helpers\RedirectHelper.cs" />
     <Compile Include="Helpers\StringUtilities.cs" />
     <Compile Include="INSTRUCTOR.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
@@ -266,6 +267,7 @@
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CoordinateDetails.cs" />
+    <Compile Include="Models\Redirect.cs" />
     <Compile Include="Models\SearchRequest\LocationsSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SchedulesSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
