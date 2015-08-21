@@ -1,0 +1,15 @@
+﻿{
+    propertyEditors: [
+    {
+        alias: "TPCTraincoCourseDropdown",
+        name: "TPC Trainco Course Dropdown",
+        editor: {
+                view: "~/App_Plugins/TPCTraincoCourseDropdown/tpctrainco.coursedropdown.html"
+                }
+        }
+    ],
+    javascript: [
+		'~/App_Plugins/TPCTraincoCourseDropdown/tpctrainco.coursedropdown.controller.js',
+		'~/App_Plugins/TPCTraincoCourseDropdown/tpctrainco.coursedropdown.resource.js'
+    ]
+}
