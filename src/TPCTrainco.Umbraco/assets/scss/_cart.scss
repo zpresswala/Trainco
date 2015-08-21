@@ -4,9 +4,9 @@
 	display: none;
 	// display: block;
 
-	.row {
-		margin: 0;
-	}
+	// .row {
+	// 	margin: 0;
+	// }
 
 	h3 {
 		@include med-desktop-and-up {
@@ -27,6 +27,11 @@
     // end remove
 }
 
+#cart-item-list {
+	padding: 0;
+	margin: 0;
+}
+
 .cart-items {
 	padding-left: 0;
 	margin: 0;
@@ -36,6 +41,9 @@
 .cart-item {
 	width: 100%;
 	display: table;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: $white;
 
 	&:nth-child(odd) { 
 		background-color: $gray-background;
@@ -60,6 +68,14 @@
 		h4 {
 			font-size: 16px;
 		}
+	}
+
+	.container {
+		margin-right: auto;
+	    margin-left: auto;
+	    padding-left: 15px;
+	    padding-right: 15px;
+		display: table;
 	}
 
 	.location, .date, .remove, .qty-wrap, .sub-total {
@@ -91,7 +107,7 @@
 				@include med-desktop-and-up {
 					position: absolute;
 					left: 50%;
-					top: -44px;
+					top: -62px;
 					content: 'Attendees:';
 					display: block;
 					@include transform(translateX(-50%));
@@ -106,9 +122,8 @@
 }
 
 .cart-bottom {
-	width: 100%;
 	position: relative;
-	background-color: #f1f1f1;
+	background-color: #f2f2f2;
 
 	.btn-reg {
 		// why a new button font weight?
@@ -139,7 +154,7 @@
 	height: 30px;
 	position: relative;
 	border-bottom: 1px solid $cart-border;
-	background-color: #f1f1f1;
+	background-color: #f2f2f2;
 
 	.container {
 		margin: 0 auto;
@@ -176,7 +191,7 @@
 	margin-left: -48px;
 	border-bottom-right-radius: 8px;
 	border-bottom-left-radius: 8px;
-	background-color: #f1f1f1;
+	background-color: #f2f2f2;
 	z-index: 2;
 	border-bottom: 1px solid $cart-border;
 	border-left: 1px solid $cart-border;
@@ -191,7 +206,7 @@
 }
 
 .cart-top {
-	background-color: #f1f1f1;
+	background-color: #f2f2f2;
 	text-align: center;
 	h2 {
 		margin: 10px 0;
@@ -262,7 +277,7 @@
 .empty-message {
 	display: block;
 	text-align: center;
-	margin: 70px 0 60px;
+	margin: 30px 0 60px;
 }
 .results-container {
 	background-color: $gray-background;
@@ -272,7 +287,7 @@
 }
 .results {
 	padding: 0;
-	margin-top: 100px;
+	// margin-top: 100px;
 }
 
 .result-description {
@@ -296,49 +311,68 @@
 		display: inline-block;
 		width: 85%;
 		max-width: 320px;
+	}
+}
 
-		.location-msg {
-			opacity: 0;
-			border-radius: 4px;
-			border: 2px solid $cart-border;
-			position: absolute;
-			background: $white;
-			width: 60%;
-			right: 0;
-			bottom: -52%;
-			max-width: 185px;
-			text-align: center;
-			@include transition(0.25s);
+.tooltip-msg {
+	opacity: 0;
+	border-radius: 4px;
+	border: 2px solid $blue;
+	position: absolute;
+	background: $white;
+	width: 60%;
+	right: 0;
+	bottom: 50%;
+	max-width: 185px;
+	text-align: center;
+	@include transition(0.25s);
+	@include transform (translateY(50%));
 
-			&.showing {
-				opacity: 1;
-			}
+	&.showing {
+		opacity: 1;
+	}
 
-			&:after, &:before {
-				right: 100%;
-				top: 50%;
-				border: solid transparent;
-				content: " ";
-				height: 0;
-				width: 0;
-				position: absolute;
-				pointer-events: none;
-			}
+	&:after, &:before {
+		right: 100%;
+		top: 50%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
 
-			&:after {
-				border-color: rgba(255, 255, 255, 0);
-				border-right-color: #fff;
-				border-width: 10px;
-				margin-top: -10px;
-			}
-			&:before {
-				border-color: rgba(245, 0, 0, 0);
-				border-right-color: $cart-border;
-				border-width: 13px;
-				margin-top: -13px;
-			}
+	&:after {
+		border-color: rgba(255, 255, 255, 0);
+		border-right-color: $white;
+		border-width: 10px;
+		margin-top: -10px;
+	}
+	&:before {
+		border-color: rgba(245, 0, 0, 0);
+		border-right-color: $blue;
+		border-width: 13px;
+		margin-top: -13px;
+	}
+}
 
-		}
+.attendee-msg {
+	left: -5%;
+	padding: 7px 5px;
+
+	&:after, &:before {
+		left: 100%;
+	}
+
+	&:before {
+		border-left-color: $blue;
+		border-right-color: transparent;
+	}
+
+	&:after {
+		border-left-color: $white;
+		border-right-color: transparent;
 	}
 }
 
@@ -379,7 +413,7 @@
 .schedule {
 	display: table;
 	width: 100%;
-	padding: 20px 0 7px;
+	padding: 12px 0;
 	&:nth-child(odd) { 
 		background-color: $gray-background;
 	}
@@ -394,6 +428,23 @@
 		margin-bottom: 15px;
 		// display: table-cell;
 		// vertical-align: middle;
+		@include med-desktop-and-up {
+			text-align: center;
+		}
+	}
+
+	.btn-reg {
+		float: none;
+		text-align: right;
+	}
+}
+
+.attendees {
+	@include tablet-portrait-and-up {
+		text-align: center;
+	}
+	@include med-desktop-and-up {
+		text-align: left;
 	}
 }
 
@@ -435,7 +486,7 @@
 }
 
 .location-loader {
-	bottom: 13px;
+	bottom: 0;
 	display: none;
 }
 

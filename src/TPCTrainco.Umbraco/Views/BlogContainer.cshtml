@@ -18,35 +18,39 @@
             }
             <div class="post-author">
                 <p class="publish-info">
-                @if (CurrentPage.featuredBlog.HasValue("date"))
-                {
-                    @CurrentPage.featuredBlog.date.ToString("M/dd/yy")
-                }
-                @if (CurrentPage.featuredBlog.HasValue("author"))
-                {
-                    var author = CurrentPage.featuredBlog.author;
-
-                    <span>by @author.name</span>
-                    if (author.HasValue("image"))
+                    @if (CurrentPage.featuredBlog.HasValue("date"))
                     {
-                        <img src="@author.GetCropUrl("image", "Image")" class="author-img" alt="@author.name">
+                        @CurrentPage.featuredBlog.date.ToString("M/dd/yy")
                     }
-                }
+
+                    @if (CurrentPage.featuredBlog.HasValue("author"))
+                    {
+                        var author = CurrentPage.featuredBlog.author;
+
+                        <span>by @author.name</span>
+
+
+                        if (author.HasValue("image"))
+                        {
+                            <img src="@author.GetCropUrl("image", "Image")" class="author-img" alt="@author.name">
+                        }
+                    }
+                </p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="jumbotron js-jumbo featured-post">
-        <div class="container">
-            @if (!String.IsNullOrEmpty(CurrentPage.featuredBlog.summary))
-            {
-                <p class="feature-snippet">
-                    @CurrentPage.featuredBlog.summary
-                </p>
-            }
-            <a class="btn-reg btn-blue-hollow" href="@CurrentPage.featuredBlog.Url">Read More</a>
+        <div class="jumbotron js-jumbo featured-post">
+            <div class="container">
+                @if (!String.IsNullOrEmpty(CurrentPage.featuredBlog.summary))
+                {
+                    <p class="feature-snippet">
+                        @CurrentPage.featuredBlog.summary
+                    </p>
+                }
+                <a class="btn-reg btn-blue-hollow" href="@CurrentPage.featuredBlog.Url">Read More</a>
+            </div>
         </div>
-    </div>
 }
 
 <div class="container blog-listings">

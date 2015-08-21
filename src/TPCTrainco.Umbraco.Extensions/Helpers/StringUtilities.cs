@@ -48,5 +48,17 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             return text;
         }
+
+
+        public static string StripPTags(string text)
+        {
+            if (false == string.IsNullOrWhiteSpace(text))
+            {
+                text = text.Replace("<p>", "");
+                text = text.Replace("</p>", "");
+            }
+
+            return text;
+        }
     }
 }

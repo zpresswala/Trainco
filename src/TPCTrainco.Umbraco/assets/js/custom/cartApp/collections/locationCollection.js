@@ -8,3 +8,5 @@ app.LocationCollection = Backbone.Collection.extend({
 	url:'http://trainco-dev.imulus-client.com/api/locations/searchbyseminar'
 
 });
+
+app.locationCollection = new app.LocationCollection;

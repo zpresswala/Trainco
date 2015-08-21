@@ -8,6 +8,8 @@ app.ScheduleCollection = Backbone.Collection.extend({
     url:'http://trainco-dev.imulus-client.com/api/schedules/searchbylocation',
 
     initialize: function() {
-        this.listenTo(this.collection, 'all', this.render);
+        // this.listenTo(this.collection, 'add', this.render);
     }
 });
+
+app.scheduleCollection = new app.ScheduleCollection;

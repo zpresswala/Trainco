@@ -18,22 +18,27 @@ app.LocationView = Backbone.View.extend({
 
     render: function() {
     	var _this = this;
-
         this.collection.each(function(model) {
-            _this.$el.append(_this.template(model.toJSON()));
-            _this.renderSchedules(model);
+            var hasBeenRendered = model.get('hasBeenRendered');
+            if(hasBeenRendered) {
+                return false;
+            } else { 
+                _this.$el.append(_this.template(model.toJSON()));
+                model.set('hasBeenRendered', true);
+                _this.renderSchedules(model);
+            }
         }, this);
-        
-        return this;
     },
 
     renderSchedules: function(theModel) {
+        var _this = this;
         var courseIdToGet = theModel.get('courseId');
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
-        app.scheduleCollection = new app.ScheduleCollection;
         var elemToAppendSchedules = this.$el.find('.schedule-items-wrap');
+        this.$el.prev().find('.location-loader').css('display', 'block');
         app.scheduleCollection.fetch({
+            remove: false,
             data: JSON.stringify({
                 "courseId": courseIdToGet,
                 "cityId": cityIdToGet,
@@ -43,7 +48,7 @@ app.LocationView = Backbone.View.extend({
             contentType: "application/json",
 
             success: function() {
-                $('.location-loader').css('display', 'none');
+                _this.$el.prev().find('.location-loader').css('display', 'none');
                 app.scheduleView = new app.ScheduleView({
                     collection: app.scheduleCollection,
                     el: elemToAppendSchedules

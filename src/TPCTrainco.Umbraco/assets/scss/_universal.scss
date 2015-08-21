@@ -116,6 +116,14 @@ h2, h3, h4 {
 		border: none;
 		z-index: -1;
 	}
+	&:focus {
+		color: $white;
+	}
+
+	&:hover:focus {
+		color: $blue;
+		background-color: $white;
+	}
 }
 
 .btn-blue-solid {
@@ -182,14 +190,14 @@ h2, h3, h4 {
 }
 
 .gradient-bg {
-	background: rgba(241,241,241,1);
-	background: -moz-linear-gradient(top, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(241,241,241,1)), color-stop(0%, rgba(241,241,241,1)), color-stop(35%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
-	background: -webkit-linear-gradient(top, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	background: -o-linear-gradient(top, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	background: -ms-linear-gradient(top, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	background: linear-gradient(to bottom, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', endColorstr='#ffffff', GradientType=0 );
+	background: rgba(249,249,249,1);
+	background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(249,249,249,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,249,249,1)), color-stop(0%, rgba(249,249,249,1)), color-stop(35%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(249,249,249,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(249,249,249,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(249,249,249,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	background: linear-gradient(to bottom, rgba(249,249,249,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#ffffff', GradientType=0 );
 }
 
 .carousel {

@@ -43,9 +43,9 @@ gulp.task('js', function() {
         .pipe(concat('main.js').on('error', function(err) {
             console.log(err);
         }))
-        .pipe(uglify().on('error', function(err) {
-            console.log(err);
-        }))
+        // .pipe(uglify().on('error', function(err) {
+        //     console.log(err);
+        // }))
         .pipe(gulp.dest(config.jsDest));
 });
 
