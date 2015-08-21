@@ -234,6 +234,7 @@
     <Compile Include="City.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CourseApiController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\SeminarsController.cs" />
