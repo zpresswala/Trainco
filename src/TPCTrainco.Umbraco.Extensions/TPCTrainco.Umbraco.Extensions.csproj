@@ -219,6 +219,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\UmbracoCms.Core.7.2.8\lib\UmbracoExamine.dll</HintPath>
     </Reference>
+    <Reference Include="UrlPicker">
+      <HintPath>..\packages\UrlPicker.0.13.0\lib\net40\UrlPicker.dll</HintPath>
+    </Reference>
     <Reference Include="UrlRewritingNet.UrlRewriter, Version=2.0.60829.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\UmbracoCms.Core.7.2.8\lib\UrlRewritingNet.UrlRewriter.dll</HintPath>
@@ -354,6 +357,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="App_Plugins\UrlPicker\package.manifest" />
     <None Include="packages.config" />
     <EntityDeploy Include="TraincoModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -375,6 +379,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\UrlPicker\css\url.picker.css" />
+    <Content Include="App_Plugins\UrlPicker\js\url.picker.js" />
+    <Content Include="App_Plugins\UrlPicker\views\default.type.html" />
+    <Content Include="App_Plugins\UrlPicker\views\url.picker.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
