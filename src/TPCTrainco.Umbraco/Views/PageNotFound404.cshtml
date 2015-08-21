@@ -5,10 +5,19 @@
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
+	
+	IPublishedContent redirects = null;
 
-    IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
-    IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
-    IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+    redirects = TPCTrainco.Umbraco.Extensions.Helpers.Nodes.Instance.RedirectFolder;
+
+    if (redirects != null)
+    {
+        TPCTrainco.Umbraco.Extensions.Helpers.RedirectHelper.TryRedirect(redirects);
+    }
+    else
+    {
+        TPCTrainco.Umbraco.Extensions.Helpers.RedirectHelper.SetHttpStatus(404);
+    }
 }
 
 <div class="container-fluid headline-section">
@@ -29,7 +38,3 @@
         </div>
     </div>
 </div>
-
-@Html.Partial("Promos/OnsitePromo", currentPage)
-
-@Html.Partial("Quotes/UserQuotes", currentPage)

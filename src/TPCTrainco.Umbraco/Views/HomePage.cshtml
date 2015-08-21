@@ -38,7 +38,7 @@
     }
 }
 
-@Html.Partial("Quotes/UserQuotes", currentPage);
+@Html.Partial("Quotes/UserQuotes", currentPage)
 
 
 @helper RenderSeminar(IPublishedContent section, bool displayOpposite = false)
@@ -47,7 +47,7 @@
     string message = section.GetPropertyValue<string>("trainingDescription");
     IPublishedContent trainingImageIcon = section.GetPropertyValue<IPublishedContent>("trainingImageIcon");
 
-    <div class="container-fluid@(displayOpposite ? " offwhite-section" : "")">
+    <div class="container-fluid img-with-text@(displayOpposite ? " offwhite-section" : "")">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8@(!displayOpposite ? " col-sm-push-4" : "")">

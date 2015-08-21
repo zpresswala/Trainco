@@ -30,7 +30,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#" class="btn-reg" role="button">Register</a></li>
+                <li><a href="/public-seminars/" class="btn-reg" role="button">Register</a></li>
 
                 @foreach (IPublishedContent item in menuItems.OrderBy("SortOrder"))
                 {
@@ -41,6 +41,8 @@
                         <li class="dropdown">
                             <a href="@item.Url" class="dropdown-toggle regular-link nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@navName<span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                <li><a href="/public-seminars/" class="nav-link regular-link">Course Catalog</a></li>
+
                                 @foreach (IPublishedContent subItem in item.Children)
                                 {
                                     string subNavName = subItem.GetPropertyValue<string>("navigationTitle", subItem.Name);
