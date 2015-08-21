@@ -109,10 +109,10 @@ MainSearchSelect.prototype.getSearchParams = function() {
 };
 
 MainSearchSelect.prototype.autofillLocation = function() {
-
 	var visitorLocation = $('#main-search').data('location');
-
-	if(!visitorLocation == 'undefiend') {
+	if(visitorLocation == 'undefiend' || visitorLocation == '') {
+		return false;
+	} else {
 		$('#main-search').prepend('<option value="'+ visitorLocation +'" selected>'+ visitorLocation +'</option>').trigger('change');
 	}
 };

@@ -58,19 +58,19 @@ app.CartItemView = Backbone.View.extend({
 
     // fills view data in from local store model data
     showDataFromLocalStore: function() {
-        // var lsModelQuantity = this.model.get('quantity');
-        // this.model.set('quantity', lsModelQuantity);
-        // var lsModelSubTotal = this.model.get('price') * lsModelQuantity;
-        // this.$el.find('.sub-total').text(lsModelSubTotal);
-        // this.$el.find('.class-qty').val(lsModelQuantity);
+        var lsModelQuantity = this.model.get('quantity');
+        this.model.set('quantity', lsModelQuantity);
+        var lsModelSubTotal = this.model.get('price') * lsModelQuantity;
+        this.$el.find('.sub-total').text('$' + lsModelSubTotal);
+        this.$el.find('.class-qty').val(lsModelQuantity);
     },
 
 
     // quantity of each item in cart, changes on update or blur when item is in cart
-    // insertQuantity: function(model, quantity) {
-    //     this.model.set('quantity', quantity);
-    //     this.$el.find('.class-qty').last().val(quantity);        
-    // },
+    insertQuantity: function(model, quantity) {
+        this.model.set('quantity', quantity);
+        this.$el.find('.class-qty').last().val(quantity);        
+    },
 
     // calculates subtotal for individual item
     calculateSubtotal: function(quantity) {
@@ -98,11 +98,14 @@ app.CartItemView = Backbone.View.extend({
     // if one clicks update button, sums subtotals
     updateCartTotalPrice: function() {
         var subTotalsArr = [];
+
         $('.cart-item').find('.sub-total').each(function() {
-            subTotalsArr.push(parseInt($(this).text()));
+            var dollarAmount = parseInt($(this).text().replace('$', ''));
+            console.log(dollarAmount)
+            subTotalsArr.push(dollarAmount);
         });
 
-        // console.log(subTotalsArr)
+        console.log(subTotalsArr)
 
         // if one removes all the items in the cart, set the array val to zero
         if(subTotalsArr.length == 0) {
@@ -151,13 +154,14 @@ app.CartItemView = Backbone.View.extend({
     updateItemTotal: function(e) {
         e.preventDefault();
         var updatedQty = parseInt(this.$('.class-qty').val());
-
+        console.log(updatedQty)
         // if someone changes the quantity to zero, remove item
         if(updatedQty === 0) {
             this.removeItemFromCart(e);
         }
-
+        console.log(this.model)
         this.model.set('quantity', updatedQty);
+        console.log(this.model)
         this.calculateSubtotal(updatedQty);
         Backbone.trigger('updateOriginalModelQuantity', updatedQty);
     },

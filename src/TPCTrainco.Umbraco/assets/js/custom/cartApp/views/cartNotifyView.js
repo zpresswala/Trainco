@@ -14,7 +14,7 @@ app.CartNotifyView = Backbone.View.extend({
         this.render();
 
         // variables
-        this.totalCost = this.$('#total-cost');
+        this.totalCost = this.$('.total-cost');
 
         // event bus
         Backbone.on('updateTotalPrice', this.updateTotalPrice, this);
@@ -53,6 +53,7 @@ app.CartNotifyView = Backbone.View.extend({
 
     // the cart price total
     displayTotalPrice: function(quantity, price) {
+        console.log(this.totalCost, quantity, price)
         this.currentPrice = parseInt(this.totalCost.text());
         var totalPrice = quantity * parseInt(price);
         this.totalCost.text(this.currentPrice + totalPrice);
@@ -63,7 +64,7 @@ app.CartNotifyView = Backbone.View.extend({
         var updatedQty= quantityArray.reduce(function(a, b) {
             return a + b;
         });
-        this.$('#num-items').text(updatedQty);
+        this.$('.items-total').text(updatedQty + ' Items');
     },
 
     checkout: function() {
