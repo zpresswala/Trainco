@@ -36,6 +36,7 @@ app.ScheduleView = Backbone.View.extend({
     addToCart: function(e) {
         e.preventDefault();
         var target = $(e.currentTarget);
+        var _this = this;
         this.$classQty = target.parent().prev().find('.class-qty');
         if(this.$classQty.val() == '') {
             target.parent().prev().find('.attendee-msg').addClass('showing');
@@ -43,7 +44,7 @@ app.ScheduleView = Backbone.View.extend({
             this.$el.find('.btn-blue-hollow:focus').blur();
             setTimeout(function() {
                 target.parent().prev().find('.attendee-msg').removeClass('showing');
-                this.$classQty.css('border-color', '#d7d7d7');
+                _this.$classQty.css('border-color', '#d7d7d7');
             }, 3000);
             return false;
         } else {
@@ -62,6 +63,7 @@ app.ScheduleView = Backbone.View.extend({
                 modelData.set('theId', theId);
 
                 var modelQty = modelData.get('quant');
+
 
             if(!inCart) {
                 modelData.set('inCart', true);
@@ -82,11 +84,12 @@ app.ScheduleView = Backbone.View.extend({
                 var loadedFromLocalStore = [],
                     isItemInCollection = false,
                     inputQuantity = this.$('.qty').val(),
-                    uniqueIdentifierOfModelAdded = modelData;
+                    uniqueIdentifierOfModelAdded = theId;
 
                 // loop through the localstorage collection and add our unique identifier to the array
                 app.cartCollection.each(function(cartItemModel) {
-                    loadedFromLocalStore.push(cartItemModel.get('id'));
+                    console.log(cartItemModel.get('theId'))
+                    loadedFromLocalStore.push(cartItemModel.get('theId'));
                 });
 
                 // loop through array of unique identifiers, compare to identifier of model we are adding
@@ -98,8 +101,7 @@ app.ScheduleView = Backbone.View.extend({
                     }
                 }
 
-                console.log('incoll', isItemInCollection)
-                // if item is not in collection (or on the page)
+                // if item is not in collection
                 if(!isItemInCollection) {
 
                     // create a new model
@@ -123,24 +125,26 @@ app.ScheduleView = Backbone.View.extend({
                     // saving it to localstorage
                     app.cartCollection.create(app.cartItemModel.toJSON());
 
+                    if(!$('.cart-visible').hasClass('down')) {
+                        $('.cart-tab').trigger('click');
+                    }
+
                     // clear input field
                     this.$classQty.val('');
 
                     // remove listener
                     this.stopListening();
 
-                    this.listenTo(modelData, 'change:quant', this.updateQuantity);
+
                 } else {
-                    console.log('ret fals')
+                    console.log('update quantity here');
+                    console.log(app.cartItemModel, modelData)
                     return false;
                 }
             } else {
-                console.log(modelQty)
+                console.log('in cart update qty here')
                 app.cartItemModel.set('quantity', modelQty);
                 modelData.set('quant', modelQty);
-                console.log(modelData.get('quant'))
-
-                // this.updateQuantity(theId, modelQty, modelData);
             }
         }
     },
@@ -149,7 +153,6 @@ app.ScheduleView = Backbone.View.extend({
     renderCartItem: function(cartItem) {
         var itemQuantity = cartItem.get('quantity');
         var itemPrice = cartItem.get('price');
-        console.log(itemPrice)
         app.cartItemView = new app.CartItemView({
             model: cartItem,
             quantity: itemQuantity,
@@ -171,11 +174,9 @@ app.ScheduleView = Backbone.View.extend({
     addQtyToCart: function(theQuantity, cartItem) {
         // cartItem.set('qty', theQuantity);
         // this.$classQty.val(theQuantity)
-        console.log(theQuantity, cartItem, 'kskssksks')
         // console.log(this.model)
         // this.listenTo(this.cartItemModel, 'change:quantity', this.updateQuantity);
         var oldVal = $('.items-total').text();
-        console.log(oldVal); // fix, 00
         // console.log(theQuantity) // good
         // console.log(this.$el) // div.schedule-items-wrap
         // console.log('==============')
@@ -183,6 +184,7 @@ app.ScheduleView = Backbone.View.extend({
         var newNum = parseInt(oldVal) + parseInt(theQuantity);
         $('.items-total').text(newNum + ' Items');
         // this.model.set('quantity', this.quantity);
+        // Backbone.trigger('updateCartTotalPrice', itemQuantity);
     }
 
 });

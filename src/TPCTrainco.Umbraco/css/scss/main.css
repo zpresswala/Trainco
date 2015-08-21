@@ -3694,12 +3694,20 @@ h2, h3, h4 {
     display: block; }
     .cart-visible .cart-total .total {
       float: right; }
-    .cart-visible .cart-total .items {
-      line-height: 1.8; }
     .cart-visible .cart-total li {
       display: inline; }
   .cart-visible.down .cart-total {
     display: none; }
+
+.cost-total {
+  font-size: 20px;
+  font-weight: 500;
+  color: #3E3E3E; }
+
+.items-total {
+  line-height: 1.8;
+  margin-right: 6px;
+  font-style: italic; }
 
 .cart-tab {
   position: absolute;
@@ -3752,18 +3760,18 @@ h2, h3, h4 {
   font-size: 20px;
   margin-left: 5px; }
 
-.remove a {
+.remove {
   color: #C6211F;
   -webkit-transition: 0.25s;
   -o-transition: 0.25s;
   transition: 0.25s; }
-  .remove a:hover {
+  .remove:hover {
     color: #F04B49;
     -webkit-transition: 0.25s;
     -o-transition: 0.25s;
     transition: 0.25s; }
-  .remove a span {
-    margin-right: 5px;
+  .remove span {
+    margin-right: 8px;
     font-size: 14px; }
 
 .class-qty {

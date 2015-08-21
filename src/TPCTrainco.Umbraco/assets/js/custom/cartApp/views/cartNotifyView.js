@@ -53,7 +53,6 @@ app.CartNotifyView = Backbone.View.extend({
 
     // the cart price total
     displayTotalPrice: function(quantity, price) {
-        console.log(this.totalCost, quantity, price)
         this.currentPrice = parseInt(this.totalCost.text());
         var totalPrice = quantity * parseInt(price);
         this.totalCost.text(this.currentPrice + totalPrice);
@@ -77,9 +76,9 @@ app.CartNotifyView = Backbone.View.extend({
 
         
 
-        console.log('hi', app.cartCollection)
+        // console.log('hi', app.cartCollection)
 
-        console.log(localStorage.CartCollection)
+        // console.log(localStorage.CartCollection)
 
 
         // app.cartCollection.toJSON();

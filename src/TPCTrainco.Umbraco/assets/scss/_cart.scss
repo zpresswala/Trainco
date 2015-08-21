@@ -168,10 +168,6 @@
 			float: right;
 		}
 
-		.items {
-			line-height: 1.8;
-		}
-
 		li {
 			display: inline;
 		}
@@ -180,6 +176,18 @@
 	&.down .cart-total {
 		display: none;
 	} 
+}
+
+.cost-total {
+	font-size: 20px;
+	font-weight: 500;
+	color: $headline-black;
+}
+
+.items-total {
+	line-height: 1.8;
+	margin-right: 6px;
+	font-style: italic;
 }
 
 .cart-tab {
@@ -248,8 +256,7 @@
 	margin-left: 5px;
 }
 
-.remove a {
-	// why are we introducing a new red here?
+.remove {
 	color: $red-button;
 	@include transition(0.25s);
 
@@ -259,7 +266,7 @@
 	}
 
 	span {
-		margin-right: 5px;
+		margin-right: 8px;
 		font-size: 14px;
 	}
 }
