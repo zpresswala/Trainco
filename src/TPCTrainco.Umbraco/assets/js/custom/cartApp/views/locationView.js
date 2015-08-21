@@ -36,8 +36,7 @@ app.LocationView = Backbone.View.extend({
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
         var elemToAppendSchedules = this.$el.find('.schedule-items-wrap');
-
-        $('.location-loader').css('display', 'block');
+        this.$el.prev().find('.location-loader').css('display', 'block');
         app.scheduleCollection.fetch({
             remove: false,
             data: JSON.stringify({
@@ -49,7 +48,7 @@ app.LocationView = Backbone.View.extend({
             contentType: "application/json",
 
             success: function() {
-                $('.location-loader').css('display', 'none');
+                _this.$el.prev().find('.location-loader').css('display', 'none');
                 app.scheduleView = new app.ScheduleView({
                     collection: app.scheduleCollection,
                     el: elemToAppendSchedules

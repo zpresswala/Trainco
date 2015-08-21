@@ -20,12 +20,15 @@ app.CartItemView = Backbone.View.extend({
         this.options = options || {};
         // this.listenTo(app.cartCollection, 'remove', this.updateCartTotalPrice, this.updateCartTotalQuantity);
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
+        // Backbone.on('updateQuantity', this.updateQuantity, this);
     },
 
     render: function() {
         var $tpl = $(this.template(this.model.toJSON()));
         this.setElement($tpl);
         $('#cart-item-list').append($tpl);
+        var quantity = this.model.get('quantity');
+        this.$el.find('.class-qty').val(quantity);
         return this;
     },
 
@@ -39,7 +42,8 @@ app.CartItemView = Backbone.View.extend({
         this.setElement($tpl);
         $('#cart-item-list').append($tpl);
         this.model.set({
-            fromLS: true
+            fromLS: true,
+            inCart: true
         });
 
         // fill in the cart data
@@ -54,11 +58,11 @@ app.CartItemView = Backbone.View.extend({
 
     // fills view data in from local store model data
     showDataFromLocalStore: function() {
-        var lsModelQuantity = this.model.get('quantity');
-        this.model.set('quantity', lsModelQuantity);
-        var lsModelSubTotal = this.model.get('price') * lsModelQuantity;
-        this.$el.find('.sub-total').text(lsModelSubTotal);
-        this.$el.find('.class-qty').val(lsModelQuantity);
+        // var lsModelQuantity = this.model.get('quantity');
+        // this.model.set('quantity', lsModelQuantity);
+        // var lsModelSubTotal = this.model.get('price') * lsModelQuantity;
+        // this.$el.find('.sub-total').text(lsModelSubTotal);
+        // this.$el.find('.class-qty').val(lsModelQuantity);
     },
 
 
@@ -156,6 +160,22 @@ app.CartItemView = Backbone.View.extend({
         this.model.set('quantity', updatedQty);
         this.calculateSubtotal(updatedQty);
         Backbone.trigger('updateOriginalModelQuantity', updatedQty);
+    },
+
+    // updates quantity for single item
+    updateQuantity: function(quantity) {
+        console.log('updateQuantity', quantity);
+        this.$el.find('.class-qty').val(quantity)
+        // this.quantity = quantity;
+        // cartItem.set('qty', theQuantity);
+        console.log(this.$el)
+
+
+        // Backbone.trigger('calculateSubtotal', quantity);
+
+        // updates the quantity of the original element if changed from the cart.
+        // listener attached here so it only runs once
+        // Backbone.on('updateOriginalModelQuantity', this.updateOriginalModelQuantity, this);
     }
 
 

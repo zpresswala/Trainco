@@ -64,9 +64,9 @@ app.SingleSeminarView = Backbone.View.extend({
                 }),
                 type: "POST",
                 contentType: "application/json",
-                
+
                 success: function(data) {
-                    $('.location-loader').css('display', 'none');
+                    // $('.location-loader').css('display', 'none');
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
@@ -79,17 +79,6 @@ app.SingleSeminarView = Backbone.View.extend({
         } else {
             return false;
         }
-    },
-
-    // quantity for single item. sends to cart view.
-    updateQuantity: function(model, quantity) {
-        this.quantity = quantity;
-
-        Backbone.trigger('calculateSubtotal', quantity);
-
-        // updates the quantity of the original element if changed from the cart.
-        // listener attached here so it only runs once
-        Backbone.on('updateOriginalModelQuantity', this.updateOriginalModelQuantity, this);
     },
 
     // on update of quantity in cart item, sends back to class list

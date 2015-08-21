@@ -277,7 +277,7 @@
 .empty-message {
 	display: block;
 	text-align: center;
-	margin: 70px 0 60px;
+	margin: 30px 0 60px;
 }
 .results-container {
 	background-color: $gray-background;
@@ -287,7 +287,7 @@
 }
 .results {
 	padding: 0;
-	margin-top: 100px;
+	// margin-top: 100px;
 }
 
 .result-description {
@@ -311,49 +311,68 @@
 		display: inline-block;
 		width: 85%;
 		max-width: 320px;
+	}
+}
 
-		.location-msg {
-			opacity: 0;
-			border-radius: 4px;
-			border: 2px solid $cart-border;
-			position: absolute;
-			background: $white;
-			width: 60%;
-			right: 0;
-			bottom: -52%;
-			max-width: 185px;
-			text-align: center;
-			@include transition(0.25s);
+.tooltip-msg {
+	opacity: 0;
+	border-radius: 4px;
+	border: 2px solid $blue;
+	position: absolute;
+	background: $white;
+	width: 60%;
+	right: 0;
+	bottom: 50%;
+	max-width: 185px;
+	text-align: center;
+	@include transition(0.25s);
+	@include transform (translateY(50%));
 
-			&.showing {
-				opacity: 1;
-			}
+	&.showing {
+		opacity: 1;
+	}
 
-			&:after, &:before {
-				right: 100%;
-				top: 50%;
-				border: solid transparent;
-				content: " ";
-				height: 0;
-				width: 0;
-				position: absolute;
-				pointer-events: none;
-			}
+	&:after, &:before {
+		right: 100%;
+		top: 50%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
 
-			&:after {
-				border-color: rgba(255, 255, 255, 0);
-				border-right-color: #fff;
-				border-width: 10px;
-				margin-top: -10px;
-			}
-			&:before {
-				border-color: rgba(245, 0, 0, 0);
-				border-right-color: $cart-border;
-				border-width: 13px;
-				margin-top: -13px;
-			}
+	&:after {
+		border-color: rgba(255, 255, 255, 0);
+		border-right-color: $white;
+		border-width: 10px;
+		margin-top: -10px;
+	}
+	&:before {
+		border-color: rgba(245, 0, 0, 0);
+		border-right-color: $blue;
+		border-width: 13px;
+		margin-top: -13px;
+	}
+}
 
-		}
+.attendee-msg {
+	left: -5%;
+	padding: 7px 5px;
+
+	&:after, &:before {
+		left: 100%;
+	}
+
+	&:before {
+		border-left-color: $blue;
+		border-right-color: transparent;
+	}
+
+	&:after {
+		border-left-color: $white;
+		border-right-color: transparent;
 	}
 }
 
@@ -394,7 +413,7 @@
 .schedule {
 	display: table;
 	width: 100%;
-	padding: 20px 0 7px;
+	padding: 12px 0;
 	&:nth-child(odd) { 
 		background-color: $gray-background;
 	}
