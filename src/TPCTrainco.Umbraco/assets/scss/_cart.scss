@@ -186,7 +186,7 @@
 
 .items-total {
 	line-height: 1.8;
-	margin-right: 6px;
+	margin-right: 25px;
 	font-style: italic;
 }
 
@@ -490,6 +490,7 @@
   left: 50%;
   margin-left: -35px;
   width: 70px;
+  display: none;
 }
 
 .location-loader {
@@ -507,14 +508,19 @@
 	}
 }
 
-
+.empty-location-msg {
+	text-align: center;
+	color: red;
+	font-size: 20px;
+	margin: 20px 0 0;
+	display: none;
+}
 
 // loading spinner
 .spinner > div {
 	width: 18px;
 	height: 18px;
 	background-color: $blue;
-
 	border-radius: 100%;
 	display: inline-block;
 	-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;

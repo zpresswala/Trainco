@@ -2720,20 +2720,35 @@ app.ClassCollection = Backbone.Collection.extend({
 });
 
 app.globalCollection = new app.ClassCollection;
-$('.class-loader').css('display', 'block');
-app.globalCollection.fetch({
-    data: JSON.stringify({"location":"Dallas, TX"}),
-    type: "POST",
-    contentType: "application/json",
 
-    success: function() {
-        $('.empty-message').fadeOut(300);
-        $('.class-loader').fadeOut(350);
-        app.classView = new app.ClassView({
-            collection: app.globalCollection,
-            el: '.results'
-        });
-    }
+$('#search-btn').on('click', function() {
+    $('.class-loader').css('display', 'block');
+    var searchParams = app.mainSearchSelect.getSearchParams(),
+        $emptyMsg = $('.empty-message'),
+        $classLoader = $('.class-loader');
+
+    console.log(searchParams)
+
+    app.globalCollection.fetch({
+        data: searchParams,
+        type: "POST",
+        contentType: "application/json",
+
+        success: function(data) {
+            console.log(data)
+            if(data.length === 0) {
+                $emptyMsg.fadeIn(100).text('We were unable to find classes that fit your preferences. Please change your search terms and try again.');
+                $classLoader.fadeOut(350);
+            } else {
+                $emptyMsg.fadeOut(300);
+                $classLoader.fadeOut(350);
+                app.classView = new app.ClassView({
+                    collection: app.globalCollection,
+                    el: '.results'
+                });
+            }
+        }
+    });
 });
 'use strict';
 
@@ -2762,6 +2777,40 @@ app.ScheduleCollection = Backbone.Collection.extend({
 });
 
 app.scheduleCollection = new app.ScheduleCollection;
+'use strict';
+
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+	initialize: function() {
+		console.log('sched model init')
+	}
+});
 'use strict';
 
 window.app = window.app || {};
@@ -3047,7 +3096,6 @@ window.app = window.app || {};
 
 app.ClassView = Backbone.View.extend({
 
-
     initialize: function() {
         this.render();
     },
@@ -3059,7 +3107,7 @@ app.ClassView = Backbone.View.extend({
     },
 
     renderSeminars: function(seminarModel) {
-        this.$el.append(new app.SingleSeminarView({
+        this.$el.prepend(new app.SingleSeminarView({
             model: seminarModel
         }).render().el).hide().slideDown(500).fadeIn(700);
     }
@@ -3417,40 +3465,6 @@ app.SingleSeminarView = Backbone.View.extend({
 });
 
 app.singleSeminarView = new app.SingleSeminarView();
-'use strict';
-
-window.app = window.app || {};
-
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-	initialize: function() {
-		console.log('sched model init')
-	}
-});
 'use strict';
 
 function Catalog() {
@@ -3828,6 +3842,8 @@ HomePage.prototype.showActiveSelection = function() {
 };
 'use strict';
 
+window.app = window.app || {};
+
 function MainSearchSelect() {
 
 	var _this = this;
@@ -3842,98 +3858,72 @@ function MainSearchSelect() {
 
 		placeholder: function() {
 			$(this).data('placeholder');
-		},
-
-
-		
-		// createSearchChoice:function(term, data) {
-		// 	alert('hi')
-		// 	console.log(term, data);
-		// 	// if ($(data).filter(function() { 
-		// 	// 	return this.text.localeCompare(term)===0; }).length===0) {
-		// 	// 	return {
-		// 	// 		id:term, text:term
-		// 	// 	};
-		// 	// } 
-
-		// 	if ($(data).filter(function() {
-		// 	      return this.text.localeCompare(term)===0;
-		// 	    }).length===0) {
-		// 	      return {id:term, text:term};
-		// 	    }
-		// },
-		
-		// createSearchChoicePosition: function(list, item) {
-		// 	alert('stuff')
-		// 	list.splice(1, 0, item);
-		// }
+		}
 	});
-	// .on('change', function(e) {
-		// var isNew = $(this).find('[data-select2-tag="true"]');
-		// if(isNew.length){
-		// 	isNew.replaceWith('<option class="selected value="'+isNew.val()+'">'+isNew.val()+'</option>');
-		// }
-	// });
 
 	this.autofillLocation();
-
-	$('#search-btn').on('click', function() {
-		_this.getSearchParams();
-	});
 };
 
 MainSearchSelect.prototype.getSearchParams = function() {
 	var topicsArray = [];
 
 	// get the city or zip
-	var location = $('#main-search').select2('val').toString();
+	var searchLocationVal = $('#main-search').select2('val');
 
-	// get the selected class topic
-	$('.chosen').each(function() {
-		var selectedTopic = $(this).data('topic');
-		console.log('hi')
-		topicsArray.push(selectedTopic);
-	});
+	// if empty, show message
+	if(searchLocationVal == null) {
+		$('.empty-location-msg').fadeIn(150).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1);
+		return false;
+	} else {
+		var location = $('#main-search').select2('val').toString();
+		$('.empty-location-msg').fadeOut(150);
+		
+		// get the selected class topic
+		$('.chosen').each(function() {
+			var selectedTopic = $(this).data('topic');
+			if(selectedTopic === 'all') {
+				topicsArray.push("electrical", "management", "hvac", "mechanical");
+			} else {
+				topicsArray.push(selectedTopic);
+			}
+		});
 
-	// get the date range
-	var dateValues = $('#date-range-slider').dateRangeSlider("values");
-	var minDate = new Date(dateValues.min);
-	var minMonth = minDate.getMonth() + 1;
-	var minYear = minDate.getFullYear();
-	var minMonthYear = {
-		minMonthVal: minMonth,
-		minYearVal: minYear
-	};
+		if(topicsArray.length == 0) {
+			topicsArray.push("electrical", "management", "hvac", "mechanical");
+		}
 
-	var maxDate = new Date(dateValues.max);
-	var maxMonth = maxDate.getMonth() + 1;
-	var maxYear = maxDate.getFullYear();
-	var maxMonthYear = {
-		maxMonthVal: maxMonth,
-		maxYearVal: maxYear
-	};
+		// get the date range
+		var dateValues = $('#date-range-slider').dateRangeSlider("values");
+		var minDate = new Date(dateValues.min);
+		var minMonth = minDate.getMonth() + 1;
+		var minYear = minDate.getFullYear();
+		var minMonthYear = {
+			minMonthVal: minMonth,
+			minYearVal: minYear
+		};
 
-	var selectedDates = {
-		min: minMonthYear,
-		max: maxMonthYear
-	};
-	console.log(topicsArray.length)
-	if(topicsArray.length == 0) {
-		topicsArray.push('all');
+		var maxDate = new Date(dateValues.max);
+		var maxMonth = maxDate.getMonth() + 1;
+		var maxYear = maxDate.getFullYear();
+		var maxMonthYear = {
+			maxMonthVal: maxMonth,
+			maxYearVal: maxYear
+		};
+
+		var selectedDates = {
+			min: minMonthYear,
+			max: maxMonthYear
+		};
+
+		var searchResults = {
+			location: location,
+			classTopics: topicsArray,
+			dates: selectedDates
+		};
+
+		app.resStringified = JSON.stringify(searchResults);
+		return app.resStringified;
 	}
-	console.log(topicsArray)
-	var searchResults = {
-		location: location,
-		classTopics: topicsArray,
-		dates: selectedDates
-	};
-
-	var resStringified = JSON.stringify(searchResults);
-
-	console.log(JSON.stringify(searchResults));
-
-	console.log(searchResults)
-
 };
 
 MainSearchSelect.prototype.autofillLocation = function() {
@@ -4048,10 +4038,12 @@ Register.prototype.billingOptions = function() {
 };
 'use strict';
 
+window.app = window.app || {};
+
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
-	
+
 	$('.carousel').carousel();
 
 	if($('.catalog-top').length) {
@@ -4061,7 +4053,7 @@ function TPCApp() {
 	this.homePage = new HomePage();
 
 	if($('#main-search').length) {
-		this.mainSearchSelect = new MainSearchSelect();
+		app.mainSearchSelect = new MainSearchSelect();
 	}
 
 	if($('#date-range-slider').length) {

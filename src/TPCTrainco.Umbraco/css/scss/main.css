@@ -3706,7 +3706,7 @@ h2, h3, h4 {
 
 .items-total {
   line-height: 1.8;
-  margin-right: 6px;
+  margin-right: 25px;
   font-style: italic; }
 
 .cart-tab {
@@ -3952,7 +3952,8 @@ h2, h3, h4 {
   position: absolute;
   left: 50%;
   margin-left: -35px;
-  width: 70px; }
+  width: 70px;
+  display: none; }
 
 .location-loader {
   bottom: 0;
@@ -3963,6 +3964,13 @@ h2, h3, h4 {
 
 .detail-page-app .class-loader {
   top: 5px; }
+
+.empty-location-msg {
+  text-align: center;
+  color: red;
+  font-size: 20px;
+  margin: 20px 0 0;
+  display: none; }
 
 .spinner > div {
   width: 18px;

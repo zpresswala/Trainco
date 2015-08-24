@@ -1,9 +1,11 @@
 ﻿'use strict';
 
+window.app = window.app || {};
+
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
-	
+
 	$('.carousel').carousel();
 
 	if($('.catalog-top').length) {
@@ -13,7 +15,7 @@ function TPCApp() {
 	this.homePage = new HomePage();
 
 	if($('#main-search').length) {
-		this.mainSearchSelect = new MainSearchSelect();
+		app.mainSearchSelect = new MainSearchSelect();
 	}
 
 	if($('#date-range-slider').length) {
