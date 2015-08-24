@@ -2722,12 +2722,16 @@ app.ClassCollection = Backbone.Collection.extend({
 app.globalCollection = new app.ClassCollection;
 
 $('#search-btn').on('click', function() {
-    $('.class-loader').css('display', 'block');
+
     var searchParams = app.mainSearchSelect.getSearchParams(),
         $emptyMsg = $('.empty-message'),
         $classLoader = $('.class-loader');
 
-    console.log(searchParams)
+    // parse the search data to show the search results message
+    var dataReFormat = $.parseJSON(searchParams);
+    var topics = dataReFormat.classTopics.filter(function(item, pos) {
+        return dataReFormat.classTopics.indexOf(item) == pos;
+    });
 
     app.globalCollection.fetch({
         data: searchParams,
@@ -2736,17 +2740,26 @@ $('#search-btn').on('click', function() {
 
         success: function(data) {
             console.log(data)
-            if(data.length === 0) {
-                $emptyMsg.fadeIn(100).text('We were unable to find classes that fit your preferences. Please change your search terms and try again.');
-                $classLoader.fadeOut(350);
-            } else {
-                $emptyMsg.fadeOut(300);
-                $classLoader.fadeOut(350);
-                app.classView = new app.ClassView({
-                    collection: app.globalCollection,
-                    el: '.results'
-                });
-            }
+            $emptyMsg.fadeOut(100, function() {
+                $classLoader.fadeIn(90).addClass('one');
+
+                if(data.length === 0) {
+                    $classLoader.fadeOut(150, function() {
+                        $emptyMsg.fadeIn(150).text('We were unable to find classes that fit your preferences. Please change your search terms and try again.');
+                    });
+                } else {
+                    $classLoader.fadeOut(150, function() {
+                        $emptyMsg.fadeIn(150).text('Displaying results for ' + topics.join(', ') + 'seminars in ' + dataReFormat.location + '.', function() {
+                            $('.results').empty();
+                        });
+                    });
+
+                    app.classView = new app.ClassView({
+                        collection: app.globalCollection,
+                        el: '.results'
+                    });
+                }
+            });
         }
     });
 });
@@ -3109,7 +3122,7 @@ app.ClassView = Backbone.View.extend({
     renderSeminars: function(seminarModel) {
         this.$el.prepend(new app.SingleSeminarView({
             model: seminarModel
-        }).render().el).hide().slideDown(500).fadeIn(700);
+        }).render().el).hide().slideDown(500).fadeIn(600);
     }
 
 });
@@ -3873,6 +3886,7 @@ MainSearchSelect.prototype.getSearchParams = function() {
 	// if empty, show message
 	if(searchLocationVal == null) {
 		$('.empty-location-msg').fadeIn(150).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1);
+		$('.class-loader').fadeOut(150);
 		return false;
 	} else {
 		var location = $('#main-search').select2('val').toString();

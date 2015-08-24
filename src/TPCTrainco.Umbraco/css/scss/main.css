@@ -3593,6 +3593,9 @@ h2, h3, h4 {
   .secondary-search .select2-container {
     margin: 0 auto 27px; }
 
+.search-page {
+  background-color: #F9F9F9; }
+
 .cart {
   z-index: 0;
   display: none; }
@@ -3784,7 +3787,8 @@ h2, h3, h4 {
 .empty-message {
   display: block;
   text-align: center;
-  margin: 30px 0 60px; }
+  margin: 25px 0 60px;
+  font-size: 18px; }
 
 .results-container {
   background-color: #F9F9F9;
@@ -3960,7 +3964,8 @@ h2, h3, h4 {
   display: none; }
 
 .class-loader {
-  top: 33px; }
+  top: 50%;
+  margin-top: -10px; }
 
 .detail-page-app .class-loader {
   top: 5px; }

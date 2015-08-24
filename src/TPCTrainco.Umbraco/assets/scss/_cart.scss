@@ -1,3 +1,7 @@
+.search-page {
+	background-color: $gray-background;
+}
+
 .cart {
 	// padding: 0;
 	z-index: 0;
@@ -284,7 +288,8 @@
 .empty-message {
 	display: block;
 	text-align: center;
-	margin: 30px 0 60px;
+	margin: 25px 0 60px;
+	font-size: 18px;
 }
 .results-container {
 	background-color: $gray-background;
@@ -499,7 +504,9 @@
 }
 
 .class-loader {
-	top: 33px;
+	// top: 120px;
+	top: 50%;
+	margin-top: -10px;
 }
 
 .detail-page-app {
