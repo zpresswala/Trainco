@@ -77,9 +77,13 @@ TPCApp.prototype.handleWindowScroll = function() {
 	if($('#count').length) {
 		this.countUp.handleWindowScroll(this.currentScrollTop);
 	}
+
+	// if($('#cart').length) {
+	// 	this.fixCart(this.currentScrollTop);
+	// }
 };
 
-// this should go in the Backbone app eventually
+// cart functionality
 TPCApp.prototype.animateCart = function(retinaScreen) {
 	// if(Modernizr.csstransitions) {
 	var _this = this;
@@ -116,3 +120,15 @@ TPCApp.prototype.animateCart = function(retinaScreen) {
 		});
 	});
 };
+
+// TPCApp.prototype.fixCart = function(winScrollTop) {
+// 	var navHeight = $('.navbar').height();
+// 	var cartOffsetTop = $('#cart').offset().top;
+// 	var resOffsetTop = $('.results-container').offset().top - 30;
+// 	console.log((winScrollTop + navHeight), cartOffsetTop, resOffsetTop)
+// 	if((winScrollTop + navHeight) >= resOffsetTop) {
+// 		$('#cart').addClass('cartfix');
+// 	} else {
+// 		$('#cart').removeClass('cartfix');
+// 	}
+// };

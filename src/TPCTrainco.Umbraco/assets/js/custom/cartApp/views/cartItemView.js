@@ -88,6 +88,7 @@ app.CartItemView = Backbone.View.extend({
 
         // updates total dollar value of cart on click of add item
         this.updateCartTotalPrice();
+        this.updateCartTotalQuantity();
     },
 
     // if one clicks update button, sums subtotals
@@ -158,21 +159,29 @@ app.CartItemView = Backbone.View.extend({
                 // console.log(this.model)
         // this.calculateSubtotal(updatedQty);
         // Backbone.trigger('updateOriginalModelQuantity', updatedQty);
-    },
+    }
 
     // updates quantity for single item
-    updateQuantity: function(quantity) {
+    // updateQuantity: function(matchingItem) {
 
-        this.$el.find('.class-qty').val(quantity)
+    //     // this.$el.find('.class-qty').val(quantity);
+
+    //     var itemToUpdate = matchingItem[0].get('theId');
+    //     var newQty = matchingItem[0].get('quantity');
+    //     console.log(itemToUpdate, newQty)
+    //     this.$('[data-theid=' + itemToUpdate + ']').find('.class-qty').val(newQty);
+    //     // if(itemToUpdate == this.$('[data-theid=' + itemToUpdate + ']'))
+    //     // this.$('[data-theid=' + itemToUpdate + ']').find('.class-qty').val('90');
 
 
 
-        // Backbone.trigger('calculateSubtotal', quantity);
 
-        // updates the quantity of the original element if changed from the cart.
-        // listener attached here so it only runs once
-        // Backbone.on('updateOriginalModelQuantity', this.updateOriginalModelQuantity, this);
-    }
+    //     // Backbone.trigger('calculateSubtotal', quantity);
+
+    //     // updates the quantity of the original element if changed from the cart.
+    //     // listener attached here so it only runs once
+    //     // Backbone.on('updateOriginalModelQuantity', this.updateOriginalModelQuantity, this);
+    // }
 
 
 });

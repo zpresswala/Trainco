@@ -352,7 +352,7 @@
 
 
         <script type="text/template" id="cartItemTemplate">
-            <li class="cart-item">
+            <li class="cart-item" data-theid="<%= theId %>">
                 <ul class="container">
                     <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4><%= title %></h4></li>
                     <li class="location col-xs-12 col-sm-4 col-md-2"><%= city %></li>
@@ -385,7 +385,7 @@
                         <div class="col-xs-12 wrap">
                             <ul class="cart-total col-xs-12 col-md-4">
                                 <li class="items-total">0 Items</li>
-                                <li class="cost-total">Total: $<span class="total-cost"></span></li>
+                                <li class="cost-total">Total: $<span class="total-cost">0</span></li>
                             </ul>
                             <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
                                 <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
@@ -401,7 +401,7 @@
                 <div class="container">
                     <ul class="cart-total col-xs-12 col-md-4">
                         <li class="items-total">0 Items</li>
-                        <li class="cost-total">Total: $<span class="total-cost"></span></li>
+                        <li class="cost-total">Total: $<span class="total-cost">0</span></li>
                     </ul>
                 </div>
             </div>

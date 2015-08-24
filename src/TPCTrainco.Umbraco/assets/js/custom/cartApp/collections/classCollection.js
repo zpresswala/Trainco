@@ -22,6 +22,7 @@ $('#search-btn').on('click', function() {
         return dataReFormat.classTopics.indexOf(item) == pos;
     });
 
+    console.log(searchParams)
     app.globalCollection.fetch({
         data: searchParams,
         type: "POST",
@@ -38,7 +39,7 @@ $('#search-btn').on('click', function() {
                     });
                 } else {
                     $classLoader.fadeOut(150, function() {
-                        $emptyMsg.fadeIn(150).text('Displaying results for ' + topics.join(', ') + 'seminars in ' + dataReFormat.location + '.', function() {
+                        $emptyMsg.fadeIn(150).text('Displaying results for ' + topics.join(', ') + ' seminars in ' + dataReFormat.location + '.', function() {
                             $('.results').empty();
                         });
                     });

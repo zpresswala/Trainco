@@ -48,7 +48,16 @@ app.ScheduleView = Backbone.View.extend({
             }, 3000);
             return false;
         } else {
-            this.$el.find('.btn-blue-hollow:focus').blur();
+            this.$el.find('.btn-blue-hollow:focus').blur().text('Added!').css({
+                border: '3px solid #C6211F',
+                color: '#C6211F'
+            });
+            setTimeout(function() {
+                _this.$el.find('.btn-blue-hollow').text('Add to cart').css({
+                    border: '3px solid #0090C5',
+                    color: '#0090C5'
+                });
+            }, 1500);
 
             var id = target.data('id'),
                 modelData = this.collection.get(id),
@@ -138,13 +147,37 @@ app.ScheduleView = Backbone.View.extend({
 
                 } else {
                     console.log('update quantity here');
-                    console.log(app.cartItemModel, modelData)
-                    return false;
+
+                    // this.listenTo(app.cartCollection, 'add', this.renderCartItem);
+
+                    var changedQty = modelData.get('quant');
+                    var id = modelData.get('id');
+                    var matchingItem = app.cartCollection.where({ theId: id });
+                    var matchingItemIdAttr = matchingItem[0].get('theId');
+                    matchingItem[0].set('quantity', changedQty);
+
+                    if(id == matchingItemIdAttr) {
+                        $('#cart-item-list').find('[data-theid=' + matchingItemIdAttr + ']').find('.class-qty').val(changedQty);
+                        Backbone.trigger('calculateSubtotal', changedQty);
+                    }
                 }
             } else {
-                console.log('in cart update qty here')
+                console.log('in cart update qty here');
                 app.cartItemModel.set('quantity', modelQty);
                 modelData.set('quant', modelQty);
+                console.log(modelData)
+                this.listenTo(app.cartCollection, 'add', this.renderCartItem);
+
+                var changedQty = modelData.get('quant');
+                var id = modelData.get('id');
+                var matchingItem = app.cartCollection.where({ theId: id });
+                var matchingItemIdAttr = matchingItem[0].get('theId');
+                matchingItem[0].set('quantity', changedQty);
+
+                if(id == matchingItemIdAttr) {
+                    $('#cart-item-list').find('[data-theid=' + matchingItemIdAttr + ']').find('.class-qty').val(changedQty);
+                    Backbone.trigger('calculateSubtotal', changedQty);
+                }
             }
         }
     },
@@ -163,7 +196,7 @@ app.ScheduleView = Backbone.View.extend({
         Backbone.trigger('calculateSubtotal', itemQuantity);
     },
 
-    updateQuantity: function(qty) {
+    updateCartQuantity: function() {
         console.log('hi')
         this.$classQty.val('');
         
