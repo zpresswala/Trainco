@@ -119,7 +119,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                             TPCTrainco.Umbraco.Extensions.ViewModels.Location selectedLocation = locationsList
                                 .Where(p => p.CourseId == request.CourseId && p.CityId == request.CityId).FirstOrDefault();
 
-
                             if (selectedLocation != null)
                             {
                                 resultsList = new List<Sch>();
