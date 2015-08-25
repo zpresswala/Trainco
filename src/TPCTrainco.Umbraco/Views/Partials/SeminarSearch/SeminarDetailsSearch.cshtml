@@ -1,0 +1,52 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.ViewModels
+@inherits UmbracoTemplatePage
+
+@{
+    //List locations
+    Locations locationsObj = new Locations();
+
+    List<Location> locationList = locationsObj.GetAllLocations();
+
+    //Get current GeoCoordinate
+    string currentCityState = "";
+    
+    TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
+    
+    if (coordDetails != null)
+    {
+        currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
+    }
+}
+
+<div class="container secondary-search" data-seminar="@CurrentPage.courseLink">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+
+            @if (!String.IsNullOrEmpty(CurrentPage.pageTitle))
+            {
+                <h2>@CurrentPage.pageTitle</h2>
+            }
+            else
+            {
+                <h2>@CurrentPage.name</h2>
+            }
+
+            <!-- location select -->
+            <div class="location-select-wrap">
+                <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-search-location="@currentCityState">
+                    @foreach (Location location in locationList)
+                    {
+                        <option value="@location.CityState">@location.CityState</option>
+                    }
+                </select>
+            </div>
+
+            <!-- datepicker -->
+            <h4 class="select-date-text">Select a date range</h4>
+            <div id="date-range-slider"></div>
+
+        </div>
+    </div>
+</div>
