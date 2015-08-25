@@ -36,18 +36,42 @@ app.ScheduleView = Backbone.View.extend({
     addToCart: function(e) {
         e.preventDefault();
         var target = $(e.currentTarget);
+        var _this = this;
         this.$classQty = target.parent().prev().find('.class-qty');
-        if(this.$classQty.val() == '') {
+
+        var updateTheQuantity = function() {
+            var changedQty = modelData.get('quant');
+            var id = modelData.get('id');
+            var matchingItem = app.cartCollection.where({ theId: id });
+            var matchingItemIdAttr = matchingItem[0].get('theId');
+            matchingItem[0].set('quantity', changedQty);
+
+            if(id == matchingItemIdAttr) {
+                $('#cart-item-list').find('[data-theid=' + matchingItemIdAttr + ']').find('.class-qty').val(changedQty);
+                Backbone.trigger('calculateSubtotal', changedQty);
+            }
+
+            _this.$classQty.val('');
+        };
+
+        // if quantity empty or zero
+        if(this.$classQty.val() == '' || this.$classQty.val() == 0) {
             target.parent().prev().find('.attendee-msg').addClass('showing');
             this.$classQty.css('border-color', 'red');
             this.$el.find('.btn-blue-hollow:focus').blur();
             setTimeout(function() {
                 target.parent().prev().find('.attendee-msg').removeClass('showing');
-                this.$classQty.css('border-color', '#d7d7d7');
+                _this.$classQty.css('border-color', '#d7d7d7');
             }, 3000);
             return false;
         } else {
-            this.$el.find('.btn-blue-hollow:focus').blur();
+
+            // else, add to cart
+            $('.cart-empty-msg').hide();
+            this.$el.find('.btn-blue-hollow:focus').blur().text('Added!').addClass('added');
+            setTimeout(function() {
+                _this.$el.find('.btn-blue-hollow').text('Add to cart').removeClass('added');
+            }, 1500);
 
             var id = target.data('id'),
                 modelData = this.collection.get(id),
@@ -63,6 +87,7 @@ app.ScheduleView = Backbone.View.extend({
 
                 var modelQty = modelData.get('quant');
 
+            // if it hasn't been added to the cart already, add it
             if(!inCart) {
                 modelData.set('inCart', true);
                 
@@ -79,48 +104,46 @@ app.ScheduleView = Backbone.View.extend({
                 var titleOfClass = relatedClassModel.get('title');
                 var cityOfClass = relatedLocationModel.get('cityState');
 
+                // check if it's in the cart from localstorage
                 var loadedFromLocalStore = [],
                     isItemInCollection = false,
                     inputQuantity = this.$('.qty').val(),
-                    uniqueIdentifierOfModelAdded = modelData;
+                    uniqueIdentifierOfModelAdded = theId;
 
                 // loop through the localstorage collection and add our unique identifier to the array
                 app.cartCollection.each(function(cartItemModel) {
-                    loadedFromLocalStore.push(cartItemModel.get('id'));
+                    loadedFromLocalStore.push(cartItemModel.get('theId'));
                 });
 
-                // loop through array of unique identifiers, compare to identifier of model we are adding
-                // if it exists, set our 'isItemInCollection' var to true.
+                // loop through array of unique identifiers, compare to identifier of model we are adding. if it exists, set our 'isItemInCollection' var to true.
                 for(var i = 0; i < loadedFromLocalStore.length; i++) {
                     if(uniqueIdentifierOfModelAdded == loadedFromLocalStore[i]) {
-                        console.log('yep');
                         isItemInCollection = true;
                     }
                 }
 
-                // if item is not in collection (or on the page)
-                // if(!isItemInCollection) {
+                // if item is not in localstorage collection
+                if(!isItemInCollection) {
 
                     // create a new model
                     app.cartItemModel = new app.CartItemModel({
                         title: titleOfClass,
                         city: cityOfClass,
                         date: classDate,
-                        qty: thequantity,
+                        quantity: thequantity,
                         theId: theId,
                         price: modelData.get('price')
                     });
 
-                    // this.cartItemModel.set('quantity', thequantity);
-
                     // attach our 'add' listener
                     this.listenTo(app.cartCollection, 'add', this.renderCartItem);
-
-                    // adding to collection
-                    // app.cartCollection.add(this.cartItemModel);
                     
                     // saving it to localstorage
                     app.cartCollection.create(app.cartItemModel.toJSON());
+
+                    if(!$('.cart-visible').hasClass('down')) {
+                        $('.cart-tab').trigger('click');
+                    }
 
                     // clear input field
                     this.$classQty.val('');
@@ -128,32 +151,34 @@ app.ScheduleView = Backbone.View.extend({
                     // remove listener
                     this.stopListening();
 
-                    this.listenTo(modelData, 'change:quant', this.updateQuantity);
+                    // clean up this mess
+                } else {
+
+                    // else, just update the quantity
+                    updateTheQuantity();
+
+                }
             } else {
-                console.log(modelQty)
-                app.cartItemModel.set('qty', modelQty);
-                modelData.set('quant', modelQty);
-                // this.updateQuantity(theId, modelQty, modelData);
+                updateTheQuantity();
             }
         }
     },
 
     // creates our new view, adds to cart by calling render in the cartItemView
     renderCartItem: function(cartItem) {
-        var itemQuantity = cartItem.get('qty');
+        var itemQuantity = cartItem.get('quantity');
         var itemPrice = cartItem.get('price');
-        console.log(itemPrice)
         app.cartItemView = new app.CartItemView({
             model: cartItem,
             quantity: itemQuantity,
             price: itemPrice
         }).render();
 
-        // this.addQtyToCart(itemQuantity, cartItem);
+        this.addQtyToCart(itemQuantity, cartItem);
         Backbone.trigger('calculateSubtotal', itemQuantity);
     },
 
-    updateQuantity: function(qty) {
+    updateCartQuantity: function() {
         console.log('hi')
         this.$classQty.val('');
         
@@ -162,20 +187,9 @@ app.ScheduleView = Backbone.View.extend({
 
     // total number of cart items in cart view (input fields)
     addQtyToCart: function(theQuantity, cartItem) {
-        // cartItem.set('qty', theQuantity);
-        // this.$classQty.val(theQuantity)
-        // console.log(cartItem)
-        // console.log(this.model)
-        // this.listenTo(this.cartItemModel, 'change:quantity', this.updateQuantity);
-        // var oldVal = $('.items').text();
-        // console.log(oldVal); // fix, 00
-        // console.log(theQuantity) // good
-        // console.log(this.$el) // div.schedule-items-wrap
-        // console.log('==============')
-        // this.quantity = theQuantity;
-        // var newNum = parseInt(oldVal) + parseInt(theQuantity);
-        // $('#num-items').html(newNum);
-        // this.model.set('quantity', this.quantity);
+        var oldVal = $('.items-total').text();
+        var newNum = parseInt(oldVal) + parseInt(theQuantity);
+        $('.items-total').text(newNum + ' Items');
     }
 
 });

@@ -67,6 +67,8 @@
 
 		.carousel-caption {
 			bottom: 1%;
+			width: 75%;
+			position: static;
 			@include med-desktop-and-up {
 				bottom: auto;
 			}

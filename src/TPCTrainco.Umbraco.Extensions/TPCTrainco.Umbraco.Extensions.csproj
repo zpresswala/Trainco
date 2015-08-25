@@ -240,6 +240,7 @@
     <Compile Include="Controllers\CourseApiController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\SeminarsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\GeoLocationController.cs" />
@@ -270,12 +271,14 @@
     <Compile Include="LocationType.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CoordinateDetails.cs" />
     <Compile Include="Models\Redirect.cs" />
     <Compile Include="Models\SearchRequest\LocationsSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SchedulesSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
+    <Compile Include="Objects\Carts.cs" />
     <Compile Include="Objects\GeoCoordinates.cs" />
     <Compile Include="Models\GeoLocation.cs" />
     <Compile Include="Models\SearchLocation.cs" />
@@ -346,6 +349,7 @@
     <Compile Include="ViewModels\Backbone\Loc.cs" />
     <Compile Include="ViewModels\Backbone\Sch.cs" />
     <Compile Include="ViewModels\Backbone\Sem.cs" />
+    <Compile Include="ViewModels\CartResponse.cs" />
     <Compile Include="ViewModels\Course.cs" />
     <Compile Include="ViewModels\CourseCategory.cs" />
     <Compile Include="ViewModels\GeoLocation.cs" />

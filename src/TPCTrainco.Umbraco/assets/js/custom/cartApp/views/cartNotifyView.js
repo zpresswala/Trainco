@@ -14,7 +14,7 @@ app.CartNotifyView = Backbone.View.extend({
         this.render();
 
         // variables
-        this.totalCost = this.$('#total-cost');
+        this.totalCost = this.$('.total-cost');
 
         // event bus
         Backbone.on('updateTotalPrice', this.updateTotalPrice, this);
@@ -24,6 +24,7 @@ app.CartNotifyView = Backbone.View.extend({
         // grab our items from localstorage
         // later we will need to clear localStorage after a successful checkout
         if(localStorage.length) {
+            this.$('.cart-empty-msg').hide();
             app.cartCollection.fetch({
                 success: function(coll, resp) {
                     // console.log(resp)
@@ -34,6 +35,9 @@ app.CartNotifyView = Backbone.View.extend({
                     }, this);
                 }
             });
+        } else {
+            console.log(this.$el, '7777');
+            this.$('.wrap').prepend('<p class="cart-empty-msg">Your cart is currently empty.</p>');
         }
     },
 
@@ -63,7 +67,7 @@ app.CartNotifyView = Backbone.View.extend({
         var updatedQty= quantityArray.reduce(function(a, b) {
             return a + b;
         });
-        this.$('#num-items').text(updatedQty);
+        this.$('.items-total').text(updatedQty + ' Items');
     },
 
     checkout: function() {
@@ -76,9 +80,9 @@ app.CartNotifyView = Backbone.View.extend({
 
         
 
-        console.log('hi', app.cartCollection)
+        // console.log('hi', app.cartCollection)
 
-        console.log(localStorage.CartCollection)
+        // console.log(localStorage.CartCollection)
 
 
         // app.cartCollection.toJSON();

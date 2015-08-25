@@ -2714,27 +2714,72 @@ app.cartCollection = new app.CartCollection();
 window.app = window.app || {};
 
 app.ClassCollection = Backbone.Collection.extend({
-    model: app.ClassModel,
+	model: app.ClassModel,
 
-    url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
+	url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
 });
 
 app.globalCollection = new app.ClassCollection;
-$('.class-loader').css('display', 'block');
-app.globalCollection.fetch({
-    data: JSON.stringify({"location":"Dallas, TX"}),
-    type: "POST",
-    contentType: "application/json",
 
-    success: function() {
-        $('.empty-message').fadeOut(300);
-        $('.class-loader').fadeOut(350);
-        app.classView = new app.ClassView({
-            collection: app.globalCollection,
-            el: '.results'
-        });
-    }
+// check the hash to see if there is data there. (only on page load)
+$(document).ready(function () {
+	if (window.location.hash) {
+		// hash exists
+	}
 });
+
+// search button click
+$('#search-btn').on('click', function () {
+	var searchParams = app.mainSearchSelect.getSearchParams(),
+        $emptyMsg = $('.empty-message'),
+        $classLoader = $('.class-loader');
+
+	performSearch(searchParams);
+});
+
+
+function performSearch(searchParams) {
+	// parse the search data to show the search results message
+	var dataReFormat = $.parseJSON(searchParams);
+	var topics = dataReFormat.classTopics.filter(function (item, pos) {
+		return dataReFormat.classTopics.indexOf(item) == pos;
+	});
+
+	console.log(searchParams);
+
+	app.globalCollection.fetch({
+		data: searchParams,
+		type: "POST",
+		contentType: "application/json",
+
+		success: function (data) {
+			console.log(data)
+			$emptyMsg.fadeOut(100, function () {
+				$classLoader.fadeIn(90).addClass('one');
+
+				if (data.length === 0) {
+					$classLoader.fadeOut(150, function () {
+						$emptyMsg.fadeIn(150).text('We were unable to find classes that fit your preferences. Please change your search terms and try again.');
+					});
+				} else {
+					$classLoader.fadeOut(150, function () {
+						$emptyMsg.fadeIn(150).text('Displaying results for ' + topics.join(', ') + 'seminars in ' + dataReFormat.location + '.', function () {
+							$('.results').empty();
+						});
+					});
+
+					app.classView = new app.ClassView({
+						collection: app.globalCollection,
+						el: '.results'
+					});
+				}
+			});
+		}
+	});
+};
+
+
+
 'use strict';
 
 window.app = window.app || {};
@@ -2818,7 +2863,7 @@ app.CartItemView = Backbone.View.extend({
         this.options = options || {};
         // this.listenTo(app.cartCollection, 'remove', this.updateCartTotalPrice, this.updateCartTotalQuantity);
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
-        // Backbone.on('updateQuantity', this.updateQuantity, this);
+        Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
     },
 
     render: function() {
@@ -2828,10 +2873,6 @@ app.CartItemView = Backbone.View.extend({
         var quantity = this.model.get('quantity');
         this.$el.find('.class-qty').val(quantity);
         return this;
-    },
-
-    afterRender: function() {
-        alert('doo doo doo')
     },
 
     // this is only called when pulling from localStorage
@@ -2856,38 +2897,37 @@ app.CartItemView = Backbone.View.extend({
 
     // fills view data in from local store model data
     showDataFromLocalStore: function() {
-        // var lsModelQuantity = this.model.get('quantity');
-        // this.model.set('quantity', lsModelQuantity);
-        // var lsModelSubTotal = this.model.get('price') * lsModelQuantity;
-        // this.$el.find('.sub-total').text(lsModelSubTotal);
-        // this.$el.find('.class-qty').val(lsModelQuantity);
+        var lsModelQuantity = this.model.get('quantity');
+        this.model.set('quantity', lsModelQuantity);
+        var lsModelSubTotal = this.model.get('price') * lsModelQuantity;
+        this.$el.find('.sub-total').text('$' + lsModelSubTotal);
+        this.$el.find('.class-qty').val(lsModelQuantity);
     },
 
 
     // quantity of each item in cart, changes on update or blur when item is in cart
-    // insertQuantity: function(model, quantity) {
-    //     this.model.set('quantity', quantity);
-    //     this.$el.find('.class-qty').last().val(quantity);        
-    // },
+    insertQuantity: function(model, quantity) {
+        this.model.set('quantity', quantity);
+        this.$el.find('.class-qty').last().val(quantity);        
+    },
 
     // calculates subtotal for individual item
-    calculateSubtotal: function(quantity) {
-        var quant = parseInt(quantity);
-
-        var isModelFromLocalStore = this.model.get('fromLS');
-        if(isModelFromLocalStore) {
-            return false;
-        }
-
+    calculateSubtotal: function() {
+        // var quant = parseInt(quantity);
+        // var isModelFromLocalStore = this.model.get('fromLS');
+        // if(isModelFromLocalStore) {
+        //     return false;
+        // }
+        var quantity = this.model.get('quantity');
         // setting quantity on new model
-        this.model.set('quantity', quant);
-        this.currentSubTotal = this.model.get('price') * quant;
-        this.$el.find('.sub-total').text(this.currentSubTotal);
+        // this.model.set('quantity', quant);
+        this.currentSubTotal = this.model.get('price') * quantity;
+        this.$el.find('.sub-total').text('$ ' + this.currentSubTotal);
 
         // this line updates the quantity in the just-added item
-        this.$('.class-qty').val(quant);
+        this.$('.class-qty').val(quantity);
 
-        Backbone.off('calculateSubtotal');
+        // Backbone.off('calculateSubtotal');
 
         // updates total dollar value of cart on click of add item
         this.updateCartTotalPrice();
@@ -2896,11 +2936,11 @@ app.CartItemView = Backbone.View.extend({
     // if one clicks update button, sums subtotals
     updateCartTotalPrice: function() {
         var subTotalsArr = [];
-        $('.cart-item').find('.sub-total').each(function() {
-            subTotalsArr.push(parseInt($(this).text()));
-        });
 
-        // console.log(subTotalsArr)
+        $('.cart-item').find('.sub-total').each(function() {
+            var dollarAmount = parseInt($(this).text().replace('$', ''));
+            subTotalsArr.push(dollarAmount);
+        });
 
         // if one removes all the items in the cart, set the array val to zero
         if(subTotalsArr.length == 0) {
@@ -2934,8 +2974,9 @@ app.CartItemView = Backbone.View.extend({
     updateCartTotalQuantity: function() {
         var quantityArr = [];
 
-        $('.class-qty').each(function() {
-            quantityArr.push(parseInt($(this).val()));
+        app.cartCollection.each(function(cartItemModel) {
+            var itemQuantity = cartItemModel.get('quantity');
+            quantityArr.push(itemQuantity);
         });
 
         if(quantityArr.length == 0) {
@@ -2955,18 +2996,18 @@ app.CartItemView = Backbone.View.extend({
             this.removeItemFromCart(e);
         }
 
+        this.listenTo(this.model, 'change:quantity', this.calculateSubtotal);
         this.model.set('quantity', updatedQty);
-        this.calculateSubtotal(updatedQty);
-        Backbone.trigger('updateOriginalModelQuantity', updatedQty);
+                // console.log(this.model)
+        // this.calculateSubtotal(updatedQty);
+        // Backbone.trigger('updateOriginalModelQuantity', updatedQty);
     },
 
     // updates quantity for single item
     updateQuantity: function(quantity) {
-        console.log('updateQuantity', quantity);
+
         this.$el.find('.class-qty').val(quantity)
-        // this.quantity = quantity;
-        // cartItem.set('qty', theQuantity);
-        console.log(this.$el)
+
 
 
         // Backbone.trigger('calculateSubtotal', quantity);
@@ -2994,7 +3035,7 @@ app.CartNotifyView = Backbone.View.extend({
         this.render();
 
         // variables
-        this.totalCost = this.$('#total-cost');
+        this.totalCost = this.$('.total-cost');
 
         // event bus
         Backbone.on('updateTotalPrice', this.updateTotalPrice, this);
@@ -3043,7 +3084,7 @@ app.CartNotifyView = Backbone.View.extend({
         var updatedQty= quantityArray.reduce(function(a, b) {
             return a + b;
         });
-        this.$('#num-items').text(updatedQty);
+        this.$('.items-total').text(updatedQty + ' Items');
     },
 
     checkout: function() {
@@ -3056,9 +3097,9 @@ app.CartNotifyView = Backbone.View.extend({
 
         
 
-        console.log('hi', app.cartCollection)
+        // console.log('hi', app.cartCollection)
 
-        console.log(localStorage.CartCollection)
+        // console.log(localStorage.CartCollection)
 
 
         // app.cartCollection.toJSON();
@@ -3085,7 +3126,6 @@ window.app = window.app || {};
 
 app.ClassView = Backbone.View.extend({
 
-
     initialize: function() {
         this.render();
     },
@@ -3097,9 +3137,9 @@ app.ClassView = Backbone.View.extend({
     },
 
     renderSeminars: function(seminarModel) {
-        this.$el.append(new app.SingleSeminarView({
+        this.$el.prepend(new app.SingleSeminarView({
             model: seminarModel
-        }).render().el).hide().slideDown(500).fadeIn(700);
+        }).render().el).hide().slideDown(500).fadeIn(600);
     }
 
 });
@@ -3204,6 +3244,7 @@ app.ScheduleView = Backbone.View.extend({
     addToCart: function(e) {
         e.preventDefault();
         var target = $(e.currentTarget);
+        var _this = this;
         this.$classQty = target.parent().prev().find('.class-qty');
         if(this.$classQty.val() == '') {
             target.parent().prev().find('.attendee-msg').addClass('showing');
@@ -3211,7 +3252,7 @@ app.ScheduleView = Backbone.View.extend({
             this.$el.find('.btn-blue-hollow:focus').blur();
             setTimeout(function() {
                 target.parent().prev().find('.attendee-msg').removeClass('showing');
-                this.$classQty.css('border-color', '#d7d7d7');
+                _this.$classQty.css('border-color', '#d7d7d7');
             }, 3000);
             return false;
         } else {
@@ -3230,6 +3271,7 @@ app.ScheduleView = Backbone.View.extend({
                 modelData.set('theId', theId);
 
                 var modelQty = modelData.get('quant');
+
 
             if(!inCart) {
                 modelData.set('inCart', true);
@@ -3250,11 +3292,12 @@ app.ScheduleView = Backbone.View.extend({
                 var loadedFromLocalStore = [],
                     isItemInCollection = false,
                     inputQuantity = this.$('.qty').val(),
-                    uniqueIdentifierOfModelAdded = modelData;
+                    uniqueIdentifierOfModelAdded = theId;
 
                 // loop through the localstorage collection and add our unique identifier to the array
                 app.cartCollection.each(function(cartItemModel) {
-                    loadedFromLocalStore.push(cartItemModel.get('id'));
+                    console.log(cartItemModel.get('theId'))
+                    loadedFromLocalStore.push(cartItemModel.get('theId'));
                 });
 
                 // loop through array of unique identifiers, compare to identifier of model we are adding
@@ -3266,15 +3309,15 @@ app.ScheduleView = Backbone.View.extend({
                     }
                 }
 
-                // if item is not in collection (or on the page)
-                // if(!isItemInCollection) {
+                // if item is not in collection
+                if(!isItemInCollection) {
 
                     // create a new model
                     app.cartItemModel = new app.CartItemModel({
                         title: titleOfClass,
                         city: cityOfClass,
                         date: classDate,
-                        qty: thequantity,
+                        quantity: thequantity,
                         theId: theId,
                         price: modelData.get('price')
                     });
@@ -3290,34 +3333,41 @@ app.ScheduleView = Backbone.View.extend({
                     // saving it to localstorage
                     app.cartCollection.create(app.cartItemModel.toJSON());
 
+                    if(!$('.cart-visible').hasClass('down')) {
+                        $('.cart-tab').trigger('click');
+                    }
+
                     // clear input field
                     this.$classQty.val('');
 
                     // remove listener
                     this.stopListening();
 
-                    this.listenTo(modelData, 'change:quant', this.updateQuantity);
+
+                } else {
+                    console.log('update quantity here');
+                    console.log(app.cartItemModel, modelData)
+                    return false;
+                }
             } else {
-                console.log(modelQty)
-                app.cartItemModel.set('qty', modelQty);
+                console.log('in cart update qty here')
+                app.cartItemModel.set('quantity', modelQty);
                 modelData.set('quant', modelQty);
-                // this.updateQuantity(theId, modelQty, modelData);
             }
         }
     },
 
     // creates our new view, adds to cart by calling render in the cartItemView
     renderCartItem: function(cartItem) {
-        var itemQuantity = cartItem.get('qty');
+        var itemQuantity = cartItem.get('quantity');
         var itemPrice = cartItem.get('price');
-        console.log(itemPrice)
         app.cartItemView = new app.CartItemView({
             model: cartItem,
             quantity: itemQuantity,
             price: itemPrice
         }).render();
 
-        // this.addQtyToCart(itemQuantity, cartItem);
+        this.addQtyToCart(itemQuantity, cartItem);
         Backbone.trigger('calculateSubtotal', itemQuantity);
     },
 
@@ -3332,18 +3382,17 @@ app.ScheduleView = Backbone.View.extend({
     addQtyToCart: function(theQuantity, cartItem) {
         // cartItem.set('qty', theQuantity);
         // this.$classQty.val(theQuantity)
-        // console.log(cartItem)
         // console.log(this.model)
         // this.listenTo(this.cartItemModel, 'change:quantity', this.updateQuantity);
-        // var oldVal = $('.items').text();
-        // console.log(oldVal); // fix, 00
+        var oldVal = $('.items-total').text();
         // console.log(theQuantity) // good
         // console.log(this.$el) // div.schedule-items-wrap
         // console.log('==============')
         // this.quantity = theQuantity;
-        // var newNum = parseInt(oldVal) + parseInt(theQuantity);
-        // $('#num-items').html(newNum);
+        var newNum = parseInt(oldVal) + parseInt(theQuantity);
+        $('.items-total').text(newNum + ' Items');
         // this.model.set('quantity', this.quantity);
+        // Backbone.trigger('updateCartTotalPrice', itemQuantity);
     }
 
 });
@@ -3823,86 +3872,106 @@ HomePage.prototype.showActiveSelection = function() {
 };
 'use strict';
 
+window.app = window.app || {};
+
 function MainSearchSelect() {
 
 	var _this = this;
 
 	$('#main-search').select2({
 		// data:sampleArray,
-		tags: true,	
+		tags: true,
 		selectOnBlur: true,
 		maximumSelectionLength: 1,
 		dropdownAutoWidth: true,
 		// tokenSeparators: [",", " "],
 
-		placeholder: function() {
+		placeholder: function () {
 			$(this).data('placeholder');
-		},
-
-
-		
-		// createSearchChoice:function(term, data) {
-		// 	alert('hi')
-		// 	console.log(term, data);
-		// 	// if ($(data).filter(function() { 
-		// 	// 	return this.text.localeCompare(term)===0; }).length===0) {
-		// 	// 	return {
-		// 	// 		id:term, text:term
-		// 	// 	};
-		// 	// } 
-
-		// 	if ($(data).filter(function() {
-		// 	      return this.text.localeCompare(term)===0;
-		// 	    }).length===0) {
-		// 	      return {id:term, text:term};
-		// 	    }
-		// },
-		
-		// createSearchChoicePosition: function(list, item) {
-		// 	alert('stuff')
-		// 	list.splice(1, 0, item);
-		// }
+		}
 	});
-	// .on('change', function(e) {
-		// var isNew = $(this).find('[data-select2-tag="true"]');
-		// if(isNew.length){
-		// 	isNew.replaceWith('<option class="selected value="'+isNew.val()+'">'+isNew.val()+'</option>');
-		// }
-	// });
 
 	this.autofillLocation();
-
-	$('#search-btn').on('click', function() {
-		_this.getSearchParams();
-	});
 };
 
-MainSearchSelect.prototype.getSearchParams = function() {
+
+MainSearchSelect.prototype.getSearchParams = function () {
 	var topicsArray = [];
 
 	// get the city or zip
-	var location = $('#main-search').select2('val').toString();
+	var searchLocationVal = $('#main-search').select2('val');
 
-	// get the selected class topic
-	$('.chosen').each(function() {
-		var selectedTopic = $(this).data('topic');
-		console.log('hi')
-		topicsArray.push(selectedTopic);
-	});
+	// if empty, show message
+	if (searchLocationVal == null) {
+		$('.empty-location-msg').fadeIn(150).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1);
+		$('.class-loader').fadeOut(150);
+		return false;
+	} else {
+		var location = $('#main-search').select2('val').toString();
+		$('.empty-location-msg').fadeOut(150);
 
-	// get the date range
-	var dateValues = $('#date-range-slider').dateRangeSlider("values");
-	var minDate = new Date(dateValues.min);
-	var minMonth = minDate.getMonth() + 1;
-	var minYear = minDate.getFullYear();
+		// get the selected class topic
+		$('.chosen').each(function () {
+			var selectedTopic = $(this).data('topic');
+			if (selectedTopic === 'all') {
+				topicsArray.push("electrical", "management", "hvac", "mechanical");
+			} else {
+				topicsArray.push(selectedTopic);
+			}
+		});
+
+		if (topicsArray.length == 0) {
+			topicsArray.push("electrical", "management", "hvac", "mechanical");
+		}
+
+		// get the date range
+		var dateValues = $('#date-range-slider').dateRangeSlider("values");
+		var minDate = new Date(dateValues.min);
+		var minMonth = minDate.getMonth() + 1;
+		var minYear = minDate.getFullYear();
+
+		var maxDate = new Date(dateValues.max);
+		var maxMonth = maxDate.getMonth() + 1;
+		var maxYear = maxDate.getFullYear();
+
+		this.updateHashBang(location, topicsArray, minMonth + '/' + minYear, maxMonth + '/' + maxYear);
+
+		app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
+		return app.resStringified;
+	}
+};
+
+
+MainSearchSelect.prototype.getSearchParamsFromHash = function () {
+	var topicsArray = [];
+	var location = '';
+
+	var hashArray = this.processHashBang();
+
+	topicsArray = hashArray['topics'].split(',');
+	location = hashArray['loc'];
+
+	var minDate = hashArray['dMin'].split("/");
+	var minMonth = minDate[0];
+	var minYear = minDate[1];
+
+	var maxDate = hashArray['dMax'].split("/");
+	var maxMonth = maxDate[0];
+	var maxYear = maxDate[1];
+
+	app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
+	return app.resStringified;
+};
+
+
+MainSearchSelect.prototype.generateJsonSearchString = function (location, topicsArray, minMonth, minYear, maxMonth, maxYear) {
+	var returnJson;
+
 	var minMonthYear = {
 		minMonthVal: minMonth,
 		minYearVal: minYear
 	};
 
-	var maxDate = new Date(dateValues.max);
-	var maxMonth = maxDate.getMonth() + 1;
-	var maxYear = maxDate.getFullYear();
 	var maxMonthYear = {
 		maxMonthVal: maxMonth,
 		maxYearVal: maxYear
@@ -3912,32 +3981,51 @@ MainSearchSelect.prototype.getSearchParams = function() {
 		min: minMonthYear,
 		max: maxMonthYear
 	};
-	console.log(topicsArray.length)
-	if(topicsArray.length == 0) {
-		topicsArray.push('all');
-	}
-	console.log(topicsArray)
+
 	var searchResults = {
 		location: location,
 		classTopics: topicsArray,
 		dates: selectedDates
 	};
 
-	var resStringified = JSON.stringify(searchResults);
-
-	console.log(JSON.stringify(searchResults));
-
-	console.log(searchResults)
-
+	returnJson = JSON.stringify(searchResults);
+	return returnJson;
 };
 
-MainSearchSelect.prototype.autofillLocation = function() {
 
+
+MainSearchSelect.prototype.autofillLocation = function () {
 	var visitorLocation = $('#main-search').data('location');
-
-	if(!visitorLocation == 'undefiend') {
-		$('#main-search').prepend('<option value="'+ visitorLocation +'" selected>'+ visitorLocation +'</option>').trigger('change');
+	if (visitorLocation == 'undefined' || visitorLocation == '') {
+		return false;
+	} else {
+		$('#main-search').prepend('<option value="' + visitorLocation + '" selected>' + visitorLocation + '</option>').trigger('change');
 	}
+};
+
+
+MainSearchSelect.prototype.c = function () {
+	var url = window.location.href;
+
+	var vars = {};
+	var hashes = url.slice(url.indexOf('#') + 1).split('&');
+
+	for (var i = 0; i < hashes.length; i++) {
+		var hash = hashes[i].split('=');
+
+		if (hash.length > 1) {
+			vars[hash[0]] = hash[1];
+		} else {
+			vars[hash[0]] = null;
+		}
+	}
+
+	return vars;
+};
+
+MainSearchSelect.prototype.updateHashBang = function (location, topics, dateMin, dateMax) {
+	var hashStr = 'loc=' + (location || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMin=' + (dateMax || '');
+	window.location.hash = hashStr;
 };
 'use strict';
 
@@ -4043,10 +4131,12 @@ Register.prototype.billingOptions = function() {
 };
 'use strict';
 
+window.app = window.app || {};
+
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
-	
+
 	$('.carousel').carousel();
 
 	if($('.catalog-top').length) {
@@ -4056,7 +4146,7 @@ function TPCApp() {
 	this.homePage = new HomePage();
 
 	if($('#main-search').length) {
-		this.mainSearchSelect = new MainSearchSelect();
+		app.mainSearchSelect = new MainSearchSelect();
 	}
 
 	if($('#date-range-slider').length) {
