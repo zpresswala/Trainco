@@ -6,7 +6,14 @@
 <div class="container-fluid register-top summary-top">
     <div class="container">
         <div class="jumbotron">
-            <h1>Summary</h1>
+            @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
+            {
+                <h1>@CurrentPage.pageHeadline</h1>
+            }
+            else
+            {
+                <h1>@CurrentPage.name</h1>
+            }
             <ul class="indicator">
                 <li class="step step1"></li>
                 <li class="line line1"></li>
