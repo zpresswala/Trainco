@@ -457,6 +457,10 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="media\1001\bear.png" />
+    <Content Include="media\1002\electrical.jpg" />
+    <Content Include="media\1003\plantmgmt-icon.jpg" />
+    <Content Include="media\1004\hvac-icon.jpg" />
+    <Content Include="media\1005\plantmgmt-icon.jpg" />
     <Content Include="umbraco\Actions\delete.aspx" />
     <Content Include="umbraco\Actions\editContent.aspx" />
     <Content Include="umbraco\Actions\preview.aspx" />
