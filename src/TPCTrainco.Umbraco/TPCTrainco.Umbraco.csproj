@@ -3293,6 +3293,23 @@
     <Content Include="Views\SitemapXML.cshtml" />
     <Content Include="Views\RegisterInfo.cshtml" />
     <Content Include="Views\RegisterSummary.cshtml" />
+    <Content Include="Views\Partials\Forms\Export\csv.cshtml" />
+    <Content Include="Views\Partials\Forms\Export\html.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.CheckBox.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.CheckBoxList.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.DatePicker.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.DropDownList.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.FileUpload.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.HiddenField.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.PasswordField.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.RadioButtonList.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\Fieldtype.Recaptcha.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.Text.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.Textarea.cshtml" />
+    <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.Textfield.cshtml" />
+    <Content Include="Views\Partials\Forms\Form.cshtml" />
+    <Content Include="Views\Partials\Forms\Script.cshtml" />
+    <Content Include="Views\RegisterSuccess.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
