@@ -5,7 +5,12 @@
 angular.module("umbraco").controller("TPCTrainco.CourseDropdownController", function ($scope, courseResource, notificationsService) {
 
     courseResource.getAll("").then(function (response) {
-        $scope.courseCategories = response.data;
+        $scope.courses = response.data;
+        if ($scope.courses) {
+            for (var i = 0; i < $scope.courses.length; i++) {
+                $scope.courses[i].Id = $scope.courses[i].Id.toString();
+            }
+        }
     }, function (response) {
         notificationsService.error("Error", "Error loading courses");
         console.log(response.data);

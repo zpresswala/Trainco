@@ -1,11 +1,5 @@
 ﻿<div ng-controller="TPCTrainco.CourseDropdownController">
-    <select ng-model="model.value">
-        <optgroup value="{{courseCategory.Id}}" label="{{courseCategory.Title}}"
-                  data-ng-repeat="courseCategory in courseCategories">
-            <option data-ng-repeat="course in courseCategory.Courses"
-                    value="{{course.Id}}">
-                {{course.Title}}
-            </option>
-        </optgroup>
+    <select data-ng-model="model.value"
+            data-ng-options="course.Id as course.Title for course in courses">
     </select>
 </div>
