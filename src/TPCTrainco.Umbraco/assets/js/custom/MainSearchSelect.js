@@ -70,7 +70,7 @@ MainSearchSelect.prototype.getSearchParams = function () {
 };
 
 
-MainSearchSelect.prototype.getSearchParamsFromHash = function () {
+MainSearchSelect.prototype.getHashSearchParams = function () {
 	var topicsArray = [];
 	var location = '';
 
@@ -132,7 +132,7 @@ MainSearchSelect.prototype.autofillLocation = function () {
 };
 
 
-MainSearchSelect.prototype.c = function () {
+MainSearchSelect.prototype.processHashBang = function () {
 	var url = window.location.href;
 
 	var vars = {};
@@ -152,6 +152,6 @@ MainSearchSelect.prototype.c = function () {
 };
 
 MainSearchSelect.prototype.updateHashBang = function (location, topics, dateMin, dateMax) {
-	var hashStr = 'loc=' + (location || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMin=' + (dateMax || '');
+	var hashStr = 'loc=' + (location || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMax=' + (dateMax || '');
 	window.location.hash = hashStr;
 };

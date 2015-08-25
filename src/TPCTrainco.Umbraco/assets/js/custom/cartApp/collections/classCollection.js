@@ -13,9 +13,28 @@ app.globalCollection = new app.ClassCollection;
 // check the hash to see if there is data there. (only on page load)
 $(document).ready(function () {
 	if (window.location.hash) {
-		// hash exists
+		if (app.mainSearchSelect == undefined)
+			app.mainSearchSelect = new MainSearchSelect();
+
+		var searchParams = app.mainSearchSelect.getHashSearchParams(),
+        $emptyMsg = $('.empty-message'),
+        $classLoader = $('.class-loader');
+
+		performSearch(searchParams);
 	}
 });
+
+
+// search button click
+$('.select-date-text').on('click', function () {
+	var searchParams = app.mainSearchSelect.getHashSearchParams(),
+        $emptyMsg = $('.empty-message'),
+        $classLoader = $('.class-loader');
+
+	performSearch(searchParams);
+});
+
+
 
 // search button click
 $('#search-btn').on('click', function () {

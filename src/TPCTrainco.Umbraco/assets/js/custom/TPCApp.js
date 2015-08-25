@@ -15,7 +15,8 @@ function TPCApp() {
 	this.homePage = new HomePage();
 
 	if($('#main-search').length) {
-		app.mainSearchSelect = new MainSearchSelect();
+		if (app.mainSearchSelect == undefined)
+			app.mainSearchSelect = new MainSearchSelect();
 	}
 
 	if($('#date-range-slider').length) {
