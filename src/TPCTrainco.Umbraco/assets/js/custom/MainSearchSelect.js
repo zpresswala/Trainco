@@ -70,6 +70,7 @@ MainSearchSelect.prototype.getSearchParams = function () {
 };
 
 
+// get the search parameters based on the hash
 MainSearchSelect.prototype.getHashSearchParams = function () {
 	var topicsArray = [];
 	var location = '';
@@ -91,7 +92,7 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 	return app.resStringified;
 };
 
-
+// generate a JSON search string for performSearch (in cartCollection.js)
 MainSearchSelect.prototype.generateJsonSearchString = function (location, topicsArray, minMonth, minYear, maxMonth, maxYear) {
 	var returnJson;
 
@@ -121,7 +122,6 @@ MainSearchSelect.prototype.generateJsonSearchString = function (location, topics
 };
 
 
-
 MainSearchSelect.prototype.autofillLocation = function () {
 	var visitorLocation = $('#main-search').data('location');
 	if (visitorLocation == 'undefined' || visitorLocation == '') {
@@ -131,7 +131,7 @@ MainSearchSelect.prototype.autofillLocation = function () {
 	}
 };
 
-
+// get the hash and create an array of the search parameters
 MainSearchSelect.prototype.processHashBang = function () {
 	var url = window.location.href;
 
@@ -151,6 +151,7 @@ MainSearchSelect.prototype.processHashBang = function () {
 	return vars;
 };
 
+// update the hash in the url
 MainSearchSelect.prototype.updateHashBang = function (location, topics, dateMin, dateMax) {
 	var hashStr = 'loc=' + (location || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMax=' + (dateMax || '');
 	window.location.hash = hashStr;

@@ -26,17 +26,6 @@ $(document).ready(function () {
 
 
 // search button click
-$('.select-date-text').on('click', function () {
-	var searchParams = app.mainSearchSelect.getHashSearchParams(),
-        $emptyMsg = $('.empty-message'),
-        $classLoader = $('.class-loader');
-
-	performSearch(searchParams);
-});
-
-
-
-// search button click
 $('#search-btn').on('click', function () {
 	var searchParams = app.mainSearchSelect.getSearchParams(),
         $emptyMsg = $('.empty-message'),
@@ -45,7 +34,7 @@ $('#search-btn').on('click', function () {
 	performSearch(searchParams);
 });
 
-
+// perform the search using the API and the search parameters
 function performSearch(searchParams) {
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
