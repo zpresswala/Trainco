@@ -3,14 +3,8 @@
 }
 
 .cart {
-	// padding: 0;
 	z-index: 0;
 	display: none;
-	// display: block;
-
-	// .row {
-	// 	margin: 0;
-	// }
 
 	h3 {
 		@include med-desktop-and-up {
@@ -19,23 +13,19 @@
 	}
 }
 
-#cart {
-	// remove when done
-	// position: absolute;
- //    top: 0;
- //    right: 300px;
- //    width: 60%;
- //    border: 3px solid green;
- //    background-color: aliceblue;
- //    height: 100px;
-    // end remove
+.added {
+    border: 3px solid $blue;
+    color: $blue;
+
+    &:hover {
+    	background-color: $white;
+    	color: $blue;
+    }
 }
 
-.cartfix {
-	position: fixed;
-	top: 80px;
-	z-index: 99;
-	width: 100%;
+.cart-empty-msg {
+	text-align: center;
+	font-size: 18px;
 }
 
 #cart-item-list {
@@ -137,7 +127,6 @@
 	background-color: #f2f2f2;
 
 	.btn-reg {
-		// why a new button font weight?
 		float: right;
 		margin-right: 15px;
 		@include med-desktop-and-up {
@@ -147,7 +136,6 @@
 
 	.wrap {
 		position: relative;
-		// margin-bottom: 20px;
 	}
 
 	.btn-wrapper {
@@ -240,7 +228,6 @@
 	padding: 0;
 	text-align: left;
 	@include med-desktop-and-up {
-		// border: 1px solid blue;
 		float: right;
 		text-align: right;
 		margin: 25px 0 35px;
@@ -306,7 +293,6 @@
 }
 .results {
 	padding: 0;
-	// margin-top: 100px;
 }
 
 .result-description {
@@ -426,7 +412,6 @@
 
 .turn {
 	@include transform(rotate(45deg));
-	// @include transition(0.25s);
 }
 
 .schedule {
@@ -445,8 +430,6 @@
 	li {
 		margin-top: 15px;
 		margin-bottom: 15px;
-		// display: table-cell;
-		// vertical-align: middle;
 		@include med-desktop-and-up {
 			text-align: center;
 		}
@@ -511,7 +494,6 @@
 }
 
 .class-loader {
-	// top: 120px;
 	top: 50%;
 	margin-top: -10px;
 }

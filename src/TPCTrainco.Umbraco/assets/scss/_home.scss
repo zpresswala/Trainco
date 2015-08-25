@@ -61,7 +61,8 @@
 	&:hover > .overlay, &.chosen > .overlay {
 		background-color: $blue; // ie8 fallback
 		opacity: 1;
-		background-color: rgba(0, 144, 197, 0.8);
+		// background-color: rgba(0, 144, 197, 0.8);
+		background-color: rgba(240, 75, 73, 0.8);
 		@include transition(all 0.3s ease-in-out);
 		@include transform(scale(1.01, 1.01));
 	}
@@ -69,7 +70,8 @@
 	// on click, chosen class is added, different color than the hover state
 	&.chosen > .overlay {
 		background-color: $red-button-hover; //ie8 fallback
-		background-color: rgba(240, 75, 73, 0.8);
+		// background-color: rgba(240, 75, 73, 0.8);
+		background-color: rgba(0, 144, 197, 0.8);
 	}
 
 	img {

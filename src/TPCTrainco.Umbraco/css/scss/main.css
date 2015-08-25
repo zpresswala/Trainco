@@ -3062,7 +3062,7 @@ h2, h3, h4 {
   .overlay-contain:hover > .overlay, .overlay-contain.chosen > .overlay {
     background-color: #0090C5;
     opacity: 1;
-    background-color: rgba(0, 144, 197, 0.8);
+    background-color: rgba(240, 75, 73, 0.8);
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
@@ -3073,7 +3073,7 @@ h2, h3, h4 {
     transform: scale(1.01, 1.01); }
   .overlay-contain.chosen > .overlay {
     background-color: #F04B49;
-    background-color: rgba(240, 75, 73, 0.8); }
+    background-color: rgba(0, 144, 197, 0.8); }
   .overlay-contain img {
     width: 100%;
     max-width: 120px;
@@ -3603,11 +3603,16 @@ h2, h3, h4 {
     .cart h3 {
       float: left; } }
 
-.cartfix {
-  position: fixed;
-  top: 80px;
-  z-index: 99;
-  width: 100%; }
+.added {
+  border: 3px solid #0090C5;
+  color: #0090C5; }
+  .added:hover {
+    background-color: #FFFFFF;
+    color: #0090C5; }
+
+.cart-empty-msg {
+  text-align: center;
+  font-size: 18px; }
 
 #cart-item-list {
   padding: 0;
@@ -4063,7 +4068,9 @@ h2, h3, h4 {
         margin-top: -230px;
         left: 0; } }
     .caro-form-container .carousel .carousel-caption {
-      bottom: 1%; }
+      bottom: 1%;
+      width: 75%;
+      position: static; }
       @media (min-width: 992px) {
         .caro-form-container .carousel .carousel-caption {
           bottom: auto; } }
