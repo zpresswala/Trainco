@@ -37,8 +37,7 @@ app.CartNotifyView = Backbone.View.extend({
             });
         } else {
             console.log(this.$el, '7777');
-            this.$('.cart-empty-msg').hide();
-            // this.$('.wrap').prepend('<p class="cart-empty-msg">Your cart is currently empty.</p>');
+            this.$('.wrap').prepend('<p class="cart-empty-msg">Your cart is currently empty.</p>');
         }
     },
 
