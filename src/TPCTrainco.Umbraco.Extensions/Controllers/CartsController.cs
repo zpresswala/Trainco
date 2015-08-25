@@ -24,7 +24,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             //Content-Type: application/json
 
-            //[{"courseId":1234,"quantity":1},{"courseId":1235,"quantity":2}]
+            //[{"Id":1234,"quantity":1},{"Id":1235,"quantity":2}]
 
 
             List<CartItem> saveRequest = JsonConvert.DeserializeObject<List<CartItem>>(json.ToString());
