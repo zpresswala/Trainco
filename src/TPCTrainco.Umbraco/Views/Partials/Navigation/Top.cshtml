@@ -30,7 +30,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="/public-seminars/" class="btn-reg" role="button">Register</a></li>
+                <li><a href="@CurrentPage.AncestorOrSelf(1).RegisterContainer.First().Url" class="btn-reg" role="button">Register</a></li>
 
                 @foreach (IPublishedContent item in menuItems.OrderBy("SortOrder"))
                 {
