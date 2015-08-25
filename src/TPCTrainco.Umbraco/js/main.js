@@ -2714,55 +2714,72 @@ app.cartCollection = new app.CartCollection();
 window.app = window.app || {};
 
 app.ClassCollection = Backbone.Collection.extend({
-    model: app.ClassModel,
+	model: app.ClassModel,
 
-    url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
+	url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
 });
 
 app.globalCollection = new app.ClassCollection;
 
-$('#search-btn').on('click', function() {
+// check the hash to see if there is data there. (only on page load)
+$(document).ready(function () {
+	if (window.location.hash) {
+		// hash exists
+	}
+});
 
-    var searchParams = app.mainSearchSelect.getSearchParams(),
+// search button click
+$('#search-btn').on('click', function () {
+	var searchParams = app.mainSearchSelect.getSearchParams(),
         $emptyMsg = $('.empty-message'),
         $classLoader = $('.class-loader');
 
-    // parse the search data to show the search results message
-    var dataReFormat = $.parseJSON(searchParams);
-    var topics = dataReFormat.classTopics.filter(function(item, pos) {
-        return dataReFormat.classTopics.indexOf(item) == pos;
-    });
-
-    app.globalCollection.fetch({
-        data: searchParams,
-        type: "POST",
-        contentType: "application/json",
-
-        success: function(data) {
-            console.log(data)
-            $emptyMsg.fadeOut(100, function() {
-                $classLoader.fadeIn(90).addClass('one');
-
-                if(data.length === 0) {
-                    $classLoader.fadeOut(150, function() {
-                        $emptyMsg.fadeIn(150).text('We were unable to find classes that fit your preferences. Please change your search terms and try again.');
-                    });
-                } else {
-                    $classLoader.fadeOut(150, function() {
-                        $emptyMsg.fadeIn(150).text('Displaying results for ' + topics.join(', ') + 'seminars in ' + dataReFormat.location + '.', function() {
-                            $('.results').empty();
-                        });
-                    });
-
-                    app.classView = new app.ClassView({
-                        collection: app.globalCollection,
-                        el: '.results'
-                    });
-                }
-            });
-        }
-    });
+	performSearch(searchParams);
 });
+
+
+function performSearch(searchParams) {
+	// parse the search data to show the search results message
+	var dataReFormat = $.parseJSON(searchParams);
+	var topics = dataReFormat.classTopics.filter(function (item, pos) {
+		return dataReFormat.classTopics.indexOf(item) == pos;
+	});
+
+	console.log(searchParams);
+
+	app.globalCollection.fetch({
+		data: searchParams,
+		type: "POST",
+		contentType: "application/json",
+
+		success: function (data) {
+			console.log(data)
+			$emptyMsg.fadeOut(100, function () {
+				$classLoader.fadeIn(90).addClass('one');
+
+				if (data.length === 0) {
+					$classLoader.fadeOut(150, function () {
+						$emptyMsg.fadeIn(150).text('We were unable to find classes that fit your preferences. Please change your search terms and try again.');
+					});
+				} else {
+					$classLoader.fadeOut(150, function () {
+						$emptyMsg.fadeIn(150).text('Displaying results for ' + topics.join(', ') + 'seminars in ' + dataReFormat.location + '.', function () {
+							$('.results').empty();
+						});
+					});
+
+					app.classView = new app.ClassView({
+						collection: app.globalCollection,
+						el: '.results'
+					});
+				}
+			});
+		}
+	});
+};
+
+
+
 'use strict';
 
 window.app = window.app || {};
@@ -3863,13 +3880,13 @@ function MainSearchSelect() {
 
 	$('#main-search').select2({
 		// data:sampleArray,
-		tags: true,	
+		tags: true,
 		selectOnBlur: true,
 		maximumSelectionLength: 1,
 		dropdownAutoWidth: true,
 		// tokenSeparators: [",", " "],
 
-		placeholder: function() {
+		placeholder: function () {
 			$(this).data('placeholder');
 		}
 	});
@@ -3877,32 +3894,33 @@ function MainSearchSelect() {
 	this.autofillLocation();
 };
 
-MainSearchSelect.prototype.getSearchParams = function() {
+
+MainSearchSelect.prototype.getSearchParams = function () {
 	var topicsArray = [];
 
 	// get the city or zip
 	var searchLocationVal = $('#main-search').select2('val');
 
 	// if empty, show message
-	if(searchLocationVal == null) {
-		$('.empty-location-msg').fadeIn(150).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1).delay(200).fadeTo(150,0.5).delay(150).fadeTo(150,1);
+	if (searchLocationVal == null) {
+		$('.empty-location-msg').fadeIn(150).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1);
 		$('.class-loader').fadeOut(150);
 		return false;
 	} else {
 		var location = $('#main-search').select2('val').toString();
 		$('.empty-location-msg').fadeOut(150);
-		
+
 		// get the selected class topic
-		$('.chosen').each(function() {
+		$('.chosen').each(function () {
 			var selectedTopic = $(this).data('topic');
-			if(selectedTopic === 'all') {
+			if (selectedTopic === 'all') {
 				topicsArray.push("electrical", "management", "hvac", "mechanical");
 			} else {
 				topicsArray.push(selectedTopic);
 			}
 		});
 
-		if(topicsArray.length == 0) {
+		if (topicsArray.length == 0) {
 			topicsArray.push("electrical", "management", "hvac", "mechanical");
 		}
 
@@ -3911,42 +3929,103 @@ MainSearchSelect.prototype.getSearchParams = function() {
 		var minDate = new Date(dateValues.min);
 		var minMonth = minDate.getMonth() + 1;
 		var minYear = minDate.getFullYear();
-		var minMonthYear = {
-			minMonthVal: minMonth,
-			minYearVal: minYear
-		};
 
 		var maxDate = new Date(dateValues.max);
 		var maxMonth = maxDate.getMonth() + 1;
 		var maxYear = maxDate.getFullYear();
-		var maxMonthYear = {
-			maxMonthVal: maxMonth,
-			maxYearVal: maxYear
-		};
 
-		var selectedDates = {
-			min: minMonthYear,
-			max: maxMonthYear
-		};
+		this.updateHashBang(location, topicsArray, minMonth + '/' + minYear, maxMonth + '/' + maxYear);
 
-		var searchResults = {
-			location: location,
-			classTopics: topicsArray,
-			dates: selectedDates
-		};
-
-		app.resStringified = JSON.stringify(searchResults);
+		app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
 		return app.resStringified;
 	}
 };
 
-MainSearchSelect.prototype.autofillLocation = function() {
+
+MainSearchSelect.prototype.getSearchParamsFromHash = function () {
+	var topicsArray = [];
+	var location = '';
+
+	var hashArray = this.processHashBang();
+
+	topicsArray = hashArray['topics'].split(',');
+	location = hashArray['loc'];
+
+	var minDate = hashArray['dMin'].split("/");
+	var minMonth = minDate[0];
+	var minYear = minDate[1];
+
+	var maxDate = hashArray['dMax'].split("/");
+	var maxMonth = maxDate[0];
+	var maxYear = maxDate[1];
+
+	app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
+	return app.resStringified;
+};
+
+
+MainSearchSelect.prototype.generateJsonSearchString = function (location, topicsArray, minMonth, minYear, maxMonth, maxYear) {
+	var returnJson;
+
+	var minMonthYear = {
+		minMonthVal: minMonth,
+		minYearVal: minYear
+	};
+
+	var maxMonthYear = {
+		maxMonthVal: maxMonth,
+		maxYearVal: maxYear
+	};
+
+	var selectedDates = {
+		min: minMonthYear,
+		max: maxMonthYear
+	};
+
+	var searchResults = {
+		location: location,
+		classTopics: topicsArray,
+		dates: selectedDates
+	};
+
+	returnJson = JSON.stringify(searchResults);
+	return returnJson;
+};
+
+
+
+MainSearchSelect.prototype.autofillLocation = function () {
 	var visitorLocation = $('#main-search').data('location');
-	if(visitorLocation == 'undefiend' || visitorLocation == '') {
+	if (visitorLocation == 'undefined' || visitorLocation == '') {
 		return false;
 	} else {
-		$('#main-search').prepend('<option value="'+ visitorLocation +'" selected>'+ visitorLocation +'</option>').trigger('change');
+		$('#main-search').prepend('<option value="' + visitorLocation + '" selected>' + visitorLocation + '</option>').trigger('change');
 	}
+};
+
+
+MainSearchSelect.prototype.c = function () {
+	var url = window.location.href;
+
+	var vars = {};
+	var hashes = url.slice(url.indexOf('#') + 1).split('&');
+
+	for (var i = 0; i < hashes.length; i++) {
+		var hash = hashes[i].split('=');
+
+		if (hash.length > 1) {
+			vars[hash[0]] = hash[1];
+		} else {
+			vars[hash[0]] = null;
+		}
+	}
+
+	return vars;
+};
+
+MainSearchSelect.prototype.updateHashBang = function (location, topics, dateMin, dateMax) {
+	var hashStr = 'loc=' + (location || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMin=' + (dateMax || '');
+	window.location.hash = hashStr;
 };
 'use strict';
 
