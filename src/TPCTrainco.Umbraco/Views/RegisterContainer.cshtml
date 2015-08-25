@@ -1,0 +1,250 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+}
+
+<div class="cart">
+    <div class="cart-top">
+        <div class="container">
+            <div class="row">
+                <div class="cart-top col-xs-12">
+                    <h3><img src="/assets/images/icon-cart.png" alt="Cart" />Cart</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="cart-items">
+        <li class="cart-item">
+            <ul class="container">
+                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
+                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+            </ul>
+        </li>
+        <li class="cart-item">
+            <ul class="container">
+                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
+                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+            </ul>
+        </li>
+        <li class="cart-item">
+            <ul class="container">
+                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
+                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+            </ul>
+        </li>
+        <li class="cart-item">
+            <ul class="container">
+                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
+                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
+                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
+                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
+            </ul>
+        </li>
+    </ul>
+    <div class="cart-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 wrap">
+                    <ul class="cart-total col-xs-6 col-md-4">
+                        <li class="items">6 items</li>
+                        <li>Total:<span class="total">$4999</span></li>
+                    </ul>
+                    <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
+                        <a href="#" class="btn-reg btn-blue-solid" id="edit">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+
+    ================
+
+    end read-only cart
+
+    ==================
+
+-->
+
+<div class="container-fluid register-top">
+    <div class="cart-visible">
+        <a class="cart-tab" href="javascript:void(0);">
+            <img src="/assets/images/icon-cart-tab.png" />
+        </a>
+        <div class="container">
+            <ul class="cart-total col-xs-12 col-md-4">
+                <li class="items">6 items</li>
+                <li>Total:<span class="total">$4999</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Register</h1>
+            <ul class="indicator">
+                <li class="step step1"></li>
+                <li class="line line1"></li>
+                <li class="step step2"></li>
+                <li class="line line2"></li>
+                <li class="step step3"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid form-container gradient-bg">
+
+    <!-- start wrapper for one workshop -->
+    <div class="col-md-12 form-item-wrapper">
+        <div class="container">
+            <!-- top section for one workshop -->
+            <ul class="top-info">
+                <li><h2>Attendees for HVAC Workshop</h2></li>
+                <li><p>Location here</p></li>
+                <li class="date"><p>Date 12-12</p></li>
+            </ul>
+            <!-- end -->
+
+            <div class="attendee-info-form-wrap">
+
+                <!-- start form fields for one attendee -->
+                <p class="class-option">Full Seminar: Attendee #1</p>
+                <form>
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="First Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Last Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Title">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                </form>
+
+                <!-- end -->
+                <!-- start form fields for one attendee -->
+                <p class="class-option">Full Seminar: Attendee #2</p>
+                <form>
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="First Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Last Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Title">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                </form>
+
+                <!-- end -->
+            </div>
+
+            <!-- same workshop, separate class option -->
+            <div class="attendee-info-form-wrap">
+                <p class="class-option">Day 1 Air Conditioning</p>
+                <form>
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="First Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Last Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Title">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                </form>
+            </div>
+            <!-- end -->
+
+        </div>
+
+    </div>
+    <!-- end wrapper for one workshop -->
+
+    <div class="col-md-12 form-item-wrapper">
+        <div class="container">
+            <ul class="top-info">
+                <li><h2>Title from cart goes here</h2></li>
+                <li><p>Location here</p></li>
+                <li class="date"><p>Date 12-12</p></li>
+            </ul>
+
+            <div class="attendee-info-form-wrap">
+                <p class="class-option">Full Seminar</p>
+                <form>
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="First Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Last Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Title">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                </form>
+            </div>
+
+            <div class="attendee-info-form-wrap">
+                <p class="class-option">Day 1 Air Conditioning</p>
+                <form>
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="First Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Last Name">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="text" class="form-control" placeholder="Title">
+                    </div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <a class="btn-reg btn-blue-solid next-btn" href="@CurrentPage.RegisterInfo.First().Url">Next</a>
+
+</div>

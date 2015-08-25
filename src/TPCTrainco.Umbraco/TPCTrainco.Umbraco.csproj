@@ -3289,6 +3289,10 @@
     <Content Include="Views\Partials\SeminarSearch\HomeSearch.cshtml" />
     <Content Include="Views\Contact.cshtml" />
     <Content Include="Views\PageNotFound404.cshtml" />
+    <Content Include="Views\RegisterContainer.cshtml" />
+    <Content Include="Views\SitemapXML.cshtml" />
+    <Content Include="Views\RegisterInfo.cshtml" />
+    <Content Include="Views\RegisterSummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
