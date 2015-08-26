@@ -93,15 +93,15 @@
                             string subMenuText = subItem.GetPropertyValue<string>("shortName", subItem.Name);
                             string subAnchorText = subMenuText.ToUrlSegment();
                             
-                            string imageUrl = subItem.GetCropUrl("image","Image");
-
-                            if (false == string.IsNullOrEmpty(imageUrl))
-                            {
-                                imageUrl = "/assets/images/selectall-icon.jpg";
-                            }
-
                             foreach (IPublishedContent subSubItem in subItem.Children)
                             {
+                                string imageUrl = subSubItem.GetCropUrl("image", "Image");
+
+                                if (true == string.IsNullOrEmpty(imageUrl) || (imageUrl.IndexOf(".jpg") < 0 && imageUrl.IndexOf(".png") < 0))
+                                {
+                                    imageUrl = "/assets/images/selectall-icon.jpg";
+                                }
+                                
                                 <li class="seminar-topic col-xs-6 col-md-4" data-type="@(subAnchorText)">
                                     <a href="@(subSubItem.Url)">
                                         <div class="overlay-contain">
@@ -120,7 +120,7 @@
                         {
                             string imageUrl = subItem.GetCropUrl("image", "Image");
 
-                            if (false == string.IsNullOrEmpty(imageUrl))
+                            if (true == string.IsNullOrEmpty(imageUrl) || (imageUrl.IndexOf(".jpg") < 0 && imageUrl.IndexOf(".png") < 0))
                             {
                                 imageUrl = "/assets/images/selectall-icon.jpg";
                             }

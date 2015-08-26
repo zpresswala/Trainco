@@ -4,20 +4,26 @@
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
 @{
     string searchButtonId = Model.DocumentTypeAlias == "HomePage" ? "search-btn-home" : "search-btn";
+    string currentCityState = "";
     
     //List locations
     Locations locationsObj = new Locations();
 
     List<Location> locationList = locationsObj.GetAllLocations();
 
-    //Get current GeoCoordinate
-    string currentCityState = "";
-    
-    TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
-    
-    if (coordDetails != null)
+    if (Request.QueryString["loc"] != null && Request.QueryString.Get("loc").Length > 0)
     {
-        currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
+        currentCityState = Request.QueryString.Get("loc");
+    }
+    else
+    {
+        //Get current GeoCoordinate
+        TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
+
+        if (coordDetails != null)
+        {
+            currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
+        }
     }
 }
 
@@ -32,6 +38,7 @@
                 </div>
                 <p>Search All Seminars</p>
             </li>
+
             <li class="seminar-topic">
                 <div class="overlay-contain" data-topic="electrical">
                     <div class="overlay"></div>
@@ -39,6 +46,15 @@
                 </div>
                 <p>Electrical</p>
             </li>
+
+            <li class="seminar-topic">
+                <div class="overlay-contain" data-topic="hvac">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/hvac-icon.jpg" alt="HVAC Training" />
+                </div>
+                <p>HVAC</p>
+            </li>
+
             <li class="seminar-topic">
                 <div class="overlay-contain" data-topic="management">
                     <div class="overlay"></div>
@@ -46,13 +62,7 @@
                 </div>
                 <p>Plant Management</p>
             </li>
-            <li class="seminar-topic">
-                <div class="overlay-contain" data-topic="HVAC">
-                    <div class="overlay"></div>
-                    <img src="/assets/images/hvac-icon.jpg" alt="HVAC Training" />
-                </div>
-                <p>HVAC</p>
-            </li>
+
             <li class="seminar-topic">
                 <div class="overlay-contain" data-topic="mechanical">
                     <div class="overlay"></div>

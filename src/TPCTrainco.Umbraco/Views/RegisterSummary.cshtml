@@ -1,0 +1,84 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+}
+
+<div class="container-fluid register-top summary-top">
+    <div class="container">
+        <div class="jumbotron">
+            @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
+            {
+                <h1>@CurrentPage.pageHeadline</h1>
+            }
+            else
+            {
+                <h1>@CurrentPage.name</h1>
+            }
+            <ul class="indicator">
+                <li class="step step1"></li>
+                <li class="line line1"></li>
+                <li class="step step2"></li>
+                <li class="line line2"></li>
+                <li class="step step3"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid form-container summary-main gradient-bg">
+    <div class="container">
+        <a href="#" class="btn-reg btn-blue-solid edit-btn">Edit</a>
+        <ul class="summary-items">
+            <li class="summary-item">
+                <ul class="summary-item-top">
+                    <li class="class-title col-xs-12 col-sm-10"><h2>Class Title Boiler Operation and Maintenance Safety Seminar</h2></li>
+                    <li class="col-xs-12 col-sm-2 price">$<span></span>99999</li>
+                </ul>
+                <ul class="attendee-info col-md-10">
+                    <li class="name col-xs-12 col-sm-4 col-md-3">Name Namegoeshere</li>
+                    <li class="email col-xs-12 col-sm-4 col-md-2">Email</li>
+                    <li class="seminar-opts col-xs-12 col-sm-4 col-md-2">Day 2</li>
+                    <li class="location col-xs-12 col-sm-4 col-md-3">Kansas City state, KS</li>
+                    <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                </ul>
+                <ul class="attendee-info col-md-10">
+                    <li class="name col-xs-12 col-sm-4 col-md-3">Name Namegoeshere</li>
+                    <li class="email col-xs-12 col-sm-4 col-md-2">Email</li>
+                    <li class="seminar-opts col-xs-12 col-sm-4 col-md-2">Day 2</li>
+                    <li class="location col-xs-12 col-sm-4 col-md-3">Kansas City state, KS</li>
+                    <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                </ul>
+            </li>
+
+            <li class="summary-item">
+                <ul class="summary-item-top">
+                    <li class="class-title col-xs-12 col-sm-10"><h2>Class Title Boiler Operation and Maintenance Safety Seminar</h2></li>
+                    <li class="col-xs-12 col-sm-2 price">$<span></span>99999</li>
+                </ul>
+                <ul class="attendee-info col-md-10">
+                    <li class="name col-xs-12 col-sm-4 col-md-3">Name Namegoeshere</li>
+                    <li class="email col-xs-12 col-sm-4 col-md-2">Email</li>
+                    <li class="seminar-opts col-xs-12 col-sm-4 col-md-2">Day 2</li>
+                    <li class="location col-xs-12 col-sm-4 col-md-3">Kansas City state, KS</li>
+                    <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
+                </ul>
+            </li>
+        </ul>
+        <div class="col-xs-12 purchaser-info-wrap">
+            <div class="purchaser-info">
+                <ul>
+                    <li class="purchaser-name">zzzzzz Namegoeshere</li>
+                    <li>Company Name</li>
+                    <li>Order #: <span class="order-num">8675309</span></li>
+                    <li>3748 Address Street St.</li>
+                    <li>Beverly Hills, CA 90210</li>
+                    <li>808-576-4848</li>
+                    <li>thisisanemail@imulus.com</li>
+                    <li>Payment Method: <span>credit card</span></li>
+                </ul>
+            </div>
+            <h2 class="total-price">Total: $<span>5858</span></h2>
+        </div>
+        <a href="@CurrentPage.AncestorOrSelf(2).RegisterSuccess.First().Url" class="btn btn-reg btn-blue-solid summary-submit-btn">Submit</a>
+    </div>
+</div>

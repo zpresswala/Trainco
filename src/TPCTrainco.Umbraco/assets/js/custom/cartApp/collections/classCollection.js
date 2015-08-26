@@ -31,7 +31,9 @@ $('#search-btn').on('click', function () {
 $('#search-btn-home').on('click', function () {
 	var searchParams = app.mainSearchSelect.getSearchParams();
 	
-	window.location.href = '/search-seminars/' + window.location.hash;
+	var location = $('#main-search').select2('val').toString();
+
+	window.location.href = '/search-seminars/?loc=' + encodeURIComponent(location) + window.location.hash;
 });
 
 // perform the search using the API and the search parameters
