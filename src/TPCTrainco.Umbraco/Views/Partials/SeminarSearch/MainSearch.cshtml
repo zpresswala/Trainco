@@ -1,0 +1,92 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.ViewModels
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
+@{
+    string searchButtonId = Model.DocumentTypeAlias == "HomePage" ? "search-btn-home" : "search-btn";
+    string currentCityState = "";
+    
+    //List locations
+    Locations locationsObj = new Locations();
+
+    List<Location> locationList = locationsObj.GetAllLocations();
+
+    if (Request.QueryString["loc"] != null && Request.QueryString.Get("loc").Length > 0)
+    {
+        currentCityState = Request.QueryString.Get("loc");
+    }
+    else
+    {
+        //Get current GeoCoordinate
+        TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
+
+        if (coordDetails != null)
+        {
+            currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
+        }
+    }
+}
+
+<div class="row">
+    <div class="col-md-11 topic-circles">
+        <h3>Select one or more topics and choose your location</h3>
+        <ul>
+            <li class="seminar-topic">
+                <div class="overlay-contain" data-topic="all">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/selectall-icon.jpg" alt="Search All Seminars" />
+                </div>
+                <p>Search All Seminars</p>
+            </li>
+            <li class="seminar-topic">
+                <div class="overlay-contain" data-topic="electrical">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/electrical.jpg" alt="Electrical Training" />
+                </div>
+                <p>Electrical</p>
+            </li>
+            <li class="seminar-topic">
+                <div class="overlay-contain" data-topic="management">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/plantmgmt-icon.jpg" alt="Plant Management" />
+                </div>
+                <p>Plant Management</p>
+            </li>
+            <li class="seminar-topic">
+                <div class="overlay-contain" data-topic="hvac">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/hvac-icon.jpg" alt="HVAC Training" />
+                </div>
+                <p>HVAC</p>
+            </li>
+            <li class="seminar-topic">
+                <div class="overlay-contain" data-topic="mechanical">
+                    <div class="overlay"></div>
+                    <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical and Industrial Training" />
+                </div>
+                <p>Mechanical &amp; Industrial</p>
+            </li>
+        </ul>
+
+        <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="@currentCityState">
+            @foreach (Location location in locationList)
+            {
+                <option value="@location.CityState">@location.CityState</option>
+            }
+        </select>
+
+
+        <!-- <input type="hidden" id="main-search" style="width:300px"/> -->
+        <!-- datepicker goes here -->
+        <h4 class="select-date-text">Select a date range</h4>
+
+        <div id="date-range-slider"></div>
+
+        <!-- end datepicker -->
+
+
+        <a href="javascript:void(0);" id="@(searchButtonId)" class="btn-reg btn-white" role="button">Search</a>
+        <p class="empty-location-msg">Please enter a location</p>
+    </div>
+</div>
+

@@ -261,6 +261,9 @@
     <Content Include="App_Plugins\Archetype\views\archetype.config.html" />
     <Content Include="App_Plugins\Archetype\views\archetype.default.html" />
     <Content Include="App_Plugins\Archetype\views\archetype.html" />
+    <Content Include="App_Plugins\TPCTraincoCourseDropdown\tpctrainco.coursedropdown.controller.js" />
+    <Content Include="App_Plugins\TPCTraincoCourseDropdown\tpctrainco.coursedropdown.html" />
+    <Content Include="App_Plugins\TPCTraincoCourseDropdown\tpctrainco.coursedropdown.resource.js" />
     <Content Include="App_Plugins\UrlPicker\css\url.picker.css" />
     <Content Include="App_Plugins\UrlPicker\js\url.picker.js" />
     <Content Include="App_Plugins\UrlPicker\views\default.type.html" />
@@ -322,6 +325,7 @@
     <Content Include="App_Data\TEMP\PluginCache\umbraco-plugins.SYX.list" />
     <Content Include="App_Data\umbraco.config" />
     <Content Include="App_Plugins\UrlPicker\package.manifest" />
+    <Content Include="App_Plugins\TPCTraincoCourseDropdown\package.manifest" />
     <None Include="assets\stylesheets\application.sass" />
     <Content Include="assets\js\custom\cartApp\collections\cartCollection.js" />
     <Content Include="assets\js\custom\cartApp\collections\classCollection.js" />
@@ -3153,10 +3157,13 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\MacroPartials\RenderUmbracoFormScripts.cshtml" />
-    <Content Include="Views\Partials\SeminarSearch\HomeSearch.cshtml" />
+    <Content Include="Views\Partials\SeminarSearch\MainSearch.cshtml" />
     <Content Include="Views\Contact.cshtml" />
     <Content Include="Views\PageNotFound404.cshtml" />
     <Content Include="Views\Partials\SeminarSearch\SeminarDetailsSearch.cshtml" />
+    <Content Include="Views\SeminarCatalog.cshtml" />
+    <Content Include="Views\Partials\Share\ShareModule.cshtml" />
+    <Content Include="Views\SearchSeminars.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

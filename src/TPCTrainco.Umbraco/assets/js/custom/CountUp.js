@@ -18,7 +18,7 @@ CountUp.prototype.getMaxVal = function() {
 	$('.number-callout').find('h3').each(function(index) {
 
 		// grab the value, strip non-numeric chars
-		var number = parseInt($(this).html().replace(/\D/g,''));
+		var number = parseInt($(this).data('value').toString().replace(/\D/g,''));
 
 		// push values into array
 		_this.endValuesArr.push(number);
@@ -28,9 +28,9 @@ CountUp.prototype.getMaxVal = function() {
 CountUp.prototype.resetVals = function() {
 
 	// reset values to zero on load
-	this.$numbers[0].innerHTML = 0 + '%';
-	this.$numbers[1].innerHTML = 0 + 'k';
-	this.$numbers[2].innerHTML = 0;
+	this.$numbers[0].innerHTML = '%';
+	this.$numbers[1].innerHTML = '-';
+	this.$numbers[2].innerHTML = 'k';
 };
 
 CountUp.prototype.startCounter = function() {

@@ -3694,7 +3694,7 @@ h2, h3, h4 {
     margin-top: -13px; }
     @media (min-width: 992px) {
       .cart-bottom .btn-wrapper {
-        position: static;
+        position: relative;
         padding-right: 0; } }
 
 .cart-visible {
@@ -3981,6 +3981,18 @@ h2, h3, h4 {
 
 .detail-page-app .class-loader {
   top: 5px; }
+
+.checkout-err-msg {
+  float: left;
+  margin-top: 4px;
+  margin-left: 5%;
+  color: #F04B49;
+  font-size: 1.1em; }
+
+.checkout-loader {
+  left: 65%;
+  top: 50%;
+  margin-top: -10px; }
 
 .empty-location-msg {
   text-align: center;

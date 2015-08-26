@@ -16,7 +16,7 @@ function Catalog() {
 
 Catalog.prototype.clickScrollTo = function() {
 	var _this = this;
-	var offsetAmount = 40;
+	var offsetAmount = 140;
 	this.$category.on('click', function(e) {
 		e.preventDefault();
 		_this.$page.animate({

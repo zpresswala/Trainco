@@ -88,6 +88,16 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 	var maxMonth = maxDate[0];
 	var maxYear = maxDate[1];
 
+	// update search parameters
+	if (topicsArray.length == 4) {
+		$('.overlay-contain[data-topic="all"]').addClass('chosen');
+	}
+	else {
+		for (var i in topicsArray) {
+			$('.overlay-contain[data-topic="' + topicsArray[i] + '"]').addClass('chosen');
+		}
+	}
+
 	app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
 	return app.resStringified;
 };

@@ -48,8 +48,6 @@ app.LocationView = Backbone.View.extend({
             contentType: "application/json",
 
             success: function(data) {
-                console.log(data)
-                console.log('get data in success')
                 _this.$el.prev().find('.location-loader').css('display', 'none');
                 app.scheduleView = new app.ScheduleView({
                     collection: app.scheduleCollection,
@@ -58,7 +56,7 @@ app.LocationView = Backbone.View.extend({
             },
 
             error: function(err) {
-                console.log(err)
+                console.log(err);
             }
         });
     },

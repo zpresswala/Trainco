@@ -21,6 +21,8 @@ function TPCApp() {
 
 	if($('#date-range-slider').length) {
 		this.datePicker = new DatePicker();
+		// var dateSliderBounds = $("#date-range-slider").dateRangeSlider("bounds");
+		// console.log(dateSliderBounds.min.toString() + " " + dateSliderBounds.max.toString());
 	}
 
 	if($('#count').length) {

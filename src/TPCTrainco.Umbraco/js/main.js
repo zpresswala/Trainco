@@ -2717,6 +2717,7 @@ app.ClassCollection = Backbone.Collection.extend({
 	model: app.ClassModel,
 
 	url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
+
 });
 
 app.globalCollection = new app.ClassCollection;
@@ -2738,11 +2739,22 @@ $('#search-btn').on('click', function () {
 	performSearch(searchParams);
 });
 
+$('#search-btn-home').on('click', function () {
+	var searchParams = app.mainSearchSelect.getSearchParams();
+	
+	var location = $('#main-search').select2('val').toString();
+
+	window.location.href = '/search-seminars/?loc=' + encodeURIComponent(location) + window.location.hash;
+});
+
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
+	if (dataReFormat == undefined || dataReFormat == false) {
+		return;
+	}
 	if(dataReFormat.classTopics.length >= 4) {
 		var topics = ['all'];
 	} else {
@@ -2771,7 +2783,6 @@ function performSearch(searchParams) {
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
 
-	console.log(searchParams);
 
 	app.globalCollection.fetch({
 		data: searchParams,
@@ -2886,7 +2897,6 @@ app.CartItemView = Backbone.View.extend({
     initialize: function(options) {
         var _this = this;
         this.options = options || {};
-        // this.listenTo(app.cartCollection, 'remove', this.updateCartTotalPrice, this.updateCartTotalQuantity);
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
         Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
     },
@@ -2938,21 +2948,12 @@ app.CartItemView = Backbone.View.extend({
 
     // calculates subtotal for individual item
     calculateSubtotal: function() {
-        // var quant = parseInt(quantity);
-        // var isModelFromLocalStore = this.model.get('fromLS');
-        // if(isModelFromLocalStore) {
-        //     return false;
-        // }
         var quantity = this.model.get('quantity');
-        // setting quantity on new model
-        // this.model.set('quantity', quant);
         this.currentSubTotal = this.model.get('price') * quantity;
         this.$el.find('.sub-total').text('$ ' + this.currentSubTotal);
 
         // this line updates the quantity in the just-added item
         this.$('.class-qty').val(quantity);
-
-        // Backbone.off('calculateSubtotal');
 
         // updates total dollar value of cart on click of add item
         this.updateCartTotalPrice();
@@ -2972,6 +2973,7 @@ app.CartItemView = Backbone.View.extend({
         if(subTotalsArr.length == 0) {
             var subTotalsArr = [0];
         }
+
         Backbone.trigger('updateTotalPrice', subTotalsArr, this.model);
     },
 
@@ -2983,17 +2985,16 @@ app.CartItemView = Backbone.View.extend({
         // remove the item from the DOM
         this.$el.slideUp(150, function() {
             _this.remove();
+
+            // remove the item from the collection
+            _this.model.destroy();
+
+            // decrement cart total number
+            _this.updateCartTotalQuantity();
+
+            // decrement cart total price
+            _this.updateCartTotalPrice();
         });
-
-        // remove the item from the collection
-        this.model.destroy();
-
-        // decrement cart total number
-        this.updateCartTotalQuantity();
-
-        // decrement cart total price
-        this.updateCartTotalPrice();
-
     },
 
     // updates the cart total on cart item quantity update. purely in DOM. only called on remove.
@@ -3024,34 +3025,7 @@ app.CartItemView = Backbone.View.extend({
 
         this.listenTo(this.model, 'change:quantity', this.calculateSubtotal);
         this.model.set('quantity', updatedQty);
-                // console.log(this.model)
-        // this.calculateSubtotal(updatedQty);
-        // Backbone.trigger('updateOriginalModelQuantity', updatedQty);
     }
-
-    // updates quantity for single item
-    // updateQuantity: function(matchingItem) {
-
-    //     // this.$el.find('.class-qty').val(quantity);
-
-    //     var itemToUpdate = matchingItem[0].get('theId');
-    //     var newQty = matchingItem[0].get('quantity');
-    //     console.log(itemToUpdate, newQty)
-    //     this.$('[data-theid=' + itemToUpdate + ']').find('.class-qty').val(newQty);
-    //     // if(itemToUpdate == this.$('[data-theid=' + itemToUpdate + ']'))
-    //     // this.$('[data-theid=' + itemToUpdate + ']').find('.class-qty').val('90');
-
-
-
-
-    //     // Backbone.trigger('calculateSubtotal', quantity);
-
-    //     // updates the quantity of the original element if changed from the cart.
-    //     // listener attached here so it only runs once
-    //     // Backbone.on('updateOriginalModelQuantity', this.updateOriginalModelQuantity, this);
-    // }
-
-
 });
 'use strict';
 
@@ -3082,7 +3056,6 @@ app.CartNotifyView = Backbone.View.extend({
             this.$('.cart-empty-msg').hide();
             app.cartCollection.fetch({
                 success: function(coll, resp) {
-                    // console.log(resp)
                     coll.each(function(modelFromStorage) {
                         app.cartItemView = new app.CartItemView({
                             model: modelFromStorage
@@ -3091,7 +3064,6 @@ app.CartNotifyView = Backbone.View.extend({
                 }
             });
         } else {
-            console.log(this.$el, '7777');
             this.$('.wrap').prepend('<p class="cart-empty-msg">Your cart is currently empty.</p>');
         }
     },
@@ -3102,7 +3074,7 @@ app.CartNotifyView = Backbone.View.extend({
     },
 
     // when you change the quantity of an item in the cart, update the total number of items in the cart
-    updateTotalPrice: function(subTotals, model) {
+    updateTotalPrice: function(subTotals) {
         var subTotArray = subTotals;
         var updatedTotalPrice = subTotArray.reduce(function(a, b) {
             return a + b;
@@ -3130,28 +3102,37 @@ app.CartNotifyView = Backbone.View.extend({
         // create json
         // send off
 
-        // app.cartCollection.localStorage = new Backbone.LocalStorage('CartCollection');
+        var _this = this;
+        var cartData = app.cartCollection.toJSON();
+        var cartDataArray = [];
+        cartData.forEach(function(item, index, array) {
+            console.log(item);
+            var id = item.theId;
+            var quant = item.quantity;
+            cartDataArray.push({ Id: id, quantity: quant });
+        });
 
+        console.log(JSON.stringify(cartDataArray));
 
-        
+        this.$('.checkout-loader').show();
+        // this.$('checkout-err-msg').hide();
 
-        // console.log('hi', app.cartCollection)
-
-        // console.log(localStorage.CartCollection)
-
-
-        // app.cartCollection.toJSON();
-
-        // app.app.cartCollectionStorage.fetch();
-
-        // console.log(app.cartCollectionStorage)
-
-        // var storage = app.cartCollectionStorage.findAll();
-        // console.log(storage)
-        // var ls = new Backbone.LocalStorage("CartCollection");
-        
-
-
+        $.ajax({
+            url: 'http://trainco-dev.imulus-client.com/api/carts/save',
+            data: JSON.stringify(cartDataArray),
+            type: "POST",
+            contentType: "application/json"
+        }).done(function(message) {
+            _this.$('.checkout-loader').hide();
+            _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+            console.log(message);
+            // window.location.pathname = '';
+        }).fail(function(error) {
+            console.log(error);
+            _this.$('.checkout-loader').hide();
+            _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+            console.log('fail');
+        });
     }
 });
 
@@ -3231,8 +3212,6 @@ app.LocationView = Backbone.View.extend({
             contentType: "application/json",
 
             success: function(data) {
-                console.log(data)
-                console.log('get data in success')
                 _this.$el.prev().find('.location-loader').css('display', 'none');
                 app.scheduleView = new app.ScheduleView({
                     collection: app.scheduleCollection,
@@ -3241,7 +3220,7 @@ app.LocationView = Backbone.View.extend({
             },
 
             error: function(err) {
-                console.log(err)
+                console.log(err);
             }
         });
     },
@@ -3282,7 +3261,6 @@ app.ScheduleView = Backbone.View.extend({
             }
         }, this);
     },
-
 
     // this just creates the data model and adds it to the collection
     addToCart: function(e) {
@@ -3430,13 +3408,6 @@ app.ScheduleView = Backbone.View.extend({
         Backbone.trigger('calculateSubtotal', itemQuantity);
     },
 
-    updateCartQuantity: function() {
-        console.log('hi')
-        this.$classQty.val('');
-        
-        console.log(this.$el)
-    },
-
     // total number of cart items in cart view (input fields)
     addQtyToCart: function(theQuantity, cartItem) {
         var oldVal = $('.items-total').text();
@@ -3513,7 +3484,6 @@ app.SingleSeminarView = Backbone.View.extend({
                 contentType: "application/json",
 
                 success: function(data) {
-                    // $('.location-loader').css('display', 'none');
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
@@ -3562,7 +3532,7 @@ function Catalog() {
 
 Catalog.prototype.clickScrollTo = function() {
 	var _this = this;
-	var offsetAmount = 40;
+	var offsetAmount = 140;
 	this.$category.on('click', function(e) {
 		e.preventDefault();
 		_this.$page.animate({
@@ -3613,7 +3583,7 @@ CountUp.prototype.getMaxVal = function() {
 	$('.number-callout').find('h3').each(function(index) {
 
 		// grab the value, strip non-numeric chars
-		var number = parseInt($(this).html().replace(/\D/g,''));
+		var number = parseInt($(this).data('value').toString().replace(/\D/g,''));
 
 		// push values into array
 		_this.endValuesArr.push(number);
@@ -3623,9 +3593,9 @@ CountUp.prototype.getMaxVal = function() {
 CountUp.prototype.resetVals = function() {
 
 	// reset values to zero on load
-	this.$numbers[0].innerHTML = 0 + '%';
-	this.$numbers[1].innerHTML = 0 + 'k';
-	this.$numbers[2].innerHTML = 0;
+	this.$numbers[0].innerHTML = '%';
+	this.$numbers[1].innerHTML = '-';
+	this.$numbers[2].innerHTML = 'k';
 };
 
 CountUp.prototype.startCounter = function() {
@@ -3716,28 +3686,29 @@ CountUp.prototype.handleWindowScroll = function(currentScrollTop) {
 
 function DatePicker() {
 
-	// date, month, year vars
-	this.date = new Date();
-	this.month = this.date.getMonth() + 1;
-	this.year = this.date.getFullYear();
-
 	var _this = this;
+	var minDate = new Date();
+	this.minMonth = minDate.getMonth();
+	var minYear = minDate.getFullYear();
+	minDate.setMonth(parseInt(this.minMonth));
+	minDate.setDate(parseInt("1"));
+	minDate.setFullYear(parseInt(minYear));
 
-	// where the red buttons should start
-	var selectorStartDate = this.getStartDate(this.year, this.month);
-	var selectorEndDate = this.getEndDate(this.year, this.month);
+	var monthOffset = 14;
+	var maxDate = new Date();
+	this.maxMonth = maxDate.getMonth();
+	var maxYear = maxDate.getFullYear() + 1;
+	maxDate.setMonth(parseInt(this.maxMonth + monthOffset));
+	maxDate.setDate(parseInt("1"));
+	maxDate.setFullYear(parseInt(maxYear));
 
-	// the last month showing on the date range, a total of 13 months after current month
-	var rangeEndDate = selectorEndDate[1] + 9;
-
-	// range selector start month
-	this.startMonth = selectorStartDate[1];
-	
-	// range selector end month
-	this.endMonth = selectorEndDate[1];
-
-	// insert the next year under january
-	var nextYearNumber = [this.year];
+	// the right slider handle, add three months
+	var maxRangeSelect = new Date();
+	var maxRangeMonth = maxRangeSelect.getMonth();
+	var maxRangeYear = maxRangeSelect.getFullYear();
+	maxRangeSelect.setMonth(parseInt(maxRangeMonth + 3));
+	maxRangeSelect.setDate(parseInt("1"));
+	maxRangeSelect.setFullYear(parseInt(maxRangeYear));
 
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
@@ -3746,30 +3717,34 @@ function DatePicker() {
 	}
 
   	$('#date-range-slider').dateRangeSlider({
+  		bounds: {
+  			min: new Date(minDate), 
+  			max: new Date(maxDate)
+  		},
+		    
+	    defaultValues: {
+	    	min: new Date(minDate), 
+	    	max: new Date(maxRangeSelect)
+	    },
+	    
+	    valueLabels: 'hide',
 
-  		// bounds: the months in the range
-    	bounds: {min: new Date(selectorStartDate), max: new Date(nextYearNumber, rangeEndDate)},
+	    step: {
+	    	months: 1
+	    },
 
-    	step: {
-    		months: 1
-    	},
+	    scales: [{
+	    	first: function(value){ 
+  			return value; 
+	  		},
 
-    	valueLabels: 'hide',
+	  		end: function(value) {
+	  			return value; 
+	  		},
 
-    	// defaultValues: where the slider starts
-    	defaultValues: {min: new Date(selectorStartDate), max: new Date(selectorEndDate)},
-    	scales: [{
-      		first: function(value){ 
-      			return value; 
-      		},
-
-      		end: function(value) {
-      			return value; 
-      		},
-
-      		next: function(value) {
-        		var next = new Date(value);
-        		return new Date(next.setMonth(value.getMonth() + 1));
+	  		next: function(value) {
+	    		var next = new Date(value);
+	    		return new Date(next.setMonth(value.getMonth() + 1));
 	      	},
 
 	      	label: function(value){
@@ -3794,16 +3769,16 @@ function DatePicker() {
 	        		tickContainer.addClass('first');
 	        	}
 	      	}
-	    }]
+		}]
 	});
 
 	if($(window).width() >= 700) {
 		this.addYearLabel();
 	}
 
-	this.valuesChanged(this.startMonth, this.endMonth);
+	// trigger a change so the slider handles display the month name
+	this.valuesChanged(this.minMonth, this.minMonth + 4);
 
-	// this.sendToSearch();
 	setTimeout(function() {
 		_this.fixWidth();
 		if($(window).width() >= 700) {
@@ -3838,14 +3813,16 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 	var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
 
 	// set initial values, dynamic based on date
-	rHandle.text(months[endMonth - 2]);
-	lHandle.text(months[startMonth - 1]);
+	rHandle.text(months[this.minMonth + 2]);
+	lHandle.text(months[this.maxMonth]);
 
 	$('#date-range-slider').on("valuesChanged", function(e, data){
 		var minMonth = new Date(data.values.min);
 		var maxMonth = new Date(data.values.max);
+
 		maxMonth.setDate(maxMonth.getDate() - 1);
-		minMonth.setDate(maxMonth.getDate() - 1);
+		minMonth.setDate(minMonth.getDate());
+		console.log(minMonth, maxMonth)
 		var maxMonthAbbr = months[maxMonth.getMonth()];
 		var minMonthAbbr = months[minMonth.getMonth()];
 	  	rHandle.text(maxMonthAbbr);
@@ -3853,52 +3830,10 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 	});
 };
 
-DatePicker.prototype.sendToSearch = function() {
-	// document.getElementById('search-btn').addEventListener('click', function() {
-	// 	var dateValues = $('#date-range-slider').dateRangeSlider("values");
-	// 	var minDate = new Date(dateValues.min);
-	// 	var minMonth = minDate.getMonth() + 1;
-	// 	var minYear = minDate.getFullYear();
-	// 	var minMonthYear = {
-	// 		minMonthVal: minMonth,
-	// 		minYearVal: minYear
-	// 	};
-
-	// 	var maxDate = new Date(dateValues.max);
-	// 	var maxMonth = maxDate.getMonth() + 1;
-	// 	var maxYear = maxDate.getFullYear();
-	// 	var maxMonthYear = {
-	// 		maxMonthVal: maxMonth,
-	// 		maxYearVal: maxYear
-	// 	};
-
-	// 	var dataToSend = [minMonthYear, maxMonthYear];
-	// });
-};
-
 DatePicker.prototype.fixWidth = function() {
 	var containerWidth = $('.ui-rangeSlider-container').width();
 	$('.ui-rangeSlider-innerBar').css('width', containerWidth + 'px');
 
-};
-
-DatePicker.prototype.getStartDate = function(year, month) {
-	var startDate = [year, month];
-	return startDate;
-};
-
-DatePicker.prototype.getEndDate = function(year, month) {
-	this.monthEndRange = month + 4;
-	this.year = year;
-	if(this.monthEndRange > 12) {
-		var difference = this.monthEndRange - 12;
-		this.monthEndRange = difference;
-		this.year = this.year + 1;
-		var endDate = [this.year, this.monthEndRange];
-	} else {
-		var endDate = [this.year, this.monthEndRange];
-	}
-	return endDate;
 };
 'use strict';
 
@@ -4008,6 +3943,16 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 	var maxDate = hashArray['dMax'].split("/");
 	var maxMonth = maxDate[0];
 	var maxYear = maxDate[1];
+
+	// update search parameters
+	if (topicsArray.length == 4) {
+		$('.overlay-contain[data-topic="all"]').addClass('chosen');
+	}
+	else {
+		for (var i in topicsArray) {
+			$('.overlay-contain[data-topic="' + topicsArray[i] + '"]').addClass('chosen');
+		}
+	}
 
 	app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
 	return app.resStringified;
@@ -4202,6 +4147,8 @@ function TPCApp() {
 
 	if($('#date-range-slider').length) {
 		this.datePicker = new DatePicker();
+		// var dateSliderBounds = $("#date-range-slider").dateRangeSlider("bounds");
+		// console.log(dateSliderBounds.min.toString() + " " + dateSliderBounds.max.toString());
 	}
 
 	if($('#count').length) {

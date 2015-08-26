@@ -6,6 +6,7 @@ app.ClassCollection = Backbone.Collection.extend({
 	model: app.ClassModel,
 
 	url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
+
 });
 
 app.globalCollection = new app.ClassCollection;
@@ -27,11 +28,22 @@ $('#search-btn').on('click', function () {
 	performSearch(searchParams);
 });
 
+$('#search-btn-home').on('click', function () {
+	var searchParams = app.mainSearchSelect.getSearchParams();
+	
+	var location = $('#main-search').select2('val').toString();
+
+	window.location.href = '/search-seminars/?loc=' + encodeURIComponent(location) + window.location.hash;
+});
+
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
+	if (dataReFormat == undefined || dataReFormat == false) {
+		return;
+	}
 	if(dataReFormat.classTopics.length >= 4) {
 		var topics = ['all'];
 	} else {
@@ -60,7 +72,6 @@ function performSearch(searchParams) {
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
 
-	console.log(searchParams);
 
 	app.globalCollection.fetch({
 		data: searchParams,

@@ -27,7 +27,6 @@ app.CartNotifyView = Backbone.View.extend({
             this.$('.cart-empty-msg').hide();
             app.cartCollection.fetch({
                 success: function(coll, resp) {
-                    // console.log(resp)
                     coll.each(function(modelFromStorage) {
                         app.cartItemView = new app.CartItemView({
                             model: modelFromStorage
@@ -36,7 +35,6 @@ app.CartNotifyView = Backbone.View.extend({
                 }
             });
         } else {
-            console.log(this.$el, '7777');
             this.$('.wrap').prepend('<p class="cart-empty-msg">Your cart is currently empty.</p>');
         }
     },
@@ -47,7 +45,7 @@ app.CartNotifyView = Backbone.View.extend({
     },
 
     // when you change the quantity of an item in the cart, update the total number of items in the cart
-    updateTotalPrice: function(subTotals, model) {
+    updateTotalPrice: function(subTotals) {
         var subTotArray = subTotals;
         var updatedTotalPrice = subTotArray.reduce(function(a, b) {
             return a + b;
@@ -75,28 +73,37 @@ app.CartNotifyView = Backbone.View.extend({
         // create json
         // send off
 
-        // app.cartCollection.localStorage = new Backbone.LocalStorage('CartCollection');
+        var _this = this;
+        var cartData = app.cartCollection.toJSON();
+        var cartDataArray = [];
+        cartData.forEach(function(item, index, array) {
+            console.log(item);
+            var id = item.theId;
+            var quant = item.quantity;
+            cartDataArray.push({ Id: id, quantity: quant });
+        });
 
+        console.log(JSON.stringify(cartDataArray));
 
-        
+        this.$('.checkout-loader').show();
+        // this.$('checkout-err-msg').hide();
 
-        // console.log('hi', app.cartCollection)
-
-        // console.log(localStorage.CartCollection)
-
-
-        // app.cartCollection.toJSON();
-
-        // app.app.cartCollectionStorage.fetch();
-
-        // console.log(app.cartCollectionStorage)
-
-        // var storage = app.cartCollectionStorage.findAll();
-        // console.log(storage)
-        // var ls = new Backbone.LocalStorage("CartCollection");
-        
-
-
+        $.ajax({
+            url: 'http://trainco-dev.imulus-client.com/api/carts/save',
+            data: JSON.stringify(cartDataArray),
+            type: "POST",
+            contentType: "application/json"
+        }).done(function(message) {
+            _this.$('.checkout-loader').hide();
+            _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+            console.log(message);
+            // window.location.pathname = '';
+        }).fail(function(error) {
+            console.log(error);
+            _this.$('.checkout-loader').hide();
+            _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+            console.log('fail');
+        });
     }
 });
 

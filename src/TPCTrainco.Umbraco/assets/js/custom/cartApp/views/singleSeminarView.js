@@ -66,7 +66,6 @@ app.SingleSeminarView = Backbone.View.extend({
                 contentType: "application/json",
 
                 success: function(data) {
-                    // $('.location-loader').css('display', 'none');
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
