@@ -25,6 +25,7 @@ function MainSearchSelect() {
 
 MainSearchSelect.prototype.getSearchParams = function () {
 	var topicsArray = [];
+	var classId = 0
 
 	// get the city or zip
 	var searchLocationVal = $('#main-search').select2('val');
@@ -64,7 +65,11 @@ MainSearchSelect.prototype.getSearchParams = function () {
 
 		this.updateHashBang(location, topicsArray, minMonth + '/' + minYear, maxMonth + '/' + maxYear);
 
-		app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
+		if ($('.secondary-search[data-classid!=""][data-classid]')) {
+			classId = $('.secondary-search').data('classid');
+		}
+
+		app.resStringified = this.generateJsonSearchString(location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear);
 		return app.resStringified;
 	}
 };
@@ -73,6 +78,7 @@ MainSearchSelect.prototype.getSearchParams = function () {
 // get the search parameters based on the hash
 MainSearchSelect.prototype.getHashSearchParams = function () {
 	var topicsArray = [];
+	var classId = 0
 	var location = '';
 
 	var hashArray = this.processHashBang();
@@ -97,13 +103,18 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 			$('.overlay-contain[data-topic="' + topicsArray[i] + '"]').addClass('chosen');
 		}
 	}
+	//a[href!=""][href]
+	if ($('.secondary-search[data-classid!=""][data-classid]')) {
+		classId = parseInt($('.secondary-search').data('classid'));
+	}
 
-	app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
+
+	app.resStringified = this.generateJsonSearchString(location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear);
 	return app.resStringified;
 };
 
 // generate a JSON search string for performSearch (in cartCollection.js)
-MainSearchSelect.prototype.generateJsonSearchString = function (location, topicsArray, minMonth, minYear, maxMonth, maxYear) {
+MainSearchSelect.prototype.generateJsonSearchString = function (location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear) {
 	var returnJson;
 
 	var minMonthYear = {
@@ -121,11 +132,24 @@ MainSearchSelect.prototype.generateJsonSearchString = function (location, topics
 		max: maxMonthYear
 	};
 
-	var searchResults = {
-		location: location,
-		classTopics: topicsArray,
-		dates: selectedDates
-	};
+	var searchResults
+
+	if (classId > 0) {
+		searchResults = {
+			location: location,
+			classId: classId,
+			dates: selectedDates
+		};
+	}
+	else {
+		searchResults = {
+			location: location,
+			classTopics: topicsArray,
+			dates: selectedDates
+		};
+	}
+
+	
 
 	returnJson = JSON.stringify(searchResults);
 	return returnJson;

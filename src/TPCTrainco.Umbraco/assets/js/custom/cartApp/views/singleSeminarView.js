@@ -56,6 +56,12 @@ app.SingleSeminarView = Backbone.View.extend({
             var courseIdToGet = this.model.get('courseId');
             var searchIdToGet = this.model.get('searchId');
             var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+
+            console.log(JSON.stringify({
+            	"courseId": courseIdToGet,
+            	"searchId": searchIdToGet
+            }).toString());
+
             app.locationCollection.fetch({
                 remove: false,
                 data: JSON.stringify({
@@ -65,7 +71,9 @@ app.SingleSeminarView = Backbone.View.extend({
                 type: "POST",
                 contentType: "application/json",
 
-                success: function(data) {
+                success: function (data) {
+                	console.log(JSON.stringify(data));
+
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
