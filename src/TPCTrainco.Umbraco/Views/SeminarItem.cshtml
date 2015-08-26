@@ -21,6 +21,11 @@
             {
                 <h1>@CurrentPage.name</h1>
             }
+
+            @if (CurrentPage.HasValue("subTitle"))
+            {
+                <p>@CurrentPage.subTitle</p>
+            }
         </div>
         @if (CurrentPage.onSiteQuote)
         {
@@ -211,7 +216,6 @@
 </script>
 
 <!-- End Backbone app-->
-
 @Html.Partial("SeminarSearch/SeminarDetailsSearch", Model.Content);
 
 <!-- the red section -->
