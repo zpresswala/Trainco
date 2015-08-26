@@ -1,20 +1,21 @@
-﻿using System;
+﻿using MoreLinq;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity.SqlServer;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.Models;
+using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
 using TPCTrainco.Umbraco.Extensions.ViewModels;
 using TPCTrainco.Umbraco.Extensions.ViewModels.Backbone;
-using MoreLinq;
-using System.Text.RegularExpressions;
-using System.Data.Entity.SqlServer;
-using System.Web;
-using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
-using System.Configuration;
-using System.Runtime.Caching;
 using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -456,6 +457,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             Seminar result = new Seminar();
 
+            UmbracoHelper UmbracoHelperObj = new UmbracoHelper(UmbracoContext.Current);
             ScheduleCourseInstructor scheduleCourse = ScheduleCourseList.Where(p => p.ScheduleID == seminarCatalog.SchID).FirstOrDefault();
 
             result.SeminarId = seminarCatalog.SchID;
@@ -467,11 +469,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (scheduleCourse != null)
             {
-                IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").ToString() == scheduleCourse.CourseID.ToString()).FirstOrDefault();
+                IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").Value != null && p.GetProperty("courseLink").Value.ToString() == scheduleCourse.CourseID.ToString()).FirstOrDefault();
 
                 if (seminarNode != null)
                 {
-                    result.ImageUrl = seminarNode.GetProperty("image").ToString();
+                    IPublishedContent imageObject = UmbracoHelperObj.Content(seminarNode.Id);
+                    result.ImageUrl = imageObject.GetCropUrl("image", "Image");
                     result.DetailsUrl = seminarNode.Url;
                 }
             }

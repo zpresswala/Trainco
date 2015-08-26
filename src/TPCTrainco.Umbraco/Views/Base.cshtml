@@ -16,12 +16,12 @@
             Response.Redirect(redirectUrl.Url);
         }
     }
-    
+
     string siteName = siteSettings.GetPropertyValue<string>("siteName");
     string htmlTitle = currentPage.GetPropertyValue<string>("htmlTitle", currentPage.Name);
 
     string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
-    
+
 }
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -30,22 +30,24 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="">
- <!--<![endif]-->
+<!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>@htmlTitle - @siteName</title>
-    <link rel="canonical" href="http://www.XXXXX.com/" />
+    <meta name="description" content="@(currentPage.GetPropertyValue<string>("metaDescription", siteName))" />
+    <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("metaKeywords", currentPage.Name))" />
+    <link rel="canonical" href="http://@(Request.Url.DnsSafeHost)/" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="XXXX" />
-    <meta property="og:description" content="XXXXX a sentence goeshere" />
+    <meta property="og:title" content="@htmlTitle - @siteName" />
+    <meta property="og:description" content="@(currentPage.GetPropertyValue<string>("metaDescription"))    />
     <meta property="og:url" content="http://www.XXXXX.com/" />
     <meta property="og:site_name" content="TPC Trainco" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:description" content="a sentence XXXXX" />
+    <meta name="twitter:description" content="@(currentPage.GetPropertyValue<string>("metaDescription"))" />
     <meta name="twitter:title" content="TPC Trainco training" />
     <meta name="twitter:domain" content="TPC Trainco" />
 

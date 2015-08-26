@@ -1,0 +1,147 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.ViewModels
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    //List locations
+    Locations locationsObj = new Locations();
+
+    List<Location> locationList = locationsObj.GetAllLocations();
+
+    //Get current GeoCoordinate
+    string currentCityState = "";
+
+    TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
+
+    if (coordDetails != null)
+    {
+        currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
+    }
+}
+
+
+<div class="container-fluid intro-section search-page">
+    <!-- <div class="container"> -->
+    <div class="row">
+        <div class="col-md-11 topic-circles">
+            <h3>Select one or more topics and choose your location</h3>
+            <ul>
+                <li class="seminar-topic">
+                    <div class="overlay-contain" data-topic="all">
+                        <div class="overlay"></div>
+                        <img src="/assets/images/selectall-icon.jpg" alt="Search All Seminars" />
+                    </div>
+                    <p>Search All Seminars</p>
+                </li>
+                <li class="seminar-topic">
+                    <div class="overlay-contain" data-topic="electrical">
+                        <div class="overlay"></div>
+                        <img src="/assets/images/electrical.jpg" alt="Electrical Training" />
+                    </div>
+                    <p>Electrical</p>
+                </li>
+                <li class="seminar-topic">
+                    <div class="overlay-contain" data-topic="management">
+                        <div class="overlay"></div>
+                        <img src="/assets/images/plantmgmt-icon.jpg" alt="Plant Management" />
+                    </div>
+                    <p>Plant Management</p>
+                </li>
+                <li class="seminar-topic">
+                    <div class="overlay-contain" data-topic="HVAC">
+                        <div class="overlay"></div>
+                        <img src="/assets/images/hvac-icon.jpg" alt="HVAC Training" />
+                    </div>
+                    <p>HVAC</p>
+                </li>
+                <li class="seminar-topic">
+                    <div class="overlay-contain" data-topic="mechanical">
+                        <div class="overlay"></div>
+                        <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical and Industrial Training" />
+                    </div>
+                    <p>Mechanical &amp; Industrial</p>
+                </li>
+            </ul>
+
+            <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="@currentCityState">
+                @foreach (Location location in locationList)
+                {
+                    <option value="@location.CityState">@location.CityState</option>
+                }
+            </select>
+
+
+            <!-- <input type="hidden" id="main-search" style="width:300px"/> -->
+            <!-- datepicker goes here -->
+            <h4 class="select-date-text">Select a date range</h4>
+
+            <div id="date-range-slider"></div>
+
+            <!-- end datepicker -->
+
+
+            <a href="javascript:void(0);" id="search-btn" class="btn-reg btn-white" role="button">Search</a>
+            <p class="empty-location-msg">Please enter a location</p>
+        </div>
+    </div>
+    <!-- </div> -->
+</div>
+
+@Html.Partial("Cart/MiniCart")
+
+<div class="container-fluid results-container">
+    <div class="container">
+        <div class="row">
+            <div class="empty-message">
+                <p>Select a topic, city, and date range to find classes.</p>
+            </div>
+            <div class="spinner class-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <ul class="results"></ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/template" id="classTemplate">
+    <div class="result-description">
+        <div class="row">
+            <div class="col-xs-12 col-md-2">
+                <img src="/assets/images/hvac-icon.jpg" alt="All Seminars" />
+            </div>
+            <div class="col-xs-12 col-md-8 text-desc">
+                <h2><a href="<%= detailsUrl %>"><%= title %></a></h2>
+                <p><%= subTitle %></p>
+                <a href="javascript:void(0);" class="view-opts" data-seminar="<%= seminarId %>"><span class="plus">+</span>View Upcoming Seminars</a>
+            </div>
+            <li class="spinner location-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </li>
+        </div>
+    </div>
+    <ul class="schedule-item-wrap row"></ul>
+</script>
+
+<script type="text/template" id="locationTemplate">
+    <div class="location col-xs-12 col-sm-10 col-sm-offset-1">
+        <p><%= cityState %><img src="/assets/images/icon-question.png" class="location-icon" /><span class="tooltip-msg location-msg">We will email you the exact location.</span></p>
+    </div>
+    <div class="schedule-items-wrap"></div>
+</script>
+
+
+<script type="text/template" id="scheduleTemplate">
+    <ul class="schedule col-xs-12">
+        <li class="col-xs-12 col-sm-2 col-md-2 col-md-offset-1"><%= daysTitle %></li>
+        <li class="date col-xs-12 col-sm-3 col-md-2"><%= date%></li>
+        <li class="sub-total col-xs-12 col-sm-1 col-md-2">$<span class="item-sub-total"></span><%= price %></li>
+        <li class="attendees col-xs-12 col-sm-3 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"><span class="tooltip-msg attendee-msg">Please enter a quantity.</span></li>
+        <li class="col-xs-12 col-sm-3 col-md-3"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
+    </ul>
+</script>
