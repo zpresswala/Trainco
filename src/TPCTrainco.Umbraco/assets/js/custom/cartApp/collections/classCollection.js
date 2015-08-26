@@ -33,6 +33,9 @@ function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
+	if (dataReFormat == undefined || dataReFormat == false) {
+		return;
+	}
 	if(dataReFormat.classTopics.length >= 4) {
 		var topics = ['all'];
 	} else {
