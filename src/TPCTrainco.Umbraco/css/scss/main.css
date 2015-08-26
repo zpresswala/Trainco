@@ -3984,7 +3984,7 @@ h2, h3, h4 {
 
 .checkout-err-msg {
   float: left;
-  margin-top: 4px;
+  margin-top: 0;
   margin-left: 5%;
   color: #F04B49;
   font-size: 1.1em; }

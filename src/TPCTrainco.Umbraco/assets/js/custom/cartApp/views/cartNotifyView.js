@@ -69,10 +69,6 @@ app.CartNotifyView = Backbone.View.extend({
     },
 
     checkout: function() {
-        // grab all collection data
-        // create json
-        // send off
-
         var _this = this;
         var cartData = app.cartCollection.toJSON();
         var cartDataArray = [];
@@ -86,7 +82,6 @@ app.CartNotifyView = Backbone.View.extend({
         console.log(JSON.stringify(cartDataArray));
 
         this.$('.checkout-loader').show();
-        // this.$('checkout-err-msg').hide();
 
         $.ajax({
             url: 'http://trainco-dev.imulus-client.com/api/carts/save',
@@ -95,9 +90,8 @@ app.CartNotifyView = Backbone.View.extend({
             contentType: "application/json"
         }).done(function(message) {
             _this.$('.checkout-loader').hide();
-            _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
-            console.log(message);
-            // window.location.pathname = '';
+            console.log(message, 'success');
+            window.location.href = '/register';
         }).fail(function(error) {
             console.log(error);
             _this.$('.checkout-loader').hide();

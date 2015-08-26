@@ -1,9 +1,9 @@
 'use strict';
 
 // the site for the plugin used: http://ghusse.github.io/jQRangeSlider/index.html
-
 function DatePicker() {
 
+	// min start date of range and slider handle
 	var _this = this;
 	var minDate = new Date();
 	this.minMonth = minDate.getMonth();
@@ -12,6 +12,7 @@ function DatePicker() {
 	minDate.setDate(parseInt("1"));
 	minDate.setFullYear(parseInt(minYear));
 
+	// max date of range
 	var monthOffset = 14;
 	var maxDate = new Date();
 	this.maxMonth = maxDate.getMonth();

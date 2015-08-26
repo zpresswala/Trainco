@@ -2847,40 +2847,6 @@ app.scheduleCollection = new app.ScheduleCollection;
 
 window.app = window.app || {};
 
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-	initialize: function() {
-		console.log('sched model init')
-	}
-});
-'use strict';
-
-window.app = window.app || {};
-
 // "view the cart" view
 app.CartItemView = Backbone.View.extend({
     template: _.template($('#cartItemTemplate').html()),
@@ -3098,10 +3064,6 @@ app.CartNotifyView = Backbone.View.extend({
     },
 
     checkout: function() {
-        // grab all collection data
-        // create json
-        // send off
-
         var _this = this;
         var cartData = app.cartCollection.toJSON();
         var cartDataArray = [];
@@ -3115,7 +3077,6 @@ app.CartNotifyView = Backbone.View.extend({
         console.log(JSON.stringify(cartDataArray));
 
         this.$('.checkout-loader').show();
-        // this.$('checkout-err-msg').hide();
 
         $.ajax({
             url: 'http://trainco-dev.imulus-client.com/api/carts/save',
@@ -3124,9 +3085,8 @@ app.CartNotifyView = Backbone.View.extend({
             contentType: "application/json"
         }).done(function(message) {
             _this.$('.checkout-loader').hide();
-            _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
-            console.log(message);
-            // window.location.pathname = '';
+            console.log(message, 'success');
+            window.location.href = '/register';
         }).fail(function(error) {
             console.log(error);
             _this.$('.checkout-loader').hide();
@@ -3516,6 +3476,40 @@ app.SingleSeminarView = Backbone.View.extend({
 app.singleSeminarView = new app.SingleSeminarView();
 'use strict';
 
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+	initialize: function() {
+		console.log('sched model init')
+	}
+});
+'use strict';
+
 function Catalog() {
 	this.$category = $('.class-category');
 	this.$page = $('html, body');
@@ -3683,9 +3677,9 @@ CountUp.prototype.handleWindowScroll = function(currentScrollTop) {
 'use strict';
 
 // the site for the plugin used: http://ghusse.github.io/jQRangeSlider/index.html
-
 function DatePicker() {
 
+	// min start date of range and slider handle
 	var _this = this;
 	var minDate = new Date();
 	this.minMonth = minDate.getMonth();
@@ -3694,6 +3688,7 @@ function DatePicker() {
 	minDate.setDate(parseInt("1"));
 	minDate.setFullYear(parseInt(minYear));
 
+	// max date of range
 	var monthOffset = 14;
 	var maxDate = new Date();
 	this.maxMonth = maxDate.getMonth();
