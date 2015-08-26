@@ -36,8 +36,8 @@ $(document).ready(function () {
 	// check if we are on a seminar detail page
 	var pathArray = window.location.pathname.split('/');
 	var pubSeminarPathItem = pathArray[1];
-	// if(pubSeminarPathItem === 'public-seminars') {
-	if(pubSeminarPathItem == 'detail.html') {
+	if(pubSeminarPathItem === 'public-seminars') {
+	// if(pubSeminarPathItem == 'detail.html') {
 		app.mainSearchSelect = new MainSearchSelect();
 		var seminarDetailSearchParams = JSON.stringify(app.mainSearchSelect.detailPageSearch());
 		performSearch(seminarDetailSearchParams)

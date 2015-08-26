@@ -2747,8 +2747,8 @@ $(document).ready(function () {
 	// check if we are on a seminar detail page
 	var pathArray = window.location.pathname.split('/');
 	var pubSeminarPathItem = pathArray[1];
-	// if(pubSeminarPathItem === 'public-seminars') {
-	if(pubSeminarPathItem == 'detail.html') {
+	if(pubSeminarPathItem === 'public-seminars') {
+	// if(pubSeminarPathItem == 'detail.html') {
 		app.mainSearchSelect = new MainSearchSelect();
 		var seminarDetailSearchParams = JSON.stringify(app.mainSearchSelect.detailPageSearch());
 		performSearch(seminarDetailSearchParams)
@@ -2969,7 +2969,13 @@ app.CartItemView = Backbone.View.extend({
         this.model.set('quantity', lsModelQuantity);
         var lsModelSubTotal = this.model.get('price') * lsModelQuantity;
         this.$el.find('.sub-total').text('$' + lsModelSubTotal);
-        this.$el.find('.class-qty').val(lsModelQuantity);
+
+        // if it's the read-only cart
+        if($('.read-only-cart').length) {
+            this.$el.find('.class-qty-num').text(lsModelQuantity); 
+        } else {
+            this.$el.find('.class-qty').val(lsModelQuantity);
+        }
     },
 
 
