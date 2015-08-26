@@ -2721,7 +2721,19 @@ app.ClassCollection = Backbone.Collection.extend({
 });
 
 app.globalCollection = new app.ClassCollection;
+	// var minDate = new Date();
+	// this.minMonth = minDate.getMonth() + 2;
 
+	// 	var maxDate = new Date();
+	// this.maxMonth = minDate.getMonth() + 5;
+	// app.datePicker = new DatePicker();
+	  	// $('#date-range-slider').dateRangeSlider({
+			    
+		  //   defaultValues: {
+		  //   	min: new Date(minDate), 
+		  //   	max: new Date(maxRangeSelect)
+		  //   }
+		  
 // check the hash to see if there is data there. (only on page load)
 $(document).ready(function () {
 	if (window.location.hash) {
@@ -2843,6 +2855,40 @@ app.ScheduleCollection = Backbone.Collection.extend({
 });
 
 app.scheduleCollection = new app.ScheduleCollection;
+'use strict';
+
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+	initialize: function() {
+		console.log('sched model init')
+	}
+});
 'use strict';
 
 window.app = window.app || {};
@@ -3476,40 +3522,6 @@ app.SingleSeminarView = Backbone.View.extend({
 app.singleSeminarView = new app.SingleSeminarView();
 'use strict';
 
-window.app = window.app || {};
-
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-	initialize: function() {
-		console.log('sched model init')
-	}
-});
-'use strict';
-
 function Catalog() {
 	this.$category = $('.class-category');
 	this.$page = $('html, body');
@@ -3689,7 +3701,7 @@ function DatePicker() {
 	minDate.setFullYear(parseInt(minYear));
 
 	// max date of range
-	var monthOffset = 14;
+	var monthOffset = 13;
 	var maxDate = new Date();
 	this.maxMonth = maxDate.getMonth();
 	var maxYear = maxDate.getFullYear() + 1;
@@ -3712,11 +3724,12 @@ function DatePicker() {
 	}
 
   	$('#date-range-slider').dateRangeSlider({
+  		
   		bounds: {
   			min: new Date(minDate), 
   			max: new Date(maxDate)
   		},
-		    
+ 
 	    defaultValues: {
 	    	min: new Date(minDate), 
 	    	max: new Date(maxRangeSelect)
@@ -4142,8 +4155,6 @@ function TPCApp() {
 
 	if($('#date-range-slider').length) {
 		this.datePicker = new DatePicker();
-		// var dateSliderBounds = $("#date-range-slider").dateRangeSlider("bounds");
-		// console.log(dateSliderBounds.min.toString() + " " + dateSliderBounds.max.toString());
 	}
 
 	if($('#count').length) {

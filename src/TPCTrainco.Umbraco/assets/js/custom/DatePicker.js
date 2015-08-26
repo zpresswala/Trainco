@@ -13,7 +13,7 @@ function DatePicker() {
 	minDate.setFullYear(parseInt(minYear));
 
 	// max date of range
-	var monthOffset = 14;
+	var monthOffset = 13;
 	var maxDate = new Date();
 	this.maxMonth = maxDate.getMonth();
 	var maxYear = maxDate.getFullYear() + 1;
@@ -36,11 +36,12 @@ function DatePicker() {
 	}
 
   	$('#date-range-slider').dateRangeSlider({
+  		
   		bounds: {
   			min: new Date(minDate), 
   			max: new Date(maxDate)
   		},
-		    
+ 
 	    defaultValues: {
 	    	min: new Date(minDate), 
 	    	max: new Date(maxRangeSelect)

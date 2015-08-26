@@ -10,7 +10,19 @@ app.ClassCollection = Backbone.Collection.extend({
 });
 
 app.globalCollection = new app.ClassCollection;
+	// var minDate = new Date();
+	// this.minMonth = minDate.getMonth() + 2;
 
+	// 	var maxDate = new Date();
+	// this.maxMonth = minDate.getMonth() + 5;
+	// app.datePicker = new DatePicker();
+	  	// $('#date-range-slider').dateRangeSlider({
+			    
+		  //   defaultValues: {
+		  //   	min: new Date(minDate), 
+		  //   	max: new Date(maxRangeSelect)
+		  //   }
+		  
 // check the hash to see if there is data there. (only on page load)
 $(document).ready(function () {
 	if (window.location.hash) {
