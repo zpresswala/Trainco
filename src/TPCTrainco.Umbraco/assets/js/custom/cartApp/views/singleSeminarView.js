@@ -53,13 +53,13 @@ app.SingleSeminarView = Backbone.View.extend({
         });
 
         if(!schedulesLoaded) {
-            var seminarIdToGet = this.model.get('seminarId');
+            var courseIdToGet = this.model.get('courseId');
             var searchIdToGet = this.model.get('searchId');
             var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
             app.locationCollection.fetch({
                 remove: false,
                 data: JSON.stringify({
-                    "courseId": seminarIdToGet,
+                    "courseId": courseIdToGet,
                     "searchId": searchIdToGet
                 }),
                 type: "POST",

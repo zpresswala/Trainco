@@ -3592,6 +3592,11 @@ h2, h3, h4 {
     color: #3E3E3E; }
   .secondary-search .select2-container {
     margin: 0 auto 27px; }
+  .secondary-search .btn-reg {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    max-width: 150px; }
 
 .search-page {
   background-color: #F9F9F9; }

@@ -2743,6 +2743,17 @@ $(document).ready(function () {
 		var searchParams = app.mainSearchSelect.getHashSearchParams();
 		performSearch(searchParams);
 	}
+
+	// check if we are on a seminar detail page
+	var pathArray = window.location.pathname.split('/');
+	var pubSeminarPathItem = pathArray[1];
+	// if(pubSeminarPathItem === 'public-seminars') {
+	if(pubSeminarPathItem == 'detail.html') {
+		app.mainSearchSelect = new MainSearchSelect();
+		var seminarDetailSearchParams = JSON.stringify(app.mainSearchSelect.detailPageSearch());
+		performSearch(seminarDetailSearchParams)
+	}
+
 });
 
 // search button click
@@ -2764,38 +2775,46 @@ function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
+
+	// if no data, return
 	if (dataReFormat == undefined || dataReFormat == false) {
 		return;
-	}
-	if(dataReFormat.classTopics.length >= 4) {
-		var topics = ['all'];
+
+		// if no classTopics property, return, which means you are on the detail page
+	} else if(dataReFormat.classTopics == undefined || dataReFormat.classTopics == false) {
+		return false;
 	} else {
-		var topics = dataReFormat.classTopics.filter(function (item, pos) {
-			var length = dataReFormat.classTopics.length;
-			return dataReFormat.classTopics.indexOf(item) == pos;
-		});
+
+		// you are on the search page
+		if(dataReFormat.classTopics.length >= 4) {
+			var topics = ['all'];
+		} else {
+			var topics = dataReFormat.classTopics.filter(function (item, pos) {
+				var length = dataReFormat.classTopics.length;
+				return dataReFormat.classTopics.indexOf(item) == pos;
+			});
+		}
+
+		// if more than two items selected, add and
+		if(topics.length == 2) {
+			var length = topics.length;
+			topics.splice(length - 1, 0, 'and');
+			var topicsList = topics.join(' ');
+			var topicsListTwo = topicsList.replace('and,','and');
+			var topics = topicsListTwo;
+		} else if(topics.length > 2) {
+
+			// if two or fewer, remove commas
+			topics.splice(length - 1, 0, 'and');
+			var topicsList = topics.join(', ');
+			var topicsListTwo = topicsList.replace('and,','and');
+			var topics = topicsListTwo;
+		}
 	}
 
-	// if more than two items selected, add and
-	if(topics.length == 2) {
-		var length = topics.length;
-		topics.splice(length - 1, 0, 'and');
-		var topicsList = topics.join(' ');
-		var topicsListTwo = topicsList.replace('and,','and');
-		var topics = topicsListTwo;
-	} else if(topics.length > 2) {
-
-		// if two or fewer, remove commas
-		topics.splice(length - 1, 0, 'and');
-		var topicsList = topics.join(', ');
-		var topicsListTwo = topicsList.replace('and,','and');
-		var topics = topicsListTwo;
-	}
 
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
-
-	console.log(searchParams.toString());
 
 	app.globalCollection.fetch({
 		data: searchParams,
@@ -2803,7 +2822,6 @@ function performSearch(searchParams) {
 		contentType: "application/json",
 
 		success: function (data) {
-			console.log(data)
 			$('.results').empty();
 			$emptyMsg.fadeOut(100, function () {
 				$classLoader.fadeIn(90);
@@ -2814,7 +2832,9 @@ function performSearch(searchParams) {
 					});
 				} else {
 					$classLoader.fadeOut(150, function () {
-						$emptyMsg.fadeIn(150).text('Displaying results for ' + topics + ' seminars in ' + dataReFormat.location + '.');
+						if($('.search-page').length) {
+							$emptyMsg.fadeIn(150).text('Displaying results for ' + topics + ' seminars in ' + dataReFormat.location + '.');
+						}
 					});
 
 					app.classView = new app.ClassView({
@@ -3330,7 +3350,7 @@ app.ScheduleView = Backbone.View.extend({
                 
                 // get the class title
                 var relatedClassModel = app.globalCollection.findWhere({
-                    seminarId: courseIdNum 
+                    courseId: courseIdNum 
                 });
 
                 // get the cityState
@@ -3478,13 +3498,13 @@ app.SingleSeminarView = Backbone.View.extend({
         });
 
         if(!schedulesLoaded) {
-            var seminarIdToGet = this.model.get('seminarId');
+            var courseIdToGet = this.model.get('courseId');
             var searchIdToGet = this.model.get('searchId');
             var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
             app.locationCollection.fetch({
                 remove: false,
                 data: JSON.stringify({
-                    "courseId": seminarIdToGet,
+                    "courseId": courseIdToGet,
                     "searchId": searchIdToGet
                 }),
                 type: "POST",
@@ -4031,6 +4051,20 @@ MainSearchSelect.prototype.updateHashBang = function (location, topics, dateMin,
 	var hashStr = 'loc=' + (location || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMax=' + (dateMax || '');
 	window.location.hash = hashStr;
 };
+
+MainSearchSelect.prototype.detailPageSearch = function() {
+	
+	// get the location
+	var classLocation = $('#main-search').data('location');
+
+	// get the classId
+	var classIdSearched = $('.secondary-search').data('classid');
+
+	return {
+		"location": classLocation,
+		"classId": classIdSearched
+	}
+};
 'use strict';
 
 function OnSiteForm() {
@@ -4133,6 +4167,11 @@ Register.prototype.billingOptions = function() {
 		$(this).find('span').toggleClass('showing');
 	});
 };
+'use strict';
+
+function SeminarSearch() {
+	
+}
 'use strict';
 
 window.app = window.app || {};
@@ -4256,15 +4295,3 @@ TPCApp.prototype.animateCart = function(retinaScreen) {
 		});
 	});
 };
-
-// TPCApp.prototype.fixCart = function(winScrollTop) {
-// 	var navHeight = $('.navbar').height();
-// 	var cartOffsetTop = $('#cart').offset().top;
-// 	var resOffsetTop = $('.results-container').offset().top - 30;
-// 	console.log((winScrollTop + navHeight), cartOffsetTop, resOffsetTop)
-// 	if((winScrollTop + navHeight) >= resOffsetTop) {
-// 		$('#cart').addClass('cartfix');
-// 	} else {
-// 		$('#cart').removeClass('cartfix');
-// 	}
-// };

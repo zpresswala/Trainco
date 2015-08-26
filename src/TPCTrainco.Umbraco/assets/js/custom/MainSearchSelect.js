@@ -166,3 +166,17 @@ MainSearchSelect.prototype.updateHashBang = function (location, topics, dateMin,
 	var hashStr = 'loc=' + (location || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMax=' + (dateMax || '');
 	window.location.hash = hashStr;
 };
+
+MainSearchSelect.prototype.detailPageSearch = function() {
+	
+	// get the location
+	var classLocation = $('#main-search').data('location');
+
+	// get the classId
+	var classIdSearched = $('.secondary-search').data('classid');
+
+	return {
+		"location": classLocation,
+		"classId": classIdSearched
+	}
+};

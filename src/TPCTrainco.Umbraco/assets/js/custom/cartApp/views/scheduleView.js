@@ -92,7 +92,7 @@ app.ScheduleView = Backbone.View.extend({
                 
                 // get the class title
                 var relatedClassModel = app.globalCollection.findWhere({
-                    seminarId: courseIdNum 
+                    courseId: courseIdNum 
                 });
 
                 // get the cityState

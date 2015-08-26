@@ -32,6 +32,17 @@ $(document).ready(function () {
 		var searchParams = app.mainSearchSelect.getHashSearchParams();
 		performSearch(searchParams);
 	}
+
+	// check if we are on a seminar detail page
+	var pathArray = window.location.pathname.split('/');
+	var pubSeminarPathItem = pathArray[1];
+	// if(pubSeminarPathItem === 'public-seminars') {
+	if(pubSeminarPathItem == 'detail.html') {
+		app.mainSearchSelect = new MainSearchSelect();
+		var seminarDetailSearchParams = JSON.stringify(app.mainSearchSelect.detailPageSearch());
+		performSearch(seminarDetailSearchParams)
+	}
+
 });
 
 // search button click
@@ -53,38 +64,46 @@ function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
+
+	// if no data, return
 	if (dataReFormat == undefined || dataReFormat == false) {
 		return;
-	}
-	if(dataReFormat.classTopics.length >= 4) {
-		var topics = ['all'];
+
+		// if no classTopics property, return, which means you are on the detail page
+	} else if(dataReFormat.classTopics == undefined || dataReFormat.classTopics == false) {
+		return false;
 	} else {
-		var topics = dataReFormat.classTopics.filter(function (item, pos) {
-			var length = dataReFormat.classTopics.length;
-			return dataReFormat.classTopics.indexOf(item) == pos;
-		});
+
+		// you are on the search page
+		if(dataReFormat.classTopics.length >= 4) {
+			var topics = ['all'];
+		} else {
+			var topics = dataReFormat.classTopics.filter(function (item, pos) {
+				var length = dataReFormat.classTopics.length;
+				return dataReFormat.classTopics.indexOf(item) == pos;
+			});
+		}
+
+		// if more than two items selected, add and
+		if(topics.length == 2) {
+			var length = topics.length;
+			topics.splice(length - 1, 0, 'and');
+			var topicsList = topics.join(' ');
+			var topicsListTwo = topicsList.replace('and,','and');
+			var topics = topicsListTwo;
+		} else if(topics.length > 2) {
+
+			// if two or fewer, remove commas
+			topics.splice(length - 1, 0, 'and');
+			var topicsList = topics.join(', ');
+			var topicsListTwo = topicsList.replace('and,','and');
+			var topics = topicsListTwo;
+		}
 	}
 
-	// if more than two items selected, add and
-	if(topics.length == 2) {
-		var length = topics.length;
-		topics.splice(length - 1, 0, 'and');
-		var topicsList = topics.join(' ');
-		var topicsListTwo = topicsList.replace('and,','and');
-		var topics = topicsListTwo;
-	} else if(topics.length > 2) {
-
-		// if two or fewer, remove commas
-		topics.splice(length - 1, 0, 'and');
-		var topicsList = topics.join(', ');
-		var topicsListTwo = topicsList.replace('and,','and');
-		var topics = topicsListTwo;
-	}
 
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
-
-	console.log(searchParams.toString());
 
 	app.globalCollection.fetch({
 		data: searchParams,
@@ -92,7 +111,6 @@ function performSearch(searchParams) {
 		contentType: "application/json",
 
 		success: function (data) {
-			console.log(data)
 			$('.results').empty();
 			$emptyMsg.fadeOut(100, function () {
 				$classLoader.fadeIn(90);
@@ -103,7 +121,9 @@ function performSearch(searchParams) {
 					});
 				} else {
 					$classLoader.fadeOut(150, function () {
-						$emptyMsg.fadeIn(150).text('Displaying results for ' + topics + ' seminars in ' + dataReFormat.location + '.');
+						if($('.search-page').length) {
+							$emptyMsg.fadeIn(150).text('Displaying results for ' + topics + ' seminars in ' + dataReFormat.location + '.');
+						}
 					});
 
 					app.classView = new app.ClassView({
