@@ -25,7 +25,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             foreach (CourseCategory category in courseCategoryList.OrderBy(o => o.Title))
             {
-                foreach (Course course in category.Courses.Where(p => (p.TypeId == 3 || p.TypeId == 5) && p.CountryId == 0).OrderBy(o => o.Title))
+                foreach (Course course in category.Courses.Where(p => (p.TypeId == 3 || p.TypeId == 5)).OrderBy(o => o.Title))
                 {
                     var newCourse = new { Id = course.Id.ToString(), Title = course.Title, Category = category.Title};
                     data.Add(newCourse);

@@ -14,6 +14,7 @@ using System.Web;
 using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
 using System.Configuration;
 using System.Runtime.Caching;
+using Umbraco.Core.Models;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -226,6 +227,32 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 List<Seminar_Catalog> seminarDistinctList = seminarListSearch.DistinctBy(p => p.TitlePlain).ToList();
 
+                // Specify a class id (course id)
+                if (request.ClassId > 0)
+                {
+                    List<Seminar_Catalog> seminarDistinctListTemp = new List<Seminar_Catalog>();
+
+                    foreach(Seminar_Catalog tempSeminar in seminarDistinctList)
+                    {
+                        ScheduleCourseInstructor scheduleCourse = ScheduleCourseList.Where(p => p.ScheduleID == tempSeminar.SchID && p.CourseID == request.ClassId).FirstOrDefault();
+
+                        if (scheduleCourse != null)
+                        {
+                            seminarDistinctListTemp.Add(tempSeminar);
+                        }
+                    }
+
+                    if (seminarDistinctListTemp.Count > 0)
+                    {
+                        seminarDistinctList = seminarDistinctListTemp;
+                    }
+                    else
+                    {
+                        seminarDistinctList = null;
+                    }
+                }
+
+
                 if (seminarDistinctList != null && seminarDistinctList.Count > 0)
                 {
                     string searchId = Guid.NewGuid().ToString().ToLower();
@@ -429,11 +456,26 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             Seminar result = new Seminar();
 
+            ScheduleCourseInstructor scheduleCourse = ScheduleCourseList.Where(p => p.ScheduleID == seminarCatalog.SchID).FirstOrDefault();
+
             result.SeminarId = seminarCatalog.SchID;
             result.Title = seminarCatalog.TitlePlain;
             result.SubTitle = seminarCatalog.WebToolTip;
-            result.ImageUrl = "/test.gif";
-            result.DetailsUrl = "/seminars/test";
+
+            result.ImageUrl = "/assets/images/default-seminar.gif";
+            result.DetailsUrl = "#";
+
+            if (scheduleCourse != null)
+            {
+                IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").ToString() == scheduleCourse.CourseID.ToString()).FirstOrDefault();
+
+                if (seminarNode != null)
+                {
+                    result.ImageUrl = seminarNode.GetProperty("image").ToString();
+                    result.DetailsUrl = seminarNode.Url;
+                }
+            }
+            
             result.SearchId = searchId;
 
             return result;
@@ -520,6 +562,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 if (course != null)
                 {
                     result.Id = schedule.ScheduleID;
+                    result.CourseId = course.CourseID;
                     result.CityId = schedule.CityID;
                     result.DaysTitle = GetDaysTitle(course.CourseFormatID);
                     result.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");

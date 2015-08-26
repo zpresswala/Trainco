@@ -22,6 +22,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         public IEnumerable<IPublishedContent> Redirects;
         public IPublishedContent SocialLinkFolder;
         public IEnumerable<IPublishedContent> SocialLinks;
+        public IEnumerable<IPublishedContent> SeminarItems;
 
         public UmbracoHelper UmbracoHelper;
 
@@ -47,6 +48,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                             instance.SocialLinkFolder = instance.SiteSettings.Children.FirstOrDefault(n => n.IsDocumentType("SocialLinks"));
                             instance.SocialLinks = instance.SocialLinkFolder.Children;
+
+                            instance.SeminarItems = instance.Home.Descendants("SeminarItem");
                         }
                     }
                 }
