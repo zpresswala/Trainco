@@ -3157,7 +3157,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\MacroPartials\RenderUmbracoFormScripts.cshtml" />
-    <Content Include="Views\Partials\SeminarSearch\HomeSearch.cshtml" />
+    <Content Include="Views\Partials\SeminarSearch\MainSearch.cshtml" />
     <Content Include="Views\Contact.cshtml" />
     <Content Include="Views\PageNotFound404.cshtml" />
     <Content Include="Views\Partials\SeminarSearch\SeminarDetailsSearch.cshtml" />

@@ -2739,11 +2739,20 @@ $('#search-btn').on('click', function () {
 	performSearch(searchParams);
 });
 
+$('#search-btn-home').on('click', function () {
+	var searchParams = app.mainSearchSelect.getSearchParams();
+	
+	window.location.href = '/search-seminars/' + window.location.hash;
+});
+
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
+	if (dataReFormat == undefined || dataReFormat == false) {
+		return;
+	}
 	if(dataReFormat.classTopics.length >= 4) {
 		var topics = ['all'];
 	} else {
@@ -3521,7 +3530,7 @@ function Catalog() {
 
 Catalog.prototype.clickScrollTo = function() {
 	var _this = this;
-	var offsetAmount = 40;
+	var offsetAmount = 140;
 	this.$category.on('click', function(e) {
 		e.preventDefault();
 		_this.$page.animate({
