@@ -35,7 +35,7 @@
 
             <!-- location select -->
             <div class="location-select-wrap">
-                <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-search-location="@currentCityState">
+                <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="@currentCityState">
                     @foreach (Location location in locationList)
                     {
                         <option value="@location.CityState">@location.CityState</option>

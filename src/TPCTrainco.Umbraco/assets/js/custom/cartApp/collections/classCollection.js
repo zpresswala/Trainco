@@ -72,6 +72,7 @@ function performSearch(searchParams) {
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
 
+	console.log(searchParams.toString());
 
 	app.globalCollection.fetch({
 		data: searchParams,

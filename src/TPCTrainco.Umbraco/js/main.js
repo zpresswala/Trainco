@@ -2783,6 +2783,7 @@ function performSearch(searchParams) {
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
 
+	console.log(searchParams.toString());
 
 	app.globalCollection.fetch({
 		data: searchParams,
@@ -2843,6 +2844,40 @@ app.ScheduleCollection = Backbone.Collection.extend({
 });
 
 app.scheduleCollection = new app.ScheduleCollection;
+'use strict';
+
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+	initialize: function() {
+		console.log('sched model init')
+	}
+});
 'use strict';
 
 window.app = window.app || {};
@@ -3474,40 +3509,6 @@ app.SingleSeminarView = Backbone.View.extend({
 });
 
 app.singleSeminarView = new app.SingleSeminarView();
-'use strict';
-
-window.app = window.app || {};
-
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-	initialize: function() {
-		console.log('sched model init')
-	}
-});
 'use strict';
 
 function Catalog() {
