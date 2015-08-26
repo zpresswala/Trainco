@@ -5,6 +5,8 @@ window.app = window.app || {};
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
+	this.$aHref = $('a[href^=#]');
+	this.$page = $('html, body');
 
 	$('.carousel').carousel();
 
@@ -62,6 +64,7 @@ function TPCApp() {
 	}
 
 	this.animateCart(isRetina);
+	this.clickScrollTo();
 }
 
 TPCApp.prototype.bindScroll = function() {
@@ -78,10 +81,6 @@ TPCApp.prototype.handleWindowScroll = function() {
 	if($('#count').length) {
 		this.countUp.handleWindowScroll(this.currentScrollTop);
 	}
-
-	// if($('#cart').length) {
-	// 	this.fixCart(this.currentScrollTop);
-	// }
 };
 
 // cart functionality
@@ -119,5 +118,16 @@ TPCApp.prototype.animateCart = function(retinaScreen) {
 				}
 			}
 		});
+	});
+};
+
+TPCApp.prototype.clickScrollTo = function() {
+	var _this = this;
+	var offsetAmount = 140;
+	this.$aHref.on('click', function(e) {
+		e.preventDefault();
+		_this.$page.animate({
+            scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
+        }, 300);
 	});
 };

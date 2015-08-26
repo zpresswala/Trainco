@@ -2880,40 +2880,6 @@ app.scheduleCollection = new app.ScheduleCollection;
 
 window.app = window.app || {};
 
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-	initialize: function() {
-		console.log('sched model init')
-	}
-});
-'use strict';
-
-window.app = window.app || {};
-
 // "view the cart" view
 app.CartItemView = Backbone.View.extend({
     template: _.template($('#cartItemTemplate').html()),
@@ -3549,9 +3515,41 @@ app.SingleSeminarView = Backbone.View.extend({
 app.singleSeminarView = new app.SingleSeminarView();
 'use strict';
 
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+	initialize: function() {
+		console.log('sched model init')
+	}
+});
+'use strict';
+
 function Catalog() {
-	this.$category = $('.class-category');
-	this.$page = $('html, body');
 
 	// the electrical sort item menu
 	this.$categorySelect = $('.elec-sort-category');
@@ -3559,20 +3557,8 @@ function Catalog() {
 	// items to hide/show
 	this.$sortItem = $('.electric .seminar-topic');
 
-	this.clickScrollTo();
 	this.sortElectricItems();
 }
-
-Catalog.prototype.clickScrollTo = function() {
-	var _this = this;
-	var offsetAmount = 140;
-	this.$category.on('click', function(e) {
-		e.preventDefault();
-		_this.$page.animate({
-            scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-        }, 300);
-	});
-};
 
 Catalog.prototype.sortElectricItems = function() {
 	var _this = this;
@@ -4185,6 +4171,8 @@ window.app = window.app || {};
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
+	this.$aHref = $('a[href^=#]');
+	this.$page = $('html, body');
 
 	$('.carousel').carousel();
 
@@ -4242,6 +4230,7 @@ function TPCApp() {
 	}
 
 	this.animateCart(isRetina);
+	this.clickScrollTo();
 }
 
 TPCApp.prototype.bindScroll = function() {
@@ -4258,10 +4247,6 @@ TPCApp.prototype.handleWindowScroll = function() {
 	if($('#count').length) {
 		this.countUp.handleWindowScroll(this.currentScrollTop);
 	}
-
-	// if($('#cart').length) {
-	// 	this.fixCart(this.currentScrollTop);
-	// }
 };
 
 // cart functionality
@@ -4299,5 +4284,16 @@ TPCApp.prototype.animateCart = function(retinaScreen) {
 				}
 			}
 		});
+	});
+};
+
+TPCApp.prototype.clickScrollTo = function() {
+	var _this = this;
+	var offsetAmount = 140;
+	this.$aHref.on('click', function(e) {
+		e.preventDefault();
+		_this.$page.animate({
+            scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
+        }, 300);
 	});
 };

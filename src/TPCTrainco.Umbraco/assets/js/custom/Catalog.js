@@ -1,8 +1,6 @@
 'use strict';
 
 function Catalog() {
-	this.$category = $('.class-category');
-	this.$page = $('html, body');
 
 	// the electrical sort item menu
 	this.$categorySelect = $('.elec-sort-category');
@@ -10,20 +8,8 @@ function Catalog() {
 	// items to hide/show
 	this.$sortItem = $('.electric .seminar-topic');
 
-	this.clickScrollTo();
 	this.sortElectricItems();
 }
-
-Catalog.prototype.clickScrollTo = function() {
-	var _this = this;
-	var offsetAmount = 140;
-	this.$category.on('click', function(e) {
-		e.preventDefault();
-		_this.$page.animate({
-            scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-        }, 300);
-	});
-};
 
 Catalog.prototype.sortElectricItems = function() {
 	var _this = this;

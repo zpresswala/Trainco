@@ -4237,8 +4237,10 @@ h2, h3, h4 {
   margin: 12px auto 40px;
   width: 150px; }
 
-.register-two-top .line1, .register-two-top .step2 {
-  background-color: #C6211F; }
+.register-two-top {
+  margin-top: 80px; }
+  .register-two-top .line1, .register-two-top .step2 {
+    background-color: #C6211F; }
 
 .register-two {
   background-color: #f1f1f1; }
