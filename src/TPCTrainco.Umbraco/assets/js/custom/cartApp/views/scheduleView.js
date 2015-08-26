@@ -31,7 +31,6 @@ app.ScheduleView = Backbone.View.extend({
         }, this);
     },
 
-
     // this just creates the data model and adds it to the collection
     addToCart: function(e) {
         e.preventDefault();
@@ -176,13 +175,6 @@ app.ScheduleView = Backbone.View.extend({
 
         this.addQtyToCart(itemQuantity, cartItem);
         Backbone.trigger('calculateSubtotal', itemQuantity);
-    },
-
-    updateCartQuantity: function() {
-        console.log('hi')
-        this.$classQty.val('');
-        
-        console.log(this.$el)
     },
 
     // total number of cart items in cart view (input fields)

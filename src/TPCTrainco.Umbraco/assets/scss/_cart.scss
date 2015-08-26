@@ -144,7 +144,7 @@
 		position: absolute;
 		margin-top: -13px;
 		@include med-desktop-and-up {
-			position: static;
+			position: relative;
 			padding-right: 0;
 		}
 	}
@@ -503,6 +503,20 @@
 	.class-loader {
 		top: 5px;
 	}
+}
+
+.checkout-err-msg {
+	float: left;
+	margin-top: 4px;
+	margin-left: 5%;
+	color: $red-button-hover;
+	font-size: 1.1em;
+}
+
+.checkout-loader {
+	left: 65%;
+	top: 50%;
+	margin-top: -10px;
 }
 
 .empty-location-msg {

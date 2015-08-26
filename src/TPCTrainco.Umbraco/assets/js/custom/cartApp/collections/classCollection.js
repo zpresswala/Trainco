@@ -6,6 +6,7 @@ app.ClassCollection = Backbone.Collection.extend({
 	model: app.ClassModel,
 
 	url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
+
 });
 
 app.globalCollection = new app.ClassCollection;
@@ -60,7 +61,6 @@ function performSearch(searchParams) {
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
 
-	console.log(searchParams);
 
 	app.globalCollection.fetch({
 		data: searchParams,

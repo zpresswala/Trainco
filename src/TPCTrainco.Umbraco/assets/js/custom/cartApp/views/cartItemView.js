@@ -18,7 +18,6 @@ app.CartItemView = Backbone.View.extend({
     initialize: function(options) {
         var _this = this;
         this.options = options || {};
-        // this.listenTo(app.cartCollection, 'remove', this.updateCartTotalPrice, this.updateCartTotalQuantity);
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
         Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
     },
@@ -70,21 +69,12 @@ app.CartItemView = Backbone.View.extend({
 
     // calculates subtotal for individual item
     calculateSubtotal: function() {
-        // var quant = parseInt(quantity);
-        // var isModelFromLocalStore = this.model.get('fromLS');
-        // if(isModelFromLocalStore) {
-        //     return false;
-        // }
         var quantity = this.model.get('quantity');
-        // setting quantity on new model
-        // this.model.set('quantity', quant);
         this.currentSubTotal = this.model.get('price') * quantity;
         this.$el.find('.sub-total').text('$ ' + this.currentSubTotal);
 
         // this line updates the quantity in the just-added item
         this.$('.class-qty').val(quantity);
-
-        // Backbone.off('calculateSubtotal');
 
         // updates total dollar value of cart on click of add item
         this.updateCartTotalPrice();
@@ -104,6 +94,7 @@ app.CartItemView = Backbone.View.extend({
         if(subTotalsArr.length == 0) {
             var subTotalsArr = [0];
         }
+
         Backbone.trigger('updateTotalPrice', subTotalsArr, this.model);
     },
 
@@ -115,17 +106,16 @@ app.CartItemView = Backbone.View.extend({
         // remove the item from the DOM
         this.$el.slideUp(150, function() {
             _this.remove();
+
+            // remove the item from the collection
+            _this.model.destroy();
+
+            // decrement cart total number
+            _this.updateCartTotalQuantity();
+
+            // decrement cart total price
+            _this.updateCartTotalPrice();
         });
-
-        // remove the item from the collection
-        this.model.destroy();
-
-        // decrement cart total number
-        this.updateCartTotalQuantity();
-
-        // decrement cart total price
-        this.updateCartTotalPrice();
-
     },
 
     // updates the cart total on cart item quantity update. purely in DOM. only called on remove.
@@ -156,32 +146,5 @@ app.CartItemView = Backbone.View.extend({
 
         this.listenTo(this.model, 'change:quantity', this.calculateSubtotal);
         this.model.set('quantity', updatedQty);
-                // console.log(this.model)
-        // this.calculateSubtotal(updatedQty);
-        // Backbone.trigger('updateOriginalModelQuantity', updatedQty);
     }
-
-    // updates quantity for single item
-    // updateQuantity: function(matchingItem) {
-
-    //     // this.$el.find('.class-qty').val(quantity);
-
-    //     var itemToUpdate = matchingItem[0].get('theId');
-    //     var newQty = matchingItem[0].get('quantity');
-    //     console.log(itemToUpdate, newQty)
-    //     this.$('[data-theid=' + itemToUpdate + ']').find('.class-qty').val(newQty);
-    //     // if(itemToUpdate == this.$('[data-theid=' + itemToUpdate + ']'))
-    //     // this.$('[data-theid=' + itemToUpdate + ']').find('.class-qty').val('90');
-
-
-
-
-    //     // Backbone.trigger('calculateSubtotal', quantity);
-
-    //     // updates the quantity of the original element if changed from the cart.
-    //     // listener attached here so it only runs once
-    //     // Backbone.on('updateOriginalModelQuantity', this.updateOriginalModelQuantity, this);
-    // }
-
-
 });
