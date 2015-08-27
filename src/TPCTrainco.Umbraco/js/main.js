@@ -3226,8 +3226,14 @@ app.LocationView = Backbone.View.extend({
     render: function() {
         var _this = this;
         this.collection.each(function(model) {
-            _this.$el.append(_this.template(model.toJSON()));
-            _this.renderSchedules(model);
+            var hasBeenRendered = model.get('hasBeenRendered');
+            if(hasBeenRendered) {
+                return false;
+            } else { 
+                _this.$el.append(_this.template(model.toJSON()));
+                model.set('hasBeenRendered', true);
+                _this.renderSchedules(model);
+            }
         }, this);
     },
 
@@ -3289,7 +3295,13 @@ app.ScheduleView = Backbone.View.extend({
     render:function () {
         var _this = this;
         this.collection.each(function(singleClass) {
-            _this.$el.append(_this.template(singleClass.toJSON()));
+            var hasBeenRendered = singleClass.get('hasBeenRendered');
+            if(hasBeenRendered) {
+                return false;
+            } else {
+                _this.$el.append(_this.template(singleClass.toJSON()));
+                singleClass.set('hasBeenRendered', true);
+            }
         }, this);
     },
 
