@@ -19,6 +19,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         public IPublishedContent SiteSettings;
         public IPublishedContent News;
         public IPublishedContent RedirectFolder;
+        public IPublishedContent CourseCatalog;
         public IEnumerable<IPublishedContent> Redirects;
         public IPublishedContent SocialLinkFolder;
         public IEnumerable<IPublishedContent> SocialLinks;
@@ -50,6 +51,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                             instance.SocialLinks = instance.SocialLinkFolder.Children;
 
                             instance.SeminarItems = instance.Home.Descendants("SeminarItem");
+                            instance.CourseCatalog = instance.Home.Descendants("SeminarCatalog").FirstOrDefault();
                         }
                     }
                 }

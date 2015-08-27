@@ -82,7 +82,7 @@
 
         <!-- <input type="hidden" id="main-search" style="width:300px"/> -->
         <!-- datepicker goes here -->
-        <h4 class="select-date-text">Select a date range</h4>
+        <h4 class="select-date-text" onclick="$('#date-range-slider').dateRangeSlider('values', new Date(2015,7), new Date(2016,7));">Select a date range</h4>
 
         <div id="date-range-slider"></div>
 
@@ -94,5 +94,5 @@
     </div>
 </div>
 
-@Html.Partial("SeminarSearch/JavascriptTemplates");
+@Html.Partial("SeminarSearch/JavascriptTemplates")
 

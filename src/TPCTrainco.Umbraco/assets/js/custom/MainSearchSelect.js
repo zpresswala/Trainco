@@ -30,6 +30,10 @@ MainSearchSelect.prototype.getSearchParams = function () {
 	// get the city or zip
 	var searchLocationVal = $('#main-search').select2('val');
 
+	if ($('.secondary-search[data-classid!=""][data-classid]')) {
+		classId = $('.secondary-search').data('classid');
+	}
+
 	// if empty, show message
 	if (searchLocationVal == null) {
 		$('.empty-location-msg').fadeIn(150).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1);
@@ -65,9 +69,7 @@ MainSearchSelect.prototype.getSearchParams = function () {
 
 		this.updateHashBang(location, topicsArray, minMonth + '/' + minYear, maxMonth + '/' + maxYear);
 
-		if ($('.secondary-search[data-classid!=""][data-classid]')) {
-			classId = $('.secondary-search').data('classid');
-		}
+		
 
 		app.resStringified = this.generateJsonSearchString(location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear);
 		return app.resStringified;
@@ -102,7 +104,7 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 
 		// Update the Date Range Slider
 		var minDateObj = new Date(parseInt(minYear), parseInt(minMonth) - 1);
-		var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth));
+		var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth) - 1);
 		$(window).load(function() {
 			$("#date-range-slider").dateRangeSlider("values", minDateObj, maxDateObj);
 		});

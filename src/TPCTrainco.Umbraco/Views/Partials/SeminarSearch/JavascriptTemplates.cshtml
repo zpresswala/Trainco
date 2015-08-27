@@ -10,7 +10,7 @@
                 <img src="/assets/images/hvac-icon.jpg" alt="All Seminars" />
             </div>
             <div class="col-xs-12 col-md-8 text-desc">
-                <h2><a href="<%= detailsUrl %>"><%= title %></a></h2>
+                <h2><a href="<%= detailsUrl %><%= window.location.hash %>"><%= title %></a></h2>
                 <p><%= subTitle %></p>
                 <a href="javascript:void(0);" class="view-opts" data-course="<%= courseId %>"><span class="plus">+</span>View Upcoming Seminars</a>
             </div>
@@ -35,7 +35,7 @@
 <script type="text/template" id="scheduleTemplate">
     <ul class="schedule col-xs-12">
         <li class="col-xs-12 col-sm-2 col-md-2 col-md-offset-1"><%= daysTitle %></li>
-        <li class="date col-xs-12 col-sm-3 col-md-2"><%= date%></li>
+        <li class="date col-xs-12 col-sm-3 col-md-2"><%= date %></li>
         <li class="sub-total col-xs-12 col-sm-1 col-md-2">$<span class="item-sub-total"></span><%= price %></li>
         <li class="attendees col-xs-12 col-sm-3 col-md-2"><span class="attendees-label">Attendees:</span><input type="text" name="quantity" class="class-qty"><span class="tooltip-msg attendee-msg">Please enter a quantity.</span></li>
         <li class="col-xs-12 col-sm-3 col-md-3"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>

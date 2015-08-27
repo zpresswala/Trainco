@@ -10,27 +10,27 @@ function TPCApp() {
 
 	$('.carousel').carousel();
 
-	if($('.catalog-top').length) {
+	if ($('.catalog-top').length) {
 		this.catalog = new Catalog();
 	}
-	
+
 	this.homePage = new HomePage();
 
-	if($('#main-search').length) {
+	if ($('#main-search').length) {
 		if (app.mainSearchSelect == undefined)
 			app.mainSearchSelect = new MainSearchSelect();
 	}
 
-	if($('#date-range-slider').length) {
+	if ($('#date-range-slider').length) {
 		this.datePicker = new DatePicker();
 	}
 
-	if($('#count').length) {
+	if ($('#count').length) {
 		this.countUp = new CountUp(this.$win);
 	}
 
 	// share popover init
-	if($('.share-btn-wrap').length) {
+	if ($('.share-btn-wrap').length) {
 		$('[data-toggle="popover"]').popover({
 			animation: true,
 			// container: '.btn-share',
@@ -39,12 +39,12 @@ function TPCApp() {
 		});
 	}
 
-	if($('.caro-form-container').length || $('.register-two').length) {
+	if ($('.caro-form-container').length || $('.register-two').length) {
 		this.onSiteForm = new OnSiteForm();
 	}
 
 	// register
-	if($('.register-two').length || $('.contact').length) {
+	if ($('.register-two').length || $('.contact').length) {
 		this.register = new Register();
 	}
 
@@ -57,62 +57,80 @@ function TPCApp() {
 	        (-o-min-device-pixel-ratio: 3/2),\
 	        (min-resolution: 1.5dppx)";
 	if (window.devicePixelRatio > 1) {
-	    isRetina = true;
+		isRetina = true;
 	}
 	if (window.matchMedia && window.matchMedia(mediaQuery).matches) {
-	    isRetina = true;
+		isRetina = true;
 	}
 
 	this.animateCart(isRetina);
 	this.clickScrollTo();
+
+
+
+
+	if (window.location.hash || $('.detail-page-app').length) {
+		if (app.mainSearchSelect == undefined)
+			app.mainSearchSelect = new MainSearchSelect();
+
+		var searchParams;
+		if (window.location.hash) {
+			searchParams = app.mainSearchSelect.getHashSearchParams();
+		}
+		else {
+			searchParams = app.mainSearchSelect.getSearchParams();
+		}
+
+		performSearch(searchParams);
+	}
 }
 
-TPCApp.prototype.bindScroll = function() {
+TPCApp.prototype.bindScroll = function () {
 	var _this = this;
-	this.$win.on('scroll', function() {
+	this.$win.on('scroll', function () {
 		_this.handleWindowScroll();
 	});
 };
 
-TPCApp.prototype.handleWindowScroll = function() {
+TPCApp.prototype.handleWindowScroll = function () {
 	this.currentScrollTop = this.$win.scrollTop();
 
 	// only run this on certain pages.
-	if($('#count').length) {
+	if ($('#count').length) {
 		this.countUp.handleWindowScroll(this.currentScrollTop);
 	}
 };
 
 // cart functionality
-TPCApp.prototype.animateCart = function(retinaScreen) {
+TPCApp.prototype.animateCart = function (retinaScreen) {
 	// if(Modernizr.csstransitions) {
 	var _this = this;
 	this.$carttab = $('.cart-tab');
 	this.$cartvis = $('.cart-visible');
 	this.$cartTopImg = $('.cart-top').find('img');
-	if(retinaScreen) {
+	if (retinaScreen) {
 		this.$carttab.find('img').attr('src', '/assets/images/icon-cart-retina.png').css({
 			width: 32 + 'px',
 			top: -15 + 'px'
 		});
 	}
 
-	this.$carttab.on('click', function() {
-		$('.cart').slideToggle(300, function() {
+	this.$carttab.on('click', function () {
+		$('.cart').slideToggle(300, function () {
 			$(this).toggleClass('down');
 
 			// change out cart icon, and if user is on retina, account for that.
-			if(retinaScreen) {
+			if (retinaScreen) {
 				_this.$cartvis.toggleClass('down').find('img').attr('src', '/assets/images/icon-cart-close-arrow-2x.png');
 				_this.$cartTopImg.attr('src', '/assets/images/icon-cart-retina.png').css({
 					width: 32 + 'px'
 				});
-				if(!$(this).hasClass('down')) {
+				if (!$(this).hasClass('down')) {
 					_this.$carttab.find('img').attr('src', '/assets/images/icon-cart-retina.png');
 				}
 			} else {
 				_this.$cartvis.toggleClass('down').find('img').attr('src', '/assets/images/icon-cart-close-arrow.png');
-				if(!$(this).hasClass('down')) {
+				if (!$(this).hasClass('down')) {
 					_this.$cartTopImg.attr('src', '/assets/images/icon-cart-tab.png');
 					_this.$carttab.find('img').attr('src', '/assets/images/icon-cart-tab.png');
 				}
@@ -121,13 +139,13 @@ TPCApp.prototype.animateCart = function(retinaScreen) {
 	});
 };
 
-TPCApp.prototype.clickScrollTo = function() {
+TPCApp.prototype.clickScrollTo = function () {
 	var _this = this;
 	var offsetAmount = 140;
-	this.$aHref.on('click', function(e) {
+	this.$aHref.on('click', function (e) {
 		e.preventDefault();
 		_this.$page.animate({
-            scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-        }, 300);
+			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
+		}, 300);
 	});
 };

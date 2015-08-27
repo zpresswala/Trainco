@@ -25,13 +25,7 @@ app.globalCollection = new app.ClassCollection;
 		  
 // check the hash to see if there is data there. (only on page load)
 $(document).ready(function () {
-	if (window.location.hash || $('.detail-page-app').length) {
-		if (app.mainSearchSelect == undefined)
-			app.mainSearchSelect = new MainSearchSelect();
-
-		var searchParams = app.mainSearchSelect.getHashSearchParams();
-		performSearch(searchParams);
-	}
+	// moved to TPCApp.js
 });
 
 // search button click
@@ -62,9 +56,9 @@ function performSearch(searchParams) {
 		return false;
 
 		// if no classTopics property, return, which means you are on the detail page
-	} else if (!dataReFormat.hasOwnProperty('classTopics') || dataReFormat.hasOwnProperty('classId')) {
+	} else if (!dataReFormat.hasOwnProperty('classTopics') && !dataReFormat.hasOwnProperty('classId')) {
 		return false;
-	} else {
+	} else if (dataReFormat.hasOwnProperty('classTopics')) {
 		
 		// if classId is found, skip the classTopics, you are on the search page
 		if (dataReFormat.classTopics.length >= 4) {

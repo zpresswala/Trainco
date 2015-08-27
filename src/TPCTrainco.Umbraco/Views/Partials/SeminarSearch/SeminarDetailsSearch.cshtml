@@ -34,7 +34,7 @@
             }
 
             <!-- location select -->
-            <div class="location-select-wrap">
+            <div id="register-seminars" class="location-select-wrap">
                 <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="@currentCityState">
                     @foreach (Location location in locationList)
                     {
@@ -54,4 +54,4 @@
     </div>
 </div>
 
-@Html.Partial("SeminarSearch/JavascriptTemplates");
+@Html.Partial("SeminarSearch/JavascriptTemplates")

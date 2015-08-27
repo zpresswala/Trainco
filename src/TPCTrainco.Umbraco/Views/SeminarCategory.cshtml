@@ -9,6 +9,11 @@
     IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
     IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
     IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+
+    IPublishedContent courseCatalog = Nodes.Instance.CourseCatalog;
+    
+    string subMenuText = currentPage.GetPropertyValue<string>("shortName", currentPage.Name);
+    string subAnchorText = subMenuText.ToUrlSegment();
 }
 
 <!-- same as detail page -->
@@ -19,7 +24,7 @@
         </div>
         <div class="button-wrapper col-xs-12 col-md-8 col-md-offset-2">
             <div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-2">
-                <a href="#" class="btn-reg btn-first" role="button">Browse Courses</a>
+                <a href="@(courseCatalog.Url)#@(subAnchorText)" class="btn-reg btn-first" role="button">Browse Courses</a>
             </div>
             <div class="col-xs-8 col-xs-offset-2 col-md-4 second-btn">
                 <a href="#" class="btn-reg btn-white" role="button">Learn More</a>
@@ -40,7 +45,7 @@
                     @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))
                 </div>
 
-                <a href="#" class="btn-reg secondary-browse-btn" role="button">Browse Courses</a>
+                <a href="@(courseCatalog.Url)#@(subAnchorText)" class="btn-reg secondary-browse-btn" role="button">Browse Courses</a>
 
             </div>
         </div>
@@ -51,7 +56,7 @@
     <div class="container">
         <div class="form-wrap pull-right col-xs-12 col-md-6">
             <h3>Contact us to learn more about our training</h3>
-            @Html.Partial("~/Views/MacroPartials/InsertUmbracoForm.cshtml")
+            @Html.Partial("Forms/tempForm")
             @*@CurrentPage.form*@
         </div>
         @Html.Partial("Quotes/UserQuotes", currentPage)
