@@ -100,10 +100,12 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 		var maxMonth = maxDate[0];
 		var maxYear = maxDate[1];
 
-		//var minDateObj = new Date(parseInt(minYear), parseInt(minMonth) - 1);
-		//var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth) - 1);
-
-		//$("#date-range-slider").dateRangeSlider("values", minDateObj, maxDateObj);
+		// Update the Date Range Slider
+		var minDateObj = new Date(parseInt(minYear), parseInt(minMonth) - 1);
+		var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth));
+		$(window).load(function() {
+			$("#date-range-slider").dateRangeSlider("values", minDateObj, maxDateObj);
+		});
 
 		// update search parameters
 		if (topicsArray != undefined && topicsArray.length == 4) {
