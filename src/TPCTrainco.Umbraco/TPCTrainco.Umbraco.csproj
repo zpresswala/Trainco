@@ -3314,6 +3314,7 @@
     <Content Include="Views\Partials\Forms\Fieldtypes\FieldType.Textfield.cshtml" />
     <Content Include="Views\Partials\Forms\Form.cshtml" />
     <Content Include="Views\Partials\Forms\Script.cshtml" />
+    <Content Include="Views\Partials\SeminarSearch\JavascriptTemplates.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

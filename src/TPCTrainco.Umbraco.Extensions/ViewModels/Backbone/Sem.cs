@@ -8,7 +8,7 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels.Backbone
 {
     public class Sem
     {
-        public int SeminarId { get; set; }
+        public int CourseId { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
         public string ImageUrl { get; set; }

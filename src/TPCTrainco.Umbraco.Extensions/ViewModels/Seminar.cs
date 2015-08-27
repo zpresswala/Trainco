@@ -9,6 +9,7 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
     public class Seminar
     {
         public int SeminarId { get; set; }
+        public int CourseId { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
         public string ImageUrl { get; set; }

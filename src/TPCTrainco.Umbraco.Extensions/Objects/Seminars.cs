@@ -77,7 +77,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 {
                     RefreshSearchCache(finalSeminarList, request.SearchId);
 
-                    Seminar selectedSeminar = finalSeminarList.Where(p => p.SeminarId == request.CourseId).FirstOrDefault();
+                    Seminar selectedSeminar = finalSeminarList.Where(p => p.CourseId == request.CourseId).FirstOrDefault();
 
                     if (selectedSeminar != null)
                     {
@@ -110,7 +110,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 {
                     RefreshSearchCache(finalSeminarList, request.SearchId);
 
-                    Seminar selectedSeminar = finalSeminarList.Where(p => p.SeminarId == request.CourseId).FirstOrDefault();
+                    Seminar selectedSeminar = finalSeminarList.Where(p => p.CourseId == request.CourseId).FirstOrDefault();
 
                     if (selectedSeminar != null)
                     {
@@ -272,7 +272,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 {
                                     ViewModels.Location location = new ViewModels.Location();
 
-                                    location.CourseId = seminarCatalog.SchID;
+                                    location.CourseId = seminar.CourseId;
                                     location.CityState = seminarCatalog.City + ", " + seminarCatalog.State;
                                     location.SearchId = searchId;
 
@@ -285,7 +285,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                     if (schedule != null)
                                     {
-                                        schedule.CourseId = schedule.Id;
+                                        schedule.CourseId = seminar.CourseId;
 
                                         location.CityId = schedule.CityId;
                                         location.Date = schedule.Date;
@@ -461,6 +461,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             ScheduleCourseInstructor scheduleCourse = ScheduleCourseList.Where(p => p.ScheduleID == seminarCatalog.SchID).FirstOrDefault();
 
             result.SeminarId = seminarCatalog.SchID;
+            result.CourseId = scheduleCourse.CourseID;
             result.Title = seminarCatalog.TitlePlain;
             result.SubTitle = seminarCatalog.WebToolTip;
 
@@ -494,7 +495,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             Sem result = new Sem();
 
-            result.SeminarId = seminar.SeminarId;
+            result.CourseId = seminar.CourseId;
             result.Title = seminar.Title;
             result.SubTitle = seminar.SubTitle;
             result.ImageUrl = seminar.ImageUrl;
