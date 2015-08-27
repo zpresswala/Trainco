@@ -2736,29 +2736,20 @@ app.globalCollection = new app.ClassCollection;
 		  
 // check the hash to see if there is data there. (only on page load)
 $(document).ready(function () {
-	if (window.location.hash) {
+	if (window.location.hash || $('.detail-page-app').length) {
 		if (app.mainSearchSelect == undefined)
 			app.mainSearchSelect = new MainSearchSelect();
 
 		var searchParams = app.mainSearchSelect.getHashSearchParams();
 		performSearch(searchParams);
 	}
-
-	// check if we are on a seminar detail page
-	var pathArray = window.location.pathname.split('/');
-	var pubSeminarPathItem = pathArray[1];
-	if(pubSeminarPathItem === 'public-seminars') {
-	// if(pubSeminarPathItem == 'detail.html') {
-		app.mainSearchSelect = new MainSearchSelect();
-		var seminarDetailSearchParams = JSON.stringify(app.mainSearchSelect.detailPageSearch());
-		performSearch(seminarDetailSearchParams)
-	}
-
 });
 
 // search button click
 $('#search-btn').on('click', function () {
-	var searchParams = app.mainSearchSelect.getSearchParams();
+	var searchParams;
+	
+	searchParams = app.mainSearchSelect.getSearchParams();
 	performSearch(searchParams);
 });
 
@@ -2767,8 +2758,9 @@ $('#search-btn-home').on('click', function () {
 	
 	var location = $('#main-search').select2('val').toString();
 
-	window.location.href = '/search-seminars/?loc=' + encodeURIComponent(location) + window.location.hash;
+	window.location.href = '/search-seminars/?homeref=1' + window.location.hash;
 });
+
 
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
@@ -2777,16 +2769,16 @@ function performSearch(searchParams) {
 	var dataReFormat = $.parseJSON(searchParams);
 
 	// if no data, return
-	if (dataReFormat == undefined || dataReFormat == false) {
-		return;
+	if (dataReFormat == 'undefined' || !dataReFormat) {
+		return false;
 
 		// if no classTopics property, return, which means you are on the detail page
-	} else if(dataReFormat.classTopics == undefined || dataReFormat.classTopics == false) {
+	} else if (!dataReFormat.hasOwnProperty('classTopics') || dataReFormat.hasOwnProperty('classId')) {
 		return false;
 	} else {
-
-		// you are on the search page
-		if(dataReFormat.classTopics.length >= 4) {
+		
+		// if classId is found, skip the classTopics, you are on the search page
+		if (dataReFormat.classTopics.length >= 4) {
 			var topics = ['all'];
 		} else {
 			var topics = dataReFormat.classTopics.filter(function (item, pos) {
@@ -2796,22 +2788,21 @@ function performSearch(searchParams) {
 		}
 
 		// if more than two items selected, add and
-		if(topics.length == 2) {
+		if (topics.length == 2) {
 			var length = topics.length;
 			topics.splice(length - 1, 0, 'and');
 			var topicsList = topics.join(' ');
-			var topicsListTwo = topicsList.replace('and,','and');
+			var topicsListTwo = topicsList.replace('and,', 'and');
 			var topics = topicsListTwo;
-		} else if(topics.length > 2) {
+		} else if (topics.length > 2) {
 
 			// if two or fewer, remove commas
 			topics.splice(length - 1, 0, 'and');
 			var topicsList = topics.join(', ');
-			var topicsListTwo = topicsList.replace('and,','and');
+			var topicsListTwo = topicsList.replace('and,', 'and');
 			var topics = topicsListTwo;
-		}
+		}	
 	}
-
 
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
@@ -2822,6 +2813,7 @@ function performSearch(searchParams) {
 		contentType: "application/json",
 
 		success: function (data) {
+
 			$('.results').empty();
 			$emptyMsg.fadeOut(100, function () {
 				$classLoader.fadeIn(90);
@@ -2841,6 +2833,11 @@ function performSearch(searchParams) {
 						collection: app.globalCollection,
 						el: '.results'
 					});
+
+					// if details page, trigger the locations
+					if ($('.detail-page-app').length) {
+						$(".view-opts").trigger("click");
+					}
 				}
 			});
 		}
@@ -3189,7 +3186,7 @@ app.ClassView = Backbone.View.extend({
     },
 
     renderSeminars: function(seminarModel) {
-        this.$el.prepend(new app.SingleSeminarView({
+        this.$el.append(new app.SingleSeminarView({
             model: seminarModel
         }).render().el).hide().slideDown(500).fadeIn(600);
     }
@@ -3349,15 +3346,17 @@ app.ScheduleView = Backbone.View.extend({
                 modelData.set('theId', theId);
 
                 var modelQty = modelData.get('quant');
-
+                console.log(modelData)
             // if it hasn't been added to the cart already, add it
             if(!inCart) {
                 modelData.set('inCart', true);
-                
+   
                 // get the class title
                 var relatedClassModel = app.globalCollection.findWhere({
                     courseId: courseIdNum 
                 });
+
+                console.log(relatedClassModel);
 
                 // get the cityState
                 var relatedLocationModel = app.locationCollection.findWhere({
@@ -3507,6 +3506,12 @@ app.SingleSeminarView = Backbone.View.extend({
             var courseIdToGet = this.model.get('courseId');
             var searchIdToGet = this.model.get('searchId');
             var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+
+            console.log(JSON.stringify({
+            	"courseId": courseIdToGet,
+            	"searchId": searchIdToGet
+            }).toString());
+
             app.locationCollection.fetch({
                 remove: false,
                 data: JSON.stringify({
@@ -3516,7 +3521,9 @@ app.SingleSeminarView = Backbone.View.extend({
                 type: "POST",
                 contentType: "application/json",
 
-                success: function(data) {
+                success: function (data) {
+                	console.log(JSON.stringify(data));
+
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
@@ -3902,6 +3909,7 @@ function MainSearchSelect() {
 
 MainSearchSelect.prototype.getSearchParams = function () {
 	var topicsArray = [];
+	var classId = 0
 
 	// get the city or zip
 	var searchLocationVal = $('#main-search').select2('val');
@@ -3941,7 +3949,11 @@ MainSearchSelect.prototype.getSearchParams = function () {
 
 		this.updateHashBang(location, topicsArray, minMonth + '/' + minYear, maxMonth + '/' + maxYear);
 
-		app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
+		if ($('.secondary-search[data-classid!=""][data-classid]')) {
+			classId = $('.secondary-search').data('classid');
+		}
+
+		app.resStringified = this.generateJsonSearchString(location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear);
 		return app.resStringified;
 	}
 };
@@ -3949,38 +3961,55 @@ MainSearchSelect.prototype.getSearchParams = function () {
 
 // get the search parameters based on the hash
 MainSearchSelect.prototype.getHashSearchParams = function () {
-	var topicsArray = [];
-	var location = '';
-
 	var hashArray = this.processHashBang();
 
-	topicsArray = hashArray['topics'].split(',');
-	location = hashArray['loc'];
+	// if you're on the page without search params in the url
+	if(!hashArray.hasOwnProperty('loc') && !hashArray.hasOwnProperty('topics')) {
+		$('.detail-page-app').hide();
+		return false;
+	} else {
+		$('.detail-page-app').show();
+		var topicsArray = [];
+		var classId = 0
+		var location = '';
 
-	var minDate = hashArray['dMin'].split("/");
-	var minMonth = minDate[0];
-	var minYear = minDate[1];
+		topicsArray = hashArray['topics'].split(',');
+		location = hashArray['loc'];
 
-	var maxDate = hashArray['dMax'].split("/");
-	var maxMonth = maxDate[0];
-	var maxYear = maxDate[1];
+		var minDate = hashArray['dMin'].split("/");
+		var minMonth = minDate[0];
+		var minYear = minDate[1];
 
-	// update search parameters
-	if (topicsArray.length == 4) {
-		$('.overlay-contain[data-topic="all"]').addClass('chosen');
-	}
-	else {
-		for (var i in topicsArray) {
-			$('.overlay-contain[data-topic="' + topicsArray[i] + '"]').addClass('chosen');
+		var maxDate = hashArray['dMax'].split("/");
+		var maxMonth = maxDate[0];
+		var maxYear = maxDate[1];
+
+		//var minDateObj = new Date(parseInt(minYear), parseInt(minMonth) - 1);
+		//var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth) - 1);
+
+		//$("#date-range-slider").dateRangeSlider("values", minDateObj, maxDateObj);
+
+		// update search parameters
+		if (topicsArray != undefined && topicsArray.length == 4) {
+			$('.overlay-contain[data-topic="all"]').addClass('chosen');
 		}
-	}
+		else {
+			for (var i in topicsArray) {
+				$('.overlay-contain[data-topic="' + topicsArray[i] + '"]').addClass('chosen');
+			}
+		}
+		//a[href!=""][href]
+		if ($('.secondary-search[data-classid!=""][data-classid]')) {
+			classId = parseInt($('.secondary-search').data('classid'));
+		}
 
-	app.resStringified = this.generateJsonSearchString(location, topicsArray, minMonth, minYear, maxMonth, maxYear);
-	return app.resStringified;
+		app.resStringified = this.generateJsonSearchString(location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear);
+		return app.resStringified;
+	}
 };
 
 // generate a JSON search string for performSearch (in cartCollection.js)
-MainSearchSelect.prototype.generateJsonSearchString = function (location, topicsArray, minMonth, minYear, maxMonth, maxYear) {
+MainSearchSelect.prototype.generateJsonSearchString = function (location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear) {
 	var returnJson;
 
 	var minMonthYear = {
@@ -3998,11 +4027,24 @@ MainSearchSelect.prototype.generateJsonSearchString = function (location, topics
 		max: maxMonthYear
 	};
 
-	var searchResults = {
-		location: location,
-		classTopics: topicsArray,
-		dates: selectedDates
-	};
+	var searchResults
+
+	if (classId > 0) {
+		searchResults = {
+			location: location,
+			classId: classId,
+			dates: selectedDates
+		};
+	}
+	else {
+		searchResults = {
+			location: location,
+			classTopics: topicsArray,
+			dates: selectedDates
+		};
+	}
+
+	
 
 	returnJson = JSON.stringify(searchResults);
 	return returnJson;
