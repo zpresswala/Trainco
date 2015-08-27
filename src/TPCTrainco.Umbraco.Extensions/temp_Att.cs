@@ -14,6 +14,7 @@ namespace TPCTrainco.Umbraco.Extensions
     
     public partial class temp_Att
     {
+        public long ID { get; set; }
         public Nullable<int> reg_SEQ { get; set; }
         public Nullable<short> att_No { get; set; }
         public string att_FName { get; set; }

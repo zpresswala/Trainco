@@ -41,9 +41,7 @@ namespace TPCTrainco.Umbraco.Extensions
         public virtual DbSet<RegBillCCType> RegBillCCTypes { get; set; }
         public virtual DbSet<RegBillPaymentMethodType> RegBillPaymentMethodTypes { get; set; }
         public virtual DbSet<RegContactMethodType> RegContactMethodTypes { get; set; }
-        public virtual DbSet<RegistrationAttendee> RegistrationAttendees { get; set; }
         public virtual DbSet<RegistrationAttendeeSchedule> RegistrationAttendeeSchedules { get; set; }
-        public virtual DbSet<REGISTRATION> REGISTRATIONS { get; set; }
         public virtual DbSet<SCHEDULE> SCHEDULES { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<ZipLookup> ZipLookups { get; set; }
@@ -54,9 +52,12 @@ namespace TPCTrainco.Umbraco.Extensions
         public virtual DbSet<Seminar_Catalog> Seminar_Catalog { get; set; }
         public virtual DbSet<ScheduleCourseInstructor> ScheduleCourseInstructors { get; set; }
         public virtual DbSet<City> Cities { get; set; }
-        public virtual DbSet<temp_Att> temp_Att { get; set; }
-        public virtual DbSet<temp_Reg> temp_Reg { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<temp_ViewStates> temp_ViewStates { get; set; }
+        public virtual DbSet<temp_Att> temp_Att { get; set; }
+        public virtual DbSet<temp_Cust> temp_Cust { get; set; }
+        public virtual DbSet<temp_Errors> temp_Errors { get; set; }
+        public virtual DbSet<temp_Reg> temp_Reg { get; set; }
     
         public virtual ObjectResult<Nullable<int>> add_Registration(Nullable<int> cartID)
         {

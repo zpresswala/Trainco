@@ -19,9 +19,7 @@
         <EntityTypeShape EntityType="TraincoModel.RegBillCCType" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TraincoModel.RegBillPaymentMethodType" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TraincoModel.RegContactMethodType" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TraincoModel.RegistrationAttendee" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TraincoModel.RegistrationAttendeeSchedule" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TraincoModel.REGISTRATION" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TraincoModel.SCHEDULE" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TraincoModel.State" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TraincoModel.ZipLookup" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
@@ -35,9 +33,12 @@
         <AssociationConnector Association="TraincoModel.FK_ZipLookup_ZipLookup1" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TraincoModel.ScheduleCourseInstructor" Width="1.5" PointX="16.375" PointY="0.75" />
         <EntityTypeShape EntityType="TraincoModel.City" Width="1.5" PointX="5.375" PointY="16.75" />
-        <EntityTypeShape EntityType="TraincoModel.temp_Att" Width="1.5" PointX="15.375" PointY="16.75" />
-        <EntityTypeShape EntityType="TraincoModel.temp_Reg" Width="1.5" PointX="17.375" PointY="4.75" />
         <EntityTypeShape EntityType="TraincoModel.ShoppingCart" Width="1.5" PointX="7.375" PointY="17.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_ViewStates" Width="1.5" PointX="17.375" PointY="9.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Att" Width="1.5" PointX="11.375" PointY="15.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Cust" Width="1.5" PointX="13.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Errors" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Reg" Width="1.5" PointX="17.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
