@@ -18,7 +18,9 @@
     else
     {
         //Get current GeoCoordinate
-        TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
+        string ipAddress = System.Web.HttpContext.Current.Request.UserHostAddress;
+
+        TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(ipAddress);
 
         if (coordDetails != null)
         {

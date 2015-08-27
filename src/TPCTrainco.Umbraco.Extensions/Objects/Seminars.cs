@@ -184,19 +184,13 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (request.Dates != null)
             {
-                // filter date min
-                if (request.Dates.Min != null)
+                // filter date min and max
+                if (request.Dates.Min != null && request.Dates.Max != null)
                 {
                     DateTime minDate = DateTime.Parse(request.Dates.Min.MinMonthVal + "/1/" + request.Dates.Min.MinYearVal);
-
-                    seminarListSearch = seminarListSearch.Where(p => p.SchDate >= minDate).ToList();
-                }
-                // filter date max
-                if (request.Dates.Max != null)
-                {
                     DateTime maxDate = DateTime.Parse(request.Dates.Max.MaxMonthVal + "/1/" + request.Dates.Max.MaxYearVal).AddMonths(1).AddDays(-1);
 
-                    seminarListSearch = seminarListSearch.Where(p => p.SchDate <= maxDate).ToList();
+                    seminarListSearch = seminarListSearch.Where(p => p.SchDate >= minDate && p.SchDate <= maxDate).ToList();
                 }
             }
 
@@ -268,6 +262,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                             if (seminarsByLocation != null && seminarsByLocation.Count > 0)
                             {
+                                seminar.Locations = new List<ViewModels.Location>();
+
                                 foreach (Seminar_Catalog seminarCatalog in seminarsByLocation)
                                 {
                                     ViewModels.Location location = new ViewModels.Location();
@@ -315,7 +311,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                         }
                                     }
 
-                                    seminar.Locations = new List<ViewModels.Location>();
                                     seminar.Locations.Add(location);
                                 }
                             }

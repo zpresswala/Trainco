@@ -44,6 +44,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     coordinateDetails.City = geoLocation.City;
                     coordinateDetails.State = geoLocation.RegionName;
                     coordinateDetails.StateCode = geoLocation.RegionCode;
+
+                    if (false == string.IsNullOrWhiteSpace(coordinateDetails.City) || false == string.IsNullOrWhiteSpace(coordinateDetails.State))
+                    {
+                        coordinateDetails = null;
+                    }
                 }
             }
 
