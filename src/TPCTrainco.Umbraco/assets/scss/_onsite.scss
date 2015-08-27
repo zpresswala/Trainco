@@ -73,6 +73,13 @@
 				bottom: auto;
 			}
 		}
+
+		.item {
+			height: auto;
+			@include tablet-portrait-and-up {
+				height: 300px;
+			}
+		}
 	}
 
 	.carousel-inner {

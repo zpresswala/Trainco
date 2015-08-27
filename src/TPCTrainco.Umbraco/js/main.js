@@ -2880,6 +2880,40 @@ app.scheduleCollection = new app.ScheduleCollection;
 
 window.app = window.app || {};
 
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+	initialize: function() {
+		console.log('sched model init')
+	}
+});
+'use strict';
+
+window.app = window.app || {};
+
 // "view the cart" view
 app.CartItemView = Backbone.View.extend({
     template: _.template($('#cartItemTemplate').html()),
@@ -3515,40 +3549,6 @@ app.SingleSeminarView = Backbone.View.extend({
 app.singleSeminarView = new app.SingleSeminarView();
 'use strict';
 
-window.app = window.app || {};
-
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-	initialize: function() {
-		console.log('sched model init')
-	}
-});
-'use strict';
-
 function Catalog() {
 
 	// the electrical sort item menu
@@ -4159,11 +4159,6 @@ Register.prototype.billingOptions = function() {
 		$(this).find('span').toggleClass('showing');
 	});
 };
-'use strict';
-
-function SeminarSearch() {
-	
-}
 'use strict';
 
 window.app = window.app || {};

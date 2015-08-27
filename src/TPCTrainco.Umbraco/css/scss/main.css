@@ -3536,7 +3536,7 @@ h2, h3, h4 {
   margin: 0 auto; }
 
 .seminar-detail .btn-white {
-  padding: 10px 20px; }
+  padding: 11px 10px; }
 
 .seminar-detail .jumbotron {
   margin: 100px auto 30px; }
@@ -3550,7 +3550,7 @@ h2, h3, h4 {
 .button-wrapper a {
   display: block;
   text-align: center;
-  width: 195px;
+  max-width: 195px;
   margin: 0 auto; }
 
 .button-wrapper .btn-first {
@@ -4092,6 +4092,11 @@ h2, h3, h4 {
       @media (min-width: 992px) {
         .caro-form-container .carousel .carousel-caption {
           bottom: auto; } }
+    .caro-form-container .carousel .item {
+      height: auto; }
+      @media (min-width: 768px) {
+        .caro-form-container .carousel .item {
+          height: 300px; } }
   .caro-form-container .carousel-inner {
     height: 100%; }
   @media (min-width: 992px) {
