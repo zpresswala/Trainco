@@ -119,7 +119,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         if (locationsList != null && locationsList.Count > 0)
                         {
                             TPCTrainco.Umbraco.Extensions.ViewModels.Location selectedLocation = locationsList
-                                .Where(p => p.CourseId == request.CourseId && p.CityId == request.CityId).FirstOrDefault();
+                                .Where(p => p.CourseId == request.CourseId && p.SeminarId == request.SeminarId).FirstOrDefault();
 
                             if (selectedLocation != null)
                             {
@@ -268,6 +268,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 {
                                     ViewModels.Location location = new ViewModels.Location();
 
+                                    location.SeminarId = seminarCatalog.SchID;
                                     location.CourseId = seminar.CourseId;
                                     location.CityState = seminarCatalog.City + ", " + seminarCatalog.State;
                                     location.SearchId = searchId;
@@ -511,6 +512,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             Loc result = new Loc();
 
+            result.SeminarId = location.SeminarId;
             result.CityId = location.CityId;
             result.CourseId = location.CourseId;
             result.CityState = location.CityState;
