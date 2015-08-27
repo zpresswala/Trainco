@@ -3091,6 +3091,9 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Models\RegisterAttendeeViewModel.cs" />
+    <Compile Include="Models\RegisterFormViewModel.cs" />
+    <Compile Include="Models\RegisterSeminarListViewModel.cs" />
     <Compile Include="MyGlobal.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -3317,6 +3320,8 @@
     <Content Include="Views\Partials\Forms\Form.cshtml" />
     <Content Include="Views\Partials\Forms\Script.cshtml" />
     <Content Include="Views\Partials\SeminarSearch\JavascriptTemplates.cshtml" />
+    <Content Include="Views\Partials\RegisterForm1.cshtml" />
+    <Content Include="Views\Partials\Forms\tempForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

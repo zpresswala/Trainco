@@ -1,83 +1,32 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+﻿@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
+
+    List<temp_Reg> cartList = null;
+    string cartGuid = null;
+
+    if (Request.QueryString["cart"] != null && Request.QueryString.Get("cart").Length > 0)
+    {
+        cartGuid = Request.QueryString.Get("cart").ToLower();
+
+        Carts cartsObj = new Carts();
+
+        cartList = cartsObj.GetCart(cartGuid);
+
+        if (cartList == null)
+        {
+            Response.Redirect("/search-seminars/");
+        }
+
+        int totalItems = cartList.Count;
+        decimal cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
+
+    }
+
+
 }
-
-<div class="cart">
-    <div class="cart-top">
-        <div class="container">
-            <div class="row">
-                <div class="cart-top col-xs-12">
-                    <h3><img src="/assets/images/icon-cart.png" alt="Cart" />Cart</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <ul class="cart-items">
-        <li class="cart-item">
-            <ul class="container">
-                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
-                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-            </ul>
-        </li>
-        <li class="cart-item">
-            <ul class="container">
-                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
-                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-            </ul>
-        </li>
-        <li class="cart-item">
-            <ul class="container">
-                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
-                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-            </ul>
-        </li>
-        <li class="cart-item">
-            <ul class="container">
-                <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4>Class Title Boiler Operation and Maintenance Safety Seminar</h4></li>
-                <li class="location col-xs-12 col-sm-4 col-md-2">Kansas City state, KS</li>
-                <li class="date col-xs-12 col-sm-4 col-md-2">September 22-88</li>
-                <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">1</li>
-                <li class="sub-total col-xs-12 col-sm-4 col-md-1">$<span class="sub-total"></span>99999</li>
-            </ul>
-        </li>
-    </ul>
-    <div class="cart-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 wrap">
-                    <ul class="cart-total col-xs-6 col-md-4">
-                        <li class="items">6 items</li>
-                        <li>Total:<span class="total">$4999</span></li>
-                    </ul>
-                    <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
-                        <a href="#" class="btn-reg btn-blue-solid" id="edit">Edit</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!--
-
-    ================
-
-    end read-only cart
-
-    ==================
-
--->
 
 <div class="container-fluid register-top">
     <div class="cart-visible">
@@ -86,7 +35,7 @@
         </a>
         <div class="container">
             <ul class="cart-total col-xs-12 col-md-4">
-                <li class="items">6 items</li>
+                <li class="items">6 a</li>
                 <li>Total:<span class="total">$4999</span></li>
             </ul>
         </div>
@@ -114,144 +63,76 @@
 
 <div class="container-fluid form-container gradient-bg">
 
-    <!-- start wrapper for one workshop -->
-    <div class="col-md-12 form-item-wrapper">
-        <div class="container">
-            <!-- top section for one workshop -->
-            <ul class="top-info">
-                <li><h2>Attendees for HVAC Workshop</h2></li>
-                <li><p>Location here</p></li>
-                <li class="date"><p>Date 12-12</p></li>
-            </ul>
-            <!-- end -->
+    @foreach (temp_Reg seminar in cartList)
+    {
+        string courseFormatStr = null;
 
-            <div class="attendee-info-form-wrap">
+        using (var db = new ATI_DevelopmentEntities1())
+        {
+            ScheduleCourseInstructor scheduleCourseInstructor = db.ScheduleCourseInstructors.Where(p => p.ScheduleID == seminar.sem_SID).FirstOrDefault();
 
-                <!-- start form fields for one attendee -->
-                <p class="class-option">Full Seminar: Attendee #1</p>
-                <form>
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="First Name">
-                    </div>
+            if (scheduleCourseInstructor != null)
+            {
+                COURS course = db.COURSES.Where(p => p.CourseID == scheduleCourseInstructor.CourseID).FirstOrDefault();
 
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Last Name">
-                    </div>
+                if (course != null)
+                {
+                    CourseFormat courseFormat = db.CourseFormats.Where(p => p.CourseFormatID == course.CourseFormatID).FirstOrDefault();
 
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Title">
-                    </div>
+                    if (courseFormat != null)
+                    {
+                        courseFormatStr = courseFormat.CourseFormatName;
+                    }
+                }
+            }
+        }
 
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="email" class="form-control" placeholder="Email">
-                    </div>
-                </form>
 
+        string[] locationDatesArray = seminar.sem_Place.Split(new string[] { " - " }, StringSplitOptions.None);
+
+        string location = locationDatesArray[0];
+        string seminarDates = locationDatesArray[1];
+
+        <div class="col-md-12 form-item-wrapper">
+            <div class="container">
+                <!-- top section for one workshop -->
+                <ul class="top-info">
+                    <li><h2>Attendees for @(seminar.sem_Title + " - " + courseFormatStr)</h2><p></p></li>
+                    <li><p>@(location)</p></li>
+                    <li class="date"><p>@(seminarDates)</p></li>
+                </ul>
                 <!-- end -->
-                <!-- start form fields for one attendee -->
-                <p class="class-option">Full Seminar: Attendee #2</p>
-                <form>
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="First Name">
-                    </div>
 
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Last Name">
-                    </div>
+                <div class="attendee-info-form-wrap">
+                    @for (int attendeeInc = 1; attendeeInc <= seminar.sem_Qty; attendeeInc++)
+                    {
+                        <p class="class-option">Attendee #@(attendeeInc)</p>
+                        <form>
+                            <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                                <input type="text" class="form-control" placeholder="First Name">
+                            </div>
 
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Title">
-                    </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                                <input type="text" class="form-control" placeholder="Last Name">
+                            </div>
 
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="email" class="form-control" placeholder="Email">
-                    </div>
-                </form>
+                            <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                                <input type="text" class="form-control" placeholder="Title">
+                            </div>
 
-                <!-- end -->
-            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                        </form>
+                    }
+                </div>
 
-            <!-- same workshop, separate class option -->
-            <div class="attendee-info-form-wrap">
-                <p class="class-option">Day 1 Air Conditioning</p>
-                <form>
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="First Name">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Last Name">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Title">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="email" class="form-control" placeholder="Email">
-                    </div>
-                </form>
-            </div>
-            <!-- end -->
-
-        </div>
-
-    </div>
-    <!-- end wrapper for one workshop -->
-
-    <div class="col-md-12 form-item-wrapper">
-        <div class="container">
-            <ul class="top-info">
-                <li><h2>Title from cart goes here</h2></li>
-                <li><p>Location here</p></li>
-                <li class="date"><p>Date 12-12</p></li>
-            </ul>
-
-            <div class="attendee-info-form-wrap">
-                <p class="class-option">Full Seminar</p>
-                <form>
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="First Name">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Last Name">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Title">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="email" class="form-control" placeholder="Email">
-                    </div>
-                </form>
-            </div>
-
-            <div class="attendee-info-form-wrap">
-                <p class="class-option">Day 1 Air Conditioning</p>
-                <form>
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="First Name">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Last Name">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="text" class="form-control" placeholder="Title">
-                    </div>
-
-                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                        <input type="email" class="form-control" placeholder="Email">
-                    </div>
-                </form>
             </div>
 
         </div>
-    </div>
+    }
 
     <a class="btn-reg btn-blue-solid next-btn" href="@CurrentPage.RegisterInfo.First().Url">Next</a>
-
 </div>
+
+

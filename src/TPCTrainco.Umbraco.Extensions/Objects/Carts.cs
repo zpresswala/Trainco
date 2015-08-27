@@ -13,7 +13,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 {
     public class Carts
     {
-        private string CacheCartKey = "CartId:";
+        private string CacheCartKey = "CartGuid:";
 
         public CartResponse SaveCartItems(List<CartItem> cartItemList)
         {
@@ -163,6 +163,48 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             return response;
         }
+
+
+
+        public List<temp_Reg> GetCart(string cartGuid)
+        {
+            List<temp_Reg> cart = null;
+
+            if (false == string.IsNullOrEmpty(cartGuid))
+            {
+                int regId = GetCartCache(cartGuid);
+
+                if (regId > 0)
+                {
+                    using (var db = new ATI_DevelopmentEntities1())
+                    {
+                        cart = db.temp_Reg.Where(p => p.reg_ID == regId).ToList();
+                    }
+                }
+            }
+
+            return cart;
+        }
+
+
+
+        private int GetCartCache(string cartGuid)
+        {
+            string regIdStr = null;
+            int regId = 0;
+
+            ObjectCache cache = MemoryCache.Default;
+
+            regIdStr = cache.Get(CacheCartKey + cartGuid).ToString();
+
+            if (false == string.IsNullOrEmpty(regIdStr))
+            {
+                regId = Convert.ToInt32(regIdStr);
+            }
+
+            return regId;
+        }
+
 
 
         private void RefreshCartCache(string cartGuid, int regId)
