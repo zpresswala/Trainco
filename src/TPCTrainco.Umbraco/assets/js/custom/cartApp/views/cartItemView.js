@@ -108,20 +108,48 @@ app.CartItemView = Backbone.View.extend({
     removeItemFromCart: function(e) {
         e.preventDefault();
         var _this = this;
+        var target = $(e.currentTarget);
+        var id = target.data('theid');
 
-        // remove the item from the DOM
-        this.$el.slideUp(150, function() {
-            _this.remove();
+        var removeCartItem = function() {
 
-            // remove the item from the collection
-            _this.model.destroy();
+            // remove the item from the DOM
+            _this.$el.slideUp(150, function() {
+                _this.remove();
 
-            // decrement cart total number
-            _this.updateCartTotalQuantity();
+                // remove the item from the collection
+                _this.model.destroy();
 
-            // decrement cart total price
-            _this.updateCartTotalPrice();
-        });
+                // decrement cart total number
+                _this.updateCartTotalQuantity();
+
+                // decrement cart total price
+                _this.updateCartTotalPrice();
+
+                setTimeout(function() {
+                    if(!app.cartCollection.length) {
+                        $('.cart-empty-msg').fadeIn();
+                    }
+                }, 10);
+            });
+
+        }
+
+        // remove item from cart btn click - 
+        // if item is from localstore, remove from cartCollection, ignore schedule collection. we have a "fromLS prop".
+        // if item has been added from the schedule colleciton, remove (already working), then update the original model
+
+        var cartItemFromLS = app.cartCollection.findWhere({ theId: id });
+        var isItemFromLS = cartItemFromLS.get('fromLS');
+
+        if(isItemFromLS) {
+            removeCartItem();
+            return false;
+        } else {
+            var originalScheduleModel = app.scheduleCollection.findWhere({id: id});
+            originalScheduleModel.set('inCart', false);
+            removeCartItem();
+        }
     },
 
     // updates the cart total on cart item quantity update. purely in DOM. only called on remove.

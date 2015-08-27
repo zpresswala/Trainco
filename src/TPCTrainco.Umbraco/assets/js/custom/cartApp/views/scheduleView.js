@@ -21,13 +21,13 @@ app.ScheduleView = Backbone.View.extend({
     render:function () {
         var _this = this;
         this.collection.each(function(singleClass) {
-            var hasBeenRendered = singleClass.get('hasBeenRendered');
-            if(hasBeenRendered) {
-                return false;
-            } else {
+            // var hasBeenRendered = singleClass.get('hasBeenRendered');
+            // if(hasBeenRendered) {
+            //     return false;
+            // } else {
                 _this.$el.append(_this.template(singleClass.toJSON()));
-                singleClass.set('hasBeenRendered', true);
-            }
+                // singleClass.set('hasBeenRendered', true);
+            // }
         }, this);
     },
 
@@ -80,9 +80,18 @@ app.ScheduleView = Backbone.View.extend({
                 thequantity = parseInt(this.$classQty.val()),
                 inCart = modelData.get('inCart'),
                 theId = modelData.get('id');
-
+                console.log(theId, 'first id');
                 modelData.set('quant', thequantity);
                 modelData.set('theId', theId);
+
+                console.log(id);
+                console.log(modelData);
+                console.log(courseIdNum);
+                console.log(price);
+                console.log(classDate);
+                console.log(thequantity);
+                console.log(inCart);
+                console.log(theId);
 
                 var modelQty = modelData.get('quant');
 
@@ -153,11 +162,11 @@ app.ScheduleView = Backbone.View.extend({
                 } else {
 
                     // else, just update the quantity
-                    updateTheQuantity();
+                    // updateTheQuantity();
 
                 }
             } else {
-                updateTheQuantity();
+                // updateTheQuantity();
             }
         }
     },
