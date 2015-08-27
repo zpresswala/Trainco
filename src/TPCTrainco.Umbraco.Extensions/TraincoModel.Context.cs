@@ -54,6 +54,9 @@ namespace TPCTrainco.Umbraco.Extensions
         public virtual DbSet<Seminar_Catalog> Seminar_Catalog { get; set; }
         public virtual DbSet<ScheduleCourseInstructor> ScheduleCourseInstructors { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<temp_Att> temp_Att { get; set; }
+        public virtual DbSet<temp_Reg> temp_Reg { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
     
         public virtual ObjectResult<Nullable<int>> add_Registration(Nullable<int> cartID)
         {
@@ -62,6 +65,252 @@ namespace TPCTrainco.Umbraco.Extensions
                 new ObjectParameter("cartID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("add_Registration", cartIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> add_Registration_CTI(Nullable<int> cartID)
+        {
+            var cartIDParameter = cartID.HasValue ?
+                new ObjectParameter("cartID", cartID) :
+                new ObjectParameter("cartID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("add_Registration_CTI", cartIDParameter);
+        }
+    
+        public virtual int update_tempCust(Nullable<int> p1, string p2, string p3, string p4, string p5, string p6, string p7, string p8, string p9, string p10, string p11, string p12, string p13, string p14, string p15, string p16, string p17, string p18, string p19, string p20, string p21, string p22, string p23, string p24, string p25, string p26, string p27, string p28, string p29, string p30, string p31, string p32, string p33, string p34, string p35, string p36, string p37, string p38, string p39, string p40, string p41, string p42, string p43, string p44, string p45, string p46, Nullable<int> p47, Nullable<int> p48, string p49, string p50, string p51, string p52, string p53, string p54, string p55, string p56, string p57, string p58)
+        {
+            var p1Parameter = p1.HasValue ?
+                new ObjectParameter("p1", p1) :
+                new ObjectParameter("p1", typeof(int));
+    
+            var p2Parameter = p2 != null ?
+                new ObjectParameter("p2", p2) :
+                new ObjectParameter("p2", typeof(string));
+    
+            var p3Parameter = p3 != null ?
+                new ObjectParameter("p3", p3) :
+                new ObjectParameter("p3", typeof(string));
+    
+            var p4Parameter = p4 != null ?
+                new ObjectParameter("p4", p4) :
+                new ObjectParameter("p4", typeof(string));
+    
+            var p5Parameter = p5 != null ?
+                new ObjectParameter("p5", p5) :
+                new ObjectParameter("p5", typeof(string));
+    
+            var p6Parameter = p6 != null ?
+                new ObjectParameter("p6", p6) :
+                new ObjectParameter("p6", typeof(string));
+    
+            var p7Parameter = p7 != null ?
+                new ObjectParameter("p7", p7) :
+                new ObjectParameter("p7", typeof(string));
+    
+            var p8Parameter = p8 != null ?
+                new ObjectParameter("p8", p8) :
+                new ObjectParameter("p8", typeof(string));
+    
+            var p9Parameter = p9 != null ?
+                new ObjectParameter("p9", p9) :
+                new ObjectParameter("p9", typeof(string));
+    
+            var p10Parameter = p10 != null ?
+                new ObjectParameter("p10", p10) :
+                new ObjectParameter("p10", typeof(string));
+    
+            var p11Parameter = p11 != null ?
+                new ObjectParameter("p11", p11) :
+                new ObjectParameter("p11", typeof(string));
+    
+            var p12Parameter = p12 != null ?
+                new ObjectParameter("p12", p12) :
+                new ObjectParameter("p12", typeof(string));
+    
+            var p13Parameter = p13 != null ?
+                new ObjectParameter("p13", p13) :
+                new ObjectParameter("p13", typeof(string));
+    
+            var p14Parameter = p14 != null ?
+                new ObjectParameter("p14", p14) :
+                new ObjectParameter("p14", typeof(string));
+    
+            var p15Parameter = p15 != null ?
+                new ObjectParameter("p15", p15) :
+                new ObjectParameter("p15", typeof(string));
+    
+            var p16Parameter = p16 != null ?
+                new ObjectParameter("p16", p16) :
+                new ObjectParameter("p16", typeof(string));
+    
+            var p17Parameter = p17 != null ?
+                new ObjectParameter("p17", p17) :
+                new ObjectParameter("p17", typeof(string));
+    
+            var p18Parameter = p18 != null ?
+                new ObjectParameter("p18", p18) :
+                new ObjectParameter("p18", typeof(string));
+    
+            var p19Parameter = p19 != null ?
+                new ObjectParameter("p19", p19) :
+                new ObjectParameter("p19", typeof(string));
+    
+            var p20Parameter = p20 != null ?
+                new ObjectParameter("p20", p20) :
+                new ObjectParameter("p20", typeof(string));
+    
+            var p21Parameter = p21 != null ?
+                new ObjectParameter("p21", p21) :
+                new ObjectParameter("p21", typeof(string));
+    
+            var p22Parameter = p22 != null ?
+                new ObjectParameter("p22", p22) :
+                new ObjectParameter("p22", typeof(string));
+    
+            var p23Parameter = p23 != null ?
+                new ObjectParameter("p23", p23) :
+                new ObjectParameter("p23", typeof(string));
+    
+            var p24Parameter = p24 != null ?
+                new ObjectParameter("p24", p24) :
+                new ObjectParameter("p24", typeof(string));
+    
+            var p25Parameter = p25 != null ?
+                new ObjectParameter("p25", p25) :
+                new ObjectParameter("p25", typeof(string));
+    
+            var p26Parameter = p26 != null ?
+                new ObjectParameter("p26", p26) :
+                new ObjectParameter("p26", typeof(string));
+    
+            var p27Parameter = p27 != null ?
+                new ObjectParameter("p27", p27) :
+                new ObjectParameter("p27", typeof(string));
+    
+            var p28Parameter = p28 != null ?
+                new ObjectParameter("p28", p28) :
+                new ObjectParameter("p28", typeof(string));
+    
+            var p29Parameter = p29 != null ?
+                new ObjectParameter("p29", p29) :
+                new ObjectParameter("p29", typeof(string));
+    
+            var p30Parameter = p30 != null ?
+                new ObjectParameter("p30", p30) :
+                new ObjectParameter("p30", typeof(string));
+    
+            var p31Parameter = p31 != null ?
+                new ObjectParameter("p31", p31) :
+                new ObjectParameter("p31", typeof(string));
+    
+            var p32Parameter = p32 != null ?
+                new ObjectParameter("p32", p32) :
+                new ObjectParameter("p32", typeof(string));
+    
+            var p33Parameter = p33 != null ?
+                new ObjectParameter("p33", p33) :
+                new ObjectParameter("p33", typeof(string));
+    
+            var p34Parameter = p34 != null ?
+                new ObjectParameter("p34", p34) :
+                new ObjectParameter("p34", typeof(string));
+    
+            var p35Parameter = p35 != null ?
+                new ObjectParameter("p35", p35) :
+                new ObjectParameter("p35", typeof(string));
+    
+            var p36Parameter = p36 != null ?
+                new ObjectParameter("p36", p36) :
+                new ObjectParameter("p36", typeof(string));
+    
+            var p37Parameter = p37 != null ?
+                new ObjectParameter("p37", p37) :
+                new ObjectParameter("p37", typeof(string));
+    
+            var p38Parameter = p38 != null ?
+                new ObjectParameter("p38", p38) :
+                new ObjectParameter("p38", typeof(string));
+    
+            var p39Parameter = p39 != null ?
+                new ObjectParameter("p39", p39) :
+                new ObjectParameter("p39", typeof(string));
+    
+            var p40Parameter = p40 != null ?
+                new ObjectParameter("p40", p40) :
+                new ObjectParameter("p40", typeof(string));
+    
+            var p41Parameter = p41 != null ?
+                new ObjectParameter("p41", p41) :
+                new ObjectParameter("p41", typeof(string));
+    
+            var p42Parameter = p42 != null ?
+                new ObjectParameter("p42", p42) :
+                new ObjectParameter("p42", typeof(string));
+    
+            var p43Parameter = p43 != null ?
+                new ObjectParameter("p43", p43) :
+                new ObjectParameter("p43", typeof(string));
+    
+            var p44Parameter = p44 != null ?
+                new ObjectParameter("p44", p44) :
+                new ObjectParameter("p44", typeof(string));
+    
+            var p45Parameter = p45 != null ?
+                new ObjectParameter("p45", p45) :
+                new ObjectParameter("p45", typeof(string));
+    
+            var p46Parameter = p46 != null ?
+                new ObjectParameter("p46", p46) :
+                new ObjectParameter("p46", typeof(string));
+    
+            var p47Parameter = p47.HasValue ?
+                new ObjectParameter("p47", p47) :
+                new ObjectParameter("p47", typeof(int));
+    
+            var p48Parameter = p48.HasValue ?
+                new ObjectParameter("p48", p48) :
+                new ObjectParameter("p48", typeof(int));
+    
+            var p49Parameter = p49 != null ?
+                new ObjectParameter("p49", p49) :
+                new ObjectParameter("p49", typeof(string));
+    
+            var p50Parameter = p50 != null ?
+                new ObjectParameter("p50", p50) :
+                new ObjectParameter("p50", typeof(string));
+    
+            var p51Parameter = p51 != null ?
+                new ObjectParameter("p51", p51) :
+                new ObjectParameter("p51", typeof(string));
+    
+            var p52Parameter = p52 != null ?
+                new ObjectParameter("p52", p52) :
+                new ObjectParameter("p52", typeof(string));
+    
+            var p53Parameter = p53 != null ?
+                new ObjectParameter("p53", p53) :
+                new ObjectParameter("p53", typeof(string));
+    
+            var p54Parameter = p54 != null ?
+                new ObjectParameter("p54", p54) :
+                new ObjectParameter("p54", typeof(string));
+    
+            var p55Parameter = p55 != null ?
+                new ObjectParameter("p55", p55) :
+                new ObjectParameter("p55", typeof(string));
+    
+            var p56Parameter = p56 != null ?
+                new ObjectParameter("p56", p56) :
+                new ObjectParameter("p56", typeof(string));
+    
+            var p57Parameter = p57 != null ?
+                new ObjectParameter("p57", p57) :
+                new ObjectParameter("p57", typeof(string));
+    
+            var p58Parameter = p58 != null ?
+                new ObjectParameter("p58", p58) :
+                new ObjectParameter("p58", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_tempCust", p1Parameter, p2Parameter, p3Parameter, p4Parameter, p5Parameter, p6Parameter, p7Parameter, p8Parameter, p9Parameter, p10Parameter, p11Parameter, p12Parameter, p13Parameter, p14Parameter, p15Parameter, p16Parameter, p17Parameter, p18Parameter, p19Parameter, p20Parameter, p21Parameter, p22Parameter, p23Parameter, p24Parameter, p25Parameter, p26Parameter, p27Parameter, p28Parameter, p29Parameter, p30Parameter, p31Parameter, p32Parameter, p33Parameter, p34Parameter, p35Parameter, p36Parameter, p37Parameter, p38Parameter, p39Parameter, p40Parameter, p41Parameter, p42Parameter, p43Parameter, p44Parameter, p45Parameter, p46Parameter, p47Parameter, p48Parameter, p49Parameter, p50Parameter, p51Parameter, p52Parameter, p53Parameter, p54Parameter, p55Parameter, p56Parameter, p57Parameter, p58Parameter);
         }
     }
 }

@@ -35,6 +35,9 @@
         <AssociationConnector Association="TraincoModel.FK_ZipLookup_ZipLookup1" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TraincoModel.ScheduleCourseInstructor" Width="1.5" PointX="16.375" PointY="0.75" />
         <EntityTypeShape EntityType="TraincoModel.City" Width="1.5" PointX="5.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Att" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Reg" Width="1.5" PointX="17.375" PointY="4.75" />
+        <EntityTypeShape EntityType="TraincoModel.ShoppingCart" Width="1.5" PointX="7.375" PointY="17.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
