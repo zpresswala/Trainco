@@ -459,6 +459,135 @@ warning 6002: The table/view 'ATI_Development.dbo.INSTRUCTORS' does not have a p
           <Property Name="RepRegion" Type="smallint" />
           <Property Name="Sort" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ATI_Development.dbo.temp_Att' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="temp_Att">
+          <Key>
+            <PropertyRef Name="RCDSEQ" />
+          </Key>
+          <Property Name="reg_SEQ" Type="int" />
+          <Property Name="att_No" Type="smallint" />
+          <Property Name="att_FName" Type="varchar" MaxLength="255" />
+          <Property Name="att_LName" Type="varchar" MaxLength="255" />
+          <Property Name="att_Title" Type="varchar" MaxLength="255" />
+          <Property Name="att_Email" Type="varchar" MaxLength="255" />
+          <Property Name="reg_ID" Type="int" />
+          <Property Name="att_MName" Type="varchar" MaxLength="50" />
+          <Property Name="att_Suffix" Type="varchar" MaxLength="10" />
+          <Property Name="rcdFinal" Type="int" />
+          <Property Name="RCDSEQ" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Att_Discount" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ATI_Development.dbo.temp_Cust' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="temp_Cust">
+          <Property Name="reg_ID" Type="int" />
+          <Property Name="reg_Cost" Type="int" />
+          <Property Name="promoCode" Type="varchar" MaxLength="255" />
+          <Property Name="promoType" Type="varchar" MaxLength="255" />
+          <Property Name="promoDesc" Type="varchar" MaxLength="255" />
+          <Property Name="CoName" Type="varchar" MaxLength="255" />
+          <Property Name="authFName" Type="varchar" MaxLength="255" />
+          <Property Name="authLName" Type="varchar" MaxLength="255" />
+          <Property Name="authTitle" Type="varchar" MaxLength="255" />
+          <Property Name="authMailCode" Type="varchar" MaxLength="255" />
+          <Property Name="authAddr1" Type="varchar" MaxLength="255" />
+          <Property Name="authAddr2" Type="varchar" MaxLength="255" />
+          <Property Name="authCity" Type="varchar" MaxLength="255" />
+          <Property Name="authState" Type="varchar" MaxLength="255" />
+          <Property Name="authZip" Type="varchar" MaxLength="255" />
+          <Property Name="authCountry" Type="varchar" MaxLength="255" />
+          <Property Name="authPhone1" Type="varchar" MaxLength="50" />
+          <Property Name="authPhone2" Type="varchar" MaxLength="50" />
+          <Property Name="authPhone3" Type="varchar" MaxLength="50" />
+          <Property Name="authPhoneExt" Type="varchar" MaxLength="50" />
+          <Property Name="authFax1" Type="varchar" MaxLength="50" />
+          <Property Name="authFax2" Type="varchar" MaxLength="50" />
+          <Property Name="authFax3" Type="varchar" MaxLength="50" />
+          <Property Name="authEmail" Type="varchar" MaxLength="255" />
+          <Property Name="billFName" Type="varchar" MaxLength="255" />
+          <Property Name="billLName" Type="varchar" MaxLength="255" />
+          <Property Name="billTitle" Type="varchar" MaxLength="255" />
+          <Property Name="billMailCode" Type="varchar" MaxLength="255" />
+          <Property Name="billAddr1" Type="varchar" MaxLength="255" />
+          <Property Name="billAddr2" Type="varchar" MaxLength="255" />
+          <Property Name="billCity" Type="varchar" MaxLength="255" />
+          <Property Name="billState" Type="varchar" MaxLength="255" />
+          <Property Name="billZip" Type="varchar" MaxLength="255" />
+          <Property Name="billCountry" Type="varchar" MaxLength="255" />
+          <Property Name="billPhone1" Type="varchar" MaxLength="50" />
+          <Property Name="billPhone2" Type="varchar" MaxLength="50" />
+          <Property Name="billPhone3" Type="varchar" MaxLength="50" />
+          <Property Name="billPhoneExt" Type="varchar" MaxLength="50" />
+          <Property Name="billFax1" Type="varchar" MaxLength="50" />
+          <Property Name="billFax2" Type="varchar" MaxLength="50" />
+          <Property Name="billFax3" Type="varchar" MaxLength="50" />
+          <Property Name="billEmail" Type="varchar" MaxLength="255" />
+          <Property Name="ConfTo" Type="varchar" MaxLength="50" />
+          <Property Name="payMethod" Type="varchar" MaxLength="50" />
+          <Property Name="ccType" Type="varchar" MaxLength="50" />
+          <Property Name="ccName" Type="varchar" MaxLength="255" />
+          <Property Name="ccNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ccMonth" Type="int" />
+          <Property Name="ccYear" Type="int" />
+          <Property Name="ccCVC" Type="varchar" MaxLength="5" />
+          <Property Name="chkNo" Type="varchar" MaxLength="255" />
+          <Property Name="poNo" Type="varchar" MaxLength="255" />
+          <Property Name="rcdFinal" Type="int" />
+          <Property Name="RefName" Type="varchar" MaxLength="255" />
+          <Property Name="RefKey" Type="int" />
+          <Property Name="RefCompany" Type="varchar" MaxLength="255" />
+          <Property Name="RefFName" Type="varchar" MaxLength="255" />
+          <Property Name="RefLName" Type="varchar" MaxLength="255" />
+          <Property Name="pDrop1" Type="varchar" MaxLength="255" />
+          <Property Name="pDrop2" Type="varchar" MaxLength="255" />
+          <Property Name="pEntry1" Type="varchar" MaxLength="255" />
+          <Property Name="pEntry2" Type="varchar" MaxLength="255" />
+          <Property Name="regTakenBy" Type="varchar" MaxLength="255" />
+          <Property Name="regMethod" Type="varchar" MaxLength="255" />
+          <Property Name="CEURelated" Type="varchar" MaxLength="50" />
+          <Property Name="CEUEntity" Type="varchar" MaxLength="255" />
+          <Property Name="PastCustomer" Type="varchar" MaxLength="255" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ATI_Development.dbo.temp_Errors' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="temp_Errors">
+          <Property Name="errDate" Type="datetime" />
+          <Property Name="realRegID" Type="int" />
+          <Property Name="tempRegSeq" Type="int" />
+          <Property Name="tempAttNo" Type="smallint" />
+          <Property Name="tempRegID" Type="int" />
+          <Property Name="attFName" Type="varchar" MaxLength="255" />
+          <Property Name="attMName" Type="varchar" MaxLength="50" />
+          <Property Name="attLName" Type="varchar" MaxLength="255" />
+          <Property Name="attSuffix" Type="varchar" MaxLength="10" />
+          <Property Name="attTitle" Type="varchar" MaxLength="255" />
+          <Property Name="attEmail" Type="varchar" MaxLength="255" />
+          <Property Name="attSemID" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ATI_Development.dbo.temp_Reg' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="temp_Reg">
+          <Key>
+            <PropertyRef Name="reg_SEQ" />
+            <PropertyRef Name="reg_ID" />
+          </Key>
+          <Property Name="reg_SEQ" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reg_ID" Type="int" Nullable="false" />
+          <Property Name="reg_Date" Type="datetime" />
+          <Property Name="sem_No" Type="smallint" />
+          <Property Name="sem_SID" Type="int" />
+          <Property Name="sem_Title" Type="varchar" MaxLength="255" />
+          <Property Name="sem_Place" Type="varchar" MaxLength="255" />
+          <Property Name="sem_FeeName" Type="varchar" MaxLength="50" />
+          <Property Name="sem_FeeAmt" Type="money" />
+          <Property Name="sem_Qty" Type="smallint" />
+          <Property Name="sem_Total" Type="money" StoreGeneratedPattern="Computed" />
+          <Property Name="sem_Discount" Type="money" />
+          <Property Name="rcdFinal" Type="int" />
+          <Property Name="discountType" Type="varchar" MaxLength="50" />
+          <Property Name="discountDesc" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="ZipLookup">
           <Key>
             <PropertyRef Name="Seq" />
@@ -538,6 +667,41 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
           <Property Name="WebPageIH" Type="varchar" MaxLength="80" />
           <Property Name="Coordinates" Type="geography" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShoppingCarts">
+          <Key>
+            <PropertyRef Name="RCDSEQ" />
+          </Key>
+          <Property Name="Cart_ID" Type="int" />
+          <Property Name="att_No" Type="smallint" />
+          <Property Name="Cart_Date" Type="datetime" />
+          <Property Name="TR_No" Type="int" />
+          <Property Name="CoName" Type="varchar" MaxLength="255" />
+          <Property Name="att_FName" Type="varchar" MaxLength="255" />
+          <Property Name="att_LName" Type="varchar" MaxLength="255" />
+          <Property Name="att_Title" Type="varchar" MaxLength="255" />
+          <Property Name="att_Email" Type="varchar" MaxLength="255" />
+          <Property Name="Sch_ID" Type="int" />
+          <Property Name="Seminar" Type="varchar" MaxLength="255" />
+          <Property Name="sem_Place" Type="varchar" MaxLength="255" />
+          <Property Name="promoCode" Type="varchar" MaxLength="255" />
+          <Property Name="authFName" Type="varchar" MaxLength="255" />
+          <Property Name="authLName" Type="varchar" MaxLength="255" />
+          <Property Name="authTitle" Type="varchar" MaxLength="255" />
+          <Property Name="authPhone" Type="varchar" MaxLength="152" />
+          <Property Name="authEmail" Type="varchar" MaxLength="255" />
+          <Property Name="billFName" Type="varchar" MaxLength="255" />
+          <Property Name="billLName" Type="varchar" MaxLength="255" />
+          <Property Name="billTitle" Type="varchar" MaxLength="255" />
+          <Property Name="billPhone" Type="varchar" MaxLength="152" />
+          <Property Name="billEmail" Type="varchar" MaxLength="255" />
+          <Property Name="payMethod" Type="varchar" MaxLength="50" />
+          <Property Name="chkNo" Type="varchar" MaxLength="255" />
+          <Property Name="poNo" Type="varchar" MaxLength="255" />
+          <Property Name="RefName" Type="varchar" MaxLength="255" />
+          <Property Name="RCDSEQ" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <Association Name="FK__CATEGORY__CATEGO__457442E6">
           <End Role="CATEGORYTYPE" Type="Self.CATEGORYTYPE" Multiplicity="1" />
           <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="*" />
@@ -576,6 +740,69 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
         </Association>
         <Function Name="add_Registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cartID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="add_Registration_CTI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cartID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="update_tempCust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p1" Type="int" Mode="In" />
+          <Parameter Name="p2" Type="varchar" Mode="In" />
+          <Parameter Name="p3" Type="varchar" Mode="In" />
+          <Parameter Name="p4" Type="varchar" Mode="In" />
+          <Parameter Name="p5" Type="varchar" Mode="In" />
+          <Parameter Name="p6" Type="varchar" Mode="In" />
+          <Parameter Name="p7" Type="varchar" Mode="In" />
+          <Parameter Name="p8" Type="varchar" Mode="In" />
+          <Parameter Name="p9" Type="varchar" Mode="In" />
+          <Parameter Name="p10" Type="varchar" Mode="In" />
+          <Parameter Name="p11" Type="varchar" Mode="In" />
+          <Parameter Name="p12" Type="varchar" Mode="In" />
+          <Parameter Name="p13" Type="varchar" Mode="In" />
+          <Parameter Name="p14" Type="varchar" Mode="In" />
+          <Parameter Name="p15" Type="varchar" Mode="In" />
+          <Parameter Name="p16" Type="varchar" Mode="In" />
+          <Parameter Name="p17" Type="varchar" Mode="In" />
+          <Parameter Name="p18" Type="varchar" Mode="In" />
+          <Parameter Name="p19" Type="varchar" Mode="In" />
+          <Parameter Name="p20" Type="varchar" Mode="In" />
+          <Parameter Name="p21" Type="varchar" Mode="In" />
+          <Parameter Name="p22" Type="varchar" Mode="In" />
+          <Parameter Name="p23" Type="varchar" Mode="In" />
+          <Parameter Name="p24" Type="varchar" Mode="In" />
+          <Parameter Name="p25" Type="varchar" Mode="In" />
+          <Parameter Name="p26" Type="varchar" Mode="In" />
+          <Parameter Name="p27" Type="varchar" Mode="In" />
+          <Parameter Name="p28" Type="varchar" Mode="In" />
+          <Parameter Name="p29" Type="varchar" Mode="In" />
+          <Parameter Name="p30" Type="varchar" Mode="In" />
+          <Parameter Name="p31" Type="varchar" Mode="In" />
+          <Parameter Name="p32" Type="varchar" Mode="In" />
+          <Parameter Name="p33" Type="varchar" Mode="In" />
+          <Parameter Name="p34" Type="varchar" Mode="In" />
+          <Parameter Name="p35" Type="varchar" Mode="In" />
+          <Parameter Name="p36" Type="varchar" Mode="In" />
+          <Parameter Name="p37" Type="varchar" Mode="In" />
+          <Parameter Name="p38" Type="varchar" Mode="In" />
+          <Parameter Name="p39" Type="varchar" Mode="In" />
+          <Parameter Name="p40" Type="varchar" Mode="In" />
+          <Parameter Name="p41" Type="varchar" Mode="In" />
+          <Parameter Name="p42" Type="varchar" Mode="In" />
+          <Parameter Name="p43" Type="varchar" Mode="In" />
+          <Parameter Name="p44" Type="varchar" Mode="In" />
+          <Parameter Name="p45" Type="varchar" Mode="In" />
+          <Parameter Name="p46" Type="varchar" Mode="In" />
+          <Parameter Name="p47" Type="int" Mode="In" />
+          <Parameter Name="p48" Type="int" Mode="In" />
+          <Parameter Name="p49" Type="varchar" Mode="In" />
+          <Parameter Name="p50" Type="varchar" Mode="In" />
+          <Parameter Name="p51" Type="varchar" Mode="In" />
+          <Parameter Name="p52" Type="varchar" Mode="In" />
+          <Parameter Name="p53" Type="varchar" Mode="In" />
+          <Parameter Name="p54" Type="varchar" Mode="In" />
+          <Parameter Name="p55" Type="varchar" Mode="In" />
+          <Parameter Name="p56" Type="varchar" Mode="In" />
+          <Parameter Name="p57" Type="varchar" Mode="In" />
+          <Parameter Name="p58" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="TraincoModelStoreContainer">
           <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
@@ -621,6 +848,41 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
     [INSTRUCTORS].[CreatedMemberID] AS [CreatedMemberID], 
     [INSTRUCTORS].[ModifiedMemberID] AS [ModifiedMemberID]
     FROM [dbo].[INSTRUCTORS] AS [INSTRUCTORS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="temp_Att" EntityType="Self.temp_Att" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [temp_Att].[reg_SEQ] AS [reg_SEQ], 
+    [temp_Att].[att_No] AS [att_No], 
+    [temp_Att].[att_FName] AS [att_FName], 
+    [temp_Att].[att_LName] AS [att_LName], 
+    [temp_Att].[att_Title] AS [att_Title], 
+    [temp_Att].[att_Email] AS [att_Email], 
+    [temp_Att].[reg_ID] AS [reg_ID], 
+    [temp_Att].[att_MName] AS [att_MName], 
+    [temp_Att].[att_Suffix] AS [att_Suffix], 
+    [temp_Att].[rcdFinal] AS [rcdFinal], 
+    [temp_Att].[RCDSEQ] AS [RCDSEQ], 
+    [temp_Att].[Att_Discount] AS [Att_Discount]
+    FROM [dbo].[temp_Att] AS [temp_Att]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="temp_Reg" EntityType="Self.temp_Reg" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [temp_Reg].[reg_SEQ] AS [reg_SEQ], 
+    [temp_Reg].[reg_ID] AS [reg_ID], 
+    [temp_Reg].[reg_Date] AS [reg_Date], 
+    [temp_Reg].[sem_No] AS [sem_No], 
+    [temp_Reg].[sem_SID] AS [sem_SID], 
+    [temp_Reg].[sem_Title] AS [sem_Title], 
+    [temp_Reg].[sem_Place] AS [sem_Place], 
+    [temp_Reg].[sem_FeeName] AS [sem_FeeName], 
+    [temp_Reg].[sem_FeeAmt] AS [sem_FeeAmt], 
+    [temp_Reg].[sem_Qty] AS [sem_Qty], 
+    [temp_Reg].[sem_Total] AS [sem_Total], 
+    [temp_Reg].[sem_Discount] AS [sem_Discount], 
+    [temp_Reg].[rcdFinal] AS [rcdFinal], 
+    [temp_Reg].[discountType] AS [discountType], 
+    [temp_Reg].[discountDesc] AS [discountDesc]
+    FROM [dbo].[temp_Reg] AS [temp_Reg]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="SearchList_Category" EntityType="Self.SearchList_Category" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -668,6 +930,38 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
     [Seminar_Catalog].[WebPageIH] AS [WebPageIH], 
     [Seminar_Catalog].[Coordinates] AS [Coordinates]
     FROM [dbo].[Seminar_Catalog] AS [Seminar_Catalog]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCarts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShoppingCarts].[Cart_ID] AS [Cart_ID], 
+    [ShoppingCarts].[att_No] AS [att_No], 
+    [ShoppingCarts].[Cart_Date] AS [Cart_Date], 
+    [ShoppingCarts].[TR_No] AS [TR_No], 
+    [ShoppingCarts].[CoName] AS [CoName], 
+    [ShoppingCarts].[att_FName] AS [att_FName], 
+    [ShoppingCarts].[att_LName] AS [att_LName], 
+    [ShoppingCarts].[att_Title] AS [att_Title], 
+    [ShoppingCarts].[att_Email] AS [att_Email], 
+    [ShoppingCarts].[Sch_ID] AS [Sch_ID], 
+    [ShoppingCarts].[Seminar] AS [Seminar], 
+    [ShoppingCarts].[sem_Place] AS [sem_Place], 
+    [ShoppingCarts].[promoCode] AS [promoCode], 
+    [ShoppingCarts].[authFName] AS [authFName], 
+    [ShoppingCarts].[authLName] AS [authLName], 
+    [ShoppingCarts].[authTitle] AS [authTitle], 
+    [ShoppingCarts].[authPhone] AS [authPhone], 
+    [ShoppingCarts].[authEmail] AS [authEmail], 
+    [ShoppingCarts].[billFName] AS [billFName], 
+    [ShoppingCarts].[billLName] AS [billLName], 
+    [ShoppingCarts].[billTitle] AS [billTitle], 
+    [ShoppingCarts].[billPhone] AS [billPhone], 
+    [ShoppingCarts].[billEmail] AS [billEmail], 
+    [ShoppingCarts].[payMethod] AS [payMethod], 
+    [ShoppingCarts].[chkNo] AS [chkNo], 
+    [ShoppingCarts].[poNo] AS [poNo], 
+    [ShoppingCarts].[RefName] AS [RefName], 
+    [ShoppingCarts].[RCDSEQ] AS [RCDSEQ]
+    FROM [dbo].[ShoppingCarts] AS [ShoppingCarts]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__CATEGORY__CATEGO__457442E6" Association="Self.FK__CATEGORY__CATEGO__457442E6">
             <End Role="CATEGORYTYPE" EntitySet="CATEGORYTYPE" />
@@ -1260,6 +1554,72 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
           </FunctionImport>
           <EntitySet Name="ScheduleCourseInstructors" EntityType="TraincoModel.ScheduleCourseInstructor" />
           <EntitySet Name="Cities" EntityType="TraincoModel.City" />
+          <EntitySet Name="temp_Att" EntityType="TraincoModel.temp_Att" />
+          <EntitySet Name="temp_Reg" EntityType="TraincoModel.temp_Reg" />
+          <EntitySet Name="ShoppingCarts" EntityType="TraincoModel.ShoppingCart" />
+          <FunctionImport Name="add_Registration_CTI" ReturnType="Collection(Int32)">
+            <Parameter Name="cartID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="update_tempCust">
+            <Parameter Name="p1" Mode="In" Type="Int32" />
+            <Parameter Name="p2" Mode="In" Type="String" />
+            <Parameter Name="p3" Mode="In" Type="String" />
+            <Parameter Name="p4" Mode="In" Type="String" />
+            <Parameter Name="p5" Mode="In" Type="String" />
+            <Parameter Name="p6" Mode="In" Type="String" />
+            <Parameter Name="p7" Mode="In" Type="String" />
+            <Parameter Name="p8" Mode="In" Type="String" />
+            <Parameter Name="p9" Mode="In" Type="String" />
+            <Parameter Name="p10" Mode="In" Type="String" />
+            <Parameter Name="p11" Mode="In" Type="String" />
+            <Parameter Name="p12" Mode="In" Type="String" />
+            <Parameter Name="p13" Mode="In" Type="String" />
+            <Parameter Name="p14" Mode="In" Type="String" />
+            <Parameter Name="p15" Mode="In" Type="String" />
+            <Parameter Name="p16" Mode="In" Type="String" />
+            <Parameter Name="p17" Mode="In" Type="String" />
+            <Parameter Name="p18" Mode="In" Type="String" />
+            <Parameter Name="p19" Mode="In" Type="String" />
+            <Parameter Name="p20" Mode="In" Type="String" />
+            <Parameter Name="p21" Mode="In" Type="String" />
+            <Parameter Name="p22" Mode="In" Type="String" />
+            <Parameter Name="p23" Mode="In" Type="String" />
+            <Parameter Name="p24" Mode="In" Type="String" />
+            <Parameter Name="p25" Mode="In" Type="String" />
+            <Parameter Name="p26" Mode="In" Type="String" />
+            <Parameter Name="p27" Mode="In" Type="String" />
+            <Parameter Name="p28" Mode="In" Type="String" />
+            <Parameter Name="p29" Mode="In" Type="String" />
+            <Parameter Name="p30" Mode="In" Type="String" />
+            <Parameter Name="p31" Mode="In" Type="String" />
+            <Parameter Name="p32" Mode="In" Type="String" />
+            <Parameter Name="p33" Mode="In" Type="String" />
+            <Parameter Name="p34" Mode="In" Type="String" />
+            <Parameter Name="p35" Mode="In" Type="String" />
+            <Parameter Name="p36" Mode="In" Type="String" />
+            <Parameter Name="p37" Mode="In" Type="String" />
+            <Parameter Name="p38" Mode="In" Type="String" />
+            <Parameter Name="p39" Mode="In" Type="String" />
+            <Parameter Name="p40" Mode="In" Type="String" />
+            <Parameter Name="p41" Mode="In" Type="String" />
+            <Parameter Name="p42" Mode="In" Type="String" />
+            <Parameter Name="p43" Mode="In" Type="String" />
+            <Parameter Name="p44" Mode="In" Type="String" />
+            <Parameter Name="p45" Mode="In" Type="String" />
+            <Parameter Name="p46" Mode="In" Type="String" />
+            <Parameter Name="p47" Mode="In" Type="Int32" />
+            <Parameter Name="p48" Mode="In" Type="Int32" />
+            <Parameter Name="p49" Mode="In" Type="String" />
+            <Parameter Name="p50" Mode="In" Type="String" />
+            <Parameter Name="p51" Mode="In" Type="String" />
+            <Parameter Name="p52" Mode="In" Type="String" />
+            <Parameter Name="p53" Mode="In" Type="String" />
+            <Parameter Name="p54" Mode="In" Type="String" />
+            <Parameter Name="p55" Mode="In" Type="String" />
+            <Parameter Name="p56" Mode="In" Type="String" />
+            <Parameter Name="p57" Mode="In" Type="String" />
+            <Parameter Name="p58" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="ScheduleCourseInstructor">
           <Key>
@@ -1294,6 +1654,77 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
           <Property Name="Latitude" Type="Double" />
           <Property Name="Longitude" Type="Double" />
           <Property Name="Coordinates" Type="Geography" />
+        </EntityType>
+        <EntityType Name="temp_Att">
+          <Key>
+            <PropertyRef Name="RCDSEQ" />
+          </Key>
+          <Property Name="reg_SEQ" Type="Int32" />
+          <Property Name="att_No" Type="Int16" />
+          <Property Name="att_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="reg_ID" Type="Int32" />
+          <Property Name="att_MName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="att_Suffix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="rcdFinal" Type="Int32" />
+          <Property Name="RCDSEQ" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Att_Discount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="temp_Reg">
+          <Key>
+            <PropertyRef Name="reg_SEQ" />
+            <PropertyRef Name="reg_ID" />
+          </Key>
+          <Property Name="reg_SEQ" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reg_ID" Type="Int32" Nullable="false" />
+          <Property Name="reg_Date" Type="DateTime" Precision="3" />
+          <Property Name="sem_No" Type="Int16" />
+          <Property Name="sem_SID" Type="Int32" />
+          <Property Name="sem_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sem_Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sem_FeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sem_FeeAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="sem_Qty" Type="Int16" />
+          <Property Name="sem_Total" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="sem_Discount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="rcdFinal" Type="Int32" />
+          <Property Name="discountType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="discountDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="RCDSEQ" />
+          </Key>
+          <Property Name="Cart_ID" Type="Int32" />
+          <Property Name="att_No" Type="Int16" />
+          <Property Name="Cart_Date" Type="DateTime" Precision="3" />
+          <Property Name="TR_No" Type="Int32" />
+          <Property Name="CoName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Sch_ID" Type="Int32" />
+          <Property Name="Seminar" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sem_Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="promoCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authPhone" Type="String" MaxLength="152" FixedLength="false" Unicode="false" />
+          <Property Name="authEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billPhone" Type="String" MaxLength="152" FixedLength="false" Unicode="false" />
+          <Property Name="billEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="payMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="chkNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="poNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RefName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RCDSEQ" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1839,6 +2270,81 @@ warning 6002: The table/view 'ATI_Development.dbo.Seminar_Catalog' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="temp_Att">
+            <EntityTypeMapping TypeName="TraincoModel.temp_Att">
+              <MappingFragment StoreEntitySet="temp_Att">
+                <ScalarProperty Name="Att_Discount" ColumnName="Att_Discount" />
+                <ScalarProperty Name="RCDSEQ" ColumnName="RCDSEQ" />
+                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
+                <ScalarProperty Name="att_Suffix" ColumnName="att_Suffix" />
+                <ScalarProperty Name="att_MName" ColumnName="att_MName" />
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="att_Email" ColumnName="att_Email" />
+                <ScalarProperty Name="att_Title" ColumnName="att_Title" />
+                <ScalarProperty Name="att_LName" ColumnName="att_LName" />
+                <ScalarProperty Name="att_FName" ColumnName="att_FName" />
+                <ScalarProperty Name="att_No" ColumnName="att_No" />
+                <ScalarProperty Name="reg_SEQ" ColumnName="reg_SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Reg">
+            <EntityTypeMapping TypeName="TraincoModel.temp_Reg">
+              <MappingFragment StoreEntitySet="temp_Reg">
+                <ScalarProperty Name="discountDesc" ColumnName="discountDesc" />
+                <ScalarProperty Name="discountType" ColumnName="discountType" />
+                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
+                <ScalarProperty Name="sem_Discount" ColumnName="sem_Discount" />
+                <ScalarProperty Name="sem_Total" ColumnName="sem_Total" />
+                <ScalarProperty Name="sem_Qty" ColumnName="sem_Qty" />
+                <ScalarProperty Name="sem_FeeAmt" ColumnName="sem_FeeAmt" />
+                <ScalarProperty Name="sem_FeeName" ColumnName="sem_FeeName" />
+                <ScalarProperty Name="sem_Place" ColumnName="sem_Place" />
+                <ScalarProperty Name="sem_Title" ColumnName="sem_Title" />
+                <ScalarProperty Name="sem_SID" ColumnName="sem_SID" />
+                <ScalarProperty Name="sem_No" ColumnName="sem_No" />
+                <ScalarProperty Name="reg_Date" ColumnName="reg_Date" />
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="reg_SEQ" ColumnName="reg_SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="TraincoModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCarts">
+                <ScalarProperty Name="RCDSEQ" ColumnName="RCDSEQ" />
+                <ScalarProperty Name="RefName" ColumnName="RefName" />
+                <ScalarProperty Name="poNo" ColumnName="poNo" />
+                <ScalarProperty Name="chkNo" ColumnName="chkNo" />
+                <ScalarProperty Name="payMethod" ColumnName="payMethod" />
+                <ScalarProperty Name="billEmail" ColumnName="billEmail" />
+                <ScalarProperty Name="billPhone" ColumnName="billPhone" />
+                <ScalarProperty Name="billTitle" ColumnName="billTitle" />
+                <ScalarProperty Name="billLName" ColumnName="billLName" />
+                <ScalarProperty Name="billFName" ColumnName="billFName" />
+                <ScalarProperty Name="authEmail" ColumnName="authEmail" />
+                <ScalarProperty Name="authPhone" ColumnName="authPhone" />
+                <ScalarProperty Name="authTitle" ColumnName="authTitle" />
+                <ScalarProperty Name="authLName" ColumnName="authLName" />
+                <ScalarProperty Name="authFName" ColumnName="authFName" />
+                <ScalarProperty Name="promoCode" ColumnName="promoCode" />
+                <ScalarProperty Name="sem_Place" ColumnName="sem_Place" />
+                <ScalarProperty Name="Seminar" ColumnName="Seminar" />
+                <ScalarProperty Name="Sch_ID" ColumnName="Sch_ID" />
+                <ScalarProperty Name="att_Email" ColumnName="att_Email" />
+                <ScalarProperty Name="att_Title" ColumnName="att_Title" />
+                <ScalarProperty Name="att_LName" ColumnName="att_LName" />
+                <ScalarProperty Name="att_FName" ColumnName="att_FName" />
+                <ScalarProperty Name="CoName" ColumnName="CoName" />
+                <ScalarProperty Name="TR_No" ColumnName="TR_No" />
+                <ScalarProperty Name="Cart_Date" ColumnName="Cart_Date" />
+                <ScalarProperty Name="att_No" ColumnName="att_No" />
+                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="add_Registration_CTI" FunctionName="TraincoModel.Store.add_Registration_CTI" />
+          <FunctionImportMapping FunctionImportName="update_tempCust" FunctionName="TraincoModel.Store.update_tempCust" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
