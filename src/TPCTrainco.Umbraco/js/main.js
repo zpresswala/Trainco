@@ -3731,7 +3731,7 @@ function DatePicker() {
 	minDate.setFullYear(parseInt(minYear));
 
 	// max date of range
-	var monthOffset = 13;
+	var monthOffset = 15;
 	var maxDate = new Date();
 	this.maxMonth = maxDate.getMonth();
 	var maxYear = maxDate.getFullYear() + 1;

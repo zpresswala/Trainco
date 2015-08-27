@@ -2928,6 +2928,8 @@ h2, h3, h4 {
         height: 79px; } }
     .navbar-default .navbar-nav > li:last-child {
       border-bottom: none; }
+      .navbar-default .navbar-nav > li:last-child a {
+        font-weight: bold; }
     .navbar-default .navbar-nav > li > a {
       color: #FFFFFF;
       display: block;
