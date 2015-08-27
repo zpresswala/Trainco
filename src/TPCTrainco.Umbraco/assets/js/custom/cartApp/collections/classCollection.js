@@ -25,7 +25,7 @@ app.globalCollection = new app.ClassCollection;
 		  
 // check the hash to see if there is data there. (only on page load)
 $(document).ready(function () {
-	if (window.location.hash) {
+	if (window.location.hash || $('.detail-page-app').length) {
 		if (app.mainSearchSelect == undefined)
 			app.mainSearchSelect = new MainSearchSelect();
 
@@ -47,8 +47,9 @@ $('#search-btn-home').on('click', function () {
 	
 	var location = $('#main-search').select2('val').toString();
 
-	window.location.href = '/search-seminars/?loc=' + encodeURIComponent(location) + window.location.hash;
+	window.location.href = '/search-seminars/?homeref=1' + window.location.hash;
 });
+
 
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
@@ -109,8 +110,6 @@ function performSearch(searchParams) {
 
 		success: function (data) {
 
-			console.log(JSON.stringify(data));
-
 			$('.results').empty();
 			$emptyMsg.fadeOut(100, function () {
 				$classLoader.fadeIn(90);
@@ -132,8 +131,8 @@ function performSearch(searchParams) {
 					});
 
 					// if details page, trigger the locations
-					if ($('.detail-page-app')[0]) {
-						setTimeout(function () { $(".view-opts").trigger("click"); }, 100);
+					if ($('.detail-page-app').length) {
+						$(".view-opts").trigger("click");
 					}
 				}
 			});

@@ -11,9 +11,9 @@
 
     List<Location> locationList = locationsObj.GetAllLocations();
 
-    if (Request.QueryString["loc"] != null && Request.QueryString.Get("loc").Length > 0)
+    if (Request.QueryString["homeref"] != null && Request.QueryString.Get("homeref").Length > 0)
     {
-        currentCityState = Request.QueryString.Get("loc");
+        
     }
     else
     {

@@ -94,8 +94,13 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 	var maxMonth = maxDate[0];
 	var maxYear = maxDate[1];
 
+	//var minDateObj = new Date(parseInt(minYear), parseInt(minMonth) - 1);
+	//var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth) - 1);
+
+	//$("#date-range-slider").dateRangeSlider("values", minDateObj, maxDateObj);
+
 	// update search parameters
-	if (topicsArray.length == 4) {
+	if (topicsArray != undefined && topicsArray.length == 4) {
 		$('.overlay-contain[data-topic="all"]').addClass('chosen');
 	}
 	else {
