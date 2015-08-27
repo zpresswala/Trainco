@@ -25,7 +25,6 @@ app.CartNotifyView = Backbone.View.extend({
         // later we will need to clear localStorage after a successful checkout
         if(localStorage.length > 1) {
             this.$('.cart-empty-msg').hide();
-            console.log("doo doo")
             app.cartCollection.fetch({
                 success: function(coll, resp) {
                     coll.each(function(modelFromStorage) {
@@ -39,7 +38,6 @@ app.CartNotifyView = Backbone.View.extend({
 
         else {
             this.$('.cart-empty-msg').show();
-            // this.$('.wrap').prepend('<p class="cart-empty-msg">Your cart is currently empty.</p>');
         }
     },
 

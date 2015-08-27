@@ -3105,7 +3105,6 @@ app.CartNotifyView = Backbone.View.extend({
         // later we will need to clear localStorage after a successful checkout
         if(localStorage.length > 1) {
             this.$('.cart-empty-msg').hide();
-            console.log("doo doo")
             app.cartCollection.fetch({
                 success: function(coll, resp) {
                     coll.each(function(modelFromStorage) {
@@ -3119,7 +3118,6 @@ app.CartNotifyView = Backbone.View.extend({
 
         else {
             this.$('.cart-empty-msg').show();
-            // this.$('.wrap').prepend('<p class="cart-empty-msg">Your cart is currently empty.</p>');
         }
     },
 
@@ -3228,14 +3226,8 @@ app.LocationView = Backbone.View.extend({
     render: function() {
         var _this = this;
         this.collection.each(function(model) {
-            var hasBeenRendered = model.get('hasBeenRendered');
-            if(hasBeenRendered) {
-                return false;
-            } else { 
-                _this.$el.append(_this.template(model.toJSON()));
-                model.set('hasBeenRendered', true);
-                _this.renderSchedules(model);
-            }
+            _this.$el.append(_this.template(model.toJSON()));
+            _this.renderSchedules(model);
         }, this);
     },
 
@@ -3297,13 +3289,7 @@ app.ScheduleView = Backbone.View.extend({
     render:function () {
         var _this = this;
         this.collection.each(function(singleClass) {
-            // var hasBeenRendered = singleClass.get('hasBeenRendered');
-            // if(hasBeenRendered) {
-            //     return false;
-            // } else {
-                _this.$el.append(_this.template(singleClass.toJSON()));
-                // singleClass.set('hasBeenRendered', true);
-            // }
+            _this.$el.append(_this.template(singleClass.toJSON()));
         }, this);
     },
 
@@ -3359,15 +3345,6 @@ app.ScheduleView = Backbone.View.extend({
                 console.log(theId, 'first id');
                 modelData.set('quant', thequantity);
                 modelData.set('theId', theId);
-
-                console.log(id);
-                console.log(modelData);
-                console.log(courseIdNum);
-                console.log(price);
-                console.log(classDate);
-                console.log(thequantity);
-                console.log(inCart);
-                console.log(theId);
 
                 var modelQty = modelData.get('quant');
 
@@ -3438,11 +3415,11 @@ app.ScheduleView = Backbone.View.extend({
                 } else {
 
                     // else, just update the quantity
-                    // updateTheQuantity();
+                    updateTheQuantity();
 
                 }
             } else {
-                // updateTheQuantity();
+                updateTheQuantity();
             }
         }
     },
