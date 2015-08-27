@@ -21,7 +21,13 @@ app.ScheduleView = Backbone.View.extend({
     render:function () {
         var _this = this;
         this.collection.each(function(singleClass) {
-            _this.$el.append(_this.template(singleClass.toJSON()));
+            var hasBeenRendered = singleClass.get('hasBeenRendered');
+            if(hasBeenRendered) {
+                return false;
+            } else {
+                _this.$el.append(_this.template(singleClass.toJSON()));
+                singleClass.set('hasBeenRendered', true);
+            }
         }, this);
     },
 
