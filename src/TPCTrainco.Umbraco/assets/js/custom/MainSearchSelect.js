@@ -77,45 +77,51 @@ MainSearchSelect.prototype.getSearchParams = function () {
 
 // get the search parameters based on the hash
 MainSearchSelect.prototype.getHashSearchParams = function () {
-	var topicsArray = [];
-	var classId = 0
-	var location = '';
-
 	var hashArray = this.processHashBang();
 
-	topicsArray = hashArray['topics'].split(',');
-	location = hashArray['loc'];
+	// if you're on the page without search params in the url
+	if(!hashArray.hasOwnProperty('loc') && !hashArray.hasOwnProperty('topics')) {
+		$('.detail-page-app').hide();
+		return false;
+	} else {
+		$('.detail-page-app').show();
+		var topicsArray = [];
+		var classId = 0
+		var location = '';
 
-	var minDate = hashArray['dMin'].split("/");
-	var minMonth = minDate[0];
-	var minYear = minDate[1];
+		topicsArray = hashArray['topics'].split(',');
+		location = hashArray['loc'];
 
-	var maxDate = hashArray['dMax'].split("/");
-	var maxMonth = maxDate[0];
-	var maxYear = maxDate[1];
+		var minDate = hashArray['dMin'].split("/");
+		var minMonth = minDate[0];
+		var minYear = minDate[1];
 
-	//var minDateObj = new Date(parseInt(minYear), parseInt(minMonth) - 1);
-	//var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth) - 1);
+		var maxDate = hashArray['dMax'].split("/");
+		var maxMonth = maxDate[0];
+		var maxYear = maxDate[1];
 
-	//$("#date-range-slider").dateRangeSlider("values", minDateObj, maxDateObj);
+		//var minDateObj = new Date(parseInt(minYear), parseInt(minMonth) - 1);
+		//var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth) - 1);
 
-	// update search parameters
-	if (topicsArray != undefined && topicsArray.length == 4) {
-		$('.overlay-contain[data-topic="all"]').addClass('chosen');
-	}
-	else {
-		for (var i in topicsArray) {
-			$('.overlay-contain[data-topic="' + topicsArray[i] + '"]').addClass('chosen');
+		//$("#date-range-slider").dateRangeSlider("values", minDateObj, maxDateObj);
+
+		// update search parameters
+		if (topicsArray != undefined && topicsArray.length == 4) {
+			$('.overlay-contain[data-topic="all"]').addClass('chosen');
 		}
-	}
-	//a[href!=""][href]
-	if ($('.secondary-search[data-classid!=""][data-classid]')) {
-		classId = parseInt($('.secondary-search').data('classid'));
-	}
+		else {
+			for (var i in topicsArray) {
+				$('.overlay-contain[data-topic="' + topicsArray[i] + '"]').addClass('chosen');
+			}
+		}
+		//a[href!=""][href]
+		if ($('.secondary-search[data-classid!=""][data-classid]')) {
+			classId = parseInt($('.secondary-search').data('classid'));
+		}
 
-
-	app.resStringified = this.generateJsonSearchString(location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear);
-	return app.resStringified;
+		app.resStringified = this.generateJsonSearchString(location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear);
+		return app.resStringified;
+	}
 };
 
 // generate a JSON search string for performSearch (in cartCollection.js)

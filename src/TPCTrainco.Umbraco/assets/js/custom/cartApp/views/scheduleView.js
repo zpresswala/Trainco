@@ -85,15 +85,17 @@ app.ScheduleView = Backbone.View.extend({
                 modelData.set('theId', theId);
 
                 var modelQty = modelData.get('quant');
-
+                console.log(modelData)
             // if it hasn't been added to the cart already, add it
             if(!inCart) {
                 modelData.set('inCart', true);
-                
+   
                 // get the class title
                 var relatedClassModel = app.globalCollection.findWhere({
                     courseId: courseIdNum 
                 });
+
+                console.log(relatedClassModel);
 
                 // get the cityState
                 var relatedLocationModel = app.locationCollection.findWhere({

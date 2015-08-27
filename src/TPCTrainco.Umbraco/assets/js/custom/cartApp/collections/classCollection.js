@@ -58,50 +58,43 @@ function performSearch(searchParams) {
 	var dataReFormat = $.parseJSON(searchParams);
 
 	// if no data, return
-	if (dataReFormat == undefined || dataReFormat == false) {
-		return;
+	if (dataReFormat == 'undefined' || !dataReFormat) {
+		return false;
 
 		// if no classTopics property, return, which means you are on the detail page
-	} else if((dataReFormat.classTopics == undefined || dataReFormat.classTopics == false) && dataReFormat.classId <= 0) {
+	} else if (!dataReFormat.hasOwnProperty('classTopics') || dataReFormat.hasOwnProperty('classId')) {
 		return false;
 	} else {
-		// if classId is found, skip the classTopics
-		if (dataReFormat.classId <= 0) {
-			// you are on the search page
-			if (dataReFormat.classTopics.length >= 4) {
-				var topics = ['all'];
-			} else {
-				var topics = dataReFormat.classTopics.filter(function (item, pos) {
-					var length = dataReFormat.classTopics.length;
-					return dataReFormat.classTopics.indexOf(item) == pos;
-				});
-			}
-
-			// if more than two items selected, add and
-			if (topics.length == 2) {
-				var length = topics.length;
-				topics.splice(length - 1, 0, 'and');
-				var topicsList = topics.join(' ');
-				var topicsListTwo = topicsList.replace('and,', 'and');
-				var topics = topicsListTwo;
-			} else if (topics.length > 2) {
-
-				// if two or fewer, remove commas
-				topics.splice(length - 1, 0, 'and');
-				var topicsList = topics.join(', ');
-				var topicsListTwo = topicsList.replace('and,', 'and');
-				var topics = topicsListTwo;
-			}
+		
+		// if classId is found, skip the classTopics, you are on the search page
+		if (dataReFormat.classTopics.length >= 4) {
+			var topics = ['all'];
+		} else {
+			var topics = dataReFormat.classTopics.filter(function (item, pos) {
+				var length = dataReFormat.classTopics.length;
+				return dataReFormat.classTopics.indexOf(item) == pos;
+			});
 		}
 
-		
-	}
+		// if more than two items selected, add and
+		if (topics.length == 2) {
+			var length = topics.length;
+			topics.splice(length - 1, 0, 'and');
+			var topicsList = topics.join(' ');
+			var topicsListTwo = topicsList.replace('and,', 'and');
+			var topics = topicsListTwo;
+		} else if (topics.length > 2) {
 
+			// if two or fewer, remove commas
+			topics.splice(length - 1, 0, 'and');
+			var topicsList = topics.join(', ');
+			var topicsListTwo = topicsList.replace('and,', 'and');
+			var topics = topicsListTwo;
+		}	
+	}
 
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
-
-	console.log(searchParams.toString());
 
 	app.globalCollection.fetch({
 		data: searchParams,
