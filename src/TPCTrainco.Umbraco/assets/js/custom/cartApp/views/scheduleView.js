@@ -21,13 +21,7 @@ app.ScheduleView = Backbone.View.extend({
     render:function () {
         var _this = this;
         this.collection.each(function(singleClass) {
-            var hasBeenRendered = singleClass.get('hasBeenRendered');
-            if(hasBeenRendered) {
-                return false;
-            } else {
-                _this.$el.append(_this.template(singleClass.toJSON()));
-                singleClass.set('hasBeenRendered', true);
-            }
+            _this.$el.append(_this.template(singleClass.toJSON()));
         }, this);
     },
 
@@ -80,7 +74,7 @@ app.ScheduleView = Backbone.View.extend({
                 thequantity = parseInt(this.$classQty.val()),
                 inCart = modelData.get('inCart'),
                 theId = modelData.get('id');
-
+                console.log(theId, 'first id');
                 modelData.set('quant', thequantity);
                 modelData.set('theId', theId);
 
