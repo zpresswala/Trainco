@@ -58,8 +58,8 @@ app.SingleSeminarView = Backbone.View.extend({
             var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
 
             console.log(JSON.stringify({
-            	"courseId": courseIdToGet,
-            	"searchId": searchIdToGet
+                "courseId": courseIdToGet,
+                "searchId": searchIdToGet
             }).toString());
 
             app.locationCollection.fetch({
@@ -72,7 +72,7 @@ app.SingleSeminarView = Backbone.View.extend({
                 contentType: "application/json",
 
                 success: function (data) {
-                	console.log(JSON.stringify(data));
+                    console.log(JSON.stringify(data));
 
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,

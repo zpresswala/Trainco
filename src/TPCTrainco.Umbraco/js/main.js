@@ -3144,6 +3144,865 @@ app.CartNotifyView = Backbone.View.extend({
             cartDataArray.push({ Id: id, quantity: quant });
         });
 
+        this.$('.checkout-loader').show();
+
+        $.ajax({
+            url: 'http://trainco-dev.imulus-client.com/api/carts/save',
+            data: JSON.stringify(cartDataArray),
+            type: "POST",
+            contentType: "application/json"
+        }).done(function(successObj) {
+            var redirectGuid = successObj.cartGuid;
+            _this.$('.checkout-loader').hide();
+            window.location.href = '/register/?cart=' + redirectGuid;
+        }).fail(function(error) {
+            _this.$('.checkout-loader').hide();
+            _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+        });
+    }
+});
+
+app.cartNotifyView = new app.CartNotifyView({
+    el: '#cart'
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassView = Backbone.View.extend({
+
+    initialize: function() {
+        this.render();
+    },
+
+    render: function() {
+        this.collection.each(function(model) {
+            this.renderSeminars(model);
+        }, this);
+    },
+
+    renderSeminars: function(seminarModel) {
+        this.$el.append(new app.SingleSeminarView({
+            model: seminarModel
+        }).render().el).hide().slideDown(500).fadeIn(600);
+    }
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationView = Backbone.View.extend({
+    tagName: 'div',
+    className: 'one-location',
+
+    events: {
+        'click .location-icon': 'showClassLocationMsg'
+    },
+
+    template: _.template($('#locationTemplate').html()),
+
+    initialize: function() {
+        this.render();
+    },
+
+    render: function() {
+        var _this = this;
+        this.collection.each(function(model) {
+            var hasBeenRendered = model.get('hasBeenRendered');
+            if(hasBeenRendered) {
+                return false;
+            } else { 
+                _this.$el.append(_this.template(model.toJSON()));
+                model.set('hasBeenRendered', true);
+                _this.renderSchedules(model);
+            }
+        }, this);
+    },
+
+    renderSchedules: function(theModel) {
+        var _this = this;
+        var courseIdToGet = theModel.get('courseId');
+        var cityIdToGet = theModel.get('cityId');
+        var searchIdToGet = theModel.get('searchId');
+        var elemToAppendSchedules = this.$el.find('.schedule-items-wrap');
+        this.$el.prev().find('.location-loader').css('display', 'block');
+        app.scheduleCollection.fetch({
+            remove: false,
+            data: JSON.stringify({
+                "courseId": courseIdToGet,
+                "cityId": cityIdToGet,
+                "searchId": searchIdToGet
+            }),
+            type: "POST",
+            contentType: "application/json",
+
+            success: function(data) {
+                _this.$el.prev().find('.location-loader').css('display', 'none');
+                app.scheduleView = new app.ScheduleView({
+                    collection: app.scheduleCollection,
+                    el: elemToAppendSchedules
+                });
+            },
+
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    },
+
+    showClassLocationMsg: function() {
+        this.$el.find('.location-msg').toggleClass('showing');
+    }
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleView = Backbone.View.extend({
+    tagName: 'li',
+    className: 'seminar',
+
+    events: {
+        'click .add-to-cart': function(e) {
+            this.addToCart(e);
+        }
+    },
+
+    template: _.template($('#scheduleTemplate').html()),
+
+    initialize: function() {
+        this.render();
+    },
+
+    render:function () {
+        var _this = this;
+        this.collection.each(function(singleClass) {
+            var hasBeenRendered = singleClass.get('hasBeenRendered');
+            if(hasBeenRendered) {
+                return false;
+            } else {
+                _this.$el.append(_this.template(singleClass.toJSON()));
+                singleClass.set('hasBeenRendered', true);
+            }
+        }, this);
+    },
+
+    // this just creates the data model and adds it to the collection
+    addToCart: function(e) {
+        e.preventDefault();
+        var target = $(e.currentTarget);
+        var _this = this;
+        this.$classQty = target.parent().prev().find('.class-qty');
+
+        var updateTheQuantity = function() {
+            var changedQty = modelData.get('quant');
+            var id = modelData.get('id');
+            var matchingItem = app.cartCollection.where({ theId: id });
+            var matchingItemIdAttr = matchingItem[0].get('theId');
+            matchingItem[0].set('quantity', changedQty);
+
+            if(id == matchingItemIdAttr) {
+                $('#cart-item-list').find('[data-theid=' + matchingItemIdAttr + ']').find('.class-qty').val(changedQty);
+                Backbone.trigger('calculateSubtotal', changedQty);
+            }
+
+            _this.$classQty.val('');
+        };
+
+        // if quantity empty or zero
+        if(this.$classQty.val() == '' || this.$classQty.val() == 0) {
+            target.parent().prev().find('.attendee-msg').addClass('showing');
+            this.$classQty.css('border-color', 'red');
+            this.$el.find('.btn-blue-hollow:focus').blur();
+            setTimeout(function() {
+                target.parent().prev().find('.attendee-msg').removeClass('showing');
+                _this.$classQty.css('border-color', '#d7d7d7');
+            }, 3000);
+            return false;
+        } else {
+
+            // else, add to cart
+            $('.cart-empty-msg').hide();
+            this.$el.find('.btn-blue-hollow:focus').blur().text('Added!').addClass('added');
+            setTimeout(function() {
+                _this.$el.find('.btn-blue-hollow').text('Add to cart').removeClass('added');
+            }, 1500);
+
+            var id = target.data('id'),
+                modelData = this.collection.get(id),
+                courseIdNum = modelData.get('courseId'),
+                price = modelData.get('price'),
+                classDate = modelData.get('date'),
+                thequantity = parseInt(this.$classQty.val()),
+                inCart = modelData.get('inCart'),
+                theId = modelData.get('id');
+
+                modelData.set('quant', thequantity);
+                modelData.set('theId', theId);
+
+                var modelQty = modelData.get('quant');
+
+            // if it hasn't been added to the cart already, add it
+            if(!inCart) {
+                modelData.set('inCart', true);
+                
+                // get the class title
+                var relatedClassModel = app.globalCollection.findWhere({
+                    courseId: courseIdNum 
+                });
+
+                // get the cityState
+                var relatedLocationModel = app.locationCollection.findWhere({
+                    courseId: courseIdNum
+                });
+
+                var titleOfClass = relatedClassModel.get('title');
+                var cityOfClass = relatedLocationModel.get('cityState');
+
+                // check if it's in the cart from localstorage
+                var loadedFromLocalStore = [],
+                    isItemInCollection = false,
+                    inputQuantity = this.$('.qty').val(),
+                    uniqueIdentifierOfModelAdded = theId;
+
+                // loop through the localstorage collection and add our unique identifier to the array
+                app.cartCollection.each(function(cartItemModel) {
+                    loadedFromLocalStore.push(cartItemModel.get('theId'));
+                });
+
+                // loop through array of unique identifiers, compare to identifier of model we are adding. if it exists, set our 'isItemInCollection' var to true.
+                for(var i = 0; i < loadedFromLocalStore.length; i++) {
+                    if(uniqueIdentifierOfModelAdded == loadedFromLocalStore[i]) {
+                        isItemInCollection = true;
+                    }
+                }
+
+                // if item is not in localstorage collection
+                if(!isItemInCollection) {
+
+                    // create a new model
+                    app.cartItemModel = new app.CartItemModel({
+                        title: titleOfClass,
+                        city: cityOfClass,
+                        date: classDate,
+                        quantity: thequantity,
+                        theId: theId,
+                        price: modelData.get('price')
+                    });
+
+                    // attach our 'add' listener
+                    this.listenTo(app.cartCollection, 'add', this.renderCartItem);
+                    
+                    // saving it to localstorage
+                    app.cartCollection.create(app.cartItemModel.toJSON());
+
+                    if(!$('.cart-visible').hasClass('down')) {
+                        $('.cart-tab').trigger('click');
+                    }
+
+                    // clear input field
+                    this.$classQty.val('');
+
+                    // remove listener
+                    this.stopListening();
+
+                } else {
+
+                    // else, just update the quantity
+                    updateTheQuantity();
+
+                }
+            } else {
+                updateTheQuantity();
+            }
+        }
+    },
+
+    // creates our new view, adds to cart by calling render in the cartItemView
+    renderCartItem: function(cartItem) {
+        var itemQuantity = cartItem.get('quantity');
+        var itemPrice = cartItem.get('price');
+        app.cartItemView = new app.CartItemView({
+            model: cartItem,
+            quantity: itemQuantity,
+            price: itemPrice
+        }).render();
+
+        this.addQtyToCart(itemQuantity, cartItem);
+        Backbone.trigger('calculateSubtotal', itemQuantity);
+    },
+
+    // total number of cart items in cart view (input fields)
+    addQtyToCart: function(theQuantity, cartItem) {
+        var oldVal = $('.items-total').text();
+        var newNum = parseInt(oldVal) + parseInt(theQuantity);
+        $('.items-total').text(newNum + ' Items');
+    }
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.SingleSeminarView = Backbone.View.extend({
+    tagName: 'li',
+    className: 'seminar-item col-xs-12',
+
+    events: {
+        'click .view-opts': 'showClassOptions'
+    },
+
+    template: _.template($('#classTemplate').html()),
+
+    initialize: function() {
+
+    },
+
+    render: function() {
+        this.$el.append(this.template(this.model.toJSON()));
+        return this;
+    },
+
+    showClassOptions: function(e) {
+        e.preventDefault();
+        var _this = this;
+        var open = this.model.get('open');
+        var schedulesLoaded = this.model.get('schedulesLoaded');
+        var $schedItemWrap = this.$('.schedule-item-wrap');
+
+        var viewText = $(e.target);
+
+        if(open) {
+            // if it's open, close it
+            $schedItemWrap.slideUp(400, function() {
+                viewText.removeClass('red').html('<span class="plus">+</span>View Upcoming Seminars');
+            });
+            this.model.set('open', false);
+            this.$el.css('padding-bottom', 25 + 'px');
+        } else {
+            // open it
+            $schedItemWrap.slideDown(400, function() {
+                viewText.addClass('red').html('<span class="plus turn">+</span>View Less');
+            });
+            this.model.set('open', true);   
+            this.$el.css('padding-bottom', 0);
+        }
+
+        // styling
+        $schedItemWrap.css({
+            "margin-top": 30 + 'px',
+            "border-top": '1px solid #D7D7D7'
+        });
+
+        if(!schedulesLoaded) {
+            var courseIdToGet = this.model.get('courseId');
+            var searchIdToGet = this.model.get('searchId');
+            var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+
+            console.log(JSON.stringify({
+                "courseId": courseIdToGet,
+                "searchId": searchIdToGet
+            }).toString());
+
+            app.locationCollection.fetch({
+                remove: false,
+                data: JSON.stringify({
+                    "courseId": courseIdToGet,
+                    "searchId": searchIdToGet
+                }),
+                type: "POST",
+                contentType: "application/json",
+
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+
+                    app.locationView = new app.LocationView({
+                        collection: app.locationCollection,
+                        el: elemToRender
+                    });
+                    // this.model = seminar
+                    _this.model.set('open', true);
+                    _this.model.set('schedulesLoaded', true);
+                }
+            });
+        } else {
+            return false;
+        }
+    },
+
+    // on update of quantity in cart item, sends back to class list
+    updateOriginalModelQuantity: function(updatedQuantity) {
+        this.model.set('quantity', updatedQuantity);
+        this.$('.qty').val(updatedQuantity);
+        Backbone.off('updateOriginalModelQuantity');
+    },
+
+    showTotalPrice: function(e) {
+        e.preventDefault();
+        var price = this.model.get('price');
+        Backbone.trigger('displayTotalPrice', this.quantity, price);
+    }
+
+});
+
+app.singleSeminarView = new app.SingleSeminarView();
+'use strict';
+
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+	initialize: function() {
+		console.log('sched model init')
+	}
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.CartCollection = Backbone.Collection.extend({
+    
+    // don't define the model here so we can add to it
+
+    localStorage: new Backbone.LocalStorage('CartCollection'),
+
+
+    url: '/',
+
+
+    initialize: function() {
+        console.log('cart collection init');
+    }
+
+
+});
+app.cartCollection = new app.CartCollection();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassCollection = Backbone.Collection.extend({
+	model: app.ClassModel,
+
+	url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
+
+});
+
+app.globalCollection = new app.ClassCollection;
+	// var minDate = new Date();
+	// this.minMonth = minDate.getMonth() + 2;
+
+	// 	var maxDate = new Date();
+	// this.maxMonth = minDate.getMonth() + 5;
+	// app.datePicker = new DatePicker();
+	  	// $('#date-range-slider').dateRangeSlider({
+			    
+		  //   defaultValues: {
+		  //   	min: new Date(minDate), 
+		  //   	max: new Date(maxRangeSelect)
+		  //   }
+		  
+// check the hash to see if there is data there. (only on page load)
+$(document).ready(function () {
+	if (window.location.hash || $('.detail-page-app').length) {
+		if (app.mainSearchSelect == undefined)
+			app.mainSearchSelect = new MainSearchSelect();
+
+		var searchParams = app.mainSearchSelect.getHashSearchParams();
+		performSearch(searchParams);
+	}
+});
+
+// search button click
+$('#search-btn').on('click', function () {
+	var searchParams;
+	
+	searchParams = app.mainSearchSelect.getSearchParams();
+	performSearch(searchParams);
+});
+
+$('#search-btn-home').on('click', function () {
+	var searchParams = app.mainSearchSelect.getSearchParams();
+	
+	var location = $('#main-search').select2('val').toString();
+
+	window.location.href = '/search-seminars/?homeref=1' + window.location.hash;
+});
+
+
+// perform the search using the API and the search parameters
+function performSearch(searchParams) {
+
+	// parse the search data to show the search results message
+	var dataReFormat = $.parseJSON(searchParams);
+
+	// if no data, return
+	if (dataReFormat == 'undefined' || !dataReFormat) {
+		return false;
+
+		// if no classTopics property, return, which means you are on the detail page
+	} else if (!dataReFormat.hasOwnProperty('classTopics') || dataReFormat.hasOwnProperty('classId')) {
+		return false;
+	} else {
+		
+		// if classId is found, skip the classTopics, you are on the search page
+		if (dataReFormat.classTopics.length >= 4) {
+			var topics = ['all'];
+		} else {
+			var topics = dataReFormat.classTopics.filter(function (item, pos) {
+				var length = dataReFormat.classTopics.length;
+				return dataReFormat.classTopics.indexOf(item) == pos;
+			});
+		}
+
+		// if more than two items selected, add and
+		if (topics.length == 2) {
+			var length = topics.length;
+			topics.splice(length - 1, 0, 'and');
+			var topicsList = topics.join(' ');
+			var topicsListTwo = topicsList.replace('and,', 'and');
+			var topics = topicsListTwo;
+		} else if (topics.length > 2) {
+
+			// if two or fewer, remove commas
+			topics.splice(length - 1, 0, 'and');
+			var topicsList = topics.join(', ');
+			var topicsListTwo = topicsList.replace('and,', 'and');
+			var topics = topicsListTwo;
+		}	
+	}
+
+	var $emptyMsg = $('.empty-message'),
+		$classLoader = $('.class-loader');
+
+	app.globalCollection.fetch({
+		data: searchParams,
+		type: "POST",
+		contentType: "application/json",
+
+		success: function (data) {
+
+			$('.results').empty();
+			$emptyMsg.fadeOut(100, function () {
+				$classLoader.fadeIn(90);
+
+				if (data.length === 0) {
+					$classLoader.fadeOut(150, function () {
+						$emptyMsg.fadeIn(150).text('We were unable to find classes that fit your preferences. Please change your search terms and try again.');
+					});
+				} else {
+					$classLoader.fadeOut(150, function () {
+						if($('.search-page').length) {
+							$emptyMsg.fadeIn(150).text('Displaying results for ' + topics + ' seminars in ' + dataReFormat.location + '.');
+						}
+					});
+
+					app.classView = new app.ClassView({
+						collection: app.globalCollection,
+						el: '.results'
+					});
+
+					// if details page, trigger the locations
+					if ($('.detail-page-app').length) {
+						$(".view-opts").trigger("click");
+					}
+				}
+			});
+		}
+	});
+};
+
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationCollection = Backbone.Collection.extend({
+	model: app.LocationModel,
+
+	url:'http://trainco-dev.imulus-client.com/api/locations/searchbyseminar'
+
+});
+
+app.locationCollection = new app.LocationCollection;
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleCollection = Backbone.Collection.extend({
+    model: app.ScheduleModel,
+
+    url:'http://trainco-dev.imulus-client.com/api/schedules/searchbylocation',
+
+    initialize: function() {
+        // this.listenTo(this.collection, 'add', this.render);
+    }
+});
+
+app.scheduleCollection = new app.ScheduleCollection;
+'use strict';
+
+window.app = window.app || {};
+
+// "view the cart" view
+app.CartItemView = Backbone.View.extend({
+    template: _.template($('#cartItemTemplate').html()),
+
+    events: {
+        'click .remove': 'removeItemFromCart',
+        'blur .class-qty': function(e) {
+            this.updateItemTotal(e);
+            this.updateCartTotalPrice(e);
+            this.updateCartTotalQuantity();
+        }
+    },
+
+    initialize: function(options) {
+        var _this = this;
+        this.options = options || {};
+        Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
+        Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
+    },
+
+    render: function() {
+        var $tpl = $(this.template(this.model.toJSON()));
+        this.setElement($tpl);
+        $('#cart-item-list').append($tpl);
+        var quantity = this.model.get('quantity');
+        this.$el.find('.class-qty').val(quantity);
+        return this;
+    },
+
+    // this is only called when pulling from localStorage
+    renderFromLocalStore: function() {
+        var $tpl = $(this.template(this.model.toJSON()));
+        this.setElement($tpl);
+        $('#cart-item-list').append($tpl);
+        this.model.set({
+            fromLS: true,
+            inCart: true
+        });
+
+        // fill in the cart data
+        this.showDataFromLocalStore();
+
+        // fill in the cart's total quantity and price
+        this.updateCartTotalQuantity();
+        this.updateCartTotalPrice();
+        
+        return this;
+    },
+
+    // fills view data in from local store model data
+    showDataFromLocalStore: function() {
+        var lsModelQuantity = this.model.get('quantity');
+        this.model.set('quantity', lsModelQuantity);
+        var lsModelSubTotal = this.model.get('price') * lsModelQuantity;
+        this.$el.find('.sub-total').text('$' + lsModelSubTotal);
+
+        // if it's the read-only cart
+        if($('.read-only-cart').length) {
+            this.$el.find('.class-qty-num').text(lsModelQuantity); 
+        } else {
+            this.$el.find('.class-qty').val(lsModelQuantity);
+        }
+    },
+
+
+    // quantity of each item in cart, changes on update or blur when item is in cart
+    insertQuantity: function(model, quantity) {
+        this.model.set('quantity', quantity);
+        this.$el.find('.class-qty').last().val(quantity);        
+    },
+
+    // calculates subtotal for individual item
+    calculateSubtotal: function() {
+        var quantity = this.model.get('quantity');
+        this.currentSubTotal = this.model.get('price') * quantity;
+        this.$el.find('.sub-total').text('$ ' + this.currentSubTotal);
+
+        // this line updates the quantity in the just-added item
+        this.$('.class-qty').val(quantity);
+
+        // updates total dollar value of cart on click of add item
+        this.updateCartTotalPrice();
+        this.updateCartTotalQuantity();
+    },
+
+    // if one clicks update button, sums subtotals
+    updateCartTotalPrice: function() {
+        var subTotalsArr = [];
+
+        $('.cart-item').find('.sub-total').each(function() {
+            var dollarAmount = parseInt($(this).text().replace('$', ''));
+            subTotalsArr.push(dollarAmount);
+        });
+
+        // if one removes all the items in the cart, set the array val to zero
+        if(subTotalsArr.length == 0) {
+            var subTotalsArr = [0];
+        }
+
+        Backbone.trigger('updateTotalPrice', subTotalsArr, this.model);
+    },
+
+    // removes item from cart, re-calculates total price
+    removeItemFromCart: function(e) {
+        e.preventDefault();
+        var _this = this;
+
+        // remove the item from the DOM
+        this.$el.slideUp(150, function() {
+            _this.remove();
+
+            // remove the item from the collection
+            _this.model.destroy();
+
+            // decrement cart total number
+            _this.updateCartTotalQuantity();
+
+            // decrement cart total price
+            _this.updateCartTotalPrice();
+        });
+    },
+
+    // updates the cart total on cart item quantity update. purely in DOM. only called on remove.
+    updateCartTotalQuantity: function() {
+        var quantityArr = [];
+
+        app.cartCollection.each(function(cartItemModel) {
+            var itemQuantity = cartItemModel.get('quantity');
+            quantityArr.push(itemQuantity);
+        });
+
+        if(quantityArr.length == 0) {
+            var quantityArr = [0];
+        }
+
+        Backbone.trigger('updateCartTotalQty', quantityArr);
+    },
+
+    // calculates num of items for each item in the cart
+    updateItemTotal: function(e) {
+        e.preventDefault();
+        var updatedQty = parseInt(this.$('.class-qty').val());
+
+        // if someone changes the quantity to zero, remove item
+        if(updatedQty === 0) {
+            this.removeItemFromCart(e);
+        }
+
+        this.listenTo(this.model, 'change:quantity', this.calculateSubtotal);
+        this.model.set('quantity', updatedQty);
+    }
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.CartNotifyView = Backbone.View.extend({
+
+    template: _.template($('#cartNotifyTemplate').html()),
+
+    events: {
+        'click #check-out': 'checkout'
+    },
+
+    initialize: function() {
+        this.render();
+
+        // variables
+        this.totalCost = this.$('.total-cost');
+
+        // event bus
+        Backbone.on('updateTotalPrice', this.updateTotalPrice, this);
+        Backbone.on('displayTotalPrice', this.displayTotalPrice, this);
+        Backbone.on('updateCartTotalQty', this.updateCartTotalQty, this);
+
+        // grab our items from localstorage
+        // later we will need to clear localStorage after a successful checkout
+        if(localStorage.length) {
+            this.$('.cart-empty-msg').hide();
+            app.cartCollection.fetch({
+                success: function(coll, resp) {
+                    coll.each(function(modelFromStorage) {
+                        app.cartItemView = new app.CartItemView({
+                            model: modelFromStorage
+                        }).renderFromLocalStore();
+                    }, this);
+                }
+            });
+        } else {
+            this.$('.wrap').prepend('<p class="cart-empty-msg">Your cart is currently empty.</p>');
+        }
+    },
+
+    render: function() {
+        this.$el.html(this.template);
+        return this;
+    },
+
+    // when you change the quantity of an item in the cart, update the total number of items in the cart
+    updateTotalPrice: function(subTotals) {
+        var subTotArray = subTotals;
+        var updatedTotalPrice = subTotArray.reduce(function(a, b) {
+            return a + b;
+        });
+        this.totalCost.text(updatedTotalPrice);
+    },
+
+    // the cart price total
+    displayTotalPrice: function(quantity, price) {
+        this.currentPrice = parseInt(this.totalCost.text());
+        var totalPrice = quantity * parseInt(price);
+        this.totalCost.text(this.currentPrice + totalPrice);
+    },
+
+    // updates the cart total on cart item quantity update
+    updateCartTotalQty: function(quantityArray) {
+        var updatedQty= quantityArray.reduce(function(a, b) {
+            return a + b;
+        });
+        this.$('.items-total').text(updatedQty + ' Items');
+    },
+
+    checkout: function() {
+        var _this = this;
+        var cartData = app.cartCollection.toJSON();
+        var cartDataArray = [];
+        cartData.forEach(function(item, index, array) {
+            console.log(item);
+            var id = item.theId;
+            var quant = item.quantity;
+            cartDataArray.push({ Id: id, quantity: quant });
+        });
+
         console.log(JSON.stringify(cartDataArray));
 
         this.$('.checkout-loader').show();
@@ -3186,7 +4045,7 @@ app.ClassView = Backbone.View.extend({
     },
 
     renderSeminars: function(seminarModel) {
-        this.$el.append(new app.SingleSeminarView({
+        this.$el.prepend(new app.SingleSeminarView({
             model: seminarModel
         }).render().el).hide().slideDown(500).fadeIn(600);
     }
@@ -3346,17 +4205,15 @@ app.ScheduleView = Backbone.View.extend({
                 modelData.set('theId', theId);
 
                 var modelQty = modelData.get('quant');
-                console.log(modelData)
+
             // if it hasn't been added to the cart already, add it
             if(!inCart) {
                 modelData.set('inCart', true);
-   
+                
                 // get the class title
                 var relatedClassModel = app.globalCollection.findWhere({
                     courseId: courseIdNum 
                 });
-
-                console.log(relatedClassModel);
 
                 // get the cityState
                 var relatedLocationModel = app.locationCollection.findWhere({
@@ -3417,11 +4274,11 @@ app.ScheduleView = Backbone.View.extend({
                 } else {
 
                     // else, just update the quantity
-                    updateTheQuantity();
+                    // updateTheQuantity();
 
                 }
             } else {
-                updateTheQuantity();
+                // updateTheQuantity();
             }
         }
     },

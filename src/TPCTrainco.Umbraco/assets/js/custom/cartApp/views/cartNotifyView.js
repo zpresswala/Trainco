@@ -79,8 +79,6 @@ app.CartNotifyView = Backbone.View.extend({
             cartDataArray.push({ Id: id, quantity: quant });
         });
 
-        console.log(JSON.stringify(cartDataArray));
-
         this.$('.checkout-loader').show();
 
         $.ajax({
@@ -88,15 +86,13 @@ app.CartNotifyView = Backbone.View.extend({
             data: JSON.stringify(cartDataArray),
             type: "POST",
             contentType: "application/json"
-        }).done(function(message) {
+        }).done(function(successObj) {
+            var redirectGuid = successObj.cartGuid;
             _this.$('.checkout-loader').hide();
-            console.log(message, 'success');
-            window.location.href = '/register';
+            window.location.href = '/register/?cart=' + redirectGuid;
         }).fail(function(error) {
-            console.log(error);
             _this.$('.checkout-loader').hide();
             _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
-            console.log('fail');
         });
     }
 });
