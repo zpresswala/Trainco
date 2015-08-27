@@ -161,7 +161,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 }
                 else
                 {
-                    seminarListSearch = null;
+                    return null;
                 }
             }
 

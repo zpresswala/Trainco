@@ -285,37 +285,6 @@ warning 6002: The table/view 'ATI_Development.dbo.INSTRUCTORS' does not have a p
           <Property Name="CreatedMemberID" Type="int" Nullable="false" />
           <Property Name="ModifiedMemberID" Type="int" />
         </EntityType>
-        <EntityType Name="RegistrationAttendees">
-          <Key>
-            <PropertyRef Name="RegistrationAttendeeID" />
-          </Key>
-          <Property Name="RegistrationAttendeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RegistrationID" Type="int" Nullable="false" />
-          <Property Name="RegAttendeeFirstName" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="RegAttendeeLastName" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="RegAttendeeTitle" Type="varchar" MaxLength="255" />
-          <Property Name="RegAttendeeEmail" Type="varchar" MaxLength="255" />
-          <Property Name="RegAttendeeNote" Type="varchar" MaxLength="255" />
-          <Property Name="Attendance" Type="varchar" MaxLength="50" />
-          <Property Name="WebUpdatedDate" Type="datetime" />
-          <Property Name="OfficeUpdatedDate" Type="datetime" />
-          <Property Name="CancelledDate" Type="datetime" />
-          <Property Name="RegAttendeeMiddleName" Type="varchar" MaxLength="50" />
-          <Property Name="RegAttendeeSuffix" Type="varchar" MaxLength="50" />
-          <Property Name="Att_Discount" Type="int" />
-          <Property Name="CourseFee" Type="money" />
-          <Property Name="Att_Price" Type="money" />
-          <Property Name="Att_Paid" Type="money" />
-          <Property Name="Att_Balance" Type="money" StoreGeneratedPattern="Computed" />
-          <Property Name="Notes" Type="varchar(max)" />
-          <Property Name="LastActionStatus" Type="varchar" MaxLength="255" />
-          <Property Name="LastActionFor" Type="varchar" MaxLength="50" />
-          <Property Name="LastReminderSent" Type="datetime" />
-          <Property Name="ThankYouSent" Type="datetime" />
-          <Property Name="CodeSummarized" Type="bit" />
-          <Property Name="ML_RcdNbr" Type="bigint" />
-          <Property Name="Flag" Type="varchar" MaxLength="5" />
-        </EntityType>
         <EntityType Name="RegistrationAttendeeSchedules">
           <Key>
             <PropertyRef Name="RegAttendeeScheduleID" />
@@ -323,77 +292,6 @@ warning 6002: The table/view 'ATI_Development.dbo.INSTRUCTORS' does not have a p
           <Property Name="RegAttendeeScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RegistrationAttendeeID" Type="int" Nullable="false" />
           <Property Name="ScheduleID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="REGISTRATIONS">
-          <Key>
-            <PropertyRef Name="RegistrationID" />
-          </Key>
-          <Property Name="RegistrationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RegPromoCode" Type="varchar" MaxLength="255" />
-          <Property Name="RegPromoType" Type="varchar" MaxLength="255" />
-          <Property Name="RegPromoDesc" Type="varchar" MaxLength="255" />
-          <Property Name="RegReason" Type="text" />
-          <Property Name="RegCompanyName" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthFirstName" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthMiddleName" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthLastName" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthTitle" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthMailCode" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthAddress1" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthAddress2" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthCity" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthStateID" Type="int" />
-          <Property Name="RegAuthZipcode" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthPhone" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthPhoneExt" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthFax" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthEmail" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthContactMethod" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillFirstName" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="RegBillMiddleName" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillLastName" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="RegBillTitle" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillMailCode" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillAddress1" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="RegBillAddress2" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillCity" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="RegBillStateID" Type="int" Nullable="false" />
-          <Property Name="RegBillZipcode" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="RegBillPhone" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillPhoneExt" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillFax" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillEmail" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillContactMethod" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillPaymentMethodTypeID" Type="int" Nullable="false" />
-          <Property Name="RegBillCCTypeID" Type="int" />
-          <Property Name="RegBillCCName" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillCCNumber" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillCCExpirationMonth" Type="int" />
-          <Property Name="RegBillCCExpirationYear" Type="int" />
-          <Property Name="RegBillCheckNumber" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillPONumber" Type="varchar" MaxLength="255" />
-          <Property Name="RegOrderTotal" Type="money" />
-          <Property Name="RegPayStatus" Type="varchar" MaxLength="255" />
-          <Property Name="RegStatus" Type="varchar" MaxLength="255" />
-          <Property Name="RegNotes" Type="text" />
-          <Property Name="CartID" Type="int" Nullable="false" />
-          <Property Name="Printed" Type="int" Nullable="false" />
-          <Property Name="Created" Type="smalldatetime" Nullable="false" />
-          <Property Name="Modified" Type="smalldatetime" />
-          <Property Name="CreatedMemberID" Type="int" Nullable="false" />
-          <Property Name="ModifiedMemberID" Type="int" />
-          <Property Name="RegTakenBy" Type="varchar" MaxLength="255" />
-          <Property Name="RegMethod" Type="varchar" MaxLength="255" />
-          <Property Name="Website" Type="varchar" MaxLength="255" />
-          <Property Name="RegAuthCountry" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillCountry" Type="varchar" MaxLength="255" />
-          <Property Name="RegCurrency" Type="varchar" MaxLength="5" />
-          <Property Name="OriginalPromo" Type="varchar" MaxLength="255" />
-          <Property Name="RegBillCCCVC" Type="varchar" MaxLength="4" />
-          <Property Name="RegBillPaidDate" Type="datetime" />
-          <Property Name="PastCustomer" Type="varchar" MaxLength="255" />
-          <Property Name="RegPaidTotal" Type="money" />
-          <Property Name="RegBalanceDue" Type="money" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="ScheduleCourseInstructors">
           <Key>
@@ -459,12 +357,11 @@ warning 6002: The table/view 'ATI_Development.dbo.INSTRUCTORS' does not have a p
           <Property Name="RepRegion" Type="smallint" />
           <Property Name="Sort" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ATI_Development.dbo.temp_Att' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="temp_Att">
           <Key>
-            <PropertyRef Name="RCDSEQ" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="reg_SEQ" Type="int" />
           <Property Name="att_No" Type="smallint" />
           <Property Name="att_FName" Type="varchar" MaxLength="255" />
@@ -475,12 +372,14 @@ warning 6002: The table/view 'ATI_Development.dbo.temp_Att' does not have a prim
           <Property Name="att_MName" Type="varchar" MaxLength="50" />
           <Property Name="att_Suffix" Type="varchar" MaxLength="10" />
           <Property Name="rcdFinal" Type="int" />
-          <Property Name="RCDSEQ" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RCDSEQ" Type="bigint" Nullable="false" />
           <Property Name="Att_Discount" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ATI_Development.dbo.temp_Cust' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="temp_Cust">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="reg_ID" Type="int" />
           <Property Name="reg_Cost" Type="int" />
           <Property Name="promoCode" Type="varchar" MaxLength="255" />
@@ -548,10 +447,12 @@ warning 6013: The table/view 'ATI_Development.dbo.temp_Cust' does not have a pri
           <Property Name="CEURelated" Type="varchar" MaxLength="50" />
           <Property Name="CEUEntity" Type="varchar" MaxLength="255" />
           <Property Name="PastCustomer" Type="varchar" MaxLength="255" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ATI_Development.dbo.temp_Errors' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        </EntityType>
         <EntityType Name="temp_Errors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="errDate" Type="datetime" />
           <Property Name="realRegID" Type="int" />
           <Property Name="tempRegSeq" Type="int" />
@@ -564,13 +465,10 @@ warning 6013: The table/view 'ATI_Development.dbo.temp_Errors' does not have a p
           <Property Name="attTitle" Type="varchar" MaxLength="255" />
           <Property Name="attEmail" Type="varchar" MaxLength="255" />
           <Property Name="attSemID" Type="int" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ATI_Development.dbo.temp_Reg' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        </EntityType>
         <EntityType Name="temp_Reg">
           <Key>
             <PropertyRef Name="reg_SEQ" />
-            <PropertyRef Name="reg_ID" />
           </Key>
           <Property Name="reg_SEQ" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="reg_ID" Type="int" Nullable="false" />
@@ -587,6 +485,19 @@ warning 6002: The table/view 'ATI_Development.dbo.temp_Reg' does not have a prim
           <Property Name="rcdFinal" Type="int" />
           <Property Name="discountType" Type="varchar" MaxLength="50" />
           <Property Name="discountDesc" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ATI_Development.dbo.temp_ViewStates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="temp_ViewStates">
+          <Key>
+            <PropertyRef Name="cart_ID" />
+            <PropertyRef Name="reg_ID" />
+            <PropertyRef Name="cart_DateTime" />
+          </Key>
+          <Property Name="cart_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reg_ID" Type="int" Nullable="false" />
+          <Property Name="cart_DateTime" Type="datetime" Nullable="false" />
+          <Property Name="cart_VS" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ZipLookup">
           <Key>
@@ -820,12 +731,14 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <EntitySet Name="RegBillCCType" EntityType="Self.RegBillCCType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegBillPaymentMethodType" EntityType="Self.RegBillPaymentMethodType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegContactMethodType" EntityType="Self.RegContactMethodType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RegistrationAttendees" EntityType="Self.RegistrationAttendees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegistrationAttendeeSchedules" EntityType="Self.RegistrationAttendeeSchedules" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="REGISTRATIONS" EntityType="Self.REGISTRATIONS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduleCourseInstructors" EntityType="Self.ScheduleCourseInstructors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SCHEDULES" EntityType="Self.SCHEDULES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_Att" EntityType="Self.temp_Att" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_Cust" EntityType="Self.temp_Cust" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_Errors" EntityType="Self.temp_Errors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_Reg" EntityType="Self.temp_Reg" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZipLookup" EntityType="Self.ZipLookup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INSTRUCTORS" EntityType="Self.INSTRUCTORS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -849,40 +762,13 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
     [INSTRUCTORS].[ModifiedMemberID] AS [ModifiedMemberID]
     FROM [dbo].[INSTRUCTORS] AS [INSTRUCTORS]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="temp_Att" EntityType="Self.temp_Att" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="temp_ViewStates" EntityType="Self.temp_ViewStates" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [temp_Att].[reg_SEQ] AS [reg_SEQ], 
-    [temp_Att].[att_No] AS [att_No], 
-    [temp_Att].[att_FName] AS [att_FName], 
-    [temp_Att].[att_LName] AS [att_LName], 
-    [temp_Att].[att_Title] AS [att_Title], 
-    [temp_Att].[att_Email] AS [att_Email], 
-    [temp_Att].[reg_ID] AS [reg_ID], 
-    [temp_Att].[att_MName] AS [att_MName], 
-    [temp_Att].[att_Suffix] AS [att_Suffix], 
-    [temp_Att].[rcdFinal] AS [rcdFinal], 
-    [temp_Att].[RCDSEQ] AS [RCDSEQ], 
-    [temp_Att].[Att_Discount] AS [Att_Discount]
-    FROM [dbo].[temp_Att] AS [temp_Att]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="temp_Reg" EntityType="Self.temp_Reg" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [temp_Reg].[reg_SEQ] AS [reg_SEQ], 
-    [temp_Reg].[reg_ID] AS [reg_ID], 
-    [temp_Reg].[reg_Date] AS [reg_Date], 
-    [temp_Reg].[sem_No] AS [sem_No], 
-    [temp_Reg].[sem_SID] AS [sem_SID], 
-    [temp_Reg].[sem_Title] AS [sem_Title], 
-    [temp_Reg].[sem_Place] AS [sem_Place], 
-    [temp_Reg].[sem_FeeName] AS [sem_FeeName], 
-    [temp_Reg].[sem_FeeAmt] AS [sem_FeeAmt], 
-    [temp_Reg].[sem_Qty] AS [sem_Qty], 
-    [temp_Reg].[sem_Total] AS [sem_Total], 
-    [temp_Reg].[sem_Discount] AS [sem_Discount], 
-    [temp_Reg].[rcdFinal] AS [rcdFinal], 
-    [temp_Reg].[discountType] AS [discountType], 
-    [temp_Reg].[discountDesc] AS [discountDesc]
-    FROM [dbo].[temp_Reg] AS [temp_Reg]</DefiningQuery>
+    [temp_ViewStates].[cart_ID] AS [cart_ID], 
+    [temp_ViewStates].[reg_ID] AS [reg_ID], 
+    [temp_ViewStates].[cart_DateTime] AS [cart_DateTime], 
+    [temp_ViewStates].[cart_VS] AS [cart_VS]
+    FROM [dbo].[temp_ViewStates] AS [temp_ViewStates]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="SearchList_Category" EntityType="Self.SearchList_Category" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1210,37 +1096,6 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
           <Property Name="ModifiedMemberID" Type="Int32" />
         </EntityType>
-        <EntityType Name="RegistrationAttendee">
-          <Key>
-            <PropertyRef Name="RegistrationAttendeeID" />
-          </Key>
-          <Property Name="RegistrationAttendeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RegistrationID" Type="Int32" Nullable="false" />
-          <Property Name="RegAttendeeFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RegAttendeeLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RegAttendeeTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAttendeeEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAttendeeNote" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Attendance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WebUpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="OfficeUpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CancelledDate" Type="DateTime" Precision="3" />
-          <Property Name="RegAttendeeMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RegAttendeeSuffix" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Att_Discount" Type="Int32" />
-          <Property Name="CourseFee" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Att_Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Att_Paid" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Att_Balance" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LastActionStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LastActionFor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastReminderSent" Type="DateTime" Precision="3" />
-          <Property Name="ThankYouSent" Type="DateTime" Precision="3" />
-          <Property Name="CodeSummarized" Type="Boolean" />
-          <Property Name="ML_RcdNbr" Type="Int64" />
-          <Property Name="Flag" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="RegistrationAttendeeSchedule">
           <Key>
             <PropertyRef Name="RegAttendeeScheduleID" />
@@ -1248,77 +1103,6 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <Property Name="RegAttendeeScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RegistrationAttendeeID" Type="Int32" Nullable="false" />
           <Property Name="ScheduleID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="REGISTRATION">
-          <Key>
-            <PropertyRef Name="RegistrationID" />
-          </Key>
-          <Property Name="RegistrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RegPromoCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegPromoType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegPromoDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="RegCompanyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthMailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthAddress1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthAddress2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthStateID" Type="Int32" />
-          <Property Name="RegAuthZipcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthPhoneExt" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthFax" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthContactMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RegBillMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RegBillTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillMailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillAddress1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RegBillAddress2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RegBillStateID" Type="Int32" Nullable="false" />
-          <Property Name="RegBillZipcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RegBillPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillPhoneExt" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillFax" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillContactMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillPaymentMethodTypeID" Type="Int32" Nullable="false" />
-          <Property Name="RegBillCCTypeID" Type="Int32" />
-          <Property Name="RegBillCCName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillCCNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillCCExpirationMonth" Type="Int32" />
-          <Property Name="RegBillCCExpirationYear" Type="Int32" />
-          <Property Name="RegBillCheckNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillPONumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegOrderTotal" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="RegPayStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CartID" Type="Int32" Nullable="false" />
-          <Property Name="Printed" Type="Int32" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Modified" Type="DateTime" Precision="0" />
-          <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
-          <Property Name="ModifiedMemberID" Type="Int32" />
-          <Property Name="RegTakenBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Website" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegAuthCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegCurrency" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="OriginalPromo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillCCCVC" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="RegBillPaidDate" Type="DateTime" Precision="3" />
-          <Property Name="PastCustomer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RegPaidTotal" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="RegBalanceDue" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="SCHEDULE">
           <Key>
@@ -1526,9 +1310,7 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <EntitySet Name="RegBillCCTypes" EntityType="Self.RegBillCCType" />
           <EntitySet Name="RegBillPaymentMethodTypes" EntityType="Self.RegBillPaymentMethodType" />
           <EntitySet Name="RegContactMethodTypes" EntityType="Self.RegContactMethodType" />
-          <EntitySet Name="RegistrationAttendees" EntityType="Self.RegistrationAttendee" />
           <EntitySet Name="RegistrationAttendeeSchedules" EntityType="Self.RegistrationAttendeeSchedule" />
-          <EntitySet Name="REGISTRATIONS" EntityType="Self.REGISTRATION" />
           <EntitySet Name="SCHEDULES" EntityType="Self.SCHEDULE" />
           <EntitySet Name="States" EntityType="Self.State" />
           <EntitySet Name="ZipLookups" EntityType="Self.ZipLookup" />
@@ -1554,11 +1336,9 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           </FunctionImport>
           <EntitySet Name="ScheduleCourseInstructors" EntityType="TraincoModel.ScheduleCourseInstructor" />
           <EntitySet Name="Cities" EntityType="TraincoModel.City" />
-          <EntitySet Name="temp_Att" EntityType="TraincoModel.temp_Att" />
-          <EntitySet Name="temp_Reg" EntityType="TraincoModel.temp_Reg" />
           <EntitySet Name="ShoppingCarts" EntityType="TraincoModel.ShoppingCart" />
           <FunctionImport Name="add_Registration_CTI" ReturnType="Collection(Int32)">
-            <Parameter Name="cartID" Mode="In" Type="Int32" />
+          <Parameter Name="cartID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="update_tempCust">
             <Parameter Name="p1" Mode="In" Type="Int32" />
@@ -1620,6 +1400,11 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
             <Parameter Name="p57" Mode="In" Type="String" />
             <Parameter Name="p58" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="temp_ViewStates" EntityType="TraincoModel.temp_ViewStates" />
+          <EntitySet Name="temp_Att" EntityType="TraincoModel.temp_Att" />
+          <EntitySet Name="temp_Cust" EntityType="TraincoModel.temp_Cust" />
+          <EntitySet Name="temp_Errors" EntityType="TraincoModel.temp_Errors" />
+          <EntitySet Name="temp_Reg" EntityType="TraincoModel.temp_Reg" />
         </EntityContainer>
         <EntityType Name="ScheduleCourseInstructor">
           <Key>
@@ -1655,44 +1440,6 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <Property Name="Longitude" Type="Double" />
           <Property Name="Coordinates" Type="Geography" />
         </EntityType>
-        <EntityType Name="temp_Att">
-          <Key>
-            <PropertyRef Name="RCDSEQ" />
-          </Key>
-          <Property Name="reg_SEQ" Type="Int32" />
-          <Property Name="att_No" Type="Int16" />
-          <Property Name="att_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="att_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="att_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="att_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="reg_ID" Type="Int32" />
-          <Property Name="att_MName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="att_Suffix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="rcdFinal" Type="Int32" />
-          <Property Name="RCDSEQ" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Att_Discount" Type="Int32" />
-        </EntityType>
-        <EntityType Name="temp_Reg">
-          <Key>
-            <PropertyRef Name="reg_SEQ" />
-            <PropertyRef Name="reg_ID" />
-          </Key>
-          <Property Name="reg_SEQ" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="reg_ID" Type="Int32" Nullable="false" />
-          <Property Name="reg_Date" Type="DateTime" Precision="3" />
-          <Property Name="sem_No" Type="Int16" />
-          <Property Name="sem_SID" Type="Int32" />
-          <Property Name="sem_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="sem_Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="sem_FeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sem_FeeAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="sem_Qty" Type="Int16" />
-          <Property Name="sem_Total" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="sem_Discount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="rcdFinal" Type="Int32" />
-          <Property Name="discountType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="discountDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
             <PropertyRef Name="RCDSEQ" />
@@ -1725,6 +1472,146 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <Property Name="poNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="RefName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="RCDSEQ" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="temp_ViewStates">
+          <Key>
+            <PropertyRef Name="cart_ID" />
+            <PropertyRef Name="reg_ID" />
+            <PropertyRef Name="cart_DateTime" />
+          </Key>
+          <Property Name="cart_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reg_ID" Type="Int32" Nullable="false" />
+          <Property Name="cart_DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cart_VS" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="temp_Att">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reg_SEQ" Type="Int32" />
+          <Property Name="att_No" Type="Int16" />
+          <Property Name="att_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="reg_ID" Type="Int32" />
+          <Property Name="att_MName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="att_Suffix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="rcdFinal" Type="Int32" />
+          <Property Name="RCDSEQ" Type="Int64" Nullable="false" />
+          <Property Name="Att_Discount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="temp_Cust">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reg_ID" Type="Int32" />
+          <Property Name="reg_Cost" Type="Int32" />
+          <Property Name="promoCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="promoType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="promoDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CoName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authMailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authAddr1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authAddr2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authState" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authZip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authPhone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authPhone2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authPhone3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authPhoneExt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authFax1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authFax2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authFax3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billMailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billAddr1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billAddr2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billState" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billZip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billPhone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billPhone2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billPhone3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billPhoneExt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billFax1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billFax2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billFax3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ConfTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ccType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ccName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ccNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ccMonth" Type="Int32" />
+          <Property Name="ccYear" Type="Int32" />
+          <Property Name="ccCVC" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="chkNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="poNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="rcdFinal" Type="Int32" />
+          <Property Name="RefName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RefKey" Type="Int32" />
+          <Property Name="RefCompany" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RefFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RefLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pDrop1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pDrop2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pEntry1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pEntry2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="regTakenBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="regMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CEURelated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CEUEntity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PastCustomer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="temp_Errors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="errDate" Type="DateTime" Precision="3" />
+          <Property Name="realRegID" Type="Int32" />
+          <Property Name="tempRegSeq" Type="Int32" />
+          <Property Name="tempAttNo" Type="Int16" />
+          <Property Name="tempRegID" Type="Int32" />
+          <Property Name="attFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="attMName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="attLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="attSuffix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="attTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="attEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="attSemID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="temp_Reg">
+          <Key>
+            <PropertyRef Name="reg_SEQ" />
+          </Key>
+          <Property Name="reg_SEQ" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reg_ID" Type="Int32" Nullable="false" />
+          <Property Name="reg_Date" Type="DateTime" Precision="3" />
+          <Property Name="sem_No" Type="Int16" />
+          <Property Name="sem_SID" Type="Int32" />
+          <Property Name="sem_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sem_Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sem_FeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sem_FeeAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="sem_Qty" Type="Int16" />
+          <Property Name="sem_Total" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="sem_Discount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="rcdFinal" Type="Int32" />
+          <Property Name="discountType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="discountDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1974,116 +1861,12 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RegistrationAttendees">
-            <EntityTypeMapping TypeName="TraincoModel.RegistrationAttendee">
-              <MappingFragment StoreEntitySet="RegistrationAttendees">
-                <ScalarProperty Name="RegistrationAttendeeID" ColumnName="RegistrationAttendeeID" />
-                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
-                <ScalarProperty Name="RegAttendeeFirstName" ColumnName="RegAttendeeFirstName" />
-                <ScalarProperty Name="RegAttendeeLastName" ColumnName="RegAttendeeLastName" />
-                <ScalarProperty Name="RegAttendeeTitle" ColumnName="RegAttendeeTitle" />
-                <ScalarProperty Name="RegAttendeeEmail" ColumnName="RegAttendeeEmail" />
-                <ScalarProperty Name="RegAttendeeNote" ColumnName="RegAttendeeNote" />
-                <ScalarProperty Name="Attendance" ColumnName="Attendance" />
-                <ScalarProperty Name="WebUpdatedDate" ColumnName="WebUpdatedDate" />
-                <ScalarProperty Name="OfficeUpdatedDate" ColumnName="OfficeUpdatedDate" />
-                <ScalarProperty Name="CancelledDate" ColumnName="CancelledDate" />
-                <ScalarProperty Name="RegAttendeeMiddleName" ColumnName="RegAttendeeMiddleName" />
-                <ScalarProperty Name="RegAttendeeSuffix" ColumnName="RegAttendeeSuffix" />
-                <ScalarProperty Name="Att_Discount" ColumnName="Att_Discount" />
-                <ScalarProperty Name="CourseFee" ColumnName="CourseFee" />
-                <ScalarProperty Name="Att_Price" ColumnName="Att_Price" />
-                <ScalarProperty Name="Att_Paid" ColumnName="Att_Paid" />
-                <ScalarProperty Name="Att_Balance" ColumnName="Att_Balance" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="LastActionStatus" ColumnName="LastActionStatus" />
-                <ScalarProperty Name="LastActionFor" ColumnName="LastActionFor" />
-                <ScalarProperty Name="LastReminderSent" ColumnName="LastReminderSent" />
-                <ScalarProperty Name="ThankYouSent" ColumnName="ThankYouSent" />
-                <ScalarProperty Name="CodeSummarized" ColumnName="CodeSummarized" />
-                <ScalarProperty Name="ML_RcdNbr" ColumnName="ML_RcdNbr" />
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RegistrationAttendeeSchedules">
             <EntityTypeMapping TypeName="TraincoModel.RegistrationAttendeeSchedule">
               <MappingFragment StoreEntitySet="RegistrationAttendeeSchedules">
                 <ScalarProperty Name="RegAttendeeScheduleID" ColumnName="RegAttendeeScheduleID" />
                 <ScalarProperty Name="RegistrationAttendeeID" ColumnName="RegistrationAttendeeID" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="REGISTRATIONS">
-            <EntityTypeMapping TypeName="TraincoModel.REGISTRATION">
-              <MappingFragment StoreEntitySet="REGISTRATIONS">
-                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
-                <ScalarProperty Name="RegPromoCode" ColumnName="RegPromoCode" />
-                <ScalarProperty Name="RegPromoType" ColumnName="RegPromoType" />
-                <ScalarProperty Name="RegPromoDesc" ColumnName="RegPromoDesc" />
-                <ScalarProperty Name="RegReason" ColumnName="RegReason" />
-                <ScalarProperty Name="RegCompanyName" ColumnName="RegCompanyName" />
-                <ScalarProperty Name="RegAuthFirstName" ColumnName="RegAuthFirstName" />
-                <ScalarProperty Name="RegAuthMiddleName" ColumnName="RegAuthMiddleName" />
-                <ScalarProperty Name="RegAuthLastName" ColumnName="RegAuthLastName" />
-                <ScalarProperty Name="RegAuthTitle" ColumnName="RegAuthTitle" />
-                <ScalarProperty Name="RegAuthMailCode" ColumnName="RegAuthMailCode" />
-                <ScalarProperty Name="RegAuthAddress1" ColumnName="RegAuthAddress1" />
-                <ScalarProperty Name="RegAuthAddress2" ColumnName="RegAuthAddress2" />
-                <ScalarProperty Name="RegAuthCity" ColumnName="RegAuthCity" />
-                <ScalarProperty Name="RegAuthStateID" ColumnName="RegAuthStateID" />
-                <ScalarProperty Name="RegAuthZipcode" ColumnName="RegAuthZipcode" />
-                <ScalarProperty Name="RegAuthPhone" ColumnName="RegAuthPhone" />
-                <ScalarProperty Name="RegAuthPhoneExt" ColumnName="RegAuthPhoneExt" />
-                <ScalarProperty Name="RegAuthFax" ColumnName="RegAuthFax" />
-                <ScalarProperty Name="RegAuthEmail" ColumnName="RegAuthEmail" />
-                <ScalarProperty Name="RegAuthContactMethod" ColumnName="RegAuthContactMethod" />
-                <ScalarProperty Name="RegBillFirstName" ColumnName="RegBillFirstName" />
-                <ScalarProperty Name="RegBillMiddleName" ColumnName="RegBillMiddleName" />
-                <ScalarProperty Name="RegBillLastName" ColumnName="RegBillLastName" />
-                <ScalarProperty Name="RegBillTitle" ColumnName="RegBillTitle" />
-                <ScalarProperty Name="RegBillMailCode" ColumnName="RegBillMailCode" />
-                <ScalarProperty Name="RegBillAddress1" ColumnName="RegBillAddress1" />
-                <ScalarProperty Name="RegBillAddress2" ColumnName="RegBillAddress2" />
-                <ScalarProperty Name="RegBillCity" ColumnName="RegBillCity" />
-                <ScalarProperty Name="RegBillStateID" ColumnName="RegBillStateID" />
-                <ScalarProperty Name="RegBillZipcode" ColumnName="RegBillZipcode" />
-                <ScalarProperty Name="RegBillPhone" ColumnName="RegBillPhone" />
-                <ScalarProperty Name="RegBillPhoneExt" ColumnName="RegBillPhoneExt" />
-                <ScalarProperty Name="RegBillFax" ColumnName="RegBillFax" />
-                <ScalarProperty Name="RegBillEmail" ColumnName="RegBillEmail" />
-                <ScalarProperty Name="RegBillContactMethod" ColumnName="RegBillContactMethod" />
-                <ScalarProperty Name="RegBillPaymentMethodTypeID" ColumnName="RegBillPaymentMethodTypeID" />
-                <ScalarProperty Name="RegBillCCTypeID" ColumnName="RegBillCCTypeID" />
-                <ScalarProperty Name="RegBillCCName" ColumnName="RegBillCCName" />
-                <ScalarProperty Name="RegBillCCNumber" ColumnName="RegBillCCNumber" />
-                <ScalarProperty Name="RegBillCCExpirationMonth" ColumnName="RegBillCCExpirationMonth" />
-                <ScalarProperty Name="RegBillCCExpirationYear" ColumnName="RegBillCCExpirationYear" />
-                <ScalarProperty Name="RegBillCheckNumber" ColumnName="RegBillCheckNumber" />
-                <ScalarProperty Name="RegBillPONumber" ColumnName="RegBillPONumber" />
-                <ScalarProperty Name="RegOrderTotal" ColumnName="RegOrderTotal" />
-                <ScalarProperty Name="RegPayStatus" ColumnName="RegPayStatus" />
-                <ScalarProperty Name="RegStatus" ColumnName="RegStatus" />
-                <ScalarProperty Name="RegNotes" ColumnName="RegNotes" />
-                <ScalarProperty Name="CartID" ColumnName="CartID" />
-                <ScalarProperty Name="Printed" ColumnName="Printed" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Modified" ColumnName="Modified" />
-                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
-                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
-                <ScalarProperty Name="RegTakenBy" ColumnName="RegTakenBy" />
-                <ScalarProperty Name="RegMethod" ColumnName="RegMethod" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="RegAuthCountry" ColumnName="RegAuthCountry" />
-                <ScalarProperty Name="RegBillCountry" ColumnName="RegBillCountry" />
-                <ScalarProperty Name="RegCurrency" ColumnName="RegCurrency" />
-                <ScalarProperty Name="OriginalPromo" ColumnName="OriginalPromo" />
-                <ScalarProperty Name="RegBillCCCVC" ColumnName="RegBillCCCVC" />
-                <ScalarProperty Name="RegBillPaidDate" ColumnName="RegBillPaidDate" />
-                <ScalarProperty Name="PastCustomer" ColumnName="PastCustomer" />
-                <ScalarProperty Name="RegPaidTotal" ColumnName="RegPaidTotal" />
-                <ScalarProperty Name="RegBalanceDue" ColumnName="RegBalanceDue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2270,45 +2053,6 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="temp_Att">
-            <EntityTypeMapping TypeName="TraincoModel.temp_Att">
-              <MappingFragment StoreEntitySet="temp_Att">
-                <ScalarProperty Name="Att_Discount" ColumnName="Att_Discount" />
-                <ScalarProperty Name="RCDSEQ" ColumnName="RCDSEQ" />
-                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
-                <ScalarProperty Name="att_Suffix" ColumnName="att_Suffix" />
-                <ScalarProperty Name="att_MName" ColumnName="att_MName" />
-                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
-                <ScalarProperty Name="att_Email" ColumnName="att_Email" />
-                <ScalarProperty Name="att_Title" ColumnName="att_Title" />
-                <ScalarProperty Name="att_LName" ColumnName="att_LName" />
-                <ScalarProperty Name="att_FName" ColumnName="att_FName" />
-                <ScalarProperty Name="att_No" ColumnName="att_No" />
-                <ScalarProperty Name="reg_SEQ" ColumnName="reg_SEQ" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="temp_Reg">
-            <EntityTypeMapping TypeName="TraincoModel.temp_Reg">
-              <MappingFragment StoreEntitySet="temp_Reg">
-                <ScalarProperty Name="discountDesc" ColumnName="discountDesc" />
-                <ScalarProperty Name="discountType" ColumnName="discountType" />
-                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
-                <ScalarProperty Name="sem_Discount" ColumnName="sem_Discount" />
-                <ScalarProperty Name="sem_Total" ColumnName="sem_Total" />
-                <ScalarProperty Name="sem_Qty" ColumnName="sem_Qty" />
-                <ScalarProperty Name="sem_FeeAmt" ColumnName="sem_FeeAmt" />
-                <ScalarProperty Name="sem_FeeName" ColumnName="sem_FeeName" />
-                <ScalarProperty Name="sem_Place" ColumnName="sem_Place" />
-                <ScalarProperty Name="sem_Title" ColumnName="sem_Title" />
-                <ScalarProperty Name="sem_SID" ColumnName="sem_SID" />
-                <ScalarProperty Name="sem_No" ColumnName="sem_No" />
-                <ScalarProperty Name="reg_Date" ColumnName="reg_Date" />
-                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
-                <ScalarProperty Name="reg_SEQ" ColumnName="reg_SEQ" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ShoppingCarts">
             <EntityTypeMapping TypeName="TraincoModel.ShoppingCart">
               <MappingFragment StoreEntitySet="ShoppingCarts">
@@ -2345,6 +2089,149 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="add_Registration_CTI" FunctionName="TraincoModel.Store.add_Registration_CTI" />
           <FunctionImportMapping FunctionImportName="update_tempCust" FunctionName="TraincoModel.Store.update_tempCust" />
+          <EntitySetMapping Name="temp_ViewStates">
+            <EntityTypeMapping TypeName="TraincoModel.temp_ViewStates">
+              <MappingFragment StoreEntitySet="temp_ViewStates">
+                <ScalarProperty Name="cart_VS" ColumnName="cart_VS" />
+                <ScalarProperty Name="cart_DateTime" ColumnName="cart_DateTime" />
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="cart_ID" ColumnName="cart_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Att">
+            <EntityTypeMapping TypeName="TraincoModel.temp_Att">
+              <MappingFragment StoreEntitySet="temp_Att">
+                <ScalarProperty Name="Att_Discount" ColumnName="Att_Discount" />
+                <ScalarProperty Name="RCDSEQ" ColumnName="RCDSEQ" />
+                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
+                <ScalarProperty Name="att_Suffix" ColumnName="att_Suffix" />
+                <ScalarProperty Name="att_MName" ColumnName="att_MName" />
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="att_Email" ColumnName="att_Email" />
+                <ScalarProperty Name="att_Title" ColumnName="att_Title" />
+                <ScalarProperty Name="att_LName" ColumnName="att_LName" />
+                <ScalarProperty Name="att_FName" ColumnName="att_FName" />
+                <ScalarProperty Name="att_No" ColumnName="att_No" />
+                <ScalarProperty Name="reg_SEQ" ColumnName="reg_SEQ" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Cust">
+            <EntityTypeMapping TypeName="TraincoModel.temp_Cust">
+              <MappingFragment StoreEntitySet="temp_Cust">
+                <ScalarProperty Name="PastCustomer" ColumnName="PastCustomer" />
+                <ScalarProperty Name="CEUEntity" ColumnName="CEUEntity" />
+                <ScalarProperty Name="CEURelated" ColumnName="CEURelated" />
+                <ScalarProperty Name="regMethod" ColumnName="regMethod" />
+                <ScalarProperty Name="regTakenBy" ColumnName="regTakenBy" />
+                <ScalarProperty Name="pEntry2" ColumnName="pEntry2" />
+                <ScalarProperty Name="pEntry1" ColumnName="pEntry1" />
+                <ScalarProperty Name="pDrop2" ColumnName="pDrop2" />
+                <ScalarProperty Name="pDrop1" ColumnName="pDrop1" />
+                <ScalarProperty Name="RefLName" ColumnName="RefLName" />
+                <ScalarProperty Name="RefFName" ColumnName="RefFName" />
+                <ScalarProperty Name="RefCompany" ColumnName="RefCompany" />
+                <ScalarProperty Name="RefKey" ColumnName="RefKey" />
+                <ScalarProperty Name="RefName" ColumnName="RefName" />
+                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
+                <ScalarProperty Name="poNo" ColumnName="poNo" />
+                <ScalarProperty Name="chkNo" ColumnName="chkNo" />
+                <ScalarProperty Name="ccCVC" ColumnName="ccCVC" />
+                <ScalarProperty Name="ccYear" ColumnName="ccYear" />
+                <ScalarProperty Name="ccMonth" ColumnName="ccMonth" />
+                <ScalarProperty Name="ccNumber" ColumnName="ccNumber" />
+                <ScalarProperty Name="ccName" ColumnName="ccName" />
+                <ScalarProperty Name="ccType" ColumnName="ccType" />
+                <ScalarProperty Name="payMethod" ColumnName="payMethod" />
+                <ScalarProperty Name="ConfTo" ColumnName="ConfTo" />
+                <ScalarProperty Name="billEmail" ColumnName="billEmail" />
+                <ScalarProperty Name="billFax3" ColumnName="billFax3" />
+                <ScalarProperty Name="billFax2" ColumnName="billFax2" />
+                <ScalarProperty Name="billFax1" ColumnName="billFax1" />
+                <ScalarProperty Name="billPhoneExt" ColumnName="billPhoneExt" />
+                <ScalarProperty Name="billPhone3" ColumnName="billPhone3" />
+                <ScalarProperty Name="billPhone2" ColumnName="billPhone2" />
+                <ScalarProperty Name="billPhone1" ColumnName="billPhone1" />
+                <ScalarProperty Name="billCountry" ColumnName="billCountry" />
+                <ScalarProperty Name="billZip" ColumnName="billZip" />
+                <ScalarProperty Name="billState" ColumnName="billState" />
+                <ScalarProperty Name="billCity" ColumnName="billCity" />
+                <ScalarProperty Name="billAddr2" ColumnName="billAddr2" />
+                <ScalarProperty Name="billAddr1" ColumnName="billAddr1" />
+                <ScalarProperty Name="billMailCode" ColumnName="billMailCode" />
+                <ScalarProperty Name="billTitle" ColumnName="billTitle" />
+                <ScalarProperty Name="billLName" ColumnName="billLName" />
+                <ScalarProperty Name="billFName" ColumnName="billFName" />
+                <ScalarProperty Name="authEmail" ColumnName="authEmail" />
+                <ScalarProperty Name="authFax3" ColumnName="authFax3" />
+                <ScalarProperty Name="authFax2" ColumnName="authFax2" />
+                <ScalarProperty Name="authFax1" ColumnName="authFax1" />
+                <ScalarProperty Name="authPhoneExt" ColumnName="authPhoneExt" />
+                <ScalarProperty Name="authPhone3" ColumnName="authPhone3" />
+                <ScalarProperty Name="authPhone2" ColumnName="authPhone2" />
+                <ScalarProperty Name="authPhone1" ColumnName="authPhone1" />
+                <ScalarProperty Name="authCountry" ColumnName="authCountry" />
+                <ScalarProperty Name="authZip" ColumnName="authZip" />
+                <ScalarProperty Name="authState" ColumnName="authState" />
+                <ScalarProperty Name="authCity" ColumnName="authCity" />
+                <ScalarProperty Name="authAddr2" ColumnName="authAddr2" />
+                <ScalarProperty Name="authAddr1" ColumnName="authAddr1" />
+                <ScalarProperty Name="authMailCode" ColumnName="authMailCode" />
+                <ScalarProperty Name="authTitle" ColumnName="authTitle" />
+                <ScalarProperty Name="authLName" ColumnName="authLName" />
+                <ScalarProperty Name="authFName" ColumnName="authFName" />
+                <ScalarProperty Name="CoName" ColumnName="CoName" />
+                <ScalarProperty Name="promoDesc" ColumnName="promoDesc" />
+                <ScalarProperty Name="promoType" ColumnName="promoType" />
+                <ScalarProperty Name="promoCode" ColumnName="promoCode" />
+                <ScalarProperty Name="reg_Cost" ColumnName="reg_Cost" />
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Errors">
+            <EntityTypeMapping TypeName="TraincoModel.temp_Errors">
+              <MappingFragment StoreEntitySet="temp_Errors">
+                <ScalarProperty Name="attSemID" ColumnName="attSemID" />
+                <ScalarProperty Name="attEmail" ColumnName="attEmail" />
+                <ScalarProperty Name="attTitle" ColumnName="attTitle" />
+                <ScalarProperty Name="attSuffix" ColumnName="attSuffix" />
+                <ScalarProperty Name="attLName" ColumnName="attLName" />
+                <ScalarProperty Name="attMName" ColumnName="attMName" />
+                <ScalarProperty Name="attFName" ColumnName="attFName" />
+                <ScalarProperty Name="tempRegID" ColumnName="tempRegID" />
+                <ScalarProperty Name="tempAttNo" ColumnName="tempAttNo" />
+                <ScalarProperty Name="tempRegSeq" ColumnName="tempRegSeq" />
+                <ScalarProperty Name="realRegID" ColumnName="realRegID" />
+                <ScalarProperty Name="errDate" ColumnName="errDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Reg">
+            <EntityTypeMapping TypeName="TraincoModel.temp_Reg">
+              <MappingFragment StoreEntitySet="temp_Reg">
+                <ScalarProperty Name="discountDesc" ColumnName="discountDesc" />
+                <ScalarProperty Name="discountType" ColumnName="discountType" />
+                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
+                <ScalarProperty Name="sem_Discount" ColumnName="sem_Discount" />
+                <ScalarProperty Name="sem_Total" ColumnName="sem_Total" />
+                <ScalarProperty Name="sem_Qty" ColumnName="sem_Qty" />
+                <ScalarProperty Name="sem_FeeAmt" ColumnName="sem_FeeAmt" />
+                <ScalarProperty Name="sem_FeeName" ColumnName="sem_FeeName" />
+                <ScalarProperty Name="sem_Place" ColumnName="sem_Place" />
+                <ScalarProperty Name="sem_Title" ColumnName="sem_Title" />
+                <ScalarProperty Name="sem_SID" ColumnName="sem_SID" />
+                <ScalarProperty Name="sem_No" ColumnName="sem_No" />
+                <ScalarProperty Name="reg_Date" ColumnName="reg_Date" />
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="reg_SEQ" ColumnName="reg_SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

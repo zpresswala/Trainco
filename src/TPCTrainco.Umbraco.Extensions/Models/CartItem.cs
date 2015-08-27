@@ -9,6 +9,6 @@ namespace TPCTrainco.Umbraco.Extensions.Models
     public class CartItem
     {
         public int Id { get; set; }
-        public int Quantity { get; set; }
+        public short Quantity { get; set; }
     }
 }
