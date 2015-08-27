@@ -119,7 +119,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         if (locationsList != null && locationsList.Count > 0)
                         {
                             TPCTrainco.Umbraco.Extensions.ViewModels.Location selectedLocation = locationsList
-                                .Where(p => p.CourseId == request.CourseId && p.CityId == request.CityId).FirstOrDefault();
+                                .Where(p => p.CourseId == request.CourseId && p.SeminarId == request.SeminarId).FirstOrDefault();
 
                             if (selectedLocation != null)
                             {
@@ -184,19 +184,13 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (request.Dates != null)
             {
-                // filter date min
-                if (request.Dates.Min != null)
+                // filter date min and max
+                if (request.Dates.Min != null && request.Dates.Max != null)
                 {
                     DateTime minDate = DateTime.Parse(request.Dates.Min.MinMonthVal + "/1/" + request.Dates.Min.MinYearVal);
-
-                    seminarListSearch = seminarListSearch.Where(p => p.SchDate >= minDate).ToList();
-                }
-                // filter date max
-                if (request.Dates.Max != null)
-                {
                     DateTime maxDate = DateTime.Parse(request.Dates.Max.MaxMonthVal + "/1/" + request.Dates.Max.MaxYearVal).AddMonths(1).AddDays(-1);
 
-                    seminarListSearch = seminarListSearch.Where(p => p.SchDate <= maxDate).ToList();
+                    seminarListSearch = seminarListSearch.Where(p => p.SchDate >= minDate && p.SchDate <= maxDate).ToList();
                 }
             }
 
@@ -268,10 +262,13 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                             if (seminarsByLocation != null && seminarsByLocation.Count > 0)
                             {
+                                seminar.Locations = new List<ViewModels.Location>();
+
                                 foreach (Seminar_Catalog seminarCatalog in seminarsByLocation)
                                 {
                                     ViewModels.Location location = new ViewModels.Location();
 
+                                    location.SeminarId = seminarCatalog.SchID;
                                     location.CourseId = seminar.CourseId;
                                     location.CityState = seminarCatalog.City + ", " + seminarCatalog.State;
                                     location.SearchId = searchId;
@@ -315,7 +312,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                         }
                                     }
 
-                                    seminar.Locations = new List<ViewModels.Location>();
                                     seminar.Locations.Add(location);
                                 }
                             }
@@ -516,6 +512,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             Loc result = new Loc();
 
+            result.SeminarId = location.SeminarId;
             result.CityId = location.CityId;
             result.CourseId = location.CourseId;
             result.CityState = location.CityState;
