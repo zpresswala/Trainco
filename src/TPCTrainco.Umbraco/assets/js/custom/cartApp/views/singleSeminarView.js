@@ -57,13 +57,13 @@ app.SingleSeminarView = Backbone.View.extend({
             var searchIdToGet = this.model.get('searchId');
             var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
 
-            console.log(JSON.stringify({
-                "courseId": courseIdToGet,
-                "searchId": searchIdToGet
-            }).toString());
+            // console.log(JSON.stringify({
+            //     "courseId": courseIdToGet,
+            //     "searchId": searchIdToGet
+            // }).toString());
 
             app.locationCollection.fetch({
-                remove: false,
+                // remove: false,
                 data: JSON.stringify({
                     "courseId": courseIdToGet,
                     "searchId": searchIdToGet
@@ -81,6 +81,8 @@ app.SingleSeminarView = Backbone.View.extend({
                     // this.model = seminar
                     _this.model.set('open', true);
                     _this.model.set('schedulesLoaded', true);
+                    
+                    console.log(app.locationCollection.remove); 
                 }
             });
         } else {

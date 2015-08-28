@@ -14,21 +14,53 @@ app.ScheduleView = Backbone.View.extend({
 
     template: _.template($('#scheduleTemplate').html()),
 
-    initialize: function() {
-        this.render();
+    initialize: function(options) {
+        this.options = options || {};
+        this.locModelLocId = options.locId;
+        // this.render();
     },
 
     render:function () {
         var _this = this;
-        this.collection.each(function(singleClass) {
-            var hasBeenRendered = singleClass.get('hasBeenRendered');
-            if(hasBeenRendered) {
-                return false;
-            } else {
-                _this.$el.append(_this.template(singleClass.toJSON()));
-                singleClass.set('hasBeenRendered', true);
-            }
-        }, this);
+        console.log('doo doo')
+        var filtered = _.filter(this.collection.models, function(item) {
+             var schedLocId = item.get('locationId');
+             if(_this.locModelLocId === schedLocId) {
+                console.log(_this.$el);
+                _this.$el.last().append(_this.template(item.toJSON()));
+                return item;
+             } else {
+                // _this.$el.empty();
+                _this.$el.addClass('stuff')
+                return;
+             }
+             // return schedLocId
+        });
+
+        console.log(filtered)
+
+        // this.$el.empty();
+        // this.collection.each(function(singleClass) {
+        //     // console.log(singleClass)
+        //     var schedLocId = singleClass.get('locationId');
+        //     console.log(_this.locModelLocId, schedLocId, '+++++++');
+        //     if(_this.locModelLocId === schedLocId) {
+        //         console.log(schedLocId, 'should render') 
+        //         _this.$el.append(_this.template(singleClass.toJSON()));
+        //     } else {
+        //         // console.log(schedLocId, 'nope');
+        //         this.$('.schedule').addClass('norender')
+        //         // singleClass.set('nope', true);
+        //     }
+        //     // var hasBeenRendered = singleClass.get('hasBeenRendered');
+        //     // if(hasBeenRendered) {
+        //     //     return false;
+        //     // } else {
+                
+        //     //     singleClass.set('hasBeenRendered', true);
+        //     // }
+        //     // console.log(singleClass)
+        // }, this);
     },
 
     // this just creates the data model and adds it to the collection
@@ -80,7 +112,6 @@ app.ScheduleView = Backbone.View.extend({
                 thequantity = parseInt(this.$classQty.val()),
                 inCart = modelData.get('inCart'),
                 theId = modelData.get('id');
-                console.log(theId, 'first id');
                 modelData.set('quant', thequantity);
                 modelData.set('theId', theId);
 
