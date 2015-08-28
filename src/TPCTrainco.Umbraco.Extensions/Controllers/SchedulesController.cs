@@ -27,11 +27,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             //Content-Type: application/json
 
             //POST
-            //{"seminarId":54157,"searchId":""}
+            //{"locationId":54157,"courseId":169,"searchId":""}
 
             SchedulesSearchRequest searchRequest = JsonConvert.DeserializeObject<SchedulesSearchRequest>(json.ToString());
 
-            if (searchRequest != null && searchRequest.SeminarId > 0 && false == string.IsNullOrWhiteSpace(searchRequest.SearchId))
+            if (searchRequest != null && searchRequest.LocationId > 0 && false == string.IsNullOrWhiteSpace(searchRequest.SearchId))
             {
                 searchRequest.SearchId = searchRequest.SearchId.ToLower();
 

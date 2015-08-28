@@ -8,7 +8,7 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
 {
     public class Location
     {
-        public int SeminarId { get; set; }
+        public int LocationId { get; set; }
         public int CityId { get; set; }
         public int CourseId { get; set; }
         public string CityState { get; set; }

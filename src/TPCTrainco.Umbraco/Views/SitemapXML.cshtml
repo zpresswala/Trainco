@@ -19,6 +19,8 @@
             <url>
                 <loc>@GetUrlWithDomainPrefix(node.Url)</loc>
                 <lastmod>@(string.Format("{0:s}+00:00", node.UpdateDate))</lastmod>
+                @Html.Raw(node.HasValue("sitemapChangeFrequency") ? "<changefreq>"+ node.GetPropertyValue<string>("sitemapChangeFrequency") +"</changefreq>" : "")
+                @Html.Raw(node.HasValue("sitemapPriority") ? "<priority>" + node.GetPropertyValue<string>("sitemapPriority") + "</priority>" : "")
             </url>
         }
         if (node.Level <= 100 && node.Children.Count() > 0)
@@ -33,7 +35,7 @@
     {
         if (url.StartsWith("/"))
             url = url.Substring(1);
-            var domainPrefix = string.Format("http://{0}/", HttpContext.Current.Request.ServerVariables["HTTP_HOST"]);
+            var domainPrefix = string.Format("http://{0}/", HttpContext.Current.Request.Url.DnsSafeHost);
 
         if (url.StartsWith(domainPrefix))
             return url;

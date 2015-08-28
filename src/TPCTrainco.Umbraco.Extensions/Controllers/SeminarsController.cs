@@ -25,6 +25,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             //Content-Type: application/json
 
+            //{"location":"Denver, CO","classTopics":["electrical"],"dates":{"min":{"minMonthVal":9,"minYearVal":2015},"max":{"maxMonthVal":6,"maxYearVal":2016}}}
             //{"location":"Denver, CO","classTopics":["electrical","management"],"dates":{"min":{"minMonthVal":9,"minYearVal":2015},"max":{"maxMonthVal":1,"maxYearVal":2016}}}
             //{"location":"Denver, CO","classTopics":["electrical","management"]}
 

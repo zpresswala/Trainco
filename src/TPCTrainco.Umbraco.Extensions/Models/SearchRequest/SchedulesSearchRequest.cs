@@ -8,7 +8,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models.SearchRequest
 {
     public class SchedulesSearchRequest
     {
-        public int SeminarId { get; set; }
+        public int LocationId { get; set; }
         public int CourseId { get; set; }
         public string SearchId { get; set; }
     }
