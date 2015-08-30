@@ -2,6 +2,8 @@
 
 window.app = window.app || {};
 
+var ApiDomain = 'http://trainco-dev.imulus-client.com'
+
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -47,6 +49,12 @@ function TPCApp() {
 	if ($('.register-two').length || $('.contact').length) {
 		this.register = new Register();
 	}
+
+	// checkout
+	if ($('.register-top').length) {
+		this.Checkout = new Checkout();
+	}
+
 
 	this.bindScroll();
 

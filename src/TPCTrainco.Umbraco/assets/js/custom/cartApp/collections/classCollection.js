@@ -5,7 +5,7 @@ window.app = window.app || {};
 app.ClassCollection = Backbone.Collection.extend({
 	model: app.ClassModel,
 
-	url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
+	url: ApiDomain + '/api/seminars/search'
 
 });
 
