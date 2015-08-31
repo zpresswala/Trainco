@@ -2739,6 +2739,12 @@ $('#search-btn-home').on('click', function () {
 
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
+	var $emptyMsg = $('.empty-message'),
+		$classLoader = $('.class-loader');
+	
+	$emptyMsg.fadeOut(100, function() {
+		$classLoader.fadeIn(150);
+	});
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
@@ -2777,9 +2783,6 @@ function performSearch(searchParams) {
 			var topics = topicsListTwo;
 		}	
 	}
-
-	var $emptyMsg = $('.empty-message'),
-		$classLoader = $('.class-loader');
 
 	app.globalCollection.fetch({
 		data: searchParams,
@@ -2844,38 +2847,6 @@ app.ScheduleCollection = Backbone.Collection.extend({
 });
 
 app.scheduleCollection = new app.ScheduleCollection;
-'use strict';
-
-window.app = window.app || {};
-
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-
-});
 'use strict';
 
 window.app = window.app || {};
@@ -3287,8 +3258,7 @@ app.ScheduleView = Backbone.View.extend({
         this.collection.each(function(singleClass) {
             var schedLocId = singleClass.get('locationId');
             if(_this.locModelLocId === schedLocId) {
-                console.log('yes')
-                _this.$el.append(_this.template(singleClass.toJSON()));
+                _this.$el.last().append(_this.template(singleClass.toJSON()));
             } else {
                 this.$el.children().css('border', '1px solid blue');
             }
@@ -3546,6 +3516,38 @@ app.SingleSeminarView = Backbone.View.extend({
 });
 
 app.singleSeminarView = new app.SingleSeminarView();
+'use strict';
+
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+
+});
 'use strict';
 
 function Catalog() {

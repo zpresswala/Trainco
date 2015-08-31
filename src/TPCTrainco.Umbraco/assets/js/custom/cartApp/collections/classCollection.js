@@ -35,6 +35,12 @@ $('#search-btn-home').on('click', function () {
 
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
+	var $emptyMsg = $('.empty-message'),
+		$classLoader = $('.class-loader');
+	
+	$emptyMsg.fadeOut(100, function() {
+		$classLoader.fadeIn(150);
+	});
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
@@ -73,9 +79,6 @@ function performSearch(searchParams) {
 			var topics = topicsListTwo;
 		}	
 	}
-
-	var $emptyMsg = $('.empty-message'),
-		$classLoader = $('.class-loader');
 
 	app.globalCollection.fetch({
 		data: searchParams,
