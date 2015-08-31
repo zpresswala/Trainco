@@ -70,6 +70,7 @@ function TPCApp() {
 	}
 
 	this.animateCart(isRetina);
+	this.retinaLogos(isRetina);
 	this.clickScrollTo();
 
 
@@ -154,4 +155,12 @@ TPCApp.prototype.clickScrollTo = function () {
 			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
 		}, 300);
 	});
+};
+
+TPCApp.prototype.retinaLogos = function(retinaScreen) {
+	if(retinaScreen) {
+		$('#logo').attr('src', '/assets/images/logo-trainco-2x.png').css('width', 266 + 'px');
+	} else {
+		$('#logo').attr('src', '/assets/images/logo-trainco-1x.png');
+	}
 };

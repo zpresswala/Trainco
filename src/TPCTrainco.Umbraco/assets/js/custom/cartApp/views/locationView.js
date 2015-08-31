@@ -14,19 +14,19 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         this.render();
+        // var renderLocations = _.after(locations.length, render);
+
+        // // var renderNotes = _.after(notes.length, render);
+        // _.each(notes, function(note) {
+        //     note.asyncSave({success: renderNotes});
+        // });
     },
 
     render: function() {
         var _this = this;
         this.collection.each(function(model) {
-            var hasBeenRendered = model.get('hasBeenRendered');
-            if(hasBeenRendered) {
-                return false;
-            } else { 
-                _this.$el.append(_this.template(model.toJSON()));
-                model.set('hasBeenRendered', true);
-                _this.renderSchedules(model);
-            }
+            _this.$el.append(_this.template(model.toJSON()));
+            _this.renderSchedules(model);
         }, this);
     },
 
@@ -36,7 +36,8 @@ app.LocationView = Backbone.View.extend({
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
         var locationIdToGet = theModel.get('locationId');
-        var elemToAppendSchedules = this.$el.find('.schedule-items-wrap');
+        console.log(this.$el);
+        var elemToAppendSchedules = this.$('.schedule-items-wrap');
         this.$el.prev().find('.location-loader').css('display', 'block');
         app.scheduleCollection.fetch({
             remove: false,

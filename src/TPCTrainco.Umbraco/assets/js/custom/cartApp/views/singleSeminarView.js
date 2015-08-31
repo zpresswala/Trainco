@@ -25,7 +25,6 @@ app.SingleSeminarView = Backbone.View.extend({
         e.preventDefault();
         var _this = this;
         var open = this.model.get('open');
-        var schedulesLoaded = this.model.get('schedulesLoaded');
         var $schedItemWrap = this.$('.schedule-item-wrap');
 
         var viewText = $(e.target);
@@ -52,42 +51,32 @@ app.SingleSeminarView = Backbone.View.extend({
             "border-top": '1px solid #D7D7D7'
         });
 
-        if(!schedulesLoaded) {
-            var courseIdToGet = this.model.get('courseId');
-            var searchIdToGet = this.model.get('searchId');
-            var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+        var courseIdToGet = this.model.get('courseId');
+        var searchIdToGet = this.model.get('searchId');
+        var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
 
-            // console.log(JSON.stringify({
-            //     "courseId": courseIdToGet,
-            //     "searchId": searchIdToGet
-            // }).toString());
 
-            app.locationCollection.fetch({
-                // remove: false,
-                data: JSON.stringify({
-                    "courseId": courseIdToGet,
-                    "searchId": searchIdToGet
-                }),
-                type: "POST",
-                contentType: "application/json",
+        // http://stackoverflow.com/questions/12084388/backbone-wait-for-multiple-fetch-to-continue
+        // here, wait until all location models are fetched before rendering.
+        app.locationCollection.fetch({
+            // remove: false,
+            data: JSON.stringify({
+                "courseId": courseIdToGet,
+                "searchId": searchIdToGet
+            }),
+            type: "POST",
+            contentType: "application/json",
 
-                success: function (data) {
-                    console.log(JSON.stringify(data));
-
-                    app.locationView = new app.LocationView({
-                        collection: app.locationCollection,
-                        el: elemToRender
-                    });
-                    // this.model = seminar
-                    _this.model.set('open', true);
-                    _this.model.set('schedulesLoaded', true);
-                    
-                    console.log(app.locationCollection.remove); 
-                }
-            });
-        } else {
-            return false;
-        }
+            success: function (data) {
+                app.locationView = new app.LocationView({
+                    collection: app.locationCollection,
+                    el: elemToRender
+                });
+                // this.model = seminar
+                _this.model.set('open', true);
+                // _this.model.set('schedulesLoaded', true);
+            }
+        });
     },
 
     // on update of quantity in cart item, sends back to class list

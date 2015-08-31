@@ -260,13 +260,6 @@ h2, h3, h4 {
 	}
 }
 
-.navbar-brand img {
-    margin-top: -7px;
-    @include tablet-landscape-and-up {
-        margin: 7px 0 0 0;
-    }
-}
-
 // the main h2s
 .callout-headline {
 	position: relative;

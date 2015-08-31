@@ -94,11 +94,12 @@
 		@include transition(all 0.3s ease-in-out);
 
 		&:after {
-			content: url('/assets/images/svg/checkmark.svg');
+			// content: url('/assets/images/svg/checkmark.svg');
+			content: url('/assets/images/icon-checkmark.png');
 			position: relative;
 			top: 50%;
 			left: 50%;
-			margin-top: -13px;
+			margin-top: -10px;
 			margin-left: -95%;
 			display: block;
 		}

@@ -2709,23 +2709,11 @@ window.app = window.app || {};
 app.ClassCollection = Backbone.Collection.extend({
 	model: app.ClassModel,
 
-	url: 'http://trainco-dev.imulus-client.com/api/seminars/search'
+	url: ApiDomain + '/api/seminars/search'
 
 });
 
 app.globalCollection = new app.ClassCollection;
-	// var minDate = new Date();
-	// this.minMonth = minDate.getMonth() + 2;
-
-	// 	var maxDate = new Date();
-	// this.maxMonth = minDate.getMonth() + 5;
-	// app.datePicker = new DatePicker();
-	  	// $('#date-range-slider').dateRangeSlider({
-			    
-		  //   defaultValues: {
-		  //   	min: new Date(minDate), 
-		  //   	max: new Date(maxRangeSelect)
-		  //   }
 		  
 // check the hash to see if there is data there. (only on page load)
 $(document).ready(function () {
@@ -2751,6 +2739,12 @@ $('#search-btn-home').on('click', function () {
 
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
+	var $emptyMsg = $('.empty-message'),
+		$classLoader = $('.class-loader');
+	
+	$emptyMsg.fadeOut(100, function() {
+		$classLoader.fadeIn(150);
+	});
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
@@ -2769,30 +2763,26 @@ function performSearch(searchParams) {
 			var topics = ['all'];
 		} else {
 			var topics = dataReFormat.classTopics.filter(function (item, pos) {
-				var length = dataReFormat.classTopics.length;
 				return dataReFormat.classTopics.indexOf(item) == pos;
 			});
 		}
 
 		// if more than two items selected, add and
-		if (topics.length == 2) {
-			var length = topics.length;
+		var length = topics.length;
+		if (length == 2) {
 			topics.splice(length - 1, 0, 'and');
 			var topicsList = topics.join(' ');
 			var topicsListTwo = topicsList.replace('and,', 'and');
 			var topics = topicsListTwo;
-		} else if (topics.length > 2) {
+		} else if (length > 2) {
 
 			// if two or fewer, remove commas
-			topics.splice(length - 1, 0, 'and');
+			topics.splice((length - 1), 0, 'and');
 			var topicsList = topics.join(', ');
 			var topicsListTwo = topicsList.replace('and,', 'and');
 			var topics = topicsListTwo;
 		}	
 	}
-
-	var $emptyMsg = $('.empty-message'),
-		$classLoader = $('.class-loader');
 
 	app.globalCollection.fetch({
 		data: searchParams,
@@ -2840,7 +2830,7 @@ window.app = window.app || {};
 app.LocationCollection = Backbone.Collection.extend({
 	model: app.LocationModel,
 
-	url:'http://trainco-dev.imulus-client.com/api/locations/searchbyseminar'
+	url: ApiDomain + '/api/locations/searchbyseminar'
 
 });
 
@@ -2852,66 +2842,11 @@ window.app = window.app || {};
 app.ScheduleCollection = Backbone.Collection.extend({
     model: app.ScheduleModel,
 
-    url:'http://trainco-dev.imulus-client.com/api/schedules/searchbylocation',
+    url: ApiDomain + '/api/schedules/searchbylocation'
 
-    parse: function(response) {
-    	// console.log(app.locationCollection)
-    	// console.log(response);
-   
-
-    	// _.each(response, function(item) {
-    	// 	console.log(item.locationId);
-    	// 	console.log('===========');
-    	// 	var locId = item.locationId;
-    	// 	var locCollectionItem = app.locationCollection.findWhere({ locationId: locId });
-    	// });
-    	return response;
-
-
-
-
-
-
-    }
 });
 
 app.scheduleCollection = new app.ScheduleCollection;
-
-// app.cartCollection.findWhere({ theId: id });
-'use strict';
-
-window.app = window.app || {};
-
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-	initialize: function() {
-		console.log('sched model init')
-	}
-});
 'use strict';
 
 window.app = window.app || {};
@@ -2982,10 +2917,10 @@ app.CartItemView = Backbone.View.extend({
 
 
     // quantity of each item in cart, changes on update or blur when item is in cart
-    insertQuantity: function(model, quantity) {
-        this.model.set('quantity', quantity);
-        this.$el.find('.class-qty').last().val(quantity);        
-    },
+    // insertQuantity: function(model, quantity) {
+    //     this.model.set('quantity', quantity);
+    //     this.$el.find('.class-qty').last().val(quantity);        
+    // },
 
     // calculates subtotal for individual item
     calculateSubtotal: function() {
@@ -3094,6 +3029,7 @@ app.CartItemView = Backbone.View.extend({
 
         this.listenTo(this.model, 'change:quantity', this.calculateSubtotal);
         this.model.set('quantity', updatedQty);
+        this.model.save('quantity', updatedQty);
     }
 });
 'use strict';
@@ -3182,7 +3118,7 @@ app.CartNotifyView = Backbone.View.extend({
         this.$('.checkout-loader').show();
 
         $.ajax({
-            url: 'http://trainco-dev.imulus-client.com/api/carts/save',
+        	url: ApiDomain + '/api/carts/save',
             data: JSON.stringify(cartDataArray),
             type: "POST",
             contentType: "application/json"
@@ -3239,19 +3175,19 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         this.render();
+        // var renderLocations = _.after(locations.length, render);
+
+        // // var renderNotes = _.after(notes.length, render);
+        // _.each(notes, function(note) {
+        //     note.asyncSave({success: renderNotes});
+        // });
     },
 
     render: function() {
         var _this = this;
         this.collection.each(function(model) {
-            var hasBeenRendered = model.get('hasBeenRendered');
-            if(hasBeenRendered) {
-                return false;
-            } else { 
-                _this.$el.append(_this.template(model.toJSON()));
-                model.set('hasBeenRendered', true);
-                _this.renderSchedules(model);
-            }
+            _this.$el.append(_this.template(model.toJSON()));
+            _this.renderSchedules(model);
         }, this);
     },
 
@@ -3261,7 +3197,8 @@ app.LocationView = Backbone.View.extend({
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
         var locationIdToGet = theModel.get('locationId');
-        var elemToAppendSchedules = this.$el.find('.schedule-items-wrap');
+        console.log(this.$el);
+        var elemToAppendSchedules = this.$('.schedule-items-wrap');
         this.$el.prev().find('.location-loader').css('display', 'block');
         app.scheduleCollection.fetch({
             remove: false,
@@ -3312,50 +3249,21 @@ app.ScheduleView = Backbone.View.extend({
     initialize: function(options) {
         this.options = options || {};
         this.locModelLocId = options.locId;
-        // this.render();
     },
 
     render:function () {
         var _this = this;
-        console.log('doo doo')
-        var filtered = _.filter(this.collection.models, function(item) {
-             var schedLocId = item.get('locationId');
-             if(_this.locModelLocId === schedLocId) {
-                console.log(_this.$el);
-                _this.$el.last().append(_this.template(item.toJSON()));
-                return item;
-             } else {
-                // _this.$el.empty();
-                _this.$el.addClass('stuff')
-                return;
-             }
-             // return schedLocId
-        });
+        console.log(this.collection)
 
-        console.log(filtered)
-
-        // this.$el.empty();
-        // this.collection.each(function(singleClass) {
-        //     // console.log(singleClass)
-        //     var schedLocId = singleClass.get('locationId');
-        //     console.log(_this.locModelLocId, schedLocId, '+++++++');
-        //     if(_this.locModelLocId === schedLocId) {
-        //         console.log(schedLocId, 'should render') 
-        //         _this.$el.append(_this.template(singleClass.toJSON()));
-        //     } else {
-        //         // console.log(schedLocId, 'nope');
-        //         this.$('.schedule').addClass('norender')
-        //         // singleClass.set('nope', true);
-        //     }
-        //     // var hasBeenRendered = singleClass.get('hasBeenRendered');
-        //     // if(hasBeenRendered) {
-        //     //     return false;
-        //     // } else {
-                
-        //     //     singleClass.set('hasBeenRendered', true);
-        //     // }
-        //     // console.log(singleClass)
-        // }, this);
+        this.collection.each(function(singleClass) {
+            var schedLocId = singleClass.get('locationId');
+            if(_this.locModelLocId === schedLocId) {
+                _this.$el.last().append(_this.template(singleClass.toJSON()));
+            } else {
+                // this.$el.children().css('border', '1px solid blue');
+            }
+        }, this);
+        console.log(this.$el)
     },
 
     // this just creates the data model and adds it to the collection
@@ -3363,7 +3271,8 @@ app.ScheduleView = Backbone.View.extend({
         e.preventDefault();
         var target = $(e.currentTarget);
         var _this = this;
-        this.$classQty = target.parent().prev().find('.class-qty');
+        this.$classQty = target.parent().parent().find('.class-qty');
+        console.log(this.$classQty, '44');
 
         var updateTheQuantity = function() {
             var changedQty = modelData.get('quant');
@@ -3537,7 +3446,6 @@ app.SingleSeminarView = Backbone.View.extend({
         e.preventDefault();
         var _this = this;
         var open = this.model.get('open');
-        var schedulesLoaded = this.model.get('schedulesLoaded');
         var $schedItemWrap = this.$('.schedule-item-wrap');
 
         var viewText = $(e.target);
@@ -3564,42 +3472,32 @@ app.SingleSeminarView = Backbone.View.extend({
             "border-top": '1px solid #D7D7D7'
         });
 
-        if(!schedulesLoaded) {
-            var courseIdToGet = this.model.get('courseId');
-            var searchIdToGet = this.model.get('searchId');
-            var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+        var courseIdToGet = this.model.get('courseId');
+        var searchIdToGet = this.model.get('searchId');
+        var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
 
-            // console.log(JSON.stringify({
-            //     "courseId": courseIdToGet,
-            //     "searchId": searchIdToGet
-            // }).toString());
 
-            app.locationCollection.fetch({
-                // remove: false,
-                data: JSON.stringify({
-                    "courseId": courseIdToGet,
-                    "searchId": searchIdToGet
-                }),
-                type: "POST",
-                contentType: "application/json",
+        // http://stackoverflow.com/questions/12084388/backbone-wait-for-multiple-fetch-to-continue
+        // here, wait until all location models are fetched before rendering.
+        app.locationCollection.fetch({
+            // remove: false,
+            data: JSON.stringify({
+                "courseId": courseIdToGet,
+                "searchId": searchIdToGet
+            }),
+            type: "POST",
+            contentType: "application/json",
 
-                success: function (data) {
-                    console.log(JSON.stringify(data));
-
-                    app.locationView = new app.LocationView({
-                        collection: app.locationCollection,
-                        el: elemToRender
-                    });
-                    // this.model = seminar
-                    _this.model.set('open', true);
-                    _this.model.set('schedulesLoaded', true);
-                    
-                    console.log(app.locationCollection.remove); 
-                }
-            });
-        } else {
-            return false;
-        }
+            success: function (data) {
+                app.locationView = new app.LocationView({
+                    collection: app.locationCollection,
+                    el: elemToRender
+                });
+                // this.model = seminar
+                _this.model.set('open', true);
+                // _this.model.set('schedulesLoaded', true);
+            }
+        });
     },
 
     // on update of quantity in cart item, sends back to class list
@@ -3618,6 +3516,38 @@ app.SingleSeminarView = Backbone.View.extend({
 });
 
 app.singleSeminarView = new app.SingleSeminarView();
+'use strict';
+
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+
+});
 'use strict';
 
 function Catalog() {
@@ -3651,6 +3581,75 @@ Catalog.prototype.sortElectricItems = function() {
 				}
 			});
 		}
+	});
+};
+'use strict';
+
+function Checkout() {
+	this.$regSubmit = $('#reg-submit');
+
+	this.FormSubmitListener();
+}
+
+HomePage.prototype.FormSubmitListener = function () {
+	this.$regSubmit.on('click', function () {
+		var tempFormData = CreateFormPostString();
+	});
+};
+
+HomePage.prototype.CreateFormPostString = function () {
+	var seminarList = [];
+	$('.form-item-wrapper').each(function () {
+		var seminarId = $(this).data('seminar');
+		var firstName = $(this).find('input[name="firstname"]').val();
+		var lastName = $(this).find('input[name="lastname"]').val();
+		var title = $(this).find('input[name="title"]').val();
+		var email = $(this).find('input[name="email"]').val();
+
+		var postData = {
+			seminarId: seminarId,
+			firstName: firstName,
+			lastName: lastName,
+			title: title,
+			email: email
+		};
+
+		seminarList.push(postData);
+	});
+
+	return JSON.stringify(seminarList);
+};
+
+HomePage.prototype.PostFormData = function () {
+	var _this = this;
+
+	var postData = this.CreateFormPostString();
+
+	$.ajax({
+		url: ApiDomain + '/api/checkout/submit',
+		data: postData,
+		type: "POST",
+		contentType: "application/json"
+	}).done(function (successObj) {
+		var success = successObj.success;
+		var message = successObj.message;
+
+		_this.$('.checkout-loader').hide();
+
+		if (success) {
+			window.location.href = '/register/info/';
+		}
+		else {
+			// There was a problem with the form. Please check where the error has occured.
+			_this.$('#reg-submit').prepend('<p class="checkout-err-msg">' + message + '</p>');
+		}
+
+		var redirectGuid = successObj.cartGuid;
+		
+		window.location.href = '/register/?cart=' + redirectGuid;
+	}).fail(function (error) {
+		_this.$('.checkout-loader').hide();
+		_this.$('#reg-submit').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
 	});
 };
 'use strict';
@@ -4273,6 +4272,8 @@ Register.prototype.billingOptions = function() {
 
 window.app = window.app || {};
 
+var ApiDomain = 'http://trainco-dev.imulus-client.com'
+
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -4319,6 +4320,12 @@ function TPCApp() {
 		this.register = new Register();
 	}
 
+	// checkout
+	if ($('.register-top').length) {
+		this.Checkout = new Checkout();
+	}
+
+
 	this.bindScroll();
 
 	// CHECK IF USER IS ON A RETINA DEVICE
@@ -4335,6 +4342,7 @@ function TPCApp() {
 	}
 
 	this.animateCart(isRetina);
+	this.retinaLogos(isRetina);
 	this.clickScrollTo();
 
 
@@ -4419,4 +4427,12 @@ TPCApp.prototype.clickScrollTo = function () {
 			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
 		}, 300);
 	});
+};
+
+TPCApp.prototype.retinaLogos = function(retinaScreen) {
+	if(retinaScreen) {
+		$('#logo').attr('src', '/assets/images/logo-trainco-2x.png').css('width', 266 + 'px');
+	} else {
+		$('#logo').attr('src', '/assets/images/logo-trainco-1x.png');
+	}
 };

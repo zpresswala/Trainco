@@ -317,7 +317,7 @@
             <div class="result-description">
                 <div class="row">
                     <div class="col-xs-12 col-md-2">
-                        <img src="/assets/images/hvac-icon.jpg" alt="All Seminars" />
+                        <img src="<%= imageUrl %>" alt="All Seminars" />
                     </div>
                     <div class="col-xs-12 col-md-8 text-desc">
                         <h2><a href="<%= detailsUrl %>"><%= title %></a></h2>
@@ -331,7 +331,7 @@
                     </li>
                 </div>
             </div>
-            <ul class="schedule-item-wrap row"></ul>
+            <div class="schedule-item-wrap row"></ul>
         </script>
 
         <script type="text/template" id="locationTemplate">
@@ -359,7 +359,7 @@
                     <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4><%= title %></h4></li>
                     <li class="location col-xs-12 col-sm-4 col-md-2"><%= city %></li>
                     <li class="date col-xs-12 col-sm-4 col-md-2"><%= date %></li>
-                    <li class="col-xs-12 col-sm-4 col-md-2">
+                    <li class="col-xs-12 col-sm-4 col-md-2 remove-wrap">
                         <a href="javascript:void(0);" class="remove" data-theid="<%= theId %>"<span>X</span>Remove</a>
                     </li>
                     <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>

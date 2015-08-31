@@ -80,7 +80,7 @@
 		display: table;
 	}
 
-	.location, .date, .remove, .qty-wrap, .sub-total {
+	.location, .date, .remove-wrap, .qty-wrap, .sub-total {
 		@include med-desktop-and-up {
 			text-align: center;
 		}
@@ -497,12 +497,6 @@
 .class-loader {
 	top: 50%;
 	margin-top: -10px;
-}
-
-.detail-page-app {
-	.class-loader {
-		top: 5px;
-	}
 }
 
 .checkout-err-msg {

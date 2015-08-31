@@ -68,10 +68,10 @@ app.CartItemView = Backbone.View.extend({
 
 
     // quantity of each item in cart, changes on update or blur when item is in cart
-    insertQuantity: function(model, quantity) {
-        this.model.set('quantity', quantity);
-        this.$el.find('.class-qty').last().val(quantity);        
-    },
+    // insertQuantity: function(model, quantity) {
+    //     this.model.set('quantity', quantity);
+    //     this.$el.find('.class-qty').last().val(quantity);        
+    // },
 
     // calculates subtotal for individual item
     calculateSubtotal: function() {
@@ -180,5 +180,6 @@ app.CartItemView = Backbone.View.extend({
 
         this.listenTo(this.model, 'change:quantity', this.calculateSubtotal);
         this.model.set('quantity', updatedQty);
+        this.model.save('quantity', updatedQty);
     }
 });

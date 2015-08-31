@@ -2763,12 +2763,6 @@ h2, h3, h4 {
   -o-transition: 0.25s;
   transition: 0.25s; }
 
-.navbar-brand img {
-  margin-top: -7px; }
-  @media (min-width: 1025px) {
-    .navbar-brand img {
-      margin: 7px 0 0 0; } }
-
 .callout-headline {
   position: relative; }
   @media (min-width: 1025px) {
@@ -2903,12 +2897,14 @@ h2, h3, h4 {
       transition: 0.25s; }
   .navbar-default .navbar-nav .open .dropdown-menu > li a {
     color: #FFFFFF;
-    padding: 12px 15px 13px 25px;
+    padding: 12px 15px 13px 35px;
     border-bottom: 1px solid #626262;
     font-weight: 300;
     background-color: #191919; }
     .navbar-default .navbar-nav .open .dropdown-menu > li a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li a:focus {
       color: #FFFFFF; }
+  .navbar-default .navbar-nav .open .dropdown-menu li:first-child a {
+    padding-left: 22px; }
   .navbar-default .navbar-nav .open .dropdown-menu .nav-link:last-child a {
     border-bottom: none; }
   .navbar-default .navbar-nav > .open > a {
@@ -2964,6 +2960,12 @@ h2, h3, h4 {
     @media (min-width: 1025px) {
       .navbar-default .navbar-collapse {
         width: 100%; } }
+
+.navbar-brand img {
+  margin-top: -7px; }
+  @media (min-width: 1025px) {
+    .navbar-brand img {
+      margin: 3px 0 0 0; } }
 
 .contain {
   background-color: rgba(58, 58, 58, 0.95);
@@ -3099,11 +3101,11 @@ h2, h3, h4 {
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out; }
     .overlay-contain .overlay:after {
-      content: url("/assets/images/svg/checkmark.svg");
+      content: url("/assets/images/icon-checkmark.png");
       position: relative;
       top: 50%;
       left: 50%;
-      margin-top: -13px;
+      margin-top: -10px;
       margin-left: -95%;
       display: block; }
 
@@ -3548,6 +3550,8 @@ h2, h3, h4 {
   padding-top: 0 !important; }
   .detail-page-app .results {
     margin-top: 0; }
+  .detail-page-app .class-loader {
+    top: 30px; }
 
 .button-wrapper a {
   display: block;
@@ -3658,7 +3662,7 @@ h2, h3, h4 {
     padding-right: 15px;
     display: table; }
   @media (min-width: 992px) {
-    .cart-item .location, .cart-item .date, .cart-item .remove, .cart-item .qty-wrap, .cart-item .sub-total {
+    .cart-item .location, .cart-item .date, .cart-item .remove-wrap, .cart-item .qty-wrap, .cart-item .sub-total {
       text-align: center; } }
   @media (min-width: 992px) {
     .cart-item .qty-wrap span, .cart-item .sub-total span {
@@ -3985,9 +3989,6 @@ h2, h3, h4 {
 .class-loader {
   top: 50%;
   margin-top: -10px; }
-
-.detail-page-app .class-loader {
-  top: 5px; }
 
 .checkout-err-msg {
   float: left;
