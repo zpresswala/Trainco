@@ -1,0 +1,140 @@
+﻿@model TPCTrainco.Umbraco.Extensions.Models.CheckoutCustomer
+
+<div class="container-fluid register-two gradient-bg">
+    <div class="col-md-12">
+        @using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutCustomerController>("HandleFormSubmit"))
+        { 
+        <div class="container">
+            <div class="row">
+                <h2 class="col-xs-12">Company Information</h2>
+                <div class="form-group col-xs-12">
+                    @Html.TextBoxFor(p => p.Company, new { @class="form-control", placeholder="Company Name" })
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                    @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                    @Html.TextBoxFor(p => p.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                </div>
+                <div class="form-group col-xs-12">
+                    @Html.TextBoxFor(p => p.Address, new { @class = "form-control", placeholder = "Mailing Address" })
+                </div>
+                <div class="form-group col-xs-12">
+                    @Html.TextBoxFor(p => p.Address2, new { @class = "form-control", placeholder = "Mailing Address line 2" })
+                </div>
+                <!-- 4 -->
+                <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                    @Html.TextBoxFor(p => p.City, new { @class = "form-control", placeholder = "City" })
+                </div>
+                <!-- 2 -->
+                <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                    @Html.DropDownListFor(p => p.State, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetStateList(), new { @class="form-control" })
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                    @Html.TextBoxFor(p => p.Zip, new { @class = "form-control", placeholder = "Postal Code" })
+                </div>
+
+                <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                    @Html.DropDownListFor(p => p.Country, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetCountryList(), new { @class = "form-control" })
+                </div>
+
+                <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                    @Html.TextBoxFor(p => p.Phone, new { @class = "form-control", placeholder = "Phone Number" })
+                </div>
+
+                <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                    @Html.TextBoxFor(p => p.PhoneExt, new { @class = "form-control", placeholder = "Phone Extension" })
+                </div>
+
+                <div class="form-group col-xs-12 col-sm-6">
+                    @Html.TextBoxFor(p => p.Email, new { @class = "form-control", placeholder = "Email Address" })
+                </div>
+
+                <div class="form-group col-xs-12 col-sm-6">
+                    @Html.DropDownListFor(p => p.Country, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetCountryList(), new { @class = "form-control" })
+                </div>
+
+                <div class="form-group promo-wrap col-xs-12 col-sm-6">
+                    @Html.TextBoxFor(p => p.PromoCode, new { @class = "form-control", placeholder = "Enter promo code" })
+                </div>
+
+                <div class="form-group other-textbox-wrap col-xs-12 col-sm-6">
+                    @Html.TextBoxFor(p => p.HearAboutOther, new { @class = "form-control", placeholder = "Brief description" })
+                </div>
+
+                <div class="billing-opts-wrapper">
+                    <div class="col-xs-12">
+                        <h2>Billing Information</h2>
+                        @Html.CheckBoxFor(p => p.BillingDifferent)
+                        <label for="supervisor-diff">Different than authorizing supervisor?</label>
+                    </div>
+
+                    <!-- form fields that appear when checkbox is checked -->
+                    <div class="hidden-different-check">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                            @Html.TextBoxFor(p => p.BillFirstName, new { @class = "form-control", placeholder = "First Name" })
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                            @Html.TextBoxFor(p => p.BillLastName, new { @class = "form-control", placeholder = "Last Name" })
+                        </div>
+                        <div class="form-group col-xs-12">
+                            @Html.TextBoxFor(p => p.BillAddress, new { @class = "form-control", placeholder = "Mailing Address" })
+                        </div>
+                        <div class="form-group col-xs-12">
+                            @Html.TextBoxFor(p => p.BillAddress2, new { @class = "form-control", placeholder = "Mailing Address line 2" })
+                        </div>
+                        <!-- 4 -->
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                            @Html.TextBoxFor(p => p.BillCity, new { @class = "form-control", placeholder = "City" })
+                        </div>
+                        <!-- 2 -->
+                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                            @Html.DropDownListFor(p => p.BillState, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetStateList(), new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                            @Html.TextBoxFor(p => p.BillZip, new { @class = "form-control", placeholder = "Postal Code" })
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                            @Html.DropDownListFor(p => p.BillCountry, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetCountryList(false), new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <!-- end form fields that appear when checkbox is checked -->
+
+                    <div class="form-group col-xs-12 col-sm-5">
+                        @Html.DropDownListFor(p => p.PaymentType, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.PaymentTypeList(), new { @class = "form-control" })
+                    </div>
+                    @*<div class="col-xs-12 col-md-8 billing-info-desc">@CurrentPage.invoice</div>*@
+
+                    <!-- start credit card info -->
+                    <div class="cc-info">
+                        <div class="form-group col-xs-12 col-sm-12">
+                            @Html.TextBoxFor(p => p.CCName, new { @class = "form-control", placeholder = "Name on card" })
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-12">
+                            @Html.TextBoxFor(p => p.CCNumber, new { @class = "form-control", placeholder = "Card number" })
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            @Html.TextBoxFor(p => p.CCExpiration, new { @class = "form-control", placeholder = "Expiration: MM/YY" })
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            @Html.TextBoxFor(p => p.CVVCode, new { @class = "form-control", placeholder = "CVV" })
+                        </div>
+
+                        <div class="cvv-info form-group col-xs-12 col-sm-6 col-md-3">
+                            <p class="cvv-text">What's this?<span><img src="/assets/images/cvv_visa.gif">Three-digit number on the back of your card.</span></p>
+                        </div>
+                    </div>
+
+
+                    <!-- end credit card info -->
+
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+    <button id="button-submit" type="submit" class="btn-reg btn-blue-solid next-btn">Next</button>
+</div>

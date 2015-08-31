@@ -50,12 +50,19 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
+        public string PhoneExt { get; set; }
+
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         public string HearAbout { get; set; }
+
+        public string HearAboutOther { get; set; }
+
         public string PromoCode { get; set; }
+
+        public bool BillingDifferent { get; set; }
 
         [Required]
         [StringLength(255)]
