@@ -60,7 +60,9 @@
         <div class="col-xs-12 course-section@(true == isElectrical ? " electric" : "")">
             <div class="row">
                 <div class="col-md-9 col-md-offset-1">
-                    <h2 id="@(anchorText)">@(menuText)</h2>
+                    <a href="@item.Url">
+                        <h2 id="@(anchorText)">@(menuText)</h2>
+                    </a>
 
                     @if (true == isElectrical)
                     {
