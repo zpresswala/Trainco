@@ -2851,6 +2851,38 @@ app.scheduleCollection = new app.ScheduleCollection;
 
 window.app = window.app || {};
 
+app.CartItemModel = Backbone.Model.extend({
+
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
 // "view the cart" view
 app.CartItemView = Backbone.View.extend({
     template: _.template($('#cartItemTemplate').html()),
@@ -3175,17 +3207,17 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         this.render();
-        // var renderLocations = _.after(locations.length, render);
 
-        // // var renderNotes = _.after(notes.length, render);
-        // _.each(notes, function(note) {
-        //     note.asyncSave({success: renderNotes});
-        // });
+        // the counter, which enables us to wait until last schedules ajax call
+        this.fetchCounter = this.collection.length;
     },
 
     render: function() {
         var _this = this;
+        this.locationIdArr = [];
         this.collection.each(function(model) {
+            var locationIdToGet = model.get('locationId');
+            this.locationIdArr.push(locationIdToGet);
             _this.$el.append(_this.template(model.toJSON()));
             _this.renderSchedules(model);
         }, this);
@@ -3197,9 +3229,10 @@ app.LocationView = Backbone.View.extend({
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
         var locationIdToGet = theModel.get('locationId');
-        console.log(this.$el);
         var elemToAppendSchedules = this.$('.schedule-items-wrap');
+        console.log(this.$el)
         this.$el.prev().find('.location-loader').css('display', 'block');
+        
         app.scheduleCollection.fetch({
             remove: false,
             data: JSON.stringify({
@@ -3212,12 +3245,15 @@ app.LocationView = Backbone.View.extend({
             contentType: "application/json",
 
             success: function(data) {
-                _this.$el.prev().find('.location-loader').css('display', 'none');
-                app.scheduleView = new app.ScheduleView({
-                    collection: app.scheduleCollection,
-                    el: elemToAppendSchedules,
-                    locId: locationIdToGet
-                }).render();
+                _this.fetchCounter -= 1;
+                if (_this.fetchCounter === 0) {
+                    _this.$el.prev().find('.location-loader').css('display', 'none');
+                    app.scheduleView = new app.ScheduleView({
+                        collection: app.scheduleCollection,
+                        el: elemToAppendSchedules,
+                        locationLocId: _this.locationIdArr
+                    }).render();
+                }
             },
 
             error: function(err) {
@@ -3248,22 +3284,22 @@ app.ScheduleView = Backbone.View.extend({
 
     initialize: function(options) {
         this.options = options || {};
-        this.locModelLocId = options.locId;
+        this.locLocIdArr = options.locationLocId;
     },
 
     render:function () {
         var _this = this;
-        console.log(this.collection)
 
-        this.collection.each(function(singleClass) {
-            var schedLocId = singleClass.get('locationId');
-            if(_this.locModelLocId === schedLocId) {
-                _this.$el.last().append(_this.template(singleClass.toJSON()));
-            } else {
-                // this.$el.children().css('border', '1px solid blue');
-            }
-        }, this);
-        console.log(this.$el)
+        // comparing collection locationIds to location locationIds
+        $.each(_this.collection.toJSON(), function(index, value) {
+            $.each(_this.locLocIdArr, function(index2, id) {
+                if(value.locationId === id) {
+
+                    // then appending to corresponding item
+                    $(_this.$el[index2]).append(_this.template(value));
+                }
+            });
+        });
     },
 
     // this just creates the data model and adds it to the collection
@@ -3272,7 +3308,6 @@ app.ScheduleView = Backbone.View.extend({
         var target = $(e.currentTarget);
         var _this = this;
         this.$classQty = target.parent().parent().find('.class-qty');
-        console.log(this.$classQty, '44');
 
         var updateTheQuantity = function() {
             var changedQty = modelData.get('quant');
@@ -3516,38 +3551,6 @@ app.SingleSeminarView = Backbone.View.extend({
 });
 
 app.singleSeminarView = new app.SingleSeminarView();
-'use strict';
-
-window.app = window.app || {};
-
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-
-});
 'use strict';
 
 function Catalog() {
@@ -4362,6 +4365,75 @@ function TPCApp() {
 
 		performSearch(searchParams);
 	}
+
+
+	// array indexOf polyfill for IE8
+	// Production steps of ECMA-262, Edition 5, 15.4.4.14
+	// Reference: http://es5.github.io/#x15.4.4.14
+	if (!Array.prototype.indexOf) {
+	  Array.prototype.indexOf = function(searchElement, fromIndex) {
+
+	    var k;
+
+	    // 1. Let O be the result of calling ToObject passing
+	    //    the this value as the argument.
+	    if (this == null) {
+	      throw new TypeError('"this" is null or not defined');
+	    }
+
+	    var O = Object(this);
+
+	    // 2. Let lenValue be the result of calling the Get
+	    //    internal method of O with the argument "length".
+	    // 3. Let len be ToUint32(lenValue).
+	    var len = O.length >>> 0;
+
+	    // 4. If len is 0, return -1.
+	    if (len === 0) {
+	      return -1;
+	    }
+
+	    // 5. If argument fromIndex was passed let n be
+	    //    ToInteger(fromIndex); else let n be 0.
+	    var n = +fromIndex || 0;
+
+	    if (Math.abs(n) === Infinity) {
+	      n = 0;
+	    }
+
+	    // 6. If n >= len, return -1.
+	    if (n >= len) {
+	      return -1;
+	    }
+
+	    // 7. If n >= 0, then Let k be n.
+	    // 8. Else, n<0, Let k be len - abs(n).
+	    //    If k is less than 0, then let k be 0.
+	    k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+	    // 9. Repeat, while k < len
+	    while (k < len) {
+	      // a. Let Pk be ToString(k).
+	      //   This is implicit for LHS operands of the in operator
+	      // b. Let kPresent be the result of calling the
+	      //    HasProperty internal method of O with argument Pk.
+	      //   This step can be combined with c
+	      // c. If kPresent is true, then
+	      //    i.  Let elementK be the result of calling the Get
+	      //        internal method of O with the argument ToString(k).
+	      //   ii.  Let same be the result of applying the
+	      //        Strict Equality Comparison Algorithm to
+	      //        searchElement and elementK.
+	      //  iii.  If same is true, return k.
+	      if (k in O && O[k] === searchElement) {
+	        return k;
+	      }
+	      k++;
+	    }
+	    return -1;
+	  };
+	}
+
 }
 
 TPCApp.prototype.bindScroll = function () {

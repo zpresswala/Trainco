@@ -14,17 +14,17 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         this.render();
-        // var renderLocations = _.after(locations.length, render);
 
-        // // var renderNotes = _.after(notes.length, render);
-        // _.each(notes, function(note) {
-        //     note.asyncSave({success: renderNotes});
-        // });
+        // the counter, which enables us to wait until last schedules ajax call
+        this.fetchCounter = this.collection.length;
     },
 
     render: function() {
         var _this = this;
+        this.locationIdArr = [];
         this.collection.each(function(model) {
+            var locationIdToGet = model.get('locationId');
+            this.locationIdArr.push(locationIdToGet);
             _this.$el.append(_this.template(model.toJSON()));
             _this.renderSchedules(model);
         }, this);
@@ -36,9 +36,10 @@ app.LocationView = Backbone.View.extend({
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
         var locationIdToGet = theModel.get('locationId');
-        console.log(this.$el);
         var elemToAppendSchedules = this.$('.schedule-items-wrap');
+        console.log(this.$el)
         this.$el.prev().find('.location-loader').css('display', 'block');
+        
         app.scheduleCollection.fetch({
             remove: false,
             data: JSON.stringify({
@@ -51,12 +52,15 @@ app.LocationView = Backbone.View.extend({
             contentType: "application/json",
 
             success: function(data) {
-                _this.$el.prev().find('.location-loader').css('display', 'none');
-                app.scheduleView = new app.ScheduleView({
-                    collection: app.scheduleCollection,
-                    el: elemToAppendSchedules,
-                    locId: locationIdToGet
-                }).render();
+                _this.fetchCounter -= 1;
+                if (_this.fetchCounter === 0) {
+                    _this.$el.prev().find('.location-loader').css('display', 'none');
+                    app.scheduleView = new app.ScheduleView({
+                        collection: app.scheduleCollection,
+                        el: elemToAppendSchedules,
+                        locationLocId: _this.locationIdArr
+                    }).render();
+                }
             },
 
             error: function(err) {
