@@ -3204,6 +3204,12 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         this.render();
+        // var renderLocations = _.after(locations.length, render);
+
+        // // var renderNotes = _.after(notes.length, render);
+        // _.each(notes, function(note) {
+        //     note.asyncSave({success: renderNotes});
+        // });
     },
 
     render: function() {
@@ -3220,7 +3226,8 @@ app.LocationView = Backbone.View.extend({
         var cityIdToGet = theModel.get('cityId');
         var searchIdToGet = theModel.get('searchId');
         var locationIdToGet = theModel.get('locationId');
-        var elemToAppendSchedules = this.$el.find('.schedule-items-wrap');
+        console.log(this.$el);
+        var elemToAppendSchedules = this.$('.schedule-items-wrap');
         this.$el.prev().find('.location-loader').css('display', 'block');
         app.scheduleCollection.fetch({
             remove: false,
@@ -3275,12 +3282,18 @@ app.ScheduleView = Backbone.View.extend({
 
     render:function () {
         var _this = this;
+        console.log(this.collection)
+
         this.collection.each(function(singleClass) {
             var schedLocId = singleClass.get('locationId');
             if(_this.locModelLocId === schedLocId) {
-                _this.$el.last().append(_this.template(singleClass.toJSON()));
+                console.log('yes')
+                _this.$el.append(_this.template(singleClass.toJSON()));
+            } else {
+                this.$el.children().css('border', '1px solid blue');
             }
         }, this);
+        console.log(this.$el)
     },
 
     // this just creates the data model and adds it to the collection
@@ -3288,7 +3301,8 @@ app.ScheduleView = Backbone.View.extend({
         e.preventDefault();
         var target = $(e.currentTarget);
         var _this = this;
-        this.$classQty = target.parent().prev().find('.class-qty');
+        this.$classQty = target.parent().parent().find('.class-qty');
+        console.log(this.$classQty, '44');
 
         var updateTheQuantity = function() {
             var changedQty = modelData.get('quant');
@@ -3462,7 +3476,6 @@ app.SingleSeminarView = Backbone.View.extend({
         e.preventDefault();
         var _this = this;
         var open = this.model.get('open');
-        var schedulesLoaded = this.model.get('schedulesLoaded');
         var $schedItemWrap = this.$('.schedule-item-wrap');
 
         var viewText = $(e.target);
@@ -3489,37 +3502,32 @@ app.SingleSeminarView = Backbone.View.extend({
             "border-top": '1px solid #D7D7D7'
         });
 
-        if(!schedulesLoaded) {
-            var courseIdToGet = this.model.get('courseId');
-            var searchIdToGet = this.model.get('searchId');
-            var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+        var courseIdToGet = this.model.get('courseId');
+        var searchIdToGet = this.model.get('searchId');
+        var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
 
-            app.locationCollection.fetch({
-                // remove: false,
-                data: JSON.stringify({
-                    "courseId": courseIdToGet,
-                    "searchId": searchIdToGet
-                }),
-                type: "POST",
-                contentType: "application/json",
 
-                success: function (data) {
-                    console.log(JSON.stringify(data));
+        // http://stackoverflow.com/questions/12084388/backbone-wait-for-multiple-fetch-to-continue
+        // here, wait until all location models are fetched before rendering.
+        app.locationCollection.fetch({
+            // remove: false,
+            data: JSON.stringify({
+                "courseId": courseIdToGet,
+                "searchId": searchIdToGet
+            }),
+            type: "POST",
+            contentType: "application/json",
 
-                    app.locationView = new app.LocationView({
-                        collection: app.locationCollection,
-                        el: elemToRender
-                    });
-                    // this.model = seminar
-                    _this.model.set('open', true);
-                    _this.model.set('schedulesLoaded', true);
-                    
-                    console.log(app.locationCollection.remove); 
-                }
-            });
-        } else {
-            return false;
-        }
+            success: function (data) {
+                app.locationView = new app.LocationView({
+                    collection: app.locationCollection,
+                    el: elemToRender
+                });
+                // this.model = seminar
+                _this.model.set('open', true);
+                // _this.model.set('schedulesLoaded', true);
+            }
+        });
     },
 
     // on update of quantity in cart item, sends back to class list

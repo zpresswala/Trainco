@@ -21,12 +21,18 @@ app.ScheduleView = Backbone.View.extend({
 
     render:function () {
         var _this = this;
+        console.log(this.collection)
+
         this.collection.each(function(singleClass) {
             var schedLocId = singleClass.get('locationId');
             if(_this.locModelLocId === schedLocId) {
-                _this.$el.last().append(_this.template(singleClass.toJSON()));
+                console.log('yes')
+                _this.$el.append(_this.template(singleClass.toJSON()));
+            } else {
+                this.$el.children().css('border', '1px solid blue');
             }
         }, this);
+        console.log(this.$el)
     },
 
     // this just creates the data model and adds it to the collection
@@ -34,7 +40,8 @@ app.ScheduleView = Backbone.View.extend({
         e.preventDefault();
         var target = $(e.currentTarget);
         var _this = this;
-        this.$classQty = target.parent().prev().find('.class-qty');
+        this.$classQty = target.parent().parent().find('.class-qty');
+        console.log(this.$classQty, '44');
 
         var updateTheQuantity = function() {
             var changedQty = modelData.get('quant');
