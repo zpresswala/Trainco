@@ -5,7 +5,7 @@ window.app = window.app || {};
 app.ScheduleCollection = Backbone.Collection.extend({
     model: app.ScheduleModel,
 
-    url:'http://trainco-dev.imulus-client.com/api/schedules/searchbylocation',
+    url: ApiDomain + '/api/schedules/searchbylocation',
 
     parse: function(response) {
     	// console.log(app.locationCollection)

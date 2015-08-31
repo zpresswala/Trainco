@@ -283,7 +283,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                     if (schedule != null)
                                     {
                                         schedule.CourseId = seminar.CourseId;
-                                        schedule.LocationId = seminar.SeminarId;
+                                        schedule.LocationId = location.LocationId;
 
                                         location.CityId = schedule.CityId;
                                         location.Date = schedule.Date;
@@ -306,7 +306,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                                 if (subSchedule != null)
                                                 {
                                                     subSchedule.CourseId = seminar.CourseId;
-                                                    subSchedule.LocationId = schedule.LocationId;
+                                                    subSchedule.LocationId = location.LocationId;
 
                                                     location.Schedules.Add(subSchedule);
                                                 }
@@ -536,7 +536,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             Sch result = new Sch();
 
             result.Id = schedule.Id;
-            result.LocationId = schedule.Id;
+            result.LocationId = schedule.LocationId;
             result.CourseId = schedule.CourseId;
             result.CityId = schedule.CityId;
             result.DaysTitle = schedule.DaysTitle;
