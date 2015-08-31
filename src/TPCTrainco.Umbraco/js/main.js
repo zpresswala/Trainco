@@ -3260,7 +3260,7 @@ app.ScheduleView = Backbone.View.extend({
             if(_this.locModelLocId === schedLocId) {
                 _this.$el.last().append(_this.template(singleClass.toJSON()));
             } else {
-                this.$el.children().css('border', '1px solid blue');
+                // this.$el.children().css('border', '1px solid blue');
             }
         }, this);
         console.log(this.$el)
