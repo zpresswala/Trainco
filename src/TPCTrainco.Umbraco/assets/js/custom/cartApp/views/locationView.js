@@ -19,14 +19,8 @@ app.LocationView = Backbone.View.extend({
     render: function() {
         var _this = this;
         this.collection.each(function(model) {
-            // var hasBeenRendered = model.get('hasBeenRendered');
-            // if(hasBeenRendered) {
-            //     return false;
-            // } else { 
-                _this.$el.append(_this.template(model.toJSON()));
-                // model.set('hasBeenRendered', true);
-                _this.renderSchedules(model);
-            // }
+            _this.$el.append(_this.template(model.toJSON()));
+            _this.renderSchedules(model);
         }, this);
     },
 

@@ -10,18 +10,6 @@ app.ClassCollection = Backbone.Collection.extend({
 });
 
 app.globalCollection = new app.ClassCollection;
-	// var minDate = new Date();
-	// this.minMonth = minDate.getMonth() + 2;
-
-	// 	var maxDate = new Date();
-	// this.maxMonth = minDate.getMonth() + 5;
-	// app.datePicker = new DatePicker();
-	  	// $('#date-range-slider').dateRangeSlider({
-			    
-		  //   defaultValues: {
-		  //   	min: new Date(minDate), 
-		  //   	max: new Date(maxRangeSelect)
-		  //   }
 		  
 // check the hash to see if there is data there. (only on page load)
 $(document).ready(function () {
@@ -65,22 +53,21 @@ function performSearch(searchParams) {
 			var topics = ['all'];
 		} else {
 			var topics = dataReFormat.classTopics.filter(function (item, pos) {
-				var length = dataReFormat.classTopics.length;
 				return dataReFormat.classTopics.indexOf(item) == pos;
 			});
 		}
 
 		// if more than two items selected, add and
-		if (topics.length == 2) {
-			var length = topics.length;
+		var length = topics.length;
+		if (length == 2) {
 			topics.splice(length - 1, 0, 'and');
 			var topicsList = topics.join(' ');
 			var topicsListTwo = topicsList.replace('and,', 'and');
 			var topics = topicsListTwo;
-		} else if (topics.length > 2) {
+		} else if (length > 2) {
 
 			// if two or fewer, remove commas
-			topics.splice(length - 1, 0, 'and');
+			topics.splice((length - 1), 0, 'and');
 			var topicsList = topics.join(', ');
 			var topicsListTwo = topicsList.replace('and,', 'and');
 			var topics = topicsListTwo;
