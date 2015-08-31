@@ -61,6 +61,8 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="/css/scss/main.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
 <!--[if lt IE 9]>
@@ -79,7 +81,9 @@
 
     @Html.Partial("Navigation/Bottom")
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>var ApiDomain = 'http://localhost:49712';</script>
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
@@ -121,6 +125,7 @@
     <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
     <script src="/assets/js/custom/cartApp/collections/cartCollection.js"></script>
     <script src="/assets/js/custom/cartApp/views/cartNotifyView.js"></script>
+    <script src="/assets/js/custom/checkoutApp/checkoutController.js"></script>
 
     <!-- end Backbone app scripts -->
 

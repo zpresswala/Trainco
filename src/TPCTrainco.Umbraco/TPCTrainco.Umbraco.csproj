@@ -457,6 +457,7 @@
     <Content Include="App_Plugins\UmbracoForms\Styles\umbraco.gridview.less" />
     <Content Include="App_Plugins\UmbracoForms\UmbracoForms.config" />
     <Content Include="App_Plugins\UmbracoForms\version" />
+    <Content Include="assets\js\custom\checkoutApp\checkoutController.js" />
     <Content Include="assets\scss\main.scss" />
     <Content Include="assets\scss\mixins\_mediaqueries.scss" />
     <Content Include="assets\scss\mixins\_mixins.scss" />
@@ -3344,6 +3345,7 @@
     <Content Include="Views\Partials\SeminarSearch\JavascriptTemplates.cshtml" />
     <Content Include="Views\Partials\RegisterForm1.cshtml" />
     <Content Include="Views\Partials\Forms\tempForm.cshtml" />
+    <Content Include="Views\Partials\CheckoutCustomer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

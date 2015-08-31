@@ -90,6 +90,8 @@ function performSearch(searchParams) {
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
 
+	$classLoader.fadeIn(90);
+
 	app.globalCollection.fetch({
 		data: searchParams,
 		type: "POST",
@@ -99,7 +101,6 @@ function performSearch(searchParams) {
 
 			$('.results').empty();
 			$emptyMsg.fadeOut(100, function () {
-				$classLoader.fadeIn(90);
 
 				if (data.length === 0) {
 					$classLoader.fadeOut(150, function () {
