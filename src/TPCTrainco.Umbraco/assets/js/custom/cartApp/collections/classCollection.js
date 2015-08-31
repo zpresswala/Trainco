@@ -19,7 +19,6 @@ $(document).ready(function () {
 // search button click
 $('#search-btn').on('click', function () {
 	var searchParams;
-	
 	searchParams = app.mainSearchSelect.getSearchParams();
 	performSearch(searchParams);
 });

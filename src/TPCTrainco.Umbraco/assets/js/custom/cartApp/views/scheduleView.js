@@ -23,6 +23,7 @@ app.ScheduleView = Backbone.View.extend({
         var _this = this;
 
         // comparing collection locationIds to location locationIds
+        console.log(this.locLocIdArr)
         $.each(_this.collection.toJSON(), function(index, value) {
             $.each(_this.locLocIdArr, function(index2, id) {
                 if(value.locationId === id) {

@@ -2809,8 +2809,11 @@ h2, h3, h4 {
   border-radius: 50px;
   background-color: #0090C5;
   border: none;
-  padding: 6px 14px 1px 18px;
-  font-size: 18px; }
+  font-size: 18px;
+  padding: 6px 14px 1px 10px; }
+  @media (min-width: 768px) {
+    .select2.select2-container {
+      padding: 6px 14px 1px 18px; } }
   .select2.select2-container:focus {
     outline: 0; }
   .select2.select2-container ::-webkit-input-placeholder {
@@ -3722,6 +3725,8 @@ h2, h3, h4 {
       float: right; }
     .cart-visible .cart-total li {
       display: inline; }
+    .cart-visible .cart-total .cost-total {
+      float: right; }
   .cart-visible.down .cart-total {
     display: none; }
 
@@ -3733,7 +3738,11 @@ h2, h3, h4 {
 .items-total {
   line-height: 1.8;
   margin-right: 25px;
-  font-style: italic; }
+  font-style: italic;
+  font-weight: 400; }
+  @media (min-width: 768px) {
+    .items-total {
+      font-weight: 300; } }
 
 .cart-tab {
   position: absolute;
@@ -3882,16 +3891,31 @@ h2, h3, h4 {
     margin-top: -13px; }
 
 .attendee-msg {
-  left: -5%;
+  left: 147px;
   padding: 7px 5px; }
+  @media (min-width: 768px) {
+    .attendee-msg {
+      left: -5%;
+      right: auto; } }
   .attendee-msg:after, .attendee-msg:before {
-    left: 100%; }
+    right: 100%; }
+    @media (min-width: 768px) {
+      .attendee-msg:after, .attendee-msg:before {
+        left: 100%; } }
   .attendee-msg:before {
-    border-left-color: #0090C5;
-    border-right-color: transparent; }
+    border-left-color: transparent;
+    border-right-color: #0090C5; }
+    @media (min-width: 768px) {
+      .attendee-msg:before {
+        border-left-color: #0090C5;
+        border-right-color: transparent; } }
   .attendee-msg:after {
-    border-left-color: #FFFFFF;
-    border-right-color: transparent; }
+    border-left-color: transparent;
+    border-right-color: #FFFFFF; }
+    @media (min-width: 768px) {
+      .attendee-msg:after {
+        border-left-color: #FFFFFF;
+        border-right-color: transparent; } }
 
 .location-icon {
   margin: 0 0 3px 10px;

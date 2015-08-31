@@ -13,7 +13,7 @@ app.LocationView = Backbone.View.extend({
     template: _.template($('#locationTemplate').html()),
 
     initialize: function() {
-        this.render();
+        // this.render();
 
         // the counter, which enables us to wait until last schedules ajax call
         this.fetchCounter = this.collection.length;
@@ -37,7 +37,6 @@ app.LocationView = Backbone.View.extend({
         var searchIdToGet = theModel.get('searchId');
         var locationIdToGet = theModel.get('locationId');
         var elemToAppendSchedules = this.$('.schedule-items-wrap');
-        console.log(this.$el)
         this.$el.prev().find('.location-loader').css('display', 'block');
         
         app.scheduleCollection.fetch({
@@ -54,6 +53,7 @@ app.LocationView = Backbone.View.extend({
             success: function(data) {
                 _this.fetchCounter -= 1;
                 if (_this.fetchCounter === 0) {
+                    console.log('fetching schedule')
                     _this.$el.prev().find('.location-loader').css('display', 'none');
                     app.scheduleView = new app.ScheduleView({
                         collection: app.scheduleCollection,
@@ -69,7 +69,9 @@ app.LocationView = Backbone.View.extend({
         });
     },
 
-    showClassLocationMsg: function() {
-        this.$el.find('.location-msg').toggleClass('showing');
+    showClassLocationMsg: function(e) {
+        e.preventDefault();
+        var target = $(e.currentTarget);
+        target.parent().parent().find('.location-msg').toggleClass('showing');
     }
 });

@@ -171,6 +171,10 @@
 		li {
 			display: inline;
 		}
+
+		.cost-total {
+			float: right;
+		}
 	}
 
 	&.down .cart-total {
@@ -188,6 +192,10 @@
 	line-height: 1.8;
 	margin-right: 25px;
 	font-style: italic;
+	font-weight: 400;
+	@include tablet-portrait-and-up {
+		font-weight: 300;
+	}
 }
 
 .cart-tab {
@@ -364,21 +372,36 @@
 }
 
 .attendee-msg {
-	left: -5%;
+	left: 147px;
 	padding: 7px 5px;
+	@include tablet-portrait-and-up {
+		left: -5%;
+		right: auto;
+	}
 
 	&:after, &:before {
-		left: 100%;
+		right: 100%;
+		@include tablet-portrait-and-up {
+			left: 100%;
+		}
 	}
 
 	&:before {
-		border-left-color: $blue;
-		border-right-color: transparent;
+		border-left-color: transparent;
+		border-right-color: $blue;
+		@include tablet-portrait-and-up {
+			border-left-color: $blue;
+			border-right-color: transparent;
+		}
 	}
 
 	&:after {
-		border-left-color: $white;
-		border-right-color: transparent;
+		border-left-color: transparent;
+		border-right-color: $white;
+		@include tablet-portrait-and-up {
+			border-left-color: $white;
+			border-right-color: transparent;
+		}
 	}
 }
 

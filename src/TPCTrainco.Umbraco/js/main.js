@@ -2723,7 +2723,6 @@ $(document).ready(function () {
 // search button click
 $('#search-btn').on('click', function () {
 	var searchParams;
-	
 	searchParams = app.mainSearchSelect.getSearchParams();
 	performSearch(searchParams);
 });
@@ -3206,7 +3205,7 @@ app.LocationView = Backbone.View.extend({
     template: _.template($('#locationTemplate').html()),
 
     initialize: function() {
-        this.render();
+        // this.render();
 
         // the counter, which enables us to wait until last schedules ajax call
         this.fetchCounter = this.collection.length;
@@ -3230,7 +3229,6 @@ app.LocationView = Backbone.View.extend({
         var searchIdToGet = theModel.get('searchId');
         var locationIdToGet = theModel.get('locationId');
         var elemToAppendSchedules = this.$('.schedule-items-wrap');
-        console.log(this.$el)
         this.$el.prev().find('.location-loader').css('display', 'block');
         
         app.scheduleCollection.fetch({
@@ -3247,6 +3245,7 @@ app.LocationView = Backbone.View.extend({
             success: function(data) {
                 _this.fetchCounter -= 1;
                 if (_this.fetchCounter === 0) {
+                    console.log('fetching schedule')
                     _this.$el.prev().find('.location-loader').css('display', 'none');
                     app.scheduleView = new app.ScheduleView({
                         collection: app.scheduleCollection,
@@ -3262,8 +3261,10 @@ app.LocationView = Backbone.View.extend({
         });
     },
 
-    showClassLocationMsg: function() {
-        this.$el.find('.location-msg').toggleClass('showing');
+    showClassLocationMsg: function(e) {
+        e.preventDefault();
+        var target = $(e.currentTarget);
+        target.parent().parent().find('.location-msg').toggleClass('showing');
     }
 });
 'use strict';
@@ -3291,6 +3292,7 @@ app.ScheduleView = Backbone.View.extend({
         var _this = this;
 
         // comparing collection locationIds to location locationIds
+        console.log(this.locLocIdArr)
         $.each(_this.collection.toJSON(), function(index, value) {
             $.each(_this.locLocIdArr, function(index2, id) {
                 if(value.locationId === id) {
@@ -3469,7 +3471,7 @@ app.SingleSeminarView = Backbone.View.extend({
     template: _.template($('#classTemplate').html()),
 
     initialize: function() {
-
+        this.firstClick = false;
     },
 
     render: function() {
@@ -3482,22 +3484,22 @@ app.SingleSeminarView = Backbone.View.extend({
         var _this = this;
         var open = this.model.get('open');
         var $schedItemWrap = this.$('.schedule-item-wrap');
-
+        console.log(this.model)
         var viewText = $(e.target);
 
         if(open) {
             // if it's open, close it
             $schedItemWrap.slideUp(400, function() {
                 viewText.removeClass('red').html('<span class="plus">+</span>View Upcoming Seminars');
+                _this.model.set('open', false);
             });
-            this.model.set('open', false);
             this.$el.css('padding-bottom', 25 + 'px');
         } else {
             // open it
             $schedItemWrap.slideDown(400, function() {
                 viewText.addClass('red').html('<span class="plus turn">+</span>View Less');
-            });
-            this.model.set('open', true);   
+                _this.model.set('open', true);  
+            }); 
             this.$el.css('padding-bottom', 0);
         }
 
@@ -3510,29 +3512,29 @@ app.SingleSeminarView = Backbone.View.extend({
         var courseIdToGet = this.model.get('courseId');
         var searchIdToGet = this.model.get('searchId');
         var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+        console.log(this.model.get('open'))
+        
+        if(!this.firstClick) {
+            console.log('get locations')
+            app.locationCollection.fetch({
+                // remove: false,
+                data: JSON.stringify({
+                    "courseId": courseIdToGet,
+                    "searchId": searchIdToGet
+                }),
+                type: "POST",
+                contentType: "application/json",
 
-
-        // http://stackoverflow.com/questions/12084388/backbone-wait-for-multiple-fetch-to-continue
-        // here, wait until all location models are fetched before rendering.
-        app.locationCollection.fetch({
-            // remove: false,
-            data: JSON.stringify({
-                "courseId": courseIdToGet,
-                "searchId": searchIdToGet
-            }),
-            type: "POST",
-            contentType: "application/json",
-
-            success: function (data) {
-                app.locationView = new app.LocationView({
-                    collection: app.locationCollection,
-                    el: elemToRender
-                });
-                // this.model = seminar
-                _this.model.set('open', true);
-                // _this.model.set('schedulesLoaded', true);
-            }
-        });
+                success: function (data) {
+                    app.locationView = new app.LocationView({
+                        collection: app.locationCollection,
+                        el: elemToRender
+                    }).render();
+                    _this.model.set('open', true);
+                    _this.firstClick = true;
+                }
+            });
+        }
     },
 
     // on update of quantity in cart item, sends back to class list
@@ -4365,75 +4367,6 @@ function TPCApp() {
 
 		performSearch(searchParams);
 	}
-
-
-	// array indexOf polyfill for IE8
-	// Production steps of ECMA-262, Edition 5, 15.4.4.14
-	// Reference: http://es5.github.io/#x15.4.4.14
-	if (!Array.prototype.indexOf) {
-	  Array.prototype.indexOf = function(searchElement, fromIndex) {
-
-	    var k;
-
-	    // 1. Let O be the result of calling ToObject passing
-	    //    the this value as the argument.
-	    if (this == null) {
-	      throw new TypeError('"this" is null or not defined');
-	    }
-
-	    var O = Object(this);
-
-	    // 2. Let lenValue be the result of calling the Get
-	    //    internal method of O with the argument "length".
-	    // 3. Let len be ToUint32(lenValue).
-	    var len = O.length >>> 0;
-
-	    // 4. If len is 0, return -1.
-	    if (len === 0) {
-	      return -1;
-	    }
-
-	    // 5. If argument fromIndex was passed let n be
-	    //    ToInteger(fromIndex); else let n be 0.
-	    var n = +fromIndex || 0;
-
-	    if (Math.abs(n) === Infinity) {
-	      n = 0;
-	    }
-
-	    // 6. If n >= len, return -1.
-	    if (n >= len) {
-	      return -1;
-	    }
-
-	    // 7. If n >= 0, then Let k be n.
-	    // 8. Else, n<0, Let k be len - abs(n).
-	    //    If k is less than 0, then let k be 0.
-	    k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
-
-	    // 9. Repeat, while k < len
-	    while (k < len) {
-	      // a. Let Pk be ToString(k).
-	      //   This is implicit for LHS operands of the in operator
-	      // b. Let kPresent be the result of calling the
-	      //    HasProperty internal method of O with argument Pk.
-	      //   This step can be combined with c
-	      // c. If kPresent is true, then
-	      //    i.  Let elementK be the result of calling the Get
-	      //        internal method of O with the argument ToString(k).
-	      //   ii.  Let same be the result of applying the
-	      //        Strict Equality Comparison Algorithm to
-	      //        searchElement and elementK.
-	      //  iii.  If same is true, return k.
-	      if (k in O && O[k] === searchElement) {
-	        return k;
-	      }
-	      k++;
-	    }
-	    return -1;
-	  };
-	}
-
 }
 
 TPCApp.prototype.bindScroll = function () {

@@ -13,7 +13,7 @@ app.SingleSeminarView = Backbone.View.extend({
     template: _.template($('#classTemplate').html()),
 
     initialize: function() {
-
+        this.firstClick = false;
     },
 
     render: function() {
@@ -26,22 +26,22 @@ app.SingleSeminarView = Backbone.View.extend({
         var _this = this;
         var open = this.model.get('open');
         var $schedItemWrap = this.$('.schedule-item-wrap');
-
+        console.log(this.model)
         var viewText = $(e.target);
 
         if(open) {
             // if it's open, close it
             $schedItemWrap.slideUp(400, function() {
                 viewText.removeClass('red').html('<span class="plus">+</span>View Upcoming Seminars');
+                _this.model.set('open', false);
             });
-            this.model.set('open', false);
             this.$el.css('padding-bottom', 25 + 'px');
         } else {
             // open it
             $schedItemWrap.slideDown(400, function() {
                 viewText.addClass('red').html('<span class="plus turn">+</span>View Less');
-            });
-            this.model.set('open', true);   
+                _this.model.set('open', true);  
+            }); 
             this.$el.css('padding-bottom', 0);
         }
 
@@ -54,29 +54,29 @@ app.SingleSeminarView = Backbone.View.extend({
         var courseIdToGet = this.model.get('courseId');
         var searchIdToGet = this.model.get('searchId');
         var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+        console.log(this.model.get('open'))
+        
+        if(!this.firstClick) {
+            console.log('get locations')
+            app.locationCollection.fetch({
+                // remove: false,
+                data: JSON.stringify({
+                    "courseId": courseIdToGet,
+                    "searchId": searchIdToGet
+                }),
+                type: "POST",
+                contentType: "application/json",
 
-
-        // http://stackoverflow.com/questions/12084388/backbone-wait-for-multiple-fetch-to-continue
-        // here, wait until all location models are fetched before rendering.
-        app.locationCollection.fetch({
-            // remove: false,
-            data: JSON.stringify({
-                "courseId": courseIdToGet,
-                "searchId": searchIdToGet
-            }),
-            type: "POST",
-            contentType: "application/json",
-
-            success: function (data) {
-                app.locationView = new app.LocationView({
-                    collection: app.locationCollection,
-                    el: elemToRender
-                });
-                // this.model = seminar
-                _this.model.set('open', true);
-                // _this.model.set('schedulesLoaded', true);
-            }
-        });
+                success: function (data) {
+                    app.locationView = new app.LocationView({
+                        collection: app.locationCollection,
+                        el: elemToRender
+                    }).render();
+                    _this.model.set('open', true);
+                    _this.firstClick = true;
+                }
+            });
+        }
     },
 
     // on update of quantity in cart item, sends back to class list
