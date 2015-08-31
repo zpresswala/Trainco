@@ -22,24 +22,13 @@
 
         int totalItems = cartList.Count;
         decimal cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
-
     }
-
-
 }
 
 <div class="container-fluid register-top">
-    <div class="cart-visible">
-        <a class="cart-tab" href="javascript:void(0);">
-            <img src="/assets/images/icon-cart-tab.png" />
-        </a>
-        <div class="container">
-            <ul class="cart-total col-xs-12 col-md-4">
-                <li class="items">6 a</li>
-                <li>Total:<span class="total">$4999</span></li>
-            </ul>
-        </div>
-    </div>
+    
+    @Html.Partial("Cart/MiniCart")
+
     <div class="container">
         <div class="jumbotron">
             @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
@@ -93,7 +82,7 @@
         string location = locationDatesArray[0];
         string seminarDates = locationDatesArray[1];
 
-        <div class="col-md-12 form-item-wrapper">
+        <div class="col-md-12 form-item-wrapper" data-seminar="@(seminar.sem_SID)">
             <div class="container">
                 <!-- top section for one workshop -->
                 <ul class="top-info">
@@ -107,22 +96,24 @@
                     @for (int attendeeInc = 1; attendeeInc <= seminar.sem_Qty; attendeeInc++)
                     {
                         <p class="class-option">Attendee #@(attendeeInc)</p>
-                        <form>
+                        <form class="reg-form">
                             <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                                <input type="text" class="form-control" placeholder="First Name">
+                                <input id="firstname@(attendeeInc)" name="firstname" type="text" class="form-control" placeholder="First Name">
                             </div>
 
                             <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                                <input type="text" class="form-control" placeholder="Last Name">
+                                <input id="lastname@(attendeeInc)" name="lastname" type="text" class="form-control" placeholder="Last Name">
                             </div>
 
                             <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                                <input type="text" class="form-control" placeholder="Title">
+                                <input id="title@(attendeeInc)" name="title" type="text" class="form-control" placeholder="Title">
                             </div>
 
                             <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                                <input type="email" class="form-control" placeholder="Email">
+                                <input id="email@(attendeeInc)" name="email" type="email" class="form-control" placeholder="Email">
                             </div>
+
+                            <input id="attendee" name="attendee" type="hidden" value="@(attendeeInc)">
                         </form>
                     }
                 </div>
@@ -132,7 +123,12 @@
         </div>
     }
 
-    <a class="btn-reg btn-blue-solid next-btn" href="@CurrentPage.RegisterInfo.First().Url">Next</a>
+    <div class="spinner checkout-loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <a id="reg-submit" class="btn-reg btn-blue-solid next-btn" href="#" data-page="1">Next</a>
 </div>
 
 

@@ -8,6 +8,7 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels.Backbone
 {
     public class Loc
     {
+        public int LocationId { get; set; }
         public int CityId { get; set; }
         public int CourseId { get; set; }
         public string CityState { get; set; }

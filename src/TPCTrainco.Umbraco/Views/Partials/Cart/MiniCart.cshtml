@@ -8,13 +8,13 @@
 <div id="cart"></div>
 
 <script type="text/template" id="cartItemTemplate">
-    <li class="cart-item" data-theid="<%= theId %>">
+    <li class="cart-item">
         <ul class="container">
             <li class="class-title col-xs-12 col-sm-12 col-md-4"><h4><%= title %></h4></li>
             <li class="location col-xs-12 col-sm-4 col-md-2"><%= city %></li>
             <li class="date col-xs-12 col-sm-4 col-md-2"><%= date %></li>
-            <li class="col-xs-12 col-sm-4 col-md-2">
-                <a href="javascript:void(0);" class="remove"><span>X</span>Remove</a>
+            <li class="col-xs-12 col-sm-4 col-md-2 remove-wrap">
+                <a href="javascript:void(0);" class="remove" data-theid="<%= theId %>"><span>X</span>Remove</a>
             </li>
             <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span><input type="text" name="quantity" class="class-qty"></li>
             <li class="sub-total col-xs-12 col-sm-4 col-md-1"></li>
@@ -39,6 +39,7 @@
         <div class="cart-bottom row">
             <div class="container">
                 <div class="col-xs-12 wrap">
+                    <p class="cart-empty-msg">Your cart is currently empty.</p>
                     <ul class="cart-total col-xs-12 col-md-4">
                         <li class="items-total">0 Items</li>
                         <li class="cost-total">Total: $<span class="total-cost">0</span></li>

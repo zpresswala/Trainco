@@ -14,21 +14,25 @@ app.ScheduleView = Backbone.View.extend({
 
     template: _.template($('#scheduleTemplate').html()),
 
-    initialize: function() {
-        this.render();
+    initialize: function(options) {
+        this.options = options || {};
+        this.locModelLocId = options.locId;
     },
 
     render:function () {
         var _this = this;
+        console.log(this.collection)
+
         this.collection.each(function(singleClass) {
-            var hasBeenRendered = singleClass.get('hasBeenRendered');
-            if(hasBeenRendered) {
-                return false;
-            } else {
+            var schedLocId = singleClass.get('locationId');
+            if(_this.locModelLocId === schedLocId) {
+                console.log('yes')
                 _this.$el.append(_this.template(singleClass.toJSON()));
-                singleClass.set('hasBeenRendered', true);
+            } else {
+                this.$el.children().css('border', '1px solid blue');
             }
         }, this);
+        console.log(this.$el)
     },
 
     // this just creates the data model and adds it to the collection
@@ -36,7 +40,8 @@ app.ScheduleView = Backbone.View.extend({
         e.preventDefault();
         var target = $(e.currentTarget);
         var _this = this;
-        this.$classQty = target.parent().prev().find('.class-qty');
+        this.$classQty = target.parent().parent().find('.class-qty');
+        console.log(this.$classQty, '44');
 
         var updateTheQuantity = function() {
             var changedQty = modelData.get('quant');
@@ -80,7 +85,6 @@ app.ScheduleView = Backbone.View.extend({
                 thequantity = parseInt(this.$classQty.val()),
                 inCart = modelData.get('inCart'),
                 theId = modelData.get('id');
-
                 modelData.set('quant', thequantity);
                 modelData.set('theId', theId);
 

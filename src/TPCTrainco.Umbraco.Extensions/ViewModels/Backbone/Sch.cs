@@ -9,6 +9,7 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels.Backbone
     public class Sch
     {
         public int Id { get; set; }
+        public int LocationId { get; set; }
         public int CourseId { get; set; }
         public int CityId { get; set; }
         public string DaysTitle { get; set; }
