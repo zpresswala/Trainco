@@ -507,6 +507,15 @@
 	font-size: 1.1em;
 }
 
+.field-validation-error {
+    margin-left: 5px;
+    color: $red-text;
+}
+
+.input-validation-error {
+    border: 1px solid $red-input-border !important;
+}
+
 .checkout-loader {
 	left: 65%;
 	top: 50%;

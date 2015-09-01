@@ -3997,6 +3997,13 @@ h2, h3, h4 {
   color: #F04B49;
   font-size: 1.1em; }
 
+.field-validation-error {
+  margin-left: 5px;
+  color: #C6211F; }
+
+.input-validation-error {
+  border: 1px solid #F04B49 !important; }
+
 .checkout-loader {
   left: 65%;
   top: 50%;
@@ -4115,6 +4122,9 @@ h2, h3, h4 {
   width: 100%; }
 
 .promo-wrap {
+  display: none; }
+
+.other-textbox-wrap {
   display: none; }
 
 .secondary-browse-btn {

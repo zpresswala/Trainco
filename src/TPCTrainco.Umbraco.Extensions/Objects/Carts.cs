@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.ViewModels;
+using TPCTrainco.Umbraco.Extensions.Helpers;
 using MoreLinq;
 using System.Web;
 using System.Runtime.Caching;
@@ -263,6 +264,109 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 }
             }
 
+
+            return response;
+        }
+
+
+        public temp_Cust ConvertModelToTempCust(CheckoutCustomer checkoutCust, List<temp_Reg> tempReg)
+        {
+            temp_Cust tempCust = null;
+
+            if (checkoutCust != null && tempReg != null && tempReg.Count > 0)
+            {
+                tempCust = new temp_Cust();
+
+                tempCust.reg_ID = tempReg[0].reg_ID;
+
+                decimal feeTotal = tempReg.Sum(p => p.sem_FeeAmt ?? 0);
+
+                tempCust.reg_Cost = Convert.ToInt32(feeTotal);
+                tempCust.promoCode = checkoutCust.PromoCode;
+                tempCust.promoType = checkoutCust.HearAbout;
+                tempCust.promoDesc = checkoutCust.HearAboutOther;
+                tempCust.CoName = checkoutCust.Company;
+                tempCust.authFName = checkoutCust.FirstName;
+                tempCust.authLName = checkoutCust.LastName;
+                tempCust.authTitle = checkoutCust.Title;
+                tempCust.authMailCode = "";
+                tempCust.authAddr1 = checkoutCust.Address;
+                tempCust.authAddr2 = checkoutCust.Address2;
+                tempCust.authCity = checkoutCust.City;
+                tempCust.authState = checkoutCust.State;
+                tempCust.authZip = checkoutCust.Zip;
+                tempCust.authCountry = checkoutCust.Country;
+
+                List<string> phoneArray = StringUtilities.SplitPhoneNumber(checkoutCust.Phone);
+                tempCust.authPhone1 = phoneArray[0];
+                tempCust.authPhone2 = phoneArray[1];
+                tempCust.authPhone3 = phoneArray[2];
+
+                tempCust.authPhoneExt = checkoutCust.PhoneExt;
+                tempCust.authFax1 = "";
+                tempCust.authFax2 = "";
+                tempCust.authFax3 = "";
+                tempCust.authEmail = checkoutCust.Email;
+                tempCust.billFName = checkoutCust.BillFirstName;
+                tempCust.billLName = checkoutCust.BillLastName;
+                tempCust.billTitle = "";
+                tempCust.billMailCode = "";
+                tempCust.billAddr1 = checkoutCust.BillAddress;
+                tempCust.billAddr2 = checkoutCust.BillAddress2;
+                tempCust.billCity = checkoutCust.BillCity;
+                tempCust.billState = checkoutCust.BillState;
+                tempCust.billZip = checkoutCust.BillZip;
+                tempCust.billCountry = checkoutCust.BillCountry;
+                tempCust.billPhone1 = tempCust.authPhone1;
+                tempCust.billPhone2 = tempCust.authPhone2;
+                tempCust.billPhone3 = tempCust.authPhone3;
+                tempCust.billPhoneExt = tempCust.authPhoneExt;
+                tempCust.billFax1 = "";
+                tempCust.billFax2 = "";
+                tempCust.billFax3 = "";
+                tempCust.billEmail = tempCust.authEmail;
+                tempCust.ConfTo = "";
+
+                string paymentMethod = checkoutCust.PaymentType;
+                if (paymentMethod == "credit")
+                {
+                    paymentMethod = "Credit Card";
+                }
+                else if (paymentMethod == "invoice")
+                {
+                    paymentMethod = "Invoice Me";
+                }
+                tempCust.payMethod = paymentMethod;
+
+                string ccType = StringUtilities.CreditCardType(checkoutCust.CCNumber);
+                tempCust.ccType = ccType;
+
+                tempCust.ccName = checkoutCust.CCName;
+                tempCust.ccNumber = StringUtilities.GetLast(checkoutCust.CCNumber, 4);
+
+                DateTime dtExpire = StringUtilities.GetExpirationDate(checkoutCust.CCExpiration);
+                tempCust.ccMonth = dtExpire.Month;
+                tempCust.ccYear = dtExpire.Year;
+                tempCust.ccCVC = checkoutCust.CVVCode;
+                tempCust.chkNo = "";
+                tempCust.poNo = "";
+            }
+
+            return tempCust;
+        }
+
+
+        public temp_Cust SaveCheckoutDetails(temp_Cust tempCust)
+        {
+            temp_Cust response = null;
+
+            using (var db = new ATI_DevelopmentEntities1())
+            {
+                db.temp_Cust.Add(tempCust);
+                db.SaveChanges();
+
+                response = tempCust;
+            }
 
             return response;
         }
