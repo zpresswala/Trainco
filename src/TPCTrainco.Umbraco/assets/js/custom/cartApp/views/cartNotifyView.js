@@ -34,7 +34,7 @@ app.CartNotifyView = Backbone.View.extend({
                     }, this);
                 }
             });
-        } 
+        }
 
         else {
             this.$('.cart-empty-msg').show();
