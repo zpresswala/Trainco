@@ -213,6 +213,21 @@
     <Reference Include="umbraco.editorControls">
       <HintPath>..\packages\UmbracoCms.Core.7.2.8\lib\umbraco.editorControls.dll</HintPath>
     </Reference>
+    <Reference Include="Umbraco.Forms.Core">
+      <HintPath>..\packages\UmbracoForms.Core.4.1.4\lib\Umbraco.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Forms.Core.Providers">
+      <HintPath>..\packages\UmbracoForms.Core.4.1.4\lib\Umbraco.Forms.Core.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Forms.Web">
+      <HintPath>..\packages\UmbracoForms.Core.4.1.4\lib\Umbraco.Forms.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Forms.Web.XmlSerializers">
+      <HintPath>..\packages\UmbracoForms.Core.4.1.4\lib\Umbraco.Forms.Web.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Licensing">
+      <HintPath>..\packages\UmbracoForms.Core.4.1.4\lib\Umbraco.Licensing.dll</HintPath>
+    </Reference>
     <Reference Include="umbraco.MacroEngines">
       <HintPath>..\packages\UmbracoCms.Core.7.2.8\lib\umbraco.MacroEngines.dll</HintPath>
     </Reference>
