@@ -477,8 +477,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 temp_Cust deleteTempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
 
-                db.temp_Cust.Remove(deleteTempCust);
-                db.SaveChanges();
+                if (deleteTempCust != null)
+                {
+                    db.temp_Cust.Remove(deleteTempCust);
+                    db.SaveChanges();
+                }
 
                 success = true;
             }

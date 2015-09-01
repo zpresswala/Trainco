@@ -5,6 +5,8 @@
     temp_Cust tempCust = Model.tempCust;
 }
 
+@if (tempCust != null && Model.tempRegList != null)
+{
 <div class="container-fluid form-container summary-main gradient-bg">
     <div class="container">
         @using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutSummarySurfaceController>("HandleFormSubmit"))
@@ -26,7 +28,7 @@
                             <ul class="attendee-info col-md-10">
                                 <li class="name col-xs-12 col-sm-4 col-md-3">@(tempAtt.att_FName + " " + tempAtt.att_LName)</li>
                                 <li class="email col-xs-12 col-sm-4 col-md-2">@(tempAtt.att_Email)</li>
-                                <li class="seminar-opts col-xs-12 col-sm-4 col-md-2">@(tempReg.sem_FeeName.Replace(" - $" + Convert.ToInt32(tempReg.sem_Place), ""))</li>
+                                <li class="seminar-opts col-xs-12 col-sm-4 col-md-2">@(tempReg.sem_FeeName.Replace(" - $" + Convert.ToInt32(tempReg.sem_Total ?? 0), ""))</li>
                                 <li class="location col-xs-12 col-sm-4 col-md-5">@tempReg.sem_Place</li>
                             </ul>
                         }
@@ -53,3 +55,4 @@
         }
     </div>
 </div>
+}
