@@ -7,13 +7,25 @@ function HomePage() {
 }
 
 HomePage.prototype.showActiveSelection = function() {
-	this.$overlay.on('click', function() { 
-	    var $this = $(this);
-	    if($this.hasClass('chosen')) {
-	    	$this.removeClass('chosen');
-	    }
-	 	else {
-	 		$this.addClass('chosen');
-	 	}
-	});
+	if(Modernizr.touch) {
+		this.$overlay.on('touchstart', function() { 
+		    var $this = $(this);
+		    if($this.hasClass('chosen')) {
+		    	$this.removeClass('chosen');
+		    }
+		 	else {
+		 		$this.addClass('chosen');
+		 	}
+		});
+	} else {
+		this.$overlay.on('click', function() { 
+		    var $this = $(this);
+		    if($this.hasClass('chosen')) {
+		    	$this.removeClass('chosen');
+		    }
+		 	else {
+		 		$this.addClass('chosen');
+		 	}
+		});
+	}
 };

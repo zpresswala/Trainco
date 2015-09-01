@@ -2,6 +2,8 @@
 
 window.app = window.app || {};
 
+var ApiDomain = 'http://trainco-dev.imulus-client.com';
+
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -94,6 +96,17 @@ function TPCApp() {
 
 		performSearch(searchParams);
 	}
+
+
+	// empty the cart on the success page
+    if($('.success').length) {
+		app.cartNotifyView.clearCart();
+    }
+
+    // change body bg color on search page
+    if($('#search-results').length) {
+    	$('body').css('background-color', '#F9F9F9 !important');
+    }
 }
 
 TPCApp.prototype.bindScroll = function () {
@@ -163,7 +176,7 @@ TPCApp.prototype.clickScrollTo = function () {
 
 TPCApp.prototype.retinaLogos = function(retinaScreen) {
 	if(retinaScreen) {
-		$('#logo').attr('src', '/assets/images/logo-trainco-2x.png').css('width', 266 + 'px');
+		$('#logo').attr('src', '/assets/images/logo-trainco-2x.png').css('width', 220 + 'px');
 	} else {
 		$('#logo').attr('src', '/assets/images/logo-trainco-1x.png');
 	}

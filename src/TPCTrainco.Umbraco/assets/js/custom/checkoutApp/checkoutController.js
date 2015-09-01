@@ -1,5 +1,4 @@
-﻿
-$('#reg-submit').on('click', function (e) {
+﻿$('#reg-submit').on('click', function (e) {
 	e.preventDefault();
 
 	var checkout = new Checkout();
