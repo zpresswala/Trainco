@@ -147,5 +147,52 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             return courseTopicList;
         }
+
+
+
+        public static List<State> GetStateList()
+        {
+            string cacheKey = "StateList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:StateList"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<State> stateList = cache.Get(cacheKey) as List<State>;
+
+            if (stateList == null)
+            {
+                using (var db = new ATI_DevelopmentEntities1())
+                {
+                    stateList = db.States.Where(p => p.Active == 1).OrderBy(o => o.Sort).ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, stateList, policy);
+            }
+
+            return stateList;
+        }
+
+
+        public static List<Country> GetCountryList()
+        {
+            string cacheKey = "CountryList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CountryList"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<Country> countryList = cache.Get(cacheKey) as List<Country>;
+
+            if (countryList == null)
+            {
+                using (var db = new ATI_DevelopmentEntities1())
+                {
+                    countryList = db.Countries.OrderBy(o => o.SortOrder).ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, countryList, policy);
+            }
+
+            return countryList;
+        }
     }
 }

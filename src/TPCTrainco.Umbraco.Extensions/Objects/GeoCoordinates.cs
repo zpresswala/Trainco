@@ -24,9 +24,15 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             using (var objClient = new System.Net.WebClient())
             {
-                string json = objClient.DownloadString("http://freegeoip.net/json/" + ipAddress);
+                string json = null;
 
-                geoLocation = JsonConvert.DeserializeObject<GeoLocationLookup>(json);
+                try
+                {
+                    json = objClient.DownloadString("http://freegeoip.net/json/" + ipAddress);
+
+                    geoLocation = JsonConvert.DeserializeObject<GeoLocationLookup>(json);
+                }
+                catch { }
             }
 
             if (geoLocation != null)
