@@ -51,7 +51,10 @@ app.ScheduleView = Backbone.View.extend({
             var id = modelData.get('id');
             var matchingItem = app.cartCollection.where({ theId: id });
             var matchingItemIdAttr = matchingItem[0].get('theId');
-            matchingItem[0].set('quantity', changedQty);
+            var newQty = changedQty + matchingItem[0].get('quantity');
+            console.log(newQty)
+            matchingItem[0].set('quantity', newQty);
+            matchingItem[0].save();
 
             if(id == matchingItemIdAttr) {
                 $('#cart-item-list').find('[data-theid=' + matchingItemIdAttr + ']').find('.class-qty').val(changedQty);

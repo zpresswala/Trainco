@@ -19,7 +19,9 @@
 <div class="container-fluid gradient-bg main-content blog-post">
     <div class="container">
         <div class="col-md-8 col-md-offset-2 text-wrap">
-            <a href="javascript:void(0);" class="btn-reg btn-blue-solid btn-share">Share</a>
+            
+            @Html.Partial("Share/ShareModule", currentPage)
+
             @if (CurrentPage.HasValue("date") || CurrentPage.HasValue("author"))
             {
                 <div class="post-author">
