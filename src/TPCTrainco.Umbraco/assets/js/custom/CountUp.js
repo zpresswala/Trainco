@@ -9,6 +9,7 @@ function CountUp($win) {
 
 	this.getMaxVal();
 	this.resetVals();
+	console.log('hello, counting')
 }
 
 CountUp.prototype.getMaxVal = function() {
