@@ -1,6 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
+var ApiDomain = 'http://trainco-dev.imulus-client.com';
 
 function TPCApp() {
 	var _this = this;
