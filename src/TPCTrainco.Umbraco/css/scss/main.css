@@ -4136,7 +4136,7 @@ h2, h3, h4 {
 
 .register-top {
   background-color: #f1f1f1;
-  padding-bottom: 80px; }
+  padding-bottom: 0; }
   .register-top .jumbotron {
     max-width: 435px;
     margin: 80px auto; }

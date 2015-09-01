@@ -15,6 +15,7 @@ namespace TPCTrainco.Umbraco.Controllers
     {
         public ActionResult Index()
         {
+            CheckoutCustomer checkoutCustomer = new CheckoutCustomer();
             List<temp_Reg> cartList = null;
             string cartGuid = null;
 
@@ -26,22 +27,38 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 cartList = cartsObj.GetCart(cartGuid);
 
-                int totalItems = 0;
-                decimal cartTotal = 0;
-
                 if (cartList == null)
                 {
-                    Response.Redirect("/search-seminars/");
+                    return Redirect("/search-seminars/");
                 }
                 else
                 {
                     Session["CartId"] = cartGuid;
-                    totalItems = cartList.Count;
-                    cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
+
+                    temp_Cust tempCust = null;
+
+                    using (var db = new ATI_DevelopmentEntities1())
+                    {
+                        int regId = cartList[0].reg_ID;
+
+                        tempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
+
+                        if (tempCust != null)
+                        {
+                            checkoutCustomer = cartsObj.ConvertTempCustToCheckoutCustomer(tempCust);
+                            checkoutCustomer.BillingDifferent = true;
+                        }
+                    }
+
+                    return PartialView("CheckoutCustomer", checkoutCustomer);
                 }
             }
+            else
+            {
+                return Redirect("/search-seminars/");
+            }
 
-            return PartialView("CheckoutCustomer", new CheckoutCustomer());
+            
         }
 
 
@@ -66,18 +83,13 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     cartList = cartsObj.GetCart(cartGuid);
 
-                    int totalItems = 0;
-                    decimal cartTotal = 0;
-
                     if (cartList == null)
                     {
-                        Response.Redirect("/search-seminars/");
+                        return Redirect("/search-seminars/");
                     }
                     else
                     {
                         Session["CartId"] = cartGuid;
-                        totalItems = cartList.Count;
-                        cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
                     }
                 }
 
@@ -105,16 +117,16 @@ namespace TPCTrainco.Umbraco.Controllers
                             return Redirect("/search-seminars/?error=99");
                         }
                     }
-
-
+                    else
+                    {
+                        return Redirect("/search-seminars/?error=98");
+                    }
                 }
                 else
                 {
                     return Redirect("/search-seminars/");
                 }
             }
-
-            return RedirectToCurrentUmbracoUrl();
         }
     }
 }

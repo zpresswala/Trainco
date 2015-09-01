@@ -277,6 +277,7 @@
     <Compile Include="LocationType.cs">
       <DependentUpon>TraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckoutBilling.cs" />
     <Compile Include="Models\CheckoutCart.cs" />
     <Compile Include="Models\CheckoutCustomer.cs" />
     <Compile Include="Models\CheckoutItem.cs" />

@@ -1,5 +1,15 @@
 ﻿@model TPCTrainco.Umbraco.Extensions.Models.CheckoutCustomer
 
+@if (Request.QueryString["error"] != null && Request.QueryString.Get("error").Length > 0)
+{
+    if (Request.QueryString.Get("error") == "2")
+    {
+        <div class="container-fluid">
+            <strong class="message-error">There was a problem processing the credit card. Please verify your credit card and the billing information and try again.</strong>
+        </div>
+    }
+}
+
 <div class="container-fluid register-two gradient-bg">
     @using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutCustomerSurfaceController>("HandleFormSubmit"))
     {

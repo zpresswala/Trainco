@@ -30,6 +30,10 @@
             cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
         }
     }
+    else
+    {
+        Response.Redirect("/search-seminars/");
+    }
 }
 
 <div class="container-fluid register-top">

@@ -307,24 +307,49 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 tempCust.authFax2 = "";
                 tempCust.authFax3 = "";
                 tempCust.authEmail = checkoutCust.Email;
-                tempCust.billFName = checkoutCust.BillFirstName;
-                tempCust.billLName = checkoutCust.BillLastName;
-                tempCust.billTitle = "";
-                tempCust.billMailCode = "";
-                tempCust.billAddr1 = checkoutCust.BillAddress;
-                tempCust.billAddr2 = checkoutCust.BillAddress2;
-                tempCust.billCity = checkoutCust.BillCity;
-                tempCust.billState = checkoutCust.BillState;
-                tempCust.billZip = checkoutCust.BillZip;
-                tempCust.billCountry = checkoutCust.BillCountry;
-                tempCust.billPhone1 = tempCust.authPhone1;
-                tempCust.billPhone2 = tempCust.authPhone2;
-                tempCust.billPhone3 = tempCust.authPhone3;
-                tempCust.billPhoneExt = tempCust.authPhoneExt;
-                tempCust.billFax1 = "";
-                tempCust.billFax2 = "";
-                tempCust.billFax3 = "";
-                tempCust.billEmail = tempCust.authEmail;
+
+                if (true == checkoutCust.BillingDifferent)
+                {
+                    tempCust.billFName = checkoutCust.BillFirstName;
+                    tempCust.billLName = checkoutCust.BillLastName;
+                    tempCust.billTitle = "";
+                    tempCust.billMailCode = "";
+                    tempCust.billAddr1 = checkoutCust.BillAddress;
+                    tempCust.billAddr2 = checkoutCust.BillAddress2;
+                    tempCust.billCity = checkoutCust.BillCity;
+                    tempCust.billState = checkoutCust.BillState;
+                    tempCust.billZip = checkoutCust.BillZip;
+                    tempCust.billCountry = checkoutCust.BillCountry;
+                    tempCust.billPhone1 = tempCust.authPhone1;
+                    tempCust.billPhone2 = tempCust.authPhone2;
+                    tempCust.billPhone3 = tempCust.authPhone3;
+                    tempCust.billPhoneExt = tempCust.authPhoneExt;
+                    tempCust.billFax1 = "";
+                    tempCust.billFax2 = "";
+                    tempCust.billFax3 = "";
+                    tempCust.billEmail = tempCust.authEmail;
+                }
+                else
+                {
+                    tempCust.billFName = tempCust.authFName;
+                    tempCust.billLName = tempCust.authLName;
+                    tempCust.billTitle = tempCust.authTitle;
+                    tempCust.billMailCode = "";
+                    tempCust.billAddr1 = tempCust.authAddr1;
+                    tempCust.billAddr2 = tempCust.authAddr2;
+                    tempCust.billCity = tempCust.authCity;
+                    tempCust.billState = tempCust.authState;
+                    tempCust.billZip = tempCust.authZip;
+                    tempCust.billCountry = tempCust.authCountry;
+                    tempCust.billPhone1 = tempCust.authPhone1;
+                    tempCust.billPhone2 = tempCust.authPhone2;
+                    tempCust.billPhone3 = tempCust.authPhone3;
+                    tempCust.billPhoneExt = tempCust.authPhoneExt;
+                    tempCust.billFax1 = "";
+                    tempCust.billFax2 = "";
+                    tempCust.billFax3 = "";
+                    tempCust.billEmail = tempCust.authEmail;
+                }
                 tempCust.ConfTo = "";
 
                 string paymentMethod = checkoutCust.PaymentType;
@@ -353,6 +378,62 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             }
 
             return tempCust;
+        }
+
+
+        public CheckoutCustomer ConvertTempCustToCheckoutCustomer(temp_Cust tempCust)
+        {
+            CheckoutCustomer checkoutCust = null;
+
+            if (tempCust != null)
+            {
+                checkoutCust = new CheckoutCustomer();
+
+                checkoutCust.PromoCode = tempCust.promoCode;
+                checkoutCust.HearAbout = tempCust.promoType;
+                checkoutCust.HearAboutOther = tempCust.promoDesc;
+                checkoutCust.Company = tempCust.CoName;
+                checkoutCust.FirstName = tempCust.authFName;
+                checkoutCust.LastName = tempCust.authLName;
+                checkoutCust.Title = tempCust.authTitle;
+                checkoutCust.Address = tempCust.authAddr1;
+                checkoutCust.Address2 = tempCust.authAddr2;
+                checkoutCust.City = tempCust.authCity;
+                checkoutCust.State = tempCust.authState;
+                checkoutCust.Zip = tempCust.authZip;
+                checkoutCust.Country = tempCust.authCountry;
+
+                checkoutCust.Phone = tempCust.authPhone1 + "-" + tempCust.authPhone2 + "-" + tempCust.authPhone3;
+                checkoutCust.PhoneExt = tempCust.authPhoneExt;
+                checkoutCust.Email = tempCust.authEmail;
+                checkoutCust.BillFirstName = tempCust.billFName;
+                checkoutCust.BillLastName = tempCust.billLName;
+                checkoutCust.BillAddress = tempCust.billAddr1;
+                checkoutCust.BillAddress2 = tempCust.billAddr2;
+                checkoutCust.BillCity = tempCust.billCity;
+                checkoutCust.BillState = tempCust.billState;
+                checkoutCust.BillZip = tempCust.billZip;
+                checkoutCust.BillCountry = tempCust.billCountry;
+
+                string paymentMethod = tempCust.payMethod;
+                if (paymentMethod == "Credit Card")
+                {
+                    paymentMethod = "credit";
+                }
+                else if (paymentMethod == "Invoice Me")
+                {
+                    paymentMethod = "invoice";
+                }
+                checkoutCust.PaymentType = paymentMethod;
+
+                checkoutCust.CCName = tempCust.ccName;
+
+                DateTime dtExpire = DateTime.Parse(tempCust.ccMonth + "/" + tempCust.ccYear);
+                checkoutCust.CCExpiration = dtExpire.ToString("MM/yy");
+                checkoutCust.CVVCode = tempCust.ccCVC;
+            }
+
+            return checkoutCust;
         }
 
 

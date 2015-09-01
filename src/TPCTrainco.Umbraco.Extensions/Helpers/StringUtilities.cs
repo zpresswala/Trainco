@@ -71,6 +71,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             if (phoneTemp.Length == 10)
             {
+                phoneArray = new List<string>();
+
                 phoneArray.Add(phoneTemp.Substring(0, 3));
                 phoneArray.Add(phoneTemp.Substring(3, 3));
                 phoneArray.Add(phoneTemp.Substring(6, 4));

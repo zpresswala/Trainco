@@ -17,6 +17,12 @@ function CheckoutCustomer() {
 	this.showOtherInfo();
 	this.billingOptions();
 
+	if ($("#BillFirstName").val().length) {
+		this.$differentInfoFields.slideDown('fast');
+		this.$billingInfoText.addClass('hidden');
+		this.$billingDifferent.val('true');
+	}
+
 	var selectedOption = this.$billingOptsSelect.val();
 	if (selectedOption === 'credit') {
 		this.$ccInfo.show();
