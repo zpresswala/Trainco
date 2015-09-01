@@ -1,6 +1,23 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
+
+    List<TPCTrainco.Umbraco.Extensions.temp_Reg> cartList = null;
+    string cartGuid = null;
+
+    if (Session["CartId"] != null && Session["CartId"].ToString().Length > 0)
+    {
+        cartGuid = Session["CartId"].ToString().ToLower();
+
+        TPCTrainco.Umbraco.Extensions.Objects.Carts cartsObj = new TPCTrainco.Umbraco.Extensions.Objects.Carts();
+
+        cartList = cartsObj.GetCart(cartGuid);
+    }
+    
+    if (cartList == null)
+    {
+        Response.Redirect("/search-seminars/");
+    }
 }
 
 <div class="container-fluid register-top register-two-top">

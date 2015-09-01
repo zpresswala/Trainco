@@ -29,7 +29,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (cartList == null)
                 {
-                    return Redirect("/search-seminars/");
+                    return PartialView("CheckoutCustomer", checkoutCustomer);
                 }
                 else
                 {
@@ -55,13 +55,12 @@ namespace TPCTrainco.Umbraco.Controllers
             }
             else
             {
-                return Redirect("/search-seminars/");
+                return PartialView("CheckoutCustomer", checkoutCustomer);
             }
-
-            
         }
 
 
+        [NotChildAction]
         [HttpPost]
         public ActionResult HandleFormSubmit(CheckoutCustomer model)
         {
@@ -95,17 +94,22 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (cartList != null)
                 {
+                    Carts cartsObj = new Carts();
+
+                    // delete old temp_Cust
+                    cartsObj.DeleteTempCust(cartList[0].reg_ID);
+
                     checkoutBilling.RegId = cartList[0].reg_ID;
                     checkoutBilling.CCNumber = model.CCNumber;
 
                     Session["CartBilling"] = checkoutBilling;
 
-                    Carts cartsObj = new Carts();
-
                     temp_Cust tempCust = cartsObj.ConvertModelToTempCust(model, cartList);
 
                     if (tempCust != null)
                     {
+                        tempCust.regTakenBy = "Customer Web";
+                        tempCust.PastCustomer = "Not Sure";
                         tempCust = cartsObj.SaveCheckoutDetails(tempCust);
 
                         if (tempCust != null)

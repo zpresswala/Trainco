@@ -3121,6 +3121,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CheckoutSummarySurfaceController.cs" />
     <Compile Include="Controllers\CheckoutCustomerSurfaceController.cs" />
     <Compile Include="Models\RegisterAttendeeViewModel.cs" />
     <Compile Include="Models\RegisterFormViewModel.cs" />
@@ -3354,6 +3355,7 @@
     <Content Include="Views\Partials\RegisterForm1.cshtml" />
     <Content Include="Views\Partials\Forms\tempForm.cshtml" />
     <Content Include="Views\Partials\CheckoutCustomer.cshtml" />
+    <Content Include="Views\Partials\CheckoutSummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

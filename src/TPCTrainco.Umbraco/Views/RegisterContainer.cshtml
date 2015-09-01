@@ -26,6 +26,10 @@
         else
         {
             Session["CartId"] = cartGuid;
+
+            cartsObj.DeleteTempAtt(cartList[0].reg_ID);
+            cartsObj.DeleteTempCust(cartList[0].reg_ID);
+            
             totalItems = cartList.Count;
             cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
         }

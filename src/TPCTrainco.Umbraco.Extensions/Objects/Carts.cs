@@ -453,6 +453,40 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public bool DeleteTempAtt(int regId)
+        {
+            bool success = false;
+
+            using (var db = new ATI_DevelopmentEntities1())
+            {
+                db.temp_Att.RemoveRange(db.temp_Att.Where(p => p.reg_ID == regId));
+                db.SaveChanges();
+
+                success = true;
+            }
+
+            return success;
+        }
+
+
+        public bool DeleteTempCust(int regId)
+        {
+            bool success = false;
+
+            using (var db = new ATI_DevelopmentEntities1())
+            {
+                temp_Cust deleteTempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
+
+                db.temp_Cust.Remove(deleteTempCust);
+                db.SaveChanges();
+
+                success = true;
+            }
+
+            return success;
+        }
+
+
         public List<temp_Reg> GetCart(string cartGuid)
         {
             List<temp_Reg> cart = null;

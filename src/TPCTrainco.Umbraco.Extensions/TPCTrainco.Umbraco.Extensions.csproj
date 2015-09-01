@@ -280,6 +280,7 @@
     <Compile Include="Models\CheckoutBilling.cs" />
     <Compile Include="Models\CheckoutCart.cs" />
     <Compile Include="Models\CheckoutCustomer.cs" />
+    <Compile Include="Models\CheckoutDetails.cs" />
     <Compile Include="Models\CheckoutItem.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CoordinateDetails.cs" />
