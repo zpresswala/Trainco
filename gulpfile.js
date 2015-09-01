@@ -15,13 +15,13 @@ var gulp       = require('gulp'),
 // set the paths for css compiling
 var config = {
         sassPaths: [
-                   // 'src/TPCTrainco.Umbraco/assets/**/*.scss',
                     'src/TPCTrainco.Umbraco/assets/scss/*.scss'
                 ],
         sassDest: 'src/TPCTrainco.Umbraco/css',
 
     jsPaths: [
                 'src/TPCTrainco.Umbraco/assets/js/custom/TPCApp.js',
+                'src/TPCTrainco.Umbraco/assets/js/custom/checkoutApp/*.js',
                 'src/TPCTrainco.Umbraco/assets/js/custom/*.js'
             ],
     jsDest: 'src/TPCTrainco.Umbraco/js',
@@ -141,3 +141,5 @@ gulp.task('img-opt', function() {
 });
 
 gulp.task('smush', ['img-opt']);
+
+// gulp minify commands: gulp js, gulp js:vendor, gulp js:cartapp

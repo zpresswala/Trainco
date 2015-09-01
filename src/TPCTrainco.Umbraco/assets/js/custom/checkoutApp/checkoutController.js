@@ -4,13 +4,11 @@
 	var checkout = new Checkout();
 
 	var formData = checkout.CreateFormPostString();
-	console.log(JSON.stringify(formData));
 
 	CheckoutPost(formData);
 });
 
 function CheckoutPost(checkoutData) {
-	console.log()
 
 	$('#reg-submit').hide();
 	$('.checkout-loader').show();
@@ -24,7 +22,6 @@ function CheckoutPost(checkoutData) {
 		type: "POST",
 		contentType: "application/json"
 	}).done(function (successObj) {
-		console.log(successObj);
 
 		var success = successObj.success;
 		var message = successObj.message;
