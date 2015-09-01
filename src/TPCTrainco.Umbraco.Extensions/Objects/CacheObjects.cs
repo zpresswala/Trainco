@@ -79,6 +79,29 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public static List<Location> GetLocationList()
+        {
+            string cacheKey = "LocationList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:Locations"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<Location> locationList = cache.Get(cacheKey) as List<Location>;
+
+            if (locationList == null)
+            {
+                using (var db = new ATI_DevelopmentEntities1())
+                {
+                    locationList = db.Locations.Where(p => p.Active == 1 && p.LocationID != 1 && p.LocationID != 3).ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, locationList, policy);
+            }
+
+            return locationList;
+        }
+
+
         public static List<ScheduleCourseInstructor> GetScheduleCourseList()
         {
             string cacheKey = "ScheduleCourseList";
@@ -162,7 +185,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 using (var db = new ATI_DevelopmentEntities1())
                 {
-                    stateList = db.States.Where(p => p.Active == 1).OrderBy(o => o.Sort).ToList();
+                    stateList = db.States.Where(p => p.Active == 1 && p.RepRegion > 0 && p.Sort > 0).OrderBy(o => o.Sort).ToList();
                 }
 
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };

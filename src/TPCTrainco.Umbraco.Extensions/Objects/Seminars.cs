@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
@@ -22,22 +23,30 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
     public class Seminars
     {
         public List<Seminar_Catalog> SeminarList = null;
+        public List<Location> LocationList = null;
         public List<SCHEDULE> ScheduleList = null;
         public List<COURS> CourseList = null;
         public List<ScheduleCourseInstructor> ScheduleCourseList = null;
         public List<CourseFormat> CourseFormatList { get; set; }
         public List<CourseTopic> CourseTopicList { get; set; }
+        public IPublishedContent SearchSeminarNode { get; set; }
+        public string DefaultSearchLocationText { get; set; }
+
+        UmbracoHelper umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
 
         private string CacheSearchKey = "SeminarSearch:";
 
         public Seminars()
         {
             SeminarList = CacheObjects.GetSeminarList();
+            LocationList = CacheObjects.GetLocationList();
             ScheduleList = CacheObjects.GetScheduleList();
             CourseList = CacheObjects.GetCourseList();
             ScheduleCourseList = CacheObjects.GetScheduleCourseList();
             CourseFormatList = CacheObjects.GetCourseFormatList();
             CourseTopicList = CacheObjects.GetCourseTopicList();
+            SearchSeminarNode = Nodes.Instance.SeminarSearch;
+            DefaultSearchLocationText = SearchSeminarNode.GetPropertyValue<string>("locationMessage");
         }
 
 
@@ -282,8 +291,20 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                     if (schedule != null)
                                     {
+                                        // get exact location
+                                        Location locationDetail = LocationList.Where(p => p.LocationID == legacySchedule.LocationID).FirstOrDefault();
+
                                         schedule.CourseId = seminar.CourseId;
                                         schedule.LocationId = location.LocationId;
+
+                                        if (locationDetail != null)
+                                        {
+                                            location.LocationDetails = locationDetail.LocationName;
+                                        }
+                                        else
+                                        {
+                                            location.LocationDetails = DefaultSearchLocationText;
+                                        }
 
                                         location.CityId = schedule.CityId;
                                         location.Date = schedule.Date;
@@ -518,6 +539,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             result.CityId = location.CityId;
             result.CourseId = location.CourseId;
             result.CityState = location.CityState;
+            result.LocationDetails = location.LocationDetails;
             result.Date = location.Date;
             result.Price = location.Price;
             result.SearchId = location.SearchId;
