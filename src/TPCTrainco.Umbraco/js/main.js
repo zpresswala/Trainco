@@ -3099,7 +3099,7 @@ app.CartNotifyView = Backbone.View.extend({
                     }, this);
                 }
             });
-        } 
+        }
 
         else {
             this.$('.cart-empty-msg').show();
@@ -3205,7 +3205,11 @@ app.LocationView = Backbone.View.extend({
     template: _.template($('#locationTemplate').html()),
 
     initialize: function() {
-        // this.render();
+
+        var _this = this;
+        setTimeout(function() {
+            _this.render();
+        }, 10);
 
         // the counter, which enables us to wait until last schedules ajax call
         this.fetchCounter = this.collection.length;
@@ -3243,15 +3247,19 @@ app.LocationView = Backbone.View.extend({
             contentType: "application/json",
 
             success: function(data) {
+                console.log(data)
                 _this.fetchCounter -= 1;
                 if (_this.fetchCounter === 0) {
-                    console.log('fetching schedule')
+                    console.log(data, 'fetching schedule')
                     _this.$el.prev().find('.location-loader').css('display', 'none');
-                    app.scheduleView = new app.ScheduleView({
-                        collection: app.scheduleCollection,
-                        el: elemToAppendSchedules,
-                        locationLocId: _this.locationIdArr
-                    }).render();
+                    setTimeout(function() {
+                        app.scheduleView = new app.ScheduleView({
+                            collection: app.scheduleCollection,
+                            el: elemToAppendSchedules,
+                            locationLocId: _this.locationIdArr
+                        });
+                    }, 210);
+
                 }
             },
 
@@ -3286,6 +3294,10 @@ app.ScheduleView = Backbone.View.extend({
     initialize: function(options) {
         this.options = options || {};
         this.locLocIdArr = options.locationLocId;
+        var _this = this;
+        setTimeout(function() {
+            _this.render();
+        }, 170);
     },
 
     render:function () {
@@ -3484,7 +3496,6 @@ app.SingleSeminarView = Backbone.View.extend({
         var _this = this;
         var open = this.model.get('open');
         var $schedItemWrap = this.$('.schedule-item-wrap');
-        console.log(this.model)
         var viewText = $(e.target);
 
         if(open) {
@@ -3511,11 +3522,11 @@ app.SingleSeminarView = Backbone.View.extend({
 
         var courseIdToGet = this.model.get('courseId');
         var searchIdToGet = this.model.get('searchId');
-        var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+        var elemToRender = $($(e.currentTarget).closest('.result-description').next('.schedule-item-wrap'));
+        console.log(elemToRender, 'stufffff')
         console.log(this.model.get('open'))
         
         if(!this.firstClick) {
-            console.log('get locations')
             app.locationCollection.fetch({
                 // remove: false,
                 data: JSON.stringify({
@@ -3529,7 +3540,7 @@ app.SingleSeminarView = Backbone.View.extend({
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
-                    }).render();
+                    });
                     _this.model.set('open', true);
                     _this.firstClick = true;
                 }

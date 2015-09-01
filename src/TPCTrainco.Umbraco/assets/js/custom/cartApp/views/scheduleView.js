@@ -17,6 +17,10 @@ app.ScheduleView = Backbone.View.extend({
     initialize: function(options) {
         this.options = options || {};
         this.locLocIdArr = options.locationLocId;
+        var _this = this;
+        setTimeout(function() {
+            _this.render();
+        }, 170);
     },
 
     render:function () {

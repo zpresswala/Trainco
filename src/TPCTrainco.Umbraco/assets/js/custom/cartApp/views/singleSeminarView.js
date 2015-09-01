@@ -26,7 +26,6 @@ app.SingleSeminarView = Backbone.View.extend({
         var _this = this;
         var open = this.model.get('open');
         var $schedItemWrap = this.$('.schedule-item-wrap');
-        console.log(this.model)
         var viewText = $(e.target);
 
         if(open) {
@@ -53,11 +52,11 @@ app.SingleSeminarView = Backbone.View.extend({
 
         var courseIdToGet = this.model.get('courseId');
         var searchIdToGet = this.model.get('searchId');
-        var elemToRender = $($(e.currentTarget).parent().parent().parent().next('.schedule-item-wrap'));
+        var elemToRender = $($(e.currentTarget).closest('.result-description').next('.schedule-item-wrap'));
+        console.log(elemToRender, 'stufffff')
         console.log(this.model.get('open'))
         
         if(!this.firstClick) {
-            console.log('get locations')
             app.locationCollection.fetch({
                 // remove: false,
                 data: JSON.stringify({
@@ -71,7 +70,7 @@ app.SingleSeminarView = Backbone.View.extend({
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
-                    }).render();
+                    });
                     _this.model.set('open', true);
                     _this.firstClick = true;
                 }
