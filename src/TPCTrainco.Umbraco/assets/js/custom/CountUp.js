@@ -28,9 +28,9 @@ CountUp.prototype.getMaxVal = function() {
 CountUp.prototype.resetVals = function() {
 
 	// reset values to zero on load
-	this.$numbers[0].innerHTML = '%';
+	this.$numbers[0].innerHTML = '-';
 	this.$numbers[1].innerHTML = '-';
-	this.$numbers[2].innerHTML = 'k';
+	this.$numbers[2].innerHTML = '-';
 };
 
 CountUp.prototype.startCounter = function() {
@@ -52,15 +52,15 @@ CountUp.prototype.startCounter = function() {
 		// increase starting number each time through
 		startNum++;
 
-		// if it's the first one, add % to the end
+		// if it's the first one, add k+ to the end
 		if(indx === 0) {
-			_this.$numbers[indx].innerHTML = startNum + '%';
+			_this.$numbers[indx].innerHTML = startNum + 'K+';
 		} else if (indx === 2) {
 
-			// if it's the third one, add 'k' to the end
-			_this.$numbers[indx].innerHTML = startNum + 'k';
+			// if it's the third one, add '+' to the end
+			_this.$numbers[indx].innerHTML = startNum + '+';
 		} else {
-			_this.$numbers[indx].innerHTML = startNum;
+			_this.$numbers[indx].innerHTML = startNum + 'K+';
 		}
 		
 		// if the counter = max num to count to

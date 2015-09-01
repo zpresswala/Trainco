@@ -140,12 +140,13 @@
 
 // blurred image section
 .intro-section {
+	background-color: rgba(0, 0, 0, 0.75);
 	background: url('/assets/images/bg-small.jpg') center top / cover no-repeat;
 	padding-top: 60px;
 	position: relative;
 	z-index: 2;
 	@include tablet-portrait-and-up {
-		background-image: url('/assets/images/bg-large.jpg');
+		background: url('/assets/images/bg-large.jpg') center top / cover no-repeat;
 	}
 
 	.jumbotron h1 {
@@ -191,6 +192,7 @@
 		margin: 0 auto;
 		bottom: 27px;
 		text-shadow: none;
+		padding-bottom: 0;
 		@include tablet-landscape-and-up {
 			bottom: 56px;
 		}

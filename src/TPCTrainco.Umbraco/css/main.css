@@ -3134,13 +3134,14 @@ h2, h3, h4 {
     float: right; } }
 
 .intro-section {
+  background-color: rgba(0, 0, 0, 0.75);
   background: url("/assets/images/bg-small.jpg") center top/cover no-repeat;
   padding-top: 60px;
   position: relative;
   z-index: 2; }
   @media (min-width: 768px) {
     .intro-section {
-      background-image: url("/assets/images/bg-large.jpg"); } }
+      background: url("/assets/images/bg-large.jpg") center top/cover no-repeat; } }
   .intro-section .jumbotron h1:after {
     right: -15%; }
   .intro-section .jumbotron h1:before {
@@ -3170,7 +3171,8 @@ h2, h3, h4 {
     max-width: 700px;
     margin: 0 auto;
     bottom: 27px;
-    text-shadow: none; }
+    text-shadow: none;
+    padding-bottom: 0; }
     @media (min-width: 1025px) {
       .carousel .carousel-caption {
         bottom: 56px; } }
