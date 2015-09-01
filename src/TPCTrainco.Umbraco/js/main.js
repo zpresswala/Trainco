@@ -3296,7 +3296,7 @@ app.ScheduleView = Backbone.View.extend({
         $.each(_this.collection.toJSON(), function(index, value) {
             $.each(_this.locLocIdArr, function(index2, id) {
                 if(value.locationId === id) {
-
+                    console.log(_this.$el);
                     // then appending to corresponding item
                     $(_this.$el[index2]).append(_this.template(value));
                 }
