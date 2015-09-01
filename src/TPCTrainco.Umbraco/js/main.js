@@ -2688,6 +2688,67 @@ window.Modernizr = (function( window, document, undefined ) {
     return Modernizr;
 
 })(this, this.document);
+
+$('#reg-submit').on('click', function (e) {
+	e.preventDefault();
+
+	var checkout = new Checkout();
+
+	var formData = checkout.CreateFormPostString();
+	console.log(JSON.stringify(formData));
+
+	CheckoutPost(formData);
+});
+
+function CheckoutPost(checkoutData) {
+	console.log()
+
+	$('#reg-submit').hide();
+	$('.checkout-loader').show();
+
+	$('input').next('span').remove();
+	$('input').css('border-color', '#d7d7d7');
+
+	$.ajax({
+		url: ApiDomain + '/api/checkout/submit',
+		data: JSON.stringify(checkoutData),
+		type: "POST",
+		contentType: "application/json"
+	}).done(function (successObj) {
+		console.log(successObj);
+
+		var success = successObj.success;
+		var message = successObj.message;
+
+		$('#reg-submit').show();
+		$('.checkout-loader').hide();
+
+		if (success) {
+			window.location.href = '/register/info/';
+		}
+		else {
+			// There was a problem with the form.
+			$('.checkout-err-msg').html(message);
+			$('.checkout-err-msg').show();
+
+			if (successObj.invalidItems.length > 0) {
+				var formElArray = successObj.invalidItems;
+
+				for (var i = 0, l = formElArray.length; i < l; i++) {
+					var formEl = formElArray[i];
+
+					$('#' + formEl.elementId).after('<span>' + formEl.message + '</span>');
+					$('#' + formEl.elementId).css('border-color', 'red');
+				}
+			}
+
+		}
+	}).fail(function (error) {
+		$('#reg-submit').show();
+		$('.checkout-loader').hide();
+		$('#reg-submit').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+	});
+};
 'use strict';
 
 window.app = window.app || {};
@@ -2786,6 +2847,8 @@ function performSearch(searchParams) {
 		}	
 	}
 
+	$classLoader.fadeIn(90);
+
 	app.globalCollection.fetch({
 		data: searchParams,
 		type: "POST",
@@ -2795,7 +2858,6 @@ function performSearch(searchParams) {
 
 			$('.results').empty();
 			$emptyMsg.fadeOut(100, function () {
-				$classLoader.fadeIn(90);
 
 				if (data.length === 0) {
 					$classLoader.fadeOut(150, function () {
@@ -3604,70 +3666,147 @@ Catalog.prototype.sortElectricItems = function() {
 'use strict';
 
 function Checkout() {
-	this.$regSubmit = $('#reg-submit');
-
-	this.FormSubmitListener();
 }
 
-HomePage.prototype.FormSubmitListener = function () {
-	this.$regSubmit.on('click', function () {
-		var tempFormData = CreateFormPostString();
-	});
-};
 
-HomePage.prototype.CreateFormPostString = function () {
-	var seminarList = [];
+Checkout.prototype.CreateFormPostString = function () {
+	var $cart = $('.form-container');
+	var cartGuid = $cart.data('cart');
+
+	var attendeeList = [];
 	$('.form-item-wrapper').each(function () {
 		var seminarId = $(this).data('seminar');
-		var firstName = $(this).find('input[name="firstname"]').val();
-		var lastName = $(this).find('input[name="lastname"]').val();
-		var title = $(this).find('input[name="title"]').val();
-		var email = $(this).find('input[name="email"]').val();
+		$(this).find('.reg-form').each(function () {
+			var attendeeNum = $(this).find('input[name="attendee"]').val();
+			var attendeeInc = $(this).find('input[name="attendeeInc"]').val();
+			var firstName = $(this).find('input[name="firstname"]').val();
+			var lastName = $(this).find('input[name="lastname"]').val();
+			var title = $(this).find('input[name="title"]').val();
+			var email = $(this).find('input[name="email"]').val();
 
-		var postData = {
-			seminarId: seminarId,
-			firstName: firstName,
-			lastName: lastName,
-			title: title,
-			email: email
-		};
+			var attendeeItem = {
+				seminarId: seminarId,
+				attendeeNum: attendeeNum,
+				attendeeInc: attendeeInc,
+				firstName: firstName,
+				lastName: lastName,
+				title: title,
+				email: email
+			};
 
-		seminarList.push(postData);
+			attendeeList.push(attendeeItem);
+		})
 	});
 
-	return JSON.stringify(seminarList);
+	var postData = {
+		cartGuid: cartGuid,
+		checkoutItems: attendeeList
+	}
+
+	return postData;
 };
 
-HomePage.prototype.PostFormData = function () {
+'use strict';
+
+function CheckoutCustomer() {
+	this.$differentInfo = $('#supervisor-diff');
+	this.$differentInfoFields = $('.hidden-different-check');
+	this.$billingInfoText = $('.billing-info-desc');
+	this.$billingOptsSelect = $('#PaymentType');
+	this.$ccInfo = $('.cc-info');
+	this.$billingDifferent = $('#BillingDifferent');
+	this.$promoWrap = $('.promo-wrap');
+	this.$hearAbout = $('#HearAbout');
+	this.$promoCode = $('#PromoCode');
+	this.$hearAboutOther = $('#HearAboutOther');
+
+	this.DisableSelectDropdowns();
+	this.showPromoField();
+	this.showOtherInfo();
+	this.billingOptions();
+
+	var selectedOption = this.$billingOptsSelect.val();
+	if (selectedOption === 'credit') {
+		this.$ccInfo.show();
+		this.$billingInfoText.addClass('hidden');
+	}
+
+	this.$promoWrap.hide();
+	this.$promoCode.hide();
+	this.$hearAboutOther.hide();
+	var selectedOption2 = this.$hearAbout.val();
+	if (selectedOption2 == 'Direct Mail' || selectedOption2 === 'Print Ad' || selectedOption2 === 'Email') {
+		this.$promoWrap.show();
+		this.$promoCode.slideDown().addClass('showing');
+	}
+	else if (selectedOption2 == 'Other' || selectedOption2 == 'Referral') {
+		this.$promoWrap.show();
+		this.$hearAboutOther.slideDown().addClass('showing');
+	}
+}
+
+
+CheckoutCustomer.prototype.DisableSelectDropdowns = function () {
+	$('select option:first-child').attr('disabled', 'disabled');
+};
+
+CheckoutCustomer.prototype.showOtherInfo = function () {
+	var _this = this;
+	_this.$differentInfo.on('change', function () {
+		if ($(this).is(':checked')) {
+			_this.$differentInfoFields.slideDown('fast');
+			_this.$billingInfoText.addClass('hidden');
+			_this.$billingDifferent.val('true');
+
+		} else {
+			_this.$differentInfoFields.slideUp('fast');
+			_this.$billingInfoText.removeClass('hidden');
+			_this.$billingDifferent.val('false');
+		}
+	});
+};
+
+CheckoutCustomer.prototype.showPromoField = function () {
+	var _this = this;
+	_this.$hearAbout.on('change', function () {
+		var selectedOption = _this.$hearAbout.val();
+
+		_this.$promoWrap.hide();
+		_this.$promoCode.hide();
+		_this.$hearAboutOther.hide();
+
+		if (selectedOption == 'Direct Mail' || selectedOption === 'Print Ad' || selectedOption === 'Email') {
+			_this.$promoWrap.show();
+			_this.$promoCode.slideDown().addClass('showing');
+		}
+		else if (selectedOption == 'Other' || selectedOption == 'Referral') {
+			_this.$promoWrap.show();
+			_this.$hearAboutOther.slideDown().addClass('showing');
+		}
+	});
+};
+
+CheckoutCustomer.prototype.billingOptions = function () {
 	var _this = this;
 
-	var postData = this.CreateFormPostString();
+	_this.$billingOptsSelect.on('change', function () {
+		var selectedOption = $('#PaymentType').val();
+		if (selectedOption === 'credit') {
 
-	$.ajax({
-		url: ApiDomain + '/api/checkout/submit',
-		data: postData,
-		type: "POST",
-		contentType: "application/json"
-	}).done(function (successObj) {
-		var success = successObj.success;
-		var message = successObj.message;
+			_this.$ccInfo.slideDown('fast');
+			_this.$billingInfoText.addClass('hidden');
 
-		_this.$('.checkout-loader').hide();
-
-		if (success) {
-			window.location.href = '/register/info/';
+		} else {
+			// enable next button if invoice is chosen
+			_this.$ccInfo.slideUp('fast');
+			_this.$billingInfoText.removeClass('hidden');
 		}
-		else {
-			// There was a problem with the form. Please check where the error has occured.
-			_this.$('#reg-submit').prepend('<p class="checkout-err-msg">' + message + '</p>');
-		}
+	});
 
-		var redirectGuid = successObj.cartGuid;
-		
-		window.location.href = '/register/?cart=' + redirectGuid;
-	}).fail(function (error) {
-		_this.$('.checkout-loader').hide();
-		_this.$('#reg-submit').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+
+	// show/hide cvv text info
+	$('.cvv-text').on('click', function () {
+		$(this).find('span').toggleClass('showing');
 	});
 };
 'use strict';
@@ -4190,22 +4329,27 @@ function OnSiteForm() {
 	this.showPromoField();
 }
 
-OnSiteForm.prototype.showPromoField = function() {
+OnSiteForm.prototype.showPromoField = function () {
 	var hearSelect = document.getElementById('hear');
 	var promoField = document.querySelectorAll('.promo-wrap');
-	hearSelect.addEventListener('change', function() {
+	hearSelect.addEventListener('change', function () {
 		var selectedOpt = this.options[this.selectedIndex].text;
-		if(selectedOpt === 'Direct Mail' || selectedOpt === 'Print Ad' || selectedOpt === 'Email') {
+		if (selectedOpt === 'Direct Mail' || selectedOpt === 'Print Ad' || selectedOpt === 'Email') {
 			$(promoField).slideDown().addClass('showing');
-		} else {
-			if($(promoField).hasClass('showing')) {
-				$(promoField).slideUp();	
+		}
+		else if (selectedOpt === 'Other') {
+
+		}
+		else {
+			if ($(promoField).hasClass('showing')) {
+				$(promoField).slideUp();
 			} else {
 				$(promoField).css('display', 'none');
 			}
 		}
 	});
 };
+
 'use strict';
 
 function Register() {
@@ -4290,8 +4434,6 @@ Register.prototype.billingOptions = function() {
 
 window.app = window.app || {};
 
-var ApiDomain = 'http://trainco-dev.imulus-client.com'
-
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -4329,18 +4471,22 @@ function TPCApp() {
 		});
 	}
 
-	if ($('.caro-form-container').length || $('.register-two').length) {
+	if ($('.caro-form-container').length) {
 		this.onSiteForm = new OnSiteForm();
 	}
 
 	// register
-	if ($('.register-two').length || $('.contact').length) {
+	if ($('.contact').length) {
 		this.register = new Register();
 	}
 
 	// checkout
 	if ($('.register-top').length) {
 		this.Checkout = new Checkout();
+	}
+
+	if ($('.register-two').length) {
+		this.CheckoutCustomer = new CheckoutCustomer();
 	}
 
 

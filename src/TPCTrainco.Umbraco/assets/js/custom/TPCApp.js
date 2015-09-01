@@ -2,8 +2,6 @@
 
 window.app = window.app || {};
 
-var ApiDomain = 'http://trainco-dev.imulus-client.com'
-
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -41,18 +39,22 @@ function TPCApp() {
 		});
 	}
 
-	if ($('.caro-form-container').length || $('.register-two').length) {
+	if ($('.caro-form-container').length) {
 		this.onSiteForm = new OnSiteForm();
 	}
 
 	// register
-	if ($('.register-two').length || $('.contact').length) {
+	if ($('.contact').length) {
 		this.register = new Register();
 	}
 
 	// checkout
 	if ($('.register-top').length) {
 		this.Checkout = new Checkout();
+	}
+
+	if ($('.register-two').length) {
+		this.CheckoutCustomer = new CheckoutCustomer();
 	}
 
 

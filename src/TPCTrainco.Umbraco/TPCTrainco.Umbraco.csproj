@@ -123,6 +123,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
     </Reference>
+    <Reference Include="MVC Foolproof Validation">
+      <HintPath>..\packages\foolproof.0.9.4517\lib\MVC Foolproof Validation.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
@@ -457,6 +460,8 @@
     <Content Include="App_Plugins\UmbracoForms\Styles\umbraco.gridview.less" />
     <Content Include="App_Plugins\UmbracoForms\UmbracoForms.config" />
     <Content Include="App_Plugins\UmbracoForms\version" />
+    <Content Include="assets\js\custom\CheckoutCustomer.js" />
+    <Content Include="assets\js\custom\checkoutApp\checkoutController.js" />
     <Content Include="assets\scss\main.scss" />
     <Content Include="assets\scss\mixins\_mediaqueries.scss" />
     <Content Include="assets\scss\mixins\_mixins.scss" />
@@ -635,6 +640,9 @@
     <Content Include="media\1003\plantmgmt-icon.jpg" />
     <Content Include="media\1004\hvac-icon.jpg" />
     <Content Include="media\1005\plantmgmt-icon.jpg" />
+    <Content Include="scripts\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="scripts\MvcFoolproofJQueryValidation.min.js" />
+    <Content Include="scripts\MvcFoolproofValidation.min.js" />
     <Content Include="umbraco\Actions\delete.aspx" />
     <Content Include="umbraco\Actions\editContent.aspx" />
     <Content Include="umbraco\Actions\preview.aspx" />
@@ -3113,6 +3121,8 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CheckoutSummarySurfaceController.cs" />
+    <Compile Include="Controllers\CheckoutCustomerSurfaceController.cs" />
     <Compile Include="Models\RegisterAttendeeViewModel.cs" />
     <Compile Include="Models\RegisterFormViewModel.cs" />
     <Compile Include="Models\RegisterSeminarListViewModel.cs" />
@@ -3344,6 +3354,8 @@
     <Content Include="Views\Partials\SeminarSearch\JavascriptTemplates.cshtml" />
     <Content Include="Views\Partials\RegisterForm1.cshtml" />
     <Content Include="Views\Partials\Forms\tempForm.cshtml" />
+    <Content Include="Views\Partials\CheckoutCustomer.cshtml" />
+    <Content Include="Views\Partials\CheckoutSummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3359,7 +3371,6 @@
     <Folder Include="css\" />
     <Folder Include="img\" />
     <Folder Include="js\" />
-    <Folder Include="scripts\" />
     <Folder Include="usercontrols\" />
     <Folder Include="xslt\" />
   </ItemGroup>
