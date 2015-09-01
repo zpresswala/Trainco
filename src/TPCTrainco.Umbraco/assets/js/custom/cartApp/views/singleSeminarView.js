@@ -70,7 +70,7 @@ app.SingleSeminarView = Backbone.View.extend({
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
-                    });
+                    }).hide().delay(100).slideDown(100);
                     _this.model.set('open', true);
                     _this.firstClick = true;
                 }

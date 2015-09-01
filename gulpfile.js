@@ -21,7 +21,6 @@ var config = {
 
     jsPaths: [
                 'src/TPCTrainco.Umbraco/assets/js/custom/TPCApp.js',
-                'src/TPCTrainco.Umbraco/assets/js/custom/checkoutApp/*.js',
                 'src/TPCTrainco.Umbraco/assets/js/custom/*.js'
             ],
     jsDest: 'src/TPCTrainco.Umbraco/js',
@@ -75,7 +74,9 @@ gulp.task('js:vendor', function() {
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-carousel.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-collapse.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-transition.js',
-        'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-dropdown.js'
+        'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-dropdown.js',
+        'src/TPCTrainco.Umbraco/assets/js/vendor/modernizr-dev.js',
+
     ];
     return gulp.src(vendorPaths)
         .pipe(concat('vendor.js').on('error', function(err) {
@@ -93,7 +94,8 @@ gulp.task('js:cartapp', function() {
     var cartappPaths = [
         'src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/**/*.js',
         'src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/**/*.js',
-        'src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/**/*.js'
+        'src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/**/*.js',
+        'src/TPCTrainco.Umbraco/assets/js/custom/checkoutApp/**/*.js',
     ];
     return gulp.src(cartappPaths)
         .pipe(concat('cart.js').on('error', function(err) {
