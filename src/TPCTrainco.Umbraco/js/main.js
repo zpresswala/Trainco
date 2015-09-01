@@ -2853,38 +2853,6 @@ app.scheduleCollection = new app.ScheduleCollection;
 
 window.app = window.app || {};
 
-app.CartItemModel = Backbone.Model.extend({
-
-});
-
-app.cartItemModel = new app.CartItemModel();
-'use strict';
-
-window.app = window.app || {};
-
-app.ClassModel = Backbone.Model.extend({
-
-});
-
-
-'use strict';
-
-window.app = window.app || {};
-
-app.LocationModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
-app.ScheduleModel = Backbone.Model.extend({
-
-});
-'use strict';
-
-window.app = window.app || {};
-
 // "view the cart" view
 app.CartItemView = Backbone.View.extend({
     template: _.template($('#cartItemTemplate').html()),
@@ -2903,6 +2871,7 @@ app.CartItemView = Backbone.View.extend({
         this.options = options || {};
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
         Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
+        Backbone.on('clearCart', this.removeItemFromCart, this);
     },
 
     render: function() {
@@ -2949,13 +2918,6 @@ app.CartItemView = Backbone.View.extend({
         }
     },
 
-
-    // quantity of each item in cart, changes on update or blur when item is in cart
-    // insertQuantity: function(model, quantity) {
-    //     this.model.set('quantity', quantity);
-    //     this.$el.find('.class-qty').last().val(quantity);        
-    // },
-
     // calculates subtotal for individual item
     calculateSubtotal: function() {
         var quantity = this.model.get('quantity');
@@ -2988,14 +2950,14 @@ app.CartItemView = Backbone.View.extend({
     },
 
     // removes item from cart, re-calculates total price
-    removeItemFromCart: function(e) {
-        e.preventDefault();
+    removeItemFromCart: function(e, success) {
+        console.log(success)
         var _this = this;
         var target = $(e.currentTarget);
         var id = target.data('theid');
 
         var removeCartItem = function() {
-
+            
             // remove the item from the DOM
             _this.$el.slideUp(150, function() {
                 _this.remove();
@@ -3022,16 +2984,20 @@ app.CartItemView = Backbone.View.extend({
         // if item is from localstore, remove from cartCollection, ignore schedule collection. we have a "fromLS prop".
         // if item has been added from the schedule colleciton, remove (already working), then update the original model
 
-        var cartItemFromLS = app.cartCollection.findWhere({ theId: id });
-        var isItemFromLS = cartItemFromLS.get('fromLS');
-
-        if(isItemFromLS) {
+        if(success) {
             removeCartItem();
-            return false;
         } else {
-            var originalScheduleModel = app.scheduleCollection.findWhere({id: id});
-            originalScheduleModel.set('inCart', false);
-            removeCartItem();
+            var cartItemFromLS = app.cartCollection.findWhere({ theId: id });
+            var isItemFromLS = cartItemFromLS.get('fromLS');
+
+            if(isItemFromLS) {
+                removeCartItem();
+                return false;
+            } else {
+                var originalScheduleModel = app.scheduleCollection.findWhere({id: id});
+                originalScheduleModel.set('inCart', false);
+                removeCartItem();
+            }
         }
     },
 
@@ -3143,7 +3109,6 @@ app.CartNotifyView = Backbone.View.extend({
         var cartData = app.cartCollection.toJSON();
         var cartDataArray = [];
         cartData.forEach(function(item, index, array) {
-            console.log(item);
             var id = item.theId;
             var quant = item.quantity;
             cartDataArray.push({ Id: id, quantity: quant });
@@ -3164,6 +3129,12 @@ app.CartNotifyView = Backbone.View.extend({
             _this.$('.checkout-loader').hide();
             _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
         });
+    },
+
+    clearCart: function() {
+        var success = true;
+        Backbone.trigger('clearCart', this, success);
+        this.$('.checkout-loader').hide();
     }
 });
 
@@ -3566,6 +3537,38 @@ app.SingleSeminarView = Backbone.View.extend({
 });
 
 app.singleSeminarView = new app.SingleSeminarView();
+'use strict';
+
+window.app = window.app || {};
+
+app.CartItemModel = Backbone.Model.extend({
+	
+});
+
+app.cartItemModel = new app.CartItemModel();
+'use strict';
+
+window.app = window.app || {};
+
+app.ClassModel = Backbone.Model.extend({
+
+});
+
+
+'use strict';
+
+window.app = window.app || {};
+
+app.LocationModel = Backbone.Model.extend({
+
+});
+'use strict';
+
+window.app = window.app || {};
+
+app.ScheduleModel = Backbone.Model.extend({
+
+});
 'use strict';
 
 function Catalog() {
@@ -4380,6 +4383,12 @@ function TPCApp() {
 
 		performSearch(searchParams);
 	}
+
+
+	// empty the cart on the success page
+    if($('.success').length) {
+		app.cartNotifyView.clearCart();
+    }
 }
 
 TPCApp.prototype.bindScroll = function () {

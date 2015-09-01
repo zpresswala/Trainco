@@ -20,6 +20,7 @@ app.CartItemView = Backbone.View.extend({
         this.options = options || {};
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
         Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
+        Backbone.on('clearCart', this.removeItemFromCart, this);
     },
 
     render: function() {
@@ -66,13 +67,6 @@ app.CartItemView = Backbone.View.extend({
         }
     },
 
-
-    // quantity of each item in cart, changes on update or blur when item is in cart
-    // insertQuantity: function(model, quantity) {
-    //     this.model.set('quantity', quantity);
-    //     this.$el.find('.class-qty').last().val(quantity);        
-    // },
-
     // calculates subtotal for individual item
     calculateSubtotal: function() {
         var quantity = this.model.get('quantity');
@@ -105,14 +99,14 @@ app.CartItemView = Backbone.View.extend({
     },
 
     // removes item from cart, re-calculates total price
-    removeItemFromCart: function(e) {
-        e.preventDefault();
+    removeItemFromCart: function(e, success) {
+        console.log(success)
         var _this = this;
         var target = $(e.currentTarget);
         var id = target.data('theid');
 
         var removeCartItem = function() {
-
+            
             // remove the item from the DOM
             _this.$el.slideUp(150, function() {
                 _this.remove();
@@ -139,16 +133,20 @@ app.CartItemView = Backbone.View.extend({
         // if item is from localstore, remove from cartCollection, ignore schedule collection. we have a "fromLS prop".
         // if item has been added from the schedule colleciton, remove (already working), then update the original model
 
-        var cartItemFromLS = app.cartCollection.findWhere({ theId: id });
-        var isItemFromLS = cartItemFromLS.get('fromLS');
-
-        if(isItemFromLS) {
+        if(success) {
             removeCartItem();
-            return false;
         } else {
-            var originalScheduleModel = app.scheduleCollection.findWhere({id: id});
-            originalScheduleModel.set('inCart', false);
-            removeCartItem();
+            var cartItemFromLS = app.cartCollection.findWhere({ theId: id });
+            var isItemFromLS = cartItemFromLS.get('fromLS');
+
+            if(isItemFromLS) {
+                removeCartItem();
+                return false;
+            } else {
+                var originalScheduleModel = app.scheduleCollection.findWhere({id: id});
+                originalScheduleModel.set('inCart', false);
+                removeCartItem();
+            }
         }
     },
 

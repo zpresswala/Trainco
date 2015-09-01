@@ -92,6 +92,12 @@ function TPCApp() {
 
 		performSearch(searchParams);
 	}
+
+
+	// empty the cart on the success page
+    if($('.success').length) {
+		app.cartNotifyView.clearCart();
+    }
 }
 
 TPCApp.prototype.bindScroll = function () {
