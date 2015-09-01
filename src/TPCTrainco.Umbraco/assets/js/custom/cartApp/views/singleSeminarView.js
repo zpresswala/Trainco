@@ -71,7 +71,7 @@ app.SingleSeminarView = Backbone.View.extend({
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
-                    }).render();
+                    });
                     _this.model.set('open', true);
                     _this.firstClick = true;
                 }

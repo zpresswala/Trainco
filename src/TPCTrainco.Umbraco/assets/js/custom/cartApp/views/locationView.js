@@ -14,6 +14,10 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         // this.render();
+        var _this = this;
+        setTimeout(function() {
+            _this.render()
+        }, 2);
 
         // the counter, which enables us to wait until last schedules ajax call
         this.fetchCounter = this.collection.length;
@@ -26,7 +30,10 @@ app.LocationView = Backbone.View.extend({
             var locationIdToGet = model.get('locationId');
             this.locationIdArr.push(locationIdToGet);
             _this.$el.append(_this.template(model.toJSON()));
-            _this.renderSchedules(model);
+            setTimeout(function() {
+                _this.renderSchedules(model);
+            }, 1);
+            
         }, this);
     },
 
@@ -59,7 +66,7 @@ app.LocationView = Backbone.View.extend({
                         collection: app.scheduleCollection,
                         el: elemToAppendSchedules,
                         locationLocId: _this.locationIdArr
-                    }).render();
+                    });
                 }
             },
 

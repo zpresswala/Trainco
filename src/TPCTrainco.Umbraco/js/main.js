@@ -2722,6 +2722,9 @@ $(document).ready(function () {
 
 // search button click
 $('#search-btn').on('click', function () {
+	app.globalCollection.reset();
+	app.locationCollection.reset();
+	app.scheduleCollection.reset();
 	var searchParams;
 	searchParams = app.mainSearchSelect.getSearchParams();
 	performSearch(searchParams);
@@ -3206,6 +3209,10 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         // this.render();
+        var _this = this;
+        setTimeout(function() {
+            _this.render()
+        }, 2);
 
         // the counter, which enables us to wait until last schedules ajax call
         this.fetchCounter = this.collection.length;
@@ -3218,7 +3225,10 @@ app.LocationView = Backbone.View.extend({
             var locationIdToGet = model.get('locationId');
             this.locationIdArr.push(locationIdToGet);
             _this.$el.append(_this.template(model.toJSON()));
-            _this.renderSchedules(model);
+            setTimeout(function() {
+                _this.renderSchedules(model);
+            }, 1);
+            
         }, this);
     },
 
@@ -3251,7 +3261,7 @@ app.LocationView = Backbone.View.extend({
                         collection: app.scheduleCollection,
                         el: elemToAppendSchedules,
                         locationLocId: _this.locationIdArr
-                    }).render();
+                    });
                 }
             },
 
@@ -3286,6 +3296,10 @@ app.ScheduleView = Backbone.View.extend({
     initialize: function(options) {
         this.options = options || {};
         this.locLocIdArr = options.locationLocId;
+        var _this = this;
+        setTimeout(function() {
+            _this.render()
+        }, 2);
     },
 
     render:function () {
@@ -3529,7 +3543,7 @@ app.SingleSeminarView = Backbone.View.extend({
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
-                    }).render();
+                    });
                     _this.model.set('open', true);
                     _this.firstClick = true;
                 }

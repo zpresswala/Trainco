@@ -18,6 +18,9 @@ $(document).ready(function () {
 
 // search button click
 $('#search-btn').on('click', function () {
+	app.globalCollection.reset();
+	app.locationCollection.reset();
+	app.scheduleCollection.reset();
 	var searchParams;
 	searchParams = app.mainSearchSelect.getSearchParams();
 	performSearch(searchParams);

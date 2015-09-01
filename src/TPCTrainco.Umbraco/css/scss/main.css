@@ -3856,7 +3856,7 @@ h2, h3, h4 {
   position: absolute;
   background: #FFFFFF;
   width: 60%;
-  right: 0;
+  right: -27px;
   bottom: 50%;
   max-width: 185px;
   text-align: center;
