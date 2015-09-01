@@ -8,6 +8,7 @@ var gulp       = require('gulp'),
     uglify     = require('gulp-uglify'),
     imagemin   = require('gulp-imagemin'),
     watch      = require('gulp-watch'),
+    cssnano    = require('gulp-cssnano'),
     webserver  = require('gulp-webserver'),
     serverPort = 3000;
 
@@ -34,7 +35,23 @@ var config = {
 gulp.task('sass', function() {
     return gulp.src(config.sassPaths)
                 .pipe(sass().on('error', sass.logError))
+                .pipe(cssnano())
                 .pipe(gulp.dest(config.sassDest));
+});
+
+gulp.task('vendorCSS', function() {
+    var vendorStyles = [
+        'src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/jquery-ui.structure.css',
+        'src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/jquery-ui.css',
+        'src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/classic-min.css',
+        'src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/select2.min.css'
+    ]
+    return gulp.src(vendorStyles)
+        .pipe(concat('vendor.css').on('error', function(err) {
+            console.log(err);
+        }))
+        .pipe(cssnano())
+        .pipe(gulp.dest(config.sassDest));
 });
 
 // gulp js minify task, minifies javascript
