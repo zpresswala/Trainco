@@ -1,19 +1,20 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @using TPCTrainco.Umbraco.Extensions.Objects
 @using TPCTrainco.Umbraco.Extensions.ViewModels
 @inherits UmbracoTemplatePage
 
 @{
     //List locations
-    Locations locationsObj = new Locations();
 
-    List<Location> locationList = locationsObj.GetAllLocations();
+    List<City> cityList = CacheObjects.GetCityList();
+    List<State> stateList = CacheObjects.GetStateList();
 
     //Get current GeoCoordinate
     string currentCityState = "";
-    
+
     TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
-    
+
     if (coordDetails != null)
     {
         currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
@@ -36,9 +37,21 @@
             <!-- location select -->
             <div class="location-select-wrap">
                 <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="@currentCityState">
-                    @foreach (Location location in locationList)
+                    @foreach (State state in stateList)
                     {
-                        <option value="@location.CityState">@location.CityState</option>
+                        List<City> cityListByState = cityList.Where(p => p.StateID == state.StateID).OrderBy(s => s.CityName).ToList();
+
+                        if (cityListByState.Count > 0)
+                        {
+                            <optgroup label="@state.StateName">
+
+                                @foreach (City city in cityListByState)
+                                {
+                                    <option value="@(city.CityName +", " + state.StateAbbreviation)">@city.CityName</option>
+
+                                }
+                            </optgroup>
+                        }
                     }
                 </select>
             </div>

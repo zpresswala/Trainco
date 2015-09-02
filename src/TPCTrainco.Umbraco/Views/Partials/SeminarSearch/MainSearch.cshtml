@@ -1,4 +1,5 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @using TPCTrainco.Umbraco.Extensions.Objects
 @using TPCTrainco.Umbraco.Extensions.ViewModels
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
@@ -11,9 +12,9 @@
     IEnumerable<IPublishedContent> seminarCategoryList = Nodes.Instance.SeminarCategories;
 
     //List locations
-    Locations locationsObj = new Locations();
 
-    List<Location> locationList = locationsObj.GetAllLocations();
+    List<City> cityList = CacheObjects.GetCityList();
+    List<State> stateList = CacheObjects.GetStateList();
 
     if (Request.QueryString["homeref"] != null && Request.QueryString.Get("homeref").Length > 0)
     {
@@ -65,14 +66,26 @@
                         <img src="@iconUrl" alt="@category.Name" />
                     </div>
                     <p>@shortName</p>
-            </li>
+                </li>
             }
         </ul>
 
         <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="@currentCityState">
-            @foreach (Location location in locationList)
+            @foreach (State state in stateList)
             {
-                <option value="@location.CityState">@location.CityState</option>
+                List<City> cityListByState = cityList.Where(p => p.StateID == state.StateID).OrderBy(s => s.CityName).ToList();
+
+                if (cityListByState.Count > 0)
+                {
+                    <optgroup label="@state.StateName">
+
+                        @foreach (City city in cityListByState)
+                        {
+                            <option value="@(city.CityName +", " + state.StateAbbreviation)">@city.CityName</option>
+
+                        }
+                    </optgroup>
+                }
             }
         </select>
 
