@@ -38,6 +38,10 @@ h2, h3, h4 {
 	color: $headline-black-on-white;
 }
 
+button {
+	border: none;
+}
+
 // the red pill-shaped buttons w/hover state. just add this class 
 .btn-reg {
 	background-color: $red-button;

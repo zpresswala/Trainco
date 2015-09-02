@@ -181,10 +181,10 @@
 
 	.item {
 		height: 300px;
-		margin: 50px 0;
-		@include tablet-portrait-and-up {
-			margin: 70px 0 0;
-		}
+		// margin: 50px 0;
+		// @include tablet-portrait-and-up {
+		// 	margin: 70px 0 0;
+		// }
 	}
 
 	.carousel-caption {

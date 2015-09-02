@@ -113,6 +113,10 @@ function TPCApp() {
     if($('#search-results').length) {
     	$('body').css('background-color', '#F9F9F9 !important');
     }
+
+    if($('.form-standard').length) {
+    	this.addClassToFormBtn = new addClassToFormBtn();
+    }
 }
 
 TPCApp.prototype.bindScroll = function () {
@@ -172,12 +176,31 @@ TPCApp.prototype.animateCart = function (retinaScreen) {
 TPCApp.prototype.clickScrollTo = function () {
 	var _this = this;
 	var offsetAmount = 140;
-	this.$aHref.on('click', function (e) {
-		e.preventDefault();
-		_this.$page.animate({
-			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-		}, 300);
-	});
+
+	// click scroll to and jump to different page
+	var jump = function(e) {
+	  	if (e) {
+	       e.preventDefault();
+	       var target = $($.attr(this, 'href'));
+	   	} else {
+	       var target = location.hash;
+	   	}
+
+	  	_this.$page.animate({
+	    	scrollTop: $(target).offset().top - offsetAmount
+	   	}, 300 ,function() {
+	       	location.hash = target;
+	   	});
+	}
+
+	if (location.hash){
+	    setTimeout(function(){
+	        _this.$page.scrollTop(0);
+	        jump();
+	    }, 0);
+	}
+
+	this.$aHref.on('click', jump);
 };
 
 TPCApp.prototype.retinaLogos = function(retinaScreen) {
@@ -186,4 +209,8 @@ TPCApp.prototype.retinaLogos = function(retinaScreen) {
 	} else {
 		$('#logo').attr('src', '/assets/images/logo-trainco-1x.png');
 	}
+};
+
+TPCApp.prototype.addClassToFormBtn = function() {
+	$('.form-standard').find('.btn').addClass('btn-reg').addClass('btn-blue-solid');
 };

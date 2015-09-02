@@ -19,17 +19,17 @@
 
                     <li class="summary-item">
                         <ul class="summary-item-top">
-                            <li class="class-title col-xs-12 col-sm-10"><h2>@tempReg.sem_Title</h2></li>
-                            <li class="col-xs-12 col-sm-2 price">$@(String.Format("{0:C0}", tempReg.sem_FeeName))</li>
+                            <li class="class-title col-xs-12 col-sm-8"><h2>@tempReg.sem_Title</h2></li>
+                            <li class="col-xs-12 col-sm-4 price">@(String.Format("{0:C0}", tempReg.sem_FeeName))</li>
                         </ul>
 
                         @foreach (temp_Att tempAtt in Model.tempAttList.Where(p => p.reg_SEQ == regSeqId))
                         {
-                            <ul class="attendee-info col-md-10">
-                                <li class="name col-xs-12 col-sm-4 col-md-3">@(tempAtt.att_FName + " " + tempAtt.att_LName)</li>
-                                <li class="email col-xs-12 col-sm-4 col-md-2">@(tempAtt.att_Email)</li>
-                                <li class="seminar-opts col-xs-12 col-sm-4 col-md-2">@(tempReg.sem_FeeName.Replace(" - $" + Convert.ToInt32(tempReg.sem_Total ?? 0), ""))</li>
-                                <li class="location col-xs-12 col-sm-4 col-md-5">@tempReg.sem_Place</li>
+                            <ul class="attendee-info col-sm-12">
+                                <li class="name col-xs-12 col-sm-6 col-md-3">@(tempAtt.att_FName + " " + tempAtt.att_LName)</li>
+                                <li class="email col-xs-12 col-sm-6 col-md-3">@(tempAtt.att_Email)</li>
+                                <li class="seminar-opts col-xs-12 col-sm-6 col-md-2">@(tempReg.sem_FeeName.Replace(" - $" + Convert.ToInt32(tempReg.sem_Total ?? 0), ""))</li>
+                                <li class="location col-xs-12 col-sm-6 col-md-4">@tempReg.sem_Place</li>
                             </ul>
                         }
                     </li>
