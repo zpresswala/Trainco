@@ -197,7 +197,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 if (request.Dates.Min != null && request.Dates.Max != null)
                 {
                     DateTime minDate = DateTime.Parse(request.Dates.Min.MinMonthVal + "/1/" + request.Dates.Min.MinYearVal);
-                    DateTime maxDate = DateTime.Parse(request.Dates.Max.MaxMonthVal + "/1/" + request.Dates.Max.MaxYearVal).AddMonths(1).AddDays(-1);
+                    DateTime maxDate = DateTime.Parse(request.Dates.Max.MaxMonthVal + "/1/" + request.Dates.Max.MaxYearVal).AddDays(-1);
 
                     seminarListSearch = seminarListSearch.Where(p => p.SchDate >= minDate && p.SchDate <= maxDate).ToList();
                 }
