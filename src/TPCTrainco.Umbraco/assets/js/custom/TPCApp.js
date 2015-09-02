@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-
+var ApiDomain = 'http://trainco-dev.imulus-client.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -17,7 +17,7 @@ function TPCApp() {
 	this.homePage = new HomePage();
 
 	if ($('#main-search').length) {
-		if (app.mainSearchSelect == undefined)
+		// if (app.mainSearchSelect == undefined)
 			app.mainSearchSelect = new MainSearchSelect();
 	}
 
