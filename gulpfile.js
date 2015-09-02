@@ -75,6 +75,8 @@ gulp.task('js:vendor', function() {
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-collapse.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-transition.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-dropdown.js',
+        'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-tooltip.js',
+        'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-popover.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/modernizr-dev.js',
 
     ];
