@@ -92,6 +92,8 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 		topicsArray = hashArray['topics'].split(',');
 		location = unescape(hashArray['loc']);
 
+		this.autofillLocation(location);
+
 		var minDate = hashArray['dMin'].split("/");
 		var minMonth = minDate[0];
 		var minYear = minDate[1];
@@ -103,7 +105,7 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 		// Update the Date Range Slider
 		var minDateObj = new Date(parseInt(minYear), parseInt(minMonth) - 1);
 		var maxDateObj = new Date(parseInt(maxYear), parseInt(maxMonth) - 1);
-		$(window).load(function() {
+		$(document).ready(function() {
 			$("#date-range-slider").dateRangeSlider("values", minDateObj, maxDateObj);
 		});
 
@@ -169,12 +171,16 @@ MainSearchSelect.prototype.generateJsonSearchString = function (location, topics
 };
 
 
-MainSearchSelect.prototype.autofillLocation = function () {
-	var visitorLocation = $('#main-search').data('location');
-	if (visitorLocation == 'undefined' || visitorLocation == '') {
-		return false;
+MainSearchSelect.prototype.autofillLocation = function(urlLocation) {
+	if(!urlLocation) {
+		var visitorLocation = $('#main-search').data('location');
+		if (visitorLocation == 'undefined' || visitorLocation == '') {
+			return false;
+		} else {
+			$('#main-search').prepend('<option value="' + visitorLocation + '" selected>' + visitorLocation + '</option>').trigger('change');
+		}
 	} else {
-		$('#main-search').prepend('<option value="' + visitorLocation + '" selected>' + visitorLocation + '</option>').trigger('change');
+		$('#main-search').prepend('<option value="' + urlLocation + '" selected>' + urlLocation + '</option>').trigger('change');
 	}
 };
 
