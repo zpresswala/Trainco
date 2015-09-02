@@ -17,8 +17,6 @@ function CheckoutCustomer() {
 	this.showOtherInfo();
 	this.billingOptions();
 
-	// $('select option:first-child').attr('disabled', 'disabled');
-
 	if ($("#BillFirstName").val()) {
 		this.$differentInfoFields.slideDown('fast');
 		this.$billingInfoText.addClass('hidden');
@@ -47,7 +45,6 @@ function CheckoutCustomer() {
 
 
 CheckoutCustomer.prototype.DisableSelectDropdowns = function () {
-	alert('hi');
 	$('select option:first-child').attr('disabled', 'disabled');
 };
 
