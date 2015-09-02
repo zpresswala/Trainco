@@ -78,7 +78,8 @@ src/*.Umbraco/umbraco/*
 !src/*.Umbraco/umbraco/Plugins
 src/*.Umbraco/umbraco_client/
 src/*.Umbraco/uSync.Archive/
-
+src/*.Umbraco/js/*.js
+src/*.Umbraco/css/*.css
 src/*.Umbraco/css/app.css
 src/*.UI/bower/
 

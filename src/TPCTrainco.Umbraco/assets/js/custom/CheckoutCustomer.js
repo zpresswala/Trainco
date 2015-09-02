@@ -17,7 +17,9 @@ function CheckoutCustomer() {
 	this.showOtherInfo();
 	this.billingOptions();
 
-	if ($("#BillFirstName").val().length) {
+	// $('select option:first-child').attr('disabled', 'disabled');
+
+	if ($("#BillFirstName").val()) {
 		this.$differentInfoFields.slideDown('fast');
 		this.$billingInfoText.addClass('hidden');
 		this.$billingDifferent.val('true');
@@ -41,10 +43,11 @@ function CheckoutCustomer() {
 		this.$promoWrap.show();
 		this.$hearAboutOther.slideDown().addClass('showing');
 	}
-}
+};
 
 
 CheckoutCustomer.prototype.DisableSelectDropdowns = function () {
+	alert('hi');
 	$('select option:first-child').attr('disabled', 'disabled');
 };
 
