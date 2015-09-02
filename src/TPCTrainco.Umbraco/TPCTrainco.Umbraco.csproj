@@ -475,8 +475,9 @@
     <Content Include="App_Plugins\UmbracoForms\Styles\umbraco.gridview.less" />
     <Content Include="App_Plugins\UmbracoForms\UmbracoForms.config" />
     <Content Include="App_Plugins\UmbracoForms\version" />
-    <Content Include="assets\js\custom\CheckoutCustomer.js" />
-    <Content Include="assets\js\custom\checkoutApp\checkoutController.js" />
+    <Content Include="assets\js\custom\checkoutApp\Checkout.js" />
+    <Content Include="assets\js\custom\checkoutApp\CheckoutCustomer.js" />
+    <Content Include="assets\js\custom\checkoutApp\CheckoutController.js" />
     <Content Include="assets\scss\main.scss" />
     <Content Include="assets\scss\mixins\_mediaqueries.scss" />
     <Content Include="assets\scss\mixins\_mixins.scss" />
@@ -514,7 +515,6 @@
     <Content Include="assets\js\custom\cartApp\views\scheduleView.js" />
     <Content Include="assets\js\custom\cartApp\views\singleSeminarView.js" />
     <Content Include="assets\js\custom\Catalog.js" />
-    <Content Include="assets\js\custom\Checkout.js" />
     <Content Include="assets\js\custom\CountUp.js" />
     <Content Include="assets\js\custom\DatePicker.js" />
     <Content Include="assets\js\custom\HomePage.js" />

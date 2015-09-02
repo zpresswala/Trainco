@@ -41,7 +41,7 @@ function CheckoutCustomer() {
 		this.$promoWrap.show();
 		this.$hearAboutOther.slideDown().addClass('showing');
 	}
-}
+};
 
 
 CheckoutCustomer.prototype.DisableSelectDropdowns = function () {
