@@ -172,12 +172,31 @@ TPCApp.prototype.animateCart = function (retinaScreen) {
 TPCApp.prototype.clickScrollTo = function () {
 	var _this = this;
 	var offsetAmount = 140;
-	this.$aHref.on('click', function (e) {
-		e.preventDefault();
-		_this.$page.animate({
-			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-		}, 300);
-	});
+
+	// scroll to link on page and a link on a different page
+	var jump = function(e) {
+	  	if (e) {
+	       e.preventDefault();
+	       var target = $(this).attr("href");
+	   	} else {
+	       var target = location.hash;
+	   	}
+
+	  	_this.$page.animate({
+	    	scrollTop: $(target).offset().top - offsetAmount
+	   	}, 300 ,function() {
+	       	location.hash = target;
+	   	});
+	}
+
+	if (location.hash){
+	    setTimeout(function(){
+	        _this.$page.scrollTop(0);
+	        jump();
+	    }, 0);
+	}
+
+	this.$aHref.on('click', jump);
 };
 
 TPCApp.prototype.retinaLogos = function(retinaScreen) {
