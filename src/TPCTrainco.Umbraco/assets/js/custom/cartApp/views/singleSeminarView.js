@@ -34,27 +34,24 @@ app.SingleSeminarView = Backbone.View.extend({
                 viewText.removeClass('red').html('<span class="plus">+</span>View Upcoming Seminars');
                 _this.model.set('open', false);
             });
-            this.$el.css('padding-bottom', 25 + 'px');
+            // this.$el.css('padding-bottom', 25 + 'px');
         } else {
             // open it
             $schedItemWrap.slideDown(400, function() {
                 viewText.addClass('red').html('<span class="plus turn">+</span>View Less');
                 _this.model.set('open', true);  
             }); 
-            this.$el.css('padding-bottom', 0);
+            // this.$el.css('padding-bottom', 0);
         }
 
         // styling
         $schedItemWrap.css({
-            "margin-top": 30 + 'px',
             "border-top": '1px solid #D7D7D7'
         });
 
         var courseIdToGet = this.model.get('courseId');
         var searchIdToGet = this.model.get('searchId');
         var elemToRender = $($(e.currentTarget).closest('.result-description').next('.schedule-item-wrap'));
-        console.log(elemToRender, 'stufffff')
-        console.log(this.model.get('open'))
         
         if(!this.firstClick) {
             app.locationCollection.fetch({
@@ -70,7 +67,7 @@ app.SingleSeminarView = Backbone.View.extend({
                     app.locationView = new app.LocationView({
                         collection: app.locationCollection,
                         el: elemToRender
-                    }).hide().delay(100).slideDown(100);
+                    });
                     _this.model.set('open', true);
                     _this.firstClick = true;
                 }

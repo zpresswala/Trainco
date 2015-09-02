@@ -4,7 +4,7 @@
 
 .register-top {
 	background-color: #f1f1f1;
-	padding-bottom: 0;
+	padding-bottom: 20px;
 	.jumbotron {
 		max-width: 435px;
 		margin: 80px auto;
@@ -19,10 +19,6 @@
 	.container {
 		margin-bottom: 0;
 	}
-}
-
-.read-only-cart {
-	margin-top: 90px;
 }
 
 .indicator {
@@ -94,8 +90,18 @@
 	}
 }
 
+// error states
+.form-group {
+	span {
+		margin-left: 3px;
+		display: block;
+		margin-top: 5px;
+	}
+}
+
 .form-container {
 	background-color: #f1f1f1;
+	padding-top: 40px;
 	.result .container {
 		margin: 10px auto;
 	}
@@ -157,7 +163,7 @@
 .next-btn {
 	display: table;
 	text-align: center;
-	margin: 12px auto 40px;
+	margin: 12px auto 45px;
 	width: 150px;
 }
 
@@ -179,6 +185,10 @@
 			padding-left: 15px;
 			padding-right: 15px;
 		}
+	}
+
+	.col-md-12 {
+		margin-bottom: 50px;
 	}
 }
 
@@ -388,4 +398,20 @@ input[type=checkbox]:checked + label:before {
 		bottom: 0;
 		right: 15px;
 	}
+}
+
+.field-validation-error {
+    margin-left: 5px;
+    color: $red-text;
+    margin-top: 5px;
+}
+
+.checkout-loader {
+	left: 50%;
+	top: -10px;
+}
+
+#button-submit {
+	border: none;
+	margin-bottom: 60px;
 }

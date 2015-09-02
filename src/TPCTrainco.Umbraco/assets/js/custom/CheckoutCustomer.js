@@ -17,7 +17,7 @@ function CheckoutCustomer() {
 	this.showOtherInfo();
 	this.billingOptions();
 
-	if ($("#BillFirstName").val().length) {
+	if ($("#BillFirstName").val()) {
 		this.$differentInfoFields.slideDown('fast');
 		this.$billingInfoText.addClass('hidden');
 		this.$billingDifferent.val('true');
