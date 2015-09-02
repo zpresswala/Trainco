@@ -132,6 +132,8 @@ gulp.task('default', ['sass', 'js', 'webserver', 'watch']);
 
 gulp.task('build', ['sass', 'js', 'webserver', 'watch']);
 
+gulp.task('assets:all', ['sass', 'js', 'js:vendor', 'js:cartapp']);
+
 // run 'gulp smush' to minify images
 gulp.task('img-opt', function() {
     return gulp.src(config.imgPath)

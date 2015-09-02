@@ -3,7 +3,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "0.901";
+    string cacheVer = "0.902";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
@@ -28,6 +28,10 @@
     bool checkoutPage = true;
 
     if (currentPage.DocumentTypeAlias == "SearchSeminars")
+    {
+        cartPage = true;
+    }
+    else if (currentPage.DocumentTypeAlias == "SeminarItem")
     {
         cartPage = true;
     }
