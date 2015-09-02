@@ -27,7 +27,7 @@
                 <a href="@(courseCatalog.Url)#@(subAnchorText)" class="btn-reg btn-first" role="button">Browse Courses</a>
             </div>
             <div class="col-xs-8 col-xs-offset-2 col-md-4 second-btn">
-                <a href="#" class="btn-reg btn-white" role="button">Learn More</a>
+                <a href="#form-contact" class="btn-reg btn-white" role="button">Learn More</a>
             </div>
 
         </div>
@@ -54,7 +54,7 @@
 
 <div class="caro-form-container">
     <div class="container">
-        <div class="form-wrap pull-right col-xs-12 col-md-6">
+        <div id="form-contact" class="form-wrap pull-right col-xs-12 col-md-6">
             @CurrentPage.form
         </div>
         @Html.Partial("Quotes/UserQuotes", currentPage)
