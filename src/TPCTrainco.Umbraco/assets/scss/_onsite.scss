@@ -28,7 +28,8 @@
 		margin: 40px 0 30px;
 		@include med-desktop-and-up {
 			text-align: left;
-			margin: 40px 0 20px;
+			margin: 40px 0 20px 15px;
+			font-size: 20px;
 		}
 	}
 	.company-wrap {

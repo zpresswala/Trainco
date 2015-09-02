@@ -113,6 +113,10 @@ function TPCApp() {
     if($('#search-results').length) {
     	$('body').css('background-color', '#F9F9F9 !important');
     }
+
+    if($('.form-standard').length) {
+    	this.addClassToFormBtn = new addClassToFormBtn();
+    }
 }
 
 TPCApp.prototype.bindScroll = function () {
@@ -205,4 +209,8 @@ TPCApp.prototype.retinaLogos = function(retinaScreen) {
 	} else {
 		$('#logo').attr('src', '/assets/images/logo-trainco-1x.png');
 	}
+};
+
+TPCApp.prototype.addClassToFormBtn = function() {
+	$('.form-standard').find('.btn').addClass('btn-reg').addClass('btn-blue-solid');
 };
