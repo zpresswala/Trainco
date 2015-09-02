@@ -1,4 +1,5 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
@@ -43,9 +44,30 @@
 
 @helper RenderSeminar(IPublishedContent section, bool displayOpposite = false)
 {
-    string headline = section.GetPropertyValue<string>("trainingHeadline");
-    string message = section.GetPropertyValue<string>("trainingDescription");
-    IPublishedContent trainingImageIcon = section.GetPropertyValue<IPublishedContent>("trainingImageIcon");
+    string headline = section.GetPropertyValue<string>("headline");
+    string message = section.GetPropertyValue<string>("description");
+    string iconUrl = section.GetCropUrl("icon", "Image");
+    IEnumerable<IPublishedContent> seminarNodeList = section.GetPropertyValue<IEnumerable<IPublishedContent>>("seminarLink");
+
+    string cost = "";
+    string registerUrl = "#";
+
+    if (seminarNodeList != null && seminarNodeList.Count() > 0)
+    {
+        IPublishedContent seminarNode = seminarNodeList.First();
+        
+        registerUrl = seminarNode.Url;
+
+        if (seminarNode.HasValue("courseLink"))
+        {
+            COURS course = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseList().Where(p => p.CourseID == seminarNode.GetPropertyValue<int>("courseLink")).FirstOrDefault();
+
+            if (course != null)
+            {
+                cost = course.CourseFeeDescription.Replace(Environment.NewLine," / ").ToLower();
+            }
+        }
+    }
 
     <div class="container-fluid img-with-text@(displayOpposite ? " offwhite-section" : "")">
         <div class="container">
@@ -53,12 +75,11 @@
                 <div class="col-sm-8@(!displayOpposite ? " col-sm-push-4" : "")">
                     <h2 class="callout-headline">@headline</h2>
                     @Html.Raw(message)
-                    <p class="course-cost">4 days at $900 per person</p>
-                    <!-- <button type="button" class="btn btn-default">Register</button> -->
-                    <a href="#" class="btn-reg" role="button">Register</a>
+                    <p class="course-cost">@(cost)</p>
+                    <a href="@(registerUrl)" class="btn-reg" role="button">Register</a>
                 </div>
                 <div class="col-sm-4@(!displayOpposite ? " col-sm-pull-8" : "")">
-                    <img src="@trainingImageIcon.Url" class="img-responsive home-highlight-circle" alt="image">
+                    <img src="@iconUrl" class="img-responsive home-highlight-circle" alt="image">
                 </div>
             </div>
         </div>

@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Web;
 using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
-using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
 using TPCTrainco.Umbraco.Extensions.ViewModels;
 using TPCTrainco.Umbraco.Extensions.ViewModels.Backbone;
@@ -484,18 +483,23 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             result.Title = seminarCatalog.TitlePlain;
             result.SubTitle = seminarCatalog.WebToolTip;
 
+            IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").Value != null && p.GetProperty("courseLink").Value.ToString() == scheduleCourse.CourseID.ToString()).FirstOrDefault();
+
             result.ImageUrl = "/assets/images/default-seminar.gif";
             result.DetailsUrl = "#";
 
             if (scheduleCourse != null)
             {
-                IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").Value != null && p.GetProperty("courseLink").Value.ToString() == scheduleCourse.CourseID.ToString()).FirstOrDefault();
-
                 if (seminarNode != null)
                 {
                     IPublishedContent imageObject = UmbracoHelperObj.Content(seminarNode.Id);
                     result.ImageUrl = imageObject.GetCropUrl("image", "Image");
                     result.DetailsUrl = seminarNode.Url;
+
+                    if (true == seminarNode.HasValue("searchSummaryText"))
+                    {
+                        result.SubTitle = seminarNode.GetPropertyValue<string>("searchSummaryText");
+                    }
                 }
             }
             

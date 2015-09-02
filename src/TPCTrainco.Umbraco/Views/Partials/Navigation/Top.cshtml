@@ -7,9 +7,8 @@
     // First() gets the first ancestor found (the home page, on level 1)
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     var homePage = CurrentPage.AncestorsOrSelf(1).First();
-    var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
 
-    IPublishedContent searchSeminarNode = umbracoHelper.TypedContent(1274);
+    IPublishedContent searchSeminarNode = Nodes.Instance.SeminarSearch;
     
     // The menu items we want are all of the children of the homepage
     // We also check if "Hide in navigation" is on in the menu, we shouldn't show hidden items

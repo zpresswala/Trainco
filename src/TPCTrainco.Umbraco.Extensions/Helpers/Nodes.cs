@@ -25,6 +25,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         public IPublishedContent SocialLinkFolder;
         public IEnumerable<IPublishedContent> SocialLinks;
         public IEnumerable<IPublishedContent> SeminarItems;
+        public IPublishedContent SeminarMainOverview;
+        public IEnumerable<IPublishedContent> SeminarCategories;
 
         public UmbracoHelper UmbracoHelper;
 
@@ -54,6 +56,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                             instance.SeminarItems = instance.Home.Descendants("SeminarItem");
                             instance.CourseCatalog = instance.Home.Descendants("SeminarCatalog").FirstOrDefault();
                             instance.SeminarSearch = instance.Home.Descendants("SearchSeminars").FirstOrDefault();
+                            instance.SeminarMainOverview = instance.Home.Children.FirstOrDefault(n => n.IsDocumentType("SeminarMainOverview"));
+                            instance.SeminarCategories = instance.SeminarMainOverview.Children.Where(n => n.IsDocumentType("SeminarCategory"));
                         }
                     }
                 }

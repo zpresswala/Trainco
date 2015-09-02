@@ -20,7 +20,7 @@
     }
 }
 
-<div class="container secondary-search" data-classid="@CurrentPage.courseLink">
+<div id="register-seminars" class="container secondary-search" data-classid="@CurrentPage.courseLink">
     <div class="row">
         <div class="col-xs-12 col-md-10 col-md-offset-1">
 
@@ -34,7 +34,7 @@
             }
 
             <!-- location select -->
-            <div id="register-seminars" class="location-select-wrap">
+            <div class="location-select-wrap">
                 <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="@currentCityState">
                     @foreach (Location location in locationList)
                     {

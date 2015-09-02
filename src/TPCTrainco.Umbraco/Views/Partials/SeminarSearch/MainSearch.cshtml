@@ -5,7 +5,11 @@
 @{
     string searchButtonId = Model.DocumentTypeAlias == "HomePage" ? "search-btn-home" : "search-btn";
     string currentCityState = "";
-    
+
+    IPublishedContent homePage = Model.AncestorsOrSelf(1).First();
+    IPublishedContent searchSeminarNode = Nodes.Instance.SeminarSearch;
+    IEnumerable<IPublishedContent> seminarCategoryList = Nodes.Instance.SeminarCategories;
+
     //List locations
     Locations locationsObj = new Locations();
 
@@ -13,7 +17,7 @@
 
     if (Request.QueryString["homeref"] != null && Request.QueryString.Get("homeref").Length > 0)
     {
-        
+
     }
     else
     {
@@ -40,38 +44,29 @@
                 </div>
                 <p>Search All Seminars</p>
             </li>
+            @foreach (IPublishedContent category in seminarCategoryList)
+            {
+                string shortName = category.GetPropertyValue<string>("shortName");
+                string iconUrl = category.GetCropUrl("searchIcon", "Image");
+                string dataTopic = shortName.ToLower();
 
-            <li class="seminar-topic">
-                <div class="overlay-contain" data-topic="electrical">
-                    <div class="overlay"></div>
-                    <img src="/assets/images/electrical.jpg" alt="Electrical Training" />
-                </div>
-                <p>Electrical</p>
-            </li>
+                if (dataTopic == "plant management")
+                {
+                    dataTopic = "management";
+                }
+                else if (dataTopic == "mechanical and industrial")
+                {
+                    dataTopic = "mechanical";
+                }
 
-            <li class="seminar-topic">
-                <div class="overlay-contain" data-topic="hvac">
-                    <div class="overlay"></div>
-                    <img src="/assets/images/hvac-icon.jpg" alt="HVAC Training" />
-                </div>
-                <p>HVAC</p>
+                <li class="seminar-topic">
+                    <div class="overlay-contain" data-topic="electrical">
+                        <div class="overlay"></div>
+                        <img src="@iconUrl" alt="@category.Name" />
+                    </div>
+                    <p>@shortName</p>
             </li>
-
-            <li class="seminar-topic">
-                <div class="overlay-contain" data-topic="management">
-                    <div class="overlay"></div>
-                    <img src="/assets/images/plantmgmt-icon.jpg" alt="Plant Management" />
-                </div>
-                <p>Plant Management</p>
-            </li>
-
-            <li class="seminar-topic">
-                <div class="overlay-contain" data-topic="mechanical">
-                    <div class="overlay"></div>
-                    <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical and Industrial Training" />
-                </div>
-                <p>Mechanical &amp; Industrial</p>
-            </li>
+            }
         </ul>
 
         <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="@currentCityState">
