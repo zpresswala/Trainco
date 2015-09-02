@@ -69,8 +69,6 @@ MainSearchSelect.prototype.getSearchParams = function () {
 
 		this.updateHashBang(location, topicsArray, minMonth + '/' + minYear, maxMonth + '/' + maxYear);
 
-		
-
 		app.resStringified = this.generateJsonSearchString(location, topicsArray, classId, minMonth, minYear, maxMonth, maxYear);
 		return app.resStringified;
 	}
@@ -92,7 +90,7 @@ MainSearchSelect.prototype.getHashSearchParams = function () {
 		var location = '';
 
 		topicsArray = hashArray['topics'].split(',');
-		location = hashArray['loc'];
+		location = unescape(hashArray['loc']);
 
 		var minDate = hashArray['dMin'].split("/");
 		var minMonth = minDate[0];
@@ -202,7 +200,7 @@ MainSearchSelect.prototype.processHashBang = function () {
 
 // update the hash in the url
 MainSearchSelect.prototype.updateHashBang = function (location, topics, dateMin, dateMax) {
-	var hashStr = 'loc=' + (location || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMax=' + (dateMax || '');
+	var hashStr = 'loc=' + (escape(location) || '') + '&topics=' + (topics.toString() || '') + '&dMin=' + (dateMin || '') + '&dMax=' + (dateMax || '');
 	window.location.hash = hashStr;
 };
 

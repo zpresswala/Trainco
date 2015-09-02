@@ -84,6 +84,10 @@ function performSearch(searchParams) {
 
 	$classLoader.fadeIn(90);
 
+	$('html, body').animate({
+		scrollTop: $('#search-results').offset().top - 140
+	}, 300);
+
 	app.globalCollection.fetch({
 		data: searchParams,
 		type: "POST",

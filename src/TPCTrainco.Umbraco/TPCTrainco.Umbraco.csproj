@@ -475,9 +475,8 @@
     <Content Include="App_Plugins\UmbracoForms\Styles\umbraco.gridview.less" />
     <Content Include="App_Plugins\UmbracoForms\UmbracoForms.config" />
     <Content Include="App_Plugins\UmbracoForms\version" />
-    <Content Include="assets\js\custom\checkoutApp\Checkout.js" />
-    <Content Include="assets\js\custom\checkoutApp\CheckoutCustomer.js" />
-    <Content Include="assets\js\custom\checkoutApp\CheckoutController.js" />
+    <Content Include="assets\js\custom\Checkout.js" />
+    <Content Include="assets\js\custom\CheckoutCustomer.js" />
     <Content Include="assets\scss\main.scss" />
     <Content Include="assets\scss\mixins\_mediaqueries.scss" />
     <Content Include="assets\scss\mixins\_mixins.scss" />
@@ -3383,6 +3382,7 @@
     <Folder Include="App_Data\TEMP\FileUploads\" />
     <Folder Include="App_Plugins\UmbracoForms\Data\datasources\" />
     <Folder Include="App_Plugins\UmbracoForms\Data\prevaluesources\" />
+    <Folder Include="assets\js\custom\checkoutApp\" />
     <Folder Include="css\" />
     <Folder Include="img\" />
     <Folder Include="js\" />
