@@ -363,16 +363,29 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 }
                 tempCust.payMethod = paymentMethod;
 
-                string ccType = StringUtilities.CreditCardType(checkoutCust.CCNumber);
-                tempCust.ccType = ccType;
+                if (tempCust.payMethod == "Credit Card")
+                {
+                    string ccType = StringUtilities.CreditCardType(checkoutCust.CCNumber);
+                    tempCust.ccType = ccType;
 
-                tempCust.ccName = checkoutCust.CCName;
-                tempCust.ccNumber = StringUtilities.GetLast(checkoutCust.CCNumber, 4);
+                    tempCust.ccName = checkoutCust.CCName;
+                    tempCust.ccNumber = StringUtilities.GetLast(checkoutCust.CCNumber, 4);
 
-                DateTime dtExpire = StringUtilities.GetExpirationDate(checkoutCust.CCExpiration);
-                tempCust.ccMonth = dtExpire.Month;
-                tempCust.ccYear = dtExpire.Year;
-                tempCust.ccCVC = checkoutCust.CVVCode;
+                    DateTime dtExpire = StringUtilities.GetExpirationDate(checkoutCust.CCExpiration);
+                    tempCust.ccMonth = dtExpire.Month;
+                    tempCust.ccYear = dtExpire.Year;
+                    tempCust.ccCVC = checkoutCust.CVVCode;
+                }
+                else
+                {
+                    tempCust.ccType = "";
+                    tempCust.ccName = "";
+                    tempCust.ccNumber = "";
+                    tempCust.ccMonth = DateTime.Now.Month;
+                    tempCust.ccYear = DateTime.Now.Year;
+                    tempCust.ccCVC = "";
+
+                }
                 tempCust.chkNo = "";
                 tempCust.poNo = "";
             }
