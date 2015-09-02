@@ -173,11 +173,11 @@ TPCApp.prototype.clickScrollTo = function () {
 	var _this = this;
 	var offsetAmount = 140;
 
-	// scroll to link on page and a link on a different page
+	// click scroll to and jump to different page
 	var jump = function(e) {
 	  	if (e) {
 	       e.preventDefault();
-	       var target = $(this).attr("href");
+	       var target = $($.attr(this, 'href'));
 	   	} else {
 	       var target = location.hash;
 	   	}
