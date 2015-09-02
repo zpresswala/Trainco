@@ -5,14 +5,31 @@
 	}
 
 	.jumbotron {
-		margin: 100px auto 40px;
+		margin: 50px auto 10px;
 		@include med-desktop-and-up {
-			margin: 120px auto 60px;
+			margin: 125px auto 56px;
 		}
 	}
 
-	.row {
-		margin: 25px auto 45px;
+	a.btn-reg {
+		margin-bottom: 30px;
+	}
+}
+
+.campaign, .seminar-detail, .onsite {
+	.jumbotron {
+		@include med-desktop-and-up {
+			margin: 95px auto 15px;
+		}
+	}
+}
+
+.blog-main {
+	.jumbotron {
+		margin: 50px auto 30px;
+		@include med-desktop-and-up {
+			margin: 90px auto 56px;
+		}
 	}
 }
 

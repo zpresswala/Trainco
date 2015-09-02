@@ -585,5 +585,8 @@
 }
 
 .read-only-cart {
-	margin-top: 80px;
+	margin-top: 50px;
+	@include tablet-landscape-and-up {
+		margin-top: 50px;
+	}
 }

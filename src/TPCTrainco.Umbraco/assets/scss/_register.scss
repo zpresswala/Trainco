@@ -306,7 +306,6 @@ input[type=checkbox]:checked + label:before {
 .summary-main {
 	position: relative;
 	padding-bottom: 40px;
-	// margin-bottom: 40px;
 	.container {
 		margin: 20px auto;
 		padding: 0;
@@ -336,10 +335,6 @@ input[type=checkbox]:checked + label:before {
 			line-height: inherit;
 			margin: 10px 0;
 		}
-
-		li {
-			text-align: center;
-		}
 		.summary-opts {
 			font-style: italic;
 		}
@@ -363,16 +358,11 @@ input[type=checkbox]:checked + label:before {
     	@include tablet-portrait-and-up {
     		text-align: right;
     		margin-top: 0;
-    		// position: absolute;
-    		// right: 0;
-    		// top: 50%;
-    		// @include transform(translateY(-50%));
     	}
     }
 }
 
 .purchaser-info-wrap {
-	// position: relative;
 	margin-bottom: 30px;
 	@include med-desktop-and-up {
 		margin-bottom: 10px;
