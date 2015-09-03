@@ -13,10 +13,6 @@
 	width: 100%;
 	position: relative;
 
-	.form-wrap {
-		margin-bottom: 40px;
-	}
-
 	> .container {
 		position: relative;
 	}
@@ -30,28 +26,6 @@
 			text-align: left;
 			margin: 40px 0 20px 15px;
 			font-size: 20px;
-		}
-	}
-	.company-wrap {
-		padding-left: 0;
-	}
-
-	.state-wrap {
-		padding: 0;
-	}
-
-	.btn-reg {
-		border: none;
-		display: block;
-		margin: 40px auto 0;
-		width: 150px;
-		&:focus {
-			outline: none;
-		}
-
-		@include med-desktop-and-up {
-			float: left;
-			margin: 40px auto 20px;
 		}
 	}
 
@@ -76,10 +50,10 @@
 		}
 
 		.item {
-			height: auto;
+			height: 370px;
 			@include tablet-portrait-and-up {
 				height: 300px;
-			}
+			}	
 		}
 	}
 
@@ -92,24 +66,4 @@
 			bottom: -60px;
 		}
 	}
-
-	.item {
-		@include tablet-portrait-and-up {
-			height: 260px;
-			margin: 20px 0 0;
-		}
-	}
-}
-
-.company-state-wrap {
-	display: inline-block;
-	width: 100%;
-}
-
-.promo-wrap {
-	display: none;
-}
-
-.other-textbox-wrap {
-	display: none;
 }

@@ -39,9 +39,9 @@ function TPCApp() {
 		});
 	}
 
-	if ($('.caro-form-container').length) {
-		this.onSiteForm = new OnSiteForm();
-	}
+	// if ($('.caro-form-container').length) {
+	// 	this.onSiteForm = new OnSiteForm();
+	// }
 
 	// register
 	if ($('.contact').length) {
@@ -115,7 +115,7 @@ function TPCApp() {
     }
 
     if($('.form-standard').length) {
-    	this.addClassToFormBtn = new addClassToFormBtn();
+    	this.addClassToFormBtn();
     }
 }
 
