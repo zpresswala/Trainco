@@ -10,6 +10,9 @@ using MoreLinq;
 using System.Web;
 using System.Runtime.Caching;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Net;
+using System.IO;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -463,6 +466,244 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             }
 
             return response;
+        }
+
+
+        public bool CreditCardAlreadyProcessed(temp_Cust tempCust)
+        {
+            bool isAlreadyProcessed = false;
+            CC_Log ccLog = null;
+
+            using (var db = new ATI_DevelopmentEntities1())
+            {
+                // SELECT COUNT(*) FROM CC_Log WHERE ProcessedFrom <> 'MartinEPA' AND ProcessedFrom <> 'Filemaker' AND Approval = 1 AND Cart_ID = " & cartID.ToString()
+
+                ccLog = db.CC_Log.Where(p => p.ProcessedFrom != "MartinEPA" && p.ProcessedFrom != "Filemaker" && p.Approval == 1 && p.Cart_ID == tempCust.reg_ID).FirstOrDefault();
+
+                if (ccLog != null)
+                {
+                    isAlreadyProcessed = true;
+                }
+            }
+
+            return isAlreadyProcessed;
+        }
+
+
+        public CreditCardResult ProcessCreditCard(CheckoutDetails checkout, CheckoutBilling billing)
+        {
+            CreditCardResult creditCardResult = new CreditCardResult();
+
+            int errorCode = 999;
+            string errorText = null;
+
+            creditCardResult.ErrorCode = errorCode;
+            creditCardResult.ErrorText = null;
+
+            bool websiteTestMode = ConfigurationManager.AppSettings.Get("CC2:WebsiteTestMode") == "1" ? true : false;
+            string ccCurrency = ConfigurationManager.AppSettings.Get("CC2:Currency");
+            string ccMerchantId = ConfigurationManager.AppSettings.Get("CC2:MerchID");
+            string ccUserId = ConfigurationManager.AppSettings.Get("CC2:UserID");
+            string ccPin = ConfigurationManager.AppSettings.Get("CC2:PIN");
+            string ccTest = ConfigurationManager.AppSettings.Get("CC2:IsTest");
+
+            if (false == websiteTestMode)
+            {
+
+                int ccMonth = checkout.tempCust.ccMonth ?? 1;
+                int ccYear = checkout.tempCust.ccYear ?? 2000;
+
+                DateTime dtExpire = DateTime.Parse(ccMonth + "/1/" + ccYear);
+                string description = checkout.tempCust.CoName;
+                description += "_" + checkout.tempCust.authPhone1 + "-" + checkout.tempCust.authPhone2 + "-" + checkout.tempCust.authPhone3 + "_";
+                description += checkout.tempCust.authLName + "_" + checkout.tempCust.authFName;
+
+
+                string phone = "(" + checkout.tempCust.billPhone1 + ") " + checkout.tempCust.billPhone2 + "-" + checkout.tempCust.billPhone3;
+                string fax = "";
+
+                if (false == string.IsNullOrWhiteSpace(checkout.tempCust.billFax1))
+                {
+                    fax = "(" + checkout.tempCust.billFax1 + ") " + checkout.tempCust.billFax2 + "-" + checkout.tempCust.billFax3;
+                }
+
+                decimal orderTotal = Convert.ToDecimal(checkout.tempCust.reg_Cost ?? 0);
+                string orderTotalStr = String.Format("{0:C}", orderTotal).Replace("$", "").Replace(",", "");
+
+                string processorUrl = "https://www.myvirtualmerchant.com/VirtualMerchant/process.do";
+                string results = null;
+
+                string postData = "ssl_transaction_type=CCSALE";
+                postData += "&ssl_merchant_id=" + ccMerchantId;
+                postData += "&ssl_pin=" + ccPin;
+                postData += "&ssl_user_id=" + ccUserId;
+                postData += "&ssl_test_mode=" + ccTest;
+
+                postData += "&ssl_amount=" + orderTotalStr;
+                postData += "&ssl_card_number=" + billing.CCNumber;
+                postData += "&ssl_exp_date=" + dtExpire.ToString("MMyy");
+                postData += "&ssl_cvv2cvc2_indicator=1";
+                postData += "&ssl_cvv2cvc2=" + checkout.tempCust.ccCVC;
+
+                postData += "&ssl_description=" + StringUtilities.StringMaxLength(description, 255); ;
+                postData += "&ssl_invoice_number=" + checkout.tempCust.reg_ID;
+
+                string customerCode = description;
+                if (customerCode.Length > 17)
+                {
+                    customerCode = StringUtilities.StringMaxLength(customerCode.Replace("-", ""), 17);
+                }
+                postData += "&ssl_customer_code=" + customerCode;
+                postData += "&ssl_company=" + StringUtilities.StringMaxLength(checkout.tempCust.CoName, 50);
+                postData += "&ssl_first_name=" + StringUtilities.StringMaxLength(checkout.tempCust.billFName, 20);
+                postData += "&ssl_last_name=" + StringUtilities.StringMaxLength(checkout.tempCust.billLName, 30);
+                postData += "&ssl_avs_address=" + StringUtilities.StringMaxLength(checkout.tempCust.billAddr1, 20);
+                postData += "&ssl_city=" + StringUtilities.StringMaxLength(checkout.tempCust.billCity, 30);
+                postData += "&ssl_state=" + StringUtilities.StringMaxLength(checkout.tempCust.billState, 50);
+                postData += "&ssl_avs_zip=" + StringUtilities.StringMaxLength(checkout.tempCust.billZip, 9);
+                postData += "&ssl_country=" + StringUtilities.StringMaxLength(checkout.tempCust.billCountry, 30);
+                postData += "&ssl_phone=" + StringUtilities.StringMaxLength(phone, 20);
+                postData += "&ssl_email=" + StringUtilities.StringMaxLength(checkout.tempCust.billEmail, 100);
+
+                postData += "&ssl_show_form=FALSE";
+                postData += "&ssl_result_format=ASCII";
+
+                byte[] data = Encoding.ASCII.GetBytes(postData);
+                WebRequest request = WebRequest.Create(processorUrl);
+                request.Method = "POST";
+                request.ContentLength = data.Length;
+                request.ContentType = "application/x-www-form-urlencoded";
+
+                try
+                {
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+
+                    HttpWebResponse objResponse = (HttpWebResponse)request.GetResponse();
+                    string responseString = new StreamReader(objResponse.GetResponseStream()).ReadToEnd();
+
+                    List<string> responseArray = responseString.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                    foreach (string returnVal in responseArray)
+                    {
+                        List<string> returnValArray = returnVal.Split('=').ToList();
+
+                        if (returnValArray.Count == 2)
+                        {
+                            if (returnValArray[0].IndexOf("ssl_result") >= 0)
+                            {
+                                errorCode = Convert.ToInt32(returnValArray[1]);
+                            }
+                            else if (returnValArray[0].IndexOf("ssl_result_message") >= 0)
+                            {
+                                errorText = returnValArray[1];
+                            }
+                            else if (returnValArray[0].IndexOf("errorCode") >= 0)
+                            {
+                                errorCode = Convert.ToInt32(returnValArray[1]);
+                            }
+                            else if (returnValArray[0].IndexOf("ssl_result_message") >= 0)
+                            {
+                                errorText = returnValArray[1];
+                            }
+
+                            // for log
+                            results += returnVal;
+                        }
+                    }
+
+                    if (errorCode == 0)
+                    {
+                        errorText = "";
+                    }
+
+                    AddToCCLog(checkout.tempCust, results);
+
+                }
+                catch (Exception ex)
+                {
+                    errorCode = 900;
+                }
+            }
+            else // websiteTestMode ON
+            {
+                errorCode = 0;
+            }
+
+            creditCardResult.ErrorCode = errorCode;
+            creditCardResult.ErrorText = errorText;
+
+            return creditCardResult;
+        }
+
+
+        public void AddToCCLog(temp_Cust tempCust, string result)
+        {
+            CC_Log ccLog = new CC_Log();
+
+            ccLog.Cart_ID = tempCust.reg_ID;
+            ccLog.Reg_TR_Number = 0;
+            ccLog.CC_Type = tempCust.ccType;
+            ccLog.CC_Num = tempCust.ccNumber;
+            ccLog.CC_Amount = Convert.ToDecimal(tempCust.reg_Cost ?? 0);
+            ccLog.CC_Result = result;
+            ccLog.ProcessedFrom = "ATI";
+
+            using (var db = new ATI_DevelopmentEntities1())
+            {
+                db.CC_Log.Add(ccLog);
+                db.SaveChanges();
+            }
+        }
+
+
+        public void AddToTempError(temp_Cust tempCust, CreditCardResult result)
+        {
+            temp_Errors tempError = new temp_Errors();
+
+            tempError.errDate = DateTime.Now;
+            tempError.tempRegID = tempCust.reg_ID;
+            tempError.attFName = "CC Process Error";
+            tempError.attLName = StringUtilities.StringMaxLength(result.ErrorText, 255);
+
+            using (var db = new ATI_DevelopmentEntities1())
+            {
+                db.temp_Errors.Add(tempError);
+                db.SaveChanges();
+            }
+        }
+
+
+        public void SendCreditCartErrorEmail(temp_Cust tempCust, CreditCardResult result)
+        {
+            List<string> emailToList = null;
+
+            if (ConfigurationManager.AppSettings["LogToEmail:CCError"] != null && ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Length > 0)
+            {
+                emailToList = new List<string>();
+
+                emailToList = ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Split(';').ToList();
+
+                Helpers.Email email = new Email();
+
+                email.EmailFrom = "website@americantrainco.com";
+                email.EmailToList = emailToList;
+                email.Subject = "TPCTrainco.com Credit Card Error";
+                email.IsBodyHtml = false;
+
+                string body = "=- TPCTrainco.com Credit Card Error =-" + Environment.NewLine + Environment.NewLine;
+                body += "Temp Cart ID: " + tempCust.reg_ID + Environment.NewLine;
+                body += "First Name: " + tempCust.authFName + Environment.NewLine;
+                body += "Last Name: " + tempCust.authLName + Environment.NewLine;
+                body += "CC Error Code: " + result.ErrorCode + Environment.NewLine;
+                body += "CC Error Text: " + result.ErrorText + Environment.NewLine;
+
+                email.Body = body;
+
+                email.SendEmail();
+            }
         }
 
 

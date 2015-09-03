@@ -126,6 +126,20 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         }
 
 
+        public static string StringMaxLength(string text, int length)
+        {
+            if (false == string.IsNullOrEmpty(text))
+            {
+                if (text.Length > length)
+                {
+                    text = text.Substring(0, length);
+                }
+            }
+
+            return text;
+        }
+
+
         public static DateTime GetExpirationDate(string expiration)
         {
             DateTime dtExpire = DateTime.MinValue;

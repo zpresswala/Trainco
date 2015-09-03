@@ -61,7 +61,7 @@ namespace TPCTrainco.Umbraco.Controllers
                 return PartialView("CheckoutSummary", checkoutDetails);
             }
 
-            
+
         }
 
 
@@ -106,17 +106,80 @@ namespace TPCTrainco.Umbraco.Controllers
                     using (var db = new ATI_DevelopmentEntities1())
                     {
                         int regId = tempRegList[0].reg_ID;
+                        CheckoutBilling checkoutBilling = null;
+                        CreditCardResult creditCardResult = null;
+                        REGISTRATION reg = null;
 
                         tempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
                         tempAttList = db.temp_Att.Where(p => p.reg_ID == regId).ToList();
 
-                        if (tempCust != null && tempAttList != null && tempAttList.Count > 0)
+                        checkoutBilling = (CheckoutBilling)Session["CartBilling"];
+
+                        if (checkoutBilling != null && tempCust != null && tempAttList != null && tempAttList.Count > 0)
                         {
                             checkoutDetails.tempRegList = tempRegList;
                             checkoutDetails.tempAttList = tempAttList;
                             checkoutDetails.tempCust = tempCust;
 
+                            bool isError = false;
+                            bool isAlreadyProcessed = false;
 
+                            Carts cartsObj = new Carts();
+
+                            // check for CC already processed: [isCardProcessed()] true -> Success page
+                            if (tempCust.payMethod == "Credit Card")
+                            {
+                                // card processed already?
+                                isAlreadyProcessed = cartsObj.CreditCardAlreadyProcessed(tempCust);
+
+                                // not process, charge credit card
+                                if (false == isAlreadyProcessed)
+                                {
+                                    creditCardResult = cartsObj.ProcessCreditCard(checkoutDetails, checkoutBilling);
+                                    isError = creditCardResult.ErrorCode != 0;
+                                }
+                            }
+                            else
+                            {
+                                // check for duplicate
+                                reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
+
+                                if (reg != null)
+                                {
+                                    isAlreadyProcessed = true;
+                                }
+                            }
+
+                            if (true == isError)
+                            {
+                                cartsObj.AddToTempError(tempCust, creditCardResult);
+                                cartsObj.SendCreditCartErrorEmail(tempCust, creditCardResult);
+
+                                return Redirect("/register/summary/");
+                            }
+                            else
+                            {
+                                if (true == isAlreadyProcessed)
+                                {
+                                    Session["RegistrationId"] = reg.RegistrationID;
+                                    return Redirect("/register/success/");
+                                }
+                                else
+                                {
+                                    // convert temp to registration
+                                    reg = Registrations.AddRegistrationByTempCart(tempCust.reg_ID ?? 0);
+
+                                    if (reg != null && reg.RegistrationID > 0)
+                                    {
+                                        // Email everyone.
+                                    }
+                                    else
+                                    {
+                                        // registration wasn't created
+                                        return Redirect("/register/error/?error=90");
+                                    }
+                                }
+                            }
 
 
                             return Redirect("/register/success/");
