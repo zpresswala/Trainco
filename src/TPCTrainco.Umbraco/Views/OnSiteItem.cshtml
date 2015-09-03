@@ -2,7 +2,7 @@
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
-
+    
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
 
@@ -41,6 +41,20 @@
                         <div class="page-content">
                             <h2>@seminarContainer.ceuHeader</h2>
                             @seminarContainer.ceuCopy
+                        </div>
+                    }
+                    @if (CurrentPage.includeAtmt)
+                    {
+                        <div class="page-content">
+                            <h2>@seminarContainer.atmtHeader</h2>
+                            @seminarContainer.atmtCopy
+                        </div>
+                    }
+                    @if (CurrentPage.blockPurchase)
+                    {
+                        <div class="page-content">
+                            <h2>@seminarContainer.blockHeader</h2>
+                            @seminarContainer.blockCopy
                         </div>
                     }
                 </div>
