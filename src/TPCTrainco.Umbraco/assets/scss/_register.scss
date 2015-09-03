@@ -193,7 +193,9 @@
 }
 
 .billing-opts-wrapper {
-	
+	display: inline-block;
+	margin-bottom: 40px;
+	width: 100%;
 	h2 {
 		margin-bottom: 6px;
 	}
@@ -419,5 +421,6 @@ input[type=checkbox]:checked + label:before {
 }
 
 #button-submit {
-	margin-bottom: 60px;
+	margin: 0 auto 10px;
+	display: block;
 }

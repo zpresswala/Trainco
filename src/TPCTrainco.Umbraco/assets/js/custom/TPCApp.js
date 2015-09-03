@@ -122,6 +122,11 @@ function TPCApp() {
     if(window.location.search == "?homeref=1") {
     	_this.scrollToResults();
     }
+
+    // if IE, trigger click to get rid of select2 "you can only select one" message
+    // if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
+    //    $('.select2-search--inline').trigger('click');
+    // }
 }
 
 TPCApp.prototype.bindScroll = function () {
