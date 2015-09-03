@@ -193,7 +193,9 @@
 }
 
 .billing-opts-wrapper {
-	
+	display: inline-block;
+	margin-bottom: 40px;
+	width: 100%;
 	h2 {
 		margin-bottom: 6px;
 	}
@@ -290,6 +292,10 @@ input[type=checkbox]:checked + label:before {
 }
 
 .summary-top {
+	margin-top: 50px;
+	@include med-desktop-and-up {
+		margin-top: 80px;
+	}
 	.step, .line {
 		background-color: $red-button;
 	}
@@ -407,10 +413,18 @@ input[type=checkbox]:checked + label:before {
 }
 
 .checkout-loader {
-	left: 50%;
-	top: -10px;
+	top: 50px;
+	right: 52px;
+	left: auto;
+	z-index: 9;
+	@include med-desktop-and-up {
+		top: 10px;
+		left: 50%;
+		right: auto;
+	}
 }
 
 #button-submit {
-	margin-bottom: 60px;
+	margin: 0 auto 10px;
+	display: block;
 }

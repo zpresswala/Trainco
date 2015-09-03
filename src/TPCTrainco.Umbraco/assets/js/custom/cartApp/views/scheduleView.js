@@ -78,10 +78,10 @@ app.ScheduleView = Backbone.View.extend({
 
             // else, add to cart
             $('.cart-empty-msg').hide();
-            this.$el.find('.btn-blue-hollow:focus').blur().text('Added!').addClass('added');
+            this.$el.find('.btn-blue-hollow').blur().text('Added!').addClass('added');
             setTimeout(function() {
                 _this.$el.find('.btn-blue-hollow').text('Add to cart').removeClass('added');
-            }, 1500);
+            }, 2000);
 
             var id = target.data('id'),
                 modelData = this.collection.get(id),
