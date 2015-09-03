@@ -44,7 +44,7 @@ function CreateFormPostString() {
 };
 
 function CheckoutPost(checkoutData) {
-	$('#reg-submit').hide();
+	$('#reg-submit').css('opacity', 0);
 	$('.checkout-loader').show();
 
 	$('input').next('span').remove();
