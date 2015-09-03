@@ -1,6 +1,6 @@
 .form-standard {
 	.contourField {
-		margin-bottom: 17px;
+		margin-bottom: 10px;
 		.text, select {
 			border: 1px solid $cart-border;
 			width: 100%;
@@ -33,5 +33,16 @@
 			margin: 10px auto 20px;
 			float: left;
 		}
+	}
+}
+
+#form-contact {
+	min-height: 500px;
+
+	.contourMessageOnSubmit {
+		color: $white;
+		text-align: center;
+	    margin-top: 100px;
+	    font-size: 25px;
 	}
 }
