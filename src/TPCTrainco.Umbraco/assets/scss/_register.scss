@@ -292,6 +292,10 @@ input[type=checkbox]:checked + label:before {
 }
 
 .summary-top {
+	margin-top: 50px;
+	@include med-desktop-and-up {
+		margin-top: 80px;
+	}
 	.step, .line {
 		background-color: $red-button;
 	}
