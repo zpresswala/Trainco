@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Caching;
 using System.Configuration;
+using MoreLinq;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -171,6 +172,28 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return courseTopicList;
         }
 
+
+        public static List<City> GetCityList()
+        {
+            string cacheKey = "CityList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CityList"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<City> cityList = cache.Get(cacheKey) as List<City>;
+
+            if (cityList == null)
+            {
+                using (var db = new ATI_DevelopmentEntities1())
+                {
+                    cityList = db.Cities.DistinctBy(p => p.MailCode).Where(p => p.Active == 1).ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, cityList, policy);
+            }
+
+            return cityList;
+        }
 
 
         public static List<State> GetStateList()

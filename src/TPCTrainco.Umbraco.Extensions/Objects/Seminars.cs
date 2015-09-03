@@ -336,6 +336,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                     seminar.Locations.Add(location);
                                 }
+
+                                // order location list if "all" is selected.
+                                if (request.Location == "all")
+                                {
+                                    seminar.Locations.OrderBy(p => p.CityState).ToList();
+                                }
                             }
 
                             finalSeminarList.Add(seminar);
