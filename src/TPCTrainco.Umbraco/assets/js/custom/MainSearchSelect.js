@@ -19,7 +19,8 @@ function MainSearchSelect() {
 		}
 	});
 
-	this.autofillLocation();
+	if (!window.location.hash)
+		this.autofillLocation();
 };
 
 
