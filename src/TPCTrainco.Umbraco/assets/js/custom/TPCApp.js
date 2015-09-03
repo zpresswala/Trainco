@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-
+var ApiDomain = 'http://trainco-dev.imulus-client.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -117,6 +117,11 @@ function TPCApp() {
     if($('.form-standard').length) {
     	this.addClassToFormBtn();
     }
+
+    // if we are coming from a home page search, scroll down a bit on the next page
+    if(window.location.search == "?homeref=1") {
+    	_this.scrollToResults();
+    }
 }
 
 TPCApp.prototype.bindScroll = function () {
@@ -213,4 +218,14 @@ TPCApp.prototype.retinaLogos = function(retinaScreen) {
 
 TPCApp.prototype.addClassToFormBtn = function() {
 	$('.form-standard').find('.btn').addClass('btn-reg').addClass('btn-blue-solid');
+};
+
+// if you do a search from the home page, scroll down on the next page.
+TPCApp.prototype.scrollToResults = function() {
+	var _this = this;
+	setTimeout(function() {
+		_this.$page.animate({
+			scrollTop: $('#search-btn').offset().top - 80
+		}, 300);
+	}, 500);
 };
