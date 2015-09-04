@@ -340,7 +340,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 // order location list if "all" is selected.
                                 if (request.Location == "all")
                                 {
-                                    seminar.Locations.OrderBy(p => p.CityState).ToList();
+                                    seminar.Locations = seminar.Locations.OrderBy(p => p.CityState).ToList();
                                 }
                             }
 

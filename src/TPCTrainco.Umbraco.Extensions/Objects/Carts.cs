@@ -390,7 +390,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 }
                 tempCust.chkNo = "";
-                tempCust.poNo = "";
+                tempCust.poNo = checkoutCust.PONumber;
             }
 
             return tempCust;

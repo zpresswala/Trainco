@@ -6,6 +6,7 @@ function CheckoutCustomer() {
 	this.$billingInfoText = $('.billing-info-desc');
 	this.$billingOptsSelect = $('#PaymentType');
 	this.$ccInfo = $('.cc-info');
+	this.$invoiceInfo = $('.invoice-info');
 	this.$billingDifferent = $('#BillingDifferent');
 	this.$promoWrap = $('.promo-wrap');
 	this.$hearAbout = $('#HearAbout');
@@ -26,6 +27,12 @@ function CheckoutCustomer() {
 	var selectedOption = this.$billingOptsSelect.val();
 	if (selectedOption === 'credit') {
 		this.$ccInfo.show();
+		this.$invoiceInfo.hide();
+		this.$billingInfoText.addClass('hidden');
+	}
+	else if (selectedOption === 'invoice') {
+		this.$ccInfo.hide();
+		this.$invoiceInfo.show();
 		this.$billingInfoText.addClass('hidden');
 	}
 

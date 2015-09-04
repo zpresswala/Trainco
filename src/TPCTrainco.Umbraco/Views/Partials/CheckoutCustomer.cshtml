@@ -168,6 +168,13 @@
                             </div>
                         </div>
 
+                        <div class="invoice-info">
+                            <div class="form-group col-xs-12 col-sm-12">
+                                @Html.TextBoxFor(p => p.PONumber, new { @class = "form-control", placeholder = "PO Number" })
+                                @Html.ValidationMessageFor(p => p.PONumber)
+                            </div>
+                        </div>
+
 
                         <!-- end credit card info -->
 

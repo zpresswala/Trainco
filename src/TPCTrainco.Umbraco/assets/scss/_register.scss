@@ -251,6 +251,11 @@ input[type=checkbox]:checked + label:before {
 	float: left;
 	display: none;
 }
+.invoice-info {
+	float: left;
+	display: none;
+}
+
 
 .cvv-text {
 	position: relative;

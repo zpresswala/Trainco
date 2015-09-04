@@ -135,6 +135,6 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [DisplayName("Credit Card CVV")]
         public string CVVCode { get; set; }
 
-
+        public string PONumber { get; set; }
     }
 }
