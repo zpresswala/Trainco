@@ -19,11 +19,12 @@
 
         Session.Abandon();
         Session.Clear();
+    }
 
-        if (tempRegList == null)
-        {
-            Response.Redirect("/search-seminars/");
-        }
+
+    if (tempRegList == null)
+    {
+        Response.Redirect("/search-seminars/");
     }
 }
 
