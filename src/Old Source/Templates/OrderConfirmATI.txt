@@ -54,18 +54,10 @@
             </td>
        </tr>
         <tr>
-            <td colspan="3" style="text-align: center">
-                <hr noshade />
-                Order Summary
-                <hr noshade />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" height="15"></td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                {{ORDERSUMMARY}}</td>
+            <td style="width: 70px; text-align: right;" valign="top">
+                Total:&nbsp;&nbsp;</td>
+            <td colspan="2">
+                <strong>{{ORDER_TOTAL}}</strong></td>
         </tr>
         <tr>
             <td colspan="3" height="15"></td>

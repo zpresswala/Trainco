@@ -99,96 +99,106 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (tempRegList != null)
                 {
-                    Session["CartId"] = cartGuid;
-
-                    temp_Cust tempCust = null;
-
-                    using (var db = new ATI_DevelopmentEntities1())
+                    try
                     {
-                        int regId = tempRegList[0].reg_ID;
-                        CheckoutBilling checkoutBilling = null;
-                        CreditCardResult creditCardResult = null;
-                        REGISTRATION reg = null;
+                        Session["CartId"] = cartGuid;
 
-                        tempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
-                        tempAttList = db.temp_Att.Where(p => p.reg_ID == regId).ToList();
+                        temp_Cust tempCust = null;
 
-                        checkoutBilling = (CheckoutBilling)Session["CartBilling"];
-
-                        if (checkoutBilling != null && tempCust != null && tempAttList != null && tempAttList.Count > 0)
+                        using (var db = new ATI_DevelopmentEntities1())
                         {
-                            checkoutDetails.tempRegList = tempRegList;
-                            checkoutDetails.tempAttList = tempAttList;
-                            checkoutDetails.tempCust = tempCust;
+                            int regId = tempRegList[0].reg_ID;
+                            CheckoutBilling checkoutBilling = null;
+                            CreditCardResult creditCardResult = null;
+                            REGISTRATION reg = null;
 
-                            bool isError = false;
-                            bool isAlreadyProcessed = false;
+                            tempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
+                            tempAttList = db.temp_Att.Where(p => p.reg_ID == regId).ToList();
 
-                            Carts cartsObj = new Carts();
+                            checkoutBilling = (CheckoutBilling)Session["CartBilling"];
 
-                            // check for CC already processed: [isCardProcessed()] true -> Success page
-                            if (tempCust.payMethod == "Credit Card")
+                            if (checkoutBilling != null && tempCust != null && tempAttList != null && tempAttList.Count > 0)
                             {
-                                // card processed already?
-                                isAlreadyProcessed = cartsObj.CreditCardAlreadyProcessed(tempCust);
+                                checkoutDetails.tempRegList = tempRegList;
+                                checkoutDetails.tempAttList = tempAttList;
+                                checkoutDetails.tempCust = tempCust;
 
-                                // not process, charge credit card
-                                if (false == isAlreadyProcessed)
+                                bool isError = false;
+                                bool isAlreadyProcessed = false;
+
+                                Carts cartsObj = new Carts();
+
+                                // check for CC already processed: [isCardProcessed()] true -> Success page
+                                if (tempCust.payMethod == "Credit Card")
                                 {
-                                    creditCardResult = cartsObj.ProcessCreditCard(checkoutDetails, checkoutBilling);
-                                    isError = creditCardResult.ErrorCode != 0;
-                                }
-                            }
-                            else
-                            {
-                                // check for duplicate
-                                reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
+                                    // card processed already?
+                                    isAlreadyProcessed = cartsObj.CreditCardAlreadyProcessed(tempCust);
 
-                                if (reg != null)
-                                {
-                                    isAlreadyProcessed = true;
-                                }
-                            }
-
-                            if (true == isError)
-                            {
-                                cartsObj.AddToTempError(tempCust, creditCardResult);
-                                cartsObj.SendCreditCartErrorEmail(tempCust, creditCardResult);
-
-                                return Redirect("/register/summary/");
-                            }
-                            else
-                            {
-                                if (true == isAlreadyProcessed)
-                                {
-                                    Session["RegistrationId"] = reg.RegistrationID;
-                                    return Redirect("/register/success/");
+                                    // not process, charge credit card
+                                    if (false == isAlreadyProcessed)
+                                    {
+                                        creditCardResult = cartsObj.ProcessCreditCard(checkoutDetails, checkoutBilling);
+                                        isError = creditCardResult.ErrorCode != 0;
+                                    }
                                 }
                                 else
                                 {
-                                    // convert temp to registration
-                                    reg = Registrations.AddRegistrationByTempCart(tempCust.reg_ID ?? 0);
+                                    // check for duplicate
+                                    reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
 
-                                    if (reg != null && reg.RegistrationID > 0)
+                                    if (reg != null)
                                     {
-                                        // Email everyone.
+                                        isAlreadyProcessed = true;
+                                    }
+                                }
+
+                                if (true == isError)
+                                {
+                                    cartsObj.AddToTempError(tempCust, creditCardResult);
+                                    cartsObj.SendCreditCartErrorEmail(tempCust, creditCardResult);
+
+                                    return Redirect("/register/summary/");
+                                }
+                                else
+                                {
+                                    if (true == isAlreadyProcessed)
+                                    {
+                                        Session["RegistrationId"] = reg.RegistrationID;
+                                        return Redirect("/register/success/");
                                     }
                                     else
                                     {
-                                        // registration wasn't created
-                                        return Redirect("/register/error/?error=90");
+                                        // convert temp to registration
+                                        reg = Registrations.AddRegistrationByTempCart(tempCust.reg_ID ?? 0);
+
+                                        if (reg != null && reg.RegistrationID > 0)
+                                        {
+                                            // Email Registrar and Billing
+                                            Registrations.EmailOrderConfirmations(checkoutDetails, reg);
+
+                                            // Email Attendees
+                                            Registrations.EmailAttendeeConfirmations(checkoutDetails, reg);
+
+                                            return Redirect("/register/success/");
+                                        }
+                                        else
+                                        {
+                                            // registration wasn't created
+                                            return Redirect("/register/error/?error=90");
+                                        }
                                     }
                                 }
                             }
-
-
-                            return Redirect("/register/success/");
-
+                            else
+                            {
+                                return Redirect("/search-seminars/");
+                            }
                         }
-                        else
-                        {
-                            return Redirect("/search-seminars/");
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Carts cartsObj = new Carts();
+                        cartsObj.SendCheckoutErrorEmail("RegID: " + tempRegList[0].reg_ID + "\n\rError: " + ex.ToString());
                     }
                 }
                 else
