@@ -103,7 +103,7 @@ gulp.task('js:cartapp', function() {
         .pipe(concat('cart.js').on('error', function(err) {
             console.log(err);
         }))
-        .pipe(uglify({mangle: false}).on('error', function(err) {
+        .pipe(uglify().on('error', function(err) {
             console.log(err);
         }))
         .pipe(gulp.dest(config.jsDest));

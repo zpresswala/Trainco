@@ -59,20 +59,14 @@
 	float: none;
 	@include tablet-portrait-and-up {
 		float: left;
-		margin: 0 auto ;
+		margin: 0 auto;
 	}
 
 	h3 {
-		// display: inline-block;
 		font-size: 5em;
-		
 		margin: 0;
 		padding: 0;
 		position: relative;
-		// @include tablet-portrait-and-up {
-		// 	display: block;
-		// }
-
 		&:after {
 			content: '';
 			position: absolute;

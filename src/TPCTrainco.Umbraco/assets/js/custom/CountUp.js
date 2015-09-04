@@ -6,10 +6,8 @@ function CountUp($win) {
 	this.endValuesArr = [];
 	this.triggered = false;
 	this.$counterStartMarker = $('#js-counter-start');
-
 	this.getMaxVal();
 	this.resetVals();
-	console.log('hello, counting')
 }
 
 CountUp.prototype.getMaxVal = function() {

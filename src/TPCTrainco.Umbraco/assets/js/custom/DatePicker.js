@@ -136,13 +136,12 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 	rHandle.text(months[this.minMonth + 2]);
 	lHandle.text(months[this.maxMonth]);
 
-	$('#date-range-slider').on("valuesChanged", function(e, data){
+	$('#date-range-slider').on("valuesChanging", function(e, data){
 		var minMonth = new Date(data.values.min);
 		var maxMonth = new Date(data.values.max);
 
 		maxMonth.setDate(maxMonth.getDate() - 1);
 		minMonth.setDate(minMonth.getDate());
-		console.log(minMonth, maxMonth)
 		var maxMonthAbbr = months[maxMonth.getMonth()];
 		var minMonthAbbr = months[minMonth.getMonth()];
 	  	rHandle.text(maxMonthAbbr);
