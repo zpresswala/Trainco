@@ -100,7 +100,6 @@ app.CartItemView = Backbone.View.extend({
 
     // removes item from cart, re-calculates total price
     removeItemFromCart: function(e, success) {
-        console.log(success)
         var _this = this;
         var target = $(e.currentTarget);
         var id = target.data('theid');

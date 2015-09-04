@@ -11,7 +11,7 @@ html {
 
 body {
 	color: $body-copy;
-	font-weight: 300;
+	font-weight: 400;
 	overflow-x: hidden;
 
 	// sticky footer styles
@@ -288,6 +288,7 @@ button {
 	h1	{
 		display: inline-block;
 		position: relative;
+		font-weight: 300;
 		
 		&:after, &:before {
 			display: none;

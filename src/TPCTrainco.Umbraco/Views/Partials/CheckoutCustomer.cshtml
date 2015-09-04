@@ -19,11 +19,11 @@
                     <h2 class="col-xs-12">Company Information</h2>
                     
                     <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                        @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                        @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control", placeholder = "First Name (Authorizing Supervisor)" })
                         @Html.ValidationMessageFor(p => p.FirstName)
                     </div>
                     <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                        @Html.TextBoxFor(p => p.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                        @Html.TextBoxFor(p => p.LastName, new { @class = "form-control", placeholder = "Last Name (Authorizing Supervisor)" })
                         @Html.ValidationMessageFor(p => p.LastName)
                     </div>
                     <div class="form-group col-xs-12 col-sm-6 col-md-6">
@@ -93,7 +93,7 @@
                         <div class="col-xs-12">
                             <h2>Billing Information</h2>
                             <input type="checkbox" name="supervisor-diff" id="supervisor-diff">
-                            <label for="supervisor-diff">Different than authorizing supervisor?</label>
+                            <label for="supervisor-diff">Is your billing person different than your authorizing supervisor? If yes, check this box.</label>
                             @Html.HiddenFor(p => p.BillingDifferent)
                         </div>
 

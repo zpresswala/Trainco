@@ -50,16 +50,28 @@ app.ScheduleView = Backbone.View.extend({
             var matchingItem = app.cartCollection.where({ theId: id });
             var matchingItemIdAttr = matchingItem[0].get('theId');
             var newQty = changedQty + matchingItem[0].get('quantity');
-            console.log(newQty)
             matchingItem[0].set('quantity', newQty);
             matchingItem[0].save();
-
+            scrollTopAfterAdd();
+            
             if(id == matchingItemIdAttr) {
                 $('#cart-item-list').find('[data-theid=' + matchingItemIdAttr + ']').find('.class-qty').val(changedQty);
                 Backbone.trigger('calculateSubtotal', changedQty);
             }
 
             _this.$classQty.val('');
+        };
+
+        // after add/update of quantity, scroll back up to the cart
+        var scrollTopAfterAdd = function() {
+            setTimeout(function() {
+                $('html, body').animate({
+                    scrollTop: $('#cart').offset().top - 80
+                }, 200);
+                if(!$('.cart-visible').hasClass('down')) {
+                    $('.cart-tab').trigger('click');
+                }
+            }, 300);
         };
 
         // if quantity empty or zero
@@ -76,9 +88,10 @@ app.ScheduleView = Backbone.View.extend({
 
             // else, add to cart
             $('.cart-empty-msg').hide();
-            this.$el.find('.btn-blue-hollow').blur().text('Added!').addClass('added');
+            target.blur().text('Added!').addClass('added');
+            scrollTopAfterAdd();
             setTimeout(function() {
-                _this.$el.find('.btn-blue-hollow').text('Add to cart').removeClass('added');
+                target.text('Add to cart').removeClass('added');
             }, 2000);
 
             var id = target.data('id'),
@@ -147,10 +160,6 @@ app.ScheduleView = Backbone.View.extend({
                     
                     // saving it to localstorage
                     app.cartCollection.create(app.cartItemModel.toJSON());
-
-                    if(!$('.cart-visible').hasClass('down')) {
-                        $('.cart-tab').trigger('click');
-                    }
 
                     // clear input field
                     this.$classQty.val('');

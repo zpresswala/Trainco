@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-// var ApiDomain = 'http://trainco-dev.imulus-client.com';
+var ApiDomain = 'http://trainco-dev.imulus-client.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -65,7 +65,6 @@ function TPCApp() {
 		this.CheckoutCustomer = new CheckoutCustomer();
 	}
 
-
 	this.bindScroll();
 
 	// CHECK IF USER IS ON A RETINA DEVICE
@@ -83,9 +82,10 @@ function TPCApp() {
 
 	this.animateCart(isRetina);
 	this.retinaLogos(isRetina);
-	this.clickScrollTo();
 
-
+	this.$aHref.not('.add-to-cart').on('click', function() {
+		_this.clickScrollTo();
+	});
 
 
 	if (window.location.hash || $('.detail-page-app').length) {
@@ -147,7 +147,6 @@ TPCApp.prototype.handleWindowScroll = function () {
 
 // cart functionality
 TPCApp.prototype.animateCart = function (retinaScreen) {
-	// if(Modernizr.csstransitions) {
 	var _this = this;
 	this.$carttab = $('.cart-tab');
 	this.$cartvis = $('.cart-visible');
@@ -189,12 +188,15 @@ TPCApp.prototype.clickScrollTo = function () {
 
 	// click scroll to and jump to different page
 	var jump = function(e) {
+		console.log(e)
 	  	if (e) {
 	       e.preventDefault();
 	       var target = $($.attr(this, 'href'));
 	   	} else {
 	       var target = location.hash;
 	   	}
+
+	   	console.log(target, 'suttfff')
 
 	  	_this.$page.animate({
 	    	scrollTop: $(target).offset().top - offsetAmount
