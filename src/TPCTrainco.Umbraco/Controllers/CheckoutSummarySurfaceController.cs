@@ -173,6 +173,8 @@ namespace TPCTrainco.Umbraco.Controllers
 
                                         if (reg != null && reg.RegistrationID > 0)
                                         {
+                                            Session["RegistrationId"] = reg.RegistrationID;
+
                                             // Email Registrar and Billing
                                             Registrations.EmailOrderConfirmations(checkoutDetails, reg);
 
@@ -205,6 +207,8 @@ namespace TPCTrainco.Umbraco.Controllers
                 {
                     return Redirect("/search-seminars/");
                 }
+
+                return Redirect("/search-seminars/");
             }
         }
     }

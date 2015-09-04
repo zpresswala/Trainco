@@ -100,9 +100,13 @@ namespace TPCTrainco.Umbraco.Controllers
                     cartsObj.DeleteTempCust(cartList[0].reg_ID);
 
                     checkoutBilling.RegId = cartList[0].reg_ID;
-                    checkoutBilling.CCNumber = model.CCNumber.Replace("-", "");
 
-                    Session["CartBilling"] = checkoutBilling;
+                    if (model.PaymentType == "credit")
+                    {
+                        checkoutBilling.CCNumber = model.CCNumber.Replace("-", "");
+
+                        Session["CartBilling"] = checkoutBilling;
+                    }
 
                     temp_Cust tempCust = cartsObj.ConvertModelToTempCust(model, cartList);
 

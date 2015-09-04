@@ -724,7 +724,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 email.Subject = "TPCTrainco.com Registration Error";
                 email.IsBodyHtml = false;
 
-                string body = emailBody
+                string body = emailBody;
 
                 email.Body = body;
 
