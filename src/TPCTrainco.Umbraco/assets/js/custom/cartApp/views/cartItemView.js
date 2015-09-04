@@ -4,7 +4,6 @@ window.app = window.app || {};
 
 // "view the cart" view
 app.CartItemView = Backbone.View.extend({
-    template: _.template($('#cartItemTemplate').html()),
 
     events: {
         'click .remove': 'removeItemFromCart',
@@ -18,6 +17,7 @@ app.CartItemView = Backbone.View.extend({
     initialize: function(options) {
         var _this = this;
         this.options = options || {};
+        this.template = _.template($('#cartItemTemplate').html());
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
         Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
         Backbone.on('clearCart', this.removeItemFromCart, this);

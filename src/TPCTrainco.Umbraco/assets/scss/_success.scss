@@ -3,6 +3,18 @@
 	margin-top: 50px;
 	@include med-desktop-and-up {
 		margin-top: 80px;
+		padding-top: 30px;
+	}
+
+	.jumbtron {
+		h1 {
+			color: $headline-black;
+		}
+	}
+
+	.btn-blue-hollow {
+		padding: 11px 30px;
+		width: 200px;
 	}
 }
 

@@ -153,7 +153,7 @@ TPCApp.prototype.animateCart = function (retinaScreen) {
 	this.$cartvis = $('.cart-visible');
 	this.$cartTopImg = $('.cart-top').find('img');
 	if (retinaScreen) {
-		this.$carttab.find('img').attr('src', '/assets/images/icon-cart-retina.png').css({
+		this.$carttab.find('img').attr('src', '/images/icon-cart-retina.png').css({
 			width: 32 + 'px',
 			top: -15 + 'px'
 		});
@@ -165,18 +165,18 @@ TPCApp.prototype.animateCart = function (retinaScreen) {
 
 			// change out cart icon, and if user is on retina, account for that.
 			if (retinaScreen) {
-				_this.$cartvis.toggleClass('down').find('img').attr('src', '/assets/images/icon-cart-close-arrow-2x.png');
-				_this.$cartTopImg.attr('src', '/assets/images/icon-cart-retina.png').css({
+				_this.$cartvis.toggleClass('down').find('img').attr('src', '/images/icon-cart-close-arrow-2x.png');
+				_this.$cartTopImg.attr('src', '/images/icon-cart-retina.png').css({
 					width: 32 + 'px'
 				});
 				if (!$(this).hasClass('down')) {
-					_this.$carttab.find('img').attr('src', '/assets/images/icon-cart-retina.png');
+					_this.$carttab.find('img').attr('src', '/images/icon-cart-retina.png');
 				}
 			} else {
-				_this.$cartvis.toggleClass('down').find('img').attr('src', '/assets/images/icon-cart-close-arrow.png');
+				_this.$cartvis.toggleClass('down').find('img').attr('src', '/images/icon-cart-close-arrow.png');
 				if (!$(this).hasClass('down')) {
-					_this.$cartTopImg.attr('src', '/assets/images/icon-cart-tab.png');
-					_this.$carttab.find('img').attr('src', '/assets/images/icon-cart-tab.png');
+					_this.$cartTopImg.attr('src', '/images/icon-cart-tab.png');
+					_this.$carttab.find('img').attr('src', '/images/icon-cart-tab.png');
 				}
 			}
 		});
@@ -215,9 +215,9 @@ TPCApp.prototype.clickScrollTo = function () {
 
 TPCApp.prototype.retinaLogos = function(retinaScreen) {
 	if(retinaScreen) {
-		$('#logo').attr('src', '/assets/images/logo-trainco-2x.png').css('width', 220 + 'px');
+		$('#logo').attr('src', '/images/logo-trainco-2x.png').css('width', 220 + 'px');
 	} else {
-		$('#logo').attr('src', '/assets/images/logo-trainco-1x.png');
+		$('#logo').attr('src', '/images/logo-trainco-1x.png');
 	}
 };
 

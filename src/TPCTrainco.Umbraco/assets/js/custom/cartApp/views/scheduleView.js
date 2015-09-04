@@ -12,14 +12,13 @@ app.ScheduleView = Backbone.View.extend({
         }
     },
 
-    template: _.template($('#scheduleTemplate').html()),
-
     initialize: function(options) {
+        this.template = _.template($('#scheduleTemplate').html());
         this.options = options || {};
         this.locLocIdArr = options.locationLocId;
         var _this = this;
         // setTimeout(function() {
-            _this.render()
+        this.render();
         // }, 2);
     },
 
@@ -27,7 +26,6 @@ app.ScheduleView = Backbone.View.extend({
         var _this = this;
 
         // comparing collection locationIds to location locationIds
-        console.log(this.locLocIdArr)
         $.each(_this.collection.toJSON(), function(index, value) {
             $.each(_this.locLocIdArr, function(index2, id) {
                 if(value.locationId === id) {

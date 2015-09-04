@@ -10,9 +10,8 @@ app.SingleSeminarView = Backbone.View.extend({
         'click .view-opts': 'showClassOptions'
     },
 
-    template: _.template($('#classTemplate').html()),
-
     initialize: function() {
+        this.template = _.template($('#classTemplate').html());
         this.firstClick = false;
     },
 

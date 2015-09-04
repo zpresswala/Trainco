@@ -60,7 +60,7 @@ function CheckoutPost(checkoutData) {
 		var success = successObj.success;
 		var message = successObj.message;
 
-		$('#reg-submit').show();
+		$('#reg-submit').css('opacity', 1);
 		$('.checkout-loader').hide();
 
 		if (success) {
@@ -84,7 +84,7 @@ function CheckoutPost(checkoutData) {
 
 		}
 	}).fail(function (error) {
-		$('#reg-submit').show();
+		$('#reg-submit').css('opacity', 1);
 		$('.checkout-loader').hide();
 		$('#reg-submit').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
 	});
