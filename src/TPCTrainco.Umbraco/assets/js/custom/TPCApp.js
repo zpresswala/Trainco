@@ -39,9 +39,9 @@ function TPCApp() {
 		});
 	}
 
-	// if ($('.caro-form-container').length) {
-	// 	this.onSiteForm = new OnSiteForm();
-	// }
+	if ($('.caro-form-container').length) {
+		this.onSiteForm = new OnSiteForm();
+	}
 
 	// register
 	if ($('.contact').length) {
@@ -188,15 +188,12 @@ TPCApp.prototype.clickScrollTo = function () {
 
 	// click scroll to and jump to different page
 	var jump = function(e) {
-		console.log(e)
 	  	if (e) {
 	       e.preventDefault();
 	       var target = $($.attr(this, 'href'));
 	   	} else {
 	       var target = location.hash;
 	   	}
-
-	   	console.log(target, 'suttfff')
 
 	  	_this.$page.animate({
 	    	scrollTop: $(target).offset().top - offsetAmount

@@ -5,9 +5,10 @@ function OnSiteForm() {
 }
 
 OnSiteForm.prototype.showPromoField = function () {
-	var hearSelect = document.getElementById('hear');
-	var promoField = document.querySelectorAll('.promo-wrap');
-	hearSelect.addEventListener('change', function () {
+	var $hearSelect = $('.howdidyouhearaboutus').find('select');
+	var promoField = $('.contourFieldSet').next('div');
+	promoField.addClass('promo-field').find('input').attr('placeholder', 'Enter Promo Code');
+	$hearSelect.on('change', function () {
 		var selectedOpt = this.options[this.selectedIndex].text;
 		if (selectedOpt === 'Direct Mail' || selectedOpt === 'Print Ad' || selectedOpt === 'Email') {
 			$(promoField).slideDown().addClass('showing');

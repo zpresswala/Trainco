@@ -21,7 +21,6 @@
 	a {
 		display: block;
 		text-align: center;
-		// width: 195px;
 		max-width: 195px;
 		margin: 0 auto;
 	}
@@ -44,7 +43,6 @@
 }
 
 .single-day-description {
-	// padding-left: 20px;
 	@include tablet-portrait-and-up {
 		padding-left: 40px;
 	}
