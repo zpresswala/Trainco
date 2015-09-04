@@ -26,8 +26,12 @@
 
     bool cartPage = false;
     bool checkoutPage = true;
-
-    if (currentPage.DocumentTypeAlias == "SearchSeminars")
+    
+    if (currentPage.DocumentTypeAlias == "HomePage")
+    {
+        cartPage = true;
+    }
+    else if (currentPage.DocumentTypeAlias == "SearchSeminars")
     {
         cartPage = true;
     }
