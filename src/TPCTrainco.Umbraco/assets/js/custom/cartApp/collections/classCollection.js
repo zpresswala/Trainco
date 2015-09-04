@@ -107,7 +107,7 @@ function performSearch(searchParams) {
 				} else {
 					$classLoader.fadeOut(150, function () {
 						if($('.search-page').length) {
-							$emptyMsg.fadeIn(150).text('Displaying results for ' + topics + ' seminars in ' + dataReFormat.location + '.');
+							$emptyMsg.fadeIn(150).text('Displaying the closest matching ' + topics + ' seminars to your selected location of ' + dataReFormat.location + '.');
 						}
 					});
 

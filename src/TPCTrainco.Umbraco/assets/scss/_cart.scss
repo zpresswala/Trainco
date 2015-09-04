@@ -194,7 +194,7 @@
 	font-style: italic;
 	font-weight: 400;
 	@include tablet-portrait-and-up {
-		font-weight: 300;
+		
 	}
 }
 
@@ -339,7 +339,7 @@
 	right: -27px;
 	bottom: 50%;
 	padding: 7px;
-	z-index: 3;
+	z-index: 2;
 	max-width: 185px;
 	text-align: center;
 	@include transition(0.25s);

@@ -12,14 +12,10 @@
 	float: none;
 
 	h3 {
-		font-weight: 300;
 		font-size: 20px;
 		letter-spacing: 0.5px;
 		color: $white;
 		text-align: center;
-		@include tablet-landscape-and-up {
-			font-weight: 100;
-		}
 	}
 
 	ul {
@@ -149,13 +145,23 @@
 		background: url('/assets/images/bg-large.jpg') center top / cover no-repeat;
 	}
 
-	.jumbotron h1 {
-		&:after {
-			right: -15%;
-		}
+	.jumbotron {
+		 h1 {
+			&:after {
+				right: -15%;
+			}
 
-		&:before {
-			left: -15%;
+			&:before {
+				left: -15%;
+			}	
+		}
+		a {
+			color: $white;
+
+			&:hover {
+				border-bottom: 3px solid $white;
+				padding-bottom: 2px;
+			}
 		}
 	}
 
@@ -269,20 +275,13 @@
 	letter-spacing: 0.5px;
 	color: $white;
 	h1 {
-		// font-weight: 100;
-		// @include tablet-landscape-and-up {
-			@include font-headline(38px, $white);
-		// }
+		@include font-headline(38px, $white);
 	}
 	p {
 		max-width: 700px;
 		margin: 0 auto;
 		line-height: 1.7;
 		@include font-headline(16px, $white);
-
-		@include tablet-landscape-and-up {
-			font-weight: 100;
-		}
 	}
 }
 

@@ -10,13 +10,11 @@ app.LocationView = Backbone.View.extend({
         'click .location-icon': 'showClassLocationMsg'
     },
 
-    template: _.template($('#locationTemplate').html()),
-
     initialize: function() {
-        // this.render();
+        this.template = _.template($('#locationTemplate').html());
         var _this = this;
         // setTimeout(function() {
-            _this.render()
+        this.render();
         // }, 2);
 
         // the counter, which enables us to wait until last schedules ajax call

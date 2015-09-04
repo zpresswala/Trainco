@@ -4,16 +4,13 @@ window.app = window.app || {};
 
 app.CartNotifyView = Backbone.View.extend({
 
-    template: _.template($('#cartNotifyTemplate').html()),
-
     events: {
         'click #check-out': 'checkout'
     },
 
     initialize: function() {
+        this.template = _.template($('#cartNotifyTemplate').html());
         this.render();
-
-        // variables
         this.totalCost = this.$('.total-cost');
 
         // event bus

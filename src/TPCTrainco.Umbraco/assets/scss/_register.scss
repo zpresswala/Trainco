@@ -21,6 +21,10 @@
 	}
 }
 
+#BillingDifferent {
+	max-width: 90%;
+}
+
 .indicator {
 	width: 95%;
 	margin: 0 auto;
@@ -55,7 +59,7 @@
 		color: $headline-black;
 		width: 60px;
 		left: -50%;
-		font-weight: 100;
+		font-weight: 400;
 		display: inline-block;
 		bottom: -35px;
 	}
@@ -193,13 +197,15 @@
 }
 
 .billing-opts-wrapper {
-	
+	display: inline-block;
+	margin-bottom: 40px;
+	width: 100%;
 	h2 {
 		margin-bottom: 6px;
 	}
 
 	label {
-		font-weight: 300;
+		
 		position: relative;
 		margin-bottom: 20px;
 	}
@@ -295,6 +301,10 @@ input[type=checkbox]:checked + label:before {
 }
 
 .summary-top {
+	margin-top: 50px;
+	@include med-desktop-and-up {
+		margin-top: 80px;
+	}
 	.step, .line {
 		background-color: $red-button;
 	}
@@ -326,7 +336,7 @@ input[type=checkbox]:checked + label:before {
 		padding: 0;
 	}
 	h2 {
-		font-weight: 300;
+		
 		margin-bottom: 5px;
 		@include tablet-portrait-and-up {
 			margin-top: 0;
@@ -424,5 +434,6 @@ input[type=checkbox]:checked + label:before {
 }
 
 #button-submit {
-	margin-bottom: 60px;
+	margin: 0 auto 10px;
+	display: block;
 }
