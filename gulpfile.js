@@ -27,7 +27,7 @@ var config = {
 
     htmlPath: 'src/TPCTrainco.Umbraco/',
     imgPath: 'src/TPCTrainco.Umbraco/assets/images/*',
-    imgPathDest: 'src/TPCTrainco.Umbraco/img'
+    imgPathDest: 'src/TPCTrainco.Umbraco/images'
 };
 
 // gulp sass task, compiling all bootstrap sass files and our custom sass files
