@@ -1,33 +1,31 @@
-        <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+<tr>
+            <td colspan="3" height="15"></td>
         </tr>
         <tr>
             <td style="width: 70px; text-align: right;" valign="top">
                 Seminar:&nbsp;&nbsp;</td>
             <td colspan="2">
                 <strong>
-                &lt;SEMINAR&gt;</strong></td>
+                {{SEMINAR}}</strong></td>
         </tr>
         <tr>
             <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+                <td colspan="3" height="15"></td>
         </tr>
         <tr>
             <td style="width: 70px; text-align: right; height: 19px;" valign="top">
                 Time:&nbsp;&nbsp;</td>
             <td colspan="2" style="height: 19px">
-                &lt;TIME&gt;</td>
+                {{TIME}}</td>
         </tr>
         <tr>
-            <td colspan="3" style="height: 15px">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" style="height: 15px" height="15"></td>
         </tr>
         <tr>
             <td style="width: 70px; text-align: right;" valign="top">
                 Location:&nbsp;&nbsp;</td>
             <td colspan="2">
-                &lt;LOCATION&gt;</td>
+                {{LOCATION}}</td>
         </tr>
         <tr>
             <td colspan="3">

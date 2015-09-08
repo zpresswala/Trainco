@@ -4,6 +4,14 @@
 {
     var s = Model.MacroParameters["FormGuid"].ToString();
     var g = new Guid(s);
-    
-	Html.RenderAction("Render", "UmbracoForms", new {formId = g});
+
+    try
+    {
+        Html.RenderAction("Render", "UmbracoForms", new { formId = g });
+    }
+    catch (Exception ex)
+    {
+        <p>ERROR: @ex.ToString()</p>
+        <p>ERROR: @ex.InnerException.ToString()</p>
+    }
 }

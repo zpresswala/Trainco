@@ -6,35 +6,32 @@
     <table width="550" border="0" cellpadding="0" cellspacing="0" style="margin-left: 10px; margin-right: 10px">
         <tr>
             <td colspan="3" nowrap="nowrap">
-            <img src="http://www.americantrainco.com/Images/logo.gif" />
-            <img src="http://www.americantrainco.com/Images/r1_01.jpg" /></td>
+				<img src="http://{{DOMAIN}}/images/email/logo-trainco-1x.png" />
+            </td>
         </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
         </tr>
         <tr>
             <td colspan="3" style="text-align: center">
                 <strong>CONFIRMATION</strong></td>
         </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
          </tr>
          <tr>
             <td style="width: 70px; text-align: right; height: 57px;" valign="top">
                 TO:&nbsp;</td>
             <td style="width: 300px; height: 57px;">
-                &lt;NAME&gt;<br />
-                &lt;TITLE&gt;<br />
-                &lt;COMPANY&gt;</td>
+                {{NAME}}<br />
+                {{TITLE}}<br />
+                {{COMPANY}}</td>
              <td style="text-align: right; height: 57px; width: 180px;" valign="top">
-                 &lt;DATE&gt;<br />
-                 Transaction No.: &lt;TRANSNO&gt;</td>
+                 {{DATE}}<br />
+                 Transaction No.: {{TRANSNO}}</td>
        </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
        </tr>
         <tr>
             <td colspan="3" style="text-align: center">
@@ -45,16 +42,14 @@
             </td>
         </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
         </tr>
         <tr>
             <td colspan="3" style="text-align: center">
-                <strong>&lt;NAME&gt;</strong></td>
+                <strong>{{NAME}}</strong></td>
         </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
         </tr>
         <tr>
             <td colspan="3" style="text-align: center">
@@ -63,20 +58,18 @@
                 name is incorrect, please call, fax or email us with the correct name spelling.</td>
         </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
         </tr>
         <tr>
             <td style="width: 70px; text-align: right;" valign="top">
                 Attendee:&nbsp;&nbsp;</td>
             <td colspan="2">
-                &lt;NAME&gt;</td>
+                {{NAME}}</td>
         </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
         </tr>
-&lt;DETAILINFO&gt;
+{{DETAILINFO}}
         <tr>
             <td style="width: 70px; text-align: right;" valign="top">
                 Hotel&nbsp;&nbsp;<br />
@@ -87,8 +80,7 @@
                 rates are based on availability.</td>
         </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
         </tr>
         <tr>
             <td style="width: 70px; text-align: right;" valign="top">
@@ -101,8 +93,7 @@
                 Sincerely, Your Customer Service Staff at American Trainco</td>
         </tr>
         <tr>
-            <td colspan="3">
-                <img src="http://www.americantrainco.com/Images/Blank.gif" height="15" /></td>
+            <td colspan="3" height="15"></td>
         </tr>
 
     </table>

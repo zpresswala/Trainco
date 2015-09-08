@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -21,35 +22,66 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         {
             bool success = false;
 
+            bool debug = false;
+            List<string> debugEmails = null;
             var message = new MailMessage();
 
-            message.From = new MailAddress(this.EmailFrom);
+            message.From = new MailAddress(this.EmailFrom.Trim());
 
-            if (this.EmailToList != null && this.EmailToList.Count > 0)
+            // Check for debug
+            if (ConfigurationManager.AppSettings["Email:DebugSendTo"] != null && ConfigurationManager.AppSettings.Get("DebugSendTo").Length > 0)
             {
-                foreach (string emailTo in this.EmailToList)
+                debugEmails = new List<string>();
+                debugEmails = ConfigurationManager.AppSettings.Get("DebugSendTo").Split(';').ToList();
+
+                foreach (string emailTo in debugEmails)
                 {
-                    message.To.Add(new MailAddress(emailTo));
+                    message.To.Add(new MailAddress(emailTo.Trim()));
+                }
+                debug = true;
+            }
+
+            if (false == debug)
+            {
+                if (this.EmailToList != null && this.EmailToList.Count > 0)
+                {
+                    foreach (string emailTo in this.EmailToList)
+                    {
+                        message.To.Add(new MailAddress(emailTo.Trim()));
+                    }
+                }
+
+                if (this.EmailCCList != null && this.EmailCCList.Count > 0)
+                {
+                    foreach (string emailCC in this.EmailCCList)
+                    {
+                        message.CC.Add(new MailAddress(emailCC.Trim()));
+                    }
+                }
+
+                if (this.EmailBccList != null && this.EmailBccList.Count > 0)
+                {
+                    foreach (string emailBcc in this.EmailBccList)
+                    {
+                        message.Bcc.Add(new MailAddress(emailBcc.Trim()));
+                    }
                 }
             }
 
-            if (this.EmailCCList != null && this.EmailCCList.Count > 0)
+            message.Subject = this.Subject.Trim();
+
+            if (true == debug)
             {
-                foreach (string emailCC in this.EmailCCList)
+                if (true == this.IsBodyHtml)
                 {
-                    message.CC.Add(new MailAddress(emailCC));
+                    this.Body = "<p><em>Email would have been sent to: " + String.Join(", ", this.EmailToList) +"</em></p>\n\r";
+                }
+                else
+                {
+                    this.Body = "Email would have been sent to: " + String.Join(", ", this.EmailToList) + "\n\r\n\r";
                 }
             }
 
-            if (this.EmailBccList != null && this.EmailBccList.Count > 0)
-            {
-                foreach (string emailBcc in this.EmailBccList)
-                {
-                    message.Bcc.Add(new MailAddress(emailBcc));
-                }
-            }
-
-            message.Subject = this.Subject;
             message.Body = this.Body;
             message.IsBodyHtml = this.IsBodyHtml;
 

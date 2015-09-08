@@ -282,7 +282,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 tempCust.reg_ID = tempReg[0].reg_ID;
 
-                decimal feeTotal = tempReg.Sum(p => p.sem_FeeAmt ?? 0);
+                decimal feeTotal = tempReg.Sum(p => (p.sem_FeeAmt ?? 0) * p.sem_Qty ?? 0);
 
                 tempCust.reg_Cost = Convert.ToInt32(feeTotal);
                 tempCust.promoCode = checkoutCust.PromoCode;
@@ -699,6 +699,32 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 body += "Last Name: " + tempCust.authLName + Environment.NewLine;
                 body += "CC Error Code: " + result.ErrorCode + Environment.NewLine;
                 body += "CC Error Text: " + result.ErrorText + Environment.NewLine;
+
+                email.Body = body;
+
+                email.SendEmail();
+            }
+        }
+
+
+        public void SendCheckoutErrorEmail(string emailBody)
+        {
+            List<string> emailToList = null;
+
+            if (ConfigurationManager.AppSettings["LogToEmail:CCError"] != null && ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Length > 0)
+            {
+                emailToList = new List<string>();
+
+                emailToList = ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Split(';').ToList();
+
+                Helpers.Email email = new Email();
+
+                email.EmailFrom = "website@americantrainco.com";
+                email.EmailToList = emailToList;
+                email.Subject = "TPCTrainco.com Registration Error";
+                email.IsBodyHtml = false;
+
+                string body = emailBody;
 
                 email.Body = body;
 

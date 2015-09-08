@@ -65,7 +65,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static void EmailConfirmations(CheckoutDetails checkout, REGISTRATION reg)
+        public static void EmailOrderConfirmations(CheckoutDetails checkout, REGISTRATION reg)
         {
             IEnumerable<IPublishedContent> emailTemplates = null;
 
@@ -75,32 +75,149 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 IPublishedContent emailTemplateOrderConfirm = emailTemplates.Where(p => p.Name == "Order Confirm").FirstOrDefault();
                 IPublishedContent emailTemplateOrderConfirmATI = emailTemplates.Where(p => p.Name == "Order Confirm ATI").FirstOrDefault();
-                IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Confirm Seminar Detail").FirstOrDefault();
-
-
+                IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Seminar Details").FirstOrDefault();
 
                 if (emailTemplateOrderConfirm != null && emailTemplateOrderConfirmATI != null && emailTemplateOrderConfirmDetail != null)
                 {
                     Helpers.Email email = new Helpers.Email();
 
-                    email.EmailFrom = emailTemplateOrderConfirm.GetProperty("emailFrom").Value.ToString();
-                    email.EmailToList = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString().Split(';').ToList();
-                    email.Subject = emailTemplateOrderConfirm.GetProperty("emailSubject").Value.ToString();
                     email.IsBodyHtml = true;
 
+                    string fromOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailFrom").Value.ToString();
                     string emailOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailBody").Value.ToString();
+                    string subjectOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailSubject").Value.ToString();
+                    string toAltOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString();
+
+                    string fromOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailFrom").Value.ToString();
                     string emailOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailBody").Value.ToString();
+                    string subjectOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailSubject").Value.ToString();
+                    string toAltOrderConfirmATI = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString();
+
                     string emailDetailTemplate = emailTemplateOrderConfirmDetail.GetProperty("emailBody").Value.ToString();
 
                     // replace the email tags
                     emailOrderConfirm = ReplaceEmailTags(emailOrderConfirm, checkout, reg);
                     emailOrderConfirmATI = ReplaceEmailTags(emailOrderConfirmATI, checkout, reg);
 
+                    string emailOrderAttendeeDetailsList = "";
+                    bool isCourseCancelling = false;
 
+                    // Loop through attendees
+                    foreach (temp_Reg tempReg in checkout.tempRegList)
+                    {
+                        string attendeeDetails = emailDetailTemplate;
 
-                    //email.Body = body;
+                        SCHEDULE schedule = Objects.CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
+
+                        if (schedule != null && schedule.ScheduleStatus != null && schedule.ScheduleStatus > 0)
+                        {
+                            isCourseCancelling = true;
+                        }
+
+                        temp_Att tempAtt = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).FirstOrDefault();
+
+                        if (tempAtt != null)
+                        {
+                            attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                            attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+                            attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
+
+                            emailOrderAttendeeDetailsList += attendeeDetails;
+                        }
+                    }
+
+                    emailOrderConfirm = emailOrderConfirm.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
+                    emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
+
+                    if (true == isCourseCancelling)
+                    {
+                        string courseCancelling = "<div style=\"font-weight: bold; color: #800000; font-style: italic; text-align: center;\">";
+                        courseCancelling += "** CLASS IS PENDING CANCELLATION **</div>";
+
+                        emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", courseCancelling);
+                    }
+
+                    // Send email to Regsitrar
+                    email.EmailFrom = fromOrderConfirm;
+                    email.EmailToList = reg.RegAuthEmail.Split(';').ToList();
+                    email.Subject = subjectOrderConfirm;
+                    email.Body = emailOrderConfirm;
+
+                    email.SendEmail();
+
+                    // Send to billing email if different
+                    if (reg.RegAuthEmail.Trim().ToLower() != reg.RegBillEmail.Trim().ToLower())
+                    {
+                        email.EmailToList = reg.RegBillEmail.Split(';').ToList();
+
+                        email.SendEmail();
+                    }
+
+                    // Send to Admins
+                    email.EmailFrom = fromOrderConfirmATI;
+                    email.EmailToList = toAltOrderConfirmATI.Split(';').ToList();
+                    email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
+                    email.Body = emailOrderConfirmATI;
+
+                    email.SendEmail();
                 }
+            }
+        }
 
+
+        public static void EmailAttendeeConfirmations(CheckoutDetails checkout, REGISTRATION reg)
+        {
+            StringBuilder authText = new StringBuilder();
+
+            if (checkout != null && reg != null)
+            {
+                IEnumerable<IPublishedContent> emailTemplates = null;
+
+                emailTemplates = Helpers.Nodes.Instance.SiteSettings.Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
+
+                if (emailTemplates != null)
+                {
+                    IPublishedContent emailTemplateAttendeeConfirm = emailTemplates.Where(p => p.Name == "Order Attendee Confirm").FirstOrDefault();
+                    IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Attendee Details").FirstOrDefault();
+
+                    string emailAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailBody").Value.ToString();
+                    string fromtAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailFrom").Value.ToString();
+                    string toAltAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailToAlt").Value.ToString();
+                    string subjectAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailSubject").Value.ToString();
+
+                    string emailDetailTemplate = emailTemplateOrderConfirmDetail.GetProperty("emailBody").Value.ToString();
+
+                    foreach (temp_Att tempAtt in checkout.tempAttList)
+                    {
+                        temp_Reg tempReg = checkout.tempRegList.Where(p => p.reg_SEQ == tempAtt.reg_SEQ).FirstOrDefault();
+                        string attEmailBody = emailAttendeeConfirm;
+
+                        attEmailBody = attEmailBody.Replace("{{NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                        attEmailBody = attEmailBody.Replace("{{TITLE}}", tempAtt.att_Title);
+                        attEmailBody = attEmailBody.Replace("{{COMPANY}}", reg.RegCompanyName);
+                        attEmailBody = attEmailBody.Replace("{{DATE}}", DateTime.Now.ToShortDateString());
+                        attEmailBody = attEmailBody.Replace("{{TRANSNO}}", reg.RegistrationID.ToString());
+                        attEmailBody = attEmailBody.Replace("{{DETAILINFO}}", GenerateSeminarDetails(emailDetailTemplate, tempReg));
+
+                        // Send Email to Attendee
+                        Helpers.Email email = new Helpers.Email();
+
+                        email.EmailFrom = fromtAttendeeConfirm;
+                        email.Subject = subjectAttendeeConfirm;
+                        email.Body = attEmailBody;
+                        email.IsBodyHtml = true;
+                        email.EmailToList = tempAtt.att_Email.Split(';').ToList();
+
+                        email.SendEmail();
+
+                        // Send email to Admins
+
+                        email.EmailToList = null;
+                        email.EmailToList = toAltAttendeeConfirm.Split(';').ToList();
+
+                        email.SendEmail();
+                    }
+                }
             }
         }
 
@@ -121,6 +238,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             string paymentInfo = GeneratePaymentDetails(checkout, reg);
             output = output.Replace("{{PAYMENTINFO}}", paymentInfo);
+
+            output = output.Replace("{{ORDER_TOTAL}}", String.Format("{0:C0}", reg.RegOrderTotal ?? 0));
+
+            output = output.Replace("{{XXMSG}}", String.Format("{0:C0}", reg.RegOrderTotal ?? 0));
+
+            
 
             return output;
         }
@@ -243,6 +366,77 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return paymentText.ToString();
         }
 
+
+
+        private static string GenerateOrderDetails(CheckoutDetails checkout, REGISTRATION reg)
+        {
+            StringBuilder detailsText = new StringBuilder();
+
+            if (checkout != null && reg != null)
+            {
+                foreach (temp_Reg tempReg in checkout.tempRegList)
+                {
+
+                }
+            }
+
+
+            return detailsText.ToString();
+        }
+
+
+        private static string GenerateSeminarDetailsList(string emailTemplate, CheckoutDetails checkout)
+        {
+            StringBuilder detailsText = new StringBuilder();
+
+            if (checkout != null && checkout.tempCust != null)
+            {
+                foreach (temp_Reg tempReg in checkout.tempRegList)
+                {
+                    detailsText.AppendLine(GenerateSeminarDetails(emailTemplate, tempReg));
+                }
+            }
+
+
+            return detailsText.ToString();
+        }
+
+
+        private static string GenerateSeminarDetails(string emailTemplate, temp_Reg tempReg)
+        {
+            StringBuilder detailsText = new StringBuilder();
+
+            if (tempReg != null)
+            {
+                SCHEDULE schedule = Objects.CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).First();
+                ScheduleCourseInstructor schCourse = Objects.CacheObjects.GetScheduleCourseList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
+                Location location = Objects.CacheObjects.GetLocationList().Where(p => p.LocationID == schedule.LocationID).FirstOrDefault();
+                COURS course = Objects.CacheObjects.GetCourseList().Where(p => p.CourseID == schCourse.CourseID).FirstOrDefault();
+
+                string tempStr = emailTemplate;
+
+                tempStr = tempStr.Replace("{{SEMINAR}}", tempReg.sem_SID + ": " + tempReg.sem_Title + " - " + tempReg.sem_Place + " " + tempReg.sem_FeeName);
+                tempStr = tempStr.Replace("{{TIME}}", course.CourseTimes);
+                tempStr = tempStr.Replace("{{LOCATION}}", FixLocationNotes(location.LocationNotes));
+
+                detailsText.AppendLine(tempStr);
+            }
+
+
+            return detailsText.ToString();
+        }
+
+
+        private static string FixLocationNotes(string locationNotes)
+        {
+            string output = locationNotes;
+
+            output = output.Replace("</ul>", "</ul><br />" + Environment.NewLine);
+            output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
+            output = output.Replace("\"", "&quot;");
+
+            return output;
+        }
     }
 }
 
