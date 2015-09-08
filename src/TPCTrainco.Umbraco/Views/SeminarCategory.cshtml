@@ -16,9 +16,8 @@
     string subAnchorText = subMenuText.ToUrlSegment();
 }
 
-<!-- same as detail page -->
 <div class="container-fluid headline-section campaign">
-    <div class="row">
+    <div class="container">
         <div class="jumbotron">
             <h1>@(currentPage.GetPropertyValue<string>("pageTitle", currentPage.Name))</h1>
         </div>
@@ -29,7 +28,6 @@
             <div class="col-xs-8 col-xs-offset-2 col-md-4 second-btn">
                 <a href="#form-contact" class="btn-reg btn-white" role="button">Contact Us</a>
             </div>
-
         </div>
     </div>
 </div>

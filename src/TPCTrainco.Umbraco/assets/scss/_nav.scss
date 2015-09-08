@@ -129,10 +129,15 @@
     }
 }
 
-.navbar-brand img {
-    margin-top: -11px;
-    @include tablet-landscape-and-up {
-        margin-top: 3px;
+.navbar-brand {
+    @include tablet-portrait-and-up {
+        padding: 14.5px 6px 14.5px 15px;
+    }
+    img {
+        margin-top: -11px;
+        @include tablet-landscape-and-up {
+            margin-top: 3px;
+        }
     }
 }
 
