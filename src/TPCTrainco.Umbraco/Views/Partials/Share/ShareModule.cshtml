@@ -1,11 +1,17 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
 @{
-    
-    
+
+
     string shareFacebook = "https://www.facebook.com/sharer/sharer.php?u=" + Server.UrlEncode(Model.UrlWithDomain());
     string shareTwitter = "https://twitter.com/home?status=" + Server.UrlEncode(Model.Name + " - TPC Trainco " + Model.UrlWithDomain());
     string shareLinkedIn = "https://www.linkedin.com/shareArticle?mini=true&url=" + Server.UrlEncode(Model.UrlWithDomain())
             + "&title=" + Server.UrlEncode(Model.Name + " - TPC Trainco") + "&summary=&source=";
+
+    string shareMailto = "?subject=" + Server.UrlEncode("Upcoming Training Seminar with TPC Trainco").Replace("+", "%20");
+    shareMailto += "&body=" + Server.UrlEncode("Check out TPC Trainco's upcoming seminar for " + Model.Name).Replace("+", "%20");
+    shareMailto += Server.UrlEncode(": " + Model.UrlWithDomain() + ".").Replace("+", "%20");
+
+
 }
 <div class="share-btn-wrap">
     <a href="javascript:void(0);" class="btn-reg btn-blue-solid btn-share" data-toggle="popover" data-placement="bottom" data-content='<ul class="social">
@@ -49,8 +55,8 @@
     s-41.689-109.131-99.934-109.131s-82.768,45.369-82.768,45.369V187.333z" />
 
     </svg>
-    </a></li>
-    <li><a href="" class="regular-link"><img src="/images/icon-email.png" class="social-email" alt="Email this page"/></a></li>
+</a></li>
+    <li><a href="mailto:@Html.Raw(shareMailto)"><img src="/images/icon-email.png" class="social-email" alt="Email this page"/></a></li>
 </ul>'>Share</a>
 </div>
 <!-- end -->

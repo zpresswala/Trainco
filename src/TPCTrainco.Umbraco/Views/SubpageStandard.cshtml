@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-wrap">
-                <h2>@(currentPage.GetPropertyValue<string>("pageTitle", ""))</h2>
+                <h2>@(currentPage.GetPropertyValue<string>("pageTitle", currentPage.Name))</h2>
                 @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))
             </div>
         </div>

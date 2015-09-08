@@ -134,7 +134,7 @@ gulp.task('default', ['sass', 'js', 'webserver', 'watch']);
 
 gulp.task('build', ['sass', 'js', 'webserver', 'watch']);
 
-gulp.task('assets:all', ['sass', 'js', 'js:vendor', 'js:cartapp']);
+gulp.task('assets:all', ['sass', 'js', 'js:vendor', 'js:cartapp', 'img-opt']);
 
 // run 'gulp smush' to minify images
 gulp.task('img-opt', function() {
