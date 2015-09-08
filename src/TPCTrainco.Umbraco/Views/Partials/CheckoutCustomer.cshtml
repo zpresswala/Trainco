@@ -1,4 +1,7 @@
 ﻿@model TPCTrainco.Umbraco.Extensions.Models.CheckoutCustomer
+@{
+    IPublishedContent currentNode = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
+}
 
 @if (Request.QueryString["error"] != null && Request.QueryString.Get("error").Length > 0)
 {
@@ -17,7 +20,7 @@
             <div class="container">
                 <div class="row">
                     <h2 class="col-xs-12">Company Information</h2>
-                    
+
                     <div class="form-group col-xs-12 col-sm-6 col-md-6">
                         @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control", placeholder = "First Name (Authorizing Supervisor)" })
                         @Html.ValidationMessageFor(p => p.FirstName)
@@ -88,7 +91,7 @@
                         @Html.TextBoxFor(p => p.HearAboutOther, new { @class = "form-control", placeholder = "Brief description" })
                         @Html.ValidationMessageFor(p => p.HearAboutOther)
                     </div>
-                    
+
                     <div class="billing-opts-wrapper">
                         <div class="col-xs-12">
                             <h2>Billing Information</h2>
@@ -142,7 +145,6 @@
                             @Html.DropDownListFor(p => p.PaymentType, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.PaymentTypeList(), new { @class = "form-control" })
                             @Html.ValidationMessageFor(p => p.PaymentType)
                         </div>
-                        @*<div class="col-xs-12 col-md-8 billing-info-desc">@CurrentPage.invoice</div>*@
 
                         <!-- start credit card info -->
                         <div class="cc-info">
@@ -168,8 +170,15 @@
                             </div>
                         </div>
 
+                        @if (true == currentNode.HasValue("invoice"))
+                        {
+                            <div class="col-xs-12 invoice-info">
+                                <p>@(currentNode.GetPropertyValue<string>("invoice"))</p>
+                            </div>
+                        }
+
                         <div class="invoice-info">
-                            <div class="form-group col-xs-12 col-sm-12">
+                            <div class="form-group col-xs-12">
                                 @Html.TextBoxFor(p => p.PONumber, new { @class = "form-control", placeholder = "PO Number" })
                                 @Html.ValidationMessageFor(p => p.PONumber)
                             </div>
@@ -181,7 +190,7 @@
                     </div>
 
                     <button id="button-submit" type="submit" class="btn-reg btn-blue-solid next-btn">Next</button>
-                    
+
                 </div>
             </div>
 

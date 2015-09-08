@@ -376,7 +376,8 @@
   "disableDefaultStylesheet": false,
   "useClientDependency": false,
   "workflows": [
-    "6f7de2c2-92c6-495e-a24b-67707da65c3e"
+    "6f7de2c2-92c6-495e-a24b-67707da65c3e",
+    "3b6d426f-cd47-478c-ab0e-c2c9068fbd98"
   ],
   "datasource": null,
   "submitLabel": "Submit",

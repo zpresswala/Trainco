@@ -6,6 +6,7 @@ using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
@@ -22,15 +23,20 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             CoordinateDetails coordinateDetails = null;
             GeoLocationLookup geoLocation = null;
 
-            using (var objClient = new System.Net.WebClient())
+            using (var objClient = new WebDownload())
             {
                 string json = null;
 
+                objClient.Timeout = 5000;
+
                 try
                 {
-                    json = objClient.DownloadString("http://freegeoip.net/json/" + ipAddress);
+                    if (ipAddress != "::1")
+                    {
+                        json = objClient.DownloadString("http://freegeoip.net/json/" + ipAddress);
 
-                    geoLocation = JsonConvert.DeserializeObject<GeoLocationLookup>(json);
+                        geoLocation = JsonConvert.DeserializeObject<GeoLocationLookup>(json);
+                    }
                 }
                 catch { }
             }

@@ -37,15 +37,15 @@
             <!-- location select -->
             <div class="location-select-wrap">
                 <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="">
+                    @if (false == string.IsNullOrEmpty(currentCityState))
+                    {
+                        <option value="@(currentCityState)">@currentCityState</option>
+                    }
+
+                    <option value="all">Search all locations</option>
+
                     @foreach (State state in stateList)
                     {
-                        if (false == string.IsNullOrEmpty(currentCityState))
-                        {
-                            <option value="@(currentCityState)">@currentCityState</option>
-                        }
-
-                        <option value="all">Search all locations</option>
-
                         List<City> cityListByState = cityList.Where(p => p.StateID == state.StateID).OrderBy(s => s.CityName).ToList();
 
                         if (cityListByState.Count > 0)

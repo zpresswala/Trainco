@@ -67,20 +67,41 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         {
             List<string> phoneArray = null;
 
-            string phoneTemp = Regex.Replace(phone, @"[\(\)\- ]", "");
-
-            if (phoneTemp.Length == 10)
+            if (false == string.IsNullOrWhiteSpace(phone))
             {
-                phoneArray = new List<string>();
+                string phoneTemp = Regex.Replace(phone, @"[\(\)\- ]", "");
 
-                phoneArray.Add(phoneTemp.Substring(0, 3));
-                phoneArray.Add(phoneTemp.Substring(3, 3));
-                phoneArray.Add(phoneTemp.Substring(6, 4));
+                if (phoneTemp.Length == 10)
+                {
+                    phoneArray = new List<string>();
+
+                    phoneArray.Add(phoneTemp.Substring(0, 3));
+                    phoneArray.Add(phoneTemp.Substring(3, 3));
+                    phoneArray.Add(phoneTemp.Substring(6, 4));
+                }
             }
 
             return phoneArray;
         }
 
+
+        public static string FormatPhoneNumber(string phone)
+        {
+            string formattedPhone = phone;
+
+            if (false == string.IsNullOrWhiteSpace(formattedPhone))
+            {
+                string phoneTemp = Regex.Replace(phone, @"[\(\)\- ]", "");
+
+                if (phoneTemp.Length == 10)
+                {
+                    formattedPhone = "(" + phoneTemp.Substring(0, 3) + ") ";
+                    formattedPhone += phoneTemp.Substring(3, 3) + "-" + phoneTemp.Substring(6, 4);
+                }
+            }
+
+            return formattedPhone;
+        }
 
 
         public static string CreditCardType(string creditCard)

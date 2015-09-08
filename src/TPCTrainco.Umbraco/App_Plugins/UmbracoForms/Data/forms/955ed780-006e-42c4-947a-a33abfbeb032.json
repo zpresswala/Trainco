@@ -246,7 +246,13 @@
                   "regex": null,
                   "requiredErrorMessage": null,
                   "invalidErrorMessage": null,
-                  "condition": null,
+                  "condition": {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "enabled": false,
+                    "actionType": "Show",
+                    "logicType": "All",
+                    "rules": []
+                  },
                   "settings": {
                     "DefaultValue": ""
                   },
@@ -259,6 +265,45 @@
                     "Trade Show",
                     "Other"
                   ]
+                },
+                {
+                  "caption": "Promo Code",
+                  "tooltip": null,
+                  "placeholder": null,
+                  "cssClass": null,
+                  "alias": "promoCode",
+                  "id": "7e11e6fb-72f9-4605-c1d7-3f021ff6374f",
+                  "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
+                  "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
+                  "dataSourceFieldKey": null,
+                  "mandatory": false,
+                  "regex": null,
+                  "requiredErrorMessage": null,
+                  "invalidErrorMessage": null,
+                  "condition": {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "enabled": true,
+                    "actionType": "Show",
+                    "logicType": "Any",
+                    "rules": [
+                      {
+                        "id": "00000000-0000-0000-0000-000000000000",
+                        "field": "ee554504-6ee3-4f71-ec58-d72f562e2f7b",
+                        "operator": "Is",
+                        "value": "Direct Mail"
+                      },
+                      {
+                        "id": "00000000-0000-0000-0000-000000000000",
+                        "field": "ee554504-6ee3-4f71-ec58-d72f562e2f7b",
+                        "operator": "Is",
+                        "value": "Print Ad"
+                      }
+                    ]
+                  },
+                  "settings": {
+                    "DefaultValue": ""
+                  },
+                  "preValues": []
                 }
               ]
             }
@@ -284,11 +329,12 @@
   "xPathOnSubmit": null,
   "manualApproval": false,
   "storeRecordsLocally": true,
-  "cssClass": null,
+  "cssClass": "form-standard",
   "disableDefaultStylesheet": false,
   "useClientDependency": false,
   "workflows": [
-    "bf255ea6-239b-4a3e-be34-9cde704514c0"
+    "e0fba3ab-bd2c-40d1-b4d6-123c5671d8e7",
+    "ebeb80f6-8ddc-4ccd-b2ee-de88f776d91c"
   ],
   "datasource": null,
   "submitLabel": "Submit",

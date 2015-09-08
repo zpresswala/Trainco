@@ -1,4 +1,5 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
@@ -8,6 +9,23 @@
     IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
     var dynamicPromo = Umbraco.Content(onsitePromo.Id);
     var seminarContainer = CurrentPage.AncestorOrSelf(2);
+    int courseId = 0;
+    COURS course = null;
+    CourseFormat courseFormat = null;
+
+    //if (currentPage.HasValue("courseLink"))
+    //{
+    //    courseId = currentPage.GetPropertyValue<int>("courseLink");
+
+    //    course = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseList().Where(p => p.CourseID == courseId).FirstOrDefault();
+        
+    //    if (course != null)
+    //    {
+    //        courseFormat = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseFormatList().Where(p => p.CourseFormatID == course.CourseFormatID).FirstOrDefault();
+    //    }
+    //}
+
+
 }
 
 <div class="container-fluid headline-section seminar-detail">
@@ -64,6 +82,23 @@
                     @CurrentPage.seminarOverview
                 </div>
             }
+
+            @if (course != null && courseFormat != null)
+            {
+                string format = courseFormat.CourseFormatName.ToLower();
+                
+                if (format.IndexOf("both") >= 0)
+                {
+                    format = "two days";
+                }
+                
+                <h2>This seminar is just @String.Format("{0:C0}", course.CourseFee) for @(format).</h2>
+            }
+            else if (currentPage.HasValue("lengthPriceInfo"))
+            {
+                <h2>@(currentPage.GetPropertyValue<string>("lengthPriceInfo"))</h2>
+            }
+
 
             @if (CurrentPage.HasValue("day1Copy"))
             {
