@@ -27,7 +27,7 @@ var config = {
 
     htmlPath: 'src/TPCTrainco.Umbraco/',
     imgPath: 'src/TPCTrainco.Umbraco/assets/images/*',
-    imgPathDest: 'src/TPCTrainco.Umbraco/img'
+    imgPathDest: 'src/TPCTrainco.Umbraco/images'
 };
 
 // gulp sass task, compiling all bootstrap sass files and our custom sass files
@@ -134,7 +134,7 @@ gulp.task('default', ['sass', 'js', 'webserver', 'watch']);
 
 gulp.task('build', ['sass', 'js', 'webserver', 'watch']);
 
-gulp.task('assets:all', ['sass', 'js', 'js:vendor', 'js:cartapp']);
+gulp.task('assets:all', ['sass', 'js', 'js:vendor', 'js:cartapp', 'img-opt']);
 
 // run 'gulp smush' to minify images
 gulp.task('img-opt', function() {
