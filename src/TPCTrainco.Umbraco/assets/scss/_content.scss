@@ -1,7 +1,7 @@
 .headline-section {
-	background: url('/assets/images/content-pg-header-small.jpg') center top / cover no-repeat;
+	background: url('/images/content-pg-header-small.jpg') center top / cover no-repeat;
 	@include tablet-landscape-and-up {
-		background: url('/assets/images/content-pg-header-large.jpg') center top / cover no-repeat;
+		background: url('/images/content-pg-header-large.jpg') center top / cover no-repeat;
 	}
 
 	.jumbotron {
