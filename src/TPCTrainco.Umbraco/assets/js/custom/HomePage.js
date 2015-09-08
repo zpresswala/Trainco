@@ -8,13 +8,13 @@ function HomePage() {
 
 HomePage.prototype.showActiveSelection = function() {
 	if(Modernizr.touch) {
-		this.$overlay.on('touchstart', function() { 
+		this.$overlay.on('touchstart', function() {
 		    var $this = $(this);
 		    if($this.hasClass('chosen')) {
-		    	$this.removeClass('chosen');
+		    	$this.removeClass('chosen').addClass('touch');
 		    }
 		 	else {
-		 		$this.addClass('chosen');
+		 		$this.addClass('chosen').removeClass('touch');
 		 	}
 		});
 	} else {
