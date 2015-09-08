@@ -444,6 +444,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 checkoutCust.CCName = tempCust.ccName;
 
+                checkoutCust.PONumber = tempCust.poNo;
+
                 DateTime dtExpire = DateTime.Parse(tempCust.ccMonth + "/" + tempCust.ccYear);
                 checkoutCust.CCExpiration = dtExpire.ToString("MM/yy");
                 checkoutCust.CVVCode = tempCust.ccCVC;

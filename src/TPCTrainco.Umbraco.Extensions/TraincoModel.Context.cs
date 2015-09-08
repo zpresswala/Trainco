@@ -60,6 +60,7 @@ namespace TPCTrainco.Umbraco.Extensions
         public virtual DbSet<temp_Reg> temp_Reg { get; set; }
         public virtual DbSet<CC_Log> CC_Log { get; set; }
         public virtual DbSet<REGISTRATION> REGISTRATIONS { get; set; }
+        public virtual DbSet<WebSignup> WebSignups { get; set; }
     
         public virtual ObjectResult<Nullable<int>> add_Registration(Nullable<int> cartID)
         {

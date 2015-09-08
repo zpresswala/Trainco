@@ -3,7 +3,6 @@
 function CheckoutCustomer() {
 	this.$differentInfo = $('#supervisor-diff');
 	this.$differentInfoFields = $('.hidden-different-check');
-	this.$billingInfoText = $('.billing-info-desc');
 	this.$billingOptsSelect = $('#PaymentType');
 	this.$ccInfo = $('.cc-info');
 	this.$invoiceInfo = $('.invoice-info');
@@ -20,7 +19,6 @@ function CheckoutCustomer() {
 
 	if ($("#BillFirstName").val()) {
 		this.$differentInfoFields.slideDown('fast');
-		this.$billingInfoText.addClass('hidden');
 		this.$billingDifferent.val('true');
 	}
 
@@ -28,12 +26,10 @@ function CheckoutCustomer() {
 	if (selectedOption === 'credit') {
 		this.$ccInfo.show();
 		this.$invoiceInfo.hide();
-		this.$billingInfoText.addClass('hidden');
 	}
 	else if (selectedOption === 'invoice') {
 		this.$ccInfo.hide();
 		this.$invoiceInfo.show();
-		this.$billingInfoText.addClass('hidden');
 	}
 
 	this.$promoWrap.hide();
@@ -60,12 +56,10 @@ CheckoutCustomer.prototype.showOtherInfo = function () {
 	_this.$differentInfo.on('change', function () {
 		if ($(this).is(':checked')) {
 			_this.$differentInfoFields.slideDown('fast');
-			_this.$billingInfoText.addClass('hidden');
 			_this.$billingDifferent.val('true');
 
 		} else {
 			_this.$differentInfoFields.slideUp('fast');
-			_this.$billingInfoText.removeClass('hidden');
 			_this.$billingDifferent.val('false');
 		}
 	});
@@ -97,14 +91,17 @@ CheckoutCustomer.prototype.billingOptions = function () {
 	_this.$billingOptsSelect.on('change', function () {
 		var selectedOption = $('#PaymentType').val();
 		if (selectedOption === 'credit') {
-
+			_this.$invoiceInfo.hide();
 			_this.$ccInfo.slideDown('fast');
-			_this.$billingInfoText.addClass('hidden');
-
-		} else {
+		}
+		else if (selectedOption === 'invoice') {
+			_this.$ccInfo.hide();
+			_this.$invoiceInfo.slideDown('fast');
+		}
+		else {
 			// enable next button if invoice is chosen
 			_this.$ccInfo.slideUp('fast');
-			_this.$billingInfoText.removeClass('hidden');
+			_this.$invoiceInfo.slideUp('fast');
 		}
 	});
 

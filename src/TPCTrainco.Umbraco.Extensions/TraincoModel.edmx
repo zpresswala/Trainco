@@ -585,6 +585,38 @@ warning 6002: The table/view 'ATI_Development.dbo.temp_ViewStates' does not have
           <Property Name="cart_DateTime" Type="datetime" Nullable="false" />
           <Property Name="cart_VS" Type="nchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="WebSignups">
+          <Key>
+            <PropertyRef Name="rcd_SEQ" />
+          </Key>
+          <Property Name="rcd_SEQ" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rcd_Date" Type="datetime" />
+          <Property Name="Referrer" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="255" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
+          <Property Name="Address1" Type="varchar" MaxLength="255" />
+          <Property Name="Address2" Type="varchar" MaxLength="255" />
+          <Property Name="City" Type="varchar" MaxLength="255" />
+          <Property Name="State" Type="varchar" MaxLength="255" />
+          <Property Name="Zipcode" Type="varchar" MaxLength="255" />
+          <Property Name="Country" Type="varchar" MaxLength="255" />
+          <Property Name="Phone" Type="varchar" MaxLength="255" />
+          <Property Name="PhoneExtn" Type="varchar" MaxLength="255" />
+          <Property Name="Fax" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Interest" Type="text" />
+          <Property Name="PromoCode" Type="varchar" MaxLength="255" />
+          <Property Name="PromoType" Type="varchar" MaxLength="255" />
+          <Property Name="PromoDesc" Type="varchar" MaxLength="255" />
+          <Property Name="PreferredContact" Type="varchar" MaxLength="255" />
+          <Property Name="OptIN" Type="smallint" />
+          <Property Name="Posted" Type="int" />
+          <Property Name="find_CoNo" Type="int" />
+          <Property Name="find_CoText" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="ZipLookup">
           <Key>
             <PropertyRef Name="Seq" />
@@ -827,6 +859,7 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <EntitySet Name="temp_Cust" EntityType="Self.temp_Cust" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="temp_Errors" EntityType="Self.temp_Errors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="temp_Reg" EntityType="Self.temp_Reg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebSignups" EntityType="Self.WebSignups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZipLookup" EntityType="Self.ZipLookup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INSTRUCTORS" EntityType="Self.INSTRUCTORS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1495,6 +1528,7 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <EntitySet Name="temp_Reg" EntityType="TraincoModel.temp_Reg" />
           <EntitySet Name="CC_Log" EntityType="TraincoModel.CC_Log" />
           <EntitySet Name="REGISTRATIONS" EntityType="TraincoModel.REGISTRATION" />
+          <EntitySet Name="WebSignups" EntityType="TraincoModel.WebSignup" />
         </EntityContainer>
         <EntityType Name="ScheduleCourseInstructor">
           <Key>
@@ -1788,6 +1822,38 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
           <Property Name="PastCustomer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="RegPaidTotal" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="RegBalanceDue" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="WebSignup">
+          <Key>
+            <PropertyRef Name="rcd_SEQ" />
+          </Key>
+          <Property Name="rcd_SEQ" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rcd_Date" Type="DateTime" Precision="3" />
+          <Property Name="Referrer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Zipcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneExtn" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Interest" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PromoCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PromoType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PromoDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PreferredContact" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OptIN" Type="Int16" />
+          <Property Name="Posted" Type="Int32" />
+          <Property Name="find_CoNo" Type="Int32" />
+          <Property Name="find_CoText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2493,6 +2559,39 @@ warning 6002: The table/view 'ATI_Development.dbo.ShoppingCarts' does not have a
                 <ScalarProperty Name="RegPromoType" ColumnName="RegPromoType" />
                 <ScalarProperty Name="RegPromoCode" ColumnName="RegPromoCode" />
                 <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebSignups">
+            <EntityTypeMapping TypeName="TraincoModel.WebSignup">
+              <MappingFragment StoreEntitySet="WebSignups">
+                <ScalarProperty Name="find_CoText" ColumnName="find_CoText" />
+                <ScalarProperty Name="find_CoNo" ColumnName="find_CoNo" />
+                <ScalarProperty Name="Posted" ColumnName="Posted" />
+                <ScalarProperty Name="OptIN" ColumnName="OptIN" />
+                <ScalarProperty Name="PreferredContact" ColumnName="PreferredContact" />
+                <ScalarProperty Name="PromoDesc" ColumnName="PromoDesc" />
+                <ScalarProperty Name="PromoType" ColumnName="PromoType" />
+                <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="PhoneExtn" ColumnName="PhoneExtn" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Referrer" ColumnName="Referrer" />
+                <ScalarProperty Name="rcd_Date" ColumnName="rcd_Date" />
+                <ScalarProperty Name="rcd_SEQ" ColumnName="rcd_SEQ" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
