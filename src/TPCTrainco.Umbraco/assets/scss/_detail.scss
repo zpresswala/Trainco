@@ -60,7 +60,9 @@
 }
 
 .secondary-search {
-	padding: 0;
+	border-top: 1px solid $cart-border;
+	padding-top: 40px;
+	margin-top: 10px;
 	@include med-desktop-and-up {
 		padding-left: 15px;
 		padding-right: 15px;

@@ -17,7 +17,7 @@ function TPCApp() {
 	this.homePage = new HomePage();
 
 	if ($('#main-search').length) {
-		// if (app.mainSearchSelect == undefined)
+		if (app.mainSearchSelect == undefined)
 			app.mainSearchSelect = new MainSearchSelect();
 	}
 

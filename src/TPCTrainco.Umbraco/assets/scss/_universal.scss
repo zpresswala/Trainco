@@ -153,7 +153,7 @@ button {
 }
 
 .popover.bottom {
-	width: 180px;
+	width: 210px;
 	left: -35px;
 	margin-top: 18px;
 }
@@ -178,10 +178,16 @@ button {
 			fill: $blue;
 		} 
 	}
-	.regular-link svg, img {
+	.regular-link svg {
 		width: 30px;
 		height: 30px;
 	}
+}
+
+.social-email {
+	float: right;
+	margin-top: 3px;
+	margin-right: 5px;
 }
 
 // offwhite sections have the slightly gray background color
