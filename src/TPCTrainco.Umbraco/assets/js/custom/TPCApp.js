@@ -39,9 +39,9 @@ function TPCApp() {
 		});
 	}
 
-	if ($('.caro-form-container').length) {
-		this.onSiteForm = new OnSiteForm();
-	}
+	// if ($('.form-standard').length) {
+	// 	this.onSiteForm = new OnSiteForm();
+	// }
 
 	// register
 	if ($('.contact').length) {
@@ -83,24 +83,33 @@ function TPCApp() {
 	this.animateCart(isRetina);
 	this.retinaLogos(isRetina);
 
-	this.$aHref.not('.add-to-cart').on('click', function() {
-		_this.clickScrollTo();
-	});
-
+	_this.clickScrollTo();
 
 	if (window.location.hash || $('.detail-page-app').length) {
-		if (app.mainSearchSelect == undefined)
-			app.mainSearchSelect = new MainSearchSelect();
+		
+		// if one clicks "browse courses", go to that page and scroll to hash
+		if($('.course-section').length) {
+			var hash = window.location.hash;
+			_this.$page.animate({
+				scrollTop: $(hash).offset().top - 140
+			}, 300);
 
-		var searchParams;
-		if (window.location.hash) {
-			searchParams = app.mainSearchSelect.getHashSearchParams();
-		}
-		else {
-			searchParams = app.mainSearchSelect.getSearchParams();
-		}
+			// this is all the search stuff.
+		} else {
+			if (app.mainSearchSelect == undefined) {
+				app.mainSearchSelect = new MainSearchSelect();
+			}
 
-		performSearch(searchParams);
+			var searchParams;
+			if (window.location.hash) {
+				searchParams = app.mainSearchSelect.getHashSearchParams();
+			}
+			else {
+				searchParams = app.mainSearchSelect.getSearchParams();
+			}
+
+			performSearch(searchParams);
+		}
 	}
 
 
@@ -127,6 +136,7 @@ function TPCApp() {
     // if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
     //    $('.select2-search--inline').trigger('click');
     // }
+
 }
 
 TPCApp.prototype.bindScroll = function () {
@@ -185,31 +195,12 @@ TPCApp.prototype.animateCart = function (retinaScreen) {
 TPCApp.prototype.clickScrollTo = function () {
 	var _this = this;
 	var offsetAmount = 140;
-
-	// click scroll to and jump to different page
-	var jump = function(e) {
-	  	if (e) {
-	       e.preventDefault();
-	       var target = $($.attr(this, 'href'));
-	   	} else {
-	       var target = location.hash;
-	   	}
-
-	  	_this.$page.animate({
-	    	scrollTop: $(target).offset().top - offsetAmount
-	   	}, 300 ,function() {
-	       	location.hash = target;
-	   	});
-	}
-
-	if (location.hash){
-	    setTimeout(function(){
-	        _this.$page.scrollTop(0);
-	        jump();
-	    }, 0);
-	}
-
-	this.$aHref.on('click', jump);
+	this.$aHref.on('click', function (e) {
+		e.preventDefault();
+		_this.$page.animate({
+			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
+		}, 300);
+	});
 };
 
 TPCApp.prototype.retinaLogos = function(retinaScreen) {

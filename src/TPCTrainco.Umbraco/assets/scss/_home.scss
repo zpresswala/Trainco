@@ -62,6 +62,14 @@
 		@include transform(scale(1.01, 1.01));
 	}
 
+	&.touch > .overlay {
+		background-color: transparent !important;
+
+		&:after {
+			content: ' ';
+		}
+	}
+
 	// on click, chosen class is added, different color than the hover state
 	&.chosen > .overlay {
 		background-color: $red-button-hover; //ie8 fallback
@@ -88,7 +96,6 @@
 		@include transition(all 0.3s ease-in-out);
 
 		&:after {
-			// content: url('/assets/images/svg/checkmark.svg');
 			content: url('/assets/images/icon-checkmark.png');
 			position: relative;
 			top: 50%;
