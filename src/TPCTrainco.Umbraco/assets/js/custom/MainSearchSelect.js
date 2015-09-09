@@ -39,7 +39,7 @@ MainSearchSelect.prototype.getSearchParams = function () {
 	if (searchLocationVal == null) {
 		$('.empty-location-msg').fadeIn(150).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1).delay(200).fadeTo(150, 0.5).delay(150).fadeTo(150, 1);
 		$('.class-loader').fadeOut(150);
-		return false;
+		return;
 	} else {
 		var location = $('#main-search').select2('val').toString();
 		$('.empty-location-msg').fadeOut(150);
