@@ -12,9 +12,9 @@ app.ClassCollection = Backbone.Collection.extend({
 app.globalCollection = new app.ClassCollection;
 		  
 // check the hash to see if there is data there. (only on page load)
-$(document).ready(function () {
+// $(document).ready(function () {
 	// moved to TPCApp.js
-});
+// });
 
 // search button click
 $('#search-btn').on('click', function () {

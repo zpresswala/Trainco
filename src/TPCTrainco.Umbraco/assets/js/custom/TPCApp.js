@@ -105,8 +105,6 @@ function TPCApp() {
 		}
 
 		if(hash) {
-			console.log('only if hash');
-			console.log(performSearch, searchParams)
 			performSearch(searchParams);
 		} else {
 			$('.empty-location-msg').hide();
@@ -223,7 +221,6 @@ TPCApp.prototype.retinaLogos = function(retinaScreen) {
 };
 
 TPCApp.prototype.addClassToFormBtn = function() {
-	console.log('btn add class')
 	$('.form-standard').find('.btn').addClass('btn-reg').addClass('btn-blue-solid');
 };
 
