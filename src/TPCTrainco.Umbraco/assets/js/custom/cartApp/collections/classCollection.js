@@ -16,8 +16,9 @@ app.globalCollection = new app.ClassCollection;
 	// moved to TPCApp.js
 // });
 
-// search button click
-$('#search-btn').on('click', function () {
+// search button click or enter keypress to activate a search
+var performSearchCallback = function() {
+	console.log('callback')
 	app.globalCollection.reset();
 	app.locationCollection.reset();
 	app.scheduleCollection.reset();
@@ -30,13 +31,19 @@ $('#search-btn').on('click', function () {
 		$('.empty-location-msg').show();
 		$('.class-loader').hide();
 	}
+};
+
+// activate the search on click or enter keypress
+$('#search-btn').on('click', performSearchCallback);
+$(document).keydown(function() {
+	if(event.which == 13) {
+		performSearchCallback();
+	}
 });
 
 $('#search-btn-home').on('click', function () {
 	var searchParams = app.mainSearchSelect.getSearchParams();
-	
 	var location = $('#main-search').select2('val').toString();
-
 	window.location.href = '/search-seminars/?homeref=1' + window.location.hash;
 });
 
@@ -131,5 +138,3 @@ function performSearch(searchParams) {
 		}
 	});
 };
-
-
