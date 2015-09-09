@@ -188,26 +188,19 @@
 
 	@include tablet-portrait-and-up {
 		background: url('/images/carousel-bg.jpg') center top / cover no-repeat;
-		// height: 385px;
 	}
 
 	.item {
 		height: 300px;
-		// margin: 50px 0;
-		// @include tablet-portrait-and-up {
-		// 	margin: 70px 0 0;
-		// }
 	}
 
 	.carousel-caption {
 		max-width: 700px;
 		margin: 0 auto;
-		bottom: 27px;
+		bottom: 50%;
 		text-shadow: none;
-		padding-bottom: 0;
-		@include tablet-landscape-and-up {
-			bottom: 56px;
-		}
+		padding-top: 35px;
+		@include transform(translateY(50%));
 
 		.quote {
 			position: relative;

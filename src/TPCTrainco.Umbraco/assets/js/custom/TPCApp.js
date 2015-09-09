@@ -39,13 +39,9 @@ function TPCApp() {
 		});
 	}
 
-	// if ($('.form-standard').length) {
-	// 	this.onSiteForm = new OnSiteForm();
-	// }
-
-	// register
-	if ($('.contact').length) {
-		this.register = new Register();
+	// umbraco forms
+	if($('.form-standard').length) {
+		this.formStyles = new FormStyles();
 	}
 
 	// checkout
@@ -85,30 +81,35 @@ function TPCApp() {
 
 	_this.clickScrollTo();
 
-	if (window.location.hash || $('.detail-page-app').length) {
-		
-		// if one clicks "browse courses", go to that page and scroll to hash
-		if($('.course-section').length) {
-			var hash = window.location.hash;
-			_this.$page.animate({
-				scrollTop: $(hash).offset().top - 140
-			}, 300);
+	var hash = window.location.hash;
 
-			// this is all the search stuff.
+	// if one clicks "browse courses", go to that page and scroll to hash
+	if($('.course-section').length) {
+		_this.$page.animate({
+			scrollTop: $(hash).offset().top - 140
+		}, 300);
+	}
+
+	if (hash || $('.detail-page-app').length) {
+
+		// this is all the search stuff.
+		if (app.mainSearchSelect == undefined) {
+			app.mainSearchSelect = new MainSearchSelect();
+		}
+
+		var searchParams;
+		if (hash) {
+			searchParams = app.mainSearchSelect.getHashSearchParams();
 		} else {
-			if (app.mainSearchSelect == undefined) {
-				app.mainSearchSelect = new MainSearchSelect();
-			}
+			searchParams = app.mainSearchSelect.getSearchParams();
+		}
 
-			var searchParams;
-			if (window.location.hash) {
-				searchParams = app.mainSearchSelect.getHashSearchParams();
-			}
-			else {
-				searchParams = app.mainSearchSelect.getSearchParams();
-			}
-
+		if(hash) {
+			console.log('only if hash');
+			console.log(performSearch, searchParams)
 			performSearch(searchParams);
+		} else {
+			$('.empty-location-msg').hide();
 		}
 	}
 
@@ -137,6 +138,10 @@ function TPCApp() {
     //    $('.select2-search--inline').trigger('click');
     // }
 
+    this.$win.on('resize', function(){
+        _this.handleWindowResize();
+    });
+
 }
 
 TPCApp.prototype.bindScroll = function () {
@@ -152,6 +157,12 @@ TPCApp.prototype.handleWindowScroll = function () {
 	// only run this on certain pages.
 	if ($('#count').length) {
 		this.countUp.handleWindowScroll(this.currentScrollTop);
+	}
+};
+
+TPCApp.prototype.handleWindowResize = function() {
+	if ($('#date-range-slider').length) {
+		this.datePicker = new DatePicker();
 	}
 };
 
@@ -212,6 +223,7 @@ TPCApp.prototype.retinaLogos = function(retinaScreen) {
 };
 
 TPCApp.prototype.addClassToFormBtn = function() {
+	console.log('btn add class')
 	$('.form-standard').find('.btn').addClass('btn-reg').addClass('btn-blue-solid');
 };
 

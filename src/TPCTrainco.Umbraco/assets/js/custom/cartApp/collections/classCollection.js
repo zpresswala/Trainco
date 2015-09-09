@@ -21,9 +21,15 @@ $('#search-btn').on('click', function () {
 	app.globalCollection.reset();
 	app.locationCollection.reset();
 	app.scheduleCollection.reset();
+	var searchLocationVal = $('#main-search').select2('val');
 	var searchParams;
-	searchParams = app.mainSearchSelect.getSearchParams();
-	performSearch(searchParams);
+	if(searchLocationVal) {
+		searchParams = app.mainSearchSelect.getSearchParams();
+		performSearch(searchParams);
+	} else {
+		$('.empty-location-msg').show();
+		$('.class-loader').hide();
+	}
 });
 
 $('#search-btn-home').on('click', function () {

@@ -19,7 +19,6 @@
 
 	h3 {
 		color: $white;
-		
 		text-align: center;
 		margin: 40px 0 30px;
 		@include med-desktop-and-up {
@@ -31,23 +30,12 @@
 
 	.carousel {
 		background: none;
-		// padding-top: 40px;
 		@include med-desktop-and-up {
 			width: 50%;
 			position: absolute;
 			top: 50%;
 			margin-top: -230px;
 			left: 0;
-		}
-
-		.carousel-caption {
-			bottom: 1%;
-			width: 75%;
-			position: static;
-			@include med-desktop-and-up {
-				bottom: auto;
-				margin-top: 50px;
-			}
 		}
 
 		.item {
@@ -58,13 +46,13 @@
 		}
 	}
 
+	.carousel-control {
+		height: 370px;
+		@include tablet-portrait-and-up {
+			height: 300px;
+		}
+	}
 	.carousel-inner {
 		height: 100%;
-	}
-
-	.carousel-indicators {
-		@include med-desktop-and-up {
-			bottom: -60px;
-		}
 	}
 }

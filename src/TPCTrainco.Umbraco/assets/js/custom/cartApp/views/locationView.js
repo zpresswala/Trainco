@@ -12,10 +12,7 @@ app.LocationView = Backbone.View.extend({
 
     initialize: function() {
         this.template = _.template($('#locationTemplate').html());
-        var _this = this;
-        // setTimeout(function() {
         this.render();
-        // }, 2);
 
         // the counter, which enables us to wait until last schedules ajax call
         this.fetchCounter = this.collection.length;

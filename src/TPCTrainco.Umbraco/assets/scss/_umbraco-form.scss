@@ -50,6 +50,12 @@
 			}
 		}
 	}
+
+	.mailingaddress, .mailingaddressline2, .city, .stateprovince, .postalcode, .country {
+		.fieldLabel, input[type=text], select {
+			display: none;
+		}	
+	}
 }
 
 #form-contact {
@@ -80,4 +86,12 @@
 	    color: #555;
 	    max-width: 250px;
     }
+}
+
+.contact {
+	.form-standard {
+		.fieldLabel {
+			color: $headline-black-on-white;
+		}
+	}
 }
