@@ -1,7 +1,10 @@
 .headline-section {
-	background: url('/images/content-pg-header-small.jpg') center top / cover no-repeat;
+	background-image: url('/images/content-pg-header-small.jpg'); 
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
 	@include tablet-landscape-and-up {
-		background: url('/images/content-pg-header-large.jpg') center top / cover no-repeat;
+		background-image: url('/images/content-pg-header-large.jpg');
 	}
 
 	.jumbotron {
