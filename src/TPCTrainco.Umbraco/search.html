@@ -1,9 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 
     <head>
         <meta charset="utf-8">
@@ -37,14 +33,13 @@
         <link rel="stylesheet" type="text/css" href="/css/main.css">
 
 
-
+        <!--[if lt IE 9]>
+            <body class="ie8" >
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="/assets/js/vendor/respond.min.js"></script>
+        <![endif]-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     </head>
-
-    <!--[if lt IE 9]>
-        <body class="ie8 html" >
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="/assets/js/bower_components/Respond/dest/respond.min.js"></script>
-    <![endif]-->
 
     <body class="search-page">
 
@@ -602,7 +597,8 @@
             </ul>
         </footer>
 
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    	
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 
     	<!-- use modernizr generator for production -->
     	<script type="text/javascript" src="/assets/js/vendor/modernizr-touch.js"></script>
@@ -623,15 +619,15 @@
         <script type="text/javascript" src="/assets/js/vendor/jQDateRangeSlider-withRuler-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
-        <!-- <script src="/js/vendor.js"></script>
-        <script src="/js/main.js"></script> -->
+        <script src="/js/vendor.js"></script>
+        <script src="/js/main.js"></script>
         <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
 
         <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
         <script type="text/javascript" src="/assets/js/custom/DatePicker.js"></script>
         <script type="text/javascript" src="/assets/js/custom/Catalog.js"></script>
         <script type="text/javascript" src="/assets/js/custom/MainSearchSelect.js"></script>
-        <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script> -->
+        <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
         <!--<script type="text/javascript" src="/js/cart.js"></script> -->
         <script src="/assets/js/custom/cartApp/models/classModel.js"></script>
 
@@ -662,7 +658,7 @@
 
 
 
-        <!-- for production:
+        <!-- <script type="text/javascript" src="/js/cart.js"></script>
         <script type="text/javascript" src="/js/main.js"></script> -->
 
     	<script type="text/javascript">
