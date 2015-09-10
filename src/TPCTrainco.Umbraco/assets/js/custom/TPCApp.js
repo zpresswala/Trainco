@@ -113,11 +113,9 @@ function TPCApp() {
 
 
 	// empty the cart on the success page
-    // if($('.success').length) {
+    if($('.success').length) {
 		app.cartNotifyView.clearCart();
-		console.log(app.cartNotifyView.clearCart);
-		console.log(app.cartNotifyView, 'sutff')
-    // }
+    }
 
     // change body bg color on search page
     if($('#search-results').length) {
