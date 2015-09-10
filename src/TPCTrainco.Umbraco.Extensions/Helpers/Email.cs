@@ -85,11 +85,14 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             message.Body = this.Body;
             message.IsBodyHtml = this.IsBodyHtml;
 
-            using (var smtp = new SmtpClient())
+            if (message.To != null && message.To.Count > 0)
             {
-                smtp.Send(message);
+                using (var smtp = new SmtpClient())
+                {
+                    smtp.Send(message);
 
-                success = true;
+                    success = true;
+                }
             }
 
             return success;

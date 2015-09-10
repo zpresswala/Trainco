@@ -690,7 +690,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 Helpers.Email email = new Email();
 
-                email.EmailFrom = "website@americantrainco.com";
+                email.EmailFrom = "website@tpctrainco.com";
                 email.EmailToList = emailToList;
                 email.Subject = "TPCTrainco.com Credit Card Error";
                 email.IsBodyHtml = false;
@@ -721,7 +721,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 Helpers.Email email = new Email();
 
-                email.EmailFrom = "website@americantrainco.com";
+                email.EmailFrom = "website@tpctrainco.com";
                 email.EmailToList = emailToList;
                 email.Subject = "TPCTrainco.com Registration Error";
                 email.IsBodyHtml = false;

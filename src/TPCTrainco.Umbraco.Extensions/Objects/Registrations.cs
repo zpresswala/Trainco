@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using TPCTrainco.Umbraco.Extensions.Models;
 using Umbraco.Core.Models;
 
@@ -128,7 +130,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                             emailOrderAttendeeDetailsList += attendeeDetails;
 
-                            string seminarTitle = tempReg.sem_SID.ToString() +": " + tempReg.sem_Title + " - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+                            string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
 
                             attendeeSummary = attendeeSummary.Replace("{{SEMINAR_TITLE}}", seminarTitle);
                             attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
@@ -173,12 +175,26 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     }
 
                     // Send to Admins
-                    email.EmailFrom = fromOrderConfirmATI;
-                    email.EmailToList = toAltOrderConfirmATI.Split(';').ToList();
-                    email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
-                    email.Body = emailOrderConfirmATI;
+                    if (false == string.IsNullOrWhiteSpace(toAltOrderConfirmATI))
+                    {
+                        email.EmailFrom = fromOrderConfirmATI;
+                        email.EmailToList = toAltOrderConfirmATI.Split(';').ToList();
+                        email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
+                        email.Body = emailOrderConfirmATI;
 
-                    email.SendEmail();
+                        email.SendEmail();
+                    }
+
+                    if (true == isCourseCancelling && ConfigurationManager.AppSettings["Registration:CancelPendingEmail"] != null && 
+                            ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Length > 0)
+                    {
+                        email.EmailFrom = fromOrderConfirmATI;
+                        email.EmailToList = ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Split(';').ToList();
+                        email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
+                        email.Body = emailOrderConfirmATI;
+
+                        email.SendEmail();
+                    }
                 }
             }
         }
@@ -225,16 +241,23 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         email.Subject = subjectAttendeeConfirm;
                         email.Body = attEmailBody;
                         email.IsBodyHtml = true;
-                        email.EmailToList = tempAtt.att_Email.Split(';').ToList();
+                        email.EmailToList = tempAtt.att_Email.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
                         email.SendEmail();
-
+                        
                         // Send email to Admins
+                        if (false == string.IsNullOrWhiteSpace(toAltAttendeeConfirm))
+                        {
+                            Helpers.Email emailAdmin = new Helpers.Email();
 
-                        email.EmailToList = null;
-                        email.EmailToList = toAltAttendeeConfirm.Split(';').ToList();
+                            emailAdmin.EmailFrom = fromtAttendeeConfirm;
+                            emailAdmin.Subject = subjectAttendeeConfirm;
+                            emailAdmin.Body = attEmailBody;
+                            emailAdmin.IsBodyHtml = true;
+                            emailAdmin.EmailToList = toAltAttendeeConfirm.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                        email.SendEmail();
+                            emailAdmin.SendEmail();
+                        }
                     }
                 }
             }
@@ -245,6 +268,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             string output = emailBody;
 
+            output = output.Replace("{{DOMAIN}}", HttpContext.Current.Request.Url.Authority);
             output = output.Replace("{{DATE}}", DateTime.Now.ToString("MMM dd, yyyy"));
             output = output.Replace("{{ORDERNO}}", reg.RegistrationID.ToString());
             output = output.Replace("{{ORDERNO}}", reg.RegistrationID.ToString());
