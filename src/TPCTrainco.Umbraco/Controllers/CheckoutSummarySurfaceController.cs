@@ -68,6 +68,8 @@ namespace TPCTrainco.Umbraco.Controllers
         [HttpPost]
         public ActionResult HandleFormSubmit(CheckoutDetails model)
         {
+            Carts cartsObj = new Carts();
+
             if (false == ModelState.IsValid)
             {
                 return CurrentUmbracoPage();
@@ -83,13 +85,13 @@ namespace TPCTrainco.Umbraco.Controllers
                 {
                     cartGuid = Session["CartId"].ToString().ToLower();
 
-                    Carts cartsObj = new Carts();
-
                     tempRegList = cartsObj.GetCart(cartGuid);
 
                     if (tempRegList == null)
                     {
-                        return Redirect("/search-seminars/");
+                        cartsObj.SendCartErrorEmail("ERROR: 80\n\rtempRegList == null");
+
+                        return Redirect("/search-seminars/?error=80");
                     }
                     else
                     {
@@ -126,7 +128,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                 bool isError = false;
                                 bool isAlreadyProcessed = false;
 
-                                Carts cartsObj = new Carts();
+                                
 
                                 // check for CC already processed: [isCardProcessed()] true -> Success page
                                 if (tempCust.payMethod == "Credit Card" && checkoutBilling != null)
@@ -155,7 +157,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                 if (true == isError)
                                 {
                                     cartsObj.AddToTempError(tempCust, creditCardResult);
-                                    cartsObj.SendCreditCartErrorEmail(tempCust, creditCardResult);
+                                    cartsObj.SendCreditCardErrorEmail(tempCust, creditCardResult);
 
                                     return Redirect("/register/summary/");
                                 }
@@ -186,6 +188,8 @@ namespace TPCTrainco.Umbraco.Controllers
                                         else
                                         {
                                             // registration wasn't created
+                                            cartsObj.SendCartErrorEmail("ERROR: 90\n\rregistration wasn't created: (reg == null || reg.RegistrationID <= 0)");
+
                                             return Redirect("/register/error/?error=90");
                                         }
                                     }
@@ -193,22 +197,27 @@ namespace TPCTrainco.Umbraco.Controllers
                             }
                             else
                             {
-                                return Redirect("/search-seminars/");
+                                cartsObj.SendCartErrorEmail("ERROR: 91\n\rregistration wasn't created: (tempCust == null || tempAttList == null || tempAttList.Count <= 0)");
+
+                                return Redirect("/search-seminars/?error=91");
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        Carts cartsObj = new Carts();
                         cartsObj.SendCheckoutErrorEmail("RegID: " + tempRegList[0].reg_ID + "\n\rError: " + ex.ToString());
                     }
                 }
                 else
                 {
-                    return Redirect("/search-seminars/");
+                    cartsObj.SendCartErrorEmail("ERROR: 92\n\rregistration list null: (tempRegList == null)");
+
+                    return Redirect("/search-seminars/?error=92");
                 }
 
-                return Redirect("/search-seminars/");
+                cartsObj.SendCartErrorEmail("ERROR: 93\n\rfunction fall through.");
+
+                return Redirect("/search-seminars/?error=93");
             }
         }
     }
