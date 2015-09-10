@@ -25,17 +25,17 @@ namespace TPCTrainco.Umbraco.Extensions
         public Nullable<double> ScheduleDateQuarter { get; set; }
         public string ScheduleDateDays { get; set; }
         public Nullable<System.DateTime> ScheduleDateWeek { get; set; }
-        public Nullable<int> ScheduleParentID { get; set; }
-        public int Active { get; set; }
+        public Nullable<long> ScheduleParentID { get; set; }
+        public short Active { get; set; }
         public System.DateTime Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
-        public int CreatedMemberID { get; set; }
-        public Nullable<double> ModifiedMemberID { get; set; }
-        public int CategoryID { get; set; }
+        public short CreatedMemberID { get; set; }
+        public Nullable<short> ModifiedMemberID { get; set; }
+        public short CategoryID { get; set; }
         public string InstructorNotes { get; set; }
         public string ScheduleType { get; set; }
         public Nullable<short> BooksSent { get; set; }
-        public Nullable<int> isCanadian { get; set; }
+        public Nullable<short> isCanadian { get; set; }
         public string fmp_JobPlan { get; set; }
         public string fmp_JobNum { get; set; }
         public Nullable<short> ScheduleStatus { get; set; }

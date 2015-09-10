@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using TPCTrainco.Umbraco.Extensions.Models;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
@@ -16,7 +19,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (cartId > 0)
             {
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     reg = db.REGISTRATIONS.Where(p => p.CartID == cartId).FirstOrDefault();
                 }
@@ -32,7 +35,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (registrationId > 0)
             {
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     reg = db.REGISTRATIONS.Where(p => p.RegistrationID == registrationId).FirstOrDefault();
                 }
@@ -48,7 +51,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (regId > 0)
             {
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     int? registraionId = db.add_Registration(regId).SingleOrDefault();
 
@@ -75,7 +78,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 IPublishedContent emailTemplateOrderConfirm = emailTemplates.Where(p => p.Name == "Order Confirm").FirstOrDefault();
                 IPublishedContent emailTemplateOrderConfirmATI = emailTemplates.Where(p => p.Name == "Order Confirm ATI").FirstOrDefault();
-                IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Seminar Details").FirstOrDefault();
+                IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Seminar Details Template").FirstOrDefault();
+                IPublishedContent emailTemplateOrderSummaryTemplate = emailTemplates.Where(p => p.Name == "Order Summary Template").FirstOrDefault();
 
                 if (emailTemplateOrderConfirm != null && emailTemplateOrderConfirmATI != null && emailTemplateOrderConfirmDetail != null)
                 {
@@ -94,18 +98,21 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     string toAltOrderConfirmATI = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString();
 
                     string emailDetailTemplate = emailTemplateOrderConfirmDetail.GetProperty("emailBody").Value.ToString();
+                    string emailOrderSummaryTemplate = emailTemplateOrderSummaryTemplate.GetProperty("emailBody").Value.ToString();
 
                     // replace the email tags
                     emailOrderConfirm = ReplaceEmailTags(emailOrderConfirm, checkout, reg);
                     emailOrderConfirmATI = ReplaceEmailTags(emailOrderConfirmATI, checkout, reg);
 
                     string emailOrderAttendeeDetailsList = "";
+                    string emailOrderSummaryList = "";
                     bool isCourseCancelling = false;
 
                     // Loop through attendees
                     foreach (temp_Reg tempReg in checkout.tempRegList)
                     {
                         string attendeeDetails = emailDetailTemplate;
+                        string attendeeSummary = emailOrderSummaryTemplate;
 
                         SCHEDULE schedule = Objects.CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
 
@@ -123,11 +130,22 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                             attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
 
                             emailOrderAttendeeDetailsList += attendeeDetails;
+
+                            string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+
+                            attendeeSummary = attendeeSummary.Replace("{{SEMINAR_TITLE}}", seminarTitle);
+                            attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                            attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+
+                            emailOrderSummaryList += attendeeSummary;
                         }
                     }
 
                     emailOrderConfirm = emailOrderConfirm.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
                     emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
+
+                    emailOrderConfirm = emailOrderConfirm.Replace("{{ORDERSUMMARY}}", emailOrderSummaryList);
+                    emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{ORDERSUMMARY}}", emailOrderSummaryList);
 
                     if (true == isCourseCancelling)
                     {
@@ -135,6 +153,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         courseCancelling += "** CLASS IS PENDING CANCELLATION **</div>";
 
                         emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", courseCancelling);
+                    }
+                    else
+                    {
+                        emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", "");
                     }
 
                     // Send email to Regsitrar
@@ -154,12 +176,26 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     }
 
                     // Send to Admins
-                    email.EmailFrom = fromOrderConfirmATI;
-                    email.EmailToList = toAltOrderConfirmATI.Split(';').ToList();
-                    email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
-                    email.Body = emailOrderConfirmATI;
+                    if (false == string.IsNullOrWhiteSpace(toAltOrderConfirmATI))
+                    {
+                        email.EmailFrom = fromOrderConfirmATI;
+                        email.EmailToList = toAltOrderConfirmATI.Split(';').ToList();
+                        email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
+                        email.Body = emailOrderConfirmATI;
 
-                    email.SendEmail();
+                        email.SendEmail();
+                    }
+
+                    if (true == isCourseCancelling && ConfigurationManager.AppSettings["Registration:CancelPendingEmail"] != null &&
+                            ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Length > 0)
+                    {
+                        email.EmailFrom = fromOrderConfirmATI;
+                        email.EmailToList = ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Split(';').ToList();
+                        email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
+                        email.Body = emailOrderConfirmATI;
+
+                        email.SendEmail();
+                    }
                 }
             }
         }
@@ -206,16 +242,23 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         email.Subject = subjectAttendeeConfirm;
                         email.Body = attEmailBody;
                         email.IsBodyHtml = true;
-                        email.EmailToList = tempAtt.att_Email.Split(';').ToList();
+                        email.EmailToList = tempAtt.att_Email.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
                         email.SendEmail();
 
                         // Send email to Admins
+                        if (false == string.IsNullOrWhiteSpace(toAltAttendeeConfirm))
+                        {
+                            Helpers.Email emailAdmin = new Helpers.Email();
 
-                        email.EmailToList = null;
-                        email.EmailToList = toAltAttendeeConfirm.Split(';').ToList();
+                            emailAdmin.EmailFrom = fromtAttendeeConfirm;
+                            emailAdmin.Subject = subjectAttendeeConfirm;
+                            emailAdmin.Body = attEmailBody;
+                            emailAdmin.IsBodyHtml = true;
+                            emailAdmin.EmailToList = toAltAttendeeConfirm.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                        email.SendEmail();
+                            emailAdmin.SendEmail();
+                        }
                     }
                 }
             }
@@ -226,6 +269,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             string output = emailBody;
 
+            output = output.Replace("{{DOMAIN}}", HttpContext.Current.Request.Url.Authority);
             output = output.Replace("{{DATE}}", DateTime.Now.ToString("MMM dd, yyyy"));
             output = output.Replace("{{ORDERNO}}", reg.RegistrationID.ToString());
             output = output.Replace("{{ORDERNO}}", reg.RegistrationID.ToString());
@@ -240,10 +284,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             output = output.Replace("{{PAYMENTINFO}}", paymentInfo);
 
             output = output.Replace("{{ORDER_TOTAL}}", String.Format("{0:C0}", reg.RegOrderTotal ?? 0));
-
-            output = output.Replace("{{XXMSG}}", String.Format("{0:C0}", reg.RegOrderTotal ?? 0));
-
-            
 
             return output;
         }
@@ -405,6 +445,14 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         private static string GenerateSeminarDetails(string emailTemplate, temp_Reg tempReg)
         {
             StringBuilder detailsText = new StringBuilder();
+            Carts cartsObj = new Carts();
+
+            if (true == string.IsNullOrEmpty(emailTemplate))
+            {
+                cartsObj.SendCheckoutErrorEmail("GenerateSeminarDetails: emailTemplate = NULL or Empty");
+
+                return null;
+            }
 
             if (tempReg != null)
             {
@@ -416,10 +464,24 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 string tempStr = emailTemplate;
 
                 tempStr = tempStr.Replace("{{SEMINAR}}", tempReg.sem_SID + ": " + tempReg.sem_Title + " - " + tempReg.sem_Place + " " + tempReg.sem_FeeName);
-                tempStr = tempStr.Replace("{{TIME}}", course.CourseTimes);
-                tempStr = tempStr.Replace("{{LOCATION}}", FixLocationNotes(location.LocationNotes));
+
+                if (course != null)
+                {
+                    tempStr = tempStr.Replace("{{TIME}}", course.CourseTimes);
+                }
+
+                if (location != null)
+                {
+                    tempStr = tempStr.Replace("{{LOCATION}}", FixLocationNotes(location.LocationNotes));
+                }
 
                 detailsText.AppendLine(tempStr);
+            }
+            else
+            {
+                cartsObj.SendCheckoutErrorEmail("GenerateSeminarDetails: tempReg = NULL");
+
+                return null;
             }
 
 
@@ -429,12 +491,18 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
         private static string FixLocationNotes(string locationNotes)
         {
-            string output = locationNotes;
+            string output = "";
 
-            output = output.Replace("</ul>", "</ul><br />" + Environment.NewLine);
-            output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
-            output = output.Replace("\"", "&quot;");
+            if (false == string.IsNullOrEmpty(locationNotes))
+            {
+                output = locationNotes;
 
+                output = output.Replace("</ul>", "</ul><br />" + Environment.NewLine);
+                output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
+                output = output.Replace("\n\r", "<br />" + Environment.NewLine);
+                output = output.Replace("\"", "&quot;");
+
+            }
             return output;
         }
     }

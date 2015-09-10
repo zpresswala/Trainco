@@ -29,10 +29,10 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             message.From = new MailAddress(this.EmailFrom.Trim());
 
             // Check for debug
-            if (ConfigurationManager.AppSettings["Email:DebugSendTo"] != null && ConfigurationManager.AppSettings.Get("DebugSendTo").Length > 0)
+            if (ConfigurationManager.AppSettings["Email:DebugSendTo"] != null && ConfigurationManager.AppSettings.Get("Email:DebugSendTo").Length > 0)
             {
                 debugEmails = new List<string>();
-                debugEmails = ConfigurationManager.AppSettings.Get("DebugSendTo").Split(';').ToList();
+                debugEmails = ConfigurationManager.AppSettings.Get("Email:DebugSendTo").Split(';').ToList();
 
                 foreach (string emailTo in debugEmails)
                 {
@@ -74,22 +74,25 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             {
                 if (true == this.IsBodyHtml)
                 {
-                    this.Body = "<p><em>Email would have been sent to: " + String.Join(", ", this.EmailToList) +"</em></p>\n\r";
+                    this.Body = "<p><em>Email would have been sent to: " + String.Join(", ", this.EmailToList) + "</em></p>\n\r" + this.Body;
                 }
                 else
                 {
-                    this.Body = "Email would have been sent to: " + String.Join(", ", this.EmailToList) + "\n\r\n\r";
+                    this.Body = "Email would have been sent to: " + String.Join(", ", this.EmailToList) + "\n\r\n\r" + this.Body;
                 }
             }
 
             message.Body = this.Body;
             message.IsBodyHtml = this.IsBodyHtml;
 
-            using (var smtp = new SmtpClient())
+            if (message.To != null && message.To.Count > 0)
             {
-                smtp.Send(message);
+                using (var smtp = new SmtpClient())
+                {
+                    smtp.Send(message);
 
-                success = true;
+                    success = true;
+                }
             }
 
             return success;

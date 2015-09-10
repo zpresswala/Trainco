@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity.SqlServer;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Text;
@@ -465,7 +466,16 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             List<Seminar_Catalog> tempSearch = null;
 
-            tempSearch = seminarListSearch.Where(x => x.Coordinates.Distance(coordinateDetails.DbGeography) * 0.00062 <= radiusInMiles)
+            tempSearch = seminarListSearch.Where(p => p.Coordinates == null).ToList();
+
+            if (tempSearch != null && tempSearch.Count > 0)
+            {
+                Debug.WriteLine("Updating coordinates for locations...");
+
+                GeoCoordinates.UpdateCityCoordinates();
+            }
+
+            tempSearch = seminarListSearch.Where(x => x.Coordinates != null && x.Coordinates.Distance(coordinateDetails.DbGeography) * 0.00062 <= radiusInMiles)
                     .OrderBy(p => p.Coordinates.Distance(coordinateDetails.DbGeography)).ToList();
 
             return tempSearch;
@@ -491,7 +501,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").Value != null && p.GetProperty("courseLink").Value.ToString() == scheduleCourse.CourseID.ToString()).FirstOrDefault();
 
-            result.ImageUrl = "/assets/images/default-seminar.gif";
+            result.ImageUrl = "/images/default-seminar.gif";
             result.DetailsUrl = "#";
 
             if (scheduleCourse != null)

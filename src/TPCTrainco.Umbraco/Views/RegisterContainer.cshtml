@@ -73,7 +73,7 @@
         {
             string courseFormatStr = null;
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 ScheduleCourseInstructor scheduleCourseInstructor = db.ScheduleCourseInstructors.Where(p => p.ScheduleID == seminar.sem_SID).FirstOrDefault();
 

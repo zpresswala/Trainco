@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 string json = null;
 
-                objClient.Timeout = 5000;
+                objClient.Timeout = 8000;
 
                 try
                 {
@@ -140,9 +141,9 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             sb.AppendLine("Getting city list...");
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
-                cityList = db.Set<City>().ToList();
+                cityList = db.Set<City>().Where(p => p.CityName != "WEBINAR").ToList();
                 stateList = db.Set<State>().ToList();
             }
 
@@ -181,7 +182,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                     city.Coordinates = coordinateDetails.DbGeography;
 
-                                    using (var dbContext = new ATI_DevelopmentEntities1())
+                                    using (var dbContext = new americantraincoEntities())
                                     {
                                         dbContext.Entry(city).State = System.Data.Entity.EntityState.Modified;
 
@@ -215,6 +216,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 sb.AppendLine("No cities found.");
             }
+
+            Debug.WriteLine(sb.ToString());
 
             return result;
         }
