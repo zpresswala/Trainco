@@ -1,0 +1,14 @@
+.ie8 #search-btn {
+	color: #000000;
+}
+
+.ie8 .select-location-instruction {
+	display: block;
+	text-align: center;
+    margin: 20px 0 40px;
+    color: #ffffff;
+}
+
+.ie8 .course-section .overlay-contain img {
+	height: 150px;
+}

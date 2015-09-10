@@ -1,4 +1,5 @@
 .navbar-default {
+    background-color: #1F1F24;
     background-color: rgba(58,58,58,0.95);
     border: none;
     margin-bottom: 0;
@@ -38,7 +39,7 @@
 
     .navbar-nav .open .dropdown-menu > li a {
         color: $white;
-        padding: 12px 15px 13px 35px;
+        padding: 12px 15px 13px 20px;
         border-bottom: 1px solid #626262;
         
         background-color: #191919;
@@ -46,10 +47,6 @@
         &:hover, &:focus {
             color: $white;
         }
-    }
-
-    .navbar-nav .open .dropdown-menu li:first-child a {
-        padding-left: 22px;
     }
 
     .navbar-nav .open .dropdown-menu .nav-link:last-child a {

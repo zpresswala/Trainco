@@ -16,11 +16,28 @@ function MainSearchSelect() {
 
 		placeholder: function () {
 			$(this).data('placeholder');
+		},
+		formatSelectionTooBig: function() {
+			alert('hi');
+			return "too many";
 		}
 	});
 
 	if (!window.location.hash)
 		this.autofillLocation();
+
+
+	// focus the search button after choosing a location to ensure it's ready for an enter keypress
+	$('#main-search').on("select2:select", function (e) {
+		if($('#search-btn').length) {
+			$('#search-btn').focus();	
+		}
+
+		if($('#search-btn-home').length) {
+			$('#search-btn-home').focus();	
+		}
+		
+	});
 };
 
 
