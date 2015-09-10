@@ -130,7 +130,7 @@ namespace TPCTrainco.Umbraco.App_Code
                     }
                 }
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     db.WebSignups.Add(webSignup);
                     db.SaveChanges();

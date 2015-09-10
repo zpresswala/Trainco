@@ -24,8 +24,8 @@ namespace TPCTrainco.Umbraco.Extensions
         public Nullable<double> Active { get; set; }
         public Nullable<System.DateTime> Created { get; set; }
         public Nullable<System.DateTime> Modified { get; set; }
-        public Nullable<double> CreatedMemberID { get; set; }
-        public Nullable<double> ModifiedMemberID { get; set; }
+        public Nullable<int> CreatedMemberID { get; set; }
+        public Nullable<int> ModifiedMemberID { get; set; }
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longitude { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinates { get; set; }

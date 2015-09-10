@@ -21,7 +21,7 @@ namespace TPCTrainco.Umbraco.Extensions
         public string City { get; set; }
         public string State { get; set; }
         public string Topic { get; set; }
-        public Nullable<int> Parent { get; set; }
+        public Nullable<long> Parent { get; set; }
         public System.DateTime SchDate { get; set; }
         public string TitlePlain { get; set; }
         public string Title { get; set; }
@@ -30,11 +30,13 @@ namespace TPCTrainco.Umbraco.Extensions
         public Nullable<int> YearOf { get; set; }
         public string DateDesc { get; set; }
         public Nullable<short> Status { get; set; }
-        public Nullable<int> isCanadian { get; set; }
+        public Nullable<short> isCanadian { get; set; }
         public string WebPage { get; set; }
         public string WebHeading { get; set; }
         public string WebToolTip { get; set; }
         public string WebPageIH { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinates { get; set; }
     }
 }

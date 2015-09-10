@@ -233,17 +233,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cart.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cartLine.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CATEGORY.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CATEGORYTYPE.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CC_Log.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="City.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CourseApiController.cs" />
@@ -254,19 +260,22 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\GeoLocationController.cs" />
     <Compile Include="Country.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="COURS.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CourseFormat.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CourseInstructor.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CourseTopic.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CourseType.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Email.cs" />
     <Compile Include="Helpers\Nodes.cs" />
@@ -275,14 +284,11 @@
     <Compile Include="Helpers\WebDownload.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="INSTRUCTOR.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Location.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LocationType.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CheckoutBilling.cs" />
     <Compile Include="Models\CheckoutCart.cs" />
@@ -306,81 +312,48 @@
     <Compile Include="Objects\Registrations.cs" />
     <Compile Include="Objects\Seminars.cs" />
     <Compile Include="Objects\Topics.cs" />
-    <Compile Include="OnSite.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductType.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegBillCCType.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RegBillPaymentMethodType.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RegContactMethodType.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="REGISTRATION.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RegistrationAttendeeSchedule.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SCHEDULE.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ScheduleCourseInstructor.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SearchList_Category.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SearchList_Locations.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SearchList_RegLocation.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Seminar_Catalog.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ShoppingCart.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="State.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="temp_Att.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="temp_Cust.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="temp_Errors.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="temp_Reg.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="temp_ViewStates.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TraincoModel.Context.cs">
+    <Compile Include="TPCTraincoModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TraincoModel.Context.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="TraincoModel.cs">
+    <Compile Include="TPCTraincoModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TraincoModel.Designer.cs">
+    <Compile Include="TPCTraincoModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TraincoModel.edmx</DependentUpon>
+      <DependentUpon>TPCTraincoModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Backbone\Loc.cs" />
     <Compile Include="ViewModels\Backbone\Sch.cs" />
@@ -395,32 +368,29 @@
     <Compile Include="ViewModels\Schedule.cs" />
     <Compile Include="ViewModels\Seminar.cs" />
     <Compile Include="WebSignup.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ZipLookup.cs">
-      <DependentUpon>TraincoModel.tt</DependentUpon>
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="App_Plugins\UrlPicker\package.manifest" />
     <None Include="packages.config" />
-    <EntityDeploy Include="TraincoModel.edmx">
+    <EntityDeploy Include="TPCTraincoModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TraincoModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>TPCTraincoModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="TraincoModel.Context.tt">
+    <None Include="TPCTraincoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TraincoModel.edmx</DependentUpon>
-      <LastGenOutput>TraincoModel.Context.cs</LastGenOutput>
+      <DependentUpon>TPCTraincoModel.edmx</DependentUpon>
+      <LastGenOutput>TPCTraincoModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="TraincoModel.edmx.diagram">
-      <DependentUpon>TraincoModel.edmx</DependentUpon>
+    <None Include="TPCTraincoModel.edmx.diagram">
+      <DependentUpon>TPCTraincoModel.edmx</DependentUpon>
     </None>
-    <None Include="TraincoModel.tt">
+    <None Include="TPCTraincoModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TraincoModel.edmx</DependentUpon>
-      <LastGenOutput>TraincoModel.cs</LastGenOutput>
+      <DependentUpon>TPCTraincoModel.edmx</DependentUpon>
+      <LastGenOutput>TPCTraincoModel.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

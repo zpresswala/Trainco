@@ -16,7 +16,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (cartId > 0)
             {
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     reg = db.REGISTRATIONS.Where(p => p.CartID == cartId).FirstOrDefault();
                 }
@@ -32,7 +32,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (registrationId > 0)
             {
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     reg = db.REGISTRATIONS.Where(p => p.RegistrationID == registrationId).FirstOrDefault();
                 }
@@ -48,7 +48,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (regId > 0)
             {
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     int? registraionId = db.add_Registration(regId).SingleOrDefault();
 

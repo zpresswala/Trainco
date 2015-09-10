@@ -43,7 +43,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     // check schedule
                     if (cartItem.Id > 0)
                     {
-                        using (var db = new ATI_DevelopmentEntities1())
+                        using (var db = new americantraincoEntities())
                         {
                             SCHEDULE schedule = db.SCHEDULES.Where(p => p.ScheduleID == cartItem.Id).FirstOrDefault();
 
@@ -84,7 +84,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             List<City> cityList = null;
             List<State> stateList = null;
             short seminarNum = 0;
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 cityList = db.Set<City>().ToList();
                 stateList = db.Set<State>().ToList();
@@ -93,7 +93,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             // Get Cart ID (reg_ID)
 
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 cartRegID = db.temp_Reg.Max(p => p.reg_ID);
 
@@ -105,7 +105,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 seminarNum++;
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     temp_Reg tempReg = new temp_Reg();
 
@@ -235,7 +235,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 {
                     if (checkoutCart != null && checkoutCart.CheckoutItems != null && checkoutCart.CheckoutItems.Count > 0)
                     {
-                        using (var db = new ATI_DevelopmentEntities1())
+                        using (var db = new americantraincoEntities())
                         {
                             foreach (temp_Reg tempReg in cart)
                             {
@@ -459,7 +459,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             temp_Cust response = null;
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 db.temp_Cust.Add(tempCust);
                 db.SaveChanges();
@@ -476,7 +476,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             bool isAlreadyProcessed = false;
             CC_Log ccLog = null;
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 // SELECT COUNT(*) FROM CC_Log WHERE ProcessedFrom <> 'MartinEPA' AND ProcessedFrom <> 'Filemaker' AND Approval = 1 AND Cart_ID = " & cartID.ToString()
 
@@ -653,7 +653,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             ccLog.CC_Result = result;
             ccLog.ProcessedFrom = "ATI";
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 db.CC_Log.Add(ccLog);
                 db.SaveChanges();
@@ -670,7 +670,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             tempError.attFName = "CC Process Error";
             tempError.attLName = StringUtilities.StringMaxLength(result.ErrorText, 255);
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 db.temp_Errors.Add(tempError);
                 db.SaveChanges();
@@ -739,7 +739,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             bool success = false;
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 db.temp_Att.RemoveRange(db.temp_Att.Where(p => p.reg_ID == regId));
                 db.SaveChanges();
@@ -755,7 +755,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             bool success = false;
 
-            using (var db = new ATI_DevelopmentEntities1())
+            using (var db = new americantraincoEntities())
             {
                 temp_Cust deleteTempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
 
@@ -782,7 +782,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (regId > 0)
                 {
-                    using (var db = new ATI_DevelopmentEntities1())
+                    using (var db = new americantraincoEntities())
                     {
                         cart = db.temp_Reg.Where(p => p.reg_ID == regId).ToList();
                     }

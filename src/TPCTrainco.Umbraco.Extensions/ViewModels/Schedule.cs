@@ -8,8 +8,8 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
 {
     public class Schedule
     {
-        public int Id { get; set; }
-        public int LocationId { get; set; }
+        public long Id { get; set; }
+        public long LocationId { get; set; }
         public int CourseId { get; set; }
         public int CityId { get; set; }
         public string DaysTitle { get; set; }
