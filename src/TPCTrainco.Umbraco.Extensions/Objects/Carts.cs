@@ -685,7 +685,31 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public void SendCreditCartErrorEmail(temp_Cust tempCust, CreditCardResult result)
+        public void SendCartErrorEmail(string body)
+        {
+            List<string> emailToList = null;
+
+            if (ConfigurationManager.AppSettings["LogToEmail:CCError"] != null && ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Length > 0)
+            {
+                emailToList = new List<string>();
+
+                emailToList = ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Split(';').ToList();
+
+                Helpers.Email email = new Email();
+
+                email.EmailFrom = "website@tpctrainco.com";
+                email.EmailToList = emailToList;
+                email.Subject = "TPCTrainco.com Cart Error";
+                email.IsBodyHtml = false;
+                
+                email.Body = body;
+
+                email.SendEmail();
+            }
+        }
+
+
+        public void SendCreditCardErrorEmail(temp_Cust tempCust, CreditCardResult result)
         {
             List<string> emailToList = null;
 
