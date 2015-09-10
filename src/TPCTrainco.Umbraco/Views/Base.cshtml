@@ -26,6 +26,7 @@
 
     bool cartPage = false;
     bool checkoutPage = true;
+    bool successCheckout = false;
     
     if (currentPage.DocumentTypeAlias == "HomePage")
     {
@@ -54,6 +55,7 @@
     else if (currentPage.DocumentTypeAlias == "RegisterSuccess")
     {
         checkoutPage = true;
+        successCheckout = true;
     }
 
 }
@@ -143,6 +145,12 @@
             tpcAppObj = new TPCApp();
         });
     </script>
+
+    
+    @if (true == successCheckout)
+    {
+        <script type="text/javascript"></script>
+    }
 
 </body>
 </html>

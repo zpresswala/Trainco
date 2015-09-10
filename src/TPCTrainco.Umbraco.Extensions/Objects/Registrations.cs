@@ -75,7 +75,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 IPublishedContent emailTemplateOrderConfirm = emailTemplates.Where(p => p.Name == "Order Confirm").FirstOrDefault();
                 IPublishedContent emailTemplateOrderConfirmATI = emailTemplates.Where(p => p.Name == "Order Confirm ATI").FirstOrDefault();
-                IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Seminar Details").FirstOrDefault();
+                IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Seminar Details Template").FirstOrDefault();
+                IPublishedContent emailTemplateOrderSummaryTemplate = emailTemplates.Where(p => p.Name == "Order Summary Template").FirstOrDefault();
 
                 if (emailTemplateOrderConfirm != null && emailTemplateOrderConfirmATI != null && emailTemplateOrderConfirmDetail != null)
                 {
@@ -94,18 +95,21 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     string toAltOrderConfirmATI = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString();
 
                     string emailDetailTemplate = emailTemplateOrderConfirmDetail.GetProperty("emailBody").Value.ToString();
+                    string emailOrderSummaryTemplate = emailTemplateOrderSummaryTemplate.GetProperty("emailBody").Value.ToString();
 
                     // replace the email tags
                     emailOrderConfirm = ReplaceEmailTags(emailOrderConfirm, checkout, reg);
                     emailOrderConfirmATI = ReplaceEmailTags(emailOrderConfirmATI, checkout, reg);
 
                     string emailOrderAttendeeDetailsList = "";
+                    string emailOrderSummaryList = "";
                     bool isCourseCancelling = false;
 
                     // Loop through attendees
                     foreach (temp_Reg tempReg in checkout.tempRegList)
                     {
                         string attendeeDetails = emailDetailTemplate;
+                        string attendeeSummary = emailOrderSummaryTemplate;
 
                         SCHEDULE schedule = Objects.CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
 
@@ -123,11 +127,22 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                             attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
 
                             emailOrderAttendeeDetailsList += attendeeDetails;
+
+                            string seminarTitle = tempReg.sem_SID.ToString() +": " + tempReg.sem_Title + " - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+
+                            attendeeSummary = attendeeSummary.Replace("{{SEMINAR_TITLE}}", seminarTitle);
+                            attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                            attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+
+                            emailOrderSummaryList += attendeeSummary;
                         }
                     }
 
                     emailOrderConfirm = emailOrderConfirm.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
                     emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
+
+                    emailOrderConfirm = emailOrderConfirm.Replace("{{ORDERSUMMARY}}", emailOrderSummaryList);
+                    emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{ORDERSUMMARY}}", emailOrderSummaryList);
 
                     if (true == isCourseCancelling)
                     {
@@ -135,6 +150,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         courseCancelling += "** CLASS IS PENDING CANCELLATION **</div>";
 
                         emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", courseCancelling);
+                    }
+                    else
+                    {
+                        emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", "");
                     }
 
                     // Send email to Regsitrar
@@ -240,10 +259,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             output = output.Replace("{{PAYMENTINFO}}", paymentInfo);
 
             output = output.Replace("{{ORDER_TOTAL}}", String.Format("{0:C0}", reg.RegOrderTotal ?? 0));
-
-            output = output.Replace("{{XXMSG}}", String.Format("{0:C0}", reg.RegOrderTotal ?? 0));
-
-            
 
             return output;
         }
@@ -433,6 +448,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             output = output.Replace("</ul>", "</ul><br />" + Environment.NewLine);
             output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
+            output = output.Replace("\n\r", "<br />" + Environment.NewLine);
             output = output.Replace("\"", "&quot;");
 
             return output;

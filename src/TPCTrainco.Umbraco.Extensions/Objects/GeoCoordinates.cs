@@ -28,7 +28,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 string json = null;
 
-                objClient.Timeout = 5000;
+                objClient.Timeout = 8000;
 
                 try
                 {
