@@ -37,7 +37,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     temp_Cust tempCust = null;
 
-                    using (var db = new ATI_DevelopmentEntities1())
+                    using (var db = new americantraincoEntities())
                     {
                         int regId = cartList[0].reg_ID;
 

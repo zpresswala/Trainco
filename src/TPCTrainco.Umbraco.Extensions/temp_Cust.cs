@@ -14,7 +14,6 @@ namespace TPCTrainco.Umbraco.Extensions
     
     public partial class temp_Cust
     {
-        public long ID { get; set; }
         public Nullable<int> reg_ID { get; set; }
         public Nullable<int> reg_Cost { get; set; }
         public string promoCode { get; set; }
@@ -82,5 +81,6 @@ namespace TPCTrainco.Umbraco.Extensions
         public string CEURelated { get; set; }
         public string CEUEntity { get; set; }
         public string PastCustomer { get; set; }
+        public long ID { get; set; }
     }
 }

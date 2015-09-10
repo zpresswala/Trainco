@@ -12,6 +12,9 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 {
     public class CacheObjects
     {
+        public static DateTime dateStart = DateTime.Now.AddDays(-7);
+        public static DateTime dateEnd = DateTime.Now.AddMonths(18);
+
         public static List<Seminar_Catalog> GetSeminarList()
         {
             string cacheKey = "SeminarList";
@@ -24,9 +27,9 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding Seminar List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
-                    seminarList = db.Set<Seminar_Catalog>().ToList();
+                    seminarList = db.Seminar_Catalog.Where(p => p.WeekOf >= dateStart && p.WeekOf < dateEnd).ToList();
                 }
 
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
@@ -51,9 +54,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding Schedule List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
-                    scheduleList = db.SCHEDULES.Where(p => p.Active == 1).ToList();
+                    DateTime dateStart = DateTime.Now.AddDays(-7);
+                    DateTime dateEnd = DateTime.Now.AddMonths(18);
+
+                    scheduleList = db.SCHEDULES.Where(p => p.Active == 1 && p.ScheduleDate >= dateStart && p.ScheduleDate < dateEnd).ToList();
                 }
 
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
@@ -78,7 +84,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding Course List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     courseList = db.COURSES.Where(p => p.Active == 1).ToList();
                 }
@@ -105,7 +111,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding Location List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     locationList = db.Locations.Where(p => p.Active == 1 && p.LocationID != 1 && p.LocationID != 3).ToList();
                 }
@@ -132,7 +138,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding ScheduleCourse List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     scheduleCourseList = db.Set<ScheduleCourseInstructor>().ToList();
                 }
@@ -159,7 +165,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding CourseFormat List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     courseFormatList = db.CourseFormats.Where(p => p.Active == 1).ToList();
                 }
@@ -185,7 +191,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding CourseTopic List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     courseTopicList = db.CourseTopics.Where(p => p.Active == 1 && p.CourseTopicName.Substring(0, 1) != "x" &&
                         p.CourseTopicName.Substring(0, 1) != "y" &&
@@ -214,7 +220,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding City List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     cityList = db.Cities.DistinctBy(p => p.MailCode).Where(p => p.Active == 1).ToList();
                 }
@@ -241,7 +247,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding State List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     stateList = db.States.Where(p => p.Active == 1 && p.RepRegion > 0 && p.Sort > 0).OrderBy(o => o.Sort).ToList();
                 }
@@ -268,7 +274,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Adding Country List to Cache");
 
-                using (var db = new ATI_DevelopmentEntities1())
+                using (var db = new americantraincoEntities())
                 {
                     countryList = db.Countries.OrderBy(o => o.SortOrder).ToList();
                 }

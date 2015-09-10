@@ -38,7 +38,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     temp_Cust tempCust = null;
 
-                    using (var db = new ATI_DevelopmentEntities1())
+                    using (var db = new americantraincoEntities())
                     {
                         int regId = tempRegList[0].reg_ID;
 
@@ -105,7 +105,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                         temp_Cust tempCust = null;
 
-                        using (var db = new ATI_DevelopmentEntities1())
+                        using (var db = new americantraincoEntities())
                         {
                             int regId = tempRegList[0].reg_ID;
                             CheckoutBilling checkoutBilling = null;
@@ -117,7 +117,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                             checkoutBilling = (CheckoutBilling)Session["CartBilling"];
 
-                            if (checkoutBilling != null && tempCust != null && tempAttList != null && tempAttList.Count > 0)
+                            if (tempCust != null && tempAttList != null && tempAttList.Count > 0)
                             {
                                 checkoutDetails.tempRegList = tempRegList;
                                 checkoutDetails.tempAttList = tempAttList;
@@ -129,7 +129,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                 Carts cartsObj = new Carts();
 
                                 // check for CC already processed: [isCardProcessed()] true -> Success page
-                                if (tempCust.payMethod == "Credit Card")
+                                if (tempCust.payMethod == "Credit Card" && checkoutBilling != null)
                                 {
                                     // card processed already?
                                     isAlreadyProcessed = cartsObj.CreditCardAlreadyProcessed(tempCust);
