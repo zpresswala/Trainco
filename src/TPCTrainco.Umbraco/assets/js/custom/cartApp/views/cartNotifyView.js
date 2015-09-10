@@ -87,7 +87,6 @@ app.CartNotifyView = Backbone.View.extend({
         }).done(function(successObj) {
             var redirectGuid = successObj.cartGuid;
             _this.$('.checkout-loader').hide();
-            _this.clearCart();
             window.location.href = '/register/?cart=' + redirectGuid;
         }).fail(function(error) {
             _this.$('.checkout-loader').hide();
