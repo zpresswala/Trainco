@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using TPCTrainco.Umbraco.Extensions.Models;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
@@ -185,7 +186,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         email.SendEmail();
                     }
 
-                    if (true == isCourseCancelling && ConfigurationManager.AppSettings["Registration:CancelPendingEmail"] != null && 
+                    if (true == isCourseCancelling && ConfigurationManager.AppSettings["Registration:CancelPendingEmail"] != null &&
                             ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Length > 0)
                     {
                         email.EmailFrom = fromOrderConfirmATI;
@@ -244,7 +245,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         email.EmailToList = tempAtt.att_Email.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
                         email.SendEmail();
-                        
+
                         // Send email to Admins
                         if (false == string.IsNullOrWhiteSpace(toAltAttendeeConfirm))
                         {
@@ -444,6 +445,14 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         private static string GenerateSeminarDetails(string emailTemplate, temp_Reg tempReg)
         {
             StringBuilder detailsText = new StringBuilder();
+            Carts cartsObj = new Carts();
+
+            if (true == string.IsNullOrEmpty(emailTemplate))
+            {
+                cartsObj.SendCheckoutErrorEmail("GenerateSeminarDetails: emailTemplate = NULL or Empty");
+
+                return null;
+            }
 
             if (tempReg != null)
             {
@@ -455,10 +464,24 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 string tempStr = emailTemplate;
 
                 tempStr = tempStr.Replace("{{SEMINAR}}", tempReg.sem_SID + ": " + tempReg.sem_Title + " - " + tempReg.sem_Place + " " + tempReg.sem_FeeName);
-                tempStr = tempStr.Replace("{{TIME}}", course.CourseTimes);
-                tempStr = tempStr.Replace("{{LOCATION}}", FixLocationNotes(location.LocationNotes));
+
+                if (course != null)
+                {
+                    tempStr = tempStr.Replace("{{TIME}}", course.CourseTimes);
+                }
+
+                if (location != null)
+                {
+                    tempStr = tempStr.Replace("{{LOCATION}}", FixLocationNotes(location.LocationNotes));
+                }
 
                 detailsText.AppendLine(tempStr);
+            }
+            else
+            {
+                cartsObj.SendCheckoutErrorEmail("GenerateSeminarDetails: tempReg = NULL");
+
+                return null;
             }
 
 
@@ -468,13 +491,18 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
         private static string FixLocationNotes(string locationNotes)
         {
-            string output = locationNotes;
+            string output = "";
 
-            output = output.Replace("</ul>", "</ul><br />" + Environment.NewLine);
-            output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
-            output = output.Replace("\n\r", "<br />" + Environment.NewLine);
-            output = output.Replace("\"", "&quot;");
+            if (false == string.IsNullOrEmpty(locationNotes))
+            {
+                output = locationNotes;
 
+                output = output.Replace("</ul>", "</ul><br />" + Environment.NewLine);
+                output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
+                output = output.Replace("\n\r", "<br />" + Environment.NewLine);
+                output = output.Replace("\"", "&quot;");
+
+            }
             return output;
         }
     }
