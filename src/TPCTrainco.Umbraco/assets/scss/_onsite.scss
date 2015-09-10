@@ -8,7 +8,10 @@
 }
 
 .caro-form-container {
-	background: url("/images/carousel-mobile-bg.jpg") center top/cover no-repeat;
+	background-image: url("/images/carousel-mobile-bg.jpg");
+	background-position: center top;
+	background-size: cover;
+	background-repeat: no-repeat;
 	display: table;
 	width: 100%;
 	position: relative;

@@ -16,6 +16,10 @@ function MainSearchSelect() {
 
 		placeholder: function () {
 			$(this).data('placeholder');
+		},
+		formatSelectionTooBig: function() {
+			alert('hi');
+			return "too many";
 		}
 	});
 
