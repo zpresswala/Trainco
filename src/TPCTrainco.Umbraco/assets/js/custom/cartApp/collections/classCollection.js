@@ -10,15 +10,9 @@ app.ClassCollection = Backbone.Collection.extend({
 });
 
 app.globalCollection = new app.ClassCollection;
-		  
-// check the hash to see if there is data there. (only on page load)
-// $(document).ready(function () {
-	// moved to TPCApp.js
-// });
 
 // search button click or enter keypress to activate a search
 var performSearchCallback = function() {
-	console.log('callback')
 	app.globalCollection.reset();
 	app.locationCollection.reset();
 	app.scheduleCollection.reset();
@@ -33,18 +27,28 @@ var performSearchCallback = function() {
 	}
 };
 
-// activate the search on click or enter keypress
-$('#search-btn').on('click', performSearchCallback);
-$(document).keydown(function() {
-	if(event.which == 13) {
-		performSearchCallback();
-	}
-});
-
-$('#search-btn-home').on('click', function () {
+var performHomeSearchCallback = function() {
 	var searchParams = app.mainSearchSelect.getSearchParams();
 	var location = $('#main-search').select2('val').toString();
 	window.location.href = '/search-seminars/?homeref=1' + window.location.hash;
+};
+
+// activate the search on click or enter keypress
+$('#search-btn').on('click', performSearchCallback);
+
+// home search callback
+$('#search-btn-home').on('click', performHomeSearchCallback);
+
+// trigger searches with enter keypress
+$(document).keydown(function() {
+	if(event.which == 13) {
+		if($('#search-btn').length) {
+			performSearchCallback();
+		}
+		if($('#search-btn-home').length) {
+			performHomeSearchCallback();
+		}
+	}
 });
 
 
