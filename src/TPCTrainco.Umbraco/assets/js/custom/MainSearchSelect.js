@@ -28,8 +28,6 @@ MainSearchSelect.prototype.getSearchParams = function () {
 	var topicsArray = [];
 	var classId = 0;
 
-	console.log('getSearchParams')
-
 	// get the city or zip
 	var searchLocationVal = $('#main-search').select2('val');
 
@@ -81,8 +79,6 @@ MainSearchSelect.prototype.getSearchParams = function () {
 // get the search parameters based on the hash
 MainSearchSelect.prototype.getHashSearchParams = function () {
 	var hashArray = this.processHashBang();
-
-	console.log('getHashSearchParams')
 
 	// if you're on the page without search params in the url
 	if(!hashArray.hasOwnProperty('loc') && !hashArray.hasOwnProperty('topics')) {
