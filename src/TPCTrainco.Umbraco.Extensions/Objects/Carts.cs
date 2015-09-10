@@ -313,6 +313,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (true == checkoutCust.BillingDifferent)
                 {
+                    List<string> billPhoneArray = StringUtilities.SplitPhoneNumber(checkoutCust.BillPhone);
+
                     tempCust.billFName = checkoutCust.BillFirstName;
                     tempCust.billLName = checkoutCust.BillLastName;
                     tempCust.billTitle = "";
@@ -323,14 +325,14 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     tempCust.billState = checkoutCust.BillState;
                     tempCust.billZip = checkoutCust.BillZip;
                     tempCust.billCountry = checkoutCust.BillCountry;
-                    tempCust.billPhone1 = tempCust.authPhone1;
-                    tempCust.billPhone2 = tempCust.authPhone2;
-                    tempCust.billPhone3 = tempCust.authPhone3;
-                    tempCust.billPhoneExt = tempCust.authPhoneExt;
+                    tempCust.billPhone1 = billPhoneArray[0];
+                    tempCust.billPhone2 = billPhoneArray[1];
+                    tempCust.billPhone3 = billPhoneArray[2];
+                    tempCust.billPhoneExt = checkoutCust.BillPhoneExt;
                     tempCust.billFax1 = "";
                     tempCust.billFax2 = "";
                     tempCust.billFax3 = "";
-                    tempCust.billEmail = tempCust.authEmail;
+                    tempCust.billEmail = checkoutCust.BillEmail;
                 }
                 else
                 {
@@ -422,6 +424,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 checkoutCust.Phone = tempCust.authPhone1 + "-" + tempCust.authPhone2 + "-" + tempCust.authPhone3;
                 checkoutCust.PhoneExt = tempCust.authPhoneExt;
                 checkoutCust.Email = tempCust.authEmail;
+
                 checkoutCust.BillFirstName = tempCust.billFName;
                 checkoutCust.BillLastName = tempCust.billLName;
                 checkoutCust.BillAddress = tempCust.billAddr1;
@@ -430,6 +433,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 checkoutCust.BillState = tempCust.billState;
                 checkoutCust.BillZip = tempCust.billZip;
                 checkoutCust.BillCountry = tempCust.billCountry;
+
+                checkoutCust.BillPhone = tempCust.billPhone1 + "-" + tempCust.billPhone2 + "-" + tempCust.billPhone3;
+                checkoutCust.BillPhoneExt = tempCust.billPhoneExt;
+                checkoutCust.BillEmail = tempCust.billEmail;
 
                 string paymentMethod = tempCust.payMethod;
                 if (paymentMethod == "Credit Card")

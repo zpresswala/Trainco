@@ -112,6 +112,17 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [DisplayName("Billing Country")]
         public string BillCountry { get; set; }
 
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Phone Number is required.")]
+        [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please use the format xxx-xxx-xxxx.")]
+        public string BillPhone { get; set; }
+
+        public string BillPhoneExt { get; set; }
+
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Email is required.")]
+        [EmailAddress]
+        public string BillEmail { get; set; }
+
+
         [DisplayName("Credit Card Payment")]
         public string PaymentType { get; set; }
 

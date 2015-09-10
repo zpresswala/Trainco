@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
@@ -392,7 +393,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     paymentText.AppendLine("CC Type: " + checkout.tempCust.ccType + "<br />");
                     paymentText.AppendLine("CC Number: ****-****-****-" + checkout.tempCust.ccNumber + "<br />");
                     paymentText.AppendLine("CC Expire: **/**<br />");
-                    paymentText.AppendLine("CC Expire: **/**<br />");
                 }
                 else
                 {
@@ -470,9 +470,23 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     tempStr = tempStr.Replace("{{TIME}}", course.CourseTimes);
                 }
 
-                if (location != null)
+                IPublishedContent searchSeminarNode = null;
+                string defaultSearchLocationText = "";
+
+                searchSeminarNode = Nodes.Instance.SeminarSearch;
+
+                if (searchSeminarNode.GetProperty("locationMessage").HasValue)
+                {
+                    defaultSearchLocationText = searchSeminarNode.GetProperty("locationMessage").Value.ToString();
+                }
+
+                if (location != null && false == string.IsNullOrEmpty(location.LocationNotes))
                 {
                     tempStr = tempStr.Replace("{{LOCATION}}", FixLocationNotes(location.LocationNotes));
+                }
+                else
+                {
+                    tempStr = tempStr.Replace("{{LOCATION}}", defaultSearchLocationText);
                 }
 
                 detailsText.AppendLine(tempStr);
@@ -501,8 +515,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
                 output = output.Replace("\n\r", "<br />" + Environment.NewLine);
                 output = output.Replace("\"", "&quot;");
-
             }
+
             return output;
         }
     }
