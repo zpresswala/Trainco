@@ -89,9 +89,9 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     if (tempRegList == null)
                     {
-                        cartsObj.SendCartErrorEmail("ERROR: 80\n\rtempRegList == null");
+                        cartsObj.SendCartErrorEmail("ERROR: 94\n\rtempRegList == null");
 
-                        return Redirect("/search-seminars/?error=80");
+                        return Redirect("/search-seminars/?error=94");
                     }
                     else
                     {
@@ -159,7 +159,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                     cartsObj.AddToTempError(tempCust, creditCardResult);
                                     cartsObj.SendCreditCardErrorEmail(tempCust, creditCardResult);
 
-                                    return Redirect("/register/summary/");
+                                    return Redirect("/register/summary/?error=cc");
                                 }
                                 else
                                 {

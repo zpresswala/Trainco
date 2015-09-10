@@ -64,6 +64,8 @@ namespace TPCTrainco.Umbraco.Controllers
         [HttpPost]
         public ActionResult HandleFormSubmit(CheckoutCustomer model)
         {
+            Carts cartsObj = new Carts();
+
             if (false == ModelState.IsValid)
             {
                 return CurrentUmbracoPage();
@@ -78,12 +80,11 @@ namespace TPCTrainco.Umbraco.Controllers
                 {
                     cartGuid = Session["CartId"].ToString().ToLower();
 
-                    Carts cartsObj = new Carts();
-
                     cartList = cartsObj.GetCart(cartGuid);
 
                     if (cartList == null)
                     {
+                        cartsObj.SendCartErrorEmail("ERROR: 80\n\rcartList == null");
                         return Redirect("/search-seminars/");
                     }
                     else
@@ -94,8 +95,6 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (cartList != null)
                 {
-                    Carts cartsObj = new Carts();
-
                     // delete old temp_Cust
                     cartsObj.DeleteTempCust(cartList[0].reg_ID);
 
@@ -122,17 +121,21 @@ namespace TPCTrainco.Umbraco.Controllers
                         }
                         else
                         {
-                            return Redirect("/search-seminars/?error=99");
+                            cartsObj.SendCartErrorEmail("ERROR: 81\n\r tempCust == null");
+
+                            return Redirect("/search-seminars/?error=81");
                         }
                     }
                     else
                     {
-                        return Redirect("/search-seminars/?error=98");
+                        cartsObj.SendCartErrorEmail("ERROR: 82\n\r tempCust == null");
+                        return Redirect("/search-seminars/?error=82");
                     }
                 }
                 else
                 {
-                    return Redirect("/search-seminars/");
+                    cartsObj.SendCartErrorEmail("ERROR: 83\n\r cartList == null");
+                    return Redirect("/search-seminars/?error=83");
                 }
             }
         }

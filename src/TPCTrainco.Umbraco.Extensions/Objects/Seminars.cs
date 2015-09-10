@@ -442,7 +442,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         private List<Seminar_Catalog> FindLocationSeminarCatalog(List<Seminar_Catalog> seminarListSearch, CoordinateDetails coordinateDetails)
         {
             List<Seminar_Catalog> resultSearch = null;
-            double radiusSearch = 20;
+            double radiusSearch = 300;
 
             while ((resultSearch == null || resultSearch.Count <= 0) && radiusSearch < 1500)
             {
