@@ -34,7 +34,22 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 try
                 {
-                    if (ipAddress != "::1")
+                    // DEBUG
+                    if (false == string.IsNullOrEmpty(ipAddress) && ipAddress.Length > 3 && ipAddress.Substring(0,3) == "10.")
+                    {
+                        geoLocation = new GeoLocationLookup();
+
+                        geoLocation.City = "Englewood";
+                        geoLocation.RegionCode = "CO";
+                        geoLocation.RegionName = "Colorado";
+                        geoLocation.Ip = "38.109.197.34";
+                        geoLocation.ZipCode = "80112";
+                        geoLocation.Latitude = 39.538984;
+                        geoLocation.Longitude = -104.8615189;
+                        geoLocation.CountryCode = "US";
+                        geoLocation.CountryName = "United States";
+                    }
+                    else if (ipAddress != "::1")
                     {
                         using (var reader = new DatabaseReader(HttpContext.Current.Server.MapPath("/ip-db/GeoLite2-City.mmdb")))
                         {

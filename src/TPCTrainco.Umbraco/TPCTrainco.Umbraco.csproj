@@ -3367,6 +3367,7 @@
     <Content Include="Views\Partials\Forms\tempForm.cshtml" />
     <Content Include="Views\Partials\CheckoutCustomer.cshtml" />
     <Content Include="Views\Partials\CheckoutSummary.cshtml" />
+    <Content Include="Views\IPTest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

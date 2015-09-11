@@ -6,21 +6,6 @@
     Layout = "Base.cshtml";
 
     IPublishedContent currentPage = Model.Content;
-    
-    //List locations
-    Locations locationsObj = new Locations();
-
-    List<Location> locationList = locationsObj.GetAllLocations();
-
-    //Get current GeoCoordinate
-    string currentCityState = "";
-
-    TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
-
-    if (coordDetails != null)
-    {
-        currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
-    }
 }
 
 
