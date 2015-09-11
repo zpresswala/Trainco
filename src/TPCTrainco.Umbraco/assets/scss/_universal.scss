@@ -404,3 +404,32 @@ button {
 }
 
 
+.alert {
+    padding: 8px 35px 8px 14px;
+    margin: 18px;
+    color: #c09853;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.alert-heading {
+    color: inherit;
+}
+
+.alert-success {
+    color: #17581a;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-danger,
+.alert-error {
+    color: #700000;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}

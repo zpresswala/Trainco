@@ -267,7 +267,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                         if (seminar != null)
                         {
-                            List<Seminar_Catalog> seminarsByLocation = seminarListSearch.Where(p => p.TitlePlain == seminarDistinct.TitlePlain).OrderBy(p => p.SchDate).ToList();
+                            List<Seminar_Catalog> seminarsByLocation = seminarListSearch.Where(p => p.TitlePlain == seminarDistinct.TitlePlain).ToList();
 
                             if (seminarsByLocation != null && seminarsByLocation.Count > 0)
                             {

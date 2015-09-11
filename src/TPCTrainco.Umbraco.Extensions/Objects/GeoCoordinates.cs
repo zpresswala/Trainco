@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
+using MaxMind.GeoIP2;
+using System.Web;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -34,13 +36,83 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 {
                     if (ipAddress != "::1")
                     {
-                        json = objClient.DownloadString("http://freegeoip.net/json/" + ipAddress);
-
-                        geoLocation = JsonConvert.DeserializeObject<GeoLocationLookup>(json);
-
-                        if (geoLocation == null || false == string.IsNullOrEmpty(geoLocation.City))
+                        using (var reader = new DatabaseReader(HttpContext.Current.Server.MapPath("/ip-db/GeoLite2-City.mmdb")))
                         {
+                            MaxMind.GeoIP2.Responses.CityResponse cityResponse = reader.City(ipAddress);
 
+                            if (cityResponse != null)
+                            {
+                                geoLocation = new GeoLocationLookup();
+
+                                geoLocation.City = cityResponse.City.Name;
+                                geoLocation.RegionCode = cityResponse.MostSpecificSubdivision.IsoCode;
+                                geoLocation.RegionName = cityResponse.MostSpecificSubdivision.Name;
+                                geoLocation.Ip = ipAddress;
+                                geoLocation.ZipCode = cityResponse.Postal.Code;
+                                geoLocation.Latitude = cityResponse.Location.Latitude ?? 0;
+                                geoLocation.Longitude = cityResponse.Location.Longitude ?? 0;
+                                geoLocation.CountryCode = cityResponse.Country.IsoCode;
+                                geoLocation.CountryName = cityResponse.Country.Name;
+                            }
+                        }
+
+                        if (geoLocation == null || true == string.IsNullOrEmpty(geoLocation.City))
+                        {
+                            json = objClient.DownloadString("http://api.db-ip.com/addrinfo?addr=" + ipAddress + "&api_key=723b0198c9093910bdcf5f0d91e1a845a2a38d97");
+                            DbIpLookup dbIpLookup = JsonConvert.DeserializeObject<DbIpLookup>(json);
+
+                            if (dbIpLookup != null)
+                            {
+                                geoLocation = new GeoLocationLookup();
+
+                                geoLocation.City = dbIpLookup.City;
+                                geoLocation.RegionCode = dbIpLookup.StateProv;
+                                geoLocation.RegionName = dbIpLookup.StateProv;
+
+                                if (false == string.IsNullOrEmpty(dbIpLookup.StateProv))
+                                {
+                                    if (dbIpLookup.StateProv.Length != 2)
+                                    {
+                                        State state = CacheObjects.GetStateList().Where(p => p.StateName == dbIpLookup.StateProv).FirstOrDefault();
+
+                                        if (state != null)
+                                        {
+                                            geoLocation.RegionCode = state.StateAbbreviation;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        State state = CacheObjects.GetStateList().Where(p => p.StateAbbreviation == dbIpLookup.StateProv).FirstOrDefault();
+
+                                        if (state != null)
+                                        {
+                                            geoLocation.RegionName = state.StateName;
+                                        }
+                                    }
+                                }
+
+                                
+                                geoLocation.Ip = dbIpLookup.Address;
+                                geoLocation.CountryCode = dbIpLookup.Country;
+
+                                if (false == string.IsNullOrEmpty(dbIpLookup.City))
+                                {
+                                    CoordinateDetails coordDetails = GetCoordinateDetailsFromCityState(dbIpLookup.City + "," + dbIpLookup.StateProv);
+
+                                    if (coordDetails != null)
+                                    {
+                                        geoLocation.Latitude = coordDetails.Latitude;
+                                        geoLocation.Longitude = coordDetails.Longitude;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (geoLocation == null || true == string.IsNullOrEmpty(geoLocation.City))
+                        {
+                            json = objClient.DownloadString("http://freegeoip.net/json/" + ipAddress);
+
+                            geoLocation = JsonConvert.DeserializeObject<GeoLocationLookup>(json);
                         }
                     }
                 }

@@ -4,6 +4,16 @@
     Layout = "Base.cshtml";
 
     IPublishedContent currentPage = Model.Content;
+
+    string message = "";
+
+    if (false == string.IsNullOrEmpty(Request.QueryString["form"]))
+    {
+        if (Request.QueryString.Get("form") == "success")
+        {
+            message = "<div class=\"alert alert-success\">Thank you for contacting us. Some one will be in touch soon.</div>";
+        }
+    }
 }
 
 <div class="container-fluid headline-section">
@@ -16,6 +26,7 @@
 
 <div class="container-fluid main-content contact gradient-bg">
     <div class="container">
+        @Html.Raw(message)
         <div class="col-md-8 col-md-offset-2 text-wrap">
             <div class="page-content">
                 @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))

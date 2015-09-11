@@ -42,7 +42,7 @@
                         <option value="@(currentCityState)">@currentCityState</option>
                     }
 
-                    <option value="all">Search all locations</option>
+                    <option value="all">All Locations</option>
 
                     @foreach (State state in stateList)
                     {
@@ -55,7 +55,6 @@
                                 @foreach (City city in cityListByState)
                                 {
                                     <option value="@(city.CityName +", " + state.StateAbbreviation)">@city.CityName</option>
-
                                 }
                             </optgroup>
                         }
