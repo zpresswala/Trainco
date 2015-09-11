@@ -37,6 +37,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         json = objClient.DownloadString("http://freegeoip.net/json/" + ipAddress);
 
                         geoLocation = JsonConvert.DeserializeObject<GeoLocationLookup>(json);
+
+                        if (geoLocation == null || false == string.IsNullOrEmpty(geoLocation.City))
+                        {
+
+                        }
                     }
                 }
                 catch { }
