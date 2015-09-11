@@ -1,13 +1,17 @@
 'use strict';
 
-function CountUp($win) {
-	this.$win = $win;
+function CountUp() {
+	var _this = this;
+	// this.$win = $win;
 	this.$numbers = $('.number-callout').find('h3');
 	this.endValuesArr = [];
-	this.triggered = false;
-	this.$counterStartMarker = $('#js-counter-start');
+	// this.triggered = true;
+	// this.$counterStartMarker = $('#js-counter-start');
 	this.getMaxVal();
 	this.resetVals();
+	setTimeout(function() {
+		_this.startCounter();
+	}, 300);
 }
 
 CountUp.prototype.getMaxVal = function() {
@@ -90,26 +94,26 @@ CountUp.prototype.startCounter = function() {
 	}
 	
 	// set it off.
-	inter = setInterval(increase, 6);
+	inter = setInterval(increase, 8);
 
 };
 
-CountUp.prototype.handleWindowScroll = function(currentScrollTop) {
-	var _this = this;
+// CountUp.prototype.handleWindowScroll = function(currentScrollTop) {
+// 	var _this = this;
 
-	// the scroll top of the window, from the TPCApp.js file
-	this.currentScrollTop = currentScrollTop;
+// 	// the scroll top of the window, from the TPCApp.js file
+// 	this.currentScrollTop = currentScrollTop;
 
-	// if the headline is scrolled up out of view, set a variable to true
-	if(this.$counterStartMarker.offset().top.toFixed(0) <= this.currentScrollTop) {
-		_this.triggered = true;
-	} 
+// 	// if the headline is scrolled up out of view, set a variable to true
+// 	// if(this.$counterStartMarker.offset().top.toFixed(0) <= this.currentScrollTop) {
+// 		// _this.triggered = true;
+// 	// } 
 
-	// if the headline is out of view, start the counter
-	if(_this.triggered) {
-		 this.startCounter();
+// 	// if the headline is out of view, start the counter
+// 	// if(_this.triggered) {
+// 		 this.startCounter();
 
-		 // then unbind the scroll so it only runs once.
-		 this.$win.off('scroll');
-	}
-}
+// 		 // then unbind the scroll so it only runs once.
+// 		 this.$win.off('scroll');
+// 	}
+// }
