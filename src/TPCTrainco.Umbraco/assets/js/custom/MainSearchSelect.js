@@ -11,17 +11,21 @@ function MainSearchSelect() {
 		tags: true,
 		selectOnBlur: true,
 		maximumSelectionLength: 1,
+		formatSelectionTooBig: function (limit) {
+
+		      // Callback
+		      console.log('doo ddoo');
+
+		      return 'Too many selected items';
+		  },
 		dropdownAutoWidth: true,
 		// tokenSeparators: [",", " "],
 
 		placeholder: function () {
 			$(this).data('placeholder');
-		},
-		formatSelectionTooBig: function() {
-			alert('hi');
-			return "too many";
 		}
 	});
+
 
 	if (!window.location.hash)
 		this.autofillLocation();
@@ -36,7 +40,13 @@ function MainSearchSelect() {
 		if($('#search-btn-home').length) {
 			$('#search-btn-home').focus();	
 		}
+
 		
+		
+	});
+
+	$('#main-search').on("select2:open", function (e) {
+		$('.select2-results__option').css('border', '2px solid green');
 	});
 };
 

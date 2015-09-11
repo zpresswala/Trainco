@@ -70,13 +70,13 @@
             }
         </ul>
         <p class="select-location-instruction">Choose a City or Enter a Zip Code</p>
-        <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="">
+        <select id="main-search" multiple style="width:100%" data-placeholder='Choose a City, Enter a Zip Code, or Select "All Locations"' class="populate" data-location="">
             @if (false == string.IsNullOrEmpty(currentCityState))
             {
                 <option value="@(currentCityState)">@currentCityState</option>
             }
 
-            <option value="all">Search all locations</option>
+            <option value="all">All locations</option>
 
             @foreach (State state in stateList)
             {

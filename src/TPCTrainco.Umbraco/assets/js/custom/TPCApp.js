@@ -26,7 +26,7 @@ function TPCApp() {
 	}
 
 	if ($('#count').length) {
-		this.countUp = new CountUp(this.$win);
+		this.countUp = new CountUp();
 	}
 
 	// share popover init
@@ -61,7 +61,7 @@ function TPCApp() {
 		this.CheckoutCustomer = new CheckoutCustomer();
 	}
 
-	this.bindScroll();
+	// this.bindScroll();
 
 	// CHECK IF USER IS ON A RETINA DEVICE
 	var isRetina = false;
@@ -142,21 +142,21 @@ function TPCApp() {
 
 }
 
-TPCApp.prototype.bindScroll = function () {
-	var _this = this;
-	this.$win.on('scroll', function () {
-		_this.handleWindowScroll();
-	});
-};
+// TPCApp.prototype.bindScroll = function () {
+// 	var _this = this;
+// 	this.$win.on('scroll', function () {
+// 		_this.handleWindowScroll();
+// 	});
+// };
 
-TPCApp.prototype.handleWindowScroll = function () {
-	this.currentScrollTop = this.$win.scrollTop();
+// TPCApp.prototype.handleWindowScroll = function () {
+// 	this.currentScrollTop = this.$win.scrollTop();
 
-	// only run this on certain pages.
-	if ($('#count').length) {
-		this.countUp.handleWindowScroll(this.currentScrollTop);
-	}
-};
+// 	// only run this on certain pages.
+// 	if ($('#count').length) {
+// 		this.countUp.handleWindowScroll(this.currentScrollTop);
+// 	}
+// };
 
 TPCApp.prototype.handleWindowResize = function() {
 	if ($('#date-range-slider').length) {
