@@ -46,7 +46,7 @@ function MainSearchSelect() {
 	});
 
 	$('#main-search').on("select2:open", function (e) {
-		$('.select2-results__option').css('border', '2px solid green');
+		//$('.select2-results__option').css('border', '2px solid green');
 	});
 };
 

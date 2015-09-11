@@ -36,7 +36,7 @@
 
             <!-- location select -->
             <div class="location-select-wrap">
-                <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="">
+                <select multiple id="main-search" style="width:100%" data-placeholder='Choose a City, Enter a Zip Code, or Select "All Locations"' class="populate" data-location="">
                     @if (false == string.IsNullOrEmpty(currentCityState))
                     {
                         <option value="@(currentCityState)">@currentCityState</option>
