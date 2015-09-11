@@ -32,7 +32,11 @@ a:hover, a:focus {
 	text-decoration: none;
 	color: $blue;
 }
-
+@include below-tablet-portrait {
+&:active {
+    color: darken($blue, 15%);
+}
+}
 h2, h3, h4 {
 	font-weight: 400;
 	color: $headline-black-on-white;
@@ -42,7 +46,7 @@ button {
 	border: none;
 }
 
-// the red pill-shaped buttons w/hover state. just add this class 
+// the red pill-shaped buttons w/hover state. just add this class
 .btn-reg {
 	background-color: $red-button;
 	color: $white;
@@ -176,7 +180,12 @@ button {
 		> svg {
 			@include transition(0.25s);
 			fill: $blue;
-		} 
+			@include below-tablet-portrait {
+				&:active {
+				color: darken($blue, 15%);
+				}
+			}
+		}
 	}
 	.regular-link svg {
 		width: 30px;
@@ -235,7 +244,7 @@ button {
         @include transition-property(right);
         @include transition-duration(0.3s);
         @include transition-timing-function(ease-out);
-        
+
         @include tablet-landscape-and-up {
             left: 10px;
         }
@@ -248,6 +257,11 @@ button {
     &:hover:before {
         right: 6%;
     }
+    @include below-tablet-portrait {
+				&:active {
+				color: darken($white, 15%);
+				}
+			}
 }
 
 .nav-link {
@@ -291,7 +305,7 @@ button {
 		display: inline-block;
 		position: relative;
 		font-weight: 300;
-		
+
 		&:after, &:before {
 			display: none;
 			@include tablet-landscape-and-up {
@@ -340,15 +354,15 @@ button {
 	}
 
 	:-moz-placeholder { /* Firefox 18- */
-	   color: $white;  
+	   color: $white;
 	}
 
 	::-moz-placeholder {  /* Firefox 19+ */
-	   color: $white;  
+	   color: $white;
 	}
 
-	:-ms-input-placeholder {  
-	   color: $white;  
+	:-ms-input-placeholder {
+	   color: $white;
 	}
 }
 
@@ -369,7 +383,7 @@ button {
 		border: 0;
 		font-size: 19px;
 	}
-	
+
 	.select2-selection__rendered {
 		background-color: $blue;
 		border: none;

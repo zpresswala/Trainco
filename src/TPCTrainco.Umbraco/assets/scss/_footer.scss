@@ -1,6 +1,6 @@
 footer {
 	color: $white;
-	background-color: $black-background;	
+	background-color: $black-background;
 	display: inline-block;
 	width: 100%;
 	height: auto;
@@ -35,6 +35,11 @@ footer {
 				&:hover, &:focus {
 					color: $white;
 					text-decoration: none;
+				}
+			@include below-tablet-portrait {
+				&:active {
+					color: darken($white, 15%);
+				}
 				}
 			}
 		}
