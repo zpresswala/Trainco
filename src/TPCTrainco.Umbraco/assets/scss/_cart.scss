@@ -324,8 +324,9 @@
 		font-weight: 400;
 		position: relative;
 		display: inline-block;
-		width: 85%;
-		max-width: 320px;
+		width: 160px;
+		// max-width: 320px;
+		text-align: left;
 	}
 }
 
@@ -374,6 +375,13 @@
 		border-right-color: $blue;
 		border-width: 13px;
 		margin-top: -13px;
+	}
+}
+
+.location-msg {
+	width: 160px;
+	@include tablet-portrait-and-up {
+		right: -100%;
 	}
 }
 

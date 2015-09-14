@@ -74,6 +74,8 @@ app.LocationView = Backbone.View.extend({
     showClassLocationMsg: function(e) {
         e.preventDefault();
         var target = $(e.currentTarget);
+        console.log(this.$el, 'hello')
+        this.$el.find('.location-msg').removeClass('showing');
         target.parent().parent().find('.location-msg').toggleClass('showing');
     }
 });
