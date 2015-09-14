@@ -59,7 +59,7 @@ gulp.task('js', function() {
         .pipe(concat('main.js').on('error', function(err) {
             console.log(err);
         }))
-        .pipe(uglify({mangle: false}).on('error', function(err) {
+        .pipe(uglify({mangle: true}).on('error', function(err) {
             console.log(err);
         }))
         .pipe(gulp.dest(config.jsDest));
@@ -78,13 +78,14 @@ gulp.task('js:vendor', function() {
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-tooltip.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-popover.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/modernizr-dev.js',
+        'src/TPCTrainco.Umbraco/assets/js/vendor/select2.js'
 
     ];
     return gulp.src(vendorPaths)
         .pipe(concat('vendor.js').on('error', function(err) {
             console.log(err);
         }))
-        .pipe(uglify().on('error', function(err) {
+        .pipe(uglify({mangle: true}).on('error', function(err) {
             console.log(err);
         }))
         .pipe(gulp.dest(config.jsDest));
@@ -103,7 +104,7 @@ gulp.task('js:cartapp', function() {
         .pipe(concat('cart.js').on('error', function(err) {
             console.log(err);
         }))
-        .pipe(uglify({mangle: false}).on('error', function(err) {
+        .pipe(uglify({mangle: true}).on('error', function(err) {
             console.log(err);
         }))
         .pipe(gulp.dest(config.jsDest));
