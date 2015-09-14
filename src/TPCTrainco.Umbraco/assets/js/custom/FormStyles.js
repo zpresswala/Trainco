@@ -2,7 +2,7 @@
 
 function FormStyles() {
 	var _this = this;
-	$('.pleasesendmeinformationthroughthemail').find('input[type=checkbox]').on('change', function() {
+	$('.checktheboxtoreceiveseminarinformationinthemail').find('input[type=checkbox]').on('change', function() {
 		if($(this).is(':checked')) {
 			var showHide = true;
 		} else {
