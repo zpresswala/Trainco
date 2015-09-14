@@ -184,7 +184,7 @@ app.ScheduleView = Backbone.View.extend({
             model: cartItem,
             quantity: itemQuantity,
             price: itemPrice
-        }).render();
+        });
 
         this.addQtyToCart(itemQuantity, cartItem);
         Backbone.trigger('calculateSubtotal', itemQuantity);

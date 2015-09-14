@@ -17,7 +17,10 @@ app.CartItemView = Backbone.View.extend({
     initialize: function(options) {
         var _this = this;
         this.options = options || {};
-        this.template = _.template($('#cartItemTemplate').html());
+        if($('#cartItemTemplate').length) {
+            this.template = _.template($('#cartItemTemplate').html());
+            this.render();
+        }
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
         Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
         Backbone.on('clearCart', this.removeItemFromCart, this);
