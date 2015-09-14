@@ -17,4 +17,17 @@
 	#search-btn {
 		color: #000000;
 	}
+	.caro-form-container {
+		background-color: #79A4AF;
+		background-image: none;
+
+		.carousel {
+			.item {
+				height: 370px;
+			}
+		}
+	}
+	.carousel .carousel-caption {
+		bottom: 0;
+	}
 }
