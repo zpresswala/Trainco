@@ -17,10 +17,7 @@ app.CartItemView = Backbone.View.extend({
     initialize: function(options) {
         var _this = this;
         this.options = options || {};
-        if($('#cartItemTemplate').length) {
-            this.template = _.template($('#cartItemTemplate').html());
-            this.render();
-        }
+        this.template = _.template($('#cartItemTemplate').html());
         Backbone.on('calculateSubtotal', this.calculateSubtotal, this);
         Backbone.on('updateCartTotalPrice', this.updateCartTotalPrice, this);
         Backbone.on('clearCart', this.removeItemFromCart, this);
@@ -37,22 +34,24 @@ app.CartItemView = Backbone.View.extend({
 
     // this is only called when pulling from localStorage
     renderFromLocalStore: function() {
-        var $tpl = $(this.template(this.model.toJSON()));
-        this.setElement($tpl);
-        $('#cart-item-list').append($tpl);
-        this.model.set({
-            fromLS: true,
-            inCart: true
-        });
+        if($('#cartItemTemplate').length) {
+            var $tpl = $(this.template(this.model.toJSON()));
+            this.setElement($tpl);
+            $('#cart-item-list').append($tpl);
+            this.model.set({
+                fromLS: true,
+                inCart: true
+            });
 
-        // fill in the cart data
-        this.showDataFromLocalStore();
+            // fill in the cart data
+            this.showDataFromLocalStore();
 
-        // fill in the cart's total quantity and price
-        this.updateCartTotalQuantity();
-        this.updateCartTotalPrice();
-        
-        return this;
+            // fill in the cart's total quantity and price
+            this.updateCartTotalQuantity();
+            this.updateCartTotalPrice();
+            
+            return this;
+        }
     },
 
     // fills view data in from local store model data

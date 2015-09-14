@@ -140,6 +140,10 @@ function TPCApp() {
         _this.handleWindowResize();
     });
 
+    if(window.location.pathname == '/search-seminars/' || window.location.pathname == '/search-seminars') {
+    	this.grayBgBody();
+    }
+
 }
 
 // TPCApp.prototype.bindScroll = function () {
@@ -222,6 +226,11 @@ TPCApp.prototype.retinaLogos = function(retinaScreen) {
 
 TPCApp.prototype.addClassToFormBtn = function() {
 	$('.form-standard').find('.btn').addClass('btn-reg').addClass('btn-blue-solid');
+};
+
+// if you're on the search page, remove "gradient-bg" class from body because it looks bad if window height is tall
+TPCApp.prototype.grayBgBody = function () {
+	$('body').removeClass('gradient-bg');
 };
 
 // if you do a search from the home page, scroll down on the next page.

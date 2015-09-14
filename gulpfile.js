@@ -59,7 +59,7 @@ gulp.task('js', function() {
         .pipe(concat('main.js').on('error', function(err) {
             console.log(err);
         }))
-        .pipe(uglify({mangle: true}).on('error', function(err) {
+        .pipe(uglify({mangle: false}).on('error', function(err) {
             console.log(err);
         }))
         .pipe(gulp.dest(config.jsDest));
@@ -85,7 +85,7 @@ gulp.task('js:vendor', function() {
         .pipe(concat('vendor.js').on('error', function(err) {
             console.log(err);
         }))
-        .pipe(uglify({mangle: true}).on('error', function(err) {
+        .pipe(uglify({mangle: false}).on('error', function(err) {
             console.log(err);
         }))
         .pipe(gulp.dest(config.jsDest));
@@ -104,7 +104,7 @@ gulp.task('js:cartapp', function() {
         .pipe(concat('cart.js').on('error', function(err) {
             console.log(err);
         }))
-        .pipe(uglify({mangle: true}).on('error', function(err) {
+        .pipe(uglify({mangle: false}).on('error', function(err) {
             console.log(err);
         }))
         .pipe(gulp.dest(config.jsDest));

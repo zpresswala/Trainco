@@ -61,7 +61,7 @@ app.LocationView = Backbone.View.extend({
                         collection: app.scheduleCollection,
                         el: elemToAppendSchedules,
                         locationLocId: _this.locationIdArr
-                    });
+                    }).render();
                 }
             },
 

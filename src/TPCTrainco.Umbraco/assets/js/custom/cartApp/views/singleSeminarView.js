@@ -16,6 +16,7 @@ app.SingleSeminarView = Backbone.View.extend({
     },
 
     render: function() {
+        console.log('rnder', this.template, this.model)
         this.$el.append(this.template(this.model.toJSON()));
         return this;
     },
