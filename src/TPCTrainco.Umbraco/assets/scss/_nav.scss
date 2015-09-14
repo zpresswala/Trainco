@@ -41,7 +41,7 @@
         color: $white;
         padding: 12px 15px 13px 20px;
         border-bottom: 1px solid #626262;
-        
+
         background-color: #191919;
 
         &:hover, &:focus {
@@ -100,6 +100,11 @@
             &:hover, &:focus {
                 color: $white;
             }
+            @include below-tablet-portrait {
+            &:active {
+                color: darken($white, 15%);
+            }
+        }
         }
 
         .btn-reg {
@@ -144,9 +149,9 @@
     @include tablet-landscape-and-up {
         margin: 0 auto;
         background-color: transparent;
-        max-width: 1200px; 
-        height: 80px; 
-        padding-right: 15px;   
+        max-width: 1200px;
+        height: 80px;
+        padding-right: 15px;
     }
 }
 

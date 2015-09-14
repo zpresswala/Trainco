@@ -161,7 +161,7 @@
 
 			&:before {
 				left: -15%;
-			}	
+			}
 		}
 		a {
 			color: $white;
@@ -170,6 +170,10 @@
 				border-bottom: 3px solid $white;
 				padding-bottom: 2px;
 			}
+			@include below-tablet-portrait {
+				&:active {
+					color: darken($white, 15%);
+				}
 		}
 	}
 

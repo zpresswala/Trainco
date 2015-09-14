@@ -3,7 +3,7 @@
 
     .feature-snippet {
         color: $headline-black;
-        
+
         font-size: 18px;
         margin: 25px 0 35px;
         text-align: left;
@@ -44,7 +44,7 @@
     max-width: 300px;
     margin: 0 auto;
     @include tablet-portrait-and-up {
-        width: 92%;  
+        width: 92%;
     }
 
     .author-img {
@@ -81,6 +81,11 @@
 
         &:hover {
             color: $blue;
+        }
+        @include below-tablet-portrait {
+            &:active {
+                color: lighten($blue, 50%);
+            }
         }
     }
 }
