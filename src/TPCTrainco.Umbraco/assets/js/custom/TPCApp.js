@@ -5,7 +5,7 @@ window.app = window.app || {};
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
-	this.$aHref = $('a[href^=#]');
+	this.$aHref = $('a[href^=#]').not('.elec-sort-category');
 	this.$page = $('html, body');
 
 	$('.carousel').carousel();
@@ -84,7 +84,7 @@ function TPCApp() {
 	var hash = window.location.hash;
 
 	// if one clicks "browse courses", go to that page and scroll to hash
-	if($('.course-section').length) {
+	if($('.course-section').length && hash) {
 		_this.$page.animate({
 			scrollTop: $(hash).offset().top - 140
 		}, 300);
