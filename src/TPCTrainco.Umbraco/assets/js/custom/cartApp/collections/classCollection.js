@@ -54,6 +54,48 @@ $(document).keydown(function() {
 
 // perform the search using the API and the search parameters
 function performSearch(searchParams) {
+
+	// ie8 array filter polyfill
+	[].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d})
+
+	// ie8 array indexOf polyfill
+	if (!Array.prototype.indexOf) {
+	  Array.prototype.indexOf = function(searchElement, fromIndex) {
+
+	    var k;
+	    if (this == null) {
+	      throw new TypeError('"this" is null or not defined');
+	    }
+
+	    var O = Object(this);
+
+	    var len = O.length >>> 0;
+
+	    if (len === 0) {
+	      return -1;
+	    }
+
+	    var n = +fromIndex || 0;
+
+	    if (Math.abs(n) === Infinity) {
+	      n = 0;
+	    }
+	    if (n >= len) {
+	      return -1;
+	    }
+	    k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+	    while (k < len) {
+	      if (k in O && O[k] === searchElement) {
+	        return k;
+	      }
+	      k++;
+	    }
+	    return -1;
+	  };
+	}
+
+	// end polyfills
+	
 	var $emptyMsg = $('.empty-message'),
 		$classLoader = $('.class-loader');
 	

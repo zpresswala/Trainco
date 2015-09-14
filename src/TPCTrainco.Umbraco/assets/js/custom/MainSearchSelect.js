@@ -7,19 +7,10 @@ function MainSearchSelect() {
 	var _this = this;
 
 	$('#main-search').select2({
-		// data:sampleArray,
 		tags: true,
 		selectOnBlur: true,
 		maximumSelectionLength: 1,
-		formatSelectionTooBig: function (limit) {
-
-		      // Callback
-		      console.log('doo ddoo');
-
-		      return 'Too many selected items';
-		  },
 		dropdownAutoWidth: true,
-		// tokenSeparators: [",", " "],
 
 		placeholder: function () {
 			$(this).data('placeholder');
