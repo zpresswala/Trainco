@@ -16,7 +16,6 @@ app.ScheduleView = Backbone.View.extend({
         this.template = _.template($('#scheduleTemplate').html());
         this.options = options || {};
         this.locLocIdArr = options.locationLocId;
-        // this.render();
     },
 
     render:function () {
@@ -37,7 +36,6 @@ app.ScheduleView = Backbone.View.extend({
     // this just creates the data model and adds it to the collection
     addToCart: function(e) {
         e.preventDefault();
-        console.log('add to cart')
         var target = $(e.currentTarget);
         var _this = this;
         this.$classQty = target.parent().parent().find('.class-qty');

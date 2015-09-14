@@ -9,8 +9,10 @@ app.CartNotifyView = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.template = _.template($('#cartNotifyTemplate').html());
-        this.render();
+        if(!$('.success').length) {
+            this.template = _.template($('#cartNotifyTemplate').html());
+            this.render();
+        }
 
         this.totalCost = this.$('.total-cost');
 

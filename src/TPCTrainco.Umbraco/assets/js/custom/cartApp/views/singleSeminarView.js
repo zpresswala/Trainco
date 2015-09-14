@@ -11,12 +11,13 @@ app.SingleSeminarView = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.template = _.template($('#classTemplate').html());
+        if(!$('.success').length) {
+            this.template = _.template($('#classTemplate').html());
+        }
         this.firstClick = false;
     },
 
     render: function() {
-        console.log('rnder', this.template, this.model)
         this.$el.append(this.template(this.model.toJSON()));
         return this;
     },
@@ -34,14 +35,12 @@ app.SingleSeminarView = Backbone.View.extend({
                 viewText.removeClass('red').html('<span class="plus">+</span>View Upcoming Seminars');
                 _this.model.set('open', false);
             });
-            // this.$el.css('padding-bottom', 25 + 'px');
         } else {
             // open it
             $schedItemWrap.slideDown(400, function() {
                 viewText.addClass('red').html('<span class="plus turn">+</span>View Less');
                 _this.model.set('open', true);  
-            }); 
-            // this.$el.css('padding-bottom', 0);
+            });
         }
 
         // styling
