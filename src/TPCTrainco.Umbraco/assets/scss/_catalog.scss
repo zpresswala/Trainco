@@ -43,11 +43,6 @@
 			bottom: -10px;
 			left: 0;
 		}
-  @include below-tablet-portrait {
-  	&:active {
-      color: lighten($blue, 50%);
- 		}
-}
 	}
 	ul {
 		padding-left: 0;

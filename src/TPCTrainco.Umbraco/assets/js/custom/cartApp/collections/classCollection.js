@@ -18,6 +18,7 @@ var performSearchCallback = function() {
 	app.scheduleCollection.reset();
 	var searchLocationVal = $('#main-search').select2('val');
 	var searchParams;
+	$('.detail-page-app').slideDown();
 	if(searchLocationVal) {
 		searchParams = app.mainSearchSelect.getSearchParams();
 		performSearch(searchParams);
@@ -105,7 +106,7 @@ function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
-
+	console.log(dataReFormat)
 	// if no data, return
 	if (dataReFormat == 'undefined' || !dataReFormat) {
 		return false;
@@ -117,7 +118,7 @@ function performSearch(searchParams) {
 		
 		// if classId is found, skip the classTopics, you are on the search page
 		if (dataReFormat.classTopics.length >= 4) {
-			var topics = ['all'];
+			var topics = [];
 		} else {
 			var topics = dataReFormat.classTopics.filter(function (item, pos) {
 				return dataReFormat.classTopics.indexOf(item) == pos;
@@ -140,6 +141,8 @@ function performSearch(searchParams) {
 			var topics = topicsListTwo;
 		}	
 	}
+
+	console.log(topics)
 
 	$classLoader.fadeIn(90);
 

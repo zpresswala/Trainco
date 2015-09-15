@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-// var ApiDomain = 'http://new.tpctrainco.com';
+var ApiDomain = 'http://new.tpctrainco.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -105,9 +105,14 @@ function TPCApp() {
 		}
 
 		if(hash) {
+			$('.detail-page-app').slideDown();
 			performSearch(searchParams);
 		} else {
 			$('.empty-location-msg').hide();
+		}
+
+		if(!$('.results').children().length) {
+			$('.empty-message').show();
 		}
 	}
 

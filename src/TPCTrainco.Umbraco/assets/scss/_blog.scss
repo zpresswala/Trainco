@@ -82,10 +82,8 @@
         &:hover {
             color: $blue;
         }
-        @include below-tablet-portrait {
-            &:active {
-                color: lighten($blue, 50%);
-            }
+        &:active {
+            color: lighten($blue, 50%);
         }
     }
 }
