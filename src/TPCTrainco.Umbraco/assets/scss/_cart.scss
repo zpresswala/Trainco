@@ -383,12 +383,12 @@
 
 .location-msg {
 	width: 160px;
-	left: 114%;
+	left: 116%;
 
-	@include tablet-portrait-and-up {
-		position: relative;
-		left: 20px;
-	}
+	// @include tablet-portrait-and-up {
+	// 	position: relative;
+	// 	left: 20px;
+	// }
 }
 
 .attendee-msg {
