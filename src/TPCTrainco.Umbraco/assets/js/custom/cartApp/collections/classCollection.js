@@ -106,7 +106,7 @@ function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
-	console.log(dataReFormat)
+
 	// if no data, return
 	if (dataReFormat == 'undefined' || !dataReFormat) {
 		return false;
@@ -141,8 +141,6 @@ function performSearch(searchParams) {
 			var topics = topicsListTwo;
 		}	
 	}
-
-	console.log(topics)
 
 	$classLoader.fadeIn(90);
 
