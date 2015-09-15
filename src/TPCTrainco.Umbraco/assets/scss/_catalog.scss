@@ -67,10 +67,8 @@
 
 		&:before {
 			background: $red-button-hover;
+			z-index: 2;
 		}
-	@include below-tablet-portrait {
-		color: darken($red-button-hover, 15%);
-	}
 	}
 }
 
