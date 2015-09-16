@@ -149,6 +149,11 @@ function TPCApp() {
     	this.grayBgBody();
     }
 
+    // ie8 + ie9 placeholders
+    if($('body').hasClass('ie8') || $('body').hasClass('ie9')) {
+    	this.iePlaceholders();
+    }
+
 }
 
 // TPCApp.prototype.bindScroll = function () {
@@ -246,4 +251,23 @@ TPCApp.prototype.scrollToResults = function() {
 			scrollTop: $('#search-btn').offset().top - 80
 		}, 300);
 	}, 500);
+};
+
+TPCApp.prototype.iePlaceholders = function() {
+    $.support.placeholder = false;
+    var test = document.createElement('input');
+    if('placeholder' in test) {
+        $.support.placeholder = true;
+        return function() {}
+    } else {
+        $('input[type="text"], input[type="email"]').each(function () {
+            var _placeholder = $(this).attr('placeholder');
+            $(this).val(_placeholder);
+        }).focus(function() {
+            $(this).val(' ');
+	    }).blur(function() {
+            var _placeholder = $(this).attr('placeholder');
+            $(this).val(_placeholder);
+	    });
+    }
 };

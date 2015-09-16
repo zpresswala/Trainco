@@ -1,11 +1,13 @@
-.ie8 {
+.ie8, .ie9 {
 	.select-location-instruction {
 		display: block;
 		text-align: center;
 	    margin: 20px 0 40px;
 	    color: #ffffff;
 	}
+}
 
+.ie8 {
 	.course-section .overlay-contain img {
 		height: 150px;
 	}
