@@ -264,14 +264,13 @@ TPCApp.prototype.iePlaceholders = function() {
             var _placeholder = $(this).attr('placeholder');
             $(this).val(_placeholder);
         }).focus(function() {
-            // $(this).val(' ');
             var _placeholder = $(this).attr('placeholder');
-            if($(this).val() == ' ' || $(this).val() == _placeholder) {
-            	$(this).val(_placeholder);
+            if($(this).val() == _placeholder) {
+            	$(this).val(' ');
             }
 	    }).blur(function() {
             var _placeholder = $(this).attr('placeholder');
-            if($(this).val() == ' ') {
+            if($(this).val() == ' ' || !$(this).val()) {
             	$(this).val(_placeholder);
             }
 	    });
