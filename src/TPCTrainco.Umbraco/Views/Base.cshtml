@@ -3,7 +3,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "0.911";
+    string cacheVer = "0.921";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
@@ -102,6 +102,22 @@
     <link rel="stylesheet" type="text/css" href="/css/vendor.css?@cacheVer">
     <link rel="stylesheet" type="text/css" href="/css/main.css?@cacheVer">
     <link href="//fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic" rel="stylesheet" type="text/css">
+
+    @if (true == currentPage.HasValue("googleAnalyticsId"))
+    {
+        <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <!-- Google Analytics-->
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            ga('create', '@(currentPage.GetPropertyValue<string>("googleAnalyticsId"))', 'auto');
+            ga('send', 'pageview');
+        </script>
+    }
 
     <!--[if lt IE 9]>
         <body class="ie8">
