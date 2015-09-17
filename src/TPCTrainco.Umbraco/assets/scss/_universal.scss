@@ -32,11 +32,7 @@ a:hover, a:focus {
 	text-decoration: none;
 	color: $blue;
 }
-@include below-tablet-portrait {
-&:active {
-    color: darken($blue, 15%);
-}
-}
+
 h2, h3, h4 {
 	font-weight: 400;
 	color: $headline-black-on-white;
@@ -180,16 +176,15 @@ button {
 		> svg {
 			@include transition(0.25s);
 			fill: $blue;
-			@include below-tablet-portrait {
-				&:active {
-				color: darken($blue, 15%);
-				}
-			}
 		}
 	}
 	.regular-link svg {
 		width: 30px;
 		height: 30px;
+
+		&:active {
+			fill: darken($blue, 15%);
+		}
 	}
 }
 
@@ -224,7 +219,6 @@ button {
 
 // a link with the underline border on hover
 .regular-link {
-    -moz-osx-font-smoothing: grayscale;
     position: relative;
     overflow: hidden;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -257,11 +251,10 @@ button {
     &:hover:before {
         right: 6%;
     }
-    @include below-tablet-portrait {
-				&:active {
-				color: darken($white, 15%);
-				}
-			}
+	
+	&:active {
+		color: darken($white, 15%);
+	}
 }
 
 .nav-link {

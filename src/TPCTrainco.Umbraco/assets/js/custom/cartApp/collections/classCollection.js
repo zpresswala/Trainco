@@ -18,6 +18,7 @@ var performSearchCallback = function() {
 	app.scheduleCollection.reset();
 	var searchLocationVal = $('#main-search').select2('val');
 	var searchParams;
+	$('.detail-page-app').slideDown();
 	if(searchLocationVal) {
 		searchParams = app.mainSearchSelect.getSearchParams();
 		performSearch(searchParams);
@@ -117,7 +118,7 @@ function performSearch(searchParams) {
 		
 		// if classId is found, skip the classTopics, you are on the search page
 		if (dataReFormat.classTopics.length >= 4) {
-			var topics = ['all'];
+			var topics = [];
 		} else {
 			var topics = dataReFormat.classTopics.filter(function (item, pos) {
 				return dataReFormat.classTopics.indexOf(item) == pos;

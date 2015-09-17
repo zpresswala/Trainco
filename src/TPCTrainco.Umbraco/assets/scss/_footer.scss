@@ -36,10 +36,9 @@ footer {
 					color: $white;
 					text-decoration: none;
 				}
-			@include below-tablet-portrait {
+
 				&:active {
 					color: darken($white, 15%);
-				}
 				}
 			}
 		}

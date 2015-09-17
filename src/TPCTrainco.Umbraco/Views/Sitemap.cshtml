@@ -2,7 +2,7 @@
 @{
     Layout = "Base.cshtml";
 }
-<!-- same as detail page -->
+
 <div class="container-fluid headline-section">
     <div class="row">
         <div class="jumbotron">
@@ -17,13 +17,13 @@
         </div>
     </div>
 </div>
-<!-- the href attribute and link itself are filler content for now but need to be editable in the CMS -->
+
 <div class="container-fluid main-content sitemap gradient-bg">
     <div class="container">
         <div class="row">
             @foreach (var page in CurrentPage.AncestorOrSelf(1).Children.Where("Visible"))
             {
-                <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                     <div class="sitemap-section">
                         <a href="@page.Url">
                             @if (!String.IsNullOrEmpty(Page.pageTitle))
@@ -95,73 +95,4 @@
             }
         </div>
     </div>
-    @*<div class="col-xs-12 col-sm-6 col-md-5 col-md-offset-2">
-        <div class="sitemap-section">
-            <h2>Home</h2>
-            <ul>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-5">
-        <div class="sitemap-section">
-            <h2>HVAC Training</h2>
-            <ul>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-5 col-md-offset-2">
-        <div class="sitemap-section">
-            <h2>Home</h2>
-            <ul>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-5">
-        <div class="sitemap-section">
-            <h2>Home</h2>
-            <ul>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-5 col-md-offset-2">
-        <div class="sitemap-section">
-            <h2>Home</h2>
-            <ul>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-                <li><a href="#">Air Conditioning &amp; Refrigeration</a></li>
-                <li><a href="#">Boiler Operation, Maintenance and Safety</a></li>
-            </ul>
-        </div>
-    </div>*@
 </div>

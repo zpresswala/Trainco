@@ -43,11 +43,6 @@
 			bottom: -10px;
 			left: 0;
 		}
-  @include below-tablet-portrait {
-  	&:active {
-      color: lighten($blue, 50%);
- 		}
-}
 	}
 	ul {
 		padding-left: 0;
@@ -72,10 +67,8 @@
 
 		&:before {
 			background: $red-button-hover;
+			z-index: 2;
 		}
-	@include below-tablet-portrait {
-		color: darken($red-button-hover, 15%);
-	}
 	}
 }
 

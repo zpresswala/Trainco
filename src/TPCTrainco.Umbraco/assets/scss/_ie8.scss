@@ -1,11 +1,13 @@
-.ie8 {
+.ie8, .ie9 {
 	.select-location-instruction {
 		display: block;
 		text-align: center;
 	    margin: 20px 0 40px;
 	    color: #ffffff;
 	}
+}
 
+.ie8 {
 	.course-section .overlay-contain img {
 		height: 150px;
 	}
@@ -29,5 +31,19 @@
 	}
 	.carousel .carousel-caption {
 		bottom: 0;
+	}
+	.schedule-items-wrap {
+		width: 100%;
+	}
+
+	.btn-blue-hollow {
+		color: $white;
+	}
+	.tooltip-msg {
+		bottom: -20px;
+		display: inline-block;
+	}
+	.seminar-topic {
+		max-height: none;
 	}
 }

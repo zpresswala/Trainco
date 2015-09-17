@@ -29,18 +29,29 @@
 		text-align: center;
 		width: 150px;
 	}
+
+	.seminar-topic {
+		max-height: 161px;
+		vertical-align: bottom;
+
+		@include tablet-portrait-and-up {
+			margin: 30px 1%;
+		}
+	}
 }
 
 .seminar-topic {
 	margin: 5px;
 	list-style-type: none;
 	display: inline-block;
+
 	@include tablet-portrait-and-up {
 		margin: 30px;
 	}
 
 	p {
 		color: $white;
+		width: 140px;
 	}
 }
 
@@ -170,10 +181,8 @@
 				border-bottom: 3px solid $white;
 				padding-bottom: 2px;
 			}
-			@include below-tablet-portrait {
-				&:active {
-					color: darken($white, 15%);
-				}
+			&:active {
+				color: darken($white, 15%);
 			}
 		}
 	}

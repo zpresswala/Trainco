@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-
+// var ApiDomain = 'http://new.tpctrainco.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -105,9 +105,14 @@ function TPCApp() {
 		}
 
 		if(hash) {
+			$('.detail-page-app').slideDown();
 			performSearch(searchParams);
 		} else {
 			$('.empty-location-msg').hide();
+		}
+
+		if(!$('.results').children().length) {
+			$('.empty-message').show();
 		}
 	}
 
@@ -142,6 +147,11 @@ function TPCApp() {
 
     if(window.location.pathname == '/search-seminars/' || window.location.pathname == '/search-seminars') {
     	this.grayBgBody();
+    }
+
+    // ie8 + ie9 placeholders
+    if($('body').hasClass('ie8') || $('body').hasClass('ie9')) {
+    	this.iePlaceholders();
     }
 
 }
@@ -241,4 +251,28 @@ TPCApp.prototype.scrollToResults = function() {
 			scrollTop: $('#search-btn').offset().top - 80
 		}, 300);
 	}, 500);
+};
+
+TPCApp.prototype.iePlaceholders = function() {
+    $.support.placeholder = false;
+    var test = document.createElement('input');
+    if('placeholder' in test) {
+        $.support.placeholder = true;
+        return function() {}
+    } else {
+        $('input[type="text"], input[type="email"]').each(function () {
+            var _placeholder = $(this).attr('placeholder');
+            $(this).val(_placeholder);
+        }).focus(function() {
+            var _placeholder = $(this).attr('placeholder');
+            if($(this).val() == _placeholder) {
+            	$(this).val(' ');
+            }
+	    }).blur(function() {
+            var _placeholder = $(this).attr('placeholder');
+            if($(this).val() == ' ' || !$(this).val()) {
+            	$(this).val(_placeholder);
+            }
+	    });
+    }
 };

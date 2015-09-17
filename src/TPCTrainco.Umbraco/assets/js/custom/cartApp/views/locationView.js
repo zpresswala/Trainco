@@ -74,7 +74,12 @@ app.LocationView = Backbone.View.extend({
     showClassLocationMsg: function(e) {
         e.preventDefault();
         var target = $(e.currentTarget);
-        this.$el.find('.location-msg').removeClass('showing');
-        target.parent().parent().find('.location-msg').toggleClass('showing');
+        var $openTooltip = target.parent().parent().find('.location-msg');
+        if($openTooltip.hasClass('showing')) {
+            $openTooltip.removeClass('showing');
+        } else {
+            this.$('.location-msg').removeClass('showing');
+            $openTooltip.addClass('showing');
+        }
     }
 });
