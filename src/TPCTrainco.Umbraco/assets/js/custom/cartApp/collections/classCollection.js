@@ -43,7 +43,14 @@ $('#search-btn-home').on('click', performHomeSearchCallback);
 // trigger searches with enter keypress
 $(document).keydown(function() {
 	if(event.which == 13) {
-		if($('#search-btn').length) {
+		var disableEnter = null;
+		app.globalCollection.each(function(model) {
+			if(model.get('open') == true) { 
+				disableEnter = true;
+			}
+		});
+
+		if($('#search-btn').length && !$('.cart').hasClass('down') && !disableEnter) {
 			performSearchCallback();
 		}
 		if($('#search-btn-home').length) {

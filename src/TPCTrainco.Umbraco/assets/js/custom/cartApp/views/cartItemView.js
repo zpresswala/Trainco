@@ -151,7 +151,7 @@ app.CartItemView = Backbone.View.extend({
         var updatedQty = parseInt(this.$('.class-qty').val());
 
         // if someone changes the quantity to zero, remove item
-        if(updatedQty === 0) {
+        if(updatedQty <= 0) {
             this.removeItemFromCart(e);
         }
 
