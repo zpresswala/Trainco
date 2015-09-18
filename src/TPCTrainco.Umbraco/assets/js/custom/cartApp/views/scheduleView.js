@@ -92,6 +92,7 @@ app.ScheduleView = Backbone.View.extend({
 
             var id = target.data('id'),
                 modelData = this.collection.get(id),
+                locationIdNum = modelData.get('locationId'),
                 courseIdNum = modelData.get('courseId'),
                 price = modelData.get('price'),
                 classDate = modelData.get('date'),
@@ -114,7 +115,7 @@ app.ScheduleView = Backbone.View.extend({
 
                 // get the cityState
                 var relatedLocationModel = app.locationCollection.findWhere({
-                    courseId: courseIdNum
+                    locationId: locationIdNum
                 });
 
                 var titleOfClass = relatedClassModel.get('title');

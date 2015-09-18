@@ -156,22 +156,6 @@ function TPCApp() {
 
 }
 
-// TPCApp.prototype.bindScroll = function () {
-// 	var _this = this;
-// 	this.$win.on('scroll', function () {
-// 		_this.handleWindowScroll();
-// 	});
-// };
-
-// TPCApp.prototype.handleWindowScroll = function () {
-// 	this.currentScrollTop = this.$win.scrollTop();
-
-// 	// only run this on certain pages.
-// 	if ($('#count').length) {
-// 		this.countUp.handleWindowScroll(this.currentScrollTop);
-// 	}
-// };
-
 TPCApp.prototype.handleWindowResize = function() {
 	if ($('#date-range-slider').length) {
 		this.datePicker = new DatePicker();

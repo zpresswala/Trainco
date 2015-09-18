@@ -106,7 +106,9 @@ function performSearch(searchParams) {
 
 	// parse the search data to show the search results message
 	var dataReFormat = $.parseJSON(searchParams);
-
+	if(dataReFormat.location == 'all') {
+		var all = true;
+	}
 	// if no data, return
 	if (dataReFormat == 'undefined' || !dataReFormat) {
 		return false;
@@ -142,6 +144,10 @@ function performSearch(searchParams) {
 		}	
 	}
 
+	// if(dataReFormat.location == 'all') {
+	// 	var allLocationMsg = "Displaying all available locations for your selected topic."
+	// }
+
 	$classLoader.fadeIn(90);
 
 	if($('#search-results').length) {
@@ -164,6 +170,19 @@ function performSearch(searchParams) {
 					$classLoader.fadeOut(150, function () {
 						$emptyMsg.fadeIn(150).text('We were unable to find classes that fit your preferences. Please change your search terms and try again.');
 					});
+				} else if(all) {
+					console.log('all')
+					$classLoader.fadeOut(150, function () {
+						if($('.search-page').length) {
+							$emptyMsg.fadeIn(150).text('Displaying all available locations for your selected topic.');
+						}
+					});
+
+					app.classView = new app.ClassView({
+						collection: app.globalCollection,
+						el: '.results'
+					});
+					
 				} else {
 					$classLoader.fadeOut(150, function () {
 						if($('.search-page').length) {
