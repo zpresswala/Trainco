@@ -100,7 +100,8 @@
                                     <div class="overlay"></div>
                                     <img src="/assets/images/selectall-icon.jpg" alt="All Seminars" />
                                 </div>
-                                <p>Search All Seminars</p>
+                                <p class="seminar-title">Search All Seminars</p>
+                                <p class="num-seminars">1538 Total Seminars</p>
                             </li>
                             <li class="seminar-topic">
                                 <!-- ####### NEW added data-attrs  #########-->
@@ -108,7 +109,8 @@
                                     <div class="overlay"></div>
                                     <img src="/assets/images/electrical.jpg" alt="Mechanical + Industrial" />
                                 </div>
-                                <p>Electrical</p>
+                                <p class="seminar-title">Electrical</p>
+                                <p class="num-seminars">77 Seminars</p>
                             </li>
 
                             <li class="seminar-topic">
@@ -117,7 +119,8 @@
                                     <div class="overlay"></div>
                                     <img src="/assets/images/hvac-icon.jpg" alt="Mechanical + Industrial" />
                                 </div>
-                                <p>HVAC</p>
+                                <p class="seminar-title">HVAC</p>
+                                <p class="num-seminars">234 Seminars</p>
                             </li>
                             <li class="seminar-topic">
                                 <!-- ####### NEW  added data-attrs #########-->
@@ -125,7 +128,8 @@
                                     <div class="overlay"></div>
                                     <img src="/assets/images/plantmgmt-icon.jpg" alt="Mechanical + Industrial" />
                                 </div>
-                                <p>Plant Management</p>
+                                <p class="seminar-title">Plant Management</p>
+                                <p class="num-seminars">1289 Seminars</p>
                             </li>
 
                             <li class="seminar-topic">
@@ -134,7 +138,8 @@
                                     <div class="overlay"></div>
                                     <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical + Industrial" />
                                 </div>
-                                <p>Mechanical &amp; Industrial</p>
+                                <p class="seminar-title">Mechanical &amp; Industrial</p>
+                                <p class="num-seminars">310 Seminars</p>
                             </li>
 
                         </ul>
@@ -142,6 +147,9 @@
                         <p class="select-location-instruction">Choose a City or Enter a Zip Code</p>
 
                         <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="">
+                            <option value="Birmingham, AL">Denver, CO</option>
+                            <option value="Birmingham, AL" class="all-loc">All Locations</option>
+                            <optgroup label="Or, search a specific city" class="searchlabel">Or, search a specific city</optgroup>
                             <optgroup label="Alabama">
                                 <option value="Birmingham, AL">Birmingham</option>
                                 <option value="Huntsville, AL">Huntsville</option>

@@ -21,6 +21,7 @@
 	ul {
 		padding: 0;
 		text-align: center;
+		margin-bottom: 50px;
 	}
 
 	.btn-white {
@@ -390,4 +391,15 @@
 
 .select-location-instruction {
 	display: none;
+}
+
+.seminar-title {
+	font-size: 17px;
+	font-weight: 700;
+	margin-bottom: 4px;
+}
+
+.num-seminars {
+	font-style: italic;
+	margin-top: 0;
 }

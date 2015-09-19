@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-// var ApiDomain = 'http://new.tpctrainco.com';
+var ApiDomain = 'http://new.tpctrainco.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -155,22 +155,6 @@ function TPCApp() {
     }
 
 }
-
-// TPCApp.prototype.bindScroll = function () {
-// 	var _this = this;
-// 	this.$win.on('scroll', function () {
-// 		_this.handleWindowScroll();
-// 	});
-// };
-
-// TPCApp.prototype.handleWindowScroll = function () {
-// 	this.currentScrollTop = this.$win.scrollTop();
-
-// 	// only run this on certain pages.
-// 	if ($('#count').length) {
-// 		this.countUp.handleWindowScroll(this.currentScrollTop);
-// 	}
-// };
 
 TPCApp.prototype.handleWindowResize = function() {
 	if ($('#date-range-slider').length) {

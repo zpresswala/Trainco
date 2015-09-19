@@ -70,8 +70,8 @@ app.ScheduleView = Backbone.View.extend({
             }, 300);
         };
 
-        // if quantity empty or zero
-        if(this.$classQty.val() == '' || this.$classQty.val() == 0) {
+        // if quantity empty or zero, show error message
+        if(this.$classQty.val() == '' || this.$classQty.val() <= 0) {
             target.parent().prev().find('.attendee-msg').addClass('showing');
             this.$classQty.css('border-color', 'red');
             this.$el.find('.btn-blue-hollow:focus').blur();
@@ -92,6 +92,7 @@ app.ScheduleView = Backbone.View.extend({
 
             var id = target.data('id'),
                 modelData = this.collection.get(id),
+                locationIdNum = modelData.get('locationId'),
                 courseIdNum = modelData.get('courseId'),
                 price = modelData.get('price'),
                 classDate = modelData.get('date'),
@@ -114,7 +115,7 @@ app.ScheduleView = Backbone.View.extend({
 
                 // get the cityState
                 var relatedLocationModel = app.locationCollection.findWhere({
-                    courseId: courseIdNum
+                    locationId: locationIdNum
                 });
 
                 var titleOfClass = relatedClassModel.get('title');

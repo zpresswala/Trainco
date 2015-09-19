@@ -103,54 +103,30 @@ app.CartItemView = Backbone.View.extend({
     },
 
     // removes item from cart, re-calculates total price
-    removeItemFromCart: function(e, success) {
+    removeItemFromCart: function(e) {
         var _this = this;
         var target = $(e.currentTarget);
         var id = target.data('theid');
-
-        var removeCartItem = function() {
             
-            // remove the item from the DOM
-            _this.$el.slideUp(150, function() {
-                _this.remove();
+        // remove the item from the DOM
+        _this.$el.slideUp(150, function() {
+            _this.remove();
 
-                // remove the item from the collection
-                _this.model.destroy();
+            // remove the item from the collection
+            _this.model.destroy();
 
-                // decrement cart total number
-                _this.updateCartTotalQuantity();
+            // decrement cart total number
+            _this.updateCartTotalQuantity();
 
-                // decrement cart total price
-                _this.updateCartTotalPrice();
+            // decrement cart total price
+            _this.updateCartTotalPrice();
 
-                setTimeout(function() {
-                    if(!app.cartCollection.length) {
-                        $('.cart-empty-msg').fadeIn();
-                    }
-                }, 10);
-            });
-
-        }
-
-        // remove item from cart btn click - 
-        // if item is from localstore, remove from cartCollection, ignore schedule collection. we have a "fromLS prop".
-        // if item has been added from the schedule colleciton, remove (already working), then update the original model
-
-        if(success) {
-            removeCartItem();
-        } else {
-            var cartItemFromLS = app.cartCollection.findWhere({ theId: id });
-            var isItemFromLS = cartItemFromLS.get('fromLS');
-
-            if(isItemFromLS) {
-                removeCartItem();
-                return false;
-            } else {
-                var originalScheduleModel = app.scheduleCollection.findWhere({id: id});
-                originalScheduleModel.set('inCart', false);
-                removeCartItem();
-            }
-        }
+            setTimeout(function() {
+                if(!app.cartCollection.length) {
+                    $('.cart-empty-msg').fadeIn();
+                }
+            }, 10);
+        });
     },
 
     // updates the cart total on cart item quantity update. purely in DOM. only called on remove.
@@ -175,7 +151,7 @@ app.CartItemView = Backbone.View.extend({
         var updatedQty = parseInt(this.$('.class-qty').val());
 
         // if someone changes the quantity to zero, remove item
-        if(updatedQty === 0) {
+        if(updatedQty <= 0) {
             this.removeItemFromCart(e);
         }
 

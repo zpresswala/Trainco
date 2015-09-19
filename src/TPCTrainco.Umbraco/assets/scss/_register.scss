@@ -205,9 +205,9 @@
 	}
 
 	label {
-		
-		position: relative;
-		margin-bottom: 20px;
+		margin-bottom: 25px;
+	    padding-left: 30px;
+	    margin-top: 10px;
 	}
 }
 
@@ -225,8 +225,8 @@ input[type=checkbox] + label:before {
     border-radius: 3px; 
     border: 1px solid $cart-border;
     position: absolute;
-    right: -30px;
-    top: 50%;
+    left: 14px;
+    bottom: 25px;
     margin-top: -10px;
 }
 
@@ -254,6 +254,12 @@ input[type=checkbox]:checked + label:before {
 .invoice-info {
 	float: left;
 	display: none;
+
+	p {
+		max-width: 600px;
+		margin-bottom: 28px;
+		margin-top: 10px;
+	}
 }
 
 
