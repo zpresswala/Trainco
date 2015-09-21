@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-var ApiDomain = 'http://new.tpctrainco.com';
+// var ApiDomain = 'http://new.tpctrainco.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -135,11 +135,6 @@ function TPCApp() {
     if(window.location.search == "?homeref=1") {
     	_this.scrollToResults();
     }
-
-    // if IE, trigger click to get rid of select2 "you can only select one" message
-    // if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
-    //    $('.select2-search--inline').trigger('click');
-    // }
 
     this.$win.on('resize', function(){
         _this.handleWindowResize();

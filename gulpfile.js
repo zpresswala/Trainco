@@ -77,7 +77,7 @@ gulp.task('js:vendor', function() {
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-dropdown.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-tooltip.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-popover.js',
-        'src/TPCTrainco.Umbraco/assets/js/vendor/modernizr-dev.js',
+        'src/TPCTrainco.Umbraco/assets/js/vendor/modernizr-touch.js',
         'src/TPCTrainco.Umbraco/assets/js/vendor/select2.js'
 
     ];
