@@ -32,15 +32,7 @@ function MainSearchSelect() {
 			$('#search-btn-home').focus();	
 		}
 
-		
-		
 	});
-
-	// console.log($('.select2-results__option').text());
-
-	// $('#main-search').on("select2:open", function (e) {
-		//$('.select2-results__option').css('border', '2px solid green');
-	// });
 };
 
 
