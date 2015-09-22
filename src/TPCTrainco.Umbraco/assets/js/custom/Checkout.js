@@ -44,11 +44,14 @@ function CreateFormPostString() {
 };
 
 function CheckoutPost(checkoutData) {
-	$('#reg-submit').css('opacity', 0);
-	$('.checkout-loader').show();
+	var $checkoutErrMsg = $('.checkout-err-msg'),
+		$loader = $('.checkout-loader'),
+		$regSubmit = $('#reg-submit');
 
-	$('input').next('span').remove();
-	$('input').css('border-color', '#d7d7d7');
+	$regSubmit.css('opacity', 0);
+	$loader.show();
+
+	$('input').next('span').remove().css('border-color', '#d7d7d7');
 
 	$.ajax({
 		url: ApiDomain + '/api/checkout/submit',
@@ -60,16 +63,14 @@ function CheckoutPost(checkoutData) {
 		var success = successObj.success;
 		var message = successObj.message;
 
-		$('#reg-submit').css('opacity', 1);
-		$('.checkout-loader').hide();
-
 		if (success) {
 			window.location.href = '/register/info/';
 		}
 		else {
 			// There was a problem with the form.
-			$('.checkout-err-msg').html(message);
-			$('.checkout-err-msg').show();
+			$checkoutErrMsg.html(message).show();
+			$regSubmit.css('opacity', 1);
+			$loader.hide();
 
 			if (successObj.invalidItems.length > 0) {
 				var formElArray = successObj.invalidItems;
@@ -84,8 +85,7 @@ function CheckoutPost(checkoutData) {
 
 		}
 	}).fail(function (error) {
-		$('#reg-submit').css('opacity', 1);
-		$('.checkout-loader').hide();
-		$('#reg-submit').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+		$regSubmit.css('opacity', 1).prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+		$loader.hide();
 	});
 };

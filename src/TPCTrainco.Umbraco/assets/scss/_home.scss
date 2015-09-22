@@ -21,7 +21,6 @@
 	ul {
 		padding: 0;
 		text-align: center;
-		margin-bottom: 50px;
 	}
 
 	.btn-white {
@@ -32,9 +31,8 @@
 	}
 
 	.seminar-topic {
-		max-height: 161px;
-		vertical-align: bottom;
-
+		vertical-align: top;
+		margin: 5px 5px 10px;
 		@include tablet-portrait-and-up {
 			margin: 30px 1%;
 		}

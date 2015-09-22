@@ -433,7 +433,7 @@ input[type=checkbox]:checked + label:before {
 	left: auto;
 	z-index: 9;
 	@include med-desktop-and-up {
-		top: 10px;
+		top: 39px;
 		left: 50%;
 		right: auto;
 	}

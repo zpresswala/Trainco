@@ -95,16 +95,22 @@
                         <h3>Select one or more topics and choose your location</h3>
                         <ul>
                             <li class="seminar-topic">
-                                <!-- ####### NEW added data-attrs  #########-->
                                 <div class="overlay-contain" data-topic="all">
                                     <div class="overlay"></div>
                                     <img src="/assets/images/selectall-icon.jpg" alt="All Seminars" />
                                 </div>
+
+
+                                <!-- John: the next two lines are the total numbers for each seminar -->
+
                                 <p class="seminar-title">Search All Seminars</p>
                                 <p class="num-seminars">1538 Total Seminars</p>
+
+                                <!-- end -->
+
+
                             </li>
                             <li class="seminar-topic">
-                                <!-- ####### NEW added data-attrs  #########-->
                                 <div class="overlay-contain" data-topic="electrical">
                                     <div class="overlay"></div>
                                     <img src="/assets/images/electrical.jpg" alt="Mechanical + Industrial" />
@@ -114,7 +120,6 @@
                             </li>
 
                             <li class="seminar-topic">
-                                <!-- ####### NEW added data-attrs  #########-->
                                 <div class="overlay-contain" data-topic="HVAC">
                                     <div class="overlay"></div>
                                     <img src="/assets/images/hvac-icon.jpg" alt="Mechanical + Industrial" />
@@ -133,7 +138,6 @@
                             </li>
 
                             <li class="seminar-topic">
-                                <!-- ####### NEW added data-attrs  #########-->
                                 <div class="overlay-contain" data-topic="mechanical">
                                     <div class="overlay"></div>
                                     <img src="/assets/images/mechanical-icon.jpg" alt="Mechanical + Industrial" />
@@ -149,7 +153,7 @@
                         <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="">
                             <option value="Birmingham, AL">Denver, CO</option>
                             <option value="Birmingham, AL" class="all-loc">All Locations</option>
-                            <optgroup label="Or, search a specific city" class="searchlabel">Or, search a specific city</optgroup>
+                            <optgroup label="Or, search a specific city" class="search-label" id="search-label" data-label="search-label">Or, search a specific city</optgroup>
                             <optgroup label="Alabama">
                                 <option value="Birmingham, AL">Birmingham</option>
                                 <option value="Huntsville, AL">Huntsville</option>

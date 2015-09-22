@@ -32,7 +32,11 @@ function MainSearchSelect() {
 			$('#search-btn-home').focus();	
 		}
 
+		
+		
 	});
+
+	this.styleText();
 };
 
 
@@ -235,4 +239,13 @@ MainSearchSelect.prototype.detailPageSearch = function() {
 		"location": classLocation,
 		"classId": classIdSearched
 	}
+};
+
+MainSearchSelect.prototype.styleText = function() {
+	$('#main-search').on("select2:open", function (e) {
+		$($('.select2-results__group')[0]).css({
+			borderTop: '1px dashed #3E3E3E',
+			padding: 10 + 'px'
+		});
+	});
 };
