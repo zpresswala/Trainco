@@ -27,7 +27,9 @@
     string htmlTitle = currentPage.GetPropertyValue<string>("htmlTitle", currentPage.Name);
 
     string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
-
+    string pageHeaderScript = "";
+    string pageFooterScript = "";
+    
     bool cartPage = false;
     bool checkoutPage = true;
 
@@ -60,6 +62,39 @@
         cartPage = true;
     }
 
+
+    if (currentPage.HasValue("pageHeaderScripts"))
+    {
+        pageHeaderScript = currentPage.GetPropertyValue<string>("pageHeaderScripts");
+
+        if (false == string.IsNullOrEmpty(pageHeaderScript))
+        {
+            if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
+            {
+                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+
+                Session.Abandon();
+                Session.Clear();
+            }
+        }
+    }
+
+    if (currentPage.HasValue("pageFooterScripts"))
+    {
+        pageFooterScript = currentPage.GetPropertyValue<string>("pageFooterScripts");
+
+        if (false == string.IsNullOrEmpty(pageFooterScript))
+        {
+            if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
+            {
+                pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+
+                Session.Abandon();
+                Session.Clear();
+            }
+        }
+    }
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +109,7 @@
     <title>@htmlTitle | @siteName</title>
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
-    <link rel="canonical" href="http://@(Request.Url.DnsSafeHost)/" />
+    <link rel="canonical" href="@(Request.Url.AbsoluteUri)" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@htmlTitle - @siteName" />
@@ -133,6 +168,8 @@
     <![endif]-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    @Html.Raw(pageHeaderScript)
 </head>
 
 <body class="gradient-bg">
@@ -167,6 +204,6 @@
             tpcAppObj = new TPCApp();
         });
     </script>
-
+    @Html.Raw(pageFooterScript)
 </body>
 </html>
