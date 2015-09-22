@@ -3,7 +3,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "0.921";
+    string cacheVer = "0.922";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
@@ -71,7 +71,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>@htmlTitle - @siteName</title>
+    <title>@htmlTitle | @siteName</title>
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
     <link rel="canonical" href="http://@(Request.Url.DnsSafeHost)/" />
@@ -145,7 +145,7 @@
 
     @Html.Partial("Navigation/Bottom")
 
-    <script>var ApiDomain = 'http://@(Request.Url.Authority)';</script>
+    <script>var ApiDomain = 'https://@(Request.Url.Authority)';</script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     @if (cartPage)
     {
