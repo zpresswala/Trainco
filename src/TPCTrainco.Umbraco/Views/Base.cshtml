@@ -27,6 +27,7 @@
     string htmlTitle = currentPage.GetPropertyValue<string>("htmlTitle", currentPage.Name);
 
     string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
+    string pageHeaderScript = "";
     string pageFooterScript = "";
     
     bool cartPage = false;
@@ -62,6 +63,22 @@
     }
 
 
+    if (currentPage.HasValue("pageHeaderScripts"))
+    {
+        pageHeaderScript = currentPage.GetPropertyValue<string>("pageHeaderScripts");
+
+        if (false == string.IsNullOrEmpty(pageHeaderScript))
+        {
+            if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
+            {
+                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+
+                Session.Abandon();
+                Session.Clear();
+            }
+        }
+    }
+
     if (currentPage.HasValue("pageFooterScripts"))
     {
         pageFooterScript = currentPage.GetPropertyValue<string>("pageFooterScripts");
@@ -71,9 +88,10 @@
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
                 pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+
+                Session.Abandon();
+                Session.Clear();
             }
-
-
         }
     }
 
@@ -150,6 +168,8 @@
     <![endif]-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    @Html.Raw(pageHeaderScript)
 </head>
 
 <body class="gradient-bg">

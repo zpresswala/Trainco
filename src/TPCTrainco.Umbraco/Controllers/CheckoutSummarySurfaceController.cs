@@ -176,7 +176,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                         if (reg != null && reg.RegistrationID > 0)
                                         {
                                             Session["RegistrationId"] = reg.RegistrationID;
-                                            Session["RegistrationTotal"] = (reg.RegOrderTotal ?? 0).ToString("G");
+                                            Session["RegistrationTotal"] = string.Format("{0:N2}", reg.RegOrderTotal ?? 0);
 
                                             // Email Registrar and Billing
                                             Registrations.EmailOrderConfirmations(checkoutDetails, reg);
