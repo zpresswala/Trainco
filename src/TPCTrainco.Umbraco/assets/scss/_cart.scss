@@ -137,6 +137,10 @@
 
 	.wrap {
 		position: relative;
+
+		.checkout-loader {
+			top: 10px;
+		}
 	}
 
 	.btn-wrapper {
