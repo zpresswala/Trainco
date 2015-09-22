@@ -70,130 +70,131 @@
 @Html.Partial("Cart/MiniCart")
 
 <div class="container-fluid gradient-bg main-content">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2 text-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2 text-wrap">
 
-            @Html.Partial("Share/ShareModule", currentPage)
+                @Html.Partial("Share/ShareModule", currentPage)
 
-            @if (CurrentPage.HasValue("seminarOverview"))
-            {
-                <div class="page-content">
-                    <h2>Seminar Overview</h2>
-                    @CurrentPage.seminarOverview
-                </div>
-            }
-
-            @if (course != null && courseFormat != null)
-            {
-                string format = courseFormat.CourseFormatName.ToLower();
-                
-                if (format.IndexOf("both") >= 0)
+                @if (CurrentPage.HasValue("seminarOverview"))
                 {
-                    format = "two days";
-                }
-                
-                <h2>This seminar is just @String.Format("{0:C0}", course.CourseFee) for @(format).</h2>
-            }
-            else if (currentPage.HasValue("lengthPriceInfo"))
-            {
-                <h2>@(currentPage.GetPropertyValue<string>("lengthPriceInfo"))</h2>
-            }
-
-
-            @if (CurrentPage.HasValue("day1Copy"))
-            {
-                <div class="page-content">
-                    <h2>Discussion Topics</h2>
-                    <div class="day-descriptions-wrap">
-                        <div class="single-day-description">
-                            @if (!String.IsNullOrEmpty(CurrentPage.day1Header))
-                            {
-                                <h3>Day One - @CurrentPage.day1Header</h3>
-                            }
-                            else
-                            {
-                                <h3>Day One</h3>
-                            }
-                            @CurrentPage.day1Copy
-                        </div>
-                        @if (CurrentPage.HasValue("day2Copy"))
-                        {
-                            <div class="single-day-description">
-                                @if (!String.IsNullOrEmpty(CurrentPage.day2Header))
-                                {
-                                    <h3>Day Two - @CurrentPage.day2Header</h3>
-                                }
-                                else
-                                {
-                                    <h3>Day Two</h3>
-                                }
-                                @CurrentPage.day2Copy
-                            </div>
-                        }
-                        @if (CurrentPage.HasValue("day3Copy"))
-                        {
-                            <div class="single-day-description">
-                                @if (!String.IsNullOrEmpty(CurrentPage.day3Header))
-                                {
-                                    <h3>Day Three - @CurrentPage.day3Header</h3>
-                                }
-                                else
-                                {
-                                    <h3>Day Three</h3>
-                                }
-                                @CurrentPage.day3Copy
-                            </div>
-                        }
-                        @if (CurrentPage.HasValue("day4Copy"))
-                        {
-                            <div class="single-day-description">
-                                @if (!String.IsNullOrEmpty(CurrentPage.day4Header))
-                                {
-                                    <h3>Day Four - @CurrentPage.day4Header</h3>
-                                }
-                                else
-                                {
-                                    <h3>Day Four</h3>
-                                }
-                                @CurrentPage.day4Copy
-                            </div>
-                        }
+                    <div class="page-content">
+                        <h2>Seminar Overview</h2>
+                        @CurrentPage.seminarOverview
                     </div>
-                </div>
-            }
-            @if (CurrentPage.HasValue("certificationCopy"))
-            {
-                <div class="page-content">
-                    <h2>@CurrentPage.certificationHeader</h2>
-                    @CurrentPage.certificationCopy
-                </div>
-            }
-            @if (CurrentPage.includeCeu)
-            {
-                <div class="page-content">
-                    <h2>@seminarContainer.ceuHeader</h2>
-                    @seminarContainer.ceuCopy
-                </div>
-            }
-            @if (CurrentPage.includeAtmt)
-            {
-                <div class="page-content">
-                    <h2>@seminarContainer.atmtHeader</h2>
-                    @seminarContainer.atmtCopy
-                </div>
-            }
-            @if (CurrentPage.blockPurchase)
-            {
-                <div class="page-content">
-                    <h2>@seminarContainer.blockHeader</h2>
-                    @seminarContainer.blockCopy
-                </div>
-            }
+                }
+
+                @if (course != null && courseFormat != null)
+                {
+                    string format = courseFormat.CourseFormatName.ToLower();
+                    
+                    if (format.IndexOf("both") >= 0)
+                    {
+                        format = "two days";
+                    }
+                    
+                    <h2>This seminar is just @String.Format("{0:C0}", course.CourseFee) for @(format).</h2>
+                }
+                else if (currentPage.HasValue("lengthPriceInfo"))
+                {
+                    <h2>@(currentPage.GetPropertyValue<string>("lengthPriceInfo"))</h2>
+                }
+
+
+                @if (CurrentPage.HasValue("day1Copy"))
+                {
+                    <div class="page-content">
+                        <h2>Discussion Topics</h2>
+                        <div class="day-descriptions-wrap">
+                            <div class="single-day-description">
+                                @if (!String.IsNullOrEmpty(CurrentPage.day1Header))
+                                {
+                                    <h3>Day One - @CurrentPage.day1Header</h3>
+                                }
+                                else
+                                {
+                                    <h3>Day One</h3>
+                                }
+                                @CurrentPage.day1Copy
+                            </div>
+                            @if (CurrentPage.HasValue("day2Copy"))
+                            {
+                                <div class="single-day-description">
+                                    @if (!String.IsNullOrEmpty(CurrentPage.day2Header))
+                                    {
+                                        <h3>Day Two - @CurrentPage.day2Header</h3>
+                                    }
+                                    else
+                                    {
+                                        <h3>Day Two</h3>
+                                    }
+                                    @CurrentPage.day2Copy
+                                </div>
+                            }
+                            @if (CurrentPage.HasValue("day3Copy"))
+                            {
+                                <div class="single-day-description">
+                                    @if (!String.IsNullOrEmpty(CurrentPage.day3Header))
+                                    {
+                                        <h3>Day Three - @CurrentPage.day3Header</h3>
+                                    }
+                                    else
+                                    {
+                                        <h3>Day Three</h3>
+                                    }
+                                    @CurrentPage.day3Copy
+                                </div>
+                            }
+                            @if (CurrentPage.HasValue("day4Copy"))
+                            {
+                                <div class="single-day-description">
+                                    @if (!String.IsNullOrEmpty(CurrentPage.day4Header))
+                                    {
+                                        <h3>Day Four - @CurrentPage.day4Header</h3>
+                                    }
+                                    else
+                                    {
+                                        <h3>Day Four</h3>
+                                    }
+                                    @CurrentPage.day4Copy
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                @if (CurrentPage.HasValue("certificationCopy"))
+                {
+                    <div class="page-content">
+                        <h2>@CurrentPage.certificationHeader</h2>
+                        @CurrentPage.certificationCopy
+                    </div>
+                }
+                @if (CurrentPage.includeCeu)
+                {
+                    <div class="page-content">
+                        <h2>@seminarContainer.ceuHeader</h2>
+                        @seminarContainer.ceuCopy
+                    </div>
+                }
+                @if (CurrentPage.includeAtmt)
+                {
+                    <div class="page-content">
+                        <h2>@seminarContainer.atmtHeader</h2>
+                        @seminarContainer.atmtCopy
+                    </div>
+                }
+                @if (CurrentPage.blockPurchase)
+                {
+                    <div class="page-content">
+                        <h2>@seminarContainer.blockHeader</h2>
+                        @seminarContainer.blockCopy
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
 
-<!-- End Backbone app-->
 @Html.Partial("SeminarSearch/SeminarDetailsSearch", Model.Content)
 
 <div class="container-fluid results-container detail-page-app">
