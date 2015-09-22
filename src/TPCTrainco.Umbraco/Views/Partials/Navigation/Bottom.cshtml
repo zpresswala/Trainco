@@ -38,7 +38,7 @@
                 @foreach (IPublishedContent social in socialLinks)
                 {
                     <li>
-                        <a href="@(social.GetPropertyValue<string>("socialLink"))" class="regular-link">
+                        <a href="@(social.GetPropertyValue<string>("socialLink"))" class="regular-link" target="_blank">
                             @(Html.Raw(social.GetPropertyValue<string>("svgHtml")))
                         </a>
                     </li>
