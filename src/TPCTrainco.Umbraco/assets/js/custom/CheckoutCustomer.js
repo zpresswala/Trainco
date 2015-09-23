@@ -121,12 +121,12 @@ CheckoutCustomer.prototype.billingOptions = function () {
 CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
 	submitBtn.fadeOut(300, function() {
 		$('.card-loader').fadeIn();
-		$('.processing-msg').fadeIn().text('Please wait while we process your card.');
+		$('.processing-msg').fadeIn().text('Order processing may take several seconds. Please do not click "Submit" again.');
 	});
 
 	setTimeout(function() {
 		$('.card-loader').fadeOut(100, function() {
-			$('.processing-msg').text('There was an error processing your card. Please try again.');
+			$('.processing-msg').text('Invalid credit card. Please enter the number only and omit all spaces and dashes.');
 		});
 		submitBtn.fadeIn();
 	}, 15000);
