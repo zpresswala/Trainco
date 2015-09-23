@@ -61,7 +61,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string PhoneExt { get; set; }
 
         [Required]
-        [EmailAddress]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Email address is invalid.")]
         public string Email { get; set; }
 
         public string HearAbout { get; set; }
@@ -119,7 +119,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string BillPhoneExt { get; set; }
 
         [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Email is required.")]
-        [EmailAddress]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Email address is invalid.")]
         public string BillEmail { get; set; }
 
 
