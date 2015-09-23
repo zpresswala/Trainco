@@ -47,7 +47,6 @@ function CheckoutCustomer() {
 	}
 
 	$('#button-submit').on('click', function() {
-	$('.summary-submit-btn').on('click', function() {
 		_this.cardProcessingMessage($(this));
 	});
 };
