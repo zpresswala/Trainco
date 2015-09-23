@@ -19,9 +19,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [HttpGet]
         public object Redirects()
         {
-            Helpers.ImportRedirects.Import(HttpContext.Current.Server.MapPath("/data/American-Trainco-URL-Map.xlsx"));
+            string output = Helpers.ImportRedirects.Import(HttpContext.Current.Server.MapPath("/data/American-Trainco-URL-Map-FIXED.xlsx"));
 
-            return "DONE!";
+            return output;
         }
     }
 }

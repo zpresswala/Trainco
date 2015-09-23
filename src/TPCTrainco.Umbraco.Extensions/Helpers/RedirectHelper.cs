@@ -32,7 +32,15 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             {
                 LogHelper.Info<Redirect>(string.Format("Redirecting '{0}' to '{1}' with status {2}", redirect.UrlToRedirect, redirect.RedirectToUrl, redirect.StatusCode));
                 context.Response.StatusCode = redirect.StatusCode;
-                context.Response.Redirect(redirect.RedirectToUrl, true);
+
+                if (context.Response.StatusCode == 301)
+                {
+                    context.Response.RedirectPermanent(redirect.RedirectToUrl, true);
+                }
+                else
+                {
+                    context.Response.Redirect(redirect.RedirectToUrl, true);
+                }
             }
         }
 
