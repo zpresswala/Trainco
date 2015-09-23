@@ -4,6 +4,7 @@ window.app = window.app || {};
 // var ApiDomain = 'http://new.tpctrainco.com';
 function TPCApp() {
 	var _this = this;
+	document.body.addEventListener('touchstart',function(){},false);
 	this.$win = $(window);
 	this.$aHref = $('a[href^=#]').not('.elec-sort-category');
 	this.$page = $('html, body');
@@ -61,8 +62,6 @@ function TPCApp() {
 		this.CheckoutCustomer = new CheckoutCustomer();
 	}
 
-	// this.bindScroll();
-
 	// CHECK IF USER IS ON A RETINA DEVICE
 	var isRetina = false;
 	var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\
@@ -84,35 +83,36 @@ function TPCApp() {
 	var hash = window.location.hash;
 
 	// if one clicks "browse courses", go to that page and scroll to hash
-	if($('.course-section').length && hash) {
+	if($('.course-section').length || $('.onsite').length && hash) {
 		_this.$page.animate({
 			scrollTop: $(hash).offset().top - 140
 		}, 300);
 	}
 
 	if (hash || $('.detail-page-app').length) {
+		if(hash != '#cf-container') {
+			// this is all the search stuff.
+			if (app.mainSearchSelect == undefined) {
+				app.mainSearchSelect = new MainSearchSelect();
+			}
 
-		// this is all the search stuff.
-		if (app.mainSearchSelect == undefined) {
-			app.mainSearchSelect = new MainSearchSelect();
-		}
+			var searchParams;
+			if (hash) {
+				searchParams = app.mainSearchSelect.getHashSearchParams();
+			} else {
+				searchParams = app.mainSearchSelect.getSearchParams();
+			}
 
-		var searchParams;
-		if (hash) {
-			searchParams = app.mainSearchSelect.getHashSearchParams();
-		} else {
-			searchParams = app.mainSearchSelect.getSearchParams();
-		}
+			if(hash) {
+				$('.detail-page-app').slideDown();
+				performSearch(searchParams);
+			} else {
+				$('.empty-location-msg').hide();
+			}
 
-		if(hash) {
-			$('.detail-page-app').slideDown();
-			performSearch(searchParams);
-		} else {
-			$('.empty-location-msg').hide();
-		}
-
-		if(!$('.results').children().length) {
-			$('.empty-message').show();
+			if(!$('.results').children().length) {
+				$('.empty-message').show();
+			}
 		}
 	}
 
