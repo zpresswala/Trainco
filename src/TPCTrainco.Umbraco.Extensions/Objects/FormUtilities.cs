@@ -57,9 +57,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             items.Add(new SelectListItem { Text = "How did you hear about us?", Value = "" });
             items.Add(new SelectListItem { Text = "Direct Mail", Value = "Direct Mail" });
-            items.Add(new SelectListItem { Text = "Internet", Value = "Internet" });
-            items.Add(new SelectListItem { Text = "Print Ad", Value = "Print Ad" });
             items.Add(new SelectListItem { Text = "Email", Value = "Email" });
+            items.Add(new SelectListItem { Text = "Web search", Value = "Web search" });
+            items.Add(new SelectListItem { Text = "Internet Ad", Value = "Internet Ad" });
+            items.Add(new SelectListItem { Text = "Print Ad", Value = "Print Ad" });
             items.Add(new SelectListItem { Text = "Referral", Value = "Referral" });
             items.Add(new SelectListItem { Text = "Trade Show", Value = "Trade Show" });
             items.Add(new SelectListItem { Text = "Other", Value = "Other" });

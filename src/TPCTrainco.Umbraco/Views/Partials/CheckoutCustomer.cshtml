@@ -5,12 +5,9 @@
 
 @if (Request.QueryString["error"] != null && Request.QueryString.Get("error").Length > 0)
 {
-    if (Request.QueryString.Get("error") == "2")
-    {
-        <div class="container-fluid">
-            <strong class="message-error">There was a problem processing the credit card. Please verify your credit card and the billing information and try again.</strong>
-        </div>
-    }
+    <div class="alert alert-error">
+        <strong>There was a problem processing the credit card. Please re-enter your credit card, verify the billing information and try again.</strong>
+    </div>
 }
 
 <div class="container-fluid register-two gradient-bg">
@@ -86,7 +83,7 @@
                     </div>
 
                     <div class="form-group promo-wrap col-xs-12 col-sm-6">
-                        @Html.TextBoxFor(p => p.PromoCode, new { @class = "form-control", placeholder = "Enter promo code" })
+                        @Html.TextBoxFor(p => p.PromoCode, new { @class = "form-control", placeholder = "Promo code or description of mailer" })
                         @Html.ValidationMessageFor(p => p.PromoCode)
                         @Html.TextBoxFor(p => p.HearAboutOther, new { @class = "form-control", placeholder = "Brief description" })
                         @Html.ValidationMessageFor(p => p.HearAboutOther)

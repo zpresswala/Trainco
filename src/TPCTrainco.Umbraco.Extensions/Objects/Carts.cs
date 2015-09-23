@@ -601,11 +601,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                         if (returnValArray.Count == 2)
                         {
-                            if (returnValArray[0].IndexOf("ssl_result") >= 0)
+                            if (returnValArray[0] == "ssl_result")
                             {
                                 errorCode = Convert.ToInt32(returnValArray[1]);
                             }
-                            else if (returnValArray[0].IndexOf("ssl_result_message") >= 0)
+                            else if (returnValArray[0] == "ssl_result_message")
                             {
                                 errorText = returnValArray[1];
                             }
@@ -613,13 +613,13 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                             {
                                 errorCode = Convert.ToInt32(returnValArray[1]);
                             }
-                            else if (returnValArray[0].IndexOf("ssl_result_message") >= 0)
+                            else if (returnValArray[0] == "ssl_result_message")
                             {
                                 errorText = returnValArray[1];
                             }
 
                             // for log
-                            results += returnVal;
+                            results += "&" + returnVal;
                         }
                     }
 
@@ -628,7 +628,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         errorText = "";
                     }
 
-                    AddToCCLog(checkout.tempCust, results);
+                    AddToCCLog(checkout.tempCust, responseString);
 
                 }
                 catch (Exception ex)
@@ -652,6 +652,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             CC_Log ccLog = new CC_Log();
 
+            ccLog.Processed_Date = DateTime.Now;
             ccLog.Cart_ID = tempCust.reg_ID;
             ccLog.Reg_TR_Number = 0;
             ccLog.CC_Type = tempCust.ccType;

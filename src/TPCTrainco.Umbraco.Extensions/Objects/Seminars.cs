@@ -299,7 +299,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                         if (locationDetail != null)
                                         {
-                                            location.LocationDetails = locationDetail.LocationName;
+                                            location.LocationDetails = locationDetail.LocationName + ", " + location.CityState + " (Street address and directions will be provided via email.)";
                                         }
                                         else
                                         {

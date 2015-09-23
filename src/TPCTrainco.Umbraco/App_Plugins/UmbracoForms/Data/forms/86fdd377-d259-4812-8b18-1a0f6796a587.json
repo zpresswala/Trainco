@@ -24,9 +24,9 @@
                   "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
                   "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
                   "dataSourceFieldKey": null,
-                  "mandatory": false,
+                  "mandatory": true,
                   "regex": null,
-                  "requiredErrorMessage": null,
+                  "requiredErrorMessage": "Required",
                   "invalidErrorMessage": null,
                   "condition": null,
                   "settings": {
@@ -44,9 +44,9 @@
                   "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
                   "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
                   "dataSourceFieldKey": null,
-                  "mandatory": false,
+                  "mandatory": true,
                   "regex": null,
-                  "requiredErrorMessage": null,
+                  "requiredErrorMessage": "Required",
                   "invalidErrorMessage": null,
                   "condition": null,
                   "settings": {
@@ -64,10 +64,10 @@
                   "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
                   "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
                   "dataSourceFieldKey": null,
-                  "mandatory": false,
-                  "regex": null,
-                  "requiredErrorMessage": null,
-                  "invalidErrorMessage": null,
+                  "mandatory": true,
+                  "regex": "^[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{2,6})$",
+                  "requiredErrorMessage": "Required",
+                  "invalidErrorMessage": "Invalid Email",
                   "condition": null,
                   "settings": {
                     "DefaultValue": ""
@@ -115,13 +115,13 @@
                   "preValues": []
                 },
                 {
-                  "caption": "Subject of Interest",
+                  "caption": "Question or Area of Interest",
                   "tooltip": null,
                   "placeholder": null,
                   "cssClass": null,
                   "alias": "subjectOfInterest",
                   "id": "bf3a50d2-b9c8-4955-9793-b8350d30066a",
-                  "fieldTypeId": "0dd29d42-a6a5-11de-a2f2-222256d89593",
+                  "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
                   "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
                   "dataSourceFieldKey": null,
                   "mandatory": false,
@@ -140,7 +140,7 @@
                   ]
                 },
                 {
-                  "caption": "Please send me information through the mail.",
+                  "caption": "Check the box to receive seminar information in the mail.",
                   "tooltip": null,
                   "placeholder": null,
                   "cssClass": null,
@@ -354,7 +354,7 @@
           "condition": null
         }
       ],
-      "caption": "Contact us to learn more",
+      "caption": "Contact us for more information on upcoming seminars",
       "sortOrder": 0,
       "id": "00000000-0000-0000-0000-000000000000",
       "form": "00000000-0000-0000-0000-000000000000"
@@ -368,16 +368,17 @@
   "requiredErrorMessage": "Please provide a value for {0}",
   "invalidErrorMessage": "Please provide a valid value for {0}",
   "messageOnSubmit": "Thank you",
-  "goToPageOnSubmit": 0,
+  "goToPageOnSubmit": 2400,
   "xPathOnSubmit": null,
   "manualApproval": false,
   "storeRecordsLocally": true,
-  "cssClass": null,
+  "cssClass": "form-standard",
   "disableDefaultStylesheet": false,
   "useClientDependency": false,
   "workflows": [
     "6f7de2c2-92c6-495e-a24b-67707da65c3e",
-    "3b6d426f-cd47-478c-ab0e-c2c9068fbd98"
+    "3b6d426f-cd47-478c-ab0e-c2c9068fbd98",
+    "1db9265b-d6eb-459d-ad1a-7573e9a4aab4"
   ],
   "datasource": null,
   "submitLabel": "Submit",

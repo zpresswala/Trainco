@@ -239,13 +239,16 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         // Send Email to Attendee
                         Helpers.Email email = new Helpers.Email();
 
-                        email.EmailFrom = fromtAttendeeConfirm;
-                        email.Subject = subjectAttendeeConfirm;
-                        email.Body = attEmailBody;
-                        email.IsBodyHtml = true;
-                        email.EmailToList = tempAtt.att_Email.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                        if (false == string.IsNullOrEmpty(tempAtt.att_Email))
+                        {
+                            email.EmailFrom = fromtAttendeeConfirm;
+                            email.Subject = subjectAttendeeConfirm;
+                            email.Body = attEmailBody;
+                            email.IsBodyHtml = true;
+                            email.EmailToList = tempAtt.att_Email.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                        email.SendEmail();
+                            email.SendEmail();
+                        }
 
                         // Send email to Admins
                         if (false == string.IsNullOrWhiteSpace(toAltAttendeeConfirm))

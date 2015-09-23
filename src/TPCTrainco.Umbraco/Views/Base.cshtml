@@ -3,7 +3,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "0.922";
+    string cacheVer = "0.932";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
@@ -15,7 +15,7 @@
 
         if (false == string.IsNullOrEmpty(redirectUrl.Url))
         {
-            Response.Redirect(redirectUrl.Url);
+            Response.RedirectPermanent(redirectUrl.Url);
         }
     }
 
