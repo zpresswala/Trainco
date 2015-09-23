@@ -132,7 +132,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string CCName { get; set; }
 
         [RequiredIf("PaymentType", "credit", ErrorMessage = "Credit Card Number is required.")]
-        [CreditCard]
+        [CreditCard(ErrorMessage = "Invalid credit card. Please only use numbers.")]
         [DisplayName("Credit Card Number")]
         public string CCNumber { get; set; }
 
