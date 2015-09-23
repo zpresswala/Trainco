@@ -652,6 +652,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             CC_Log ccLog = new CC_Log();
 
+            ccLog.Processed_Date = DateTime.Now;
             ccLog.Cart_ID = tempCust.reg_ID;
             ccLog.Reg_TR_Number = 0;
             ccLog.CC_Type = tempCust.ccType;

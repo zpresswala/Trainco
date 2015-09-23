@@ -1,0 +1,15 @@
+{
+  "id": "1db9265b-d6eb-459d-ad1a-7573e9a4aab4",
+  "name": "Send email to sales@tpctrainco.com",
+  "form": "86fdd377-d259-4812-8b18-1a0f6796a587",
+  "active": true,
+  "workflowTypeId": "e96badd7-05be-4978-b8d9-b3d733de70a5",
+  "executesOn": "Submitted",
+  "settings": {
+    "Email": "sales@tpctrainco.com",
+    "SenderEmail": "website@tpctrainco.com",
+    "Subject": "Contact Form Submission",
+    "Message": "Contact Form Submission"
+  },
+  "sortOrder": 0
+}
