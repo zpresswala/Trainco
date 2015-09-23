@@ -46,7 +46,7 @@ function CheckoutCustomer() {
 		this.$hearAboutOther.slideDown().addClass('showing');
 	}
 
-	$('.summary-submit-btn').on('click', function() {
+	$('#button-submit').on('click', function() {
 		_this.cardProcessingMessage($(this));
 	});
 };
@@ -127,7 +127,7 @@ CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
 	setTimeout(function() {
 		$('.card-loader').fadeOut(100, function() {
 			$('.processing-msg').text('Invalid credit card. Please enter the number only and omit all spaces and dashes.');
+			submitBtn.fadeIn();
 		});
-		submitBtn.fadeIn();
-	}, 15000);
+	}, 1500);
 };

@@ -36,7 +36,7 @@ function MainSearchSelect() {
 		
 	});
 
-	// this.styleText();
+	this.styleText();
 };
 
 
@@ -242,17 +242,12 @@ MainSearchSelect.prototype.detailPageSearch = function() {
 };
 
 MainSearchSelect.prototype.styleText = function() {
-	console.log('style text thing'  , $($('.select2-results__group')[0]));
-	$('#main-search').on("select2:open", function (e) {
-		console.log('OPEN',  $('.search-label'), $($('.select2-results__group')[0]));
-		$($('.select2-results__option')[0]).css({
-			borderTop: '1px dashed #3E3E3E',
-			padding: 10 + 'px'
-		});
-
-		$('.search-label').css({
-			borderTop: '1px dashed #3E3E3E',
-			padding: 10 + 'px'
-		});
-	});
+	// console.log('style text thing'  , $($('.select2-results__group')[0]));
+	// $('#main-search').on("select2:open", function (e) {
+	// 	console.log('OPEN',  $($('.select2-results__options')).find('.select2-results__option'));
+	// 	$($('.select2-results__group')[0]).css({
+	// 		borderTop: '1px dashed #3E3E3E',
+	// 		padding: 10 + 'px'
+	// 	});
+	// });
 };
