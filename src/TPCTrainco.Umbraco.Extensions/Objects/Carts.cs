@@ -549,7 +549,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 postData += "&ssl_test_mode=" + ccTest;
 
                 postData += "&ssl_amount=" + orderTotalStr;
-                postData += "&ssl_card_number=" + billing.CCNumber;
+                postData += "&ssl_card_number=" + billing.CCNumber.Replace(" ","").Replace("-","");
                 postData += "&ssl_exp_date=" + dtExpire.ToString("MMyy");
                 postData += "&ssl_cvv2cvc2_indicator=1";
                 postData += "&ssl_cvv2cvc2=" + checkout.tempCust.ccCVC;

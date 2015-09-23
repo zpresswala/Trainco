@@ -126,7 +126,7 @@ CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
 
 	setTimeout(function() {
 		$('.card-loader').fadeOut(100, function() {
-			$('.processing-msg').text('Invalid credit card. Please enter the number only and omit all spaces and dashes.');
+			$('.processing-msg').text('There was an error processing your order. Please try again.');
 		});
 		submitBtn.fadeIn();
 	}, 15000);
