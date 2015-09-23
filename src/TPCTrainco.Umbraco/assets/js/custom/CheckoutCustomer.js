@@ -46,6 +46,7 @@ function CheckoutCustomer() {
 		this.$hearAboutOther.slideDown().addClass('showing');
 	}
 
+	$('#button-submit').on('click', function() {
 	$('.summary-submit-btn').on('click', function() {
 		_this.cardProcessingMessage($(this));
 	});
@@ -127,7 +128,7 @@ CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
 	setTimeout(function() {
 		$('.card-loader').fadeOut(100, function() {
 			$('.processing-msg').text('There was an error processing your order. Please try again.');
+			submitBtn.fadeIn();
 		});
-		submitBtn.fadeIn();
-	}, 15000);
+	}, 1500);
 };

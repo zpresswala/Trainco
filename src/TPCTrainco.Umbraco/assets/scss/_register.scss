@@ -190,10 +190,6 @@
 			padding-right: 15px;
 		}
 	}
-
-	.col-md-12 {
-		margin-bottom: 50px;
-	}
 }
 
 .billing-opts-wrapper {
@@ -413,12 +409,14 @@ input[type=checkbox]:checked + label:before {
 
 .card-submit-wrap {
 	position: relative;
-	height: 80px;
+	height: 100px;
+	margin-bottom: 60px;
 }
 
 .card-loader {
 	position: static;
 	margin: 0 auto;
+	height: 33px;
 }
 
 .processing-msg {
