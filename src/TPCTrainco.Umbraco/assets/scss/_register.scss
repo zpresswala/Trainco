@@ -402,12 +402,31 @@ input[type=checkbox]:checked + label:before {
 
 .summary-submit-btn {
 	text-align: center;
-	margin: 0 auto;
+	margin: 0 auto 20px;
 	display: table;
 	width: 150px;
 	@include tablet-portrait-and-up {
 		float: right;
 		margin-top: 10px;
+	}
+}
+
+.card-submit-wrap {
+	position: relative;
+	height: 80px;
+}
+
+.card-loader {
+	position: static;
+	margin: 0 auto;
+}
+
+.processing-msg {
+	display: none;
+	text-align: center;
+	@include med-desktop-and-up {
+		width: 400px;
+		margin: 15px auto 0;
 	}
 }
 

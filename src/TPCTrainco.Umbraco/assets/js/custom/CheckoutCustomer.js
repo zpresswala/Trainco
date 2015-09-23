@@ -1,6 +1,7 @@
 ﻿'use strict';
 
 function CheckoutCustomer() {
+	var _this = this;
 	this.$differentInfo = $('#supervisor-diff');
 	this.$differentInfoFields = $('.hidden-different-check');
 	this.$billingOptsSelect = $('#PaymentType');
@@ -44,6 +45,10 @@ function CheckoutCustomer() {
 		this.$promoWrap.show();
 		this.$hearAboutOther.slideDown().addClass('showing');
 	}
+
+	$('.summary-submit-btn').on('click', function() {
+		_this.cardProcessingMessage($(this));
+	});
 };
 
 
@@ -110,4 +115,19 @@ CheckoutCustomer.prototype.billingOptions = function () {
 	$('.cvv-text').on('click', function () {
 		$(this).find('span').toggleClass('showing');
 	});
+};
+
+// show a loader and message while credit card is processing.
+CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
+	submitBtn.fadeOut(300, function() {
+		$('.card-loader').fadeIn();
+		$('.processing-msg').fadeIn().text('Please wait while we process your card.');
+	});
+
+	setTimeout(function() {
+		$('.card-loader').fadeOut(100, function() {
+			$('.processing-msg').text('There was an error processing your card. Please try again.');
+		});
+		submitBtn.fadeIn();
+	}, 15000);
 };

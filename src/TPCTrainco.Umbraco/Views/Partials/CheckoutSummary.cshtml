@@ -51,7 +51,15 @@
                 <h2 class="total-price">Total: $<span>@(String.Format("{0:N0}", tempCust.reg_Cost ?? 0))</span></h2>
             </div>
 
-            <button type="submit" class="btn btn-reg btn-blue-solid summary-submit-btn">Submit</button>
+            <div class="card-submit-wrap">
+                <button type="submit" class="btn btn-reg btn-blue-solid summary-submit-btn">Submit</button>
+                <div class="spinner card-loader">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <p class="processing-msg">Please wait while we process your card.</p>
+            </div>
         }
     </div>
 </div>

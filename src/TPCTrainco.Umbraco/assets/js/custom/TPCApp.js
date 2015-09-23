@@ -4,7 +4,6 @@ window.app = window.app || {};
 // var ApiDomain = 'http://new.tpctrainco.com';
 function TPCApp() {
 	var _this = this;
-	document.body.addEventListener('touchstart',function(){},false);
 	this.$win = $(window);
 	this.$aHref = $('a[href^=#]').not('.elec-sort-category');
 	this.$page = $('html, body');
@@ -58,8 +57,12 @@ function TPCApp() {
 		});
 	}
 
-	if ($('.register-two').length) {
+	if ($('.register-two').length || $('.summary-top').length) {
 		this.CheckoutCustomer = new CheckoutCustomer();
+	}
+
+	if(Modernizr.touch) {
+		document.body.addEventListener('touchstart',function(){},false);
 	}
 
 	// CHECK IF USER IS ON A RETINA DEVICE

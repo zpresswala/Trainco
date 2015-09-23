@@ -105,7 +105,18 @@
                     </div>
                     <h2 class="total-price">Total: $<span>5858</span></h2>
                 </div>
-                <a href="#" class="btn btn-reg btn-blue-solid summary-submit-btn">Submit</a>
+
+
+                <div class="card-submit-wrap col-xs-12">
+                    <button type="submit" class="btn btn-reg btn-blue-solid summary-submit-btn">Submit</button>
+                    <div class="spinner card-loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <p class="processing-msg"></p>
+                </div>
+
             </div>
         </div>
 
@@ -194,24 +205,37 @@
                 </li>
             </ul>
         </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        
+            <script type="text/javascript" src="/assets/js/vendor/modernizr-touch.js"></script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-        <!-- use modernizr generator for production -->
-        <script type="text/javascript" src="/assets/js/vendor/modernizr-dev.js"></script>
-        <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
-        <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
-        <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
 
-        <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
-        <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
-        <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
-        <script type="text/javascript">
-           var temp;
+            <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
+            <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
+            <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
+            <script type="text/javascript" src="/assets/js/vendor/bootstrap-dropdown.js"></script>
 
-           $(window).load(function() {
-               temp = new TPCApp();
-           });
-        </script>
+
+
+            <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
+
+            <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
+            <script type="text/javascript" src="/assets/js/custom/DatePicker.js"></script>
+            <script type="text/javascript" src="/assets/js/custom/Catalog.js"></script>
+            <script type="text/javascript" src="/assets/js/custom/MainSearchSelect.js"></script>
+            <script src="/assets/js/custom/Checkout.js"></script>
+
+            <script src="/assets/js/custom/CheckoutCustomer.js"></script>
+            <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
+
+
+            <script type="text/javascript">
+               var temp;
+
+               $(window).load(function() {
+                   temp = new TPCApp();
+               });
+            </script>
     </body>
 </html>
