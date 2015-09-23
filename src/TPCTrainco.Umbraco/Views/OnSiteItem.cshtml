@@ -10,6 +10,16 @@
     IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
     IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
     var seminarContainer = CurrentPage.AncestorOrSelf(2);
+
+    string message = "";
+
+    if (false == string.IsNullOrEmpty(Request.QueryString["form"]))
+    {
+        if (Request.QueryString.Get("form") == "success")
+        {
+            message = "<div class=\"alert alert-success\">Thank you for contacting us. We will respond to your inquiry within two business days.</div>";
+        }
+    }
 }
 
 <div class="container-fluid headline-section onsite">
@@ -22,6 +32,7 @@
 </div>
 <div class="container-fluid gradient-bg main-content">
     <div class="container">
+        @Html.Raw(message)
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-wrap">
 
