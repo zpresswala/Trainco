@@ -267,14 +267,14 @@ input[type=checkbox]:checked + label:before {
 	position: relative;
 	cursor: pointer;
 	span {
-		opacity: 0;
+		display: none;
 		border-radius: 4px;
 		border: 1px solid $cart-border;
 		background-color: $white;
 		position:absolute;
-		top: -190px;
-		left:0;
-		z-index:1000;
+		top: -200px;
+		left: 120%;
+		z-index: 4;
 		width:auto;
 		max-width:320px;
 		min-height:128px;
@@ -286,7 +286,7 @@ input[type=checkbox]:checked + label:before {
 		}
 
 		&.showing {
-			opacity: 1;
+			display: block;
 		}
 	}
 }
