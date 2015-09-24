@@ -29,7 +29,6 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [StringLength(255)]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Email address is required.")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         [StringLength(255)]
         public string Email { get; set; }

@@ -43,7 +43,8 @@
                     }
 
                     <option value="all">All Locations</option>
-
+                    <optgroup label="Or, search a specific city" class="search-label" id="search-label" data-label="search-label">Or, search a specific city</optgroup>
+                    
                     @foreach (State state in stateList)
                     {
                         List<City> cityListByState = cityList.Where(p => p.StateID == state.StateID).OrderBy(s => s.CityName).ToList();

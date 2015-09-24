@@ -1,0 +1,64 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    string cartGuid = null;
+    string errorMessage = "There was a problem processing your order. The website administrators have been notified. Please try again at a later time.";
+
+    if (Session["CartId"] != null && Session["CartId"].ToString().Length > 0)
+    {
+        cartGuid = Session["CartId"].ToString().ToLower();
+    }
+
+    if (Request.QueryString["error"] != null && Request.QueryString.Get("error").Length > 0)
+    {
+        string errorCode = Request.QueryString.Get("error");
+
+        switch (errorCode)
+        {
+            case "80":
+            case "81":
+            case "82":
+            case "83":
+                errorMessage = "Your registration items have expired, please try again.";
+                break;
+            default:
+                break;
+        }
+
+    }
+
+}
+
+@Html.Partial("Cart/ReadOnlyCart")
+
+<div class="container-fluid register-top">
+
+    <div class="container">
+        <div class="jumbotron">
+            @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
+            {
+                <h1>@CurrentPage.pageHeadline</h1>
+            }
+            else
+            {
+                <h1>@CurrentPage.name</h1>
+            }
+        </div>
+
+        <div class="alert alert-error">
+            <strong>@(errorMessage)</strong>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="container">
+        <p>&nbsp;</p>
+    </div>
+
+    <a class="btn-reg btn-blue-solid next-btn" href="/register/?cart=@(cartGuid)">Try Again</a>
+</div>

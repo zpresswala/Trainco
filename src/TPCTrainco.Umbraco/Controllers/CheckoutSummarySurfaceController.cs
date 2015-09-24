@@ -159,7 +159,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                     cartsObj.AddToTempError(tempCust, creditCardResult);
                                     cartsObj.SendCreditCardErrorEmail(tempCust, creditCardResult);
 
-                                    return Redirect("/register/summary/?error=cc");
+                                    return Redirect("/register/info/?error=cc");
                                 }
                                 else
                                 {
@@ -176,6 +176,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                         if (reg != null && reg.RegistrationID > 0)
                                         {
                                             Session["RegistrationId"] = reg.RegistrationID;
+                                            Session["RegistrationTotal"] = string.Format("{0:N2}", reg.RegOrderTotal ?? 0);
 
                                             // Email Registrar and Billing
                                             Registrations.EmailOrderConfirmations(checkoutDetails, reg);
@@ -199,7 +200,7 @@ namespace TPCTrainco.Umbraco.Controllers
                             {
                                 cartsObj.SendCartErrorEmail("ERROR: 91\n\rregistration wasn't created: (tempCust == null || tempAttList == null || tempAttList.Count <= 0)");
 
-                                return Redirect("/search-seminars/?error=91");
+                                return Redirect("/register/error/?error=91");
                             }
                         }
                     }
@@ -212,12 +213,12 @@ namespace TPCTrainco.Umbraco.Controllers
                 {
                     cartsObj.SendCartErrorEmail("ERROR: 92\n\rregistration list null: (tempRegList == null)");
 
-                    return Redirect("/search-seminars/?error=92");
+                    return Redirect("/register/error/?error=92");
                 }
 
                 cartsObj.SendCartErrorEmail("ERROR: 93\n\rfunction fall through.");
 
-                return Redirect("/search-seminars/?error=93");
+                return Redirect("/register/error/?error=93");
             }
         }
     }

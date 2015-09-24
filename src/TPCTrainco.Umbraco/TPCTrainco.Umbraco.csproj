@@ -3368,6 +3368,7 @@
     <Content Include="Views\Partials\CheckoutCustomer.cshtml" />
     <Content Include="Views\Partials\CheckoutSummary.cshtml" />
     <Content Include="Views\IPTest.cshtml" />
+    <Content Include="Views\RegisterError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

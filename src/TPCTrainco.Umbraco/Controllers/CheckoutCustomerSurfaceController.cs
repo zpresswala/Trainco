@@ -123,19 +123,19 @@ namespace TPCTrainco.Umbraco.Controllers
                         {
                             cartsObj.SendCartErrorEmail("ERROR: 81\n\r tempCust == null");
 
-                            return Redirect("/search-seminars/?error=81");
+                            return Redirect("/register/error/?error=81");
                         }
                     }
                     else
                     {
                         cartsObj.SendCartErrorEmail("ERROR: 82\n\r tempCust == null");
-                        return Redirect("/search-seminars/?error=82");
+                        return Redirect("/register/error/?error=82");
                     }
                 }
                 else
                 {
                     cartsObj.SendCartErrorEmail("ERROR: 83\n\r cartList == null");
-                    return Redirect("/search-seminars/?error=83");
+                    return Redirect("/register/error/?error=83");
                 }
             }
         }

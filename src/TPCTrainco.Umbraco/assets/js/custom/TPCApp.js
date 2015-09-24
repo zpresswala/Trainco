@@ -57,11 +57,13 @@ function TPCApp() {
 		});
 	}
 
-	if ($('.register-two').length) {
+	if ($('.register-two').length || $('.summary-top').length) {
 		this.CheckoutCustomer = new CheckoutCustomer();
 	}
 
-	// this.bindScroll();
+	if(Modernizr.touch) {
+		document.body.addEventListener('touchstart',function(){},false);
+	}
 
 	// CHECK IF USER IS ON A RETINA DEVICE
 	var isRetina = false;
@@ -84,35 +86,36 @@ function TPCApp() {
 	var hash = window.location.hash;
 
 	// if one clicks "browse courses", go to that page and scroll to hash
-	if($('.course-section').length && hash) {
+	if($('.course-section').length || $('.onsite').length && hash) {
 		_this.$page.animate({
 			scrollTop: $(hash).offset().top - 140
 		}, 300);
 	}
 
 	if (hash || $('.detail-page-app').length) {
+		if(hash != '#cf-container') {
+			// this is all the search stuff.
+			if (app.mainSearchSelect == undefined) {
+				app.mainSearchSelect = new MainSearchSelect();
+			}
 
-		// this is all the search stuff.
-		if (app.mainSearchSelect == undefined) {
-			app.mainSearchSelect = new MainSearchSelect();
-		}
+			var searchParams;
+			if (hash) {
+				searchParams = app.mainSearchSelect.getHashSearchParams();
+			} else {
+				searchParams = app.mainSearchSelect.getSearchParams();
+			}
 
-		var searchParams;
-		if (hash) {
-			searchParams = app.mainSearchSelect.getHashSearchParams();
-		} else {
-			searchParams = app.mainSearchSelect.getSearchParams();
-		}
+			if(hash) {
+				$('.detail-page-app').slideDown();
+				performSearch(searchParams);
+			} else {
+				$('.empty-location-msg').hide();
+			}
 
-		if(hash) {
-			$('.detail-page-app').slideDown();
-			performSearch(searchParams);
-		} else {
-			$('.empty-location-msg').hide();
-		}
-
-		if(!$('.results').children().length) {
-			$('.empty-message').show();
+			if(!$('.results').children().length) {
+				$('.empty-message').show();
+			}
 		}
 	}
 

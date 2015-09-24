@@ -41,6 +41,10 @@ namespace TPCTrainco.Umbraco.App_Code
                 {
                     //List<object> vals = rf.Values;
 
+                    if (rf.Alias == "referrerName")
+                    {
+                        webSignup.Referrer = rf.ValuesAsString();
+                    }
                     if (rf.Alias == "firstName" || rf.Alias == "name")
                     {
                         webSignup.FirstName = rf.ValuesAsString();
