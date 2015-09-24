@@ -43,7 +43,11 @@
                     <div class="overlay"></div>
                     <img src="/images/selectall-icon.jpg" alt="All Seminar Topics" />
                 </div>
-                <p>All Seminar Topics</p>
+                <p class="seminar-title">All Seminar Topics</p>
+                
+                <!-- John: the next line is the total for each seminar -->
+                <p class="num-seminars">1538 Total Seminars</p>
+                <!-- end -->
             </li>
             @foreach (IPublishedContent category in seminarCategoryList)
             {
@@ -65,7 +69,12 @@
                         <div class="overlay"></div>
                         <img src="@iconUrl" alt="@category.Name" />
                     </div>
-                    <p>@shortName</p>
+                    <p class="seminar-title">@shortName</p>
+
+                    <!-- John: the next line is the total for each seminar -->
+                    <p class="num-seminars">1538 Total Seminars</p>
+                    <!-- end -->
+
                 </li>
             }
         </ul>
