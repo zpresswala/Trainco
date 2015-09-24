@@ -37,7 +37,7 @@ function CheckoutCustomer() {
 	this.$promoCode.hide();
 	this.$hearAboutOther.hide();
 	var selectedOption2 = this.$hearAbout.val();
-	if (selectedOption2 == 'Direct Mail' || selectedOption2 === 'Print Ad' || selectedOption2 === 'Internet Ad' || selectedOption2 === 'Email') {
+	if (selectedOption2 == 'Direct Mail' || selectedOption2 === 'Print Ad' || selectedOption2 === 'Email') {
 		this.$promoWrap.show();
 		this.$promoCode.slideDown().addClass('showing');
 	}
@@ -80,6 +80,11 @@ CheckoutCustomer.prototype.showPromoField = function () {
 		_this.$hearAboutOther.hide();
 
 		if (selectedOption == 'Direct Mail' || selectedOption === 'Print Ad' || selectedOption === 'Internet Ad' || selectedOption === 'Email') {
+			if(selectedOption == 'Print Ad') {
+				_this.$promoCode.attr('placeholder', 'Promo Code');
+			} else {
+				_this.$promoCode.attr('placeholder', 'Promo Code or description of mailer');
+			}
 			_this.$promoWrap.show();
 			_this.$promoCode.slideDown().addClass('showing');
 		}
