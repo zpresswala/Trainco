@@ -121,7 +121,7 @@ CheckoutCustomer.prototype.billingOptions = function () {
 CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
 	submitBtn.fadeOut(300, function() {
 		$('.card-loader').fadeIn();
-		$('.processing-msg').fadeIn().text('Order processing may take several seconds. Please do not click "Submit" again.');
+		$('.processing-msg').fadeIn().text('Order processing may take several seconds. Please wait...');
 	});
 
 	setTimeout(function() {
@@ -129,5 +129,5 @@ CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
 			$('.processing-msg').text('There was an error processing your order. Please try again.');
 			submitBtn.fadeIn();
 		});
-	}, 1500);
+	}, 15000);
 };

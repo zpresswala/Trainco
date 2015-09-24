@@ -26,7 +26,14 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             badUrl2 = badUrl2.TrimEnd('/');
 
-            var redirect = redirects.Where(x => x.UrlToRedirect == badUrl || x.UrlToRedirect == badUrl2).FirstOrDefault();
+            var badUrl3 = badUrl;
+            var badUrl4 = badUrl2;
+
+            badUrl3 = badUrl3.Replace(" ", "%20");
+            badUrl4 = badUrl4.Replace(" ", "%20");
+
+            var redirect = redirects.Where(x => x.UrlToRedirect == badUrl || x.UrlToRedirect == badUrl2
+                 || x.UrlToRedirect == badUrl3 || x.UrlToRedirect == badUrl4).FirstOrDefault();
 
             if (redirect != null)
             {
