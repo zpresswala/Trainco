@@ -38,5 +38,6 @@ namespace TPCTrainco.Umbraco.Extensions
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longitude { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinates { get; set; }
+        public Nullable<int> CourseTier { get; set; }
     }
 }
