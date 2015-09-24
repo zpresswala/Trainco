@@ -10,5 +10,5 @@
     "Subject": "the form  was submitted",
     "Message": "the form  was submitted, this is the list of values it contained, you can turn this email off under workflows in Umbraco Contour"
   },
-  "sortOrder": 0
+  "sortOrder": 1
 }

@@ -1,6 +1,7 @@
 ﻿'use strict';
 
 function CheckoutCustomer() {
+	var _this = this;
 	this.$differentInfo = $('#supervisor-diff');
 	this.$differentInfoFields = $('.hidden-different-check');
 	this.$billingOptsSelect = $('#PaymentType');
@@ -36,7 +37,7 @@ function CheckoutCustomer() {
 	this.$promoCode.hide();
 	this.$hearAboutOther.hide();
 	var selectedOption2 = this.$hearAbout.val();
-	if (selectedOption2 == 'Direct Mail' || selectedOption2 === 'Print Ad' || selectedOption2 === 'Email') {
+	if (selectedOption2 == 'Direct Mail' || selectedOption2 === 'Print Ad' || selectedOption2 === 'Internet Ad' || selectedOption2 === 'Email') {
 		this.$promoWrap.show();
 		this.$promoCode.slideDown().addClass('showing');
 	}
@@ -44,6 +45,10 @@ function CheckoutCustomer() {
 		this.$promoWrap.show();
 		this.$hearAboutOther.slideDown().addClass('showing');
 	}
+
+	$('#button-submit').on('click', function() {
+		_this.cardProcessingMessage($(this));
+	});
 };
 
 
@@ -74,7 +79,7 @@ CheckoutCustomer.prototype.showPromoField = function () {
 		_this.$promoCode.hide();
 		_this.$hearAboutOther.hide();
 
-		if (selectedOption == 'Direct Mail' || selectedOption === 'Print Ad' || selectedOption === 'Email') {
+		if (selectedOption == 'Direct Mail' || selectedOption === 'Print Ad' || selectedOption === 'Internet Ad' || selectedOption === 'Email') {
 			_this.$promoWrap.show();
 			_this.$promoCode.slideDown().addClass('showing');
 		}
@@ -110,4 +115,19 @@ CheckoutCustomer.prototype.billingOptions = function () {
 	$('.cvv-text').on('click', function () {
 		$(this).find('span').toggleClass('showing');
 	});
+};
+
+// show a loader and message while credit card is processing.
+CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
+	submitBtn.fadeOut(300, function() {
+		$('.card-loader').fadeIn();
+		$('.processing-msg').fadeIn().text('Order processing may take several seconds. Please wait...');
+	});
+
+	setTimeout(function() {
+		$('.card-loader').fadeOut(100, function() {
+			$('.processing-msg').text('There was an error processing your order. Please try again.');
+			submitBtn.fadeIn();
+		});
+	}, 15000);
 };

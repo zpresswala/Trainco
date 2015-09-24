@@ -190,10 +190,6 @@
 			padding-right: 15px;
 		}
 	}
-
-	.col-md-12 {
-		margin-bottom: 50px;
-	}
 }
 
 .billing-opts-wrapper {
@@ -267,14 +263,14 @@ input[type=checkbox]:checked + label:before {
 	position: relative;
 	cursor: pointer;
 	span {
-		opacity: 0;
+		display: none;
 		border-radius: 4px;
 		border: 1px solid $cart-border;
 		background-color: $white;
 		position:absolute;
-		top: -190px;
-		left:0;
-		z-index:1000;
+		top: -200px;
+		left: 120%;
+		z-index: 4;
 		width:auto;
 		max-width:320px;
 		min-height:128px;
@@ -286,7 +282,7 @@ input[type=checkbox]:checked + label:before {
 		}
 
 		&.showing {
-			opacity: 1;
+			display: block;
 		}
 	}
 }
@@ -402,12 +398,33 @@ input[type=checkbox]:checked + label:before {
 
 .summary-submit-btn {
 	text-align: center;
-	margin: 0 auto;
+	margin: 0 auto 20px;
 	display: table;
 	width: 150px;
 	@include tablet-portrait-and-up {
 		float: right;
 		margin-top: 10px;
+	}
+}
+
+.card-submit-wrap {
+	position: relative;
+	height: 100px;
+	margin-bottom: 60px;
+}
+
+.card-loader {
+	position: static;
+	margin: 0 auto;
+	height: 33px;
+}
+
+.processing-msg {
+	display: none;
+	text-align: center;
+	@include med-desktop-and-up {
+		width: 400px;
+		margin: 15px auto 0;
 	}
 }
 

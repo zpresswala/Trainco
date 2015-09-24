@@ -32,13 +32,13 @@ app.SingleSeminarView = Backbone.View.extend({
         if(open) {
             // if it's open, close it
             $schedItemWrap.slideUp(400, function() {
-                viewText.removeClass('red').html('<span class="plus">+</span>View Upcoming Seminars');
+                viewText.removeClass('red').html('View Upcoming Seminars');
                 _this.model.set('open', false);
             });
         } else {
             // open it
             $schedItemWrap.slideDown(400, function() {
-                viewText.addClass('red').html('<span class="plus turn">+</span>View Less');
+                viewText.addClass('red').html('View Less');
                 _this.model.set('open', true);  
             });
         }

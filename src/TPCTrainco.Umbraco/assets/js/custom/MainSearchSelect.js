@@ -243,9 +243,11 @@ MainSearchSelect.prototype.detailPageSearch = function() {
 
 MainSearchSelect.prototype.styleText = function() {
 	$('#main-search').on("select2:open", function (e) {
-		$($('.select2-results__group')[0]).css({
-			borderTop: '1px dashed #3E3E3E',
-			padding: 10 + 'px'
-		});
+		setTimeout(function() {
+			$($('.select2-results__group')[0]).css({
+				borderTop: '1px dashed #3E3E3E',
+				padding: 10 + 'px'
+			});
+		}, 1);
 	});
 };

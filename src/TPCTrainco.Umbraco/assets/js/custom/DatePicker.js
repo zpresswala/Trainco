@@ -15,7 +15,7 @@ function DatePicker() {
 	// max date of range
 	var monthOffset = 15;
 	var maxDate = new Date();
-	this.maxMonth = maxDate.getMonth();
+	this.maxMonth = maxDate.getMonth() ;
 	var maxYear = maxDate.getFullYear() + 1;
 	maxDate.setMonth(parseInt(this.maxMonth + monthOffset));
 	maxDate.setDate(parseInt("1"));
@@ -30,7 +30,7 @@ function DatePicker() {
 	maxRangeSelect.setFullYear(parseInt(maxRangeYear));
 
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-
+	var upperStop = minDate
 	if($(window).width()<= 700) {
 		var months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 	}
@@ -45,6 +45,10 @@ function DatePicker() {
 	    defaultValues: {
 	    	min: new Date(minDate), 
 	    	max: new Date(maxRangeSelect)
+	    },
+
+	    range: {
+	    	min: {months: 2}
 	    },
 	    
 	    valueLabels: 'hide',

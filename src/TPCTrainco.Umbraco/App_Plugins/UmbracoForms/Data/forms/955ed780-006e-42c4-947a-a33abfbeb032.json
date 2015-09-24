@@ -24,9 +24,9 @@
                   "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
                   "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
                   "dataSourceFieldKey": null,
-                  "mandatory": false,
+                  "mandatory": true,
                   "regex": null,
-                  "requiredErrorMessage": null,
+                  "requiredErrorMessage": "Required",
                   "invalidErrorMessage": null,
                   "condition": null,
                   "settings": {
@@ -44,9 +44,9 @@
                   "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
                   "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
                   "dataSourceFieldKey": null,
-                  "mandatory": false,
+                  "mandatory": true,
                   "regex": null,
-                  "requiredErrorMessage": null,
+                  "requiredErrorMessage": "Required",
                   "invalidErrorMessage": null,
                   "condition": null,
                   "settings": {
@@ -64,10 +64,10 @@
                   "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
                   "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
                   "dataSourceFieldKey": null,
-                  "mandatory": false,
-                  "regex": null,
-                  "requiredErrorMessage": null,
-                  "invalidErrorMessage": null,
+                  "mandatory": true,
+                  "regex": "^[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{2,6})$",
+                  "requiredErrorMessage": "Required",
+                  "invalidErrorMessage": "Invalid Email",
                   "condition": null,
                   "settings": {
                     "DefaultValue": ""
@@ -188,7 +188,7 @@
                   "preValues": []
                 },
                 {
-                  "caption": "# of Trainees",
+                  "caption": "Number of Trainees",
                   "tooltip": null,
                   "placeholder": null,
                   "cssClass": null,
@@ -208,13 +208,13 @@
                   "preValues": []
                 },
                 {
-                  "caption": "Subject of Interest",
-                  "tooltip": null,
+                  "caption": "Which course(s) are you interested in?",
+                  "tooltip": "",
                   "placeholder": null,
                   "cssClass": null,
                   "alias": "subjectOfInterest",
                   "id": "2fae6a34-a1cb-4f79-fee3-434ab0eac8a6",
-                  "fieldTypeId": "0dd29d42-a6a5-11de-a2f2-222256d89593",
+                  "fieldTypeId": "3f92e01b-29e2-4a30-bf33-9df5580ed52c",
                   "prevalueSourceId": "00000000-0000-0000-0000-000000000000",
                   "dataSourceFieldKey": null,
                   "mandatory": false,
@@ -311,7 +311,7 @@
           "condition": null
         }
       ],
-      "caption": "Contact us to plan an On-Site Seminar",
+      "caption": "Please complete the form to get a quote for on-site training",
       "sortOrder": 0,
       "id": "00000000-0000-0000-0000-000000000000",
       "form": "00000000-0000-0000-0000-000000000000"
@@ -324,8 +324,8 @@
   "hideFieldValidation": false,
   "requiredErrorMessage": "Please provide a value for {0}",
   "invalidErrorMessage": "Please provide a valid value for {0}",
-  "messageOnSubmit": "Thank you",
-  "goToPageOnSubmit": 0,
+  "messageOnSubmit": "Thank you for contacting us. We will respond to your inquiry within two business days.",
+  "goToPageOnSubmit": 2401,
   "xPathOnSubmit": null,
   "manualApproval": false,
   "storeRecordsLocally": true,
@@ -334,7 +334,8 @@
   "useClientDependency": false,
   "workflows": [
     "e0fba3ab-bd2c-40d1-b4d6-123c5671d8e7",
-    "ebeb80f6-8ddc-4ccd-b2ee-de88f776d91c"
+    "ebeb80f6-8ddc-4ccd-b2ee-de88f776d91c",
+    "da2c10b4-0027-46d0-ac5c-5697cbd0c439"
   ],
   "datasource": null,
   "submitLabel": "Submit",

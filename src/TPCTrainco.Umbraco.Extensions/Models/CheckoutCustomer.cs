@@ -61,7 +61,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string PhoneExt { get; set; }
 
         [Required]
-        [EmailAddress]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Email address is invalid.")]
         public string Email { get; set; }
 
         public string HearAbout { get; set; }
@@ -119,11 +119,12 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string BillPhoneExt { get; set; }
 
         [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Email is required.")]
-        [EmailAddress]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Email address is invalid.")]
         public string BillEmail { get; set; }
 
 
-        [DisplayName("Credit Card Payment")]
+        [DisplayName("Payment Type")]
+        [Required]
         public string PaymentType { get; set; }
 
         [RequiredIf("PaymentType", "credit", ErrorMessage = "Credit Card Name is required.")]
@@ -132,7 +133,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string CCName { get; set; }
 
         [RequiredIf("PaymentType", "credit", ErrorMessage = "Credit Card Number is required.")]
-        [CreditCard]
+        [CreditCard(ErrorMessage = "Invalid credit card. Please enter the number only and omit all spaces and dashes.")]
         [DisplayName("Credit Card Number")]
         public string CCNumber { get; set; }
 

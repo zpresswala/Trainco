@@ -5,12 +5,9 @@
 
 @if (Request.QueryString["error"] != null && Request.QueryString.Get("error").Length > 0)
 {
-    if (Request.QueryString.Get("error") == "2")
-    {
-        <div class="container-fluid">
-            <strong class="message-error">There was a problem processing the credit card. Please verify your credit card and the billing information and try again.</strong>
-        </div>
-    }
+    <div class="alert alert-error">
+        <strong>There was a problem processing the credit card. Please re-enter your credit card, verify the billing information and try again.</strong>
+    </div>
 }
 
 <div class="container-fluid register-two gradient-bg">
@@ -86,7 +83,7 @@
                     </div>
 
                     <div class="form-group promo-wrap col-xs-12 col-sm-6">
-                        @Html.TextBoxFor(p => p.PromoCode, new { @class = "form-control", placeholder = "Enter promo code" })
+                        @Html.TextBoxFor(p => p.PromoCode, new { @class = "form-control", placeholder = "Promo code or description of mailer" })
                         @Html.ValidationMessageFor(p => p.PromoCode)
                         @Html.TextBoxFor(p => p.HearAboutOther, new { @class = "form-control", placeholder = "Brief description" })
                         @Html.ValidationMessageFor(p => p.HearAboutOther)
@@ -182,7 +179,7 @@
                             </div>
 
                             <div class="cvv-info form-group col-xs-12 col-sm-6 col-md-3">
-                                <p class="cvv-text">What's this?<span><img src="/images/cvv_visa.gif">Three-digit number on the back of your card.</span></p>
+                                <p class="cvv-text">What's this?<span><img src="/images/cvv_visa.gif">Three-digit number on the back of your card. For AMEX users, please use the 4-digit code printed on the front of your card.</span></p>
                             </div>
                         </div>
 
@@ -205,7 +202,16 @@
 
                     </div>
 
-                    <button id="button-submit" type="submit" class="btn-reg btn-blue-solid next-btn">Next</button>
+                    <div class="card-submit-wrap col-xs-12">
+                        <button type="submit" id="button-submit" class="btn btn-reg btn-blue-solid next-btn">Next</button>
+                        <div class="spinner card-loader">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                        <p class="processing-msg"></p>
+                    </div>
+
 
                 </div>
             </div>
