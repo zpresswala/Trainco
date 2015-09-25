@@ -8,6 +8,9 @@ function Catalog() {
 	// items to hide/show
 	this.$sortItem = $('.electric .seminar-topic');
 
+	// us/canada items to hide/show
+	this.$countryItem = $('.seminar-topic');
+
 	this.sortElectricItems();
 	this.countryToggle();
 }
@@ -36,14 +39,34 @@ Catalog.prototype.sortElectricItems = function() {
 };
 
 Catalog.prototype.countryToggle = function() {
-	$('.country-toggle a').on('click', function() {
+	var _this = this;
+	$('.country-toggle a').on('click', function(e) {
+		e.preventDefault();
+		var countryToShow = $(this).data('country-sort');
+		
+		// sort items by country
+		_this.$countryItem.each(function() {
+			if($(this).data('country') !== countryToShow) {
+				$(this).fadeOut('fast');
+			} else {
+				$(this).fadeIn('fast').css('display', 'inline-block');
+			}
+		});
+
+		// change toggle appearance and text
 		if(!$(this).hasClass('usa')) {
 			$(this).fadeOut(50, function() {
-				$(this).fadeIn(50).addClass('usa').html('<img src="/assets/images/icon-us-flag.png" class="flag-icon" /> Click to view U.S. seminars');				
+
+				// change to usa w/flag and data attr
+				$(this).fadeIn(50).addClass('usa').html('<img src="/assets/images/icon-us-flag.png" class="flag-icon" /> Click to view U.S. seminars');
+				$(this).data('country-sort', 'us');
 			});
 		} else {
 			$(this).fadeOut(50, function() {
-				$(this).removeClass('usa').fadeIn(50).html('<img src="/assets/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars');				
+
+				// change to canada
+				$(this).removeClass('usa').fadeIn(50).html('<img src="/assets/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars');
+				$(this).data('country-sort', 'ca');	
 			});
 		}
 	});
