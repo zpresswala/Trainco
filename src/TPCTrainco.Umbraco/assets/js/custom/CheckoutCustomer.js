@@ -79,12 +79,15 @@ CheckoutCustomer.prototype.showPromoField = function () {
 		_this.$promoCode.hide();
 		_this.$hearAboutOther.hide();
 
-		if (selectedOption == 'Direct Mail' || selectedOption === 'Print Ad' ||selectedOption === 'Email') {
+		if (selectedOption === 'Direct Mail' || selectedOption === 'Print Ad' ||selectedOption === 'Email' || selectedOption === 'Web search') {
 			if(selectedOption == 'Print Ad') {
 				_this.$promoCode.attr('placeholder', 'Promo Code');
+			} else if(selectedOption == 'Web search') {
+				_this.$promoCode.attr('placeholder', 'Search Term');
 			} else {
 				_this.$promoCode.attr('placeholder', 'Promo Code or description of mailer');
 			}
+
 			_this.$promoWrap.show();
 			_this.$promoCode.slideDown().addClass('showing');
 		}
