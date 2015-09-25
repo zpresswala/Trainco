@@ -131,13 +131,13 @@
 
 		img {
 			width: 100%;
-			max-width: 150px;
+			max-width: 125px;
 		}
 
 		.overlay {
 			left: 50%;
-			max-width: 150px;
-			max-height: 150px;
+			max-width: 125px;
+			max-height: 125px;
 			@include transform(translateX(-50%));
 		}
 	}
