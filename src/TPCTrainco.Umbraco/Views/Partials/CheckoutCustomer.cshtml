@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="form-group col-xs-12 col-sm-6 col-md-2">
-                        @Html.DropDownListFor(p => p.Country, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetCountryList(), new { @class = "form-control" })
+                        @Html.TextBoxFor(p => p.Country, new { @class = "form-control", placeholder = "Country" })
                         @Html.ValidationMessageFor(p => p.Country)
                     </div>
 
@@ -131,7 +131,7 @@
                             </div>
 
                             <div class="form-group col-xs-12 col-sm-6 col-md-2">
-                                @Html.DropDownListFor(p => p.BillCountry, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetCountryList(false), new { @class = "form-control" })
+                                @Html.TextBoxFor(p => p.BillCountry, new { @class = "form-control", placeholder = "Country" })
                                 @Html.ValidationMessageFor(p => p.BillCountry)
                             </div>
 

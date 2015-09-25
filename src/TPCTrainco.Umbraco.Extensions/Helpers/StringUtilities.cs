@@ -71,6 +71,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             {
                 string phoneTemp = Regex.Replace(phone, @"[\(\)\- ]", "");
 
+                if (phoneTemp.Length == 11 && phoneTemp.Substring(0,1) == "1")
+                {
+                    phoneTemp = phoneTemp.Substring(1, 10);
+                }
+
                 if (phoneTemp.Length == 10)
                 {
                     phoneArray = new List<string>();

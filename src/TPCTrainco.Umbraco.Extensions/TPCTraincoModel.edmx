@@ -563,7 +563,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
             <PropertyRef Name="State" />
             <PropertyRef Name="SchDate" />
           </Key>
-          <Property Name="SchID" Type="bigint" Nullable="false" />
+          <Property Name="SchID" Type="int" Nullable="false" />
           <Property Name="TopicID" Type="int" />
           <Property Name="StateID" Type="int" Nullable="false" />
           <Property Name="WeekOf" Type="datetime" />
@@ -587,6 +587,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Coordinates" Type="geography" />
+          <Property Name="CourseTier" Type="int" />
         </EntityType>
         <Association Name="FK__CATEGORY__CATEGO__457442E6">
           <End Role="CATEGORYTYPE" Type="Self.CATEGORYTYPE" Multiplicity="1" />
@@ -661,7 +662,8 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
     [Seminar_Catalog].[WebPageIH] AS [WebPageIH], 
     [Seminar_Catalog].[Latitude] AS [Latitude], 
     [Seminar_Catalog].[Longitude] AS [Longitude], 
-    [Seminar_Catalog].[Coordinates] AS [Coordinates]
+    [Seminar_Catalog].[Coordinates] AS [Coordinates], 
+    [Seminar_Catalog].[CourseTier] AS [CourseTier]
     FROM [dbo].[Seminar_Catalog] AS [Seminar_Catalog]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__CATEGORY__CATEGO__457442E6" Association="Self.FK__CATEGORY__CATEGO__457442E6">
@@ -1309,6 +1311,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="Latitude" Type="Double" />
           <Property Name="Longitude" Type="Double" />
           <Property Name="Coordinates" Type="Geography" />
+          <Property Name="CourseTier" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1892,6 +1895,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySetMapping Name="Seminar_Catalog">
             <EntityTypeMapping TypeName="americantraincoModel.Seminar_Catalog">
               <MappingFragment StoreEntitySet="Seminar_Catalog">
+                <ScalarProperty Name="CourseTier" ColumnName="CourseTier" />
                 <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
