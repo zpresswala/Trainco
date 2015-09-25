@@ -134,7 +134,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                             {
                                 resultsList = new List<Sch>();
 
-                                foreach(TPCTrainco.Umbraco.Extensions.ViewModels.Schedule schedule in selectedLocation.Schedules)
+                                foreach (TPCTrainco.Umbraco.Extensions.ViewModels.Schedule schedule in selectedLocation.Schedules)
                                 {
                                     resultsList.Add(ConvertScheduleToBackboneModel(schedule));
                                 }
@@ -236,7 +236,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 {
                     List<Seminar_Catalog> seminarDistinctListTemp = new List<Seminar_Catalog>();
 
-                    foreach(Seminar_Catalog tempSeminar in seminarDistinctList)
+                    foreach (Seminar_Catalog tempSeminar in seminarDistinctList)
                     {
                         ScheduleCourseInstructor scheduleCourse = ScheduleCourseList.Where(p => p.ScheduleID == tempSeminar.SchID && p.CourseID == request.ClassId).FirstOrDefault();
 
@@ -300,7 +300,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                         if (locationDetail != null)
                                         {
-                                            location.LocationDetails = locationDetail.LocationName + ", " + location.CityState + " (Street address and directions will be provided via email.)";
+                                            location.LocationDetails = GetLocationDetails(locationDetail, location);
                                         }
                                         else
                                         {
@@ -519,7 +519,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     }
                 }
             }
-            
+
             result.SearchId = searchId;
 
             return result;
@@ -690,6 +690,55 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             }
 
             return daysTitle;
+        }
+
+
+        private string GetLocationDetails(Location locationDetail, ViewModels.Location location)
+        {
+            string output = "";
+
+            if (locationDetail.LocationNotes.IndexOf("<b>LOCATION</b>") >= 0)
+            {
+                string locationDetails = locationDetail.LocationNotes;
+
+                if (false == string.IsNullOrWhiteSpace(locationDetails))
+                {
+                    var startTag = "<b>LOCATION";
+                    int startIndex = locationDetails.IndexOf(startTag) + startTag.Length;
+                    int endIndex = locationDetails.IndexOf("<b>", startIndex);
+                    output = locationDetails.Substring(startIndex, endIndex - startIndex);
+
+                    output = output.Replace("<b>LOCATION", "");
+                    output = Regex.Replace(output, "<b>", "");
+                    output = Regex.Replace(output, "</b>", "");
+                    output = output.Trim();
+                    output = output.Replace("\r", "<br />" + Environment.NewLine);
+                }
+            }
+            if (true == string.IsNullOrWhiteSpace(output))
+            {
+                output = locationDetail.LocationName + ", " + location.CityState + " (Street address and directions will be provided via email.)";
+            }
+
+
+            //<b>CNTOROTH3</b>
+
+            //<b>LOCATION</b>
+            //Toronto Airport West Hotel
+            //5444 Dixie Rd
+            //Mississauga, ON L4W 2L2
+
+            //<b>PHONE</b>
+            //905-624-1144
+
+            //<b>DIRECTIONS</b>
+            //From Airport: Take 427 South to 401 West, exit Dixie Road South and proceed two lights South on Dixie Road and turn right on Aerowood Drive and left into the Hotel driveway.
+
+            //<b>HOTEL INFORMATION</b>
+            //Please feel free to contact the hotel directly to make room reservations and to inquire of any discounts that may apply for American Trainco attendees. 
+
+
+            return output;
         }
 
 
