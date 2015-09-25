@@ -79,7 +79,7 @@ CheckoutCustomer.prototype.showPromoField = function () {
 		_this.$promoCode.hide();
 		_this.$hearAboutOther.hide();
 
-		if (selectedOption == 'Direct Mail' || selectedOption === 'Print Ad' || selectedOption === 'Internet Ad' || selectedOption === 'Email') {
+		if (selectedOption == 'Direct Mail' || selectedOption === 'Print Ad' ||selectedOption === 'Email') {
 			if(selectedOption == 'Print Ad') {
 				_this.$promoCode.attr('placeholder', 'Promo Code');
 			} else {
