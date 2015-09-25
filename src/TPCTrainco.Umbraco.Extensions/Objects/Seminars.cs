@@ -316,21 +316,31 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                         location.Schedules.Add(schedule);
 
                                         // Sub-Schedule
-
-                                        List<SCHEDULE> subLegacyScheduleList = ScheduleList.Where(p => p.ScheduleParentID == seminarCatalog.SchID).ToList();
-
-                                        if (subLegacyScheduleList != null && subLegacyScheduleList.Count > 0)
+                                        bool skipSubSchedules = false;
+                                        if (false == string.IsNullOrWhiteSpace(legacySchedule.ScheduleSeminarNumber) &&
+                                                (StringUtilities.GetLast(legacySchedule.ScheduleSeminarNumber, 2) == "30" ||
+                                                StringUtilities.GetLast(legacySchedule.ScheduleSeminarNumber, 2) == "40"))
                                         {
-                                            foreach (SCHEDULE subLegacySchedule in subLegacyScheduleList)
+                                            skipSubSchedules = true;
+                                        }
+
+                                        if (false == skipSubSchedules)
+                                        {
+                                            List<SCHEDULE> subLegacyScheduleList = ScheduleList.Where(p => p.ScheduleParentID == seminarCatalog.SchID).ToList();
+
+                                            if (subLegacyScheduleList != null && subLegacyScheduleList.Count > 0)
                                             {
-                                                ViewModels.Schedule subSchedule = ConvertScheduleToViewModel(subLegacySchedule);
-
-                                                if (subSchedule != null)
+                                                foreach (SCHEDULE subLegacySchedule in subLegacyScheduleList)
                                                 {
-                                                    subSchedule.CourseId = seminar.CourseId;
-                                                    subSchedule.LocationId = location.LocationId;
+                                                    ViewModels.Schedule subSchedule = ConvertScheduleToViewModel(subLegacySchedule);
 
-                                                    location.Schedules.Add(subSchedule);
+                                                    if (subSchedule != null)
+                                                    {
+                                                        subSchedule.CourseId = seminar.CourseId;
+                                                        subSchedule.LocationId = location.LocationId;
+
+                                                        location.Schedules.Add(subSchedule);
+                                                    }
                                                 }
                                             }
                                         }
