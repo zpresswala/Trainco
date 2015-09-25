@@ -84,7 +84,6 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     if (cartList == null)
                     {
-                        cartsObj.SendCartErrorEmail("ERROR: 80\n\rcartList == null");
                         return Redirect("/search-seminars/");
                     }
                     else

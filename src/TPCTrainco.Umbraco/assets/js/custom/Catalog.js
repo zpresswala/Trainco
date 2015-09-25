@@ -39,11 +39,11 @@ Catalog.prototype.countryToggle = function() {
 	$('.country-toggle a').on('click', function() {
 		if(!$(this).hasClass('usa')) {
 			$(this).fadeOut(50, function() {
-				$(this).fadeIn(50).addClass('usa').html('<img src="/assets/images/icon-us-flag.png" class="flag-icon" /> Click to view U.S. seminars');				
+				$(this).fadeIn(50).addClass('usa').html('<img src="/images/icon-us-flag.png" class="flag-icon" /> Click to view U.S. seminars');				
 			});
 		} else {
 			$(this).fadeOut(50, function() {
-				$(this).removeClass('usa').fadeIn(50).html('<img src="/assets/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars');				
+				$(this).removeClass('usa').fadeIn(50).html('<img src="/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars');				
 			});
 		}
 	});

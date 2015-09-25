@@ -1,4 +1,5 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
@@ -11,6 +12,8 @@
     IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
     IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
     IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+    List<COURS> courseList = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseList();
+    List<Country> countryList = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCountryList();
 }
 
 <div class="container-fluid headline-section">
@@ -70,6 +73,7 @@
                             <li class="current col-xs-6 col-md-2"><a href="#" class="elec-sort-category regular-link" data-category="all">All</a></li>
                             @foreach (IPublishedContent subItem in item.Children)
                             {
+
                                 string subMenuText = subItem.GetPropertyValue<string>("shortName", subItem.Name);
                                 string subAnchorText = subMenuText.ToUrlSegment();
 
@@ -94,17 +98,18 @@
                         {
                             string subMenuText = subItem.GetPropertyValue<string>("shortName", subItem.Name);
                             string subAnchorText = subMenuText.ToUrlSegment();
-                            
+
                             foreach (IPublishedContent subSubItem in subItem.Children)
                             {
                                 string imageUrl = subSubItem.GetCropUrl("image", "Image");
+                                string countryName = GetCountryName(countryList, subSubItem);
 
                                 if (true == string.IsNullOrEmpty(imageUrl) || (imageUrl.IndexOf(".jpg") < 0 && imageUrl.IndexOf(".png") < 0))
                                 {
                                     imageUrl = "/images/selectall-icon.jpg";
                                 }
-                                
-                                <li class="seminar-topic col-xs-6 col-sm-4 col-md-3" data-type="@(subAnchorText)">
+
+                                <li class="seminar-topic col-xs-6 col-sm-4 col-md-3" data-type="@(subAnchorText)" data-country="@(countryName)">
                                     <a href="@(subSubItem.Url)">
                                         <div class="overlay-contain">
                                             <div class="overlay"></div>
@@ -121,13 +126,14 @@
                         foreach (IPublishedContent subItem in item.Children)
                         {
                             string imageUrl = subItem.GetCropUrl("image", "Image");
+                            string countryName = GetCountryName(countryList, subItem);
 
                             if (true == string.IsNullOrEmpty(imageUrl) || (imageUrl.IndexOf(".jpg") < 0 && imageUrl.IndexOf(".png") < 0))
                             {
                                 imageUrl = "/images/selectall-icon.jpg";
                             }
-                            
-                            <li class="seminar-topic col-xs-6 col-sm-4 col-md-3">
+
+                            <li class="seminar-topic col-xs-6 col-sm-4 col-md-3" data-country="@(countryName)">
                                 <a href="@(subItem.Url)">
                                     <div class="overlay-contain">
                                         <div class="overlay"></div>
@@ -144,3 +150,34 @@
         </div>
     }
 </div>
+
+@functions {
+    public static string GetCountryName(List<Country> countries, IPublishedContent node)
+    {
+        int courseId = 0;
+        COURS course = null;
+        string countryName = "us";
+
+        if (node.HasValue("courseLink"))
+        {
+            courseId = node.GetPropertyValue<int>("courseLink");
+
+            course = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseList().Where(p => p.CourseID == courseId).FirstOrDefault();
+
+            //Canada courses can have a countryID of 1 so this code will not work unless DB updates are made.
+            //if (course != null && course.CountryID > 0)
+            //{
+            //    Country country = countries.Where(p => p.Seq == course.CountryID).FirstOrDefault();
+
+            //    countryName = country.CountryCode.ToLower();
+            //}
+            
+            if (course != null && course.TitlePlain.IndexOf("Canada") >= 0)
+            {
+                countryName = "ca";
+            }
+        }
+
+        return countryName;
+    }
+}
