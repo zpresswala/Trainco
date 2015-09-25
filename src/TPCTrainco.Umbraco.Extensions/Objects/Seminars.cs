@@ -256,6 +256,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     }
                 }
 
+                seminarDistinctList = seminarDistinctList.OrderBy(p => p.CourseTier).ThenBy(t => t.TopicID).ToList();
 
                 if (seminarDistinctList != null && seminarDistinctList.Count > 0)
                 {
