@@ -45,6 +45,11 @@
 	}
 }
 
+// hide canadian seminars by default
+[data-country="ca"] {
+	display: none;
+}
+
 .catalog-top, .sort {
 	.regular-link {
 		font-weight: 400;
