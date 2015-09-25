@@ -139,7 +139,12 @@
 		position: relative;
 
 		.checkout-loader {
-			top: 10px;
+			top: 7px;
+			@include med-desktop-and-up {
+				right: 20px;
+				left: auto;
+				margin-left: 0;
+			}
 		}
 	}
 
@@ -550,9 +555,8 @@
 }
 
 .checkout-err-msg {
-	float: left;
+	float: right;
 	margin-top: 0;
-	margin-left: 5%;
 	color: $red-button-hover;
 	font-size: 1.1em;
 }

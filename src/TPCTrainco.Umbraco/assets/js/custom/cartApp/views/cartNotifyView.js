@@ -79,7 +79,7 @@ app.CartNotifyView = Backbone.View.extend({
             var quant = item.quantity;
             cartDataArray.push({ Id: id, quantity: quant });
         });
-
+        this.$('#check-out').fadeOut(50);
         this.$('.checkout-loader').show();
 
         $.ajax({
@@ -93,6 +93,7 @@ app.CartNotifyView = Backbone.View.extend({
             window.location.href = '/register/?cart=' + redirectGuid;
         }).fail(function(error) {
             _this.$('.checkout-loader').hide();
+            _this.$('#check-out').hide();
             _this.$('.btn-wrapper').prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
         });
     },
