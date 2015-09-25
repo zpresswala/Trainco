@@ -58,14 +58,14 @@ Catalog.prototype.countryToggle = function() {
 			$(this).fadeOut(50, function() {
 
 				// change to usa w/flag and data attr
-				$(this).fadeIn(50).addClass('usa').html('<img src="/assets/images/icon-us-flag.png" class="flag-icon" /> Click to view U.S. seminars');
+				$(this).fadeIn(50).addClass('usa').html('<img src="/images/icon-us-flag.png" class="flag-icon" /> Click to view U.S. seminars');
 				$(this).data('country-sort', 'us');
 			});
 		} else {
 			$(this).fadeOut(50, function() {
 
 				// change to canada
-				$(this).removeClass('usa').fadeIn(50).html('<img src="/assets/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars');
+				$(this).removeClass('usa').fadeIn(50).html('<img src="/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars');
 				$(this).data('country-sort', 'ca');	
 			});
 		}
