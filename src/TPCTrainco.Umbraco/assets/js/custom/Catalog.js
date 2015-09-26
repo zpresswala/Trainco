@@ -19,22 +19,31 @@ Catalog.prototype.sortElectricItems = function() {
 	var _this = this;
 	this.$categorySelect.on('click', function(e) {
 		e.preventDefault();
+
+		// button data attr
+		var activeCountry = $('.country-toggle a').data('active-country');
 		_this.$categorySelect.parent().removeClass('current');
 		var $target = $(e.target);
 		var filterVal = $(this).data('category');
-		if(filterVal == 'all') {
-			_this.$sortItem.fadeIn('fast').css('display', 'inline-block');
-			$target.parent().addClass('current');
-		} else {
+		
+
 			_this.$sortItem.each(function() {
-				if($(this).data('type') !== filterVal) {
-					$(this).fadeOut('fast');
-				} else {
-					$(this).fadeIn('fast').css('display', 'inline-block');
-					$target.parent().addClass('current');
-				}
-			});
-		}
+			
+			// if all, and appropriate country, fade in
+			if(filterVal == 'all' && $(this).data('country') == activeCountry) {
+				$(this).fadeIn('fast').css('display', 'inline-block');
+				$target.parent().addClass('current');
+
+				// if a certain sort link, and country matches, fade in
+			} else if($(this).data('type') == filterVal && $(this).data('country') == activeCountry) {
+				$(this).fadeIn('fast').css('display', 'inline-block');
+				$target.parent().addClass('current');
+
+				// else fade out everything remaining
+			} else {
+				$(this).fadeOut('fast');
+			}
+		});
 	});
 };
 
@@ -42,7 +51,8 @@ Catalog.prototype.countryToggle = function() {
 	var _this = this;
 	$('.country-toggle a').on('click', function(e) {
 		e.preventDefault();
-		var countryToShow = $(this).data('country-sort');
+		var countryToShow = $(this).attr('data-country-sort');
+
 		
 		// sort items by country
 		_this.$countryItem.each(function() {
@@ -54,20 +64,22 @@ Catalog.prototype.countryToggle = function() {
 		});
 
 		// change toggle appearance and text
-		if(!$(this).hasClass('usa')) {
+		if(countryToShow == ('ca')) {
 			$(this).fadeOut(50, function() {
 
 				// change to usa w/flag and data attr
-				$(this).fadeIn(50).addClass('usa').html('<img src="/images/icon-us-flag.png" class="flag-icon" /> Click to view U.S. seminars');
-				$(this).data('country-sort', 'us');
+				$(this).fadeIn(50).html('<img src="/images/icon-us-flag.png" class="flag-icon" /> Click to view U.S. seminars');
+				$(this).attr('data-country-sort', 'us').data('active-country', 'ca');
 			});
 		} else {
 			$(this).fadeOut(50, function() {
 
 				// change to canada
-				$(this).removeClass('usa').fadeIn(50).html('<img src="/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars');
-				$(this).data('country-sort', 'ca');	
+				$(this).fadeIn(50).html('<img src="/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars');
+				$(this).attr('data-country-sort', 'ca').data('active-country', 'us');	
 			});
 		}
+
+		console.log(countryToShow)
 	});
 };
