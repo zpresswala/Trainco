@@ -79,7 +79,5 @@ Catalog.prototype.countryToggle = function() {
 				$(this).attr('data-country-sort', 'ca').data('active-country', 'us');	
 			});
 		}
-
-		console.log(countryToShow)
 	});
 };
