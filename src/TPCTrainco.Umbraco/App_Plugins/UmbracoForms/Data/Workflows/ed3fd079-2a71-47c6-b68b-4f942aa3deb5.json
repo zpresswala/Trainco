@@ -1,0 +1,14 @@
+{
+  "id": "ed3fd079-2a71-47c6-b68b-4f942aa3deb5",
+  "name": "Send email to scott@fyin.com when submitted",
+  "form": "68db01e6-9c85-4b4a-95a5-ca9eeab29e75",
+  "active": true,
+  "workflowTypeId": "e96badd7-05be-4978-b8d9-b3d733de70a5",
+  "executesOn": "Submitted",
+  "settings": {
+    "Email": "scott@fyin.com",
+    "Subject": "the form Contact Us Form was submitted",
+    "Message": "the form Contact Us Form was submitted, this is the list of values it contained, you can turn this email off under workflows in Umbraco Contour"
+  },
+  "sortOrder": 0
+}

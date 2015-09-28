@@ -1,0 +1,10 @@
+{
+  "id": "ebeb80f6-8ddc-4ccd-b2ee-de88f776d91c",
+  "name": "Add to ATI Database",
+  "form": "955ed780-006e-42c4-947a-a33abfbeb032",
+  "active": true,
+  "workflowTypeId": "89e46d3e-2423-4e69-b256-04c2e8dca064",
+  "executesOn": "Submitted",
+  "settings": {},
+  "sortOrder": 2
+}

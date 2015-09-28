@@ -1,0 +1,77 @@
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.ViewModels
+@inherits UmbracoTemplatePage
+
+@{
+    //List locations
+
+    List<City> cityList = CacheObjects.GetCityList();
+    List<State> stateList = CacheObjects.GetStateList();
+
+    //Get current GeoCoordinate
+    string currentCityState = "";
+
+    TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(System.Web.HttpContext.Current.Request.UserHostAddress);
+
+    if (coordDetails != null)
+    {
+        currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
+    }
+}
+
+<div id="register-seminars" class="container secondary-search" data-classid="@CurrentPage.courseLink">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+
+            @if (!String.IsNullOrEmpty(CurrentPage.pageTitle))
+            {
+                <h2>Search upcoming dates and locations for @CurrentPage.pageTitle</h2>
+            }
+            else
+            {
+                <h2>Search for courses on @CurrentPage.name by location and date.</h2>
+            }
+
+            <!-- location select -->
+            <div class="location-select-wrap">
+                <select multiple id="main-search" style="width:100%" data-placeholder='Choose a City, Enter a Zip Code, or Select "All Locations"' class="populate" data-location="">
+                    @if (false == string.IsNullOrEmpty(currentCityState))
+                    {
+                        <option value="@(currentCityState)">@currentCityState</option>
+                    }
+
+                    <option value="all">All Locations</option>
+                    <optgroup label="Or, search a specific city" class="search-label" id="search-label" data-label="search-label">Or, search a specific city</optgroup>
+                    
+                    @foreach (State state in stateList)
+                    {
+                        List<City> cityListByState = cityList.Where(p => p.StateID == state.StateID).OrderBy(s => s.CityName).ToList();
+
+                        if (cityListByState.Count > 0)
+                        {
+                            <optgroup label="@state.StateName">
+
+                                @foreach (City city in cityListByState)
+                                {
+                                    <option value="@(city.CityName +", " + state.StateAbbreviation)">@city.CityName</option>
+                                }
+                            </optgroup>
+                        }
+                    }
+                </select>
+            </div>
+
+            <!-- datepicker -->
+            <h4 class="select-date-text">Select a date range</h4>
+            <div id="date-range-slider"></div>
+
+
+            <a href="javascript:void(0);" id="search-btn" class="btn-reg" role="button">Search</a>
+            <p class="empty-location-msg">Please enter a location</p>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("SeminarSearch/JavascriptTemplates")

@@ -1,0 +1,102 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>American Trainco Seminar Attendee Confirmation</title>
+</head>
+<body leftmargin="0" topmargin="0">
+    <table width="550" border="0" cellpadding="0" cellspacing="0" style="margin-left: 10px; margin-right: 10px">
+        <tr>
+            <td colspan="3" nowrap="nowrap">
+				<img src="http://{{DOMAIN}}/images/email/logo-trainco-1x.png" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align: center">
+                <strong>CONFIRMATION</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+         </tr>
+         <tr>
+            <td style="width: 70px; text-align: right; height: 57px;" valign="top">
+                TO:&nbsp;</td>
+            <td style="width: 300px; height: 57px;">
+                {{NAME}}<br />
+                {{TITLE}}<br />
+                {{COMPANY}}</td>
+             <td style="text-align: right; height: 57px; width: 180px;" valign="top">
+                 {{DATE}}<br />
+                 Transaction No.: {{TRANSNO}}</td>
+       </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+       </tr>
+        <tr>
+            <td colspan="3" style="text-align: center">
+                <hr noshade />
+                Thank you for choosing American Trainco.&nbsp; Your seminar registration has been
+                confirmed for the following:
+                <hr noshade />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align: center">
+                <strong>{{NAME}}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align: center">
+                This is how the name will appear on the certificate and test files if applicable. If the
+                <br />
+                name is incorrect, please call, fax or email us with the correct name spelling.</td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+        </tr>
+        <tr>
+            <td style="width: 70px; text-align: right;" valign="top">
+                Attendee:&nbsp;&nbsp;</td>
+            <td colspan="2">
+                {{NAME}}</td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+        </tr>
+{{DETAILINFO}}
+        <tr>
+            <td style="width: 70px; text-align: right;" valign="top">
+                Hotel&nbsp;&nbsp;<br />
+                Information:&nbsp;&nbsp;</td>
+            <td colspan="2" style="height: 38px">
+                Please feel free to contact the hotel directly to make room reservations and to
+                inquire of any discounts that may apply for American Trainco attendees.&nbsp; All
+                rates are based on availability.</td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+        </tr>
+        <tr>
+            <td style="width: 70px; text-align: right;" valign="top">
+                Thank You!&nbsp;&nbsp;</td>
+            <td colspan="2">
+                If you have questions concerning this confirmation, please call us at (303) 531-4560.&nbsp;
+                You may also send a fax to (303) 531-4565, or Email us at CustomerService@AmericanTrainco.com.&nbsp;
+                We look forward to seeing you at the seminar!<br />
+                <br />
+                Sincerely, Your Customer Service Staff at American Trainco</td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15"></td>
+        </tr>
+
+    </table>
+
+</body>
+</html>

@@ -3,13 +3,6 @@
 	@include font-italic(18px, $headline-black);
 }
 
-.container {
-	margin: 0 auto 60px;
-	@include tablet-landscape-and-up {
-		margin: 45px auto 60px;
-	}
-}
-
 .topic-circles {
 	background-color: rgba(0,0,0,0.75);
 	opacity: 0.75;
@@ -19,14 +12,10 @@
 	float: none;
 
 	h3 {
-		font-weight: 300;
 		font-size: 20px;
 		letter-spacing: 0.5px;
 		color: $white;
 		text-align: center;
-		@include tablet-landscape-and-up {
-			font-weight: 100;
-		}
 	}
 
 	ul {
@@ -40,18 +29,28 @@
 		text-align: center;
 		width: 150px;
 	}
+
+	.seminar-topic {
+		vertical-align: top;
+		margin: 5px 5px 10px;
+		@include tablet-portrait-and-up {
+			margin: 30px 1%;
+		}
+	}
 }
 
 .seminar-topic {
 	margin: 5px;
 	list-style-type: none;
 	display: inline-block;
+
 	@include tablet-portrait-and-up {
 		margin: 30px;
 	}
 
 	p {
 		color: $white;
+		width: 140px;
 	}
 }
 
@@ -62,24 +61,34 @@
 	background-color: $white;
 	border-radius: 50%;
 	position: relative;
+	cursor: pointer;
 	@include transition(all 0.25s ease-in-out);
 
 	&:hover > .overlay, &.chosen > .overlay {
 		background-color: $blue; // ie8 fallback
 		opacity: 1;
-		background-color: rgba(0, 144, 197, 0.8);
+		background-color: rgba(240, 75, 73, 0.8);
 		@include transition(all 0.3s ease-in-out);
 		@include transform(scale(1.01, 1.01));
+	}
+
+	&.touch > .overlay {
+		background-color: transparent !important;
+
+		&:after {
+			content: ' ';
+		}
 	}
 
 	// on click, chosen class is added, different color than the hover state
 	&.chosen > .overlay {
 		background-color: $red-button-hover; //ie8 fallback
-		background-color: rgba(240, 75, 73, 0.8);
+		background-color: rgba(0, 144, 197, 0.8);
 	}
 
 	img {
-		width: 120px;
+		width: 100%;
+		max-width: 120px;
 		border-radius: 50%;
 	}
 
@@ -97,11 +106,11 @@
 		@include transition(all 0.3s ease-in-out);
 
 		&:after {
-			content: url('/assets/images/svg/checkmark.svg');
+			content: url('/images/icon-checkmark.png');
 			position: relative;
 			top: 50%;
 			left: 50%;
-			margin-top: -13px;
+			margin-top: -10px;
 			margin-left: -95%;
 			display: block;
 		}
@@ -125,6 +134,12 @@
 	}
 }
 
+.img-with-text {
+	.container {
+		margin: 50px auto;
+	}
+}
+
 // offwhite sections have the slightly gray background color
 .offwhite-section {
 	.home-highlight-circle {
@@ -136,41 +151,76 @@
 
 // blurred image section
 .intro-section {
-	background: url('/assets/images/bg-small.jpg') center top / cover no-repeat;
+	background-color: rgba(0, 0, 0, 0.75);
+	background-image: url('/images/bg-small.jpg');
+	background-position: center top;
+	background-size: cover;
+	background-repeat: no-repeat;
 	padding-top: 60px;
+	position: relative;
+	z-index: 2;
 	@include tablet-portrait-and-up {
-		background-image: url('/assets/images/bg-large.jpg');
+		background-image: url('/images/bg-large.jpg');
 	}
 
-	.jumbotron h1 {
-		&:after {
-			right: -15%;
-		}
+	.jumbotron {
+		 h1 {
+			&:after {
+				right: -15%;
+			}
 
-		&:before {
-			left: -15%;
+			&:before {
+				left: -15%;
+			}
+		}
+		a {
+			color: $white;
+
+			// &:hover {
+			// 	border-bottom: 3px solid $white;
+			// 	padding-bottom: 2px;
+			// }
+			&:active, &:hover {
+				color: darken($white, 15%);
+				@include transition(0.25s);
+			}
+		}
+	}
+
+	.row {
+		margin: 0 auto 60px;
+		max-width: 1200px;
+		@include tablet-landscape-and-up {
+			margin: 45px auto 60px;
 		}
 	}
 }
 
 // overriding bootstrap's carousel styles. override here, do not modify.
 .carousel {
-	background: url('/assets/images/carousel-bg.jpg') center top / cover no-repeat;
+	background-image: url("/images/carousel-mobile-bg.jpg");
+	background-position: center top;
+	background-size: cover;
+	background-repeat: no-repeat;
 	width: 100%;
-	height: 385px;
+	height: 100%;
+	max-height: 400px;
+
+	@include tablet-portrait-and-up {
+		background-image: url("/images/carousel-bg.jpg");
+	}
 
 	.item {
-		height: 385px;
+		height: 300px;
 	}
 
 	.carousel-caption {
 		max-width: 700px;
 		margin: 0 auto;
-		bottom: 27px;
+		bottom: 50%;
 		text-shadow: none;
-		@include tablet-landscape-and-up {
-			bottom: 56px;
-		}
+		padding-top: 35px;
+		@include transform(translateY(50%));
 
 		.quote {
 			position: relative;
@@ -184,7 +234,7 @@
 				position: absolute;
 				left: 0;
 				bottom: -35px;
-				background: url("/assets/images/line.png") center bottom / cover no-repeat;
+				background: url("/images/line.png") center bottom / cover no-repeat;
 				height: 16px;
 				width: 100%;
 			}
@@ -232,6 +282,10 @@
 	}
 }
 
+.carousel-control.right, .carousel-control.left {
+	background-image: none;
+}
+
 .jumbotron {
 	text-align: center;
 	max-width: 90%;
@@ -239,21 +293,13 @@
 	letter-spacing: 0.5px;
 	color: $white;
 	h1 {
-		// font-weight: 300;
-		@include tablet-landscape-and-up {
-			@include font-headline(38px, $white);
-			font-weight: 100;
-		}
+		@include font-headline(38px, $white);
 	}
 	p {
 		max-width: 700px;
 		margin: 0 auto;
 		line-height: 1.7;
 		@include font-headline(16px, $white);
-
-		@include tablet-landscape-and-up {
-			font-weight: 100;
-		}
 	}
 }
 
@@ -342,51 +388,17 @@
 	}
 }
 
-.main-search-form {
-	margin: 0 auto 45px;
-	width: 90%;
-	position: relative;
+.select-location-instruction {
+	display: none;
+}
 
-	&:after {
-		content: '';
-		position: absolute;
-		top: 50%;
-		right: 20px;
-		margin-top: -11px;
-		background: url("/assets/images/svg/dropdown-arrow.svg") center top / 22px 22px no-repeat;
-		width: 22px;
-		height: 22px;
-	}
+.seminar-title {
+	font-size: 17px;
+	font-weight: 700;
+	margin-bottom: 4px;
+}
 
-	input {
-		width: 100%;
-		border-radius: 50px;
-		background-color: $blue;
-		color: $white;
-		border: none;
-		padding: 14px 14px 14px 18px;
-		font-size: 18px;
-		letter-spacing: 0.5px;
-
-		&:focus {
-			outline: 0;
-		}
-	}
-
-	// make the placeholder white
-	::-webkit-input-placeholder {
-	   color: $white;
-	}
-
-	:-moz-placeholder { /* Firefox 18- */
-	   color: $white;  
-	}
-
-	::-moz-placeholder {  /* Firefox 19+ */
-	   color: $white;  
-	}
-
-	:-ms-input-placeholder {  
-	   color: $white;  
-	}
+.num-seminars {
+	font-style: italic;
+	margin-top: 0;
 }

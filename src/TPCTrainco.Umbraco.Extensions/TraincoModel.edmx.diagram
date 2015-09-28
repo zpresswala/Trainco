@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0ef0d2d291da40d888188625161de44f" Name="Diagram1">
+        <EntityTypeShape EntityType="TraincoModel.CATEGORY" Width="1.5" PointX="5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.CATEGORYTYPE" Width="1.5" PointX="2.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.Country" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.CourseFormat" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.COURS" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.CourseTopic" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.CourseType" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.Location" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.LocationType" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.OnSite" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.ProductType" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.RegBillCCType" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.RegBillPaymentMethodType" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.RegContactMethodType" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.RegistrationAttendeeSchedule" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.SCHEDULE" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.State" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.ZipLookup" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.INSTRUCTOR" Width="1.5" PointX="2.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.SearchList_Category" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.SearchList_Locations" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.SearchList_RegLocation" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TraincoModel.Seminar_Catalog" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="TraincoModel.FK__CATEGORY__CATEGO__457442E6" ManuallyRouted="false" />
+        <AssociationConnector Association="TraincoModel.FK_ZipLookup_ZipLookup" ManuallyRouted="false" />
+        <AssociationConnector Association="TraincoModel.FK_ZipLookup_ZipLookup1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TraincoModel.ScheduleCourseInstructor" Width="1.5" PointX="16.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TraincoModel.City" Width="1.5" PointX="5.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TraincoModel.ShoppingCart" Width="1.5" PointX="7.375" PointY="17.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_ViewStates" Width="1.5" PointX="17.375" PointY="9.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Att" Width="1.5" PointX="11.375" PointY="15.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Cust" Width="1.5" PointX="13.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Errors" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TraincoModel.temp_Reg" Width="1.5" PointX="17.375" PointY="4.75" />
+        <EntityTypeShape EntityType="TraincoModel.CC_Log" Width="1.5" PointX="17.375" PointY="13" />
+        <EntityTypeShape EntityType="TraincoModel.REGISTRATION" Width="1.5" PointX="17.375" PointY="16.75" />
+        <EntityTypeShape EntityType="TraincoModel.WebSignup" Width="1.5" PointX="19.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,12 +1,26 @@
 footer {
 	color: $white;
 	background-color: $black-background;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+
+	@include tablet-portrait-and-up {
+		height: 230px;
+		position: absolute;
+		bottom: 0;
+	}
+
+	@include tablet-landscape-and-up {
+		height: 80px;
+	}
 
 	.wrapper {
 		width: 96%;
 		margin: 0 auto;
 		padding: 30px 0;
 		position: relative;
+		max-width: 1200px;
 	}
 	ul {
 		margin: 0;
@@ -21,6 +35,10 @@ footer {
 				&:hover, &:focus {
 					color: $white;
 					text-decoration: none;
+				}
+
+				&:active {
+					color: darken($white, 15%);
 				}
 			}
 		}
@@ -67,9 +85,16 @@ footer {
 		}
 	}
 
+	.footer-text-links {
+		@include tablet-landscape-and-up {
+			width: 96%;
+		}
+	}
+
 	.social {
 		text-align: center;
 		margin: 35px 0 10px;
+		width: 100%;
 		@include tablet-portrait-and-up {
 			margin: 20px 0 10px;
 		}
@@ -78,8 +103,8 @@ footer {
 			position: absolute;
 			right: 0;
 			top: 50%;
-			margin-top: -12px;
-			// float: right;
+			margin-top: -12px !important;
+			width: auto;
 		}
 		li {
 			display: inline-block;

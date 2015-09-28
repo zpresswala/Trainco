@@ -1,23 +1,50 @@
 .headline-section {
-	background: url('/assets/images/content-pg-header-small.jpg') center top / cover no-repeat;
+	background-image: url('/images/content-pg-header-small.jpg'); 
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
 	@include tablet-landscape-and-up {
-		background: url('/assets/images/content-pg-header-large.jpg') center top / cover no-repeat;
+		background-image: url('/images/content-pg-header-large.jpg');
 	}
 
 	.jumbotron {
-		margin: 100px auto 40px;
+		margin: 50px auto 10px;
+		@include med-desktop-and-up {
+			margin: 125px auto 56px;
+		}
+	}
+
+	a.btn-reg {
+		margin-bottom: 30px;
 	}
 }
 
-.main-content {
-	.container {
-		margin: 75px auto 95px;
+.campaign, .seminar-detail, .onsite {
+	.jumbotron {
+		@include med-desktop-and-up {
+			margin: 95px auto 15px;
+		}
+	}
+}
+
+.blog-main {
+	.jumbotron {
+		margin: 50px auto 30px;
+		@include med-desktop-and-up {
+			margin: 90px auto 56px;
+		}
 	}
 }
 
 .text-wrap {
 	line-height: 1.7;
 	letter-spacing: 0.4px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+
+	.share-btn-wrap {
+		margin-bottom: 40px;
+	}
 
 	.row {
 		margin-top: 30px;
@@ -35,20 +62,14 @@
 	float: none;
 	@include tablet-portrait-and-up {
 		float: left;
-		margin: 0 auto ;
+		margin: 0 auto;
 	}
 
 	h3 {
-		// display: inline-block;
 		font-size: 5em;
-		font-weight: 300;
 		margin: 0;
 		padding: 0;
 		position: relative;
-		// @include tablet-portrait-and-up {
-		// 	display: block;
-		// }
-
 		&:after {
 			content: '';
 			position: absolute;

@@ -1,0 +1,45 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    List<TPCTrainco.Umbraco.Extensions.temp_Reg> cartList = null;
+    string cartGuid = null;
+
+    if (Session["CartId"] != null && Session["CartId"].ToString().Length > 0)
+    {
+        cartGuid = Session["CartId"].ToString().ToLower();
+
+        TPCTrainco.Umbraco.Extensions.Objects.Carts cartsObj = new TPCTrainco.Umbraco.Extensions.Objects.Carts();
+
+        cartList = cartsObj.GetCart(cartGuid);
+    }
+    
+    if (cartList == null)
+    {
+        Response.Redirect("/search-seminars/");
+    }
+}
+
+<div class="container-fluid register-top register-two-top">
+    <div class="container">
+        <div class="jumbotron">
+            @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
+            {
+                <h1>@CurrentPage.pageHeadline</h1>
+            }
+            else
+            {
+                <h1>@CurrentPage.name</h1>
+            }
+            <ul class="indicator">
+                <li class="step step1"></li>
+                <li class="line line1"></li>
+                <li class="step step2"></li>
+                <li class="line line2"></li>
+                <li class="step step3"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@Html.Action("Index", "CheckoutCustomerSurface")

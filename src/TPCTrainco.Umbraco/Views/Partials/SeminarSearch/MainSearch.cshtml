@@ -1,0 +1,144 @@
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.ViewModels
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
+@{
+    string searchButtonId = Model.DocumentTypeAlias == "HomePage" ? "search-btn-home" : "search-btn";
+    string currentCityState = "";
+
+    IPublishedContent homePage = Model.AncestorsOrSelf(1).First();
+    IPublishedContent searchSeminarNode = Nodes.Instance.SeminarSearch;
+
+    IPublishedContent seminarMainOverview = homePage.Children.FirstOrDefault(n => n.IsDocumentType("SeminarMainOverview"));
+    IEnumerable<IPublishedContent> seminarCategoryList = seminarMainOverview.Children.Where(n => n.IsDocumentType("SeminarCategory"));
+    
+    IPublishedContent seminarCatalog = homePage.Descendants("SeminarCatalog").FirstOrDefault();
+    
+    //List locations
+
+    List<City> cityList = CacheObjects.GetCityList();
+    List<State> stateList = CacheObjects.GetStateList();
+
+    string allIconUrl = "";
+    string allTotalSeminars = "";
+    
+    if (seminarCatalog != null)
+    {
+        allIconUrl = seminarCatalog.GetCropUrl("searchIcon", "Image");
+
+        if (true == seminarCatalog.HasValue("totalSeminars"))
+        {
+            allTotalSeminars = "<p class=\"num-seminars\">" + string.Format("{0:N0}", seminarCatalog.GetPropertyValue<decimal>("totalSeminars")) + " Total Seminars</p>";
+        }
+        
+    }
+    
+    if (Request.QueryString["homeref"] != null && Request.QueryString.Get("homeref").Length > 0)
+    {
+
+    }
+    else
+    {
+        //Get current GeoCoordinate
+        string ipAddress = System.Web.HttpContext.Current.Request.UserHostAddress;
+
+        TPCTrainco.Umbraco.Extensions.Models.CoordinateDetails coordDetails = GeoCoordinates.GetCoordinateDetailsFromIp(ipAddress);
+
+        if (coordDetails != null)
+        {
+            currentCityState = coordDetails.City + ", " + coordDetails.StateCode;
+        }
+    }
+}
+
+<div class="row">
+    <div class="col-md-11 topic-circles">
+        <h3>Select one or more topics and choose your location</h3>
+        <ul>
+            <li class="seminar-topic">
+                <div class="overlay-contain" data-topic="all">
+                    <div class="overlay"></div>
+                    <img src="@Html.Raw(allIconUrl)" alt="All Seminar Topics" />
+                </div>
+                <p class="seminar-title">All Seminar Topics</p>
+                
+                @Html.Raw(allTotalSeminars)
+            </li>
+            @foreach (IPublishedContent category in seminarCategoryList)
+            {
+                string shortName = category.GetPropertyValue<string>("shortName");
+                string iconUrl = category.GetCropUrl("searchIcon", "Image");
+                string dataTopic = shortName.ToLower();
+                string totalSeminars = "";
+
+                if (true == category.HasValue("totalSeminars"))
+                {
+                    totalSeminars = "<p class=\"num-seminars\">" + string.Format("{0:N0}", category.GetPropertyValue<decimal>("totalSeminars")) + " Seminars</p>";
+                }
+
+                if (dataTopic == "plant management")
+                {
+                    dataTopic = "management";
+                }
+                else if (dataTopic == "mechanical and industrial")
+                {
+                    dataTopic = "mechanical";
+                }
+
+                <li class="seminar-topic">
+                    <div class="overlay-contain" data-topic="@dataTopic">
+                        <div class="overlay"></div>
+                        <img src="@iconUrl" alt="@category.Name" />
+                    </div>
+                    <p class="seminar-title">@shortName</p>
+
+                    @Html.Raw(totalSeminars)
+                </li>
+            }
+        </ul>
+        <p class="select-location-instruction">Choose a City, Enter a Zip Code, or Select &ldquo;All Locations&rdquo;</p>
+        <select id="main-search" multiple style="width:100%" data-placeholder='Choose a City, Enter a Zip Code, or Select "All Locations"' class="populate" data-location="">
+            @if (false == string.IsNullOrEmpty(currentCityState))
+            {
+                <option value="@(currentCityState)">@currentCityState</option>
+            }
+
+            <option value="all">All Locations</option>
+            <optgroup label="Or, search a specific city" class="search-label" id="search-label" data-label="search-label">Or, search a specific city</optgroup>
+
+            @foreach (State state in stateList)
+            {
+                List<City> cityListByState = cityList.Where(p => p.StateID == state.StateID).OrderBy(s => s.CityName).ToList();
+
+                if (cityListByState.Count > 0)
+                {
+                    <optgroup label="@state.StateName">
+
+                        @foreach (City city in cityListByState)
+                        {
+                            <option value="@(city.CityName +", " + state.StateAbbreviation)">@city.CityName</option>
+
+                        }
+                    </optgroup>
+                }
+            }
+        </select>
+
+
+        <!-- <input type="hidden" id="main-search" style="width:300px"/> -->
+        <!-- datepicker goes here -->
+        <h4 class="select-date-text" onclick="$('#date-range-slider').dateRangeSlider('values', new Date(2015,7), new Date(2016,7));">Select a date range</h4>
+
+        <div id="date-range-slider"></div>
+
+        <!-- end datepicker -->
+
+
+        <a href="javascript:void(0);" id="@(searchButtonId)" class="btn-reg btn-white" role="button">Search</a>
+        <p class="empty-location-msg">Please enter a location</p>
+    </div>
+</div>
+
+@Html.Partial("SeminarSearch/JavascriptTemplates")
+

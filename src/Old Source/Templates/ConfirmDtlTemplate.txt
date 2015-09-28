@@ -1,0 +1,34 @@
+<tr>
+            <td colspan="3" height="15"></td>
+        </tr>
+        <tr>
+            <td style="width: 70px; text-align: right;" valign="top">
+                Seminar:&nbsp;&nbsp;</td>
+            <td colspan="2">
+                <strong>
+                {{SEMINAR}}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <td colspan="3" height="15"></td>
+        </tr>
+        <tr>
+            <td style="width: 70px; text-align: right; height: 19px;" valign="top">
+                Time:&nbsp;&nbsp;</td>
+            <td colspan="2" style="height: 19px">
+                {{TIME}}</td>
+        </tr>
+        <tr>
+            <td colspan="3" style="height: 15px" height="15"></td>
+        </tr>
+        <tr>
+            <td style="width: 70px; text-align: right;" valign="top">
+                Location:&nbsp;&nbsp;</td>
+            <td colspan="2">
+                {{LOCATION}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <hr noshade width="80%"/>
+            </td>
+        </tr>

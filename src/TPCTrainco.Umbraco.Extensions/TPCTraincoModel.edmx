@@ -1,0 +1,1949 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="americantraincoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cart">
+          <Key>
+            <PropertyRef Name="cartSeq" />
+          </Key>
+          <Property Name="cartSeq" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ship_Name" Type="varchar" MaxLength="255" />
+          <Property Name="ship_Company" Type="varchar" MaxLength="255" />
+          <Property Name="ship_Address1" Type="varchar" MaxLength="255" />
+          <Property Name="ship_Address2" Type="varchar" MaxLength="255" />
+          <Property Name="ship_City" Type="varchar" MaxLength="255" />
+          <Property Name="ship_State" Type="varchar" MaxLength="255" />
+          <Property Name="ship_Zip" Type="varchar" MaxLength="255" />
+          <Property Name="ship_Country" Type="varchar" MaxLength="255" />
+          <Property Name="ship_Phone" Type="varchar" MaxLength="255" />
+          <Property Name="ship_Email" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Name" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Company" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Address1" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Address2" Type="varchar" MaxLength="255" />
+          <Property Name="bill_City" Type="varchar" MaxLength="255" />
+          <Property Name="bill_State" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Zip" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Country" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Phone" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Email" Type="varchar" MaxLength="255" />
+          <Property Name="bill_Fax" Type="varchar" MaxLength="255" />
+          <Property Name="proctorID" Type="int" />
+          <Property Name="productTotal" Type="money" />
+          <Property Name="salesTax" Type="money" />
+          <Property Name="shipCharge" Type="money" />
+          <Property Name="orderTotal" Type="money" />
+          <Property Name="payType" Type="varchar" MaxLength="255" />
+          <Property Name="poNumber" Type="varchar" MaxLength="255" />
+          <Property Name="ccNumber" Type="varchar" MaxLength="255" />
+          <Property Name="ccExp_Mo" Type="int" />
+          <Property Name="ccExp_Yr" Type="int" />
+          <Property Name="ccSecurity" Type="int" />
+          <Property Name="ccName" Type="varchar" MaxLength="255" />
+          <Property Name="ccZip" Type="varchar" MaxLength="255" />
+          <Property Name="ccSubmit" Type="varchar(max)" />
+          <Property Name="ccResponse" Type="varchar(max)" />
+          <Property Name="postedStamp" Type="datetime" />
+          <Property Name="createdSite" Type="varchar" MaxLength="255" />
+          <Property Name="createdStamp" Type="datetime" Nullable="false" />
+          <Property Name="filledDate" Type="datetime" />
+          <Property Name="shipVia" Type="varchar" MaxLength="255" />
+          <Property Name="shipTracking" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="cartLine">
+          <Key>
+            <PropertyRef Name="lineSeq" />
+          </Key>
+          <Property Name="lineSeq" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cartSeq" Type="int" Nullable="false" />
+          <Property Name="lineDesc" Type="varchar" MaxLength="255" />
+          <Property Name="lineUnitPrice" Type="money" Nullable="false" />
+          <Property Name="lineQty" Type="int" Nullable="false" />
+          <Property Name="lineTotal" Type="money" Nullable="false" />
+          <Property Name="lineTaxable" Type="int" />
+        </EntityType>
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="CATEGORYID" />
+          </Key>
+          <Property Name="CATEGORYID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CATEGORYNAME" Type="varchar" MaxLength="155" Nullable="false" />
+          <Property Name="DISPLAYNAME" Type="varchar" MaxLength="10" />
+          <Property Name="CATEGORYTYPEID" Type="int" Nullable="false" />
+          <Property Name="INACTIVE" Type="int" Nullable="false" />
+          <Property Name="DISPLAY" Type="int" Nullable="false" />
+          <Property Name="CREATED" Type="datetime" Nullable="false" />
+          <Property Name="MODIFIED" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CATEGORYTYPE">
+          <Key>
+            <PropertyRef Name="CATEGORYTYPEID" />
+          </Key>
+          <Property Name="CATEGORYTYPEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CATEGORYTYPENAME" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="TEMPLATEID" Type="int" />
+          <Property Name="CREATED" Type="datetime" Nullable="false" />
+          <Property Name="MODIFIED" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CC_Log">
+          <Key>
+            <PropertyRef Name="Seq" />
+          </Key>
+          <Property Name="Seq" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Processed_Date" Type="datetime" Nullable="false" />
+          <Property Name="Cart_ID" Type="int" />
+          <Property Name="Reg_TR_Number" Type="int" />
+          <Property Name="CC_Type" Type="varchar" MaxLength="50" />
+          <Property Name="CC_Num" Type="varchar" MaxLength="50" />
+          <Property Name="CC_Amount" Type="money" />
+          <Property Name="CC_Result" Type="varchar(max)" />
+          <Property Name="ProcessedFrom" Type="varchar" MaxLength="50" />
+          <Property Name="Approval" Type="int" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="int" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CityCode" Type="varchar" MaxLength="255" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="MailCode" Type="varchar" MaxLength="255" />
+          <Property Name="PrimSCF" Type="varchar" MaxLength="255" />
+          <Property Name="MailSCF" Type="varchar" MaxLength="255" />
+          <Property Name="Active" Type="float" />
+          <Property Name="Created" Type="smalldatetime" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="int" />
+          <Property Name="ModifiedMemberID" Type="int" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Coordinates" Type="geography" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="Seq" />
+          </Key>
+          <Property Name="Seq" Type="int" Nullable="false" />
+          <Property Name="CountryCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SortOrder" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseFormats">
+          <Key>
+            <PropertyRef Name="CourseFormatID" />
+          </Key>
+          <Property Name="CourseFormatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseFormatName" Type="varchar" MaxLength="255" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="int" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="CourseInstructors">
+          <Key>
+            <PropertyRef Name="CourseInstructorID" />
+          </Key>
+          <Property Name="CourseInstructorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="InstructorLevel" Type="smallint" Nullable="false" />
+          <Property Name="Exceptions" Type="varchar(max)" />
+          <Property Name="CurrentStatus" Type="varchar" MaxLength="50" />
+          <Property Name="LeadTechKnowledge" Type="bit" Nullable="false" />
+          <Property Name="LeadCurrDevelop" Type="bit" Nullable="false" />
+          <Property Name="LeadEquipment" Type="bit" Nullable="false" />
+          <Property Name="MngtNotes" Type="varchar(max)" />
+          <Property Name="PreferredText" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="COURSES">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseTitle" Type="varchar" MaxLength="255" />
+          <Property Name="CourseSubtitle" Type="varchar" MaxLength="400" />
+          <Property Name="CourseTypeID" Type="int" Nullable="false" />
+          <Property Name="CourseTopicID" Type="int" Nullable="false" />
+          <Property Name="CourseFormatID" Type="int" Nullable="false" />
+          <Property Name="ProductTypeID" Type="float" Nullable="false" />
+          <Property Name="CountryID" Type="int" />
+          <Property Name="CourseCredits" Type="varchar" MaxLength="500" />
+          <Property Name="WebHeading" Type="varchar" MaxLength="800" />
+          <Property Name="WebToolTip" Type="varchar" MaxLength="800" />
+          <Property Name="CourseTimes" Type="varchar" MaxLength="300" />
+          <Property Name="CoursePurpose" Type="text" />
+          <Property Name="WebPageIH" Type="varchar" MaxLength="80" />
+          <Property Name="TitlePlain" Type="varchar" MaxLength="255" />
+          <Property Name="Acronym" Type="varchar" MaxLength="5" />
+          <Property Name="GoogleDesc" Type="varchar(max)" />
+          <Property Name="CourseTier" Type="int" />
+          <Property Name="CourseReferences" Type="text" />
+          <Property Name="CourseInstructorsDescription" Type="text" />
+          <Property Name="CourseAdditionalInformation" Type="text" />
+          <Property Name="CourseOnSite" Type="text" />
+          <Property Name="CourseGuarantee" Type="text" />
+          <Property Name="CourseFee" Type="money" Nullable="false" />
+          <Property Name="CourseFeeDescription" Type="varchar" MaxLength="300" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="int" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="float" />
+          <Property Name="WebPage" Type="varchar" MaxLength="80" />
+          <Property Name="PlanSort" Type="smallint" />
+          <Property Name="CertTitle1" Type="varchar" MaxLength="255" />
+          <Property Name="CertTitle2" Type="varchar" MaxLength="255" />
+          <Property Name="PPTLink" Type="varchar" MaxLength="255" />
+          <Property Name="BrochureLink" Type="varchar" MaxLength="255" />
+          <Property Name="Keywords" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CourseTopics">
+          <Key>
+            <PropertyRef Name="CourseTopicID" />
+          </Key>
+          <Property Name="CourseTopicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseTopicName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CourseTopicAbbreviation" Type="varchar" MaxLength="50" />
+          <Property Name="CourseTopicParentID" Type="float" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="int" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="CourseTypes">
+          <Key>
+            <PropertyRef Name="CourseTypeID" />
+          </Key>
+          <Property Name="CourseTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseTypeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="int" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationTypeID" Type="int" Nullable="false" />
+          <Property Name="LocationCode" Type="varchar" MaxLength="20" />
+          <Property Name="LocationName" Type="varchar" MaxLength="255" />
+          <Property Name="LocationNotes" Type="text" />
+          <Property Name="HotelSleepRate" Type="varchar" MaxLength="20" />
+          <Property Name="HotelMeetingRate" Type="varchar" MaxLength="20" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="int" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="LocationTypes">
+          <Key>
+            <PropertyRef Name="LocationTypeID" />
+          </Key>
+          <Property Name="LocationTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationTypeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="int" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="REGISTRATIONS">
+          <Key>
+            <PropertyRef Name="RegistrationID" />
+          </Key>
+          <Property Name="RegistrationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegPromoCode" Type="varchar" MaxLength="255" />
+          <Property Name="RegPromoType" Type="varchar" MaxLength="255" />
+          <Property Name="RegPromoDesc" Type="varchar" MaxLength="255" />
+          <Property Name="RegReason" Type="text" />
+          <Property Name="RegCompanyName" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthFirstName" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthMiddleName" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthLastName" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthTitle" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthMailCode" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthAddress1" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthAddress2" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthCity" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthStateID" Type="int" />
+          <Property Name="RegAuthZipcode" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthPhone" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthPhoneExt" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthFax" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthEmail" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthContactMethod" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillFirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegBillMiddleName" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillLastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegBillTitle" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillMailCode" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillAddress1" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegBillAddress2" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillCity" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegBillStateID" Type="int" Nullable="false" />
+          <Property Name="RegBillZipcode" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegBillPhone" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillPhoneExt" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillFax" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillEmail" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillContactMethod" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillPaymentMethodTypeID" Type="int" Nullable="false" />
+          <Property Name="RegBillCCTypeID" Type="int" />
+          <Property Name="RegBillCCName" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillCCNumber" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillCCExpirationMonth" Type="int" />
+          <Property Name="RegBillCCExpirationYear" Type="int" />
+          <Property Name="RegBillCheckNumber" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillPONumber" Type="varchar" MaxLength="255" />
+          <Property Name="RegOrderTotal" Type="money" />
+          <Property Name="RegPayStatus" Type="varchar" MaxLength="255" />
+          <Property Name="RegStatus" Type="varchar" MaxLength="255" />
+          <Property Name="RegNotes" Type="text" />
+          <Property Name="CartID" Type="int" Nullable="false" />
+          <Property Name="Printed" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="int" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="int" />
+          <Property Name="RegTakenBy" Type="varchar" MaxLength="255" />
+          <Property Name="RegMethod" Type="varchar" MaxLength="255" />
+          <Property Name="Website" Type="varchar" MaxLength="255" />
+          <Property Name="RegAuthCountry" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillCountry" Type="varchar" MaxLength="255" />
+          <Property Name="RegCurrency" Type="varchar" MaxLength="5" />
+          <Property Name="OriginalPromo" Type="varchar" MaxLength="255" />
+          <Property Name="RegBillCCCVC" Type="varchar" MaxLength="4" />
+          <Property Name="RegBillPaidDate" Type="datetime" />
+          <Property Name="PastCustomer" Type="varchar" MaxLength="255" />
+          <Property Name="RegPaidTotal" Type="money" />
+          <Property Name="RegBalanceDue" Type="money" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="ScheduleCourseInstructors">
+          <Key>
+            <PropertyRef Name="ScheduleCourseID" />
+          </Key>
+          <Property Name="ScheduleCourseID" Type="int" Nullable="false" />
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="AcceptedDate" Type="datetime" />
+          <Property Name="LastModified" Type="datetime" />
+          <Property Name="CourseFee" Type="money" />
+          <Property Name="PriceCode" Type="smallint" />
+          <Property Name="InstrStatus" Type="smallint" />
+        </EntityType>
+        <EntityType Name="SCHEDULES">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="ScheduleSeminarNumber" Type="varchar" MaxLength="255" />
+          <Property Name="ScheduleSeries" Type="float" />
+          <Property Name="ScheduleDate" Type="datetime" Nullable="false" />
+          <Property Name="ScheduleDateDescription" Type="varchar" MaxLength="255" />
+          <Property Name="ScheduleDateQuarter" Type="float" />
+          <Property Name="ScheduleDateDays" Type="varchar" MaxLength="255" />
+          <Property Name="ScheduleDateWeek" Type="datetime" />
+          <Property Name="ScheduleParentID" Type="bigint" />
+          <Property Name="Active" Type="smallint" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Modified" Type="datetime" />
+          <Property Name="CreatedMemberID" Type="smallint" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="smallint" />
+          <Property Name="CategoryID" Type="smallint" Nullable="false" />
+          <Property Name="InstructorNotes" Type="text" />
+          <Property Name="ScheduleType" Type="varchar" MaxLength="20" />
+          <Property Name="BooksSent" Type="smallint" />
+          <Property Name="isCanadian" Type="smallint" />
+          <Property Name="fmp_JobPlan" Type="varchar" MaxLength="3" />
+          <Property Name="fmp_JobNum" Type="varchar" MaxLength="4" />
+          <Property Name="ScheduleStatus" Type="smallint" />
+          <Property Name="LocationTentative" Type="smallint" />
+          <Property Name="Display_Mktg" Type="bit" />
+          <Property Name="Display_Ops" Type="bit" />
+          <Property Name="Ops_Status" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="StateID" />
+          </Key>
+          <Property Name="StateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateAbbreviation" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Active" Type="float" />
+          <Property Name="Created" Type="smalldatetime" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="Region" Type="int" />
+          <Property Name="ModifiedMemberID" Type="float" />
+          <Property Name="DefaultSCF" Type="varchar" MaxLength="5" />
+          <Property Name="RepRegion" Type="smallint" />
+          <Property Name="Sort" Type="int" />
+        </EntityType>
+        <EntityType Name="temp_Att">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="reg_SEQ" Type="bigint" />
+          <Property Name="att_No" Type="smallint" />
+          <Property Name="att_FName" Type="varchar" MaxLength="255" />
+          <Property Name="att_LName" Type="varchar" MaxLength="255" />
+          <Property Name="att_Title" Type="varchar" MaxLength="255" />
+          <Property Name="att_Email" Type="varchar" MaxLength="255" />
+          <Property Name="reg_ID" Type="int" />
+          <Property Name="att_MName" Type="varchar" MaxLength="50" />
+          <Property Name="att_Suffix" Type="varchar" MaxLength="10" />
+          <Property Name="rcdFinal" Type="int" />
+          <Property Name="RCDSEQ" Type="bigint" />
+          <Property Name="Att_Discount" Type="int" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="temp_Cust">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="reg_ID" Type="int" />
+          <Property Name="reg_Cost" Type="int" />
+          <Property Name="promoCode" Type="varchar" MaxLength="255" />
+          <Property Name="promoType" Type="varchar" MaxLength="255" />
+          <Property Name="promoDesc" Type="varchar" MaxLength="255" />
+          <Property Name="CoName" Type="varchar" MaxLength="255" />
+          <Property Name="authFName" Type="varchar" MaxLength="255" />
+          <Property Name="authLName" Type="varchar" MaxLength="255" />
+          <Property Name="authTitle" Type="varchar" MaxLength="255" />
+          <Property Name="authMailCode" Type="varchar" MaxLength="255" />
+          <Property Name="authAddr1" Type="varchar" MaxLength="255" />
+          <Property Name="authAddr2" Type="varchar" MaxLength="255" />
+          <Property Name="authCity" Type="varchar" MaxLength="255" />
+          <Property Name="authState" Type="varchar" MaxLength="255" />
+          <Property Name="authZip" Type="varchar" MaxLength="255" />
+          <Property Name="authCountry" Type="varchar" MaxLength="255" />
+          <Property Name="authPhone1" Type="varchar" MaxLength="50" />
+          <Property Name="authPhone2" Type="varchar" MaxLength="50" />
+          <Property Name="authPhone3" Type="varchar" MaxLength="50" />
+          <Property Name="authPhoneExt" Type="varchar" MaxLength="50" />
+          <Property Name="authFax1" Type="varchar" MaxLength="50" />
+          <Property Name="authFax2" Type="varchar" MaxLength="50" />
+          <Property Name="authFax3" Type="varchar" MaxLength="50" />
+          <Property Name="authEmail" Type="varchar" MaxLength="255" />
+          <Property Name="billFName" Type="varchar" MaxLength="255" />
+          <Property Name="billLName" Type="varchar" MaxLength="255" />
+          <Property Name="billTitle" Type="varchar" MaxLength="255" />
+          <Property Name="billMailCode" Type="varchar" MaxLength="255" />
+          <Property Name="billAddr1" Type="varchar" MaxLength="255" />
+          <Property Name="billAddr2" Type="varchar" MaxLength="255" />
+          <Property Name="billCity" Type="varchar" MaxLength="255" />
+          <Property Name="billState" Type="varchar" MaxLength="255" />
+          <Property Name="billZip" Type="varchar" MaxLength="255" />
+          <Property Name="billCountry" Type="varchar" MaxLength="255" />
+          <Property Name="billPhone1" Type="varchar" MaxLength="50" />
+          <Property Name="billPhone2" Type="varchar" MaxLength="50" />
+          <Property Name="billPhone3" Type="varchar" MaxLength="50" />
+          <Property Name="billPhoneExt" Type="varchar" MaxLength="50" />
+          <Property Name="billFax1" Type="varchar" MaxLength="50" />
+          <Property Name="billFax2" Type="varchar" MaxLength="50" />
+          <Property Name="billFax3" Type="varchar" MaxLength="50" />
+          <Property Name="billEmail" Type="varchar" MaxLength="255" />
+          <Property Name="ConfTo" Type="varchar" MaxLength="50" />
+          <Property Name="payMethod" Type="varchar" MaxLength="50" />
+          <Property Name="ccType" Type="varchar" MaxLength="50" />
+          <Property Name="ccName" Type="varchar" MaxLength="255" />
+          <Property Name="ccNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ccMonth" Type="int" />
+          <Property Name="ccYear" Type="int" />
+          <Property Name="ccCVC" Type="varchar" MaxLength="5" />
+          <Property Name="chkNo" Type="varchar" MaxLength="255" />
+          <Property Name="poNo" Type="varchar" MaxLength="255" />
+          <Property Name="rcdFinal" Type="int" />
+          <Property Name="RefName" Type="varchar" MaxLength="255" />
+          <Property Name="RefKey" Type="int" />
+          <Property Name="RefCompany" Type="varchar" MaxLength="255" />
+          <Property Name="RefFName" Type="varchar" MaxLength="255" />
+          <Property Name="RefLName" Type="varchar" MaxLength="255" />
+          <Property Name="pDrop1" Type="varchar" MaxLength="255" />
+          <Property Name="pDrop2" Type="varchar" MaxLength="255" />
+          <Property Name="pEntry1" Type="varchar" MaxLength="255" />
+          <Property Name="pEntry2" Type="varchar" MaxLength="255" />
+          <Property Name="regTakenBy" Type="varchar" MaxLength="255" />
+          <Property Name="regMethod" Type="varchar" MaxLength="255" />
+          <Property Name="CEURelated" Type="varchar" MaxLength="50" />
+          <Property Name="CEUEntity" Type="varchar" MaxLength="255" />
+          <Property Name="PastCustomer" Type="varchar" MaxLength="255" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="temp_Errors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="errDate" Type="datetime" />
+          <Property Name="realRegID" Type="int" />
+          <Property Name="tempRegSeq" Type="int" />
+          <Property Name="tempAttNo" Type="smallint" />
+          <Property Name="tempRegID" Type="int" />
+          <Property Name="attFName" Type="varchar" MaxLength="255" />
+          <Property Name="attMName" Type="varchar" MaxLength="50" />
+          <Property Name="attLName" Type="varchar" MaxLength="255" />
+          <Property Name="attSuffix" Type="varchar" MaxLength="10" />
+          <Property Name="attTitle" Type="varchar" MaxLength="255" />
+          <Property Name="attEmail" Type="varchar" MaxLength="255" />
+          <Property Name="attSemID" Type="int" />
+        </EntityType>
+        <EntityType Name="temp_Reg">
+          <Key>
+            <PropertyRef Name="reg_SEQ" />
+          </Key>
+          <Property Name="reg_SEQ" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reg_ID" Type="int" Nullable="false" />
+          <Property Name="reg_Date" Type="datetime" />
+          <Property Name="sem_No" Type="smallint" />
+          <Property Name="sem_SID" Type="int" />
+          <Property Name="sem_Title" Type="varchar" MaxLength="255" />
+          <Property Name="sem_Place" Type="varchar" MaxLength="255" />
+          <Property Name="sem_FeeName" Type="varchar" MaxLength="50" />
+          <Property Name="sem_FeeAmt" Type="money" />
+          <Property Name="sem_Qty" Type="smallint" />
+          <Property Name="sem_Total" Type="money" StoreGeneratedPattern="Computed" />
+          <Property Name="sem_Discount" Type="money" />
+          <Property Name="rcdFinal" Type="int" />
+          <Property Name="discountType" Type="varchar" MaxLength="50" />
+          <Property Name="discountDesc" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="WebSignups">
+          <Key>
+            <PropertyRef Name="rcd_SEQ" />
+          </Key>
+          <Property Name="rcd_SEQ" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rcd_Date" Type="datetime" />
+          <Property Name="Referrer" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="255" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
+          <Property Name="Address1" Type="varchar" MaxLength="255" />
+          <Property Name="Address2" Type="varchar" MaxLength="255" />
+          <Property Name="City" Type="varchar" MaxLength="255" />
+          <Property Name="State" Type="varchar" MaxLength="255" />
+          <Property Name="Zipcode" Type="varchar" MaxLength="255" />
+          <Property Name="Country" Type="varchar" MaxLength="255" />
+          <Property Name="Phone" Type="varchar" MaxLength="255" />
+          <Property Name="PhoneExtn" Type="varchar" MaxLength="255" />
+          <Property Name="Fax" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Interest" Type="text" />
+          <Property Name="PromoCode" Type="varchar" MaxLength="255" />
+          <Property Name="PromoType" Type="varchar" MaxLength="255" />
+          <Property Name="PromoDesc" Type="varchar" MaxLength="255" />
+          <Property Name="PreferredContact" Type="varchar" MaxLength="255" />
+          <Property Name="OptIN" Type="smallint" />
+          <Property Name="Posted" Type="int" />
+          <Property Name="find_CoNo" Type="int" />
+          <Property Name="find_CoText" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Seminar_Catalog">
+          <Key>
+            <PropertyRef Name="SchID" />
+            <PropertyRef Name="StateID" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="SchDate" />
+          </Key>
+          <Property Name="SchID" Type="int" Nullable="false" />
+          <Property Name="TopicID" Type="int" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="WeekOf" Type="datetime" />
+          <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Topic" Type="varchar" MaxLength="255" />
+          <Property Name="Parent" Type="bigint" />
+          <Property Name="SchDate" Type="datetime" Nullable="false" />
+          <Property Name="TitlePlain" Type="varchar" MaxLength="255" />
+          <Property Name="Title" Type="varchar" MaxLength="3000" />
+          <Property Name="Subtitle" Type="varchar" MaxLength="3000" />
+          <Property Name="MonthOf" Type="int" />
+          <Property Name="YearOf" Type="int" />
+          <Property Name="DateDesc" Type="varchar" MaxLength="255" />
+          <Property Name="Status" Type="smallint" />
+          <Property Name="isCanadian" Type="smallint" />
+          <Property Name="WebPage" Type="varchar" MaxLength="80" />
+          <Property Name="WebHeading" Type="varchar" MaxLength="800" />
+          <Property Name="WebToolTip" Type="varchar" MaxLength="800" />
+          <Property Name="WebPageIH" Type="varchar" MaxLength="80" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Coordinates" Type="geography" />
+          <Property Name="CourseTier" Type="int" />
+        </EntityType>
+        <Association Name="FK__CATEGORY__CATEGO__457442E6">
+          <End Role="CATEGORYTYPE" Type="Self.CATEGORYTYPE" Multiplicity="1" />
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORYTYPE">
+              <PropertyRef Name="CATEGORYTYPEID" />
+            </Principal>
+            <Dependent Role="CATEGORY">
+              <PropertyRef Name="CATEGORYTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="add_CC_Log" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="P1" Type="int" Mode="In" />
+          <Parameter Name="P2" Type="int" Mode="In" />
+          <Parameter Name="P3" Type="varchar" Mode="In" />
+          <Parameter Name="P4" Type="varchar" Mode="In" />
+          <Parameter Name="P5" Type="money" Mode="In" />
+          <Parameter Name="P6" Type="varchar(max)" Mode="In" />
+          <Parameter Name="P7" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="add_Registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cartID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="americantraincoModelStoreContainer">
+          <EntitySet Name="cart" EntityType="Self.cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cartLine" EntityType="Self.cartLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORYTYPE" EntityType="Self.CATEGORYTYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CC_Log" EntityType="Self.CC_Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseFormats" EntityType="Self.CourseFormats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseInstructors" EntityType="Self.CourseInstructors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COURSES" EntityType="Self.COURSES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseTopics" EntityType="Self.CourseTopics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseTypes" EntityType="Self.CourseTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocationTypes" EntityType="Self.LocationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REGISTRATIONS" EntityType="Self.REGISTRATIONS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleCourseInstructors" EntityType="Self.ScheduleCourseInstructors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCHEDULES" EntityType="Self.SCHEDULES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_Att" EntityType="Self.temp_Att" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_Cust" EntityType="Self.temp_Cust" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_Errors" EntityType="Self.temp_Errors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_Reg" EntityType="Self.temp_Reg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebSignups" EntityType="Self.WebSignups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seminar_Catalog" EntityType="Self.Seminar_Catalog" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Seminar_Catalog].[SchID] AS [SchID], 
+    [Seminar_Catalog].[TopicID] AS [TopicID], 
+    [Seminar_Catalog].[StateID] AS [StateID], 
+    [Seminar_Catalog].[WeekOf] AS [WeekOf], 
+    [Seminar_Catalog].[City] AS [City], 
+    [Seminar_Catalog].[State] AS [State], 
+    [Seminar_Catalog].[Topic] AS [Topic], 
+    [Seminar_Catalog].[Parent] AS [Parent], 
+    [Seminar_Catalog].[SchDate] AS [SchDate], 
+    [Seminar_Catalog].[TitlePlain] AS [TitlePlain], 
+    [Seminar_Catalog].[Title] AS [Title], 
+    [Seminar_Catalog].[Subtitle] AS [Subtitle], 
+    [Seminar_Catalog].[MonthOf] AS [MonthOf], 
+    [Seminar_Catalog].[YearOf] AS [YearOf], 
+    [Seminar_Catalog].[DateDesc] AS [DateDesc], 
+    [Seminar_Catalog].[Status] AS [Status], 
+    [Seminar_Catalog].[isCanadian] AS [isCanadian], 
+    [Seminar_Catalog].[WebPage] AS [WebPage], 
+    [Seminar_Catalog].[WebHeading] AS [WebHeading], 
+    [Seminar_Catalog].[WebToolTip] AS [WebToolTip], 
+    [Seminar_Catalog].[WebPageIH] AS [WebPageIH], 
+    [Seminar_Catalog].[Latitude] AS [Latitude], 
+    [Seminar_Catalog].[Longitude] AS [Longitude], 
+    [Seminar_Catalog].[Coordinates] AS [Coordinates], 
+    [Seminar_Catalog].[CourseTier] AS [CourseTier]
+    FROM [dbo].[Seminar_Catalog] AS [Seminar_Catalog]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__CATEGORY__CATEGO__457442E6" Association="Self.FK__CATEGORY__CATEGO__457442E6">
+            <End Role="CATEGORYTYPE" EntitySet="CATEGORYTYPE" />
+            <End Role="CATEGORY" EntitySet="CATEGORY" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="americantraincoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cart">
+          <Key>
+            <PropertyRef Name="cartSeq" />
+          </Key>
+          <Property Name="cartSeq" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ship_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_Company" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_Address1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_Address2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_State" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_Zip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_Country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ship_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Company" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Address1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Address2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_State" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Zip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Fax" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="proctorID" Type="Int32" />
+          <Property Name="productTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="salesTax" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="shipCharge" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="orderTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="payType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="poNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ccNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ccExp_Mo" Type="Int32" />
+          <Property Name="ccExp_Yr" Type="Int32" />
+          <Property Name="ccSecurity" Type="Int32" />
+          <Property Name="ccName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ccZip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ccSubmit" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ccResponse" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="postedStamp" Type="DateTime" Precision="3" />
+          <Property Name="createdSite" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="filledDate" Type="DateTime" Precision="3" />
+          <Property Name="shipVia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="shipTracking" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cartLine">
+          <Key>
+            <PropertyRef Name="lineSeq" />
+          </Key>
+          <Property Name="lineSeq" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cartSeq" Type="Int32" Nullable="false" />
+          <Property Name="lineDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="lineUnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="lineQty" Type="Int32" Nullable="false" />
+          <Property Name="lineTotal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="lineTaxable" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CATEGORY">
+          <Key>
+            <PropertyRef Name="CATEGORYID" />
+          </Key>
+          <Property Name="CATEGORYID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CATEGORYNAME" Type="String" MaxLength="155" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DISPLAYNAME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CATEGORYTYPEID" Type="Int32" Nullable="false" />
+          <Property Name="INACTIVE" Type="Int32" Nullable="false" />
+          <Property Name="DISPLAY" Type="Int32" Nullable="false" />
+          <Property Name="CREATED" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MODIFIED" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CATEGORYTYPE" Relationship="Self.FK__CATEGORY__CATEGO__457442E6" FromRole="CATEGORY" ToRole="CATEGORYTYPE" />
+        </EntityType>
+        <EntityType Name="CATEGORYTYPE">
+          <Key>
+            <PropertyRef Name="CATEGORYTYPEID" />
+          </Key>
+          <Property Name="CATEGORYTYPEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CATEGORYTYPENAME" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TEMPLATEID" Type="Int32" />
+          <Property Name="CREATED" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MODIFIED" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CATEGORies" Relationship="Self.FK__CATEGORY__CATEGO__457442E6" FromRole="CATEGORYTYPE" ToRole="CATEGORY" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <Property Name="CityName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CityCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="MailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PrimSCF" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MailSCF" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Double" />
+          <Property Name="Created" Type="DateTime" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Int32" />
+          <Property Name="ModifiedMemberID" Type="Int32" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Coordinates" Type="Geography" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Seq" />
+          </Key>
+          <Property Name="Seq" Type="Int32" Nullable="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SortOrder" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="CourseFormat">
+          <Key>
+            <PropertyRef Name="CourseFormatID" />
+          </Key>
+          <Property Name="CourseFormatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseFormatName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CourseInstructor">
+          <Key>
+            <PropertyRef Name="CourseInstructorID" />
+          </Key>
+          <Property Name="CourseInstructorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorLevel" Type="Int16" Nullable="false" />
+          <Property Name="Exceptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LeadTechKnowledge" Type="Boolean" Nullable="false" />
+          <Property Name="LeadCurrDevelop" Type="Boolean" Nullable="false" />
+          <Property Name="LeadEquipment" Type="Boolean" Nullable="false" />
+          <Property Name="MngtNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PreferredText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="COURS">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CourseSubtitle" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="CourseTypeID" Type="Int32" Nullable="false" />
+          <Property Name="CourseTopicID" Type="Int32" Nullable="false" />
+          <Property Name="CourseFormatID" Type="Int32" Nullable="false" />
+          <Property Name="ProductTypeID" Type="Double" Nullable="false" />
+          <Property Name="CountryID" Type="Int32" />
+          <Property Name="CourseCredits" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="WebHeading" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="WebToolTip" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="CourseTimes" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CoursePurpose" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WebPageIH" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="TitlePlain" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Acronym" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="GoogleDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CourseTier" Type="Int32" />
+          <Property Name="CourseReferences" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CourseInstructorsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CourseAdditionalInformation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CourseOnSite" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CourseGuarantee" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CourseFee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="CourseFeeDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Double" />
+          <Property Name="WebPage" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="PlanSort" Type="Int16" />
+          <Property Name="CertTitle1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CertTitle2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PPTLink" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BrochureLink" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationTypeID" Type="Int32" Nullable="false" />
+          <Property Name="LocationCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LocationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LocationNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HotelSleepRate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HotelMeetingRate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LocationType">
+          <Key>
+            <PropertyRef Name="LocationTypeID" />
+          </Key>
+          <Property Name="LocationTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationTypeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="REGISTRATION">
+          <Key>
+            <PropertyRef Name="RegistrationID" />
+          </Key>
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegPromoCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegPromoType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegPromoDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RegCompanyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthMailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthAddress1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthAddress2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthStateID" Type="Int32" />
+          <Property Name="RegAuthZipcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthPhoneExt" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthFax" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthContactMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegBillMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegBillTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillMailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillAddress1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegBillAddress2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegBillStateID" Type="Int32" Nullable="false" />
+          <Property Name="RegBillZipcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegBillPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillPhoneExt" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillFax" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillContactMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillPaymentMethodTypeID" Type="Int32" Nullable="false" />
+          <Property Name="RegBillCCTypeID" Type="Int32" />
+          <Property Name="RegBillCCName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillCCNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillCCExpirationMonth" Type="Int32" />
+          <Property Name="RegBillCCExpirationYear" Type="Int32" />
+          <Property Name="RegBillCheckNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillPONumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegOrderTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RegPayStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CartID" Type="Int32" Nullable="false" />
+          <Property Name="Printed" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Int32" />
+          <Property Name="RegTakenBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAuthCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegCurrency" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalPromo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillCCCVC" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="RegBillPaidDate" Type="DateTime" Precision="3" />
+          <Property Name="PastCustomer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegPaidTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RegBalanceDue" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateID" />
+          </Key>
+          <Property Name="StateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateAbbreviation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Double" />
+          <Property Name="Created" Type="DateTime" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="Region" Type="Int32" />
+          <Property Name="ModifiedMemberID" Type="Double" />
+          <Property Name="DefaultSCF" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="RepRegion" Type="Int16" />
+          <Property Name="Sort" Type="Int32" />
+        </EntityType>
+        <EntityType Name="temp_Att">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="reg_SEQ" Type="Int64" />
+          <Property Name="att_No" Type="Int16" />
+          <Property Name="att_FName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_LName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="att_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="reg_ID" Type="Int32" />
+          <Property Name="att_MName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="att_Suffix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="rcdFinal" Type="Int32" />
+          <Property Name="RCDSEQ" Type="Int64" />
+          <Property Name="Att_Discount" Type="Int32" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="temp_Cust">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="reg_ID" Type="Int32" />
+          <Property Name="reg_Cost" Type="Int32" />
+          <Property Name="promoCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="promoType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="promoDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CoName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authMailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authAddr1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authAddr2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authState" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authZip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="authPhone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authPhone2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authPhone3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authPhoneExt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authFax1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authFax2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authFax3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="authEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billMailCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billAddr1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billAddr2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billState" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billZip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="billPhone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billPhone2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billPhone3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billPhoneExt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billFax1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billFax2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billFax3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ConfTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ccType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ccName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ccNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ccMonth" Type="Int32" />
+          <Property Name="ccYear" Type="Int32" />
+          <Property Name="ccCVC" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="chkNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="poNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="rcdFinal" Type="Int32" />
+          <Property Name="RefName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RefKey" Type="Int32" />
+          <Property Name="RefCompany" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RefFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RefLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pDrop1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pDrop2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pEntry1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pEntry2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="regTakenBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="regMethod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CEURelated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CEUEntity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PastCustomer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="temp_Errors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="errDate" Type="DateTime" Precision="3" />
+          <Property Name="realRegID" Type="Int32" />
+          <Property Name="tempRegSeq" Type="Int32" />
+          <Property Name="tempAttNo" Type="Int16" />
+          <Property Name="tempRegID" Type="Int32" />
+          <Property Name="attFName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="attMName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="attLName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="attSuffix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="attTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="attEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="attSemID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="temp_Reg">
+          <Key>
+            <PropertyRef Name="reg_SEQ" />
+          </Key>
+          <Property Name="reg_SEQ" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reg_ID" Type="Int32" Nullable="false" />
+          <Property Name="reg_Date" Type="DateTime" Precision="3" />
+          <Property Name="sem_No" Type="Int16" />
+          <Property Name="sem_SID" Type="Int32" />
+          <Property Name="sem_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sem_Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sem_FeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sem_FeeAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="sem_Qty" Type="Int16" />
+          <Property Name="sem_Total" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="sem_Discount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="rcdFinal" Type="Int32" />
+          <Property Name="discountType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="discountDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WebSignup">
+          <Key>
+            <PropertyRef Name="rcd_SEQ" />
+          </Key>
+          <Property Name="rcd_SEQ" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rcd_Date" Type="DateTime" Precision="3" />
+          <Property Name="Referrer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Zipcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneExtn" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Interest" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PromoCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PromoType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PromoDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PreferredContact" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OptIN" Type="Int16" />
+          <Property Name="Posted" Type="Int32" />
+          <Property Name="find_CoNo" Type="Int32" />
+          <Property Name="find_CoText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__CATEGORY__CATEGO__457442E6">
+          <End Role="CATEGORYTYPE" Type="Self.CATEGORYTYPE" Multiplicity="1" />
+          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORYTYPE">
+              <PropertyRef Name="CATEGORYTYPEID" />
+            </Principal>
+            <Dependent Role="CATEGORY">
+              <PropertyRef Name="CATEGORYTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="americantraincoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="carts" EntityType="Self.cart" />
+          <EntitySet Name="cartLines" EntityType="Self.cartLine" />
+          <EntitySet Name="CATEGORies" EntityType="Self.CATEGORY" />
+          <EntitySet Name="CATEGORYTYPEs" EntityType="Self.CATEGORYTYPE" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="CourseFormats" EntityType="Self.CourseFormat" />
+          <EntitySet Name="CourseInstructors" EntityType="Self.CourseInstructor" />
+          <EntitySet Name="COURSES" EntityType="Self.COURS" />
+          <EntitySet Name="Locations" EntityType="Self.Location" />
+          <EntitySet Name="LocationTypes" EntityType="Self.LocationType" />
+          <EntitySet Name="REGISTRATIONS" EntityType="Self.REGISTRATION" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="temp_Att" EntityType="Self.temp_Att" />
+          <EntitySet Name="temp_Cust" EntityType="Self.temp_Cust" />
+          <EntitySet Name="temp_Errors" EntityType="Self.temp_Errors" />
+          <EntitySet Name="temp_Reg" EntityType="Self.temp_Reg" />
+          <EntitySet Name="WebSignups" EntityType="Self.WebSignup" />
+          <AssociationSet Name="FK__CATEGORY__CATEGO__457442E6" Association="Self.FK__CATEGORY__CATEGO__457442E6">
+            <End Role="CATEGORYTYPE" EntitySet="CATEGORYTYPEs" />
+            <End Role="CATEGORY" EntitySet="CATEGORies" />
+          </AssociationSet>
+          <FunctionImport Name="add_CC_Log">
+            <Parameter Name="P1" Mode="In" Type="Int32" />
+            <Parameter Name="P2" Mode="In" Type="Int32" />
+            <Parameter Name="P3" Mode="In" Type="String" />
+            <Parameter Name="P4" Mode="In" Type="String" />
+            <Parameter Name="P5" Mode="In" Type="Decimal" />
+            <Parameter Name="P6" Mode="In" Type="String" />
+            <Parameter Name="P7" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="add_Registration" ReturnType="Collection(Int32)">
+          <Parameter Name="cartID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="CourseTopics" EntityType="americantraincoModel.CourseTopic" />
+          <EntitySet Name="CourseTypes" EntityType="americantraincoModel.CourseType" />
+          <EntitySet Name="CC_Log" EntityType="americantraincoModel.CC_Log" />
+          <EntitySet Name="SCHEDULES" EntityType="americantraincoModel.SCHEDULE" />
+          <EntitySet Name="ScheduleCourseInstructors" EntityType="americantraincoModel.ScheduleCourseInstructor" />
+          <EntitySet Name="Seminar_Catalog" EntityType="americantraincoModel.Seminar_Catalog" />
+        </EntityContainer>
+        <EntityType Name="CourseTopic">
+          <Key>
+            <PropertyRef Name="CourseTopicID" />
+          </Key>
+          <Property Name="CourseTopicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseTopicName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CourseTopicAbbreviation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CourseTopicParentID" Type="Double" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CourseType">
+          <Key>
+            <PropertyRef Name="CourseTypeID" />
+          </Key>
+          <Property Name="CourseTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseTypeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CC_Log">
+          <Key>
+            <PropertyRef Name="Seq" />
+          </Key>
+          <Property Name="Seq" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Processed_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cart_ID" Type="Int32" />
+          <Property Name="Reg_TR_Number" Type="Int32" />
+          <Property Name="CC_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CC_Num" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CC_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CC_Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProcessedFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Approval" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="SCHEDULE">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleSeminarNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleSeries" Type="Double" />
+          <Property Name="ScheduleDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ScheduleDateDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleDateQuarter" Type="Double" />
+          <Property Name="ScheduleDateDays" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleDateWeek" Type="DateTime" Precision="3" />
+          <Property Name="ScheduleParentID" Type="Int64" />
+          <Property Name="Active" Type="Int16" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="CreatedMemberID" Type="Int16" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Int16" />
+          <Property Name="CategoryID" Type="Int16" Nullable="false" />
+          <Property Name="InstructorNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BooksSent" Type="Int16" />
+          <Property Name="isCanadian" Type="Int16" />
+          <Property Name="fmp_JobPlan" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="fmp_JobNum" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleStatus" Type="Int16" />
+          <Property Name="LocationTentative" Type="Int16" />
+          <Property Name="Display_Mktg" Type="Boolean" />
+          <Property Name="Display_Ops" Type="Boolean" />
+          <Property Name="Ops_Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ScheduleCourseInstructor">
+          <Key>
+            <PropertyRef Name="ScheduleCourseID" />
+          </Key>
+          <Property Name="ScheduleCourseID" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="AcceptedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+          <Property Name="CourseFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PriceCode" Type="Int16" />
+          <Property Name="InstrStatus" Type="Int16" />
+        </EntityType>
+        <EntityType Name="Seminar_Catalog">
+          <Key>
+            <PropertyRef Name="SchID" />
+            <PropertyRef Name="StateID" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="SchDate" />
+          </Key>
+          <Property Name="SchID" Type="Int32" Nullable="false" />
+          <Property Name="TopicID" Type="Int32" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="WeekOf" Type="DateTime" Precision="3" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Topic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Parent" Type="Int64" />
+          <Property Name="SchDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TitlePlain" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="Subtitle" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="MonthOf" Type="Int32" />
+          <Property Name="YearOf" Type="Int32" />
+          <Property Name="DateDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int16" />
+          <Property Name="isCanadian" Type="Int16" />
+          <Property Name="WebPage" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="WebHeading" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="WebToolTip" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="WebPageIH" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Coordinates" Type="Geography" />
+          <Property Name="CourseTier" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="americantraincoModelStoreContainer" CdmEntityContainer="americantraincoEntities">
+          <EntitySetMapping Name="carts">
+            <EntityTypeMapping TypeName="americantraincoModel.cart">
+              <MappingFragment StoreEntitySet="cart">
+                <ScalarProperty Name="cartSeq" ColumnName="cartSeq" />
+                <ScalarProperty Name="ship_Name" ColumnName="ship_Name" />
+                <ScalarProperty Name="ship_Company" ColumnName="ship_Company" />
+                <ScalarProperty Name="ship_Address1" ColumnName="ship_Address1" />
+                <ScalarProperty Name="ship_Address2" ColumnName="ship_Address2" />
+                <ScalarProperty Name="ship_City" ColumnName="ship_City" />
+                <ScalarProperty Name="ship_State" ColumnName="ship_State" />
+                <ScalarProperty Name="ship_Zip" ColumnName="ship_Zip" />
+                <ScalarProperty Name="ship_Country" ColumnName="ship_Country" />
+                <ScalarProperty Name="ship_Phone" ColumnName="ship_Phone" />
+                <ScalarProperty Name="ship_Email" ColumnName="ship_Email" />
+                <ScalarProperty Name="bill_Name" ColumnName="bill_Name" />
+                <ScalarProperty Name="bill_Company" ColumnName="bill_Company" />
+                <ScalarProperty Name="bill_Address1" ColumnName="bill_Address1" />
+                <ScalarProperty Name="bill_Address2" ColumnName="bill_Address2" />
+                <ScalarProperty Name="bill_City" ColumnName="bill_City" />
+                <ScalarProperty Name="bill_State" ColumnName="bill_State" />
+                <ScalarProperty Name="bill_Zip" ColumnName="bill_Zip" />
+                <ScalarProperty Name="bill_Country" ColumnName="bill_Country" />
+                <ScalarProperty Name="bill_Phone" ColumnName="bill_Phone" />
+                <ScalarProperty Name="bill_Email" ColumnName="bill_Email" />
+                <ScalarProperty Name="bill_Fax" ColumnName="bill_Fax" />
+                <ScalarProperty Name="proctorID" ColumnName="proctorID" />
+                <ScalarProperty Name="productTotal" ColumnName="productTotal" />
+                <ScalarProperty Name="salesTax" ColumnName="salesTax" />
+                <ScalarProperty Name="shipCharge" ColumnName="shipCharge" />
+                <ScalarProperty Name="orderTotal" ColumnName="orderTotal" />
+                <ScalarProperty Name="payType" ColumnName="payType" />
+                <ScalarProperty Name="poNumber" ColumnName="poNumber" />
+                <ScalarProperty Name="ccNumber" ColumnName="ccNumber" />
+                <ScalarProperty Name="ccExp_Mo" ColumnName="ccExp_Mo" />
+                <ScalarProperty Name="ccExp_Yr" ColumnName="ccExp_Yr" />
+                <ScalarProperty Name="ccSecurity" ColumnName="ccSecurity" />
+                <ScalarProperty Name="ccName" ColumnName="ccName" />
+                <ScalarProperty Name="ccZip" ColumnName="ccZip" />
+                <ScalarProperty Name="ccSubmit" ColumnName="ccSubmit" />
+                <ScalarProperty Name="ccResponse" ColumnName="ccResponse" />
+                <ScalarProperty Name="postedStamp" ColumnName="postedStamp" />
+                <ScalarProperty Name="createdSite" ColumnName="createdSite" />
+                <ScalarProperty Name="createdStamp" ColumnName="createdStamp" />
+                <ScalarProperty Name="filledDate" ColumnName="filledDate" />
+                <ScalarProperty Name="shipVia" ColumnName="shipVia" />
+                <ScalarProperty Name="shipTracking" ColumnName="shipTracking" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cartLines">
+            <EntityTypeMapping TypeName="americantraincoModel.cartLine">
+              <MappingFragment StoreEntitySet="cartLine">
+                <ScalarProperty Name="lineSeq" ColumnName="lineSeq" />
+                <ScalarProperty Name="cartSeq" ColumnName="cartSeq" />
+                <ScalarProperty Name="lineDesc" ColumnName="lineDesc" />
+                <ScalarProperty Name="lineUnitPrice" ColumnName="lineUnitPrice" />
+                <ScalarProperty Name="lineQty" ColumnName="lineQty" />
+                <ScalarProperty Name="lineTotal" ColumnName="lineTotal" />
+                <ScalarProperty Name="lineTaxable" ColumnName="lineTaxable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORies">
+            <EntityTypeMapping TypeName="americantraincoModel.CATEGORY">
+              <MappingFragment StoreEntitySet="CATEGORY">
+                <ScalarProperty Name="CATEGORYID" ColumnName="CATEGORYID" />
+                <ScalarProperty Name="CATEGORYNAME" ColumnName="CATEGORYNAME" />
+                <ScalarProperty Name="DISPLAYNAME" ColumnName="DISPLAYNAME" />
+                <ScalarProperty Name="CATEGORYTYPEID" ColumnName="CATEGORYTYPEID" />
+                <ScalarProperty Name="INACTIVE" ColumnName="INACTIVE" />
+                <ScalarProperty Name="DISPLAY" ColumnName="DISPLAY" />
+                <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+                <ScalarProperty Name="MODIFIED" ColumnName="MODIFIED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORYTYPEs">
+            <EntityTypeMapping TypeName="americantraincoModel.CATEGORYTYPE">
+              <MappingFragment StoreEntitySet="CATEGORYTYPE">
+                <ScalarProperty Name="CATEGORYTYPEID" ColumnName="CATEGORYTYPEID" />
+                <ScalarProperty Name="CATEGORYTYPENAME" ColumnName="CATEGORYTYPENAME" />
+                <ScalarProperty Name="TEMPLATEID" ColumnName="TEMPLATEID" />
+                <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+                <ScalarProperty Name="MODIFIED" ColumnName="MODIFIED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="americantraincoModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="MailCode" ColumnName="MailCode" />
+                <ScalarProperty Name="PrimSCF" ColumnName="PrimSCF" />
+                <ScalarProperty Name="MailSCF" ColumnName="MailSCF" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="americantraincoModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseFormats">
+            <EntityTypeMapping TypeName="americantraincoModel.CourseFormat">
+              <MappingFragment StoreEntitySet="CourseFormats">
+                <ScalarProperty Name="CourseFormatID" ColumnName="CourseFormatID" />
+                <ScalarProperty Name="CourseFormatName" ColumnName="CourseFormatName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseInstructors">
+            <EntityTypeMapping TypeName="americantraincoModel.CourseInstructor">
+              <MappingFragment StoreEntitySet="CourseInstructors">
+                <ScalarProperty Name="CourseInstructorID" ColumnName="CourseInstructorID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="InstructorLevel" ColumnName="InstructorLevel" />
+                <ScalarProperty Name="Exceptions" ColumnName="Exceptions" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+                <ScalarProperty Name="LeadTechKnowledge" ColumnName="LeadTechKnowledge" />
+                <ScalarProperty Name="LeadCurrDevelop" ColumnName="LeadCurrDevelop" />
+                <ScalarProperty Name="LeadEquipment" ColumnName="LeadEquipment" />
+                <ScalarProperty Name="MngtNotes" ColumnName="MngtNotes" />
+                <ScalarProperty Name="PreferredText" ColumnName="PreferredText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COURSES">
+            <EntityTypeMapping TypeName="americantraincoModel.COURS">
+              <MappingFragment StoreEntitySet="COURSES">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseTitle" ColumnName="CourseTitle" />
+                <ScalarProperty Name="CourseSubtitle" ColumnName="CourseSubtitle" />
+                <ScalarProperty Name="CourseTypeID" ColumnName="CourseTypeID" />
+                <ScalarProperty Name="CourseTopicID" ColumnName="CourseTopicID" />
+                <ScalarProperty Name="CourseFormatID" ColumnName="CourseFormatID" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CourseCredits" ColumnName="CourseCredits" />
+                <ScalarProperty Name="WebHeading" ColumnName="WebHeading" />
+                <ScalarProperty Name="WebToolTip" ColumnName="WebToolTip" />
+                <ScalarProperty Name="CourseTimes" ColumnName="CourseTimes" />
+                <ScalarProperty Name="CoursePurpose" ColumnName="CoursePurpose" />
+                <ScalarProperty Name="WebPageIH" ColumnName="WebPageIH" />
+                <ScalarProperty Name="TitlePlain" ColumnName="TitlePlain" />
+                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
+                <ScalarProperty Name="GoogleDesc" ColumnName="GoogleDesc" />
+                <ScalarProperty Name="CourseTier" ColumnName="CourseTier" />
+                <ScalarProperty Name="CourseReferences" ColumnName="CourseReferences" />
+                <ScalarProperty Name="CourseInstructorsDescription" ColumnName="CourseInstructorsDescription" />
+                <ScalarProperty Name="CourseAdditionalInformation" ColumnName="CourseAdditionalInformation" />
+                <ScalarProperty Name="CourseOnSite" ColumnName="CourseOnSite" />
+                <ScalarProperty Name="CourseGuarantee" ColumnName="CourseGuarantee" />
+                <ScalarProperty Name="CourseFee" ColumnName="CourseFee" />
+                <ScalarProperty Name="CourseFeeDescription" ColumnName="CourseFeeDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="WebPage" ColumnName="WebPage" />
+                <ScalarProperty Name="PlanSort" ColumnName="PlanSort" />
+                <ScalarProperty Name="CertTitle1" ColumnName="CertTitle1" />
+                <ScalarProperty Name="CertTitle2" ColumnName="CertTitle2" />
+                <ScalarProperty Name="PPTLink" ColumnName="PPTLink" />
+                <ScalarProperty Name="BrochureLink" ColumnName="BrochureLink" />
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="americantraincoModel.Location">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="LocationNotes" ColumnName="LocationNotes" />
+                <ScalarProperty Name="HotelSleepRate" ColumnName="HotelSleepRate" />
+                <ScalarProperty Name="HotelMeetingRate" ColumnName="HotelMeetingRate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationTypes">
+            <EntityTypeMapping TypeName="americantraincoModel.LocationType">
+              <MappingFragment StoreEntitySet="LocationTypes">
+                <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
+                <ScalarProperty Name="LocationTypeName" ColumnName="LocationTypeName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGISTRATIONS">
+            <EntityTypeMapping TypeName="americantraincoModel.REGISTRATION">
+              <MappingFragment StoreEntitySet="REGISTRATIONS">
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+                <ScalarProperty Name="RegPromoCode" ColumnName="RegPromoCode" />
+                <ScalarProperty Name="RegPromoType" ColumnName="RegPromoType" />
+                <ScalarProperty Name="RegPromoDesc" ColumnName="RegPromoDesc" />
+                <ScalarProperty Name="RegReason" ColumnName="RegReason" />
+                <ScalarProperty Name="RegCompanyName" ColumnName="RegCompanyName" />
+                <ScalarProperty Name="RegAuthFirstName" ColumnName="RegAuthFirstName" />
+                <ScalarProperty Name="RegAuthMiddleName" ColumnName="RegAuthMiddleName" />
+                <ScalarProperty Name="RegAuthLastName" ColumnName="RegAuthLastName" />
+                <ScalarProperty Name="RegAuthTitle" ColumnName="RegAuthTitle" />
+                <ScalarProperty Name="RegAuthMailCode" ColumnName="RegAuthMailCode" />
+                <ScalarProperty Name="RegAuthAddress1" ColumnName="RegAuthAddress1" />
+                <ScalarProperty Name="RegAuthAddress2" ColumnName="RegAuthAddress2" />
+                <ScalarProperty Name="RegAuthCity" ColumnName="RegAuthCity" />
+                <ScalarProperty Name="RegAuthStateID" ColumnName="RegAuthStateID" />
+                <ScalarProperty Name="RegAuthZipcode" ColumnName="RegAuthZipcode" />
+                <ScalarProperty Name="RegAuthPhone" ColumnName="RegAuthPhone" />
+                <ScalarProperty Name="RegAuthPhoneExt" ColumnName="RegAuthPhoneExt" />
+                <ScalarProperty Name="RegAuthFax" ColumnName="RegAuthFax" />
+                <ScalarProperty Name="RegAuthEmail" ColumnName="RegAuthEmail" />
+                <ScalarProperty Name="RegAuthContactMethod" ColumnName="RegAuthContactMethod" />
+                <ScalarProperty Name="RegBillFirstName" ColumnName="RegBillFirstName" />
+                <ScalarProperty Name="RegBillMiddleName" ColumnName="RegBillMiddleName" />
+                <ScalarProperty Name="RegBillLastName" ColumnName="RegBillLastName" />
+                <ScalarProperty Name="RegBillTitle" ColumnName="RegBillTitle" />
+                <ScalarProperty Name="RegBillMailCode" ColumnName="RegBillMailCode" />
+                <ScalarProperty Name="RegBillAddress1" ColumnName="RegBillAddress1" />
+                <ScalarProperty Name="RegBillAddress2" ColumnName="RegBillAddress2" />
+                <ScalarProperty Name="RegBillCity" ColumnName="RegBillCity" />
+                <ScalarProperty Name="RegBillStateID" ColumnName="RegBillStateID" />
+                <ScalarProperty Name="RegBillZipcode" ColumnName="RegBillZipcode" />
+                <ScalarProperty Name="RegBillPhone" ColumnName="RegBillPhone" />
+                <ScalarProperty Name="RegBillPhoneExt" ColumnName="RegBillPhoneExt" />
+                <ScalarProperty Name="RegBillFax" ColumnName="RegBillFax" />
+                <ScalarProperty Name="RegBillEmail" ColumnName="RegBillEmail" />
+                <ScalarProperty Name="RegBillContactMethod" ColumnName="RegBillContactMethod" />
+                <ScalarProperty Name="RegBillPaymentMethodTypeID" ColumnName="RegBillPaymentMethodTypeID" />
+                <ScalarProperty Name="RegBillCCTypeID" ColumnName="RegBillCCTypeID" />
+                <ScalarProperty Name="RegBillCCName" ColumnName="RegBillCCName" />
+                <ScalarProperty Name="RegBillCCNumber" ColumnName="RegBillCCNumber" />
+                <ScalarProperty Name="RegBillCCExpirationMonth" ColumnName="RegBillCCExpirationMonth" />
+                <ScalarProperty Name="RegBillCCExpirationYear" ColumnName="RegBillCCExpirationYear" />
+                <ScalarProperty Name="RegBillCheckNumber" ColumnName="RegBillCheckNumber" />
+                <ScalarProperty Name="RegBillPONumber" ColumnName="RegBillPONumber" />
+                <ScalarProperty Name="RegOrderTotal" ColumnName="RegOrderTotal" />
+                <ScalarProperty Name="RegPayStatus" ColumnName="RegPayStatus" />
+                <ScalarProperty Name="RegStatus" ColumnName="RegStatus" />
+                <ScalarProperty Name="RegNotes" ColumnName="RegNotes" />
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
+                <ScalarProperty Name="Printed" ColumnName="Printed" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="RegTakenBy" ColumnName="RegTakenBy" />
+                <ScalarProperty Name="RegMethod" ColumnName="RegMethod" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="RegAuthCountry" ColumnName="RegAuthCountry" />
+                <ScalarProperty Name="RegBillCountry" ColumnName="RegBillCountry" />
+                <ScalarProperty Name="RegCurrency" ColumnName="RegCurrency" />
+                <ScalarProperty Name="OriginalPromo" ColumnName="OriginalPromo" />
+                <ScalarProperty Name="RegBillCCCVC" ColumnName="RegBillCCCVC" />
+                <ScalarProperty Name="RegBillPaidDate" ColumnName="RegBillPaidDate" />
+                <ScalarProperty Name="PastCustomer" ColumnName="PastCustomer" />
+                <ScalarProperty Name="RegPaidTotal" ColumnName="RegPaidTotal" />
+                <ScalarProperty Name="RegBalanceDue" ColumnName="RegBalanceDue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="americantraincoModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="StateAbbreviation" ColumnName="StateAbbreviation" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="DefaultSCF" ColumnName="DefaultSCF" />
+                <ScalarProperty Name="RepRegion" ColumnName="RepRegion" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Att">
+            <EntityTypeMapping TypeName="americantraincoModel.temp_Att">
+              <MappingFragment StoreEntitySet="temp_Att">
+                <ScalarProperty Name="reg_SEQ" ColumnName="reg_SEQ" />
+                <ScalarProperty Name="att_No" ColumnName="att_No" />
+                <ScalarProperty Name="att_FName" ColumnName="att_FName" />
+                <ScalarProperty Name="att_LName" ColumnName="att_LName" />
+                <ScalarProperty Name="att_Title" ColumnName="att_Title" />
+                <ScalarProperty Name="att_Email" ColumnName="att_Email" />
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="att_MName" ColumnName="att_MName" />
+                <ScalarProperty Name="att_Suffix" ColumnName="att_Suffix" />
+                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
+                <ScalarProperty Name="RCDSEQ" ColumnName="RCDSEQ" />
+                <ScalarProperty Name="Att_Discount" ColumnName="Att_Discount" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Cust">
+            <EntityTypeMapping TypeName="americantraincoModel.temp_Cust">
+              <MappingFragment StoreEntitySet="temp_Cust">
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="reg_Cost" ColumnName="reg_Cost" />
+                <ScalarProperty Name="promoCode" ColumnName="promoCode" />
+                <ScalarProperty Name="promoType" ColumnName="promoType" />
+                <ScalarProperty Name="promoDesc" ColumnName="promoDesc" />
+                <ScalarProperty Name="CoName" ColumnName="CoName" />
+                <ScalarProperty Name="authFName" ColumnName="authFName" />
+                <ScalarProperty Name="authLName" ColumnName="authLName" />
+                <ScalarProperty Name="authTitle" ColumnName="authTitle" />
+                <ScalarProperty Name="authMailCode" ColumnName="authMailCode" />
+                <ScalarProperty Name="authAddr1" ColumnName="authAddr1" />
+                <ScalarProperty Name="authAddr2" ColumnName="authAddr2" />
+                <ScalarProperty Name="authCity" ColumnName="authCity" />
+                <ScalarProperty Name="authState" ColumnName="authState" />
+                <ScalarProperty Name="authZip" ColumnName="authZip" />
+                <ScalarProperty Name="authCountry" ColumnName="authCountry" />
+                <ScalarProperty Name="authPhone1" ColumnName="authPhone1" />
+                <ScalarProperty Name="authPhone2" ColumnName="authPhone2" />
+                <ScalarProperty Name="authPhone3" ColumnName="authPhone3" />
+                <ScalarProperty Name="authPhoneExt" ColumnName="authPhoneExt" />
+                <ScalarProperty Name="authFax1" ColumnName="authFax1" />
+                <ScalarProperty Name="authFax2" ColumnName="authFax2" />
+                <ScalarProperty Name="authFax3" ColumnName="authFax3" />
+                <ScalarProperty Name="authEmail" ColumnName="authEmail" />
+                <ScalarProperty Name="billFName" ColumnName="billFName" />
+                <ScalarProperty Name="billLName" ColumnName="billLName" />
+                <ScalarProperty Name="billTitle" ColumnName="billTitle" />
+                <ScalarProperty Name="billMailCode" ColumnName="billMailCode" />
+                <ScalarProperty Name="billAddr1" ColumnName="billAddr1" />
+                <ScalarProperty Name="billAddr2" ColumnName="billAddr2" />
+                <ScalarProperty Name="billCity" ColumnName="billCity" />
+                <ScalarProperty Name="billState" ColumnName="billState" />
+                <ScalarProperty Name="billZip" ColumnName="billZip" />
+                <ScalarProperty Name="billCountry" ColumnName="billCountry" />
+                <ScalarProperty Name="billPhone1" ColumnName="billPhone1" />
+                <ScalarProperty Name="billPhone2" ColumnName="billPhone2" />
+                <ScalarProperty Name="billPhone3" ColumnName="billPhone3" />
+                <ScalarProperty Name="billPhoneExt" ColumnName="billPhoneExt" />
+                <ScalarProperty Name="billFax1" ColumnName="billFax1" />
+                <ScalarProperty Name="billFax2" ColumnName="billFax2" />
+                <ScalarProperty Name="billFax3" ColumnName="billFax3" />
+                <ScalarProperty Name="billEmail" ColumnName="billEmail" />
+                <ScalarProperty Name="ConfTo" ColumnName="ConfTo" />
+                <ScalarProperty Name="payMethod" ColumnName="payMethod" />
+                <ScalarProperty Name="ccType" ColumnName="ccType" />
+                <ScalarProperty Name="ccName" ColumnName="ccName" />
+                <ScalarProperty Name="ccNumber" ColumnName="ccNumber" />
+                <ScalarProperty Name="ccMonth" ColumnName="ccMonth" />
+                <ScalarProperty Name="ccYear" ColumnName="ccYear" />
+                <ScalarProperty Name="ccCVC" ColumnName="ccCVC" />
+                <ScalarProperty Name="chkNo" ColumnName="chkNo" />
+                <ScalarProperty Name="poNo" ColumnName="poNo" />
+                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
+                <ScalarProperty Name="RefName" ColumnName="RefName" />
+                <ScalarProperty Name="RefKey" ColumnName="RefKey" />
+                <ScalarProperty Name="RefCompany" ColumnName="RefCompany" />
+                <ScalarProperty Name="RefFName" ColumnName="RefFName" />
+                <ScalarProperty Name="RefLName" ColumnName="RefLName" />
+                <ScalarProperty Name="pDrop1" ColumnName="pDrop1" />
+                <ScalarProperty Name="pDrop2" ColumnName="pDrop2" />
+                <ScalarProperty Name="pEntry1" ColumnName="pEntry1" />
+                <ScalarProperty Name="pEntry2" ColumnName="pEntry2" />
+                <ScalarProperty Name="regTakenBy" ColumnName="regTakenBy" />
+                <ScalarProperty Name="regMethod" ColumnName="regMethod" />
+                <ScalarProperty Name="CEURelated" ColumnName="CEURelated" />
+                <ScalarProperty Name="CEUEntity" ColumnName="CEUEntity" />
+                <ScalarProperty Name="PastCustomer" ColumnName="PastCustomer" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Errors">
+            <EntityTypeMapping TypeName="americantraincoModel.temp_Errors">
+              <MappingFragment StoreEntitySet="temp_Errors">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="errDate" ColumnName="errDate" />
+                <ScalarProperty Name="realRegID" ColumnName="realRegID" />
+                <ScalarProperty Name="tempRegSeq" ColumnName="tempRegSeq" />
+                <ScalarProperty Name="tempAttNo" ColumnName="tempAttNo" />
+                <ScalarProperty Name="tempRegID" ColumnName="tempRegID" />
+                <ScalarProperty Name="attFName" ColumnName="attFName" />
+                <ScalarProperty Name="attMName" ColumnName="attMName" />
+                <ScalarProperty Name="attLName" ColumnName="attLName" />
+                <ScalarProperty Name="attSuffix" ColumnName="attSuffix" />
+                <ScalarProperty Name="attTitle" ColumnName="attTitle" />
+                <ScalarProperty Name="attEmail" ColumnName="attEmail" />
+                <ScalarProperty Name="attSemID" ColumnName="attSemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_Reg">
+            <EntityTypeMapping TypeName="americantraincoModel.temp_Reg">
+              <MappingFragment StoreEntitySet="temp_Reg">
+                <ScalarProperty Name="reg_SEQ" ColumnName="reg_SEQ" />
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+                <ScalarProperty Name="reg_Date" ColumnName="reg_Date" />
+                <ScalarProperty Name="sem_No" ColumnName="sem_No" />
+                <ScalarProperty Name="sem_SID" ColumnName="sem_SID" />
+                <ScalarProperty Name="sem_Title" ColumnName="sem_Title" />
+                <ScalarProperty Name="sem_Place" ColumnName="sem_Place" />
+                <ScalarProperty Name="sem_FeeName" ColumnName="sem_FeeName" />
+                <ScalarProperty Name="sem_FeeAmt" ColumnName="sem_FeeAmt" />
+                <ScalarProperty Name="sem_Qty" ColumnName="sem_Qty" />
+                <ScalarProperty Name="sem_Total" ColumnName="sem_Total" />
+                <ScalarProperty Name="sem_Discount" ColumnName="sem_Discount" />
+                <ScalarProperty Name="rcdFinal" ColumnName="rcdFinal" />
+                <ScalarProperty Name="discountType" ColumnName="discountType" />
+                <ScalarProperty Name="discountDesc" ColumnName="discountDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebSignups">
+            <EntityTypeMapping TypeName="americantraincoModel.WebSignup">
+              <MappingFragment StoreEntitySet="WebSignups">
+                <ScalarProperty Name="rcd_SEQ" ColumnName="rcd_SEQ" />
+                <ScalarProperty Name="rcd_Date" ColumnName="rcd_Date" />
+                <ScalarProperty Name="Referrer" ColumnName="Referrer" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PhoneExtn" ColumnName="PhoneExtn" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
+                <ScalarProperty Name="PromoType" ColumnName="PromoType" />
+                <ScalarProperty Name="PromoDesc" ColumnName="PromoDesc" />
+                <ScalarProperty Name="PreferredContact" ColumnName="PreferredContact" />
+                <ScalarProperty Name="OptIN" ColumnName="OptIN" />
+                <ScalarProperty Name="Posted" ColumnName="Posted" />
+                <ScalarProperty Name="find_CoNo" ColumnName="find_CoNo" />
+                <ScalarProperty Name="find_CoText" ColumnName="find_CoText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="add_CC_Log" FunctionName="americantraincoModel.Store.add_CC_Log" />
+          <FunctionImportMapping FunctionImportName="add_Registration" FunctionName="americantraincoModel.Store.add_Registration" />
+          <EntitySetMapping Name="CourseTopics">
+            <EntityTypeMapping TypeName="americantraincoModel.CourseTopic">
+              <MappingFragment StoreEntitySet="CourseTopics">
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CourseTopicParentID" ColumnName="CourseTopicParentID" />
+                <ScalarProperty Name="CourseTopicAbbreviation" ColumnName="CourseTopicAbbreviation" />
+                <ScalarProperty Name="CourseTopicName" ColumnName="CourseTopicName" />
+                <ScalarProperty Name="CourseTopicID" ColumnName="CourseTopicID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseTypes">
+            <EntityTypeMapping TypeName="americantraincoModel.CourseType">
+              <MappingFragment StoreEntitySet="CourseTypes">
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CourseTypeName" ColumnName="CourseTypeName" />
+                <ScalarProperty Name="CourseTypeID" ColumnName="CourseTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CC_Log">
+            <EntityTypeMapping TypeName="americantraincoModel.CC_Log">
+              <MappingFragment StoreEntitySet="CC_Log">
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="ProcessedFrom" ColumnName="ProcessedFrom" />
+                <ScalarProperty Name="CC_Result" ColumnName="CC_Result" />
+                <ScalarProperty Name="CC_Amount" ColumnName="CC_Amount" />
+                <ScalarProperty Name="CC_Num" ColumnName="CC_Num" />
+                <ScalarProperty Name="CC_Type" ColumnName="CC_Type" />
+                <ScalarProperty Name="Reg_TR_Number" ColumnName="Reg_TR_Number" />
+                <ScalarProperty Name="Cart_ID" ColumnName="Cart_ID" />
+                <ScalarProperty Name="Processed_Date" ColumnName="Processed_Date" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCHEDULES">
+            <EntityTypeMapping TypeName="americantraincoModel.SCHEDULE">
+              <MappingFragment StoreEntitySet="SCHEDULES">
+                <ScalarProperty Name="Ops_Status" ColumnName="Ops_Status" />
+                <ScalarProperty Name="Display_Ops" ColumnName="Display_Ops" />
+                <ScalarProperty Name="Display_Mktg" ColumnName="Display_Mktg" />
+                <ScalarProperty Name="LocationTentative" ColumnName="LocationTentative" />
+                <ScalarProperty Name="ScheduleStatus" ColumnName="ScheduleStatus" />
+                <ScalarProperty Name="fmp_JobNum" ColumnName="fmp_JobNum" />
+                <ScalarProperty Name="fmp_JobPlan" ColumnName="fmp_JobPlan" />
+                <ScalarProperty Name="isCanadian" ColumnName="isCanadian" />
+                <ScalarProperty Name="BooksSent" ColumnName="BooksSent" />
+                <ScalarProperty Name="ScheduleType" ColumnName="ScheduleType" />
+                <ScalarProperty Name="InstructorNotes" ColumnName="InstructorNotes" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ScheduleParentID" ColumnName="ScheduleParentID" />
+                <ScalarProperty Name="ScheduleDateWeek" ColumnName="ScheduleDateWeek" />
+                <ScalarProperty Name="ScheduleDateDays" ColumnName="ScheduleDateDays" />
+                <ScalarProperty Name="ScheduleDateQuarter" ColumnName="ScheduleDateQuarter" />
+                <ScalarProperty Name="ScheduleDateDescription" ColumnName="ScheduleDateDescription" />
+                <ScalarProperty Name="ScheduleDate" ColumnName="ScheduleDate" />
+                <ScalarProperty Name="ScheduleSeries" ColumnName="ScheduleSeries" />
+                <ScalarProperty Name="ScheduleSeminarNumber" ColumnName="ScheduleSeminarNumber" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleCourseInstructors">
+            <EntityTypeMapping TypeName="americantraincoModel.ScheduleCourseInstructor">
+              <MappingFragment StoreEntitySet="ScheduleCourseInstructors">
+                <ScalarProperty Name="InstrStatus" ColumnName="InstrStatus" />
+                <ScalarProperty Name="PriceCode" ColumnName="PriceCode" />
+                <ScalarProperty Name="CourseFee" ColumnName="CourseFee" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="ScheduleCourseID" ColumnName="ScheduleCourseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seminar_Catalog">
+            <EntityTypeMapping TypeName="americantraincoModel.Seminar_Catalog">
+              <MappingFragment StoreEntitySet="Seminar_Catalog">
+                <ScalarProperty Name="CourseTier" ColumnName="CourseTier" />
+                <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="WebPageIH" ColumnName="WebPageIH" />
+                <ScalarProperty Name="WebToolTip" ColumnName="WebToolTip" />
+                <ScalarProperty Name="WebHeading" ColumnName="WebHeading" />
+                <ScalarProperty Name="WebPage" ColumnName="WebPage" />
+                <ScalarProperty Name="isCanadian" ColumnName="isCanadian" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DateDesc" ColumnName="DateDesc" />
+                <ScalarProperty Name="YearOf" ColumnName="YearOf" />
+                <ScalarProperty Name="MonthOf" ColumnName="MonthOf" />
+                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TitlePlain" ColumnName="TitlePlain" />
+                <ScalarProperty Name="SchDate" ColumnName="SchDate" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="Topic" ColumnName="Topic" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="WeekOf" ColumnName="WeekOf" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+                <ScalarProperty Name="SchID" ColumnName="SchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

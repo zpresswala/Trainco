@@ -1,0 +1,32 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.ViewModels
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    IPublishedContent currentPage = Model.Content;
+}
+
+
+<div class="container-fluid intro-section search-page">
+    @Html.Partial("SeminarSearch/MainSearch", currentPage)
+</div>
+
+@Html.Partial("Cart/MiniCart")
+
+<div id="search-results" class="container-fluid results-container">
+    <div class="container">
+        <div class="row">
+            <div class="empty-message">
+                <p>Select a topic, city, and date range to find classes.</p>
+            </div>
+            <div class="spinner class-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <ul class="results"></ul>
+        </div>
+    </div>
+</div>

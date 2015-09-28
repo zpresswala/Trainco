@@ -1,0 +1,67 @@
+.onsite {
+	.btn-reg {
+		text-align: center;
+		margin: 0 auto;
+		display: block;
+		max-width: 160px;
+	}
+}
+
+.caro-form-container {
+	background-image: url("/images/carousel-mobile-bg.jpg");
+	background-position: center top;
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100%;
+	max-height: 400px;
+	display: table;
+	width: 100%;
+	position: relative;
+
+	@include tablet-portrait-and-up {
+		background-image: url("/images/carousel-bg.jpg");
+	}
+
+	> .container {
+		position: relative;
+	}
+
+	h3 {
+		color: $white;
+		text-align: center;
+		margin: 40px 0 30px;
+		@include med-desktop-and-up {
+			text-align: left;
+			margin: 40px 0 20px 15px;
+			font-size: 20px;
+		}
+	}
+
+	.carousel {
+		background: none;
+		@include med-desktop-and-up {
+			width: 50%;
+			position: absolute;
+			top: 50%;
+			margin-top: -230px;
+			left: 0;
+		}
+
+		.item {
+			height: 370px;
+			@include tablet-portrait-and-up {
+				height: 300px;
+			}	
+		}
+	}
+
+	.carousel-control {
+		height: 370px;
+		@include tablet-portrait-and-up {
+			height: 300px;
+		}
+	}
+	.carousel-inner {
+		height: 100%;
+	}
+}

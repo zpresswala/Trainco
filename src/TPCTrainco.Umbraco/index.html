@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -23,8 +23,17 @@
         <meta name="twitter:domain" content="TPC Trainco"/>
 
         <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic' rel='stylesheet' type='text/css'>
-        <!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"> -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/jquery-ui.structure.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/classic-min.css">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link href="/assets/images/favicon.ico" rel="shortcut icon">
+
+        <!-- added new css tags above -->
+
+
     </head>
 
     <!--[if lt IE 9]>
@@ -33,7 +42,7 @@
         <script src="/assets/js/bower_components/Respond/dest/respond.min.js"></script>
     <![endif]-->
 
-    <body>
+    <body class="gradient-bg">
 
         <nav class="navbar navbar-default">
             <div class="container-fluid contain">
@@ -46,7 +55,8 @@
                         <span class="icon-bar"></span>
                     </button>
                     <h1 class="logo">
-                        <a class="navbar-brand" href="/"><span class="tpc">TPC</span>TRAINCO<span class="tagline">Real World Training...for Real World Needs</span></a>
+                        TCPTrainco
+                        <a class="navbar-brand" href="/"><img src="/assets/images/logo-trainco-1x.png" alt="TCPTrainco Logo" / id="logo"></a>
                     </h1>
                 </div>
 
@@ -54,7 +64,22 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#" class="btn-reg" role="button">Register</a></li>
-                        <li><a href="#" class="regular-link nav-link">Training Seminars</a></li>
+
+                        <!-- new -->
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle regular-link nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Training Seminars<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class="nav-link regular-link">Electrical Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">HVAC Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">Plant Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">Mechanical and Industrial Training</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- end -->
+
+
                         <li><a href="#" class="regular-link nav-link">On-Site Training</a></li>
                         <li><a href="#" class="regular-link nav-link">About</a></li>
                         <li><a href="#" class="regular-link nav-link">Blog</a></li>
@@ -67,11 +92,12 @@
 
 
         <div class="container-fluid intro-section">
-            <div class="container">
-                <div class="jumbotron">
-                    <h1>Find an industrial training seminar near you.</h1>
-                    <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-                </div>
+            <div class="jumbotron">
+                <h1>American Trainco is now TPC Trainco</h1>
+                <p>The leader in instructor-led maintenance training is now part of TPC's <span style="text-decoration: underline;"><a href="/blog/american-trainco-announces-rebranding-as-part-of-tpc-training-systems/">total training solution.</a></span></p>
+                <h3><br /><span style="text-decoration: underline;"><a href="/public-seminars/course-catalog/">Browse our catalog of 4,181 upcoming seminars.</a></span></h3>
+            </div>
+
                 <div class="row">
                     <div class="col-md-11 topic-circles">
                         <h3>Select one or more topics and choose your location</h3>
@@ -114,14 +140,32 @@
 
                         </ul>
 
-                        <!-- search bar here -->
-                        <form name="main-search" class="main-search-form">
-                            <input type="text" name="seminar-search" placeholder="Choose a Location">
-                        </form>
-                        <a href="#" class="btn-reg btn-white" role="button">Search</a>
+
+
+
+
+                        <!-- John: this is new -->
+
+
+
+
+
+                        <select id="main-search" multiple style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="">
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Vermont">Vermont</option>
+                        </select>
+
+                        <a href="javascript:void(0);" id="search-btn" class="btn-reg btn-white" role="button">Search</a>
+
+
+                        <!-- end new -->
+
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
 
         <div class="container-fluid onsite-section">
@@ -139,8 +183,8 @@
             </div>
         </div>
 
-    	
-        <div class="container-fluid">
+
+        <div class="container-fluid img-with-text">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-sm-push-4">
@@ -157,7 +201,7 @@
             </div>
         </div>
 
-        <div class="container-fluid offwhite-section">
+        <div class="container-fluid offwhite-section img-with-text">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8">
@@ -174,7 +218,7 @@
             </div>
         </div>
 
-        <div class="container-fluid">
+        <div class="container-fluid img-with-text">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-sm-push-4">
@@ -191,7 +235,7 @@
             </div>
         </div>
 
-        <div class="container-fluid offwhite-section">
+        <div class="container-fluid offwhite-section img-with-text">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8">
@@ -246,7 +290,7 @@
                 <img src="/assets/images/left-arrow.png" class="arrow-left" aria-hidden="true" />
                 <span class="sr-only">Previous</span>
             </a>
-            
+
             <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
                 <img src="/assets/images/right-arrow.png" class="arrow-right" aria-hidden="true" />
                 <span class="sr-only">Next</span>
@@ -256,14 +300,18 @@
         <footer>
             <ul class="wrapper">
                 <li class="copyright">&copy;TPCTrainco</li>
-                
-                <ul class="links">
-                    <li><a href="#">Training Seminar Schedule<span>|</span></a></li>
-                    <li><a href="#">Instructor Lounge<span>|</span></a></li>
-                    <li><a href="#">Privacy Policy<span>|</span></a></li>
-                    <li><a href="#">Legal Terms<span>|</span></a></li>
-                    <li><a href="#">AR, MA, &amp; NH Residents<span>|</span></a></li>
-                    <li><a href="#">Sitemap</a></li>
+
+                <li class="links">
+                    <ul>
+                        <li><a href="#">Training Seminar Schedule<span>|</span></a></li>
+                        <li><a href="#">Instructor Lounge<span>|</span></a></li>
+                        <li><a href="#">Privacy Policy<span>|</span></a></li>
+                        <li><a href="#">Legal Terms<span>|</span></a></li>
+                        <li><a href="#">AR, MA, &amp; NH Residents<span>|</span></a></li>
+                        <li><a href="#">Sitemap</a></li>
+                    </ul>
+
+
                     <ul class="social">
                         <li><a href="#" class="regular-link"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                              width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
@@ -331,21 +379,41 @@
                             </a>
                         </li>
                     </ul>
-                </ul>
+                </li>
             </ul>
         </footer>
 
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-    	<!-- use modernizr generator for production -->
-    	<script type="text/javascript" src="/assets/js/vendor/modernizr-dev.js"></script>
+        <!-- use modernizr generator for production -->
+        <script type="text/javascript" src="/assets/js/vendor/modernizr-touch.js"></script>
+
+
+
+
+        <!-- John: this is new -->
+
+
+
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
+        <script type="text/javascript" src="/assets/js/vendor/bootstrap-dropdown.js"></script>
 
-        <script type="text/javascript" src="/assets/js/TPCapp.js"></script>
-        <script type="text/javascript" src="/assets/js/HomePage.js"></script>
-        <script type="text/javascript" src="/assets/js/CountUp.js"></script>
+        <script type="text/javascript" src="/assets/js/vendor/select2.js"></script>
+
+        <!-- <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
+
+        <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/DatePicker.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/Catalog.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/MainSearchSelect.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script> -->
+
+        <script type="text/javascript" src="/js/main.js"></script>
+
+
     	<script type="text/javascript">
            var temp;
 

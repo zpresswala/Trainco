@@ -1,0 +1,58 @@
+﻿@using TPCTrainco.Umbraco.Extensions
+@model TPCTrainco.Umbraco.Extensions.Models.CheckoutDetails
+
+@{
+    temp_Cust tempCust = Model.tempCust;
+}
+
+@if (tempCust != null && Model.tempRegList != null)
+{
+<div class="container-fluid form-container summary-main gradient-bg">
+    <div class="container">
+        @using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutSummarySurfaceController>("HandleFormSubmit"))
+        {
+            <a href="/register/info/" class="btn-reg btn-blue-solid edit-btn">Edit</a>
+            <ul class="summary-items">
+                @foreach (temp_Reg tempReg in Model.tempRegList.OrderBy(p => p.reg_SEQ))
+                {
+                    int regSeqId = tempReg.reg_SEQ;
+
+                    <li class="summary-item">
+                        <ul class="summary-item-top">
+                            <li class="class-title col-xs-12 col-sm-8"><h2>@tempReg.sem_Title</h2></li>
+                            <li class="col-xs-12 col-sm-4 price">@(String.Format("{0:C0}", tempReg.sem_FeeName))</li>
+                        </ul>
+
+                        @foreach (temp_Att tempAtt in Model.tempAttList.Where(p => p.reg_SEQ == regSeqId))
+                        {
+                            <ul class="attendee-info col-sm-12">
+                                <li class="name col-xs-12 col-sm-6 col-md-3">@(tempAtt.att_FName + " " + tempAtt.att_LName)</li>
+                                <li class="email col-xs-12 col-sm-6 col-md-3">@(tempAtt.att_Email)</li>
+                                <li class="seminar-opts col-xs-12 col-sm-6 col-md-2">@(tempReg.sem_FeeName.Replace(" - $" + Convert.ToInt32(tempReg.sem_Total ?? 0), ""))</li>
+                                <li class="location col-xs-12 col-sm-6 col-md-4">@tempReg.sem_Place</li>
+                            </ul>
+                        }
+                    </li>
+                }
+            </ul>
+            <div class="col-xs-12 purchaser-info-wrap">
+                <div class="purchaser-info">
+                    <ul>
+                        <li class="purchaser-name">@(tempCust.authFName + " " + tempCust.authLName)</li>
+                        <li>@(tempCust.CoName)</li>
+                        @*<li>Order #: <span class="order-num">8675309</span></li>*@
+                        <li>@(tempCust.authAddr1 + " " + tempCust.authAddr2)</li>
+                        <li>@(tempCust.authCity + ", " + tempCust.authState + " " + tempCust.authZip + " " + tempCust.authCountry)</li>
+                        <li>@(tempCust.authPhone1)-@(tempCust.authPhone2)-@(tempCust.authPhone3)</li>
+                        <li>@(tempCust.authEmail)</li>
+                        <li>Payment Method: <span>@(tempCust.payMethod)</span></li>
+                    </ul>
+                </div>
+                <h2 class="total-price">Total: $<span>@(String.Format("{0:N0}", tempCust.reg_Cost ?? 0))</span></h2>
+            </div>
+
+            <button type="submit" class="btn btn-reg btn-blue-solid summary-submit-btn">Submit</button>
+        }
+    </div>
+</div>
+}

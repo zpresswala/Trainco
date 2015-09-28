@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -46,7 +46,8 @@
                         <span class="icon-bar"></span>
                     </button>
                     <h1 class="logo">
-                        <a class="navbar-brand" href="/"><span class="tpc">TPC</span>TRAINCO<span class="tagline">Real World Training...for Real World Needs</span></a>
+                        TCPTrainco
+                        <a class="navbar-brand" href="/"><img src="/assets/images/tcptraincologo.png" alt="TCPTrainco Logo" /></a>
                     </h1>
                 </div>
 
@@ -54,7 +55,22 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="#" class="btn-reg" role="button">Register</a></li>
-                        <li><a href="#" class="regular-link nav-link">Training Seminars</a></li>
+                        
+                        <!-- new -->
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle regular-link nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Training Seminars<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class="nav-link regular-link">Electrical Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">HVAC Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">Plant Training</a></li>
+                                <li><a href="#" class="nav-link regular-link">Mechanical and Industrial Training</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- end -->
+
+
                         <li><a href="#" class="regular-link nav-link">On-Site Training</a></li>
                         <li><a href="#" class="regular-link nav-link">About</a></li>
                         <li><a href="#" class="regular-link nav-link">Blog</a></li>
@@ -68,34 +84,38 @@
         <div class="container-fluid headline-section">
             <div class="container">
                 <div class="jumbotron">
-                    <h1>We&rsquo;re the best in training</h1>
+                    <h1 id="js-counter-start">We&rsquo;re the best in training</h1>
                 </div>
             </div>
         </div>
 
         <div class="container-fluid gradient-bg main-content">
             <div class="container">
-                <div class="col-md-8 col-md-offset-2 text-wrap">
-                    <h2>Advantages of TPCTrainco</h2>
-                    <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch American Apparel PBR cray Intelligentsia. Banjo pug Etsy Vice bitters blog, sartorial meh before they sold out. Letterpress sartorial blog seitan crucifix, pug gentrify Marfa. Yr single-origin coffee fingerstache post-ironic farm-to-table. Yr gluten-free Vice taxidermy next level, flannel XOXO banjo butcher. Fashion axe before they sold out Thundercats, tousled scenester mlkshk direct trade Brooklyn blog hoodie shabby chic</p>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-wrap">
+                        <h2>Advantages of TPCTrainco</h2>
+                        <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch American Apparel PBR cray Intelligentsia. Banjo pug Etsy Vice bitters blog, sartorial meh before they sold out. Letterpress sartorial blog seitan crucifix, pug gentrify Marfa. Yr single-origin coffee fingerstache post-ironic farm-to-table. Yr gluten-free Vice taxidermy next level, flannel XOXO banjo butcher. Fashion axe before they sold out Thundercats, tousled scenester mlkshk direct trade Brooklyn blog hoodie shabby chic</p>
 
-                    <div class="row">
-                        <div class="col-sm-4 col-xs-7 number-callout">
-	                        <h3>90%</h3>
-	                        <p>Donec sed odio dui.</p>
-                        </div><!-- /.col-sm-4 -->
-                        <div class="col-sm-4 col-xs-7 number-callout">
-                          	<h3>100k</h3>
-                          	<p>Duis mollis, est non</p>
-                        </div><!-- /.col-sm-4 -->
-                        <div class="col-sm-4 col-xs-7 number-callout">
-                         	<h3>35</h3>
-                         	<p>Donec sed odio dui.</p>
-                        </div><!-- /.col-sm-4 -->
+                        <div class="row" id="count">
+                            <div class="col-sm-4 col-xs-10 number-callout">
+    	                        <h3 data-num="1">90%</h3>
+    	                        <p>Fewer Accidents</p>
+                            </div>
+
+                            <div class="col-sm-4 col-xs-10 number-callout">
+                                <h3 data-num="1">35</h3>
+                                <p>Different Seminars</p>
+                            </div>
+
+                            <div class="col-sm-4 col-xs-10 number-callout">
+                              	<h3 data-num="2">100k</h3>
+                              	<p>Seminars to Date</p>
+                            </div>
+                        </div>
+
+                        <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch American Apparel PBR cray Intelligentsia. Banjo pug Etsy Vice bitters blog, sartorial meh before they sold out. Letterpress sartorial blog seitan crucifix, pug gentrify Marfa. Yr single-origin coffee fingerstache post-ironic farm-to-table. Yr gluten-free Vice taxidermy next level, flannel XOXO banjo butcher. Fashion axe before they sold out Thundercats, tousled scenester mlkshk direct trade Brooklyn blog hoodie shabby chic</p>
+                        <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch American Apparel PBR cray Intelligentsia. Banjo pug Etsy Vice bitters blog, sartorial meh before they sold out. Letterpress sartorial blog seitan crucifix, pug gentrify Marfa.</p>
                     </div>
-
-                    <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch American Apparel PBR cray Intelligentsia. Banjo pug Etsy Vice bitters blog, sartorial meh before they sold out. Letterpress sartorial blog seitan crucifix, pug gentrify Marfa. Yr single-origin coffee fingerstache post-ironic farm-to-table. Yr gluten-free Vice taxidermy next level, flannel XOXO banjo butcher. Fashion axe before they sold out Thundercats, tousled scenester mlkshk direct trade Brooklyn blog hoodie shabby chic</p>
-                    <p>Gluten-free taxidermy squid jean shorts chambray. Truffaut 8-bit wolf, master cleanse kale chips roof party Thundercats pop-up kitsch American Apparel PBR cray Intelligentsia. Banjo pug Etsy Vice bitters blog, sartorial meh before they sold out. Letterpress sartorial blog seitan crucifix, pug gentrify Marfa.</p>
                 </div>
             </div>
         </div>
@@ -163,21 +183,21 @@
             </a>
         </div> <!-- end carousel -->
 
-
-
-
-
         <footer>
             <ul class="wrapper">
                 <li class="copyright">&copy;TPCTrainco</li>
                 
-                <ul class="links">
-                    <li><a href="#">Training Seminar Schedule<span>|</span></a></li>
-                    <li><a href="#">Instructor Lounge<span>|</span></a></li>
-                    <li><a href="#">Privacy Policy<span>|</span></a></li>
-                    <li><a href="#">Legal Terms<span>|</span></a></li>
-                    <li><a href="#">AR, MA, &amp; NH Residents<span>|</span></a></li>
-                    <li><a href="#">Sitemap</a></li>
+                <li class="links">
+                    <ul>
+                        <li><a href="#">Training Seminar Schedule<span>|</span></a></li>
+                        <li><a href="#">Instructor Lounge<span>|</span></a></li>
+                        <li><a href="#">Privacy Policy<span>|</span></a></li>
+                        <li><a href="#">Legal Terms<span>|</span></a></li>
+                        <li><a href="#">AR, MA, &amp; NH Residents<span>|</span></a></li>
+                        <li><a href="#">Sitemap</a></li>
+                    </ul>
+
+
                     <ul class="social">
                         <li><a href="#" class="regular-link"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                              width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
@@ -245,21 +265,21 @@
                             </a>
                         </li>
                     </ul>
-                </ul>
+                </li>
             </ul>
         </footer>
 
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     	<!-- use modernizr generator for production -->
-    	<script type="text/javascript" src="/assets/js/vendor/modernizr-dev.js"></script>
+    	<script type="text/javascript" src="/assets/js/vendor/modernizr-touch.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
         <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
-
-        <script type="text/javascript" src="/assets/js/TPCapp.js"></script>
-        <script type="text/javascript" src="/assets/js/HomePage.js"></script>
-        <script type="text/javascript" src="/assets/js/CountUp.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/Catalog.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
+        <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
     	<script type="text/javascript">
            var temp;
 

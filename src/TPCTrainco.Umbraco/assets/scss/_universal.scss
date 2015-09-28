@@ -1,18 +1,48 @@
-// universal styles shared across the site. hopefully reusable.
+// universal styles shared across the site.
 
-// loading Arial Black here because it's not on iOS.
-@font-face {
-  font-family: 'ArialBlack';
-  src: url('/assets/fonts/arial-black.ttf')  format('truetype'); /* Safari, Android, iOS */
+// sticky footer style
+html {
+	overflow-x: hidden;
+	@include tablet-portrait-and-up {
+		position: relative;
+		min-height: 100%;
+	}
 }
-
 
 body {
 	color: $body-copy;
-	font-weight: 300;
+	font-weight: 400;
+	overflow-x: hidden;
+
+	// sticky footer styles
+	@include tablet-portrait-and-up {
+		margin-bottom: 230px;
+	}
+
+	@include tablet-landscape-and-up {
+		margin-bottom: 80px;
+	}
 }
 
-// the red pill-shaped buttons w/hover state. just add this class 
+ul {
+	list-style: none;
+}
+
+a:hover, a:focus, a:active {
+	text-decoration: none;
+	color: $blue;
+}
+
+h2, h3, h4 {
+	font-weight: 400;
+	color: $headline-black-on-white;
+}
+
+button {
+	border: none;
+}
+
+// the red pill-shaped buttons w/hover state. just add this class
 .btn-reg {
 	background-color: $red-button;
 	color: $white;
@@ -35,7 +65,7 @@ body {
 		left: 0;
 		width: 100%;
 		height: 100%;
-		border: 3px solid $red-button;
+		border: 4px solid $red-button;
 		z-index: 1;
 		border-radius: inherit;
 		opacity: 0;
@@ -44,8 +74,7 @@ body {
 	}
 
 	&:hover:before {
-		-webkit-transform: scale3d(1.04, 1.15, 1);
-		transform: scale3d(1.04, 1.15, 1);
+		@include transform(scale3d(1.04, 1.15, 1));
 		opacity: 1;
 	}
 
@@ -58,8 +87,9 @@ body {
 // the hollow buttons. .btn-white must be used with the .btn-reg class!
 .btn-white {
 	background-color: transparent;
-	border: 3px solid #fff;
-	padding: 10px 37px;
+	border: 3px solid $white;
+	padding: 8px 37px;
+	z-index: 2;
 	&:hover {
 		color: $headline-black;
 		text-decoration: none;
@@ -73,20 +103,111 @@ body {
 	}
 }
 
+// same as the white button, but blue
+.btn-blue-hollow {
+	background-color: transparent;
+	padding: 10px 37px;
+	border: 3px solid $blue;
+	color: $blue;
+	&:hover {
+		color: $white;
+		text-decoration: none;
+		background-color: $blue;
+	}
+
+	&:before {
+		background-color: $blue;
+		border: none;
+		z-index: -1;
+	}
+	&:focus {
+		color: $white;
+	}
+
+	&:hover:focus {
+		color: $blue;
+		background-color: $white;
+	}
+}
+
+.btn-blue-solid {
+	background-color: $blue;
+	padding: 6px 24px;
+
+	&:hover {
+		background-color: #00AAFF;
+	}
+
+	&:before {
+		border: 3px solid $blue;
+	}
+}
+
+.btn-share {
+	padding: 5px 24px;
+}
+
+.popover {
+	border-radius: 10px;
+	box-shadow: none;
+}
+
+.popover.bottom {
+	width: 210px;
+	left: -35px;
+	margin-top: 18px;
+}
+
+.popover-content {
+	padding: 8px 14px 3px;
+	.social {
+		margin: 0;
+		padding: 0;
+		text-align: center;
+
+		li {
+			display: inline;
+			margin: 0 6px;
+		}
+	}
+
+	.regular-link:hover {
+
+		> svg {
+			@include transition(0.25s);
+			fill: $blue;
+		}
+	}
+	.regular-link svg {
+		width: 30px;
+		height: 30px;
+
+		&:active {
+			fill: darken($blue, 15%);
+		}
+	}
+}
+
+.social-email {
+	float: right;
+	margin-top: 3px;
+	margin-right: 5px;
+}
+
 // offwhite sections have the slightly gray background color
 .offwhite-section {
 	background-color: $gray-background;
 }
 
 .gradient-bg {
-	background: rgba(241,241,241,1);
-	background: -moz-linear-gradient(top, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(241,241,241,1)), color-stop(0%, rgba(241,241,241,1)), color-stop(35%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
-	background: -webkit-linear-gradient(top, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	background: -o-linear-gradient(top, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	background: -ms-linear-gradient(top, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	background: linear-gradient(to bottom, rgba(241,241,241,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', endColorstr='#ffffff', GradientType=0 );
+	background: rgba(249,249,249,1);
+	background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(249,249,249,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,249,249,1)), color-stop(0%, rgba(249,249,249,1)), color-stop(35%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(249,249,249,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(249,249,249,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(249,249,249,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	background: linear-gradient(to bottom, rgba(249,249,249,1) 0%, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#ffffff', GradientType=0 );
 }
 
 .carousel {
@@ -98,10 +219,9 @@ body {
 
 // a link with the underline border on hover
 .regular-link {
-    -moz-osx-font-smoothing: grayscale;
     position: relative;
     overflow: hidden;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    // -webkit-tap-highlight-color: $blue;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
     @include transform(translateZ(0));
     @include backface-visibility(hidden);
@@ -118,7 +238,7 @@ body {
         @include transition-property(right);
         @include transition-duration(0.3s);
         @include transition-timing-function(ease-out);
-        
+
         @include tablet-landscape-and-up {
             left: 10px;
         }
@@ -131,6 +251,10 @@ body {
     &:hover:before {
         right: 6%;
     }
+	
+	&:active {
+		color: darken($white, 15%);
+	}
 }
 
 .nav-link {
@@ -147,48 +271,6 @@ body {
 		background-color: $nav-hover-bg !important;
 		@include transition(0.25s);
 	}
-}
-
-// the logo, made with fonts
-.logo {
-    margin: 2px 0 0 0;
-    font-family: "ArialBlack", arial-black, Arial, sans-serif;
-    @include tablet-landscape-and-up {
-        margin: 12px 0 0 0;
-    }
-    .tpc {
-        color: $blue;
-        margin-right: 2px;
-    }
-    .tagline {
-        font-family: "Arial Narrow", arial-black, Arial, sans-serif;
-        font-style: italic;
-        font-size: 11px;
-        display: block;
-        font-weight: 100;
-        letter-spacing: 0.1px;
-        @include tablet-landscape-and-up {
-            letter-spacing: 0.5px;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-    }
-    .navbar-brand {
-        color: $white;
-        font-size: 25px;
-        padding: 5.5px 0 15px 9px;
-        letter-spacing: -0.2px;
-        @include tablet-landscape-and-up {
-            font-size: 28px;
-            padding: 5.5px 15px;
-            letter-spacing: 0.7px;
-        }
-        
-
-        &:hover {
-            color: $white;
-        }
-    }
 }
 
 // the main h2s
@@ -215,28 +297,149 @@ body {
 	h1	{
 		display: inline-block;
 		position: relative;
-		
+		font-weight: 300;
+
 		&:after, &:before {
-			position: absolute;
-			content: '';
-			top: 55%;
-			width: 60px;
-			height: 1px;
-			margin-top: -1px;
-			background-color: $white;
+			display: none;
+			@include tablet-landscape-and-up {
+				display: block;
+				position: absolute;
+				content: '';
+				top: 55%;
+				width: 60px;
+				height: 1px;
+				margin-top: -1px;
+				background-color: $white;
+			}
 		}
 
 		&:before {
-			left: -20%;
+			left: -80px;
 			right: auto;
 		}
 
 		&:after {
-			right: -20%;
+			right: -80px;
 			left: auto;
 		}
 	}
 }
 
+.select2.select2-container {
+	margin: 0 auto 45px;
+	display: block;
+	border-radius: 50px;
+	background-color: $blue;
+	border: none;
+	font-size: 18px;
+	padding: 6px 14px 1px 10px;
+	@include tablet-portrait-and-up {
+		padding: 6px 14px 1px 18px;
+	}
 
+	&:focus {
+		outline: 0;
+	}
 
+	// make the placeholder white
+	::-webkit-input-placeholder {
+	   color: $white;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: $white;
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: $white;
+	}
+
+	:-ms-input-placeholder {
+	   color: $white;
+	}
+}
+
+.select2-container--default .select2-selection--multiple {
+	border: none !important;
+	background-color: transparent;
+
+	&:focus {
+		outline: none;
+		border: none;
+	}
+
+	.select2-selection__choice {
+		border-radius: 0;
+		letter-spacing: 0.5px;
+		padding: 5px;
+		margin: 0;
+		border: 0;
+		font-size: 19px;
+	}
+
+	.select2-selection__rendered {
+		background-color: $blue;
+		border: none;
+		border-radius: 0;
+	}
+
+	.select2-selection__choice__remove {
+		margin-right: 5px;
+		font-size: 20px;
+	}
+}
+
+.select2-results__option {
+	padding: 10px;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+	background-color: $blue;
+}
+
+.select2-container {
+	padding-top: 5px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background-color: $white;
+	color: $headline-black;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+	color: $headline-black;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+	color: $white;
+}
+
+.alert {
+    padding: 8px 35px 8px 14px;
+    margin: 18px;
+    color: #c09853;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.alert-heading {
+    color: inherit;
+}
+
+.alert-success {
+    color: #17581a;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-danger,
+.alert-error {
+    color: #700000;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
