@@ -11,7 +11,6 @@ function MainSearchSelect() {
 		selectOnBlur: true,
 		maximumSelectionLength: 1,
 		dropdownAutoWidth: true,
-
 		placeholder: function () {
 			$(this).data('placeholder');
 		}
@@ -31,14 +30,11 @@ function MainSearchSelect() {
 		if($('#search-btn-home').length) {
 			$('#search-btn-home').focus();	
 		}
-
-		
-		
 	});
 
 	this.styleText();
+	this.fillEnteredValOnBlur();
 };
-
 
 MainSearchSelect.prototype.getSearchParams = function () {
 	var topicsArray = [];
@@ -249,5 +245,25 @@ MainSearchSelect.prototype.styleText = function() {
 				padding: 10 + 'px'
 			});
 		}, 1);
+	});
+};
+
+// if someone types a zip, grab the value, fill it in on blur.
+MainSearchSelect.prototype.fillEnteredValOnBlur = function() {
+	var fieldVal = '';
+	var $mainSearch = $('#main-search');
+
+	$(document).on('keyup', '.select2-search__field', function () {
+		fieldVal = $(this).val();
+	});
+
+	$mainSearch.on('select2:close', function (e) {
+		var text = fieldVal;
+		if (!$(this).val() && fieldVal.length) {
+			$mainSearch.prepend('<option data-temp-item="true" value="' + fieldVal + '" selected>' + fieldVal + '</option>').trigger('change');
+			fieldVal = '';
+			$('[data-temp-item="true"]').remove();
+			$mainSearch.val(text).trigger('change');
+		}
 	});
 };
