@@ -53,14 +53,40 @@ Catalog.prototype.countryToggle = function() {
 		e.preventDefault();
 		var countryToShow = $(this).attr('data-country-sort');
 
-		
+			
+		// active country
+
+
+		// electric sort category
+		console.log($('.current a').data('category'));
+
+		// active country
+		console.log($('[data-active-country]'));
+
+		// elec items
+		_this.$sortItem.each(function() {
+			console.log($(this).data('type'))
+		});
+
+
 		// sort items by country
 		_this.$countryItem.each(function() {
-			if($(this).data('country') !== countryToShow) {
-				$(this).fadeOut('fast');
-			} else {
+
+			if($(this).data('country') == countryToShow && !$(this).data('type')) {
 				$(this).fadeIn('fast').css('display', 'inline-block');
+			} else if($(this).data('type') == $('.current a').data('category') && $(this).data('country') == countryToShow) {
+				$(this).fadeIn('fast').css('display', 'inline-block');
+			} else {
+				$(this).fadeOut('fast');
 			}
+			// if selected elec item category matches corresponding item's data attr
+
+
+			// if($(this).data('country') == countryToShow) {
+			// 	$(this).fadeOut('fast');
+			// } else {
+			// 	$(this).fadeIn('fast').css('display', 'inline-block');
+			// }
 		});
 
 		// change toggle appearance and text
