@@ -176,12 +176,13 @@
 		a {
 			color: $white;
 
-			&:hover {
-				border-bottom: 3px solid $white;
-				padding-bottom: 2px;
-			}
-			&:active {
+			// &:hover {
+			// 	border-bottom: 3px solid $white;
+			// 	padding-bottom: 2px;
+			// }
+			&:active, &:hover {
 				color: darken($white, 15%);
+				@include transition(0.25s);
 			}
 		}
 	}
