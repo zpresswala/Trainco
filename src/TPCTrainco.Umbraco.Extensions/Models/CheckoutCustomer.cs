@@ -50,12 +50,11 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [StringLength(12)]
         public string Zip { get; set; }
 
-        [Required]
-        [StringLength(3)]
+        [StringLength(200)]
         public string Country { get; set; }
 
         [Required]
-        [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please use the format xxx-xxx-xxxx.")]
+        [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please enter a valid phone number. Dashes are optional.")]
         public string Phone { get; set; }
 
         public string PhoneExt { get; set; }
@@ -72,17 +71,17 @@ namespace TPCTrainco.Umbraco.Extensions.Models
 
         public bool BillingDifferent { get; set; }
 
-        [RequiredIfTrue("BillingDifferent")]
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing First Name is required.")]
         [StringLength(255)]
         [DisplayName("Billing First Name")]
         public string BillFirstName { get; set; }
 
-        [RequiredIfTrue("BillingDifferent")]
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Last Name is required.")]
         [StringLength(255)]
         [DisplayName("Billing Last Name")]
         public string BillLastName { get; set; }
 
-        [RequiredIfTrue("BillingDifferent")]
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Address is required.")]
         [StringLength(255)]
         [DisplayName("Billing Address")]
         public string BillAddress { get; set; }
@@ -96,24 +95,23 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [DisplayName("Billing City")]
         public string BillCity { get; set; }
 
-        [RequiredIfTrue("BillingDifferent")]
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing State is required.")]
         [StringLength(3)]
         [DisplayName("Billing State")]
         public string BillState { get; set; }
 
-        [RequiredIfTrue("BillingDifferent")]
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Postal Code is required.")]
         [DataType(DataType.PostalCode)]
         [StringLength(12)]
         [DisplayName("Billing Postal Code")]
         public string BillZip { get; set; }
 
-        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Country is required.")]
-        [StringLength(3)]
+        [StringLength(250)]
         [DisplayName("Billing Country")]
         public string BillCountry { get; set; }
 
         [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Phone Number is required.")]
-        [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please use the format xxx-xxx-xxxx.")]
+        [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please enter a valid phone number. Dashes are optional.")]
         public string BillPhone { get; set; }
 
         public string BillPhoneExt { get; set; }
@@ -121,7 +119,6 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Email is required.")]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Email address is invalid.")]
         public string BillEmail { get; set; }
-
 
         [DisplayName("Payment Type")]
         [Required]
@@ -133,7 +130,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string CCName { get; set; }
 
         [RequiredIf("PaymentType", "credit", ErrorMessage = "Credit Card Number is required.")]
-        [CreditCard(ErrorMessage = "Invalid credit card. Please enter the number only and omit all spaces and dashes.")]
+        [CreditCard(ErrorMessage = "Invalid credit card. Please enter the number. Dashes or spaces are optional.")]
         [DisplayName("Credit Card Number")]
         public string CCNumber { get; set; }
 

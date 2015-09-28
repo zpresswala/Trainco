@@ -9,13 +9,31 @@
 
     IPublishedContent homePage = Model.AncestorsOrSelf(1).First();
     IPublishedContent searchSeminarNode = Nodes.Instance.SeminarSearch;
-    IEnumerable<IPublishedContent> seminarCategoryList = Nodes.Instance.SeminarCategories;
 
+    IPublishedContent seminarMainOverview = homePage.Children.FirstOrDefault(n => n.IsDocumentType("SeminarMainOverview"));
+    IEnumerable<IPublishedContent> seminarCategoryList = seminarMainOverview.Children.Where(n => n.IsDocumentType("SeminarCategory"));
+    
+    IPublishedContent seminarCatalog = homePage.Descendants("SeminarCatalog").FirstOrDefault();
+    
     //List locations
 
     List<City> cityList = CacheObjects.GetCityList();
     List<State> stateList = CacheObjects.GetStateList();
 
+    string allIconUrl = "";
+    string allTotalSeminars = "";
+    
+    if (seminarCatalog != null)
+    {
+        allIconUrl = seminarCatalog.GetCropUrl("searchIcon", "Image");
+
+        if (true == seminarCatalog.HasValue("totalSeminars"))
+        {
+            allTotalSeminars = "<p class=\"num-seminars\">" + string.Format("{0:N0}", seminarCatalog.GetPropertyValue<decimal>("totalSeminars")) + " Total Seminars</p>";
+        }
+        
+    }
+    
     if (Request.QueryString["homeref"] != null && Request.QueryString.Get("homeref").Length > 0)
     {
 
@@ -41,19 +59,23 @@
             <li class="seminar-topic">
                 <div class="overlay-contain" data-topic="all">
                     <div class="overlay"></div>
-                    <img src="/images/selectall-icon.jpg" alt="All Seminar Topics" />
+                    <img src="@Html.Raw(allIconUrl)" alt="All Seminar Topics" />
                 </div>
                 <p class="seminar-title">All Seminar Topics</p>
                 
-                <!-- John: the next line is the total for each seminar -->
-                <p class="num-seminars">1538 Total Seminars</p>
-                <!-- end -->
+                @Html.Raw(allTotalSeminars)
             </li>
             @foreach (IPublishedContent category in seminarCategoryList)
             {
                 string shortName = category.GetPropertyValue<string>("shortName");
                 string iconUrl = category.GetCropUrl("searchIcon", "Image");
                 string dataTopic = shortName.ToLower();
+                string totalSeminars = "";
+
+                if (true == category.HasValue("totalSeminars"))
+                {
+                    totalSeminars = "<p class=\"num-seminars\">" + string.Format("{0:N0}", category.GetPropertyValue<decimal>("totalSeminars")) + " Seminars</p>";
+                }
 
                 if (dataTopic == "plant management")
                 {
@@ -71,10 +93,7 @@
                     </div>
                     <p class="seminar-title">@shortName</p>
 
-                    <!-- John: the next line is the total for each seminar -->
-                    <p class="num-seminars">1538 Total Seminars</p>
-                    <!-- end -->
-
+                    @Html.Raw(totalSeminars)
                 </li>
             }
         </ul>

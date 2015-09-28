@@ -33,10 +33,21 @@
 
 .flag-icon {
 	width: 40px;
+	height: 22px;
 }
 
 .country-toggle {
 	margin-bottom: 28px;
+
+	img {
+		vertical-align: top;
+		margin-right: 6px;
+	}
+}
+
+// hide canadian seminars by default
+[data-country="ca"] {
+	display: none;
 }
 
 .catalog-top, .sort {
@@ -67,9 +78,9 @@
 }
 
 .sort {
-	text-align: center;
-	@include med-desktop-and-up {
-		text-align: left;
+
+	li {
+		text-align: left;	
 	}
 	.regular-link {
 		color: $red-button;
@@ -91,6 +102,10 @@
 	margin: 0 auto 40px;
 	padding-top: 35px;
 
+	.offset {
+		margin-left: 5.333%;
+	}
+
 	ul {
 		padding: 0;
 	}
@@ -108,8 +123,9 @@
 			color: $body-copy;
 			text-align: center;
 			margin: 10px auto 0;
+			width: 90%;
 			@include med-desktop-and-up {
-				width: 63%;
+				width: 70%;
 			}
 		}
 	}
@@ -120,13 +136,13 @@
 
 		img {
 			width: 100%;
-			max-width: 150px;
+			max-width: 125px;
 		}
 
 		.overlay {
 			left: 50%;
-			max-width: 150px;
-			max-height: 150px;
+			max-width: 125px;
+			max-height: 125px;
 			@include transform(translateX(-50%));
 		}
 	}
