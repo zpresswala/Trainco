@@ -41,7 +41,7 @@ Catalog.prototype.sortElectricItems = function() {
 
 				// else fade out everything remaining
 			} else {
-				$(this).fadeOut('fast');
+				$(this).hide();
 			}
 		});
 	});
@@ -52,41 +52,29 @@ Catalog.prototype.countryToggle = function() {
 	$('.country-toggle a').on('click', function(e) {
 		e.preventDefault();
 		var countryToShow = $(this).attr('data-country-sort');
+		var elecItemCategoryActive = $('.current a').data('category');
 
-			
-		// active country
-
-
-		// electric sort category
-		console.log($('.current a').data('category'));
-
-		// active country
-		console.log($('[data-active-country]'));
-
-		// elec items
-		_this.$sortItem.each(function() {
-			console.log($(this).data('type'))
-		});
-
-
-		// sort items by country
+		// sort items by country. NOTE: sorting electrical items is separate and in the function above.
 		_this.$countryItem.each(function() {
+			var countryOfItem = $(this).data('country');
 
-			if($(this).data('country') == countryToShow && !$(this).data('type')) {
+			// if selected elec item category matches corresponding item's data attr, fade it in.
+			if($(this).data('type') == elecItemCategoryActive && countryOfItem == countryToShow) {
 				$(this).fadeIn('fast').css('display', 'inline-block');
-			} else if($(this).data('type') == $('.current a').data('category') && $(this).data('country') == countryToShow) {
+
+				// if the electrical sort is on 'all', show those
+			} else if(elecItemCategoryActive == 'all' && countryOfItem == countryToShow) {
 				$(this).fadeIn('fast').css('display', 'inline-block');
+
+				// fade in all the other items that aren't in the electrical category but match the country.
+			} else if($(this).data('type') == undefined && countryOfItem == countryToShow) {
+				$(this).fadeIn('fast').css('display', 'inline-block');
+				
+			// if no electrical items match, hide them.
 			} else {
-				$(this).fadeOut('fast');
+				console.log('fadeout')
+				$(this).hide();
 			}
-			// if selected elec item category matches corresponding item's data attr
-
-
-			// if($(this).data('country') == countryToShow) {
-			// 	$(this).fadeOut('fast');
-			// } else {
-			// 	$(this).fadeIn('fast').css('display', 'inline-block');
-			// }
 		});
 
 		// change toggle appearance and text
