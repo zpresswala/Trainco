@@ -41,7 +41,7 @@ Catalog.prototype.sortElectricItems = function() {
 
 				// else fade out everything remaining
 			} else {
-				$(this).fadeOut('fast');
+				$(this).hide();
 			}
 		});
 	});
@@ -52,14 +52,28 @@ Catalog.prototype.countryToggle = function() {
 	$('.country-toggle a').on('click', function(e) {
 		e.preventDefault();
 		var countryToShow = $(this).attr('data-country-sort');
+		var elecItemCategoryActive = $('.current a').data('category');
 
-		
-		// sort items by country
+		// sort items by country. NOTE: sorting electrical items is separate and in the function above.
 		_this.$countryItem.each(function() {
-			if($(this).data('country') !== countryToShow) {
-				$(this).fadeOut('fast');
-			} else {
+			var countryOfItem = $(this).data('country');
+
+			// if selected elec item category matches corresponding item's data attr, fade it in.
+			if($(this).data('type') == elecItemCategoryActive && countryOfItem == countryToShow) {
 				$(this).fadeIn('fast').css('display', 'inline-block');
+
+				// if the electrical sort is on 'all', show those
+			} else if(elecItemCategoryActive == 'all' && countryOfItem == countryToShow) {
+				$(this).fadeIn('fast').css('display', 'inline-block');
+
+				// fade in all the other items that aren't in the electrical category but match the country.
+			} else if($(this).data('type') == undefined && countryOfItem == countryToShow) {
+				$(this).fadeIn('fast').css('display', 'inline-block');
+				
+			// if no electrical items match, hide them.
+			} else {
+				console.log('fadeout')
+				$(this).hide();
 			}
 		});
 
