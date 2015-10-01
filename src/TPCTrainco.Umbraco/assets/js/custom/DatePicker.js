@@ -6,21 +6,15 @@ function DatePicker() {
 	var _this = this;
 	var minDate = new Date();
 
-	console.log('minDate: ' + minDate);
 
 	minDate = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
-	console.log('minDateB: ' + minDate);
 	this.minMonth = minDate.getMonth();
-
-	console.log('this.minMonth: ' + this.minMonth);
 
 	// max date of range
 	var monthOffset = 15;
 	var maxDate = new Date(new Date(minDate).setMonth(minDate.getMonth() + monthOffset));
 	maxDate = new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
-	console.log('maxDateB: ' + minDate);
 	this.maxMonth = maxDate.getMonth()
-	console.log('this.maxMonth: ' + this.maxMonth);
 
 	// the right slider handle, add three months
 	var maxRangeSelect = new Date(new Date(minDate).setMonth(minDate.getMonth() + 3));
@@ -32,9 +26,9 @@ function DatePicker() {
 		var months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 	}
 
-	console.log('minDate: ' + minDate);
-	console.log('maxDate: ' + maxDate);
-	console.log('maxRangeSelect: ' + maxRangeSelect);
+	//console.log('minDate: ' + minDate);
+	//console.log('maxDate: ' + maxDate);
+	//console.log('maxRangeSelect: ' + maxRangeSelect);
 
   	$('#date-range-slider').dateRangeSlider({
 
@@ -101,8 +95,8 @@ function DatePicker() {
 		this.addYearLabel();
 	}
 
-	console.log('this.minMonth: ' + this.minMonth);
-	console.log('this.maxMonth: ' + this.maxMonth);
+	//console.log('this.minMonth: ' + this.minMonth);
+	//console.log('this.maxMonth: ' + this.maxMonth);
 
 	// trigger a change so the slider handles display the month name
 	this.valuesChanged(this.minMonth, this.minMonth + 4);
