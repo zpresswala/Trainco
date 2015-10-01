@@ -2,32 +2,29 @@
 
 // the site for the plugin used: http://ghusse.github.io/jQRangeSlider/index.html
 function DatePicker() {
-
 	// min start date of range and slider handle
 	var _this = this;
 	var minDate = new Date();
+
+	console.log('minDate: ' + minDate);
+
+	minDate = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+	console.log('minDateB: ' + minDate);
 	this.minMonth = minDate.getMonth();
-	var minYear = minDate.getFullYear();
-	minDate.setMonth(parseInt(this.minMonth));
-	minDate.setDate(parseInt("1"));
-	minDate.setFullYear(parseInt(minYear));
+
+	console.log('this.minMonth: ' + this.minMonth);
 
 	// max date of range
 	var monthOffset = 15;
-	var maxDate = new Date();
-	this.maxMonth = maxDate.getMonth() ;
-	var maxYear = maxDate.getFullYear() + 1;
-	maxDate.setMonth(parseInt(this.maxMonth + monthOffset));
-	maxDate.setDate(parseInt("1"));
-	maxDate.setFullYear(parseInt(maxYear));
+	var maxDate = new Date(new Date(minDate).setMonth(minDate.getMonth() + monthOffset));
+	maxDate = new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+	console.log('maxDateB: ' + minDate);
+	this.maxMonth = maxDate.getMonth()
+	console.log('this.maxMonth: ' + this.maxMonth);
 
 	// the right slider handle, add three months
-	var maxRangeSelect = new Date();
-	var maxRangeMonth = maxRangeSelect.getMonth();
-	var maxRangeYear = maxRangeSelect.getFullYear();
-	maxRangeSelect.setMonth(parseInt(maxRangeMonth + 3));
-	maxRangeSelect.setDate(parseInt("1"));
-	maxRangeSelect.setFullYear(parseInt(maxRangeYear));
+	var maxRangeSelect = new Date(new Date(minDate).setMonth(minDate.getMonth() + 3));
+	var minRangeSelect = new Date(new Date(minDate));
 
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 	var upperStop = minDate
@@ -35,22 +32,26 @@ function DatePicker() {
 		var months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 	}
 
+	console.log('minDate: ' + minDate);
+	console.log('maxDate: ' + maxDate);
+	console.log('maxRangeSelect: ' + maxRangeSelect);
+
   	$('#date-range-slider').dateRangeSlider({
-  		
+
   		bounds: {
-  			min: new Date(minDate), 
+  			min: new Date(minDate),
   			max: new Date(maxDate)
   		},
- 
+
 	    defaultValues: {
-	    	min: new Date(minDate), 
+	    	min: new Date(minRangeSelect),
 	    	max: new Date(maxRangeSelect)
 	    },
 
 	    range: {
 	    	min: {months: 2}
 	    },
-	    
+
 	    valueLabels: 'hide',
 
 	    step: {
@@ -58,12 +59,12 @@ function DatePicker() {
 	    },
 
 	    scales: [{
-	    	first: function(value){ 
-  			return value; 
+	    	first: function(value){
+  			return value;
 	  		},
 
 	  		end: function(value) {
-	  			return value; 
+	  			return value;
 	  		},
 
 	  		next: function(value) {
@@ -99,6 +100,9 @@ function DatePicker() {
 	if($(window).width() >= 700) {
 		this.addYearLabel();
 	}
+
+	console.log('this.minMonth: ' + this.minMonth);
+	console.log('this.maxMonth: ' + this.maxMonth);
 
 	// trigger a change so the slider handles display the month name
 	this.valuesChanged(this.minMonth, this.minMonth + 4);
@@ -138,7 +142,7 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 
 	// set initial values, dynamic based on date
 	rHandle.text(months[this.minMonth + 2]);
-	lHandle.text(months[this.maxMonth]);
+	lHandle.text(months[this.minMonth]);
 
 	// update slider as it's being dragged
 	$('#date-range-slider').on("valuesChanging", function(e, data){
