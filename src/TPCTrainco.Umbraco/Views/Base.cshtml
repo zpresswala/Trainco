@@ -3,7 +3,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.0";
+    string cacheVer = "1.12";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
@@ -62,7 +62,8 @@
         cartPage = true;
     }
 
-
+    bool clearSession = false;
+    
     if (currentPage.HasValue("pageHeaderScripts"))
     {
         pageHeaderScript = currentPage.GetPropertyValue<string>("pageHeaderScripts");
@@ -72,9 +73,8 @@
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
                 pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
-
-                Session.Abandon();
-                Session.Clear();
+                
+                clearSession = true;
             }
         }
     }
@@ -89,10 +89,15 @@
             {
                 pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
 
-                Session.Abandon();
-                Session.Clear();
+                clearSession = true;
             }
         }
+    }
+    
+    if (true == clearSession)
+    {
+        Session.Abandon();
+        Session.Clear();
     }
 
 }
