@@ -166,6 +166,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                     if (true == isAlreadyProcessed)
                                     {
                                         Session["RegistrationId"] = reg.RegistrationID;
+                                        Session["RegistrationTotal"] = string.Format("{0:N2}", reg.RegOrderTotal ?? 0);
                                         return Redirect("/register/success/");
                                     }
                                     else
