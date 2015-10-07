@@ -3,7 +3,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.12";
+    string cacheVer = "1.15";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
@@ -29,7 +29,7 @@
     string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
     string pageHeaderScript = "";
     string pageFooterScript = "";
-    
+
     bool cartPage = false;
     bool checkoutPage = true;
 
@@ -63,7 +63,7 @@
     }
 
     bool clearSession = false;
-    
+
     if (currentPage.HasValue("pageHeaderScripts"))
     {
         pageHeaderScript = currentPage.GetPropertyValue<string>("pageHeaderScripts");
@@ -73,8 +73,13 @@
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
                 pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
-                
+
                 clearSession = true;
+            }
+
+            if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
+            {
+                pageHeaderScript = pageHeaderScript.Replace("{{REG_ID}}", Session["RegistrationId"].ToString());
             }
         }
     }
@@ -91,9 +96,14 @@
 
                 clearSession = true;
             }
+
+            if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
+            {
+                pageFooterScript = pageFooterScript.Replace("{{REG_ID}}", Session["RegistrationId"].ToString());
+            }
         }
     }
-    
+
     if (true == clearSession)
     {
         Session.Abandon();
@@ -160,6 +170,7 @@
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', '@(siteSettingsActive.GetPropertyValue<string>("googleAnalyticsId"))', 'auto');
             ga('send', 'pageview');
+			ga('require', 'ecommerce');
         </script>
     }
 

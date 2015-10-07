@@ -23,6 +23,7 @@
     <NuGetPackageImportStamp>ba95a47d</NuGetPackageImportStamp>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -3369,6 +3370,8 @@
     <Content Include="Views\Partials\CheckoutSummary.cshtml" />
     <Content Include="Views\IPTest.cshtml" />
     <Content Include="Views\RegisterError.cshtml" />
+    <Content Include="Views\LandingPageBrowseCatalog.cshtml" />
+    <Content Include="Views\LandingPageContactUs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
