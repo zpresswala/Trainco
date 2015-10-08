@@ -3,7 +3,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.15";
+    string cacheVer = "1.16";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
@@ -25,6 +25,12 @@
 
     string siteName = siteSettings.GetPropertyValue<string>("siteName");
     string htmlTitle = currentPage.GetPropertyValue<string>("htmlTitle", currentPage.Name);
+    string canonical = Request.Url.AbsoluteUri;
+
+    if (true == currentPage.HasValue("canonicalLinkOverride"))
+    {
+        canonical = currentPage.GetPropertyValue<string>("canonicalLinkOverride");
+    }
 
     string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
     string pageHeaderScript = "";
@@ -124,7 +130,7 @@
     <title>@htmlTitle | @siteName</title>
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
-    <link rel="canonical" href="@(Request.Url.AbsoluteUri)" />
+    <link rel="canonical" href="@(canonical)" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@htmlTitle - @siteName" />
