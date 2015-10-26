@@ -14,6 +14,7 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels
         public string CityState { get; set; }
         public string LocationDetails { get; set; }
         public string Date { get; set; }
+        public DateTime DateFilter { get; set; }
         public double Price { get; set; }
         public string SearchId { get; set; }
         public List<Schedule> Schedules { get; set; }
