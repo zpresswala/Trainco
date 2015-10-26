@@ -282,6 +282,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                     location.CourseId = seminar.CourseId;
                                     location.CityState = seminarCatalog.City + ", " + seminarCatalog.State;
                                     location.SearchId = searchId;
+                                    location.DateFilter = seminarCatalog.SchDate;
 
                                     // Main Schedule
                                     ViewModels.Schedule schedule = null;
@@ -353,6 +354,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 if (request.Location == "all")
                                 {
                                     seminar.Locations = seminar.Locations.OrderBy(p => p.CityState).ToList();
+                                }
+                                else
+                                {
+                                    seminar.Locations = seminar.Locations.OrderBy(p => p.DateFilter).ToList();
                                 }
                             }
 
@@ -707,7 +712,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             string output = "";
 
-            if (locationDetail.LocationNotes.IndexOf("<b>LOCATION</b>") >= 0)
+            if (locationDetail.LocationNotes != null && locationDetail.LocationNotes.IndexOf("<b>LOCATION</b>") >= 0)
             {
                 string locationDetails = locationDetail.LocationNotes;
 
