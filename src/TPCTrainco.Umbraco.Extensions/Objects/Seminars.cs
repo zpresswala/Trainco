@@ -31,6 +31,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public List<CourseTopic> CourseTopicList { get; set; }
         public IPublishedContent SearchSeminarNode { get; set; }
         public string DefaultSearchLocationText { get; set; }
+        public CoordinateDetails LocationCoordinates { get; set; }
 
         UmbracoHelper umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
 
@@ -162,11 +163,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             // filter location
             if (false == string.IsNullOrEmpty(request.Location) && request.Location != "all")
             {
-                CoordinateDetails coordinateDetails = GeoCoordinates.GetCoordinateDetailsFromCityState(request.Location);
+                LocationCoordinates = GeoCoordinates.GetCoordinateDetailsFromCityState(request.Location);
 
-                if (coordinateDetails != null)
+                if (LocationCoordinates != null)
                 {
-                    seminarListSearch = FindLocationSeminarCatalog(seminarListSearch, coordinateDetails);
+                    seminarListSearch = FindLocationSeminarCatalog(seminarListSearch, LocationCoordinates);
                 }
                 else
                 {
@@ -256,7 +257,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     }
                 }
 
-                seminarDistinctList = seminarDistinctList.OrderBy(p => p.CourseTier).ThenBy(t => t.TopicID).ToList();
+                if (seminarDistinctList != null && seminarDistinctList.Count > 0)
+                {
+                    seminarDistinctList = seminarDistinctList.OrderBy(p => p.CourseTier).ThenBy(t => t.TopicID).ToList();
+                }
 
                 if (seminarDistinctList != null && seminarDistinctList.Count > 0)
                 {
@@ -283,6 +287,14 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                     location.CityState = seminarCatalog.City + ", " + seminarCatalog.State;
                                     location.SearchId = searchId;
                                     location.DateFilter = seminarCatalog.SchDate;
+                                    if (LocationCoordinates != null)
+                                    {
+                                        location.Distance = seminarCatalog.Coordinates.Distance(LocationCoordinates.DbGeography) ?? 9999999 * 0.00062;
+                                    }
+                                    else
+                                    {
+                                        location.Distance = 0;
+                                    }
 
                                     // Main Schedule
                                     ViewModels.Schedule schedule = null;
@@ -353,11 +365,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                 // order location list if "all" is selected.
                                 if (request.Location == "all")
                                 {
-                                    seminar.Locations = seminar.Locations.OrderBy(p => p.CityState).ToList();
+                                    seminar.Locations = seminar.Locations.OrderBy(p => p.CityState).ThenBy(p => p.DateFilter).ToList();
                                 }
                                 else
                                 {
-                                    seminar.Locations = seminar.Locations.OrderBy(p => p.DateFilter).ToList();
+                                    seminar.Locations = seminar.Locations.OrderBy(p => p.Distance).ThenBy(p => p.DateFilter).ToList();
                                 }
                             }
 
@@ -493,6 +505,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             tempSearch = seminarListSearch.Where(x => x.Coordinates != null && x.Coordinates.Distance(coordinateDetails.DbGeography) * 0.00062 <= radiusInMiles)
                     .OrderBy(p => p.Coordinates.Distance(coordinateDetails.DbGeography)).ToList();
+
+            foreach (Seminar_Catalog updateCoordinates in tempSearch)
+            {
+                updateCoordinates.Latitude = updateCoordinates.Coordinates.Distance(coordinateDetails.DbGeography);
+            }
 
             return tempSearch;
         }
