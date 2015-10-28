@@ -15,7 +15,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public static DateTime dateStart = DateTime.Now.AddDays(-7);
         public static DateTime dateEnd = DateTime.Now.AddMonths(18);
 
-        public static List<Seminar_Catalog> GetSeminarList()
+        public static List<Seminar_Catalog> GetSeminarList(bool refreshCache = false)
         {
             string cacheKey = "SeminarList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:SeminarList"));
@@ -42,7 +42,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<SCHEDULE> GetScheduleList()
+        public static List<SCHEDULE> GetScheduleList(bool refreshCache = false)
         {
             string cacheKey = "ScheduleList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleList"));
@@ -72,7 +72,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<COURS> GetCourseList()
+        public static List<COURS> GetCourseList(bool refreshCache = false)
         {
             string cacheKey = "CourseList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:Courses"));
@@ -99,7 +99,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<Location> GetLocationList()
+        public static List<Location> GetLocationList(bool refreshCache = false)
         {
             string cacheKey = "LocationList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:Locations"));
@@ -126,7 +126,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<ScheduleCourseInstructor> GetScheduleCourseList()
+        public static List<ScheduleCourseInstructor> GetScheduleCourseList(bool refreshCache = false)
         {
             string cacheKey = "ScheduleCourseList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleCourses"));
@@ -153,7 +153,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<CourseFormat> GetCourseFormatList()
+        public static List<CourseFormat> GetCourseFormatList(bool refreshCache = false)
         {
             string cacheKey = "CourseFormatList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CourseFormats"));
@@ -179,7 +179,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return courseFormatList;
         }
 
-        public static List<CourseTopic> GetCourseTopicList()
+        public static List<CourseTopic> GetCourseTopicList(bool refreshCache = false)
         {
             string cacheKey = "CourseTopicList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CourseTopics"));
@@ -208,7 +208,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<City> GetCityList()
+        public static List<City> GetCityList(bool refreshCache = false)
         {
             string cacheKey = "CityList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CityList"));
@@ -235,7 +235,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<State> GetStateList()
+        public static List<State> GetStateList(bool refreshCache = false)
         {
             string cacheKey = "StateList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:StateList"));
@@ -262,7 +262,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<Country> GetCountryList()
+        public static List<Country> GetCountryList(bool refreshCache = false)
         {
             string cacheKey = "CountryList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CountryList"));
