@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-// var ApiDomain = 'http://new.tpctrainco.com';
+var ApiDomain = 'https://tpctrainco.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
@@ -201,6 +201,7 @@ TPCApp.prototype.clickScrollTo = function () {
 	var _this = this;
 	var offsetAmount = 140;
 	this.$aHref.on('click', function (e) {
+		alert('hi')
 		e.preventDefault();
 		_this.$page.animate({
 			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount

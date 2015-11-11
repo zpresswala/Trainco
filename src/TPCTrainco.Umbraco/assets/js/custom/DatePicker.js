@@ -21,14 +21,10 @@ function DatePicker() {
 	var minRangeSelect = new Date(new Date(minDate));
 
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-	var upperStop = minDate
+
 	if($(window).width()<= 700) {
 		var months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 	}
-
-	//console.log('minDate: ' + minDate);
-	//console.log('maxDate: ' + maxDate);
-	//console.log('maxRangeSelect: ' + maxRangeSelect);
 
   	$('#date-range-slider').dateRangeSlider({
 
@@ -95,11 +91,8 @@ function DatePicker() {
 		this.addYearLabel();
 	}
 
-	//console.log('this.minMonth: ' + this.minMonth);
-	//console.log('this.maxMonth: ' + this.maxMonth);
-
 	// trigger a change so the slider handles display the month name
-	this.valuesChanged(this.minMonth, this.minMonth + 4);
+	this.valuesChanged(this.minMonth, this.maxMonth);
 
 	setTimeout(function() {
 		_this.fixWidth();
@@ -135,8 +128,10 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 	var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"];
 
 	// set initial values, dynamic based on date
-	rHandle.text(months[this.minMonth + 2]);
+	rHandle.text(months[this.maxMonth - 1]);
 	lHandle.text(months[this.minMonth]);
+
+	$('#date-range-slider').trigger
 
 	// update slider as it's being dragged
 	$('#date-range-slider').on("valuesChanging", function(e, data){
@@ -160,6 +155,7 @@ DatePicker.prototype.valuesChanged = function(startMonth, endMonth) {
 		minMonth.setDate(minMonth.getDate());
 		var maxMonthAbbr = months[maxMonth.getMonth()];
 		var minMonthAbbr = months[minMonth.getMonth()];
+
 	  	rHandle.text(maxMonthAbbr);
 	  	lHandle.text(minMonthAbbr);
 	});
