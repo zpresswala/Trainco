@@ -1,11 +1,11 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-var ApiDomain = 'https://tpctrainco.com';
+// var ApiDomain = 'https://tpctrainco.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
-	this.$aHref = $('a[href^=#]').not('.elec-sort-category');
+	this.$aHref = $('a[href*=#]').not('.elec-sort-category');
 	this.$page = $('html, body');
 
 	$('.carousel').carousel();
@@ -81,7 +81,7 @@ function TPCApp() {
 	this.animateCart(isRetina);
 	this.retinaLogos(isRetina);
 
-	_this.clickScrollTo();
+	this.clickScrollTo();
 
 	var hash = window.location.hash;
 
@@ -160,6 +160,18 @@ TPCApp.prototype.handleWindowResize = function() {
 	}
 };
 
+
+TPCApp.prototype.clickScrollTo = function () {
+	var _this = this;
+	var offsetAmount = 140;
+	this.$aHref.on('click', function (e) {
+		e.preventDefault();
+		_this.$page.animate({
+			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
+		}, 300);
+	});
+};
+
 // cart functionality
 TPCApp.prototype.animateCart = function (retinaScreen) {
 	var _this = this;
@@ -197,17 +209,7 @@ TPCApp.prototype.animateCart = function (retinaScreen) {
 	});
 };
 
-TPCApp.prototype.clickScrollTo = function () {
-	var _this = this;
-	var offsetAmount = 140;
-	this.$aHref.on('click', function (e) {
-		alert('hi')
-		e.preventDefault();
-		_this.$page.animate({
-			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-		}, 300);
-	});
-};
+
 
 TPCApp.prototype.retinaLogos = function(retinaScreen) {
 	if(retinaScreen) {

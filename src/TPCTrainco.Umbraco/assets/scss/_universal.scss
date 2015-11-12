@@ -28,9 +28,17 @@ ul {
 	list-style: none;
 }
 
-a:hover, a:focus, a:active {
+a:hover, a:focus, a:active, .view-opts {
 	text-decoration: none;
 	color: $blue;
+}
+
+.view-opts {
+	cursor: pointer;
+	color: #337ab7;
+	&:hover {
+		color: $blue;
+	}
 }
 
 h2, h3, h4 {
