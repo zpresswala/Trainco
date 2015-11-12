@@ -22,18 +22,20 @@ function MainSearchSelect() {
 
 
 	// focus the search button after choosing a location to ensure it's ready for an enter keypress
-	$('#main-search').on("select2:select", function (e) {
-		if($('#search-btn').length) {
-			$('#search-btn').focus();	
-		}
+	// $('#main-search').on("select2:select", function (e) {
+	// 	if($('#search-btn').length) {
+	// 		$('#search-btn').focus();	
+	// 	}
 
-		if($('#search-btn-home').length) {
-			$('#search-btn-home').focus();	
-		}
-	});
+	// 	if($('#search-btn-home').length) {
+	// 		$('#search-btn-home').focus();	
+	// 	}
+	// });
 
 	this.styleText();
 	this.fillEnteredValOnBlur();
+
+	$('#main-search').hide();
 };
 
 MainSearchSelect.prototype.getSearchParams = function () {

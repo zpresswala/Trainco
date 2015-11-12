@@ -135,9 +135,9 @@ function TPCApp() {
     }
 
     // if we are coming from a home page search, scroll down a bit on the next page
-    if(window.location.search == "?homeref=1") {
-    	_this.scrollToResults();
-    }
+    // if(window.location.search == "?homeref=1") {
+    // 	_this.scrollToResults();
+    // }
 
     this.$win.on('resize', function(){
         _this.handleWindowResize();
@@ -165,10 +165,12 @@ TPCApp.prototype.clickScrollTo = function () {
 	var _this = this;
 	var offsetAmount = 140;
 	this.$aHref.on('click', function (e) {
-		e.preventDefault();
-		_this.$page.animate({
-			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-		}, 300);
+		if ($(this).attr('href')[0] === '#') {
+			e.preventDefault();
+			_this.$page.animate({
+				scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
+			}, 300);
+		}
 	});
 };
 
