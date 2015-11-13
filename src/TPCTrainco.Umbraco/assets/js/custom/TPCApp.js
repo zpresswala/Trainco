@@ -1,11 +1,11 @@
 ﻿'use strict';
 
 window.app = window.app || {};
-// var ApiDomain = 'http://new.tpctrainco.com';
+// var ApiDomain = 'https://tpctrainco.com';
 function TPCApp() {
 	var _this = this;
 	this.$win = $(window);
-	this.$aHref = $('a[href^=#]').not('.elec-sort-category');
+	this.$aHref = $('a[href*=#]').not('.elec-sort-category');
 	this.$page = $('html, body');
 
 	$('.carousel').carousel();
@@ -81,7 +81,7 @@ function TPCApp() {
 	this.animateCart(isRetina);
 	this.retinaLogos(isRetina);
 
-	_this.clickScrollTo();
+	this.clickScrollTo();
 
 	var hash = window.location.hash;
 
@@ -135,9 +135,9 @@ function TPCApp() {
     }
 
     // if we are coming from a home page search, scroll down a bit on the next page
-    if(window.location.search == "?homeref=1") {
-    	_this.scrollToResults();
-    }
+    // if(window.location.search == "?homeref=1") {
+    // 	_this.scrollToResults();
+    // }
 
     this.$win.on('resize', function(){
         _this.handleWindowResize();
@@ -158,6 +158,20 @@ TPCApp.prototype.handleWindowResize = function() {
 	if ($('#date-range-slider').length) {
 		this.datePicker = new DatePicker();
 	}
+};
+
+
+TPCApp.prototype.clickScrollTo = function () {
+	var _this = this;
+	var offsetAmount = 140;
+	this.$aHref.on('click', function (e) {
+		if ($(this).attr('href')[0] === '#') {
+			e.preventDefault();
+			_this.$page.animate({
+				scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
+			}, 300);
+		}
+	});
 };
 
 // cart functionality
@@ -197,16 +211,7 @@ TPCApp.prototype.animateCart = function (retinaScreen) {
 	});
 };
 
-TPCApp.prototype.clickScrollTo = function () {
-	var _this = this;
-	var offsetAmount = 140;
-	this.$aHref.on('click', function (e) {
-		e.preventDefault();
-		_this.$page.animate({
-			scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-		}, 300);
-	});
-};
+
 
 TPCApp.prototype.retinaLogos = function(retinaScreen) {
 	if(retinaScreen) {

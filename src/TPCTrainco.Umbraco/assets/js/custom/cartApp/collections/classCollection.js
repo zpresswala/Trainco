@@ -208,6 +208,10 @@ function performSearch(searchParams) {
 					}
 				}
 			});
+			
+			// IE fix, close select2 so it doesn't link jump focus.
+			$("#main-search").select2("close").blur();
+
 		}
 	});
 };
