@@ -82,6 +82,8 @@ src/*.Umbraco/js/*.js
 src/*.Umbraco/css/*.css
 src/*.Umbraco/css/app.css
 src/*.UI/bower/
+src/TPCTrainco.Umbraco/js/main.js
+src/TPCTrainco.Umbraco/css/main.css
 
 pkg/
 
@@ -92,3 +94,6 @@ node_modules
 
 src/TPCTrainco.Umbraco/images/
 src/TPCTrainco.Umbraco/ip-db/
+client/js
+client/assets
+client/css
