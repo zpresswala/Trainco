@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Mvc;
 using TPCTrainco.Umbraco.Extensions;
 using TPCTrainco.Umbraco.Extensions.Models;
@@ -64,6 +65,10 @@ namespace TPCTrainco.Umbraco.Controllers
         [HttpPost]
         public ActionResult HandleFormSubmit(CheckoutCustomer model)
         {
+            StringBuilder debug = new StringBuilder();
+
+            debug.AppendLine("-=Customer Checkout=-\r\n");
+
             Carts cartsObj = new Carts();
 
             if (false == ModelState.IsValid)
@@ -72,6 +77,8 @@ namespace TPCTrainco.Umbraco.Controllers
             }
             else
             {
+                debug.AppendLine("Loading cart...");
+
                 CheckoutBilling checkoutBilling = new CheckoutBilling();
                 List<temp_Reg> cartList = null;
                 string cartGuid = null;
@@ -84,6 +91,8 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     if (cartList == null)
                     {
+                        debug.AppendLine("CART NOT FOUND!");
+
                         return Redirect("/search-seminars/");
                     }
                     else
@@ -102,8 +111,6 @@ namespace TPCTrainco.Umbraco.Controllers
                     if (model.PaymentType == "credit")
                     {
                         checkoutBilling.CCNumber = model.CCNumber.Replace("-", "");
-
-                        Session["CartBilling"] = checkoutBilling;
                     }
 
                     temp_Cust tempCust = cartsObj.ConvertModelToTempCust(model, cartList);
@@ -112,6 +119,12 @@ namespace TPCTrainco.Umbraco.Controllers
                     {
                         tempCust.regTakenBy = "Customer Web";
                         tempCust.PastCustomer = "Not Sure";
+
+                        if (model.PaymentType == "credit")
+                        {
+                            tempCust.ccNumber = checkoutBilling.CCNumber;
+                        }
+
                         tempCust = cartsObj.SaveCheckoutDetails(tempCust);
 
                         if (tempCust != null)

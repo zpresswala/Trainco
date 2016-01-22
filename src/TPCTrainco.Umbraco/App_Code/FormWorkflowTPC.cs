@@ -89,9 +89,13 @@ namespace TPCTrainco.Umbraco.App_Code
                     {
                         webSignup.State = rf.ValuesAsString();
                     }
-                    else if (rf.Alias == "postalCode")
+                    else if (rf.Alias == "postalCode" || rf.Alias == "zipOrPostalCode" || rf.Alias.IndexOf("PostalCode") >= 0)
                     {
                         webSignup.Zipcode = rf.ValuesAsString();
+                    }
+                    else if (rf.Alias == "jobTitle" || rf.Alias.IndexOf("jobTitle") >= 0)
+                    {
+                        webSignup.Title = rf.ValuesAsString();
                     }
                     else if (rf.Alias == "country")
                     {

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Basic Electrical Training - TPC Trainco</title>
+  <meta name="description" content="TPC Trainco" />
+  <meta name="keywords" content="Basic Electrical Training" />
+  <link rel="canonical" href="http://trainco-dev.imulus-client.com/" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Basic Electrical Training - TPC Trainco" />
+  <meta property="og:description" content="" />
+  <meta property="og:url" content="http://www.XXXXX.com/" />
+  <meta property="og:site_name" content="TPC Trainco" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" />
+  <meta name="twitter:title" content="TPC Trainco training" />
+  <meta name="twitter:domain" content="TPC Trainco" />
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/jquery-ui.structure.min.css">
+
+  <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/jquery-ui.min.css">
+
+  <link rel="stylesheet" type="text/css" href="/assets/jquery-range-slider-css/classic-min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"> -->
+  <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<!--[if lt IE 9]>
+    <body class="ie8 html" >
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="/assets/js/bower_components/Respond/dest/respond.min.js"></script>
+<![endif]-->
+
+<body class="gradient-bg">
+
+
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid contain">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <h1 class="logo">
+                TCPTrainco
+                <a class="navbar-brand" href="/"><img src="/assets/images/tcptraincologo.png" alt="TCPTrainco Logo" /></a>
+            </h1>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/search-seminars/" class="btn-reg" role="button">Register</a></li>
+
+          <li class="dropdown">
+            <a href="/public-seminars/" class="dropdown-toggle regular-link nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Public Seminars<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/public-seminars/course-catalog/" class="nav-link regular-link">Full Course Catalog</a></li>
+              <li><a href="/public-seminars/electrical-training/" class="nav-link regular-link">Electrical Training</a></li>
+              <li><a href="/public-seminars/hvac-training/" class="nav-link regular-link">HVAC Training</a></li>
+              <li><a href="/public-seminars/facilities-management/" class="nav-link regular-link">Facilities Management</a></li>
+              <li><a href="/public-seminars/mechanical-and-industrial-training/" class="nav-link regular-link">Mechanical and Industrial Training</a></li>
+            </ul>
+          </li>
+          <li><a href="/on-site-training/" class="nav-link regular-link">On-Site Training</a></li>
+          <li><a href="/about/" class="nav-link regular-link">About</a></li>
+          <li><a href="/blog/" class="nav-link regular-link">Blog</a></li>
+          <li><a href="/contact/" class="nav-link regular-link">Contact</a></li>
+
+          <li><a href="tel:877-978-7246" class="regular-link nav-link">877-978-7246</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+
+
+  <div class="container-fluid headline-section seminar-detail">
+    <div class="row">
+      <div class="jumbotron">
+        <h1>Basic Electrical Training</h1>
+
+      </div>
+      <div class="button-wrapper col-xs-12 col-md-8 col-md-offset-2">
+        <div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-2">
+          <a href="#register-seminars" class="btn-reg btn-first" role="button">Check Dates and Locations</a>
+        </div>
+        <div class="col-xs-8 col-xs-offset-2 col-md-4 second-btn">
+          <a href="onsite.html#cf-container" class="btn-reg btn-white" role="button">Get an On-Site Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- THE CART -->
+  <div id="cart"></div>
+
+  <script type="text/template" id="cartItemTemplate">
+    <li class="cart-item" data-theid="<%= theId %>">
+      <ul class="container">
+        <li class="class-title col-xs-12 col-sm-12 col-md-4">
+          <h4><%= title %></h4></li>
+        <li class="location col-xs-12 col-sm-4 col-md-2">
+          <%= city %>
+        </li>
+        <li class="date col-xs-12 col-sm-4 col-md-2">
+          <%= date %>
+        </li>
+        <li class="col-xs-12 col-sm-4 col-md-2">
+          <a href="javascript:void(0);" class="remove"><span>X</span>Remove</a>
+        </li>
+        <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span>
+          <input type="text" name="quantity" class="class-qty">
+        </li>
+        <li class="sub-total col-xs-12 col-sm-4 col-md-1"></li>
+      </ul>
+    </li>
+  </script>
+
+  <script type="text/template" id="cartNotifyTemplate">
+    <div class="container-fluid cart">
+      <div class="row cart-top">
+        <div class="container">
+          <div class="col-xs-12">
+            <h3><img src="/assets/images/icon-cart.png" alt="Cart" />Cart</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <ul id="cart-item-list"></ul>
+      </div>
+
+      <div class="cart-bottom row">
+        <div class="container">
+          <div class="col-xs-12 wrap">
+            <ul class="cart-total col-xs-12 col-md-4">
+              <li class="items-total">0 Items</li>
+              <li class="cost-total">Total: $<span class="total-cost">0</span></li>
+            </ul>
+            <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
+              <div class="spinner checkout-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+              <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cart-visible">
+      <a class="cart-tab" href="javascript:void(0);">
+        <img src="/assets/images/icon-cart-tab.png" />
+      </a>
+      <div class="container">
+        <ul class="cart-total col-xs-12 col-md-4">
+          <li class="items-total">0 Items</li>
+          <li class="cost-total">Total: $<span class="total-cost">0</span></li>
+        </ul>
+      </div>
+    </div>
+  </script>
+
+
+  <div class="container-fluid gradient-bg main-content">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 text-wrap">
+
+
+        <div class="share-btn-wrap">
+          <a href="javascript:void(0);" class="btn-reg btn-blue-solid btn-share" data-toggle="popover" data-placement="bottom" data-content='<ul class="social">
+    <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2ftrainco-dev.imulus-client.com%2fpublic-seminars%2felectrical-training%2felectrical-fundamentals%2fbasic-electrical-training%2f" target="_blank" class="regular-link"><svg
+    width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+    <path id="facebook-icon" d="M204.067,184.692h-43.144v70.426h43.144V462h82.965V254.238h57.882l6.162-69.546h-64.044
+
+    c0,0,0-25.97,0-39.615c0-16.398,3.302-22.89,19.147-22.89c12.766,0,44.896,0,44.896,0V50c0,0-47.326,0-57.441,0
+
+    c-61.734,0-89.567,27.179-89.567,79.231C204.067,174.566,204.067,184.692,204.067,184.692z"/>
+    </svg></a></li>
+
+    <li><a href="https://twitter.com/home?status=Basic+Electrical+Training+-+TPC+Trainco+http%3a%2f%2ftrainco-dev.imulus-client.com%2fpublic-seminars%2felectrical-training%2felectrical-fundamentals%2fbasic-electrical-training%2f" target="_blank" class="regular-link"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+
+    <path id="twitter-icon" d="M462,128.223c-15.158,6.724-31.449,11.269-48.547,13.31c17.449-10.461,30.854-27.025,37.164-46.764
+
+    c-16.333,9.687-34.422,16.721-53.676,20.511c-15.418-16.428-37.386-26.691-61.698-26.691c-54.56,0-94.668,50.916-82.337,103.787
+
+    c-70.25-3.524-132.534-37.177-174.223-88.314c-22.142,37.983-11.485,87.691,26.158,112.85c-13.854-0.438-26.891-4.241-38.285-10.574
+
+    c-0.917,39.162,27.146,75.781,67.795,83.949c-11.896,3.237-24.926,3.978-38.17,1.447c10.754,33.58,41.972,58.018,78.96,58.699
+
+    C139.604,378.282,94.846,390.721,50,385.436c37.406,23.982,81.837,37.977,129.571,37.977c156.932,0,245.595-132.551,240.251-251.435
+
+    C436.339,160.061,450.668,145.174,462,128.223z"/>
+
+    </svg></a></li>
+
+    <li><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2ftrainco-dev.imulus-client.com%2fpublic-seminars%2felectrical-training%2felectrical-fundamentals%2fbasic-electrical-training%2f&amp;title=Basic+Electrical+Training+-+TPC+Trainco&amp;summary=&amp;source=" target="_blank" class="regular-link">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+    <path id="linkedin-icon" d="M150.65,100.682c0,27.992-22.508,50.683-50.273,50.683c-27.765,0-50.273-22.691-50.273-50.683
+
+    C50.104,72.691,72.612,50,100.377,50C128.143,50,150.65,72.691,150.65,100.682z M143.294,187.333H58.277V462h85.017V187.333z
+
+    M279.195,187.333h-81.541V462h81.541c0,0,0-101.877,0-144.181c0-38.624,17.779-61.615,51.807-61.615
+
+    c31.268,0,46.289,22.071,46.289,61.615c0,39.545,0,144.181,0,144.181h84.605c0,0,0-100.344,0-173.915
+
+    s-41.689-109.131-99.934-109.131s-82.768,45.369-82.768,45.369V187.333z" />
+
+    </svg>
+    </a></li>
+        <li><a href="mailto:@Html.Raw(shareMailto)" class="regular-link social-email"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+
+         width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+    <path id="email-2-icon" d="M49.744,103.407v305.186H50.1h411.156h1V103.407H49.744z M415.533,138.407L255.947,260.465
+        L96.473,138.407H415.533z M84.744,173.506l85.504,65.441L84.744,324.45V173.506z M85.1,373.593l113.186-113.186l57.654,44.127
+        l57.375-43.882l112.941,112.94H85.1z M427.256,325.097l-85.896-85.896l85.896-65.695V325.097z"/></svg></a></li>
+    </ul>'>Share</a>
+        </div>
+        <!-- end -->
+        <div class="container">
+          <div class="row">
+            <h2>Seminar Overview</h2>
+            <p class="course-detail--intro">
+              In Day One – “Understanding Industrial Electricity” - students will gain a basic understanding of how electricity works in commercial and industrial settings. Starting with easily understood analogies to explain the fundamentals of electricity, students
+              are then quickly immersed in practical, real world examples that illustrate how electricity is distributed and used in their plants and facilities. They’ll learn how to use electrical test equipment in their everyday jobs before moving on
+              to an in-depth discussion about major electrical components, where & how these components work, and their purposes within electrical systems.</p>
+            <p class="course-detail--intro">
+              Day Two of the air conditioning and refrigeration training is for people who already have a good foundation in AC&R components and systems. Students are taught common practices (and some "tricks-of-the-trade") for general operation and maintenance of
+              their AC&R systems. They will learn about maintenance schedules and servicing, system diagnostics, troubleshooting, and fine tuning to gain maximum efficiency. Also covered are an introduction to commercial and industrial chillers, regulatory
+              laws and energy conservation. Overall, we will help you get the maximum life out of your AC&R systems while keeping it up and running as efficiently and consistently as possible.
+            </p>
+          </div>
+          <!-- Column area -->
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <h2>Day One</h2>
+              <strong>Electrical Fundamentals</strong>
+              <ul class="list-unstyled">
+                <li>
+                  Production & Distribution of Electricity
+                </li>
+                <li>
+                  DC and AC in Plants and Facilities – Hands-on Exercise
+                </li>
+                <li>
+                  Voltage, Current and Resistance; Ohm’s Law
+                </li>
+                <li>
+                  Basic Electrical Circuits: Series/Parallel - Hands-on Exercise
+                </li>
+                <li>
+                  Power: Types & Control
+                </li>
+                <li>
+                  Single-phase and Three-phase Systems
+                </li>
+                <li>
+                  Workplace Electrical Safety
+                </li>
+              </ul>
+
+              <strong>Electrical Test Equipment</strong>
+              <ul class="list-unstyled">
+                <li>
+                  Multimeters – Hands-on Exercise
+                </li>
+                <li>
+                  Voltage Testers
+                </li>
+              </ul>
+
+              <strong>Verifying a Circuit De-energized – Hands-on Exercises</strong>
+              <ul class="list-unstyled">
+                <li>
+                  3 Modes of Failure: Opens, Shorts & Ground Faults
+                </li>
+                <li>
+                  Clamp-on Ammeter, Megohmmeters & Others
+                </li>
+                <li>
+                  Understanding Your Building Electrical System
+                </li>
+                <li>
+                  Reading Electrical Single-Line Diagrams
+                </li>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <h2>Day Two</h2>
+              <strong>Electrical Fundamentals</strong>
+              <ul class="list-unstyled">
+                <li>
+                  Production & Distribution of Electricity
+                </li>
+                <li>
+                  DC and AC in Plants and Facilities – Hands-on Exercise
+                </li>
+                <li>
+                  Voltage, Current and Resistance; Ohm’s Law
+                </li>
+                <li>
+                  Basic Electrical Circuits: Series/Parallel - Hands-on Exercise
+                </li>
+                <li>
+                  Power: Types & Control
+                </li>
+                <li>
+                  Single-phase and Three-phase Systems
+                </li>
+                <li>
+                  Workplace Electrical Safety
+                </li>
+              </ul>
+
+              <strong>Electrical Test Equipment</strong>
+              <ul class="list-unstyled">
+                <li>
+                  Multimeters – Hands-on Exercise
+                </li>
+                <li>
+                  Voltage Testers
+                </li>
+              </ul>
+
+              <strong>Verifying a Circuit De-energized – Hands-on Exercises</strong>
+              <ul class="list-unstyled">
+                <li>
+                  3 Modes of Failure: Opens, Shorts & Ground Faults
+                </li>
+                <li>
+                  Clamp-on Ammeter, Megohmmeters & Others
+                </li>
+                <li>
+                  Understanding Your Building Electrical System
+                </li>
+                <li>
+                  Reading Electrical Single-Line Diagrams
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- end column area -->
+          <div class="row">
+
+            <h2>Continuing Education Units (CEUs)</h2>
+            <p>Upon completion of this seminar, the student will receive a certification of completion with 8 classroom hours (.8 American Trainco CEUs) per day attended. Visit our continuing education units page to determine if this class is accepted by
+              your state licensing agency.</p>
+            <p><a href="/about/guarantee/" title="No Risk Registration &amp; Money Back Guarantee">Click HERE to read our No Risk Registration and Money-Back Guarantee policy</a></p>
+          </div>
+          <div class="row">
+            <h2>Optional ATMT&#174; Certification Exam</h2>
+            <p>
+              Upon completion of this seminar, the student will receive a certification of completion with 8 classroom hours (.8 TPC Trainco CEUs) per day attended. Visit our continuing education units page to determine if this class is accepted by your state licensing
+              agency.
+            </p>
+          </div>
+          <div class="row">
+            <h2>Block Purchase Program</h2>
+            <p>If you have a large number of people attending a variety of different training seminars, a block purchase might be right for you.</p>
+            <p><a href="/block-purchase-program/" title="Block Purchase Program">Learn More</a></p>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- THE CART -->
+      <div id="cart"></div>
+
+      <script type="text/template" id="cartItemTemplate">
+        <li class="cart-item" data-theid="<%= theId %>">
+          <ul class="container">
+            <li class="class-title col-xs-12 col-sm-12 col-md-4">
+              <h4><%= title %></h4></li>
+            <li class="location col-xs-12 col-sm-4 col-md-2">
+              <%= city %>
+            </li>
+            <li class="date col-xs-12 col-sm-4 col-md-2">
+              <%= date %>
+            </li>
+            <li class="col-xs-12 col-sm-4 col-md-2">
+              <a href="javascript:void(0);" class="remove"><span>X</span>Remove</a>
+            </li>
+            <li class="qty-wrap col-xs-12 col-sm-4 col-md-1"><span>Attendees:</span>
+              <input type="text" name="quantity" class="class-qty">
+            </li>
+            <li class="sub-total col-xs-12 col-sm-4 col-md-1"></li>
+          </ul>
+        </li>
+      </script>
+
+      <script type="text/template" id="cartNotifyTemplate">
+        <div class="container-fluid cart">
+          <div class="row cart-top">
+            <div class="container">
+              <div class="col-xs-12">
+                <h3><img src="/assets/images/icon-cart.png" alt="Cart" />Cart</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <ul id="cart-item-list"></ul>
+          </div>
+
+          <div class="cart-bottom row">
+            <div class="container">
+              <div class="col-xs-12 wrap">
+                <ul class="cart-total col-xs-12 col-md-4">
+                  <li class="items-total">0 Items</li>
+                  <li class="cost-total">Total: $<span class="total-cost">0</span></li>
+                </ul>
+                <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
+                  <div class="spinner checkout-loader">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+                  <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cart-visible">
+          <a class="cart-tab" href="javascript:void(0);">
+            <img src="/assets/images/icon-cart-tab.png" />
+          </a>
+          <div class="container">
+            <ul class="cart-total col-xs-12 col-md-4">
+              <li class="items-total">0 Items</li>
+              <li class="cost-total">Total: $<span class="total-cost">0</span></li>
+            </ul>
+          </div>
+        </div>
+      </script>
+
+
+      <!-- End Backbone app-->
+
+
+      <div class="container secondary-search" data-classid="169">
+        <div class="row">
+          <div class="col-xs-12 col-md-10 col-md-offset-1">
+
+            <h2>Basic Electrical Training</h2>
+
+            <!-- location select -->
+            <div id="register-seminars" class="location-select-wrap">
+              <select multiple id="main-search" style="width:100%" data-placeholder="Choose a City or Enter a Zip Code" class="populate" data-location="Boulder, CO">
+                <option value="Akron, OH">Akron, OH</option>
+                <option value="Albany, NY">Albany, NY</option>
+                <option value="Albuquerque, NM">Albuquerque, NM</option>
+                <option value="Allentown, PA">Allentown, PA</option>
+                <option value="Anchorage, AK">Anchorage, AK</option>
+                <option value="Ann Arbor, MI">Ann Arbor, MI</option>
+                <option value="Arlington, TX">Arlington, TX</option>
+                <option value="Atlanta, GA">Atlanta, GA</option>
+                <option value="Atlantic City, NJ">Atlantic City, NJ</option>
+                <option value="Augusta, GA">Augusta, GA</option>
+                <option value="Austin, TX">Austin, TX</option>
+                <option value="Bakersfield, CA">Bakersfield, CA</option>
+                <option value="Baltimore, MD">Baltimore, MD</option>
+                <option value="Baton Rouge, LA">Baton Rouge, LA</option>
+                <option value="Bellevue, WA">Bellevue, WA</option>
+                <option value="Birmingham, AL">Birmingham, AL</option>
+                <option value="Bismarck, ND">Bismarck, ND</option>
+                <option value="Boise, ID">Boise, ID</option>
+                <option value="Buffalo, NY">Buffalo, NY</option>
+                <option value="Burbank, CA">Burbank, CA</option>
+                <option value="Calgary, AB">Calgary, AB</option>
+                <option value="Cedar Rapids, IA">Cedar Rapids, IA</option>
+                <option value="Charleston, WV">Charleston, WV</option>
+                <option value="Charlotte, NC">Charlotte, NC</option>
+                <option value="Chattanooga, TN">Chattanooga, TN</option>
+                <option value="Cincinnati, OH">Cincinnati, OH</option>
+                <option value="Cleveland, OH">Cleveland, OH</option>
+                <option value="College Park, GA">College Park, GA</option>
+                <option value="Columbia, SC">Columbia, SC</option>
+                <option value="Columbus, OH">Columbus, OH</option>
+                <option value="Corpus Christi, TX">Corpus Christi, TX</option>
+                <option value="Davenport, IA">Davenport, IA</option>
+                <option value="Dayton, OH">Dayton, OH</option>
+                <option value="Denver, CO">Denver, CO</option>
+                <option value="Des Moines, IA">Des Moines, IA</option>
+                <option value="Edmonton, AB">Edmonton, AB</option>
+                <option value="El Paso, TX">El Paso, TX</option>
+                <option value="Elk Grove Village, IL">Elk Grove Village, IL</option>
+                <option value="Evansville, IN">Evansville, IN</option>
+                <option value="Everett, WA">Everett, WA</option>
+                <option value="Flint, MI">Flint, MI</option>
+                <option value="Fresno, CA">Fresno, CA</option>
+                <option value="Ft. Lauderdale, FL">Ft. Lauderdale, FL</option>
+                <option value="Ft. Myers, FL">Ft. Myers, FL</option>
+                <option value="Ft. Wayne, IN">Ft. Wayne, IN</option>
+                <option value="Grand Rapids, MI">Grand Rapids, MI</option>
+                <option value="Green Bay, WI">Green Bay, WI</option>
+                <option value="Greensboro, NC">Greensboro, NC</option>
+                <option value="Greenville, SC">Greenville, SC</option>
+                <option value="Halifax, NS">Halifax, NS</option>
+                <option value="Hamilton, ON">Hamilton, ON</option>
+                <option value="Harrisburg, PA">Harrisburg, PA</option>
+                <option value="Hartford, CT">Hartford, CT</option>
+                <option value="Helena, MT">Helena, MT</option>
+                <option value="Honolulu, HI">Honolulu, HI</option>
+                <option value="Houston, TX">Houston, TX</option>
+                <option value="Huntsville, AL">Huntsville, AL</option>
+                <option value="Indianapolis, IN">Indianapolis, IN</option>
+                <option value="Jackson, MS">Jackson, MS</option>
+                <option value="Jacksonville, FL">Jacksonville, FL</option>
+                <option value="Joliet, IL">Joliet, IL</option>
+                <option value="Kalamazoo, MI">Kalamazoo, MI</option>
+                <option value="Kansas City, MO">Kansas City, MO</option>
+                <option value="Knoxville, TN">Knoxville, TN</option>
+                <option value="Lafayette, LA">Lafayette, LA</option>
+                <option value="Lansing, MI">Lansing, MI</option>
+                <option value="Las Vegas, NV">Las Vegas, NV</option>
+                <option value="Little Rock, AR">Little Rock, AR</option>
+                <option value="Long Island, NY">Long Island, NY</option>
+                <option value="Los Angeles, CA">Los Angeles, CA</option>
+                <option value="Louisville, KY">Louisville, KY</option>
+                <option value="Lubbock, TX">Lubbock, TX</option>
+                <option value="Madison, WI">Madison, WI</option>
+                <option value="Manchester, NH">Manchester, NH</option>
+                <option value="Marietta, GA">Marietta, GA</option>
+                <option value="Memphis, TN">Memphis, TN</option>
+                <option value="Miami, FL">Miami, FL</option>
+                <option value="Milwaukee, WI">Milwaukee, WI</option>
+                <option value="Minneapolis, MN">Minneapolis, MN</option>
+                <option value="Mobile, AL">Mobile, AL</option>
+                <option value="Modesto, CA">Modesto, CA</option>
+                <option value="Naperville, IL">Naperville, IL</option>
+                <option value="Nashville, TN">Nashville, TN</option>
+                <option value="New Britain, CT">New Britain, CT</option>
+                <option value="New Brunswick, NJ">New Brunswick, NJ</option>
+                <option value="New Orleans, LA">New Orleans, LA</option>
+                <option value="Newark, NJ">Newark, NJ</option>
+                <option value="Norcross, GA">Norcross, GA</option>
+                <option value="Norfolk, VA">Norfolk, VA</option>
+                <option value="Oakland, CA">Oakland, CA</option>
+                <option value="Oklahoma City, OK">Oklahoma City, OK</option>
+                <option value="Omaha, NE">Omaha, NE</option>
+                <option value="Ontario, CA">Ontario, CA</option>
+                <option value="Orange County, CA">Orange County, CA</option>
+                <option value="Orlando, FL">Orlando, FL</option>
+                <option value="Ottawa, ON">Ottawa, ON</option>
+                <option value="Peabody, MA">Peabody, MA</option>
+                <option value="Peoria, IL">Peoria, IL</option>
+                <option value="Philadelphia, PA">Philadelphia, PA</option>
+                <option value="Phoenix, AZ">Phoenix, AZ</option>
+                <option value="Pittsburgh, PA">Pittsburgh, PA</option>
+                <option value="Portland, ME">Portland, ME</option>
+                <option value="Portland, OR">Portland, OR</option>
+                <option value="Providence, RI">Providence, RI</option>
+                <option value="Raleigh, NC">Raleigh, NC</option>
+                <option value="Regina, SK">Regina, SK</option>
+                <option value="Reno, NV">Reno, NV</option>
+                <option value="Richland, WA">Richland, WA</option>
+                <option value="Richmond, VA">Richmond, VA</option>
+                <option value="Rochester, NY">Rochester, NY</option>
+                <option value="Romulus, MI">Romulus, MI</option>
+                <option value="Sacramento, CA">Sacramento, CA</option>
+                <option value="Salt Lake City, UT">Salt Lake City, UT</option>
+                <option value="San Antonio, TX">San Antonio, TX</option>
+                <option value="San Diego, CA">San Diego, CA</option>
+                <option value="San Jose, CA">San Jose, CA</option>
+                <option value="Santa Rosa, CA">Santa Rosa, CA</option>
+                <option value="Scranton, PA">Scranton, PA</option>
+                <option value="Seattle, WA">Seattle, WA</option>
+                <option value="Shreveport, LA">Shreveport, LA</option>
+                <option value="Sioux Falls, SD">Sioux Falls, SD</option>
+                <option value="Spokane, WA">Spokane, WA</option>
+                <option value="Springfield, IL">Springfield, IL</option>
+                <option value="Springfield, MO">Springfield, MO</option>
+                <option value="St. Louis, MO">St. Louis, MO</option>
+                <option value="Syracuse, NY">Syracuse, NY</option>
+                <option value="Tacoma, WA">Tacoma, WA</option>
+                <option value="Tallahassee, FL">Tallahassee, FL</option>
+                <option value="Tampa, FL">Tampa, FL</option>
+                <option value="Temple, TX">Temple, TX</option>
+                <option value="Toledo, OH">Toledo, OH</option>
+                <option value="Toronto, ON">Toronto, ON</option>
+                <option value="Trenton, NJ">Trenton, NJ</option>
+                <option value="Tucson, AZ">Tucson, AZ</option>
+                <option value="Tulsa, OK">Tulsa, OK</option>
+                <option value="Vancouver, BC">Vancouver, BC</option>
+                <option value="Washington, DC">Washington, DC</option>
+                <option value="West Palm Beach, FL">West Palm Beach, FL</option>
+                <option value="White Plains, NY">White Plains, NY</option>
+                <option value="Wichita, KS">Wichita, KS</option>
+                <option value="Wilmington, DE">Wilmington, DE</option>
+                <option value="Windsor, ON">Windsor, ON</option>
+                <option value="Winnipeg, MB">Winnipeg, MB</option>
+                <option value="Worcester, MA">Worcester, MA</option>
+              </select>
+            </div>
+
+            <!-- datepicker -->
+            <h4 class="select-date-text">Select a date range</h4>
+            <div id="date-range-slider"></div>
+
+
+            <a href="javascript:void(0);" id="search-btn" class="btn-reg" role="button">Search</a>
+            <p class="empty-location-msg">Please enter a location</p>
+          </div>
+        </div>
+      </div>
+
+
+
+      <script type="text/template" id="classTemplate">
+        <div class="result-description">
+          <div class="row">
+            <div class="col-xs-12 col-md-2">
+              <img src="/assets/images/hvac-icon.jpg" alt="All Seminars" />
+            </div>
+            <div class="col-xs-12 col-md-8 text-desc">
+              <h2><a href="<%= detailsUrl %><%= window.location.hash %>"><%= title %></a></h2>
+              <p>
+                <%= subTitle %>
+              </p>
+              <a href="javascript:void(0);" class="view-opts" data-course="<%= courseId %>"><span class="plus">+</span>View Upcoming Seminars</a>
+            </div>
+            <li class="spinner location-loader">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </li>
+          </div>
+        </div>
+        <ul class="sched-loc-container row"></ul>
+      </script>
+
+      <script type="text/template" id="locationTemplate">
+        <div class="location col-xs-12 col-sm-10 col-sm-offset-1">
+          <p>
+            <%= cityState %><img src="/assets/images/icon-question.png" class="location-icon" /><span class="tooltip-msg location-msg">We will email you the exact location.</span></p>
+        </div>
+        <div class="schedule-items-wrap"></div>
+      </script>
+
+
+      <script type="text/template" id="scheduleTemplate">
+        <ul class="schedule col-xs-12">
+          <li class="col-xs-12 col-sm-2 col-md-2 col-md-offset-1">
+            <%= daysTitle %>
+          </li>
+          <li class="date col-xs-12 col-sm-3 col-md-2">
+            <%= date %>
+          </li>
+          <li class="sub-total col-xs-12 col-sm-1 col-md-2">$<span class="item-sub-total"></span>
+            <%= price %>
+          </li>
+          <li class="attendees col-xs-12 col-sm-3 col-md-2"><span class="attendees-label">Attendees:</span>
+            <input type="text" name="quantity" class="class-qty"><span class="tooltip-msg attendee-msg">Please enter a quantity.</span></li>
+          <li class="col-xs-12 col-sm-3 col-md-3"><a href="javascript:void(0);" class="btn-reg btn-blue-hollow add-to-cart" data-id="<%= id %>">Add to Cart</a></li>
+        </ul>
+      </script>
+
+
+
+      <div class="container-fluid results-container detail-page-app">
+        <div class="container">
+          <div class="row">
+            <div class="empty-message"></div>
+            <div class="spinner class-loader">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </div>
+            <ul class="results"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- the red section -->
+      <div class="container-fluid onsite-section">
+        <div class="left-skew">
+          <div class="skewed-side">
+            <div class="inner">
+              <h2 class="callout-headline">Reduce costs and boost results with on-site training</h2>
+              <p>All of our public seminar topics can also be delivered as on-site training at your facility. For larger teams, on-site training offers the benefits of customized content, reduced travel and downtime, and maximum results.</p>
+              <a href="/on-site-training/" class="btn-reg btn-white" role="button">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="right-img">
+          <img src="/media/1001/on-site.jpg" alt="See our on-site programs">
+        </div>
+      </div>
+
+
+
+      <footer>
+        <ul class="wrapper">
+          <li class="copyright">&copy; TPC Trainco</li>
+
+          <li class="links">
+            <ul class="footer-text-links">
+              <li><a href="/training-seminar-schedule/">Training Seminar Schedule<span>|</span></a></li>
+              <li><a href="/instructor-lounge/">Instructor Lounge<span>|</span></a></li>
+              <li><a href="/privacy-policy/">Privacy Policy<span>|</span></a></li>
+              <li><a href="/legal-terms/">Legal Terms<span>|</span></a></li>
+              <li><a href="/restrictions/">AR, MA, &amp; NH Residents<span>|</span></a></li>
+              <li><a href="/sitemap/">Sitemap</a></li>
+
+            </ul>
+            <ul class="social">
+              <li>
+                <a href="#" class="regular-link">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+                    <path id="facebook-icon" d="M204.067,184.692h-43.144v70.426h43.144V462h82.965V254.238h57.882l6.162-69.546h-64.044                              c0,0,0-25.97,0-39.615c0-16.398,3.302-22.89,19.147-22.89c12.766,0,44.896,0,44.896,0V50c0,0-47.326,0-57.441,0                              c-61.734,0-89.567,27.179-89.567,79.231C204.067,174.566,204.067,184.692,204.067,184.692z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="regular-link">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+                    <path id="twitter-icon" d="M462,128.223c-15.158,6.724-31.449,11.269-48.547,13.31c17.449-10.461,30.854-27.025,37.164-46.764
+                            c-16.333,9.687-34.422,16.721-53.676,20.511c-15.418-16.428-37.386-26.691-61.698-26.691c-54.56,0-94.668,50.916-82.337,103.787
+                            c-70.25-3.524-132.534-37.177-174.223-88.314c-22.142,37.983-11.485,87.691,26.158,112.85c-13.854-0.438-26.891-4.241-38.285-10.574
+                            c-0.917,39.162,27.146,75.781,67.795,83.949c-11.896,3.237-24.926,3.978-38.17,1.447c10.754,33.58,41.972,58.018,78.96,58.699
+                            C139.604,378.282,94.846,390.721,50,385.436c37.406,23.982,81.837,37.977,129.571,37.977c156.932,0,245.595-132.551,240.251-251.435
+                            C436.339,160.061,450.668,145.174,462,128.223z" />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="regular-link">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+                    <path id="linkedin-icon" d="M150.65,100.682c0,27.992-22.508,50.683-50.273,50.683c-27.765,0-50.273-22.691-50.273-50.683                              C50.104,72.691,72.612,50,100.377,50C128.143,50,150.65,72.691,150.65,100.682z M143.294,187.333H58.277V462h85.017V187.333z                               M279.195,187.333h-81.541V462h81.541c0,0,0-101.877,0-144.181c0-38.624,17.779-61.615,51.807-61.615                              c31.268,0,46.289,22.071,46.289,61.615c0,39.545,0,144.181,0,144.181h84.605c0,0,0-100.344,0-173.915                              s-41.689-109.131-99.934-109.131s-82.768,45.369-82.768,45.369V187.333z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="regular-link">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+                    <path id="youtube-icon" d="M129.861,50h24.735l16.933,63.551L187.265,50h24.951l-28.58,94.504v64.486h-24.558v-64.486L129.861,50z                                   M211.104,179.739c0,20.668,10.8,31.428,31.949,31.428c17.538,0,31.35-11.729,31.35-31.428V122.25                                  c0-18.357-13.674-31.509-31.35-31.509c-19.204,0-31.949,12.691-31.949,31.509V179.739z M233.544,124.184                                  c0-6.419,2.956-11.184,9.081-11.184c6.688,0,9.549,4.622,9.549,11.184v54.555c0,6.385-3.254,11.104-9.122,11.104                                  c-6.022,0-9.508-4.926-9.508-11.104V124.184z M333.349,91.706v89.025c-2.657,3.328-8.569,8.783-12.821,8.783                                  c-4.666,0-5.809-3.186-5.809-7.902V91.706h-21.806v98.029c0,11.586,3.543,20.949,15.232,20.949c6.598,0,15.755-3.433,25.203-14.641                                  v12.947h21.806V91.706H333.349z M301.273,332.134c1.48,1.954,2.22,4.815,2.22,8.583v57.672c0,3.561-0.601,6.127-1.798,7.698                                  c-2.289,2.996-7.246,2.86-10.625,1.149c-1.589-0.8-3.227-2.11-4.916-3.926v-69.607c1.409-1.533,2.835-2.669,4.281-3.403                                  C294.07,328.46,298.762,328.818,301.273,332.134z M371.182,329.604c-7.695,0-9.277,5.415-9.277,13.091v11.307h18.347v-11.307                                  C380.251,335.146,378.65,329.604,371.182,329.604z M434.516,412c0,27.614-22.386,50-50,50H127.484c-27.614,0-50-22.386-50-50                                  V285.684c0-27.615,22.386-50,50-50h257.031c27.614,0,50,22.385,50,50V412z M161.734,295.128h24.195V273.15h-71.778v21.978h24.195                                  v129.44h23.388V295.128z M244.924,312.871h-20.768v84.785c-2.534,3.174-8.163,8.365-12.211,8.365c-4.442,0-5.531-3.033-5.531-7.527                                  v-85.623h-20.768v93.359c0,22.664,15.367,22.803,26.561,16.391c4.141-2.376,8.121-5.839,11.949-10.383v12.33h20.768V312.871z                                   M324.866,339.459c0-15.15-5.037-27.999-20.247-27.999c-7.416,0-13.779,4.727-18.465,10.437V273.15h-20.97v151.418h20.97v-8.586                                  c5.789,7.219,12.121,9.998,19.725,9.998c13.818,0,18.987-10.733,18.987-24.555V339.459z M401.624,342.901                                  c0-20.188-9.627-32.853-29.55-32.853c-18.734,0-31.543,13.463-31.543,32.853v50.136c0,20.107,10.141,34.557,29.971,34.557                                  c21.884,0,31.122-13.034,31.122-34.557v-8.39h-21.373v7.763c0,9.725-0.511,15.625-9.277,15.625c-8.361,0-9.069-7.246-9.069-15.625                                  v-21.071h39.72V342.901z"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </footer>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+      <!-- use modernizr generator for production -->
+      <script type="text/javascript" src="/assets/js/vendor/modernizr-touch.js"></script>
+      <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
+      <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
+      <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
+
+      <script type="text/javascript" src="/assets/js/vendor/bootstrap-dropdown.js"></script>
+
+      <script type="text/javascript" src="/assets/js/vendor/bootstrap-tooltip.js"></script>
+
+      <script type="text/javascript" src="/assets/js/vendor/bootstrap-popover.js"></script>
+
+      <script type="text/javascript" src="/assets/js/vendor/jQDateRangeSlider-withRuler-min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+      <script type="text/javascript" src="/assets/js/custom/MainSearchSelect.js"></script>
+
+      <script type="text/javascript" src="/assets/js/custom/HomePage.js"></script>
+      <script type="text/javascript" src="/assets/js/custom/CountUp.js"></script>
+      <script type="text/javascript" src="/assets/js/custom/Catalog.js"></script>
+      <script type="text/javascript" src="/assets/js/custom/DatePicker.js"></script>
+      <script type="text/javascript" src="/assets/js/custom/TPCapp.js"></script>
+
+      <!-- Backbone app scripts -->
+
+      <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+      <script src="/assets/js/custom/cartApp/models/classModel.js"></script>
+      <script src="/assets/js/custom/cartApp/collections/classCollection.js"></script>
+      <script src="/assets/js/custom/cartApp/views/classView.js"></script>
+      <script src="/assets/js/custom/cartApp/models/locationModel.js"></script>
+      <script src="/assets/js/custom/cartApp/views/singleSeminarView.js"></script>
+      <script src="/assets/js/custom/cartApp/models/scheduleModel.js"></script>
+      <script src="/assets/js/custom/cartApp/models/cartItemModel.js"></script>
+      <script src="/assets/js/custom/cartApp/views/scheduleView.js"></script>
+      <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
+      <script src="/assets/js/custom/cartApp/views/locationView.js"></script>
+      <script src="/assets/js/custom/cartApp/views/cartItemView.js"></script>
+      <script src="/assets/js/custom/cartApp/collections/locationCollection.js"></script>
+      <script src="/assets/js/custom/cartApp/collections/scheduleCollection.js"></script>
+      <script src="/assets/js/custom/cartApp/collections/cartCollection.js"></script>
+      <script src="/assets/js/custom/cartApp/views/cartNotifyView.js"></script>
+
+      <!-- end Backbone app scripts -->
+
+
+      <script type="text/javascript">
+        var temp;
+
+        $(window).load(function() {
+          tpcAppObj = new TPCApp();
+        });
+      </script>
+
+</body>
+
+</html>
