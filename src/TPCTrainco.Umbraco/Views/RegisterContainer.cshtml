@@ -21,7 +21,7 @@
 
         if (cartList == null)
         {
-            Response.Redirect("/search-seminars/");
+            Response.Redirect("/search-seminars/?error=10");
         }
         else
         {
@@ -36,7 +36,7 @@
     }
     else
     {
-        Response.Redirect("/search-seminars/");
+        Response.Redirect("/search-seminars/?error=11");
     }
 }
 

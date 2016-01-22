@@ -1,13 +1,15 @@
 ﻿@using TPCTrainco.Umbraco.Extensions
 @model TPCTrainco.Umbraco.Extensions.Models.CheckoutDetails
-
 @{
     temp_Cust tempCust = Model.tempCust;
+    IPublishedContent currentNode = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
 }
 
 @if (tempCust != null && Model.tempRegList != null)
 {
 <div class="container-fluid form-container summary-main gradient-bg">
+    @Html.Partial("Messages/MessagesTop", currentNode)
+
     <div class="container">
         @using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutSummarySurfaceController>("HandleFormSubmit"))
         {

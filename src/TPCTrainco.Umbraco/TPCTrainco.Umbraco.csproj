@@ -3372,6 +3372,7 @@
     <Content Include="Views\RegisterError.cshtml" />
     <Content Include="Views\LandingPageBrowseCatalog.cshtml" />
     <Content Include="Views\LandingPageContactUs.cshtml" />
+    <Content Include="Views\Partials\Messages\MessagesTop.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

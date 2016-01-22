@@ -3,12 +3,7 @@
     IPublishedContent currentNode = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
 }
 
-@if (Request.QueryString["error"] != null && Request.QueryString.Get("error").Length > 0)
-{
-    <div class="alert alert-error">
-        <strong>There was a problem processing the credit card. Please re-enter your credit card, verify the billing information and try again.</strong>
-    </div>
-}
+@Html.Partial("Messages/MessagesTop", currentNode)
 
 <div class="container-fluid register-two gradient-bg">
     @using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutCustomerSurfaceController>("HandleFormSubmit"))
