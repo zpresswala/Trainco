@@ -83,7 +83,8 @@ app.CartNotifyView = Backbone.View.extend({
         this.$('.checkout-loader').show();
 
         $.ajax({
-        	url: ApiDomain + '/api/carts/save',
+          url: 'http://trainco-dev.imulus-client.com/api/carts/save',
+        //	url: ApiDomain + '/api/carts/save',
             data: JSON.stringify(cartDataArray),
             type: "POST",
             contentType: "application/json"
