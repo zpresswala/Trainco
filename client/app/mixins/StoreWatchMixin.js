@@ -1,5 +1,6 @@
 import React from 'react';
 import AppStore from '../stores/Store';
+import SearchStore from '../stores/SearchStore';
 
 export default (InnerComponent, stateCallback) => class extends React.Component {
   constructor(props){
@@ -9,9 +10,11 @@ export default (InnerComponent, stateCallback) => class extends React.Component 
   }
   componentWillMount(){
     AppStore.addChangeListener( this._onChange )
+    SearchStore.addChangeListener( this._onChange )
   }
   componentWillUnmount(){
     AppStore.removeChangeListener( this._onChange )
+    SearchStore.addChangeListener( this._onChange )
   }
   _onChange(){
     this.setState( stateCallback(this.props) )

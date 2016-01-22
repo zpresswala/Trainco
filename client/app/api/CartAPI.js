@@ -39,8 +39,8 @@ const CartAPI = {
         for ( let i = 1; i < 9; i++ ) {
             this.catalog.push( {
                 'id': 'Widget' + i,
-                'title': 'Widget #' + i,
-                'summary': 'A great widget',
+                'title': 'Course #' + i,
+                'summary': 'A fantastic course',
                 'description': 'Lorem ipsum dolor sit amet.',
                 'cost': i
             } );
