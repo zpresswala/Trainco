@@ -324,6 +324,7 @@
     <Compile Include="Models\Redirect.cs" />
     <Compile Include="Models\SearchRequest\LocationsSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SchedulesSearchRequest.cs" />
+    <Compile Include="Models\SearchRequest\SeminarsSearchRequest2.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
     <Compile Include="Objects\Carts.cs" />
@@ -333,6 +334,7 @@
     <Compile Include="Models\SearchLocation.cs" />
     <Compile Include="Objects\Locations.cs" />
     <Compile Include="Objects\Registrations.cs" />
+    <Compile Include="Objects\SeminarsV2.cs" />
     <Compile Include="Objects\Seminars.cs" />
     <Compile Include="Objects\Topics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
