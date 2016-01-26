@@ -44,7 +44,7 @@
     <script src="/assets/js/bower_components/Respond/dest/respond.min.js"></script>
 <![endif]-->
 
-<body class="gradient-bg">
+<body class="gradient-bg"data-spy="scroll" data-target="#navspy">
 
 
 
@@ -84,12 +84,29 @@
 
           <li><a href="tel:877-978-7246" class="regular-link nav-link">877-978-7246</a></li>
         </ul>
+
       </div>
       <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
   </nav>
+<nav class="navbar navbar-default navbar-lower" role="navigation" data-spy="affix" data-offset-top="0" id="navspy">
+  <div class="container">
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav" >
 
+      <li><a href="#overview" class="nav-link regular-link">Seminar Overview</a></li>
+      <li><a href="#discussion" class="nav-link regular-link">Discussion Topics</a></li>
+      <li><a href="#ceu" class="nav-link regular-link">(CEUs)</a></li>
+      <li><a href="#atmt" class="nav-link regular-link">ATMT Certification</a></li>
+
+      <li><a href="#purchase" class="regular-link nav-link">Purchase Program</a></li>
+      <li><a href="#upcoming" class="regular-link nav-link">Upcoming Dates and Locations</a></li>
+    </ul>
+
+  </div>
+  </div>
+</nav>
 
 
   <div class="container-fluid headline-section seminar-detail">
@@ -241,6 +258,7 @@
         </div>
         <!-- end -->
         <div class="container">
+          <div id="#overview"></div>
           <div class="row">
             <h2>Seminar Overview</h2>
             <p class="course-detail--intro">
@@ -366,6 +384,7 @@
           <div class="row">
 
             <h2>Continuing Education Units (CEUs)</h2>
+            <div id="#ceu"></div>
             <p>Upon completion of this seminar, the student will receive a certification of completion with 8 classroom hours (.8 American Trainco CEUs) per day attended. Visit our continuing education units page to determine if this class is accepted by
               your state licensing agency.</p>
             <p><a href="/about/guarantee/" title="No Risk Registration &amp; Money Back Guarantee">Click HERE to read our No Risk Registration and Money-Back Guarantee policy</a></p>
@@ -776,15 +795,7 @@
 
       <!-- use modernizr generator for production -->
       <script type="text/javascript" src="/assets/js/vendor/modernizr-touch.js"></script>
-      <script type="text/javascript" src="/assets/js/vendor/bootstrap-carousel.js"></script>
-      <script type="text/javascript" src="/assets/js/vendor/bootstrap-collapse.js"></script>
-      <script type="text/javascript" src="/assets/js/vendor/bootstrap-transition.js"></script>
-
-      <script type="text/javascript" src="/assets/js/vendor/bootstrap-dropdown.js"></script>
-
-      <script type="text/javascript" src="/assets/js/vendor/bootstrap-tooltip.js"></script>
-
-      <script type="text/javascript" src="/assets/js/vendor/bootstrap-popover.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
       <script type="text/javascript" src="/assets/js/vendor/jQDateRangeSlider-withRuler-min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
@@ -827,6 +838,8 @@
         $(window).load(function() {
           tpcAppObj = new TPCApp();
         });
+$('#nav').affix({
+});$('body').scrollspy({ target: '#navspy' })
       </script>
 
 </body>

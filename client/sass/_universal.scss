@@ -49,7 +49,13 @@ h2, h3, h4 {
 button {
 	border: none;
 }
-
+.affix {
+  top: 50px;
+  width:100%;
+}
+.navbar-lower {
+  margin-top: 80px;
+}
 // the red pill-shaped buttons w/hover state. just add this class
 .btn-reg {
 	background-color: $red-button;

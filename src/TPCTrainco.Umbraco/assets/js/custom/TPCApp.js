@@ -81,7 +81,7 @@ function TPCApp() {
 	this.animateCart(isRetina);
 	this.retinaLogos(isRetina);
 
-	this.clickScrollTo();
+//	this.clickScrollTo();
 
 	var hash = window.location.hash;
 
@@ -160,19 +160,19 @@ TPCApp.prototype.handleWindowResize = function() {
 	}
 };
 
-
-TPCApp.prototype.clickScrollTo = function () {
-	var _this = this;
-	var offsetAmount = 140;
-	this.$aHref.on('click', function (e) {
-		if ($(this).attr('href')[0] === '#') {
-			e.preventDefault();
-			_this.$page.animate({
-				scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
-			}, 300);
-		}
-	});
-};
+//
+// TPCApp.prototype.clickScrollTo = function () {
+// 	var _this = this;
+// 	var offsetAmount = 140;
+// 	this.$aHref.on('click', function (e) {
+// 		if ($(this).attr('href')[0] === '#') {
+// 			e.preventDefault();
+// 			_this.$page.animate({
+// 				scrollTop: $($.attr(this, 'href')).offset().top - offsetAmount
+// 			}, 300);
+// 		}
+// 	});
+// };
 
 // cart functionality
 TPCApp.prototype.animateCart = function (retinaScreen) {
