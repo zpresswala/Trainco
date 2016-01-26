@@ -1,7 +1,7 @@
 import React from 'react';
 import InputRange from 'react-input-range';
 
-class Range extends React.Component {
+class RangeSlider extends React.Component {
   constructor(props) {
     super(props);
 
@@ -35,4 +35,4 @@ class Range extends React.Component {
   }
 }
 
-export default Range;
+export default RangeSlider;

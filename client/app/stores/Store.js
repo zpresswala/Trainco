@@ -1,6 +1,6 @@
-import {dispatch, register} from '../dispatchers/Dispatcher';
-import AppConstants from '../constants/Constants';
 import { EventEmitter } from 'events';
+import { dispatch, register } from '../dispatchers/Dispatcher';
+import AppConstants from '../constants/Constants';
 import CartAPI from '../api/CartAPI';
 
 const CHANGE_EVENT = 'change'

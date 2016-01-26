@@ -1,9 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router';
 import AppStore from '../../stores/Store';
 import StoreWatchMixin from '../../mixins/StoreWatchMixin';
 import AppActions from '../../actions/Actions';
 import CartButton from '../cart/CartButton';
-import {Link} from 'react-router';
 
 function getCatalogItem(props) {
   let item = AppStore.getCatalog().find(({id}) => id === props.params.item)
