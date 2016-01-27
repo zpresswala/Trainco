@@ -53,6 +53,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             List<Seminar> finalSeminarList = null;
             List<Seminar_Catalog> seminarListSearch = SeminarList;
 
+            FilterByClass(ref seminarListSearch, request);
             FilterByDate(ref seminarListSearch, request);
             FilterByLocation(ref seminarListSearch, request);
             FilterByTopic(ref seminarListSearch, request);
@@ -60,6 +61,17 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             finalSeminarList = CreateSeminarViewModel(seminarListSearch, request);
 
             return finalSeminarList;
+        }
+
+
+        private void FilterByClass(ref List<Seminar_Catalog> seminarList, SeminarsSearchRequest2 request)
+        {
+            if (request.ClassId > 0)
+            {
+                List<int> scheduleArray = ScheduleCourseList.Where(p => p.CourseID == request.ClassId).Select(x => x.ScheduleID).ToList();
+
+                seminarList = seminarList.Where(p => scheduleArray.Contains(p.SchID)).ToList();
+            }
         }
 
 
@@ -117,32 +129,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             List<Seminar> seminarViewModelList = new List<Seminar>();
 
             List<Seminar_Catalog> seminarDistinctList = seminarList.DistinctBy(p => p.TitlePlain).ToList();
-
-            // Specify a class id (course id)
-            if (request.ClassId > 0)
-            {
-                List<Seminar_Catalog> seminarDistinctListTemp = new List<Seminar_Catalog>();
-
-                foreach (Seminar_Catalog tempSeminar in seminarDistinctList)
-                {
-                    ScheduleCourseInstructor scheduleCourse = ScheduleCourseList.Where(p => p.ScheduleID == tempSeminar.SchID && p.CourseID == request.ClassId).FirstOrDefault();
-
-                    if (scheduleCourse != null)
-                    {
-                        seminarDistinctListTemp.Add(tempSeminar);
-                    }
-                }
-
-                if (seminarDistinctListTemp.Count > 0)
-                {
-                    seminarDistinctList = seminarDistinctListTemp;
-                }
-                else
-                {
-                    seminarDistinctList = null;
-                }
-            }
-
 
             if (seminarDistinctList != null && seminarDistinctList.Count > 0)
             {
