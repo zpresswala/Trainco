@@ -280,6 +280,7 @@
     <Compile Include="Controllers\SeminarsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\GeoLocationController.cs" />
+    <Compile Include="Controllers\v2\Seminars2Controller.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
@@ -381,6 +382,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TPCTraincoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Angular\Schedule.cs" />
+    <Compile Include="ViewModels\Angular\Location.cs" />
+    <Compile Include="ViewModels\Angular\SearchResponse.cs" />
+    <Compile Include="ViewModels\Angular\Seminar.cs" />
     <Compile Include="ViewModels\Backbone\Loc.cs" />
     <Compile Include="ViewModels\Backbone\Sch.cs" />
     <Compile Include="ViewModels\Backbone\Sem.cs" />
