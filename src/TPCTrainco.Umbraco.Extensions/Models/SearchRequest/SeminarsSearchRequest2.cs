@@ -14,6 +14,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models.SearchRequest
         public double Radius { get; set; }
         public string[] Topics { get; set; }
         public DateRange DateRage { get; set; }
+        public bool ReturnChildSchedules { get; set; }
         public int Page { get; set; }
     }
 

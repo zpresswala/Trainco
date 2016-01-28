@@ -141,7 +141,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (seminar != null)
                 {
-                    List<Seminar_Catalog> seminarsByLocation = seminarList.Where(p => p.TitlePlain == seminarDistinct.TitlePlain).ToList();
+                    List<Seminar_Catalog> seminarsByLocation = seminarList.DistinctBy(p => new { p.City, p.State }).ToList();
 
                     if (seminarsByLocation != null && seminarsByLocation.Count > 0)
                     {
@@ -170,58 +170,71 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                             {
                                 location.Distance = 0;
                             }
+                            
 
 
-                            // Main Schedule
-                            ViewModels.Angular.Schedule schedule = null;
+                            // Find all schedules in the City/State
+                            List<Seminar_Catalog> filteredScheduleList = seminarList.Where(p => p.City == location.City && p.State == location.StateCode).ToList();
+                            filteredScheduleList = filteredScheduleList.OrderBy(p => p.SchDate).ToList();
 
-                            SCHEDULE legacySchedule = ScheduleList.Where(p => p.ScheduleID == seminarCatalog.SchID).FirstOrDefault();
-
-                            schedule = ConvertScheduleToViewModel(legacySchedule);
-
-                            if (schedule != null)
+                            if (filteredScheduleList.Count > 0)
                             {
-                                // get exact location
-                                Location locationDetail = LocationList.Where(p => p.LocationID == legacySchedule.LocationID).FirstOrDefault();
-
-                                if (locationDetail != null)
-                                {
-                                    location.LocationDetails = GetLocationDetails(locationDetail, location);
-                                }
-                                else
-                                {
-                                    location.LocationDetails = DefaultSearchLocationText;
-                                }
-
-                                location.Date = schedule.Date;
-                                location.Price = schedule.Price;
-
                                 location.Schedules = new List<Schedule>();
 
-                                location.Schedules.Add(schedule);
-
-                                // Sub-Schedule
-                                bool skipSubSchedules = false;
-                                if (false == string.IsNullOrWhiteSpace(legacySchedule.ScheduleSeminarNumber) &&
-                                        (StringUtilities.GetLast(legacySchedule.ScheduleSeminarNumber, 2) == "30" ||
-                                        StringUtilities.GetLast(legacySchedule.ScheduleSeminarNumber, 2) == "40"))
+                                foreach (Seminar_Catalog seminarCatalogItem in filteredScheduleList)
                                 {
-                                    skipSubSchedules = true;
-                                }
+                                    // Main Schedule
+                                    ViewModels.Angular.Schedule schedule = null;
 
-                                if (false == skipSubSchedules)
-                                {
-                                    List<SCHEDULE> subLegacyScheduleList = ScheduleList.Where(p => p.ScheduleParentID == seminarCatalog.SchID).ToList();
+                                    SCHEDULE legacySchedule = ScheduleList.Where(p => p.ScheduleID == seminarCatalogItem.SchID).FirstOrDefault();
 
-                                    if (subLegacyScheduleList != null && subLegacyScheduleList.Count > 0)
+                                    schedule = ConvertScheduleToViewModel(legacySchedule);
+
+                                    if (schedule != null)
                                     {
-                                        foreach (SCHEDULE subLegacySchedule in subLegacyScheduleList)
-                                        {
-                                            Schedule subSchedule = ConvertScheduleToViewModel(subLegacySchedule);
+                                        // get exact location
+                                        Location locationDetail = LocationList.Where(p => p.LocationID == legacySchedule.LocationID).FirstOrDefault();
 
-                                            if (subSchedule != null)
+                                        if (locationDetail != null)
+                                        {
+                                            location.LocationDetails = GetLocationDetails(locationDetail, location);
+                                        }
+                                        else
+                                        {
+                                            location.LocationDetails = DefaultSearchLocationText;
+                                        }
+
+                                        location.Date = schedule.Date;
+                                        location.Price = schedule.Price;
+
+
+
+                                        location.Schedules.Add(schedule);
+
+                                        // Sub-Schedule
+                                        bool skipSubSchedules = false;
+                                        if (false == string.IsNullOrWhiteSpace(legacySchedule.ScheduleSeminarNumber) &&
+                                                (StringUtilities.GetLast(legacySchedule.ScheduleSeminarNumber, 2) == "30" ||
+                                                StringUtilities.GetLast(legacySchedule.ScheduleSeminarNumber, 2) == "40"))
+                                        {
+                                            skipSubSchedules = true;
+                                        }
+
+                                        if (false == skipSubSchedules && true == request.ReturnChildSchedules)
+                                        {
+                                            List<SCHEDULE> subLegacyScheduleList = ScheduleList.Where(p => p.ScheduleParentID == seminarCatalog.SchID).ToList();
+
+                                            if (subLegacyScheduleList != null && subLegacyScheduleList.Count > 0)
                                             {
-                                                location.Schedules.Add(subSchedule);
+                                                foreach (SCHEDULE subLegacySchedule in subLegacyScheduleList)
+                                                {
+                                                    Schedule subSchedule = ConvertScheduleToViewModel(subLegacySchedule);
+
+                                                    if (subSchedule != null)
+                                                    {
+                                                        location.Schedules.Add(subSchedule);
+                                                    }
+                                                }
                                             }
                                         }
                                     }
