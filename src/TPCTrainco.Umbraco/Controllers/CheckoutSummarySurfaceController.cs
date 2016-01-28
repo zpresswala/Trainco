@@ -195,8 +195,14 @@ namespace TPCTrainco.Umbraco.Controllers
                                     }
                                 }
 
+                                debug.AppendLine("Checking for Error...");
+                                debug.AppendLine("isError: " + isError);
+
                                 if (true == isError)
                                 {
+                                    debug.AppendLine(" - tempCust: " + (tempCust == null ? "NULL!" : "ID: " + tempCust.ID));
+                                    debug.AppendLine(" - creditCardResult: " + (creditCardResult == null ? "NULL!" : "ErrorCode: " + creditCardResult.ErrorCode));
+
                                     cartsObj.AddToTempError(tempCust, creditCardResult);
                                     cartsObj.SendCreditCardErrorEmail(tempCust, creditCardResult);
 
@@ -206,18 +212,47 @@ namespace TPCTrainco.Umbraco.Controllers
                                 }
                                 else
                                 {
+                                    debug.AppendLine(" - isAlreadyProcessed (no error): " + isAlreadyProcessed);
+
                                     if (true == isAlreadyProcessed)
                                     {
-                                        Session["RegistrationId"] = reg.RegistrationID;
-                                        Session["RegistrationTotal"] = string.Format("{0:N2}", reg.RegOrderTotal ?? 0);
+                                        debug.AppendLine(" - reg: " + (reg == null ? "NULL!" : "ID: " + reg.RegistrationID));
 
-                                        debug.AppendLine("Already processed...");
-                                        debug.AppendLine("reg.RegistrationID: " + reg.RegistrationID + ")");
-                                        debug.AppendLine("reg.RegOrderTotal: " + reg.RegOrderTotal ?? 0 + ")");
+                                        if (reg == null)
+                                        {
+                                            reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
 
-                                        debug.AppendLine("Redirecting to: /register/success/");
+                                            if (reg != null)
+                                            {
+                                                debug.AppendLine("Already processed!");
 
-                                        return Redirect("/register/success/");
+                                                isAlreadyProcessed = true;
+                                            }
+                                        }
+
+                                        debug.AppendLine(" - reg: " + (reg == null ? "NULL!" : "ID: " + reg.RegistrationID));
+
+                                        if (reg != null)
+                                        {
+                                            Session["RegistrationId"] = reg.RegistrationID;
+                                            Session["RegistrationTotal"] = string.Format("{0:N2}", reg.RegOrderTotal ?? 0);
+
+                                            debug.AppendLine("Already processed...");
+                                            debug.AppendLine("reg.RegistrationID: " + reg.RegistrationID + ")");
+                                            debug.AppendLine("reg.RegOrderTotal: " + reg.RegOrderTotal ?? 0 + ")");
+
+                                            debug.AppendLine("Redirecting to: /register/success/");
+
+                                            return Redirect("/register/success/");
+                                        }
+                                        else
+                                        {
+                                            debug.AppendLine("CAN'T FIND REGISTRATION!");
+
+                                            cartsObj.SendCartErrorEmail("ERROR: 95\n\rCan't Find Registration: (reg == null || reg.RegistrationID <= 0)\r\n\r\nDebug:\r\n" + debug.ToString());
+
+                                            return Redirect("/register/error/?error=95&regid=" + tempCust.reg_ID);
+                                        }
                                     }
                                     else
                                     {
