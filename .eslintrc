@@ -7,8 +7,14 @@
     "es6": true
   },
   "plugins": [
-    "babel"
+    "babel",
+    "angular"
   ],
+    "globals": {
+    "angular": true,
+    "module": true,
+    "inject": true
+  },
   "ecmaFeatures": {
     "arrowFunctions": true,
     "blockBindings": true,

@@ -1,0 +1,74 @@
+<div class="container-fluid intro-section">
+  <div class="jumbotron">
+    <h1>American Trainco is now TPC Trainco</h1>
+    <p>The leader in instructor-led maintenance training is now part of TPC's
+      <span style="text-decoration: underline;"><a href=
+      "/blog/american-trainco-announces-rebranding-as-part-of-tpc-training-systems/">
+      total training solution.</a></span></p>
+    <h3><br>
+      <span style="text-decoration: underline;"><a href=
+      "/public-seminars/course-catalog/">Browse our catalog of 4,181 upcoming
+      seminars.</a></span></h3>
+  </div>
+  <div class="row">
+    <form role="form" ng-submit="vm.postCourseSearch()">
+      <div class="col-md-11 topic-circles">{{vm.formData}}
+        <h3>Select one or more topics and choose your location</h3>
+          <div class="form-group">
+            <label class="checkbox-inline">
+              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.all">
+              <div class="overlay-contain">
+                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/selectall-icon.jpg"></div>
+              <p>Search All Seminars</p>
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.electrical">
+              <div class="overlay-contain">
+                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/electrical.jpg"></div>
+              <p>Electrical</p>
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.hvac">
+              <div class="overlay-contain">
+                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
+              <p>HVAC</p>
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.management">
+              <div class="overlay-contain">
+                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
+              <p>Plant Management</p>
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.mechanical">
+              <div class="overlay-contain">
+                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
+              <p>Mechanical Management</p>
+            </label>
+          </div>
+        <!-- John: this is new -->
+        <select ng-model="vm.course.location" class="populate" data-location="" data-placeholder="Choose a City or Enter a Zip Code" id="main-search" multiple style="width:100%">
+          <option value="Alabama">
+            Alabama
+          </option>
+          <option value="Alaska">
+            Alaska
+          </option>
+          <option value="Missouri">
+            Missouri
+          </option>
+          <option value="Louisiana">
+            Louisiana
+          </option>
+          <option value="Vermont">
+            Vermont
+          </option>
+        </select>
+        <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
+        <a class="btn-reg btn-white" type="submit" ng-click="vm.postCourseSearch()"id="search-btn" role="button">Search</a>
+        <!-- end new -->
+      </div>
+    </form>
+  </div>
+  <!-- </div> -->
+</div>
