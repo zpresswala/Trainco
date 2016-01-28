@@ -280,6 +280,9 @@
     <Compile Include="Controllers\SeminarsController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\GeoLocationController.cs" />
+    <Compile Include="Controllers\v2\Schedules2Controller.cs" />
+    <Compile Include="Controllers\v2\SeminarsOldController.cs" />
+    <Compile Include="Controllers\v2\Seminars2Controller.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
@@ -319,11 +322,14 @@
     <Compile Include="Models\CheckoutItem.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CoordinateDetails.cs" />
+    <Compile Include="Models\CourseDetail.cs" />
     <Compile Include="Models\CreditCardResult.cs" />
     <Compile Include="Models\DbIpLookup.cs" />
+    <Compile Include="Models\LocationScheduleDetail.cs" />
     <Compile Include="Models\Redirect.cs" />
     <Compile Include="Models\SearchRequest\LocationsSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SchedulesSearchRequest.cs" />
+    <Compile Include="Models\SearchRequest\SeminarsSearchRequest2.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
     <Compile Include="Objects\Carts.cs" />
@@ -333,6 +339,9 @@
     <Compile Include="Models\SearchLocation.cs" />
     <Compile Include="Objects\Locations.cs" />
     <Compile Include="Objects\Registrations.cs" />
+    <Compile Include="Objects\SeminarCommon.cs" />
+    <Compile Include="Objects\SeminarSearch.cs" />
+    <Compile Include="Objects\SeminarDetails.cs" />
     <Compile Include="Objects\Seminars.cs" />
     <Compile Include="Objects\Topics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -379,6 +388,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TPCTraincoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Angular\Schedule.cs" />
+    <Compile Include="ViewModels\Angular\Location.cs" />
+    <Compile Include="ViewModels\Angular\SearchResponse.cs" />
+    <Compile Include="ViewModels\Angular\Seminar.cs" />
     <Compile Include="ViewModels\Backbone\Loc.cs" />
     <Compile Include="ViewModels\Backbone\Sch.cs" />
     <Compile Include="ViewModels\Backbone\Sem.cs" />
@@ -390,6 +403,12 @@
     <Compile Include="ViewModels\GeoLocation.cs" />
     <Compile Include="ViewModels\Location.cs" />
     <Compile Include="ViewModels\Schedule.cs" />
+    <Compile Include="ViewModels\Search\Schedule.cs" />
+    <Compile Include="ViewModels\Search\ScheduleDetail.cs" />
+    <Compile Include="ViewModels\Search\LocationSchedule.cs" />
+    <Compile Include="ViewModels\Search\SearchScheduleResponse.cs" />
+    <Compile Include="ViewModels\Search\SearchResponse.cs" />
+    <Compile Include="ViewModels\Search\Seminar.cs" />
     <Compile Include="ViewModels\Seminar.cs" />
     <Compile Include="WebSignup.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>

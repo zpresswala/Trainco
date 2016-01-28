@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
@@ -36,5 +38,6 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             return resultsList;
         }
+
     }
 }
