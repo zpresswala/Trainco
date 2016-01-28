@@ -19,7 +19,7 @@ using Umbraco.Web;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
-    public class SeminarsV2
+    public class SeminarDetails
     {
         public List<Seminar_Catalog> SeminarList = null;
         public List<Location> LocationList = null;
@@ -32,9 +32,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public string DefaultSearchLocationText { get; set; }
         public CoordinateDetails LocationCoordinates { get; set; }
 
+        public int SchedulesPerPage = 10;
+
         UmbracoHelper umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
 
-        public SeminarsV2()
+        public SeminarDetails()
         {
             SeminarList = CacheObjects.GetSeminarList();
             LocationList = CacheObjects.GetLocationList();

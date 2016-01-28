@@ -3,11 +3,11 @@ using System.Web;
 using System.Web.Http;
 using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
 using TPCTrainco.Umbraco.Extensions.Objects;
-using TPCTrainco.Umbraco.Extensions.ViewModels.Search;
+using TPCTrainco.Umbraco.Extensions.ViewModels.Angular;
 
 namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
 {
-    public class Seminars2Controller : ApiController
+    public class SeminarsOldController : ApiController
     {
         [HttpGet]
         public object Search(string id = null)
@@ -19,6 +19,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
 
             try
             {
+
                 int classId = 0;
 
                 SeminarsSearchRequest2 searchRequest = new SeminarsSearchRequest2();
@@ -77,7 +78,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
                     searchRequest.ClassId = classId;
                 }
 
-                SeminarSearch seminarsObj = new SeminarSearch();
+                Objects.SeminarDetails seminarsObj = new SeminarDetails();
 
                 searchResponse.Seminars = seminarsObj.SearchSeminars(searchRequest);
 
