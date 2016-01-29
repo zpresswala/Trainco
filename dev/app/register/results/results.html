@@ -32,3 +32,38 @@
         <a href="#">on-site training</a>.
       </p>
     </div>
+<div ng-repeat="course in register.seminarLocations" style="background-color: #fff; margin-top: 15px; padding: 15px; border-radius: 5px; border: 1px solid #d7d7d7">
+  <section class="row">
+    <div class="col-md-2">
+      <img src="http://placehold.it/75/75" class="course-img img-circle">
+    </div>
+    <div class="col-md-10" style="padding-left: 15px;">
+      <h2>{{course.title}}</h2>
+      <p>
+          {{course.subTitle}}
+      </p>
+    </div>
+  </section>
+  <table class="table table-responsive table-striped" style="text-align: left; padding: 0;">
+    <thead style="line-height:50px;background-color:#f9f9f9;">
+      <tr>
+        <th width="275px">Location</th>
+        <th width="400px">Seminar Information </th>
+        <th>Attendees</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="seminar in register.seminars">
+        <td>
+          {{seminar.cityState}}
+        </td>
+        <td>
+        {{seminar.locationDetails}}
+        </td>
+        <td>
+          <input type="number" ng-model="course.attendees">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
