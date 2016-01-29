@@ -13,6 +13,7 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels.Search
         public string SubTitle { get; set; }
         public string ImageUrl { get; set; }
         public string DetailsUrl { get; set; }
+        public double Price { get; set; }
         public List<LocationSchedule> LocationSchedules { get; set; }
     }
 }

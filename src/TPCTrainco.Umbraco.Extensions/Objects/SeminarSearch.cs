@@ -164,7 +164,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             result.SubTitle = courseDetail.SubTitle;
             result.ImageUrl = courseDetail.ImageUrl;
             result.DetailsUrl = courseDetail.DetailsUrl;
-            result.DetailsUrl = courseDetail.DetailsUrl;
+            result.Price = courseDetail.Price;
 
             return result;
         }
