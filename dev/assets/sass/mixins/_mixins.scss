@@ -17,3 +17,18 @@
     -o-transform: $var;
     transform: $var;
 }
+
+@mixin vendor($prop, $vals) {
+  -webkit-#{$prop}: $vals;
+  -moz-#{$prop}: $vals;
+  #{$prop}: $vals;
+}
+
+@mixin corners($radius) {
+  @include vendor('border-radius', $radius);
+}
+
+@mixin size($w: auto, $h: auto) {
+  width  : $w;
+  height : $h;
+}
