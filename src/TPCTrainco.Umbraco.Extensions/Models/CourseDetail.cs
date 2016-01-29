@@ -15,5 +15,6 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string SubTitle { get; set; }
         public string ImageUrl { get; set; }
         public string DetailsUrl { get; set; }
+        public double Price { get; set; }
     }
 }

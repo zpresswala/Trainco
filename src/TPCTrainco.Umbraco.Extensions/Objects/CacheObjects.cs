@@ -373,6 +373,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                         courseDetail.ImageUrl = "/images/default-seminar.gif";
                         courseDetail.DetailsUrl = "#";
+                        courseDetail.Price = Convert.ToDouble(courseItem.CourseFee);
 
                         if (seminarNode != null)
                         {
