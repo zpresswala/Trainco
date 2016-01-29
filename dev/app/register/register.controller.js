@@ -6,7 +6,6 @@ export class RegisterController {
     this.$http = $http;
     // this.mainSearch(searchService);
     this.courseId = {};
-    this.activate();
 
       /**
        * Handle key input
@@ -22,8 +21,11 @@ export class RegisterController {
 
       this.doLocSearch = () => {
         this.$http.get('http://trainco.axial-client.com/api/seminars2/search/?location=' + this.locSearchFilter.location).
-        then(function(data) {
-          console.log(data)
+        then((data) => {
+          this.$log.debug(data);
+          let seminarsData = data.data.seminars;
+            this.receiveSeminarData(seminarsData);
+            return seminarsData;
         });
       }
 
@@ -38,22 +40,9 @@ export class RegisterController {
         }
         // this.$http.get('http://trainco.axial-client.com/api/seminars2/search/?' + )
       }
-
   }
-
-  activate() {
-
+  receiveSeminarData(seminarsData) {
+    let seminarLocations = [];
+    this.seminarLocations = seminarsData;
   }
-  // mainSearch(searchService, searchFilter) {
-  //   let params = {
-  //       this.searchFilter.location
-  //   }
-  //   return searchService.performSearch(params)
-  //   .then((data) => {
-  //     this.$log.debug(data)
-  //     let searchCollection = data;
-  //
-  //     return searchCollection;
-  //   });
-  // }
 }
