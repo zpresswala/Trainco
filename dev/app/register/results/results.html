@@ -1,4 +1,5 @@
 
+    <!-- No Results -->
     <div class="empty-results">
       <div class="no-results">
         <h2>Sorry, no results were found.</h2>
@@ -32,38 +33,29 @@
         <a href="#">on-site training</a>.
       </p>
     </div>
-<div ng-repeat="course in register.seminarLocations | flatten" style="background-color: #fff; margin-top: 15px; padding: 15px; border-radius: 5px; border: 1px solid #d7d7d7">
-  <section class="row">
-    <div class="col-md-2">
-      <img src="http://placehold.it/75/75" class="course-img img-circle">
+    <!-- Search Results -->
+    <div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result">
+      <section class="row">
+        <div class="col-md-2">
+          <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
+        </div>
+        <div class="col-md-10" style="padding-left: 15px;">
+          <h2 class="result-course-title"><a ng-href="{{course.detailsUrl}}">{{course.title}}</a></h2>
+          <p class="result-course-subtitle">{{course.subTitle}}</p>
+        </div>
+      </section>
+      <section class="row result-table-head">
+        <div class="col-xs-4">Location</div>
+        <div class="col-xs-4 hide-responsive">Seminar Information</div>
+        <div class="col-xs-4">Attendees</div>
+      </section>
+      <section class="row result-table-body">
+        <div ng-repeat="location in course.locationSchedules" class="result-location">
+          <div class="col-xs-4">{{location.city}},  {{location.state}}</div>
+          <div class="col-xs-4">{{location.date}} <br /> {{location.daysDescription}}</div>
+          <div class="col-xs-4">
+            <input type="number" ng-model="course.attendees">
+          </div>
+        </div>
+      </section>
     </div>
-    <div class="col-md-10" style="padding-left: 15px;">
-      <h2>{{course.title}}</h2>
-      <p>
-          {{course.subTitle}}
-      </p>
-    </div>
-  </section>
-  <table class="table table-responsive table-striped" style="text-align: left; padding: 0;">
-    <thead style="line-height:50px;background-color:#f9f9f9;">
-      <tr>
-        <th width="275px">Location</th>
-        <th width="400px">Seminar Information </th>
-        <th>Attendees</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="location in course.locationSchedules">
-        <td>
-          {{location.state}} {{location.city}}
-        </td>
-        <td>{{location.date}}
-        {{location.daysDescription}}
-        </td>
-        <td>
-          <input type="number" ng-model="course.attendees">
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>

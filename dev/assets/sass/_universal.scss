@@ -16,11 +16,11 @@ body {
 
 	// sticky footer styles
 	@include tablet-portrait-and-up {
-		margin-bottom: 230px;
+		//margin-bottom: 230px;
 	}
 
 	@include tablet-landscape-and-up {
-		margin-bottom: 80px;
+		//margin-bottom: 80px;
 	}
 }
 

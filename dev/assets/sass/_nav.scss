@@ -135,8 +135,10 @@
     }
     img {
         margin-top: -7px;
+        width : 200px;
         @include tablet-landscape-and-up {
-            margin-top: 3px;
+          margin-top: 3px;
+          width : auto;
         }
     }
 }
