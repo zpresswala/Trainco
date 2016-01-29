@@ -80,10 +80,12 @@
                     }
                     else
                     {
+                      <ul>
                         foreach (IPublishedContent subItem in node.Children)
                         {
                             <li>@(subItem.Name)</li>
                         }
+                        </ul>
                     }
                 }
             }
