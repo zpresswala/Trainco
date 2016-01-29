@@ -20,6 +20,10 @@ export class SeminarController {
     }
 
     this.location = {};
+        this.demo1 = {
+          min: 0,
+          max: 500
+        };
   }
 
   activate() {

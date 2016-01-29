@@ -52,7 +52,7 @@
       <section class="row result-table-body">
         <div ng-repeat="location in course.locationSchedules" class="result-location">
           <div class="col-xs-4">{{location.city}},  {{location.state}}</div>
-          <div class="col-xs-4">{{location.date}} <br /> {{location.daysDescription}}</div>
+          <div class="col-xs-4">{{location.date}} <br /> {{location.details}}</div>
           <div class="col-xs-4">
             <input type="number" ng-model="course.attendees">
           </div>
