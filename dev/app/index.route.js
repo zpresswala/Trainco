@@ -33,6 +33,12 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('register', {
+      url: '/register',
+      templateUrl: 'app/register/register.html',
+      controller: 'RegisterController',
+      controllerAs: 'register'
+    });
 
 
   $urlRouterProvider.otherwise('/');
