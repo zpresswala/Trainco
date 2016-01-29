@@ -33,11 +33,13 @@
         <a href="#">on-site training</a>.
       </p>
     </div>
+
     <!-- Search Results -->
     <div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result">
       <section class="row">
         <div class="col-md-2">
           <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
+          <h4 class="result-price">${{course.price}}</h4>
         </div>
         <div class="col-md-10" style="padding-left: 15px;">
           <h2 class="result-course-title"><a ng-href="{{course.detailsUrl}}">{{course.title}}</a></h2>
@@ -45,16 +47,23 @@
         </div>
       </section>
       <section class="row result-table-head">
-        <div class="col-xs-4">Location</div>
-        <div class="col-xs-4 hide-responsive">Seminar Information</div>
-        <div class="col-xs-4">Attendees</div>
+        <div class="col-md-5 col-sm-10 col-xs-9">Location</div>
+        <div class="col-xs-5 hide-responsive">Seminar Information</div>
+        <div class="col-sm-2 col-xs-3 result-attendee-wrapper">Attendees</div>
       </section>
       <section class="row result-table-body">
-        <div ng-repeat="location in course.locationSchedules" class="result-location">
-          <div class="col-xs-4">{{location.city}},  {{location.state}}</div>
-          <div class="col-xs-4">{{location.date}} <br /> {{location.details}}</div>
-          <div class="col-xs-4">
-            <input type="number" ng-model="course.attendees">
+        <div ng-repeat="location in course.locationSchedules" class="result-location-row">
+          <div class="col-md-5 col-sm-10 col-xs-9 result-location">
+            <span class="state">{{location.state}}</span>
+            <span class="city">{{location.city}}</span>
+            <span class="date-responsive">{{location.date}}</span>
+          </div>
+          <div class="col-xs-5 result-date">
+            {{location.date}}
+            <span>{{location.locationDetails}}</span>
+          </div>
+          <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
+            <input class="result-attendee-input" type="number" ng-model="course.attendees">
           </div>
         </div>
       </section>
