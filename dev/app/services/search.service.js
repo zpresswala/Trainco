@@ -3,10 +3,16 @@ export class SearchService {
     'ngInject';
     this.$log = $log;
     this.$http = $http;
-    this.apiHost = 'http://trainco-dev.imulus-client.com/api/seminars/search';
+    this.apiHost = 'http://trainco.axial-client.com/api/seminars2/search';
   }
 
-  performSearch(course) {
-    return this.$http.post(this.apiHost, course);
+  performSearch(params) {
+    return this.$http.get(this.apiHost, + '/' + params)
+    .then((collection) => {
+      return collection.data;
+    })
+    .catch((error) => {
+      this.$log.error('XHR Failed for performSearch.\n' + angular.toJson(error.data, true));
+    });
   }
 }

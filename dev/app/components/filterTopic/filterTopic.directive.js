@@ -15,25 +15,25 @@ export function FilterTopicDirective() {
 }
 
 class FilterTopicController {
-  constructor (courseSearch, $http, $log) {
+  constructor (searchService, $http, $log) {
     'ngInject';
       this.$http = $http;
       this.$log = $log;
-      this.activate(courseSearch);
-      this.courseSearch = courseSearch;
+      this.activate(searchService);
+      this.courseSearch = searchService;
   }
 
-    activate(courseSearch) {
-      return this.getElectricalCourses(courseSearch).then(() => {
-        this.$log.info('Activated Course Listing View');
-      });
+    activate(searchService) {
+      // return this.getElectricalCourses(courseSearch).then(() => {
+      //   this.$log.info('Activated Course Listing View');
+      // });
     }
 
-    getElectricalCourses() {
-      return this.courseSearch.getElectrical().then((data) => {
-        this.courses = data;
-
-        return this.courses;
-      });
-    }
+    // getElectricalCourses() {
+    //   return this.courseSearch.getElectrical().then((data) => {``
+    //     this.courses = data;
+    //
+    //     return this.courses;
+    //   });
+    // }
 }

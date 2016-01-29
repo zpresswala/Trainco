@@ -35,10 +35,15 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
     })
     .state('register', {
       url: '/register',
-      templateUrl: 'app/register/register.html',
       controller: 'RegisterController',
-      controllerAs: 'register'
-    });
+      controllerAs: 'register',
+      templateUrl: 'app/register/register.html'
+    })
+    .state('results', {
+      url: '/results',
+      templateUrl: 'app/register/results/results.html',
+      parent: 'register'
+    })
 
 
   $urlRouterProvider.otherwise('/');

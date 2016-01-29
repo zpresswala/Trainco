@@ -8,7 +8,7 @@ import { SeminarController } from './seminar/seminar.controller';
 import { ListingController } from './listing/listing.controller';
 import { SeminarDetailController } from './seminar/detail/detail';
 import { services } from './services/index'; // eslint-disable-line
-
+import { RegisterController } from './register/register.controller';
 import { FooterDirective } from './components/footer/footer.directive';
 import { MainSearchDirective } from './components/mainSearch/mainSearch.directive';
 import { CartDirective } from './components/cart/cart.directive';
@@ -22,6 +22,7 @@ angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 
   .controller('MainController', MainController)
   .controller('SeminarController', SeminarController)
   .controller('SeminarDetailController', SeminarDetailController)
+  .controller('RegisterController', RegisterController)
   .controller('ListingController', ListingController)
   .directive('tpcFooter', FooterDirective)
   .directive('mainSearch', MainSearchDirective)

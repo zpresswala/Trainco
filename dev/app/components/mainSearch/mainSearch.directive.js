@@ -42,7 +42,7 @@ class MainSearchController {
     // "this.creation" is available by directive option "bindToController: true"
   }
     postCourseSearch() {
-      this.$http.post(this.apiHost, this.course).then((response) => {
+      this.$http.get(this.apiHost, this.course).then((response) => {
         return response.data;
       })
       .catch((error) => {
