@@ -6,7 +6,7 @@ import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
 import { SeminarController } from './seminar/seminar.controller';
 import { ListingController } from './listing/listing.controller';
-
+import { SeminarDetailController } from './seminar/detail/detail';
 import { services } from './services/index'; // eslint-disable-line
 
 import { FooterDirective } from './components/footer/footer.directive';
@@ -21,6 +21,7 @@ angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 
   .run(runBlock)
   .controller('MainController', MainController)
   .controller('SeminarController', SeminarController)
+  .controller('SeminarDetailController', SeminarDetailController)
   .controller('ListingController', ListingController)
   .directive('tpcFooter', FooterDirective)
   .directive('mainSearch', MainSearchDirective)

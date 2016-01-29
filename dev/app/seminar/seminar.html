@@ -263,7 +263,8 @@
             {{ location.date}}
         </td>
         <td width="155px">
-          <a uib-popover-template="seminar.dynamicPopover.templateUrl" class="register-link" ng-click="seminar.registerSem(location.id)">Register</a>
+          <a ui-sref="detail({id: location.id})">Register</a>
+          <!-- <a uib-popover-template="seminar.dynamicPopover.templateUrl" class="register-link" ng-click="seminar.registerSem(location.id)">Register</a> -->
         </td>
       </tr>
     </tbody>

@@ -1,5 +1,3 @@
-const privates = new WeakMap();
-
 export class CourseSearchService {
   constructor ($log, $http) {
     'ngInject';

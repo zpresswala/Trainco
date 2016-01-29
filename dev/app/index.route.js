@@ -18,7 +18,22 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       templateUrl: 'app/seminar/seminar.html',
       controller: 'SeminarController',
       controllerAs: 'seminar'
-    });
+    })
+    .state('detail', {
+      url: '/:id',
+      templateUrl: 'app/seminar/detail/detail.html',
+      controller: 'SeminarDetailController',
+      controllerAs: 'detail',
+      resolve: {
+        courseSearch: 'courseSearch',
+        seminarDetails: function(courseSearch, $stateParams) {
+          let semId = $stateParams.id;
+          return courseSearch.getSeminarDetails(semId);
+
+        }
+      }
+    })
+
 
   $urlRouterProvider.otherwise('/');
 }
