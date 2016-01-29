@@ -68,5 +68,21 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 instance = value;
             }
         }
+
+        public static IPublishedContent OnSiteTraining()
+        {
+            IPublishedContent onsiteTrainingNode = null;
+
+            var umbHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            IPublishedContent homepageNode = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("HomePage"));
+
+            if (homepageNode != null)
+            {
+                onsiteTrainingNode = homepageNode.Children.FirstOrDefault(n => n.IsDocumentType("OnSiteTraining"));
+            }
+
+            return onsiteTrainingNode;
+        }
     }
 }
