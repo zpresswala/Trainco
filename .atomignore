@@ -1,0 +1,7 @@
+src/.nuget
+src/.vs
+src/license
+src/Old Source
+src/TPCTrainco.Umbraco.Extensions
+src/TPCTrainco.Umbraco.Bin
+src/TPCTrainco.Umbraco.sln
