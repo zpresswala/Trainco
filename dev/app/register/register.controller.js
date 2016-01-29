@@ -16,18 +16,26 @@ export class RegisterController {
       this.handleLocInput = (e) => {
         if (e.keyCode === 13 && this.locSearchFilter.location) {
 
-          this.doSearch();
+          this.doLocSearch();
         }
       }
 
       this.doLocSearch = () => {
-        this.$http.get('http://trainco.axial-client.com/api/seminars2/search/?location=' + this.searchFilter.location).
+        this.$http.get('http://trainco.axial-client.com/api/seminars2/search/?location=' + this.locSearchFilter.location).
         then(function(data) {
-
+          console.log(data)
         });
       }
 
       this.doParamSearch = () => {
+        let searchParams = {
+          'keyword': keyword,
+          'topic': topic,
+          'location':location,
+          'radius':radius,
+          'date-start':dateStart,
+          'date-end': dateEnd
+        }
         // this.$http.get('http://trainco.axial-client.com/api/seminars2/search/?' + )
       }
 
