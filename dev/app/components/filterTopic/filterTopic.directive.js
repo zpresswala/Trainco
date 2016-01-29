@@ -19,21 +19,9 @@ class FilterTopicController {
     'ngInject';
       this.$http = $http;
       this.$log = $log;
-      this.activate(searchService);
+      this.topicSearchFilter = [];
       this.courseSearch = searchService;
+
+      this.courseTopics = {};
   }
-
-    activate(searchService) {
-      // return this.getElectricalCourses(courseSearch).then(() => {
-      //   this.$log.info('Activated Course Listing View');
-      // });
-    }
-
-    // getElectricalCourses() {
-    //   return this.courseSearch.getElectrical().then((data) => {``
-    //     this.courses = data;
-    //
-    //     return this.courses;
-    //   });
-    // }
 }
