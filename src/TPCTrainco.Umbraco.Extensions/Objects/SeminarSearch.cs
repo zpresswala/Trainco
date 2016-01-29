@@ -21,6 +21,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 {
     public class SeminarSearch : SeminarCommon
     {
+        public int SchedulePageCount = 10;
+
 
         public SeminarSearch()
         {
@@ -39,6 +41,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             FilterByDate(ref locationScheduleDetailList, request);
             FilterByLocation(ref locationScheduleDetailList, request);
             FilterByTopic(ref courseDetailList, ref locationScheduleDetailList, request);
+            FilterByKeyword(ref locationScheduleDetailList, request);
+
 
             courseDetailList = courseDetailList.OrderBy(p => p.CourseTier).ThenBy(t => t.TopicId).ToList();
 
@@ -78,10 +82,27 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     seminar.LocationSchedules.Add(locationSchedule);
                 }
 
+                if (true == string.IsNullOrWhiteSpace(request.Location))
+                {
+                    seminar.LocationSchedules = seminar.LocationSchedules.OrderBy(p => p.State).ThenBy(p => p.City).ThenBy(p => p.DateFilter).ToList();
+                }
+                else
+                {
+                    seminar.LocationSchedules = seminar.LocationSchedules.OrderBy(p => p.Distance).ThenBy(p => p.DateFilter).ToList();
+                }
+
                 if (request.ClassId > 0)
                 {
-                    seminar.LocationSchedules = seminar.LocationSchedules.OrderBy(p => p.State).ThenBy(p => p.City).ToList();
+                    if (request.Page >= 0)
+                    {
+                        seminar.LocationSchedules = seminar.LocationSchedules.Skip(SchedulePageCount * request.Page).Take(SchedulePageCount).ToList();
+                    }
                 }
+                else
+                {
+                    seminar.LocationSchedules = seminar.LocationSchedules.Skip(0).Take(SchedulePageCount).ToList();
+                }
+
 
                 seminarViewModelList.Add(seminar);
             }

@@ -20,6 +20,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
             try
             {
                 int classId = 0;
+                int page = -1;
 
                 SeminarsSearchRequest2 searchRequest = new SeminarsSearchRequest2();
 
@@ -33,7 +34,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
                 }
                 if (false == string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["topic"]))
                 {
-                    searchRequest.Keywords = HttpContext.Current.Request.QueryString.Get("topic");
+                    searchRequest.Topics = HttpContext.Current.Request.QueryString.Get("topic").Split(',');
                 }
                 if (false == string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["location"]))
                 {
@@ -63,12 +64,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
                 }
                 if (false == string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["page"]))
                 {
-                    int page = 0;
-
                     int.TryParse(HttpContext.Current.Request.QueryString.Get("page"), out page);
-
-                    searchRequest.Page = page;
                 }
+                searchRequest.Page = page;
 
                 if (false == string.IsNullOrWhiteSpace(id))
                 {

@@ -102,6 +102,20 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        protected void FilterByKeyword(ref List<LocationScheduleDetail> locationScheduleDetailList, SeminarsSearchRequest2 request)
+        {
+            if (false == string.IsNullOrWhiteSpace(request.Keywords))
+            {
+
+                locationScheduleDetailList = locationScheduleDetailList.Where(p => p.Description.Contains(request.Keywords) || 
+                    p.DaysDescription.Contains(request.Keywords) ||
+                    p.LocationDetails.Contains(request.Keywords) ||
+                    p.State.Contains(request.Keywords) ||
+                    p.City.Contains(request.Keywords)).ToList();
+            }
+        }
+
+
         private List<LocationScheduleDetail> FindLocationSeminarCatalog(List<LocationScheduleDetail> locationScheduleDetailSearch, CoordinateDetails coordinateDetails, SeminarsSearchRequest2 request)
         {
             List<LocationScheduleDetail> resultSearch = null;
