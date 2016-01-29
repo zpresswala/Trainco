@@ -7,12 +7,19 @@ export class SeminarController {
     this.courseId = {};
     this.activate();
     this.requestSeminarData(courseSearch);
+    this.requestSeminarDetails(courseSearch);
     this.isCollapsed = true;
 
     this.dynamicPopover = {
       templateUrl: 'app/seminar/seminarPop.html'
     };
     this.addToCart();
+
+    this.registerSem = function() {
+      this.requestSeminarDetails();
+    }
+
+    this.location = {};
   }
 
   activate() {
@@ -31,9 +38,24 @@ export class SeminarController {
   }
 
   receiveSeminarData(seminarsData) {
-    let semD = seminarsData;
-    this.$log.debug(semD);
-    this.seminarLocations = semD.locationSchedules;
+    let seminarLocations = [];
+    this.seminarLocations = seminarsData.locationSchedules;
+    for(let elem of this.seminarLocations) {
+      const semId = elem.id;
+      this.$log.debug('kek', elem.id)
+      return semId;
+    }
+  }
+
+  requestSeminarDetails(courseSearch) {
+    //const semId = localStorage.getItem('classId');
+    let semId
+    return courseSearch.getSeminarDetails(semId).then((data) => {
+      this.$log.debug(data)
+      let seminarDetail = data;
+      // this.receiveSeminarData(seminarDetail);
+      return seminarDetail;
+    });
   }
 
   addToCart() {
