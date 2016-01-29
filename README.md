@@ -21,3 +21,11 @@ keyword
 topics (topic ids, comma separated)
 radius
 page (pagination, zero index, 0 (default) returns 1-10, page=1 returns 11-20, etc.)
+
+GET /api/seminars/search/
+?keyword={keyword}
+topic={topics (comma separated)}
+location={city or ZIP}
+radius={miles radius}
+date-start={start date of search}
+date-end={end date of search}
