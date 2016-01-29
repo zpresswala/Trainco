@@ -3,12 +3,18 @@
   "env": {
     "browser": true,
     "node": true,
+    "mocha": true,
     "es6": true
   },
   "plugins": [
     "babel",
-    "react"
+    "angular"
   ],
+    "globals": {
+    "angular": true,
+    "module": true,
+    "inject": true
+  },
   "ecmaFeatures": {
     "arrowFunctions": true,
     "blockBindings": true,

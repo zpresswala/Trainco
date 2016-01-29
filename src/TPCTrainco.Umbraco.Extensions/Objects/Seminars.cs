@@ -735,16 +735,21 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (false == string.IsNullOrWhiteSpace(locationDetails))
                 {
-                    var startTag = "<b>LOCATION";
-                    int startIndex = locationDetails.IndexOf(startTag) + startTag.Length;
-                    int endIndex = locationDetails.IndexOf("<b>", startIndex);
-                    output = locationDetails.Substring(startIndex, endIndex - startIndex);
+                    try
+                    {
+                        var startTag = "<b>LOCATION";
+                        int startIndex = locationDetails.IndexOf(startTag) + startTag.Length;
+                        int endIndex = locationDetails.IndexOf("<b>", startIndex);
+                        output = locationDetails.Substring(startIndex, endIndex - startIndex);
 
-                    output = output.Replace("<b>LOCATION", "");
-                    output = Regex.Replace(output, "<b>", "");
-                    output = Regex.Replace(output, "</b>", "");
-                    output = output.Trim();
-                    output = output.Replace("\r", "<br />" + Environment.NewLine);
+                        output = output.Replace("<b>LOCATION", "");
+                        output = Regex.Replace(output, "<b>", "");
+                        output = Regex.Replace(output, "</b>", "");
+                        output = output.Trim();
+                        output = output.Replace("\r", "<br />" + Environment.NewLine);
+                    }
+                    catch { }
+
                 }
             }
             if (true == string.IsNullOrWhiteSpace(output))

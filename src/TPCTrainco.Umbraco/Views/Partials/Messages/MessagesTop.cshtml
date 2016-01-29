@@ -1,0 +1,59 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.ViewModels
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
+@{
+    bool displayAlert = false;
+    string alertMessage = "";
+
+    if (Request.QueryString["error"] != null && Request.QueryString.Get("error").Length > 0)
+    {
+        int regId = 0;
+
+        if (Request.QueryString["regid"] != null && Request.QueryString.Get("regid").Length > 0)
+        {
+            regId = Convert.ToInt32(Request.QueryString.Get("regid"));
+        }
+
+        displayAlert = true;
+
+        string error = Request.QueryString.Get("error");
+
+        if (error == "10")
+        {
+            alertMessage = "<strong>Session has Expired</strong><br />\r\n";
+            alertMessage += "Your session has expired and your registration is no longer available.<br />Please select a seminar and try again.";
+        }
+        else if (error == "11")
+        {
+            alertMessage = "<strong>Registration Cart Empty</strong><br />\r\n";
+            alertMessage += "Your registration cart is empty.<br />Please select a seminar and try again.";
+        }
+        else if (error == "90")
+        {
+            alertMessage = "<strong>Registration Error</strong><br />\r\n";
+            alertMessage += "There was a problem saving your registration information. Please contact us with the registration ID: " + regId + " to verify your registration was completed.";
+        }
+        else if (error == "81" || error == "82" || error == "83" || error == "91" || error == "92" || error == "93" || error == "94")
+        {
+            alertMessage = "<strong>Session has Expired</strong><br />\r\n";
+            alertMessage += "Your session has expired and your registration is no longer available.<br />Please select a seminar and try again. Error ("+ error + ")";
+        }
+        else if (error == "95")
+        {
+            alertMessage = "<strong>Registration Error</strong><br />\r\n";
+            alertMessage += "There was a problem saving your registration information. Please contact us with the temporary registration ID: " + regId + " to verify your registration was completed.";
+        }
+        else if (error == "cc")
+        {
+            alertMessage = "<strong>Credit Card Error</strong><br />\r\n";
+            alertMessage += "There was a problem processing your credit card. Please check your credit card and billing information.";
+        }
+    }
+}
+@if (true == displayAlert)
+{
+<div class="alert alert-danger">
+    @Html.Raw(alertMessage)
+</div>
+}
