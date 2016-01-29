@@ -1,27 +1,29 @@
 <h4>Search By:</h4>
 <label>Seminar Topic</label>
+
+
   <div class="input-group">
     <span class="input-group-addon">
-      <input type="checkbox" aria-label="..." ng-click="vm.getElectricalCourses()">Electrical
+      <input type="checkbox" ng-model="vm.courseTopics.electrical"aria-label="...">Electrical
+    </span>
+</div>
+  <div class="input-group">
+    <span class="input-group-addon">
+      <input type="checkbox" ng-model="vm.courseTopics.hvac" aria-label="...">HVAC
     </span>
   </div>
   <div class="input-group">
     <span class="input-group-addon">
-      <input type="checkbox" aria-label="...">HVAC
+      <input type="checkbox" ng-model="vm.courseTopics.plant" aria-label="...">Plant Management
     </span>
   </div>
   <div class="input-group">
     <span class="input-group-addon">
-      <input type="checkbox" aria-label="...">Plant Management
+      <input type="checkbox"  ng-model="vm.courseTopics.mechanical" aria-label="...">Mechanical &amp; Industrial
     </span>
   </div>
   <div class="input-group">
     <span class="input-group-addon">
-      <input type="checkbox" aria-label="...">Mechanical &amp; Industrial
-    </span>
-  </div>
-  <div class="input-group">
-    <span class="input-group-addon">
-      <input type="checkbox" aria-label="...">All Seminar Topics
+      <input type="checkbox"  ng-model="all" aria-label="...">All Seminar Topics
     </span>
   </div>

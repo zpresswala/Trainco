@@ -13,18 +13,18 @@ export class RegisterController {
        * @param  {object} e the event
        * ng-keydown="searchInput.handleInput($event)"
        */
-      this.handleInput = (e) => {
-        if (e.keyCode === 13 && this.searchFilter.location) {
+      this.handleLocInput = (e) => {
+        if (e.keyCode === 13 && this.locSearchFilter.location) {
 
           this.doSearch();
         }
       }
 
-      this.doSearch = () => {
+      this.doLocSearch = () => {
         this.$http.get('http://trainco.axial-client.com/api/seminars2/search/?location=' + this.searchFilter.location).
         then(function(data) {
-          console.log(data);
-        })
+
+        });
       }
 
   }
