@@ -4,10 +4,10 @@ export function KeywordInputDirective() {
   let directive = {
     restrict: 'E',
       template: [
-        '<div class="form-group">',
-        '<label>Keyword Search</label>',
+        '<div class="form-group keyword-search">',
+        '<h4 class="sidebar-h4">Keyword Search:</h4>',
         '<div class="search-input" ng-keydown="searchInput.handleInput($event)">',
-          '<input type="text" ng-model="searchInput.query" placeholder="Search by keyword..."></input>',
+          '<input type="text" ng-model="searchInput.query" placeholder="Enter Keyword"></input>',
           '<a href ng-click="searchInput.resetQuery()"><p ng-show="searchInput.query.length" class="mdi-navigation-close">click</p></a>',
         '</div>',
         '</div>'

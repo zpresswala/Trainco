@@ -28,6 +28,16 @@
   @include vendor('border-radius', $radius);
 }
 
+@mixin rightCorners($radius) {
+  @include vendor('border-top-right-radius', $radius);
+  @include vendor('border-bottom-right-radius', $radius);
+}
+
+@mixin leftCorners($radius) {
+  @include vendor('border-top-left-radius', $radius);
+  @include vendor('border-bottom-left-radius', $radius);
+}
+
 @mixin size($w: auto, $h: auto) {
   width  : $w;
   height : $h;
