@@ -32,7 +32,7 @@
         <a href="#">on-site training</a>.
       </p>
     </div>
-<div ng-repeat="course in register.seminarLocations" style="background-color: #fff; margin-top: 15px; padding: 15px; border-radius: 5px; border: 1px solid #d7d7d7">
+<div ng-repeat="course in register.seminarLocations | flatten" style="background-color: #fff; margin-top: 15px; padding: 15px; border-radius: 5px; border: 1px solid #d7d7d7">
   <section class="row">
     <div class="col-md-2">
       <img src="http://placehold.it/75/75" class="course-img img-circle">
@@ -53,12 +53,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="(course, seminar) in register.seminarLocations">
+      <tr ng-repeat="location in course.locationSchedules">
         <td>
-          {{seminar.locationSchedules.cityState}}
+          {{location.state}} {{location.city}}
         </td>
-        <td>
-        {{course.locationDetails}}
+        <td>{{location.date}}
+        {{location.daysDescription}}
         </td>
         <td>
           <input type="number" ng-model="course.attendees">
