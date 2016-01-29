@@ -27,6 +27,10 @@ export class RegisterController {
         });
       }
 
+      this.doParamSearch = () => {
+        // this.$http.get('http://trainco.axial-client.com/api/seminars2/search/?' + )
+      }
+
   }
 
   activate() {

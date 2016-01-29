@@ -23,8 +23,5 @@ class FilterTopicController {
       this.courseSearch = searchService;
 
       this.courseTopics = {};
-
-      
-
   }
 }
