@@ -28,7 +28,7 @@
     position: relative;
   }
 
-  h3 {
+  h3, h3 a {
     color: $white;
     text-align: center;
     margin: 40px 0 30px;
@@ -47,7 +47,7 @@
       width: 50%;
       position: absolute;
       top: 50%;
-      margin-top: -230px;
+      margin-top: -420px;
       left: 0;
     }
 

@@ -53,12 +53,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="seminar in register.seminars">
+      <tr ng-repeat="(course, seminar) in register.seminarLocations">
         <td>
-          {{seminar.cityState}}
+          {{seminar.locationSchedules.cityState}}
         </td>
         <td>
-        {{seminar.locationDetails}}
+        {{course.locationDetails}}
         </td>
         <td>
           <input type="number" ng-model="course.attendees">
