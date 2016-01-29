@@ -29,6 +29,7 @@ hr.divider {
 
 .register-page {
   background : $gray-background;
+  padding-bottom : 80px;
   @include medium-sizes {
     background : url(/assets/images/columns-bg.png) center center repeat-y $white;
   }
@@ -188,11 +189,15 @@ hr.divider {
 
 .faceted-result {
   @include corners(10px);
-  max-width        : 672px;
+  max-width        : 750px;
   background-color : $white;
   padding          : 20px 25px;
   border           : 1px solid $cart-border;
   margin           : 25px auto 0;
+  @include medium-sizes {
+    margin    : 25px 0 0 auto;
+    max-width : 88%;
+  }
 }
 
 .result-course-title {
@@ -209,19 +214,113 @@ hr.divider {
 .course-img {
   @include corners(50%);
   @include size(75px, 75px);
+  display : none;
+  @include medium-sizes {
+    display : block;
+  }
+}
+
+.hide-responsive {
+  display : none;
+  @include medium-sizes {
+    display : block;
+  }
+}
+
+.result-price {
+  text-align   : center;
+  font-size    : 20px;
+  margin       : 2px auto 15px;
+  float        : right;
+  padding-left : 10px;
+  @include medium-sizes {
+    float        : none;
+    margin       : 10px auto 15px;
+    padding-left : 0;
+  }
 }
 
 .result-table-head {
   background     : $gray-background;
-  padding        : 8px 5px;
+  padding        : 15px 5px;
   margin-left    : -25px;
   margin-right   : -25px;
   font-size      : 12px;
   font-weight    : bold;
+  color          : $headline-black-on-white;
 }
 
 .result-table-body {
-  padding        : 0 5px;
+  padding        : 5px 5px;
   margin-left    : -25px;
   margin-right   : -25px;
+  color          : $headline-black;
+}
+
+.result-location-row {
+  padding: 10px 0 0;
+  &:after {
+    content: '';
+    display: block;
+    height: 1px;
+    clear: both;
+    background: $cart-border;
+    margin: 0 15px;
+  }
+  div {
+    padding-bottom : 10px;
+  }
+  &:last-child:after {
+    display : none;
+  }
+}
+
+.result-attendee-wrapper {
+  text-align: right;
+}
+
+.result-attendee-input {
+  @include corners(2px);
+  @include size(35px, 35px);
+  max-width : 100%;
+  background: $gray-background;
+  border    : 1px solid $cart-border;
+  text-align: center;
+}
+
+.result-location {
+  span {
+    font-style : italic;
+    font-size  : 16px;
+    display : inline-block;
+    &:first-child:after {
+      content: ',';
+      @include medium-sizes {
+        display : none;
+      }
+    }
+    @include medium-sizes {
+      width   : 48%;
+    }
+  }
+  span.date-responsive {
+    width : 100%;
+    font-style : normal;
+    @include medium-sizes {
+      display : none;
+    }
+  }
+}
+
+.result-date {
+  display : none;
+  @include medium-sizes {
+    display : block;
+  }
+  span {
+    font-size : 12px;
+    color     : lighten($body-copy, 15%);
+    display   : block;
+    padding-top : 10px;
+  }
 }
