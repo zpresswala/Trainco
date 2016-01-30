@@ -327,6 +327,7 @@ hr.divider {
 //////// Slider specific to this page
 
 .register-page {
+  label {display: block;}
   $handleActiveColor: #451aff;
   $handleHoverColor: #fff;
   $labelTextColor: #55637d;

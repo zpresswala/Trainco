@@ -42,6 +42,7 @@ export class RegisterController {
           step: 50
         }
       }
+
       this.$log.debug(this.mileRange.value)
       this.doParamSearch = () => {
         let searchParams = {
