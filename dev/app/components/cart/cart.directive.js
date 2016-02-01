@@ -1,3 +1,4 @@
+import { calculateTotalPrice } from '../../utils';
 export function CartDirective() {
   'ngInject';
 
@@ -16,15 +17,19 @@ export function CartDirective() {
 
 class CartController {
 
-  constructor() {
+  constructor(cartService) {
     'ngInject';
+
+    this.cartService = cartService;
+
+    this.cartItemList = cartService.getCartItems() || [];
+    this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+
+    this.removeItemFromCart = (itemId) => {
+      cartService.removeItem(itemId);
+      this.cartItemList = this.cartService.getCartItems() || [];
+      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+    };
   }
 
 }
-// etItemListQuantity() {
-//     let quantity = 0;
-//     this.forEach(this.items, (item) => {
-//         quantity += item.quantity();
-//     });
-//     return quantity;
-// }

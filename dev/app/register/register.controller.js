@@ -1,8 +1,10 @@
+import { calculateTotalPrice } from '../utils';
 export class RegisterController {
-  constructor($log, searchService, $http, $state, $rootScope, $scope) {
+  constructor($log, searchService, $http, $state, $rootScope, $scope, cartService) {
     'ngInject';
     this.$state = $state;
     this.$log = $log;
+    this.cartService = cartService;
     this.$scope = $scope;
     this.$rootScope = $rootScope;
     this.$http = $http;
@@ -10,6 +12,19 @@ export class RegisterController {
     const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     // this.mainSearch(searchService);
     this.courseId = {};
+    this.cartItemList = this.cartService.getCartItems() || [];
+    this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+
+    this.addItemToCart = (item) => {
+      cartService.addItem(item);
+      this.cartItemList = cartService.getCartItems() || [];
+      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+    };
+    this.removeItemFromCart = (itemId) => {
+      cartService.removeItem(itemId);
+      this.cartItemList = this.cartService.getCartItems() || [];
+      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+    };
 
     /**
      * Handle key input
