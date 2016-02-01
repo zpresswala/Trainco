@@ -1,0 +1,42 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
+@{
+    IEnumerable<IPublishedContent> seminarCategoryList = Nodes.SeminarCategoryList();
+}
+        <!-- course-list -->
+<div class="carousel slide col-xs-12 col-md-6 col-md-pull-6">
+    @if (seminarCategoryList != null && seminarCategoryList.Any())
+            {
+        <h3>Our courses available for on-site training include:</h3>
+
+        foreach (IPublishedContent node in seminarCategoryList)
+        {
+            bool isElectrical = node.Name.IndexOf("Electrical") >= 0;
+
+            <h3><a href="@node.Url">@(node.Name)</a></h3>
+
+            if (true == isElectrical)
+            {
+                <ul>
+                    @foreach (IPublishedContent subItem in node.Children)
+                    {
+                        foreach (IPublishedContent subSubItem in subItem.Children)
+                        {
+                            <li><a href="@subSubItem.Url">@(subSubItem.Name)</a></li>
+                        }
+                    }
+                </ul>
+            }
+            else
+            {
+                <ul>
+                    @foreach (IPublishedContent subItem in node.Children)
+                        {
+                        <li><a href="@subItem.Url">@(subItem.Name)</a></li>
+                    }
+                </ul>
+            }
+        }
+    }
+</div>
+<!-- end course-list -->
