@@ -196,12 +196,13 @@
 }
 .navbar-lower {
   position: fixed;
-  top: 80px;
   height: 50px;
   background-color: #5c5c5c;
   width: 100%;
   z-index: 1500;
-
+  @media screen and (max-width: 995px) {
+    display: none;
+  }
   li {
     padding-left: 15px;
     padding-right: 15px;

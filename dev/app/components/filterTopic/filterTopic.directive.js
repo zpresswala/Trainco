@@ -21,7 +21,9 @@ class FilterTopicController {
       this.$log = $log;
       this.topicSearchFilter = [];
       this.courseSearch = searchService;
-
+      this.categories = {
+        hvac: true, electrical: true, mechanical: true, plant: true
+      }
       this.courseTopics = {};
   }
 }

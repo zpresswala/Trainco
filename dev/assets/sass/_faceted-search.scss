@@ -3,29 +3,24 @@ input {
 }
 
 .sidebar-h4 {
-  margin-bottom  : 0;
-  padding-bottom : 15px;
-
   color          : $body-copy;
-
-  font-size      : 16px;
   font-weight    : bold;
+  font-size      : 16px;
+  padding-bottom : 15px;
+  margin-bottom  : 0;
 }
 
 .sidebar-label {
+  color : $headline-black;
+  font-size : 14px;
   padding-top : 10px;
   padding-bottom : 10px;
-
-  color : $headline-black;
-
-  font-size : 14px;
 }
 
 hr.dark-hr {
+  border-top-color : $cart-border;
   margin-left      : -2000px;
   padding-right    : 2000px;
-
-  border-top-color : $cart-border;
 }
 
 hr.divider {
@@ -34,22 +29,20 @@ hr.divider {
 
 .register-page {
   background : $gray-background;
-
+  padding-bottom : 80px;
   @include medium-sizes {
     background : url(/assets/images/columns-bg.png) center center repeat-y $white;
   }
 }
 
 .empty-results {
-  max-width : 525px;
   margin    : 0 auto;
+  max-width : 525px;
   padding-top : 35px;
   h3 {
+    text-align    : center;
     margin-top    : 45px;
     margin-bottom : 45px;
-
-    text-align    : center;
-
     color         : $body-copy;
   }
 }
@@ -62,38 +55,30 @@ hr.divider {
 }
 
 .empty-results-instructions {
-  margin-bottom : 10px;
   padding : 0 25px;
+  margin-bottom : 10px;
 }
 
 .empty-results-number {
-  display      : inline-block;
-
-  margin-right : 15px;
-
-  text-align   : center;
-
-  color        : $white;
-  background   : $blue;
-
-  font-size    : 11px;
-  line-height  : 20px;
-
   @include size(20px, 20px);
   @include corners(50%);
+  background   : $blue;
+  color        : $white;
+  display      : inline-block;
+  margin-right : 15px;
+  line-height  : 20px;
+  font-size    : 11px;
+  text-align   : center;
 }
 
 .empty-results-tags {
-  margin        : 45px auto;
-  padding       : 45px 10px;
-
-  text-align    : center;
-
   border-top    : 1px solid $cart-border;
   border-bottom : 1px solid $cart-border;
+  text-align    : center;
+  padding       : 45px 10px;
+  margin        : 45px auto;
   li {
     display : inline-block;
-
     padding : 0 10px;
   }
   a {
@@ -109,35 +94,29 @@ hr.divider {
 }
 
 .register-sidebar {
-  display : none;
-
   padding-top: 35px;
   padding-bottom: 80px;
-
+  display : none;
   @include medium-sizes {
     display : block;
   }
 }
 
 .responsive-sidebar-toggle {
-  display    : block;
-
-  margin-top : 50px;
-  padding    : 15px 20px;
-
-  color      : $white;
   background : #56524E;
-
-  @include medium-sizes {
-    display : none;
-  }
+  margin-top : 50px;
+  color      : $white;
+  padding    : 15px 20px;
+  display    : block;
   .img-left {
     padding-right : 15px;
   }
   .img-right {
     float       : right;
-
     padding-top : 6px;
+  }
+  @include medium-sizes {
+    display : none;
   }
 }
 
@@ -145,33 +124,25 @@ hr.divider {
   padding : 0 0 20px;
   .search-input {
     position : relative;
-
     font-size : 15px;
     &:after {
-      position   : absolute;
-      top        : 0;
-      right      : 0;
-
-      display    : block;
-
-      content    : ' ';
-
-      background : url(/assets/images/icon-search.png) center center no-repeat $blue;
-
       @include size(38px, 100%);
       @include rightCorners(2px);
+      position   : absolute;
+      right      : 0;
+      top        : 0;
+      content    : ' ';
+      display    : block;
+      background : url(/assets/images/icon-search.png) center center no-repeat $blue;
     }
   }
   input {
+    @include corners(2px);
+    border     : 1px solid $cart-border;
     display    : block;
-
     width      : 100%;
     padding    : 6px 38px 6px 8px;
-
-    border     : 1px solid $cart-border;
     background : $gray-background;
-
-    @include corners(2px);
   }
 }
 
@@ -180,44 +151,35 @@ hr.divider {
     font-size : 14px;
   }
   .input-group input[type=checkbox] {
+    @include size(20px, 20px);
+    vertical-align: middle;
     margin-right : 5px;
     margin-bottom : 2px;
-
-    vertical-align: middle;
-
-    @include size(20px, 20px);
   }
 }
 
 .filter-location {
   input[type=search] {
+    @include corners(2px);
+    border     : 1px solid $cart-border;
     display    : block;
-
     width      : 100%;
     padding    : 6px 8px;
-
-    border     : 1px solid $cart-border;
     background : $gray-background;
-
-    @include corners(2px);
   }
   h5 {
-    margin    : 15px 0;
-
     color     : $headline-black;
-
     font-size : 15px;
+    margin    : 15px 0;
   }
   .input-group {
     font-size : 14px;
   }
   .input-group input[type=checkbox] {
+    @include size(20px, 20px);
+    vertical-align: middle;
     margin-right : 5px;
     margin-bottom : 2px;
-
-    vertical-align: middle;
-
-    @include size(20px, 20px);
   }
 }
 
@@ -226,14 +188,16 @@ hr.divider {
 }
 
 .faceted-result {
-  max-width        : 672px;
-  margin           : 25px auto 0;
-  padding          : 20px 25px;
-
-  border           : 1px solid $cart-border;
-  background-color : $white;
-
   @include corners(10px);
+  max-width        : 750px;
+  background-color : $white;
+  padding          : 20px 25px;
+  border           : 1px solid $cart-border;
+  margin           : 25px auto 0;
+  @include medium-sizes {
+    margin    : 25px 0 0 auto;
+    max-width : 88%;
+  }
 }
 
 .result-course-title {
@@ -241,44 +205,129 @@ hr.divider {
 }
 
 .result-course-subtitle {
-  margin-bottom : 20px;
-
-  color         : lighten($body-copy, 15%);
-
   font-size     : 14px;
+  color         : lighten($body-copy, 15%);
   line-height   : 1.6;
+  margin-bottom : 20px;
 }
 
 .course-img {
   @include corners(50%);
   @include size(75px, 75px);
+  display : none;
+  @include medium-sizes {
+    display : block;
+  }
+}
+
+.hide-responsive {
+  display : none;
+  @include medium-sizes {
+    display : block;
+  }
+}
+
+.result-price {
+  text-align   : center;
+  font-size    : 20px;
+  margin       : 2px auto 15px;
+  float        : right;
+  padding-left : 10px;
+  @include medium-sizes {
+    float        : none;
+    margin       : 10px auto 15px;
+    padding-left : 0;
+  }
 }
 
 .result-table-head {
-  margin-right   : -25px;
-  margin-left    : -25px;
-  padding        : 8px 5px;
-
   background     : $gray-background;
-
+  padding        : 15px 5px;
+  margin-left    : -25px;
+  margin-right   : -25px;
   font-size      : 12px;
   font-weight    : bold;
+  color          : $headline-black-on-white;
 }
 
 .result-table-body {
-  margin-right   : -25px;
+  padding        : 5px 5px;
   margin-left    : -25px;
-  padding        : 0 5px;
+  margin-right   : -25px;
+  color          : $headline-black;
 }
 
+.result-location-row {
+  padding: 10px 0 0;
+  &:after {
+    content: '';
+    display: block;
+    height: 1px;
+    clear: both;
+    background: $cart-border;
+    margin: 0 15px;
+  }
+  div {
+    padding-bottom : 10px;
+  }
+  &:last-child:after {
+    display : none;
+  }
+}
 
+.result-attendee-wrapper {
+  text-align: right;
+}
 
+.result-attendee-input {
+  @include corners(2px);
+  @include size(35px, 35px);
+  max-width : 100%;
+  background: $gray-background;
+  border    : 1px solid $cart-border;
+  text-align: center;
+}
 
+.result-location {
+  span {
+    font-style : italic;
+    font-size  : 16px;
+    display : inline-block;
+    &:first-child:after {
+      content: ',';
+      @include medium-sizes {
+        display : none;
+      }
+    }
+    @include medium-sizes {
+      width   : 48%;
+    }
+  }
+  span.date-responsive {
+    width : 100%;
+    font-style : normal;
+    @include medium-sizes {
+      display : none;
+    }
+  }
+}
 
-
+.result-date {
+  display : none;
+  @include medium-sizes {
+    display : block;
+  }
+  span {
+    font-size : 12px;
+    color     : lighten($body-copy, 15%);
+    display   : block;
+    padding-top : 10px;
+  }
+}
 //////// Slider specific to this page
 
 .register-page {
+  label {display: block;}
   $handleActiveColor: #451aff;
   $handleHoverColor: #fff;
   $labelTextColor: #55637d;
@@ -529,5 +578,4 @@ hr.divider {
       }
     }
   }
-
 }
