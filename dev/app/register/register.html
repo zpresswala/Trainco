@@ -17,7 +17,7 @@
           <h5>- or -</h5>
           <div class="input-group">
             <span class="input-group-addon">
-              <input type="checkbox" aria-label="...">All Locations
+              <input ng-model="register.locSearchFilter.locationAll" ng-change="register.stateChanged(register.locSearchFilter.locationAll)" type="checkbox" aria-label="...">All Locations
             </span>
           </div>
         </div>
