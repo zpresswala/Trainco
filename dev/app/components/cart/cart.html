@@ -1,22 +1,15 @@
-<div class="container-fluid" style="padding-top:80px;">
-  <div class="row cart-top">
+<div class="container-fluid slide-toggle" style="padding-top:80px;">
+  <div ng-show="slideToggle1">
     <div class="container">
-      <div class="col-xs-12">
-        <h3><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
+      <div class="row">
+          <ul class="list-inline cart-item-list" ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
+            <li>${{ cartItem.price }}</span></li>
+            <li>x{{ cartItem.quantity }}</span></li>
+            <li><div class="shoping-cart--item--remove-button" ng-click="vm.removeItemFromCart(cartItem.id)">X</div></li>
+          </ul>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <li class="cart-item">
-      <ul ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
-        <li><span class="shopping-cart--item--price">${{ cartItem.price }}</span></li>
-        <li><span class="shopping-cart--item--quantity">x{{ cartItem.quantity }}</span></li>
-        <li><div class="shoping-cart--item--remove-button" ng-click="vm.removeItemFromCart(cartItem.id)">X</div></li>
-
-      </ul>
-    </li>
-  </div>
-  <div class="cart-bottom row">
+  <div class="cart-bottom">
     <div class="container">
       <div class="col-xs-12 wrap">
         <p class="cart-empty-msg">Your cart is currently empty.</p>
@@ -25,14 +18,17 @@
           <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
         </ul>
         <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
-          <div class="spinner checkout-loader">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-          </div>
           <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
         </div>
       </div>
     </div>
   </div>
+  </div>
+    <div class="cart-top">
+      <div class="container">
+        <div class="col-xs-12">
+          <h3><img src="/assets/images/icon-cart.png" alt="Cart"ng-click="slideToggle1 =! slideToggle1"/>Cart</h3>
+        </div>
+      </div>
+    </div>
 </div>

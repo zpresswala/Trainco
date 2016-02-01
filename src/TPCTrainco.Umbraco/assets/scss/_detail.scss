@@ -3,6 +3,25 @@
 	.btn-white {
 		padding: 11px 10px;
 	}
+
+        .button-wrapper {
+        	a {
+        		display: block;
+        		text-align: center;
+        		max-width: 250px;
+        		margin: 0 auto;
+        	}
+
+        	.btn-first {
+        		margin-bottom: 30px;
+        		padding: 13px 10px;
+  @include med-desktop-and-up {
+    margin-right: -125px;
+        	}
+
+        }
+
+      }
 }
 
 .detail-page-app {
@@ -22,13 +41,14 @@
 	a {
 		display: block;
 		text-align: center;
-		max-width: 200px;
+		max-width: 250px;
 		margin: 0 auto;
 	}
 
 	.btn-first {
 		margin-bottom: 30px;
 		padding: 13px 10px;
+
 	}
 
 }
