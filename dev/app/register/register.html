@@ -1,7 +1,7 @@
+
 <div class="register-page">
   <div class="responsive-sidebar-toggle">
-    <img class="img-left" src="/assets/images/icon-search.png" alt="Search Icon"/>
-    Search By
+    <img class="img-left" src="/assets/images/icon-search.png" alt="Search Icon" /> Search By
     <img class="img-right" src="/assets/images/icon-arrow-down.png" alt="Toggle Arrow" />
   </div>
   <div class="container" style="padding-top:80px;">
@@ -10,7 +10,7 @@
         <keyword-input></keyword-input>
         <hr class="dark-hr" />
         <filter-topic></filter-topic>
-        <hr class="divider"/>
+        <hr class="divider" />
         <div class="filter-location">
           <label class="sidebar-label">City or ZIP</label>
           <input type="search" ng-init="register.locSearchFilter = {}" ng-keydown="register.handleLocInput($event)" ng-model="register.locSearchFilter.location" placeholder="Enter Location">
@@ -21,11 +21,10 @@
             </span>
           </div>
         </div>
-        <hr class="divider"/>
+        <hr class="divider" />
         <label>Search Within a</label>
-<rzslider rz-slider-model="register.mileRange.value"
-          rz-slider-options="register.mileRange.options"></rzslider>
-        <hr class="divider"/>
+        <rzslider rz-slider-model="register.mileRange.value" rz-slider-options="register.mileRange.options"></rzslider>
+        <hr class="divider" />
         <label>Date Range</label>
         <h5>From</h5>
         <button type="button" class="btn btn-default" ng-model="selectedIcon" data-html="1" bs-options="icon.value as icon.label for icon in icons" bs-select>

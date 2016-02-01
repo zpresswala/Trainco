@@ -2,8 +2,8 @@
   <h4 class="sidebar-h4">Search By:</h4>
   <label class="sidebar-label">Seminar Topic</label>
   <div class="input-group">
-    <label class="sidebar-label" ng-repeat="(category, enabled) in vm.categories">{{category}}
-        <input type="checkbox" ng-model="vm.courseTopics.categories[category]">
+    <label class="sidebar-label" ng-repeat="(category, enabled) in vm.categories">
+        <input type="checkbox" ng-model="vm.courseTopics.categories[category]">{{category}}
     </label>
 </div>
 </div>
