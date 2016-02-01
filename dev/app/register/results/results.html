@@ -1,70 +1,34 @@
-
-    <!-- No Results -->
-    <div class="empty-results">
-      <div class="no-results">
-        <h2>Sorry, no results were found.</h2>
-        <p>
-          Try refining your search, starting a new search or begin
-          browsing below.
-        </p>
-      </div>
-      <h3>Use the menu on the left side to:</h3>
-      <div class="empty-results-instructions">
-        <span class="empty-results-number">1</span>
-        Choose a topic or select a specific seminar title.
-      </div>
-      <div class="empty-results-instructions">
-        <span class="empty-results-number">2</span>
-        Check “All Locations” to view all.
-      </div>
-      <div class="empty-results-instructions">
-        <span class="empty-results-number">3</span>
-        Adjust the date range as needed.
-      </div>
-      <ul class="empty-results-tags">
-        <li><a href="#">Electrical</a></li>
-        <li><a href="#">HVAC</a></li>
-        <li><a href="#">Plant Management</a></li>
-        <li><a href="#">Mechanical &amp; Industrial</a></li>
-      </ul>
-      <p class="empty-results-promo">
-        All of our public seminars are just $495 a day, and most are
-        two days in length. All are also available for
-        <a href="#">on-site training</a>.
-      </p>
+<!-- Search Results -->
+<div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result">
+  <section class="row">
+    <div class="col-md-2">
+      <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
+      <h4 class="result-price">${{course.price}}</h4>
     </div>
-
-    <!-- Search Results -->
-    <div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result">
-      <section class="row">
-        <div class="col-md-2">
-          <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
-          <h4 class="result-price">${{course.price}}</h4>
-        </div>
-        <div class="col-md-10" style="padding-left: 15px;">
-          <h2 class="result-course-title"><a ng-href="{{course.detailsUrl}}">{{course.title}}</a></h2>
-          <p class="result-course-subtitle">{{course.subTitle}}</p>
-        </div>
-      </section>
-      <section class="row result-table-head">
-        <div class="col-md-5 col-sm-10 col-xs-9">Location</div>
-        <div class="col-xs-5 hide-responsive">Seminar Information</div>
-        <div class="col-sm-2 col-xs-3 result-attendee-wrapper">Attendees</div>
-      </section>
-      <section class="row result-table-body">
-        <div ng-repeat="location in course.locationSchedules" class="result-location-row">
-          <div class="col-md-5 col-sm-10 col-xs-9 result-location">
-            <span class="state">{{location.state}}</span>
-            <span class="city">{{location.city}}</span>
-            <span class="date-responsive">{{location.date}}</span>
-          </div>
-          <div class="col-xs-5 result-date">
-            {{location.date}}
-            <span>{{location.locationDetails}}</span>
-          </div>
-          <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
-            <input class="result-attendee-input" type="number" ng-model="course.attendees">
-          </div>
-        </div>
-      </section>
+    <div class="col-md-10" style="padding-left: 15px;">
+      <h2 class="result-course-title"><a ng-href="{{course.detailsUrl}}">{{course.title}}</a></h2>
+      <p class="result-course-subtitle">{{course.subTitle}}</p>
     </div>
+  </section>
+  <section class="row result-table-head">
+    <div class="col-md-5 col-sm-10 col-xs-9">Location</div>
+    <div class="col-xs-5 hide-responsive">Seminar Information</div>
+    <div class="col-sm-2 col-xs-3 result-attendee-wrapper">Attendees</div>
+  </section>
+  <section class="row result-table-body">
+    <div ng-repeat="location in course.locationSchedules" class="result-location-row">
+      <div class="col-md-5 col-sm-10 col-xs-9 result-location">
+        <span class="state">{{location.state}}</span>
+        <span class="city">{{location.city}}</span>
+        <span class="date-responsive">{{location.date}}</span>
+      </div>
+      <div class="col-xs-5 result-date">
+        {{location.date}}
+        <span>{{location.locationDetails}}</span>
+      </div>
+      <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
+        <input class="result-attendee-input" type="number" ng-model="course.attendees">
+      </div>
+    </div>
+  </section>
+</div>

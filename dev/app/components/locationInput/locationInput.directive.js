@@ -5,7 +5,7 @@ export function LocationInputDirective() {
     restrict: 'E',
     link: {
       function ($scope, element) {
-        element.bind("keyup", function (event) {
+        element.bind('keyup', function (event) {
           var val = element.val();
           if(val.length > 2) {
             $scope.search(val);

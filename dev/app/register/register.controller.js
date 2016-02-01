@@ -1,7 +1,7 @@
 export class RegisterController {
-  constructor ($log, searchService, $http) {
+  constructor ($log, searchService, $http, $state) {
     'ngInject';
-
+    this.$state = $state;
     this.$log = $log;
     this.$http = $http;
     const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
@@ -23,7 +23,7 @@ export class RegisterController {
       this.doLocSearch = () => {
         this.$http.get(searchAPI + 'location=' + this.locSearchFilter.location).
         then((data) => {
-          this.$log.debug(data);
+          this.$state.go('results')
           let seminarsData = data.data.seminars;
             this.receiveSeminarData(seminarsData);
             return seminarsData;
