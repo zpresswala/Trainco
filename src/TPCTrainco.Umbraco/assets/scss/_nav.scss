@@ -200,13 +200,21 @@
   background-color: #5c5c5c;
   width: 100%;
   z-index: 1500;
-  @media screen and (max-width: 995px) {
+  @media screen and (max-width: 1025px) {
     display: none;
   }
-  li {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
+    @media screen and (min-width: 991px) {
+        li {
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+    }
+    @media screen and (min-width: 1200px) {
+        li {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+    }
 
   a {
     color: #fff;

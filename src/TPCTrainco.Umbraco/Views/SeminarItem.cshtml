@@ -71,9 +71,6 @@
                 <div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-2">
                     <a href="#register-seminars" class="btn-reg btn-first" role="button">Check Dates and Locations</a>
                 </div>
-                <div class="col-xs-10 col-xs-offset-1 col-md-4 second-btn">
-                    <a href="@dynamicPromo.promoLink.Url#cf-container" class="btn-reg btn-white" role="button">Get an On-Site Quote</a>
-                </div>
             </div>
         }
         else
@@ -91,12 +88,12 @@
 
 <div class="container-fluid gradient-bg main-content">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2 text-wrap">
+        <div class="col-md-8 col-md-offset-2 text-wrap" id="overview">
 
             @Html.Partial("Share/ShareModule", currentPage)
 
 
-            <div id="overview"></div>
+
             <div class="row">
                 <h2>Seminar Overview</h2>
                 @CurrentPage.seminarOverview
@@ -120,9 +117,7 @@
                 </div>
             }
             <!-- Column area -->
-
-            <div id="discussion"></div>
-            <div class="row">
+            <div class="row" id="discussion">
                 @if (CurrentPage.HasValue("day1Copy"))
                 {
                     <div class="col-xs-12 col-md-6">
@@ -196,8 +191,7 @@
             @if (CurrentPage.HasValue("certificationCopy"))
             {
                 <!-- end column area -->
-                <div class="row">
-                    <div id="ceu"></div>
+                <div class="row" id="ceu">
                     <h2>@CurrentPage.certificationHeader</h2>
 
                     @CurrentPage.certificationCopy
@@ -212,8 +206,8 @@
             }
             @if (CurrentPage.includeAtmt)
             {
-                <div id="atmt"></div>
-                <div class="row">
+
+                <div class="row" id="atmt">
                     <h2>@seminarContainer.atmtHeader</h2>
                     @seminarContainer.atmtCopy
                 </div>

@@ -39,6 +39,11 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       controllerAs: 'register',
       templateUrl: 'app/register/register.html'
     })
+    .state('empty', {
+      url: '/results',
+      templateUrl: 'app/register/results/empty.html',
+      parent: 'register'
+    })
     .state('results', {
       url: '/results',
       templateUrl: 'app/register/results/results.html',

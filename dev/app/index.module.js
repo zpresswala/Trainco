@@ -1,5 +1,3 @@
-/* global malarkey:false, moment:false */
-
 import { config } from './index.config';
 import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
@@ -14,7 +12,7 @@ import { MainSearchDirective } from './components/mainSearch/mainSearch.directiv
 import { CartDirective } from './components/cart/cart.directive';
 import { FilterTopicDirective } from './components/filterTopic/filterTopic.directive';
 import { KeywordInputDirective } from './components/keywordInput/keywordInput.directive';
-import { LocationInputDirective } from './components/locationInput/locationInput.directive';
+
 angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 'services', 'rzModule', 'angular.filter', 'angularSpinner'])
   .config(config)
   .config(routerConfig)
@@ -28,5 +26,4 @@ angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 
   .directive('mainSearch', MainSearchDirective)
   .directive('filterTopic', FilterTopicDirective)
   .directive('keywordInput', KeywordInputDirective)
-  .directive('locationInput', LocationInputDirective)
   .directive('shoppingCart', CartDirective);
