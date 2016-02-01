@@ -19,6 +19,12 @@
   position: relative;
   padding-top: 30px;
   padding-bottom: 30px;
+    @media (max-width: 768px) {
+    height: 2700px !important;
+  }
+      @media (max-width: 990px) {
+      height: 2400px;
+    }
   ul {
     list-style: none;
     padding-left: 0;

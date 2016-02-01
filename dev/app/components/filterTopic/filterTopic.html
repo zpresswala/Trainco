@@ -3,7 +3,7 @@
   <label class="sidebar-label">Seminar Topic</label>
   <div class="input-group">
     <label class="sidebar-label" ng-repeat="(category, enabled) in vm.categories">
-        <input type="checkbox" ng-model="vm.courseTopics.categories[category]">{{category}}
+        <input type="checkbox" ng-model="vm.courseTopics.categories[category]" ng-change="vm.stateChanged(vm.courseTopics.categories[category])">{{category}}
     </label>
 </div>
 </div>
