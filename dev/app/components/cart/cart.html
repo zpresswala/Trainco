@@ -28,10 +28,8 @@
     <div class="cart-bottom">
       <div class="container">
         <div class="col-xs-12 wrap">
-          <p class="cart-empty-msg">Your cart is currently empty.</p>
+          <p class="cart-empty-msg" ng-if="vm.cartTotalPrice === 0">Your cart is currently empty.</p>
           <ul class="cart-total col-xs-12 col-md-4">
-            <li class="items-total">{{vm.cartItem.title}} Items</li>
-            <li class="items-total">{{vm.cartItem.quantity}} Items</li>
             <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
           </ul>
           <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
@@ -48,7 +46,7 @@
     </a>
     <div class="container">
       <ul class="cart-total col-xs-12 col-md-4">
-        <li class="items-total">{{ cartItem.quantity }} Items</li>
+        <li class="items-total">{{ vm.cartItemList.length }} Items</li>
         <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
       </ul>
     </div>
