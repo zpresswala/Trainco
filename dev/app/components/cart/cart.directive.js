@@ -36,6 +36,19 @@ class CartController {
       this.cartItemList = this.cartService.getCartItems() || [];
       this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
     };
+
+    /**
+     * Handle key input
+     * @param  {object} e the event
+     * ng-keydown="searchInput.handleInput($event)"
+     */
+    this.handleLocInput = (e, cartItem, qty) => {
+      if (e.keyCode === 13) {
+        cartService.addItem(cartItem);
+        this.cartItemList = cartService.getCartItems() || [];
+        this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+      }
+    }
   }
 
 }

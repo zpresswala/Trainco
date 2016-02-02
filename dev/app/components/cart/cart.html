@@ -12,7 +12,9 @@
         <li class="cart-item" ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
           <ul class="container">
             <li>${{ cartItem.price }}</li>
-            <li>x{{ cartItem.quantity }}</li>
+            <li>
+              <input class="attendee-input" ng-model="cartItem.quantity" string-to-number value="{{qty}}" ng-keydown="vm.handleLocInput($event, cartItem)" type="number" min="0" class="" name="qty">
+            </li>
             <li>{{cartItem.city}}, {{cartItem.state}}</li>
             <li>{{cartItem.date}}</li>
             <li>

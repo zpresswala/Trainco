@@ -17,7 +17,7 @@ export class CartService {
     const itemInCart = itemList.find((cartItem) => cartItem.id === item.id);
 
     if (itemInCart) {
-      itemInCart.quantity += 1;
+      itemInCart.quantity = item.quantity;
     } else {
       itemList.push({
         id: item.id,
@@ -31,6 +31,14 @@ export class CartService {
     }
 
     window.localStorage.setItem('cartItemList', JSON.stringify(itemList)); // eslint-disable-line
+  }
+
+  updateCart(itemId, item, qty) {
+    const itemStr = localStorage.getItem('cartItemList'); // eslint-disable-line
+    const itemList = itemStr ? JSON.parse(itemStr) : []; // eslint-disable-line
+    const itemInCart = itemList.findIndex((item) => item.id === itemId);
+    itemInCart.quantity = qty;
+    itemList.push(item);
   }
 
   removeItem(itemId) {
