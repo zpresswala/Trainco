@@ -5,6 +5,9 @@
           <ul class="list-inline cart-item-list" ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
             <li>${{ cartItem.price }}</span></li>
             <li>x{{ cartItem.quantity }}</span></li>
+            <li>{{cartItem.city}}</li>
+                        <li>{{cartItem.state}}</li>
+
             <li><div class="shoping-cart--item--remove-button" ng-click="vm.removeItemFromCart(cartItem.id)">X</div></li>
           </ul>
       </div>

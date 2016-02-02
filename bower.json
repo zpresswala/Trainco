@@ -9,8 +9,8 @@
     "angular": "~1.5.0-rc.2",
     "angular-spinner": "~0.8.0",
     "angular-filter": "~0.5.8",
-    "angularjs-slider": "~2.5.0",
-    "angular-bootstrap": "~1.1.1",
+    "angularjs-slider": "~2.6.0",
+    "angular-bootstrap": "~1.1.2",
     "bootstrap-sass":"~3.3.6"
   },
   "devDependencies": {

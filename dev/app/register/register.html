@@ -27,13 +27,9 @@
         <hr class="divider" />
         <label>Date Range</label>
         <h5>From</h5>
-        <button type="button" class="btn btn-default" ng-model="selectedIcon" data-html="1" bs-options="icon.value as icon.label for icon in icons" bs-select>
-          Action <span class="caret"></span>
-        </button>
+        <select ng-model="register.dateRange.start" ng-options="month.val as month.name for month in register.months"></select>
         <h5>Through</h5>
-        <button type="button" class="btn btn-default" ng-model="selectedIcon" data-html="1" bs-options="icon.value as icon.label for icon in icons" bs-select>
-          Action <span class="caret"></span>
-        </button>
+        <select ng-model="register.dateRange.end" ng-options="month.val as month.name for month in register.months"></select>
       </div>
       <div class="col-md-9" class="search-results">
         <div ui-view></div>
