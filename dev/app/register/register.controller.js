@@ -13,12 +13,11 @@ export class RegisterController {
 
     const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     // this.mainSearch(searchService);
-    this.courseId = {};
     this.cartItemList = this.cartService.getCartItems() || [];
     this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
 
-    this.addItemToCart = (item) => {
-      cartService.addItem(item);
+    this.addItemToCart = (item, qty) => {
+      cartService.addItem(item, qty);
       this.cartItemList = cartService.getCartItems() || [];
       this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
     };
@@ -60,8 +59,7 @@ export class RegisterController {
         });
       }
     }
-    this.minDate = new Date();
-    this.$log.debug(this.minDate)
+
       /**
        * Settings for the mileage slider.
        * @type {Object}
@@ -85,15 +83,15 @@ export class RegisterController {
       if (data.mechanical === true) {
         this.topicParam3 = 'mechanical'
       }
-      if (data.plant === true) {
+      if (data.management === true) {
         this.topicParam4 = 'management'
       }
       this.doParamSearch();
     });
 
     this.doParamSearch = () => {
-      let minDateRange = this.dateRange.start;
-      let maxDateRange = this.dateRange.end;
+      let minDateRange = this.dateRange.start || '01';
+      let maxDateRange = this.dateRange.end || '12';
       let radiusParam = this.mileRange.value || '250';
       //'keyword=' + keywordParam
       this.$http.get(searchAPI +

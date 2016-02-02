@@ -11,7 +11,7 @@ export class CartService {
     return itemList && JSON.parse(itemList); // eslint-disable-line
   }
 
-  addItem(item) {
+  addItem(item, qty) {
     const itemStr = window.localStorage.getItem('cartItemList'); // eslint-disable-line
     const itemList = itemStr ? JSON.parse(itemStr) : []; // eslint-disable-line
     const itemInCart = itemList.find((cartItem) => cartItem.id === item.id);
@@ -25,7 +25,7 @@ export class CartService {
         city: item.city,
         state: item.state,
         price: item.price,
-        quantity: 1
+        quantity: qty
       });
     }
 
@@ -39,7 +39,7 @@ export class CartService {
     if (index === -1) {
       return;
     }
-    if (itemList[index].quantity > 1) {
+    if (itemList.quantity > 1) {
       itemList[index].quantity -= 1;
     } else {
       itemList.splice(index, 1);
