@@ -10,6 +10,7 @@ export class RegisterController {
     this.$scope = $scope;
     this.$rootScope = $rootScope;
     this.$http = $http;
+    this.dateRange = {};
 
     const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     // this.mainSearch(searchService);
@@ -20,6 +21,7 @@ export class RegisterController {
       cartService.addItem(item, qty);
       this.cartItemList = cartService.getCartItems() || [];
       this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+      $rootScope.$broadcast('cartUpdated', this.cartItemList);
     };
     this.removeItemFromCart = (itemId) => {
       cartService.removeItem(itemId);

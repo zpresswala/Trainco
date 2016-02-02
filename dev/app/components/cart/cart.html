@@ -1,37 +1,56 @@
 <div class="container-fluid slide-toggle" style="padding-top:80px;">
   <div ng-show="slideToggle1">
-    <div class="container">
-      <div class="row">
-          <ul class="list-inline cart-item-list" ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
-            <li>${{ cartItem.price }}</span></li>
-            <li>x{{ cartItem.quantity }}</span></li>
-            <li>{{cartItem.city}}</li>
-                        <li>{{cartItem.state}}</li>
-            <li><div class="shoping-cart--item--remove-button" ng-click="vm.removeItemFromCart(cartItem.id)">X</div></li>
-          </ul>
-      </div>
-    </div>
-  <div class="cart-bottom">
-    <div class="container">
-      <div class="col-xs-12 wrap">
-        <p class="cart-empty-msg">Your cart is currently empty.</p>
-        <ul class="cart-total col-xs-12 col-md-4">
-          <li class="items-total">{{vm.cartItem.title}} Items</li>
-          <li class="items-total">{{vm.cartItem.quantity}} Items</li>
-          <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
-        </ul>
-        <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
-          <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
     <div class="cart-top">
       <div class="container">
         <div class="col-xs-12">
-          <h3><img src="/assets/images/icon-cart.png" alt="Cart"ng-click="slideToggle1 =! slideToggle1"/>Cart</h3>
+          <h3><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
         </div>
       </div>
     </div>
+    <div class="row">
+      <ul class="list-inline cart-item-list">
+        <li class="cart-item" ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
+          <ul class="container">
+            <li>${{ cartItem.price }}</li>
+            <li>x{{ cartItem.quantity }}</li>
+            <li>{{cartItem.city}}, {{cartItem.state}}</li>
+            <li>{{cartItem.date}}</li>
+            <li>
+              {{cartItem.title}}
+            </li>
+            <li>
+              <div class="shoping-cart--item--remove-button" ng-click="vm.removeItemFromCart(cartItem.id)">X</div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="cart-bottom">
+      <div class="container">
+        <div class="col-xs-12 wrap">
+          <p class="cart-empty-msg">Your cart is currently empty.</p>
+          <ul class="cart-total col-xs-12 col-md-4">
+            <li class="items-total">{{vm.cartItem.title}} Items</li>
+            <li class="items-total">{{vm.cartItem.quantity}} Items</li>
+            <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
+          </ul>
+          <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
+            <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-visible">
+    <a class="cart-tab" href="javascript:void(0);" ng-click="slideToggle1 =! slideToggle1">
+      <img src="/assets/images/icon-cart-tab.png" />
+    </a>
+    <div class="container">
+      <ul class="cart-total col-xs-12 col-md-4">
+        <li class="items-total">{{ cartItem.quantity }} Items</li>
+        <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
+      </ul>
+    </div>
+  </div>
 </div>

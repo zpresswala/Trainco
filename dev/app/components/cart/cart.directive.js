@@ -17,13 +17,19 @@ export function CartDirective() {
 
 class CartController {
 
-  constructor(cartService) {
+  constructor(cartService, $log, $scope) {
     'ngInject';
-
+    this.$log = $log;
     this.cartService = cartService;
+    this.$scope = $scope;
 
     this.cartItemList = cartService.getCartItems() || [];
     this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+
+    $scope.$on('cartUpdated', (event, data) => {
+      this.cartItemList = cartService.getCartItems() || [];
+      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+    });
 
     this.removeItemFromCart = (itemId) => {
       cartService.removeItem(itemId);

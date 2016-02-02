@@ -25,6 +25,7 @@ export class CartService {
         city: item.city,
         state: item.state,
         price: item.price,
+        date: item.date,
         quantity: qty
       });
     }
