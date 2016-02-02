@@ -1,6 +1,6 @@
-<div class="container-fluid slide-toggle" style="padding-top:80px;">
+<div class="slide-toggle" style="padding-top:80px;">
   <div ng-show="slideToggle1">
-    <div class="cart-top">
+    <div class="row cart-top">
       <div class="container">
         <div class="col-xs-12">
           <h3><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
@@ -11,17 +11,18 @@
       <ul class="list-inline cart-item-list">
         <li class="cart-item" ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
           <ul class="container">
-            <li>${{ cartItem.price }}</li>
-            <li>
-              <input class="attendee-input" ng-model="cartItem.quantity" string-to-number value="{{qty}}" ng-keydown="vm.handleLocInput($event, cartItem)" type="number" min="0" class="" name="qty">
+            <li class="class-title col-xs-12 col-sm-12 col-md-4">cartItem.title still not storing...</li>
+
+            <li class="location col-xs-12 col-sm-4 col-md-2">{{cartItem.city}}, {{cartItem.state}}</li>
+            <li class="date col-xs-12 col-sm-4 col-md-2">{{cartItem.date}}</li>
+            <li class="col-xs-12 col-sm-4 col-md-2 remove-wrap">
+              <a href="javascript:void(0);" ng-click="vm.removeItemFromCart(cartItem.id)" class="remove">X Remove</a>
             </li>
-            <li>{{cartItem.city}}, {{cartItem.state}}</li>
-            <li>{{cartItem.date}}</li>
-            <li>
-              {{cartItem.title}}
+            <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">
+              <input class="class-qty" ng-model="cartItem.quantity" string-to-number value="{{qty}}" ng-keydown="vm.handleLocInput($event, cartItem)" type="number" min="0" class="" name="qty">
             </li>
-            <li>
-              <div class="shoping-cart--item--remove-button" ng-click="vm.removeItemFromCart(cartItem.id)">X</div>
+            <li class="sub-total col-xs-12 col-sm-4 col-md-1">
+              ${{vm.cartTotalPrice}}
             </li>
           </ul>
         </li>
@@ -31,9 +32,7 @@
       <div class="container">
         <div class="col-xs-12 wrap">
           <p class="cart-empty-msg" ng-if="vm.cartTotalPrice === 0">Your cart is currently empty.</p>
-          <ul class="cart-total col-xs-12 col-md-4">
-            <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
-          </ul>
+
           <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
             <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
           </div>
