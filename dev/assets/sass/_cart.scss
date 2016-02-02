@@ -167,10 +167,11 @@
 }
 
 .cart-visible {
-	height: 30px;
-	position: relative;
-	border-bottom: 1px solid $cart-border;
-	background-color: #f2f2f2;
+    height: 30px;
+    position: absolute;
+    border-bottom: 1px solid #D7D7D7;
+    background-color: #f2f2f2;
+    width: 100%;
 
 	.container {
 		margin: 0 auto;

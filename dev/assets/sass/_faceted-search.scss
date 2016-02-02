@@ -39,6 +39,7 @@ hr.divider {
 .register-page {
   background: $gray-background;
   padding-bottom: 80px;
+  padding-top: 40px;
 
   @include medium-sizes {
     background: url('/assets/images/columns-bg.png') center center repeat-y $white;
