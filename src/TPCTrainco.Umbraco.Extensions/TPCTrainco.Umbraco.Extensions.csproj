@@ -326,7 +326,9 @@
     <Compile Include="Models\SearchRequest\SchedulesSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
+    <Compile Include="Objects\CartCookies.cs" />
     <Compile Include="Objects\Carts.cs" />
+    <Compile Include="Objects\EncryptString.cs" />
     <Compile Include="Objects\FormUtilities.cs" />
     <Compile Include="Objects\GeoCoordinates.cs" />
     <Compile Include="Models\GeoLocation.cs" />
