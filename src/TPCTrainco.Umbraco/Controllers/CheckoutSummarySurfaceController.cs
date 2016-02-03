@@ -21,10 +21,10 @@ namespace TPCTrainco.Umbraco.Controllers
             List<temp_Att> tempAttList = null;
             string cartGuid = null;
 
-            if (Session["CartId"] != null && Session["CartId"].ToString().Length > 0)
-            {
-                cartGuid = Session["CartId"].ToString().ToLower();
+            cartGuid = Carts.GetCartGuid(Session);
 
+            if (false == string.IsNullOrWhiteSpace(cartGuid))
+            {
                 Carts cartsObj = new Carts();
 
                 tempRegList = cartsObj.GetCart(cartGuid);
@@ -87,10 +87,10 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 debug.AppendLine("Loading cart...");
 
-                if (Session["CartId"] != null && Session["CartId"].ToString().Length > 0)
-                {
-                    cartGuid = Session["CartId"].ToString().ToLower();
+                cartGuid = Carts.GetCartGuid(Session);
 
+                if (false == string.IsNullOrWhiteSpace(cartGuid))
+                {
                     tempRegList = cartsObj.GetCart(cartGuid);
 
                     if (tempRegList == null)
@@ -206,6 +206,8 @@ namespace TPCTrainco.Umbraco.Controllers
                                 }
                                 else
                                 {
+                                    CartCookies.Remove();
+
                                     if (true == isAlreadyProcessed)
                                     {
                                         Session["RegistrationId"] = reg.RegistrationID;
