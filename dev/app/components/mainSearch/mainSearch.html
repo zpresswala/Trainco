@@ -14,38 +14,50 @@
     <form role="form" ng-submit="vm.postCourseSearch()">
       <div class="col-md-11 topic-circles">{{vm.formData}}
         <h3>Select one or more topics and choose your location</h3>
-          <div class="form-group">
+        <ul>
+          <li class="seminar-topic">
             <label class="checkbox-inline">
               <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.all">
               <div class="overlay-contain">
-                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/selectall-icon.jpg"></div>
+                <div class="overlay"></div>
+                <img alt="Mechanical + Industrial" src="/assets/images/selectall-icon.jpg">
+              </div>
               <p>Search All Seminars</p>
             </label>
+          </li>
+          <li class="seminar-topic">
             <label class="checkbox-inline">
               <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.electrical">
               <div class="overlay-contain">
                 <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/electrical.jpg"></div>
               <p>Electrical</p>
             </label>
+          </li>
+          <li class="seminar-topic">
             <label class="checkbox-inline">
               <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.hvac">
               <div class="overlay-contain">
                 <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
               <p>HVAC</p>
             </label>
+          </li>
+          <li class="seminar-topic">
             <label class="checkbox-inline">
               <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.management">
               <div class="overlay-contain">
                 <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
               <p>Plant Management</p>
             </label>
+          </li>
+          <li class="seminar-topic">
             <label class="checkbox-inline">
               <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.mechanical">
               <div class="overlay-contain">
                 <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
               <p>Mechanical Management</p>
             </label>
-          </div>
+          </li>
+        </ul>
         <!-- John: this is new -->
         <select ng-model="vm.course.location" class="populate" data-location="" data-placeholder="Choose a City or Enter a Zip Code" id="main-search" multiple style="width:100%">
           <option value="Alabama">
@@ -64,8 +76,9 @@
             Vermont
           </option>
         </select>
+        <select2 ng-model="obj.field" s2-options="city.value as city.label for city in vm.cities" options="{ allowClear: true }"></select2>
         <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
-        <a class="btn-reg btn-white" type="submit" ng-click="vm.postCourseSearch()"id="search-btn" role="button">Search</a>
+        <a class="btn-reg btn-white" type="submit" ng-click="vm.postCourseSearch()" id="search-btn" role="button">Search</a>
         <!-- end new -->
       </div>
     </form>

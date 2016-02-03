@@ -20,7 +20,7 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       controllerAs: 'seminar'
     })
     .state('detail', {
-      url: '/:id',
+      url: '/seminar/:id',
       templateUrl: 'app/seminar/detail/detail.html',
       controller: 'SeminarDetailController',
       controllerAs: 'detail',

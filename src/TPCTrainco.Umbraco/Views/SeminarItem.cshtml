@@ -33,7 +33,7 @@
         <ul class="nav navbar-nav">
             <li><a href="#overview" class="page-scroll nav-link regular-link active">Seminar Overview</a></li>
             <li><a href="#discussion" class="page-scroll nav-link regular-link">Discussion Topics</a></li>
-            @if (CurrentPage.HasValue("certificationCopy"))
+            @if (CurrentPage.includeCeu)
             {
                 <li><a href="#ceu" class="page-scroll nav-link regular-link">(CEUs)</a></li>
             }
@@ -191,7 +191,7 @@
             @if (CurrentPage.HasValue("certificationCopy"))
             {
                 <!-- end column area -->
-                <div class="row" id="ceu">
+                <div class="row">
                     <h2>@CurrentPage.certificationHeader</h2>
 
                     @CurrentPage.certificationCopy
@@ -199,7 +199,7 @@
             }
             @if (CurrentPage.includeCeu)
             {
-                <div class="row">
+                <div class="row" id="ceu">
                     <h2>@seminarContainer.ceuHeader</h2>
                     @seminarContainer.ceuCopy
                 </div>

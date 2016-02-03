@@ -1,6 +1,7 @@
 import { config } from './index.config';
 import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
+import { MainController } from './main/main.controller';
 import { SeminarController } from './seminar/seminar.controller';
 import { SeminarDetailController } from './seminar/detail/detail';
 import { services } from './services/index'; // eslint-disable-line
@@ -12,10 +13,11 @@ import { FilterTopicDirective } from './components/filterTopic/filterTopic.direc
 import { KeywordInputDirective } from './components/keywordInput/keywordInput.directive';
 import { stringToNumber } from './utils/stringToNumber.directive';
 
-angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 'services', 'rzModule', 'angular.filter', 'angularSpinner'])
+angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 'services', 'rzModule', 'angular.filter', 'rt.select2'])
   .config(config)
   .config(routerConfig)
   .run(runBlock)
+  .controller('MainController', MainController)
   .controller('SeminarController', SeminarController)
   .controller('SeminarDetailController', SeminarDetailController)
   .controller('RegisterController', RegisterController)

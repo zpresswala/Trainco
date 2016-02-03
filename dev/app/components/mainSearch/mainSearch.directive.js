@@ -1,3 +1,4 @@
+import cities from './cities';
 export function MainSearchDirective() {
   'ngInject';
 
@@ -21,7 +22,7 @@ class MainSearchController {
       this.$log = $log;
       this.apiHost = 'http://trainco-dev.imulus-client.com/api/seminars/search';
       this.searchService = searchService;
-
+      this.cities = cities.cities;
     //Range slider with ticks and values
     this.sliderValues = {
         minValue: 1,
