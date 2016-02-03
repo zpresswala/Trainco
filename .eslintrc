@@ -8,8 +8,7 @@
   },
   "plugins": [
     "babel",
-    "angular",
-    "react"
+    "angular"
   ],
     "globals": {
     "angular": true,
