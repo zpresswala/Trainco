@@ -10,6 +10,7 @@ import { MainSearchDirective } from './components/mainSearch/mainSearch.directiv
 import { CartDirective } from './components/cart/cart.directive';
 import { FilterTopicDirective } from './components/filterTopic/filterTopic.directive';
 import { KeywordInputDirective } from './components/keywordInput/keywordInput.directive';
+import { stringToNumber } from './utils/stringToNumber.directive';
 
 angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 'services', 'rzModule', 'angular.filter', 'angularSpinner'])
   .config(config)
@@ -23,6 +24,7 @@ angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 
   .directive('filterTopic', FilterTopicDirective)
   .directive('keywordInput', KeywordInputDirective)
   .directive('shoppingCart', CartDirective)
+  .directive('stringToNumber', stringToNumber)
   .animation('.slide-toggle', ['$animateCss', function($animateCss) {
       let lastId = 0;
       let _cache = {};

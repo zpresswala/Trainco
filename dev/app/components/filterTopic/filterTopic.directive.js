@@ -23,7 +23,7 @@ class FilterTopicController {
 
       this.courseSearch = searchService;
       this.categories = {
-        hvac: true, electrical: true, mechanical: true, plant: true
+        hvac: true, electrical: true, mechanical: true, management: true
       }
       this.courseTopics = {};
       this.courseTopics.categories = [];
