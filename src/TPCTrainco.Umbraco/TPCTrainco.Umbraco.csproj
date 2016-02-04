@@ -3373,6 +3373,7 @@
     <Content Include="Views\LandingPageBrowseCatalog.cshtml" />
     <Content Include="Views\LandingPageContactUs.cshtml" />
     <Content Include="Views\Partials\Messages\MessagesTop.cshtml" />
+    <Content Include="Views\Partials\Seminars\SeminarList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

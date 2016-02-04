@@ -1,4 +1,5 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+﻿@using Umbraco.Core.Models
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
@@ -8,7 +9,8 @@
 
     IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
     IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
-    IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+
+    IEnumerable<IPublishedContent> onsiteCoursesList = Nodes.OnSiteTraining().Children.FirstOrDefault().Children;
 
     string message = "";
 
@@ -48,6 +50,9 @@
         <div class="form-wrap pull-right col-xs-12 col-md-6">
             @CurrentPage.form
         </div>
-        @Html.Partial("Quotes/UserQuotes", currentPage)
+
+        @Html.Partial("Seminars/SeminarList")
+
+
     </div>
 </div> <!-- end container -->

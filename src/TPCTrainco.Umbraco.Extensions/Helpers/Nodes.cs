@@ -68,5 +68,42 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 instance = value;
             }
         }
+
+        public static IPublishedContent OnSiteTraining()
+        {
+            IPublishedContent onsiteTrainingNode = null;
+
+            var umbHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            IPublishedContent homepageNode = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("HomePage"));
+
+            if (homepageNode != null)
+            {
+                onsiteTrainingNode = homepageNode.Children.FirstOrDefault(n => n.IsDocumentType("OnSiteTraining"));
+            }
+
+            return onsiteTrainingNode;
+        }
+
+        public static IEnumerable<IPublishedContent> SeminarCategoryList()
+        {
+            IEnumerable<IPublishedContent> seminarCategoryList = null;
+
+            var umbHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            IPublishedContent homepageNode = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("HomePage"));
+
+            if (homepageNode != null)
+            {
+                IPublishedContent seminarMain = homepageNode.Children.FirstOrDefault(n => n.IsDocumentType("SeminarMainOverview"));
+
+                if (seminarMain != null)
+                {
+                    seminarCategoryList = seminarMain.Children.Where(n => n.IsDocumentType("SeminarCategory"));
+                }
+            }
+
+            return seminarCategoryList;
+        }
     }
 }

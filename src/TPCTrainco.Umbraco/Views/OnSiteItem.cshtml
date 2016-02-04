@@ -2,7 +2,7 @@
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
-    
+
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
 
@@ -79,6 +79,7 @@
         <div class="form-wrap pull-right col-xs-12 col-md-6">
             @CurrentPage.form
         </div>
-        @Html.Partial("Quotes/UserQuotes", currentPage)
+
+        @Html.Partial("Seminars/SeminarList")
     </div>
 </div> <!-- end container -->
