@@ -1,6 +1,7 @@
 .seminar-detail {
   padding-top: 100px;
 	.btn-white {
+    display: none;
 		padding: 11px 10px;
 	}
 
@@ -16,7 +17,7 @@
         		margin-bottom: 30px;
         		padding: 13px 10px;
   @include med-desktop-and-up {
-    margin-right: -125px;
+    margin-right: -130px;
         	}
 
         }
