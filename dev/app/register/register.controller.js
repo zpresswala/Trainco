@@ -1,6 +1,7 @@
 import {
   calculateTotalPrice
-} from '../utils';
+}
+from '../utils';
 export class RegisterController {
   constructor($log, searchService, $http, $state, $rootScope, $scope, cartService) {
     'ngInject';
@@ -10,13 +11,36 @@ export class RegisterController {
     this.$scope = $scope;
     this.$rootScope = $rootScope;
     this.$http = $http;
+
     this.dateRange = {};
 
     const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     // this.mainSearch(searchService);
     this.cartItemList = this.cartService.getCartItems() || [];
     this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+    let location = localStorage.getItem('location');
+    let topicParam1 = localStorage.getItem('topicParam1');
+    let topicParam2 = localStorage.getItem('topicParam2');
+    let topicParam3 = localStorage.getItem('topicParam3');
+    let topicParam4 = localStorage.getItem('topicParam4');
+    let minDateRange = localStorage.getItem('minDateRange');
+    let maxDateRange = localStorage.getItem('maxDateRange');
 
+    this.searchData = $http.get(searchAPI +
+          'location=' + location +
+          '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
+          '&date-start=' + minDateRange + '-01-2016' +
+          '&date-end=' + maxDateRange + '-01-2016')
+        .then((data) => {
+          this.$state.go('results')
+          let seminarsData = data.data.seminars;
+          this.receiveSeminarData(seminarsData);
+          // NOTE: This might cause problems but for now it works.
+          localStorage.clear();
+          return seminarsData;
+        })
+
+    this.dataSearch = this.searchData;
     this.addItemToCart = (item, qty) => {
       cartService.addItem(item, qty);
       this.cartItemList = cartService.getCartItems() || [];
@@ -62,11 +86,11 @@ export class RegisterController {
       }
     }
 
-      /**
-       * Settings for the mileage slider.
-       * @type {Object}
-       * this.mileRange.value = ng-model.
-       */
+    /**
+     * Settings for the mileage slider.
+     * @type {Object}
+     * this.mileRange.value = ng-model.
+     */
     this.mileRange = {
       options: {
         min: 50,
@@ -111,43 +135,42 @@ export class RegisterController {
     }
 
     this.months = [{
-        'val': '01',
-        'name': 'January'
-      }, {
-        'val': '02',
-        'name': 'February'
-      }, {
-        'val': '03',
-        'name': 'March'
-      }, {
-        'val': '04',
-        'name': 'April'
-      }, {
-        'val': '05',
-        'name': 'May'
-      }, {
-        'val': '06',
-        'name': 'June'
-      }, {
-        'val': '07',
-        'name': 'July'
-      }, {
-        'val': '08',
-        'name': 'August'
-      }, {
-        'val': '09',
-        'name': 'September'
-      }, {
-        'val': '10',
-        'name': 'October'
-      }, {
-        'val': '11',
-        'name': 'November'
-      }, {
-        'val': '12',
-        'name': 'December'
-      }
-    ]
+      'val': '01',
+      'name': 'January'
+    }, {
+      'val': '02',
+      'name': 'February'
+    }, {
+      'val': '03',
+      'name': 'March'
+    }, {
+      'val': '04',
+      'name': 'April'
+    }, {
+      'val': '05',
+      'name': 'May'
+    }, {
+      'val': '06',
+      'name': 'June'
+    }, {
+      'val': '07',
+      'name': 'July'
+    }, {
+      'val': '08',
+      'name': 'August'
+    }, {
+      'val': '09',
+      'name': 'September'
+    }, {
+      'val': '10',
+      'name': 'October'
+    }, {
+      'val': '11',
+      'name': 'November'
+    }, {
+      'val': '12',
+      'name': 'December'
+    }]
 
   }
   receiveSeminarData(seminarsData) {
