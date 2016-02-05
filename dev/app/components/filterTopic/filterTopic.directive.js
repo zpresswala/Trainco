@@ -36,16 +36,7 @@ class FilterTopicController {
       this.stateChanged = function() {
 
         if (this.courseTopics.categories) {
-
-          $rootScope.$broadcast('topic', this.courseTopics.categories)
-
-          // this.$http.get(searchAPI + 'location=all').
-          // then((data) => {
-          //   this.$state.go('results')
-          //   let seminarsData = data.data.seminars;
-          //   this.receiveSeminarData(seminarsData);
-          //   return seminarsData;
-          // });
+          $rootScope.$broadcast('topic', this.courseTopics.categories);
         }
       }
   }

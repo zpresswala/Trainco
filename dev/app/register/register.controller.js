@@ -15,7 +15,7 @@ export class RegisterController {
     this.dateRange = {};
 
     const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-    // this.mainSearch(searchService);
+
     this.cartItemList = this.cartService.getCartItems() || [];
     this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
     let location = localStorage.getItem('location');
@@ -25,7 +25,7 @@ export class RegisterController {
     let topicParam4 = localStorage.getItem('topicParam4');
     let minDateRange = localStorage.getItem('minDateRange');
     let maxDateRange = localStorage.getItem('maxDateRange');
-    
+
     this.searchData = $http.get(searchAPI +
           'location=' + location +
           '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
@@ -35,8 +35,6 @@ export class RegisterController {
           this.$state.go('results')
           let seminarsData = data.data.seminars;
           this.receiveSeminarData(seminarsData);
-          // NOTE: This might cause problems but for now it works.
-          localStorage.clear();
           return seminarsData;
         });
 
@@ -46,6 +44,7 @@ export class RegisterController {
       this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
       $rootScope.$broadcast('cartUpdated', this.cartItemList);
     };
+
     this.removeItemFromCart = (itemId) => {
       cartService.removeItem(itemId);
       this.cartItemList = this.cartService.getCartItems() || [];
@@ -63,6 +62,7 @@ export class RegisterController {
         this.doParamSearch();
       }
     }
+
     this.$scope.$on('location', (event, data) => {
       this.locationParam = data;
     });
@@ -75,8 +75,8 @@ export class RegisterController {
     this.stateChanged = function() {
       if (this.locSearchFilter.locationAll) {
         $rootScope.$broadcast('location', this.locSearchFilter.locationAll)
-        this.$http.get(searchAPI + 'location=all').
-        then((data) => {
+        this.$http.get(searchAPI + 'location=all')
+        .then((data) => {
           this.$state.go('results')
           let seminarsData = data.data.seminars;
           this.receiveSeminarData(seminarsData);
@@ -84,7 +84,9 @@ export class RegisterController {
         });
       }
     }
-
+    this.watcherOfThings = function() {
+      this.doParamSearch();
+    }
     /**
      * Settings for the mileage slider.
      * @type {Object}
@@ -100,16 +102,20 @@ export class RegisterController {
     }
     this.$scope.$on('topic', (event, data) => {
       if (data.hvac === true) {
-        this.topicParam1 = 'hvac'
+        this.topicParam1 = 'hvac';
+        this.doParamSearch();
       }
       if (data.electrical === true) {
-        this.topicParam2 = 'electrical'
+        this.topicParam2 = 'electrical';
+        this.doParamSearch();
       }
       if (data.mechanical === true) {
-        this.topicParam3 = 'mechanical'
+        this.topicParam3 = 'mechanical';
+        this.doParamSearch();
       }
       if (data.management === true) {
-        this.topicParam4 = 'management'
+        this.topicParam4 = 'management';
+        this.doParamSearch();
       }
       this.doParamSearch();
     });
@@ -126,7 +132,7 @@ export class RegisterController {
           '&date-start=' + minDateRange + '-01-2016' +
           '&date-end=' + maxDateRange + '-01-2016')
         .then((data) => {
-          this.$state.go('results')
+          this.$state.go('results');
           let seminarsData = data.data.seminars;
           this.receiveSeminarData(seminarsData);
           return seminarsData;
