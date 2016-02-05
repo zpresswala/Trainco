@@ -1,115 +1,122 @@
 .seminar-detail {
   padding-top: 100px;
-	.btn-white {
-    display: none;
-		padding: 11px 10px;
-	}
 
-        .button-wrapper {
-        	a {
-        		display: block;
-        		text-align: center;
-        		max-width: 250px;
-        		margin: 0 auto;
-        	}
+  .btn-white {
+    display: none !important;
+    padding: 11px 10px;
+  }
 
-        	.btn-first {
-        		margin-bottom: 30px;
-        		padding: 13px 10px;
-  @include med-desktop-and-up {
-    margin-right: -130px;
-        	}
+  .button-wrapper {
+    a {
+      display: block;
+      text-align: center;
+      max-width: 250px;
+      margin: 0 auto;
+    }
 
+    .btn-first {
+      float: right;
+      margin-bottom: 30px;
+      padding: 13px 10px;
+        @media (max-width : 992px) {
+          float: none;
         }
-
+      @include med-desktop-and-up {
+        margin-right: -110px;
       }
+    }
+  }
 }
 
 .detail-page-app {
-	background-color: $white !important;
-	padding-top: 0 !important;
-	display: none;
-	.results {
-		margin-top: 0;
-	}
+  background-color: $white !important;
+  padding-top: 0 !important;
+  display: none;
 
-	.class-loader {
-		top: 30px;
-	}
+  .results {
+    margin-top: 0;
+  }
+
+  .class-loader {
+    top: 30px;
+  }
 }
 
 .button-wrapper {
-	a {
-		display: block;
-		text-align: center;
-		max-width: 250px;
-		margin: 0 auto;
-	}
+  a {
+    display: block;
+    text-align: center;
+    max-width: 250px;
+    margin: 0 auto;
+  }
 
-	.btn-first {
-		margin-bottom: 30px;
-		padding: 13px 10px;
-
-	}
-
+  .btn-first {
+    margin-bottom: 30px;
+    padding: 13px 10px;
+  }
 }
 
 .share-btn-wrap {
-	text-align: right;
-	margin-top: 30px;
+  text-align: right;
+  margin-top: 30px;
 }
 
 .second-btn {
-	@include med-desktop-and-up {
-		margin-left: 0;
-	}
+  @include med-desktop-and-up {
+    margin-left: 0;
+  }
 }
 
 .single-day-description {
-	@include tablet-portrait-and-up {
-		padding-left: 40px;
-	}
+  @include tablet-portrait-and-up {
+    padding-left: 40px;
+  }
 
-	ul {
-		padding-left: 15px;
-	}
+  ul {
+    padding-left: 15px;
+  }
 
-	h3 {
-
-		color: #5C5C5C;
-		font-size: 24px;
-	}
+  h3 {
+    color: #5C5C5C;
+    font-size: 24px;
+  }
 }
 
 .secondary-search {
-	border-top: 1px solid $cart-border;
-	padding-top: 40px;
-	margin-top: 10px;
-	@include med-desktop-and-up {
-		padding-left: 15px;
-		padding-right: 15px;
-	}
-	.row {
-		margin: 0 auto 60px;
-	}
-	h2 {
-		text-align: center;
-	}
-	.ui-rangeSlider-innerBar {
-		background-color: rgba(0,0,0,0.10);
-	}
+  border-top: 1px solid $cart-border;
+  padding-top: 40px;
+  margin-top: 10px;
 
-	.month-label, .select-date-text {
-		color: $headline-black;
-	}
+  @include med-desktop-and-up {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
-	.select2-container {
-		margin: 0 auto 27px;
-	}
-	.btn-reg {
-		margin: 0 auto;
-	    display: block;
-	    text-align: center;
-	    max-width: 150px;
-	}
+  .row {
+    margin: 0 auto 60px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .ui-rangeSlider-innerBar {
+    background-color: rgba(0,0,0,0.10);
+  }
+
+  .month-label,
+  .select-date-text {
+    color: $headline-black;
+  }
+
+  .select2-container {
+    margin: 0 auto 27px;
+  }
+
+  .btn-reg {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    max-width: 150px;
+  }
 }
