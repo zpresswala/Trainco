@@ -25,7 +25,7 @@ export class RegisterController {
     let topicParam4 = localStorage.getItem('topicParam4');
     let minDateRange = localStorage.getItem('minDateRange');
     let maxDateRange = localStorage.getItem('maxDateRange');
-
+    
     this.searchData = $http.get(searchAPI +
           'location=' + location +
           '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
@@ -38,9 +38,8 @@ export class RegisterController {
           // NOTE: This might cause problems but for now it works.
           localStorage.clear();
           return seminarsData;
-        })
+        });
 
-    this.dataSearch = this.searchData;
     this.addItemToCart = (item, qty) => {
       cartService.addItem(item, qty);
       this.cartItemList = cartService.getCartItems() || [];

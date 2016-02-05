@@ -1,5 +1,5 @@
 export class SeminarController {
-  constructor ($log, courseSearch) {
+  constructor($log, courseSearch) {
     'ngInject';
 
     this.$log = $log;
@@ -11,7 +11,7 @@ export class SeminarController {
     this.isCollapsed = true;
 
     this.dynamicPopover = {
-      templateUrl: 'app/seminar/seminarPop.html'
+      templateUrl: 'app/seminar/detail/detail.html'
     };
     this.addToCart();
 
@@ -20,15 +20,15 @@ export class SeminarController {
     }
 
     this.location = {};
-        this.demo1 = {
-          min: 0,
-          max: 500
-        };
-  }
+    this.demo1 = {
+      min: 0,
+      max: 500
+    };
 
+  }
   activate() {
-     const classId = localStorage.getItem('classId');
-     this.$log.debug(classId);
+    const classId = localStorage.getItem('classId');
+    this.$log.debug(classId);
   }
   requestSeminarData(courseSearch) {
     const classId = localStorage.getItem('classId');
@@ -44,7 +44,7 @@ export class SeminarController {
   receiveSeminarData(seminarsData) {
     let seminarLocations = [];
     this.seminarLocations = seminarsData.locationSchedules;
-    for(let elem of this.seminarLocations) {
+    for (let elem of this.seminarLocations) {
       const semId = elem.id;
       this.$log.debug('kek', elem.id)
       return semId;

@@ -23,7 +23,6 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
         seminarDetails: function(courseSearch, $stateParams) {
           let semId = $stateParams.id;
           return courseSearch.getSeminarDetails(semId);
-
         }
       }
     })
