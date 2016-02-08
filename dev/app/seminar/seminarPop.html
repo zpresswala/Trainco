@@ -1,6 +1,17 @@
-<h2>{{location.city}}</h2>  {{ location.date}}
-<br />
-{{ location.locationDetails }}
+<div class="seminar-popover">
+<ul class="list-inline">
+    <li>
+      <h3><strong>{{location.city}}</strong></h3>
+    </li>
+    <li>
+        {{ location.date}}
+    </li>
+    <li>
+      Register
+    </li>
+  </ul>
+
+<p ng-bind="location.locationDetails"></p>
 <table class="table table-striped">
   <tr>
     <th>
@@ -30,3 +41,4 @@
   </tr>
 </tbody>
 </table>
+</div>

@@ -1,16 +1,30 @@
 .seminar-detail {
+  padding-top: 100px;
+
   .btn-white {
+    display: none !important;
     padding: 11px 10px;
   }
-}
-#register-seminars {
-  a {
-    color: #0090c5;
-  }
-}
-.course-detail--content {
-  ul {
-    padding-left: 0;
+
+  .button-wrapper {
+    a {
+      display: block;
+      text-align: center;
+      max-width: 250px;
+      margin: 0 auto;
+    }
+
+    .btn-first {
+      float: right;
+      margin-bottom: 30px;
+      padding: 13px 10px;
+        @media (max-width : 992px) {
+          float: none;
+        }
+      @include med-desktop-and-up {
+        margin-right: -110px;
+      }
+    }
   }
 }
 
@@ -32,7 +46,7 @@
   a {
     display: block;
     text-align: center;
-    max-width: 200px;
+    max-width: 250px;
     margin: 0 auto;
   }
 

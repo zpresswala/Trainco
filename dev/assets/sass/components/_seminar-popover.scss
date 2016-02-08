@@ -1,0 +1,19 @@
+.popover-content {
+  ul {
+    padding-left: 0;
+  }
+  ul li {
+    display: inline;
+    padding-left: 10px;
+
+    h3 {
+      display: inline;
+      margin-right: 60px;
+    }
+
+    &:last-child {
+      float: right;
+      padding-right: 30px;
+    }
+  }
+}
