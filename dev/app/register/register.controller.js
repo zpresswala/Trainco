@@ -18,6 +18,11 @@ export class RegisterController {
 
     this.cartItemList = this.cartService.getCartItems() || [];
     this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+
+    // This lovely mess pulls data from localStorage in order to run the
+    // search from the off page search component as soon as the page
+    // loads.
+    // ----------------------------------------------------------
     let location = localStorage.getItem('location');
     let topicParam1 = localStorage.getItem('topicParam1');
     let topicParam2 = localStorage.getItem('topicParam2');
@@ -37,6 +42,8 @@ export class RegisterController {
           this.receiveSeminarData(seminarsData);
           return seminarsData;
         });
+    // End of the lovely on-load mess.
+    // ----------------------------------------------
 
     this.addItemToCart = (item, qty) => {
       cartService.addItem(item, qty);
@@ -54,7 +61,7 @@ export class RegisterController {
     /**
      * Handle key input
      * @param  {object} e the event
-     * ng-keydown="searchInput.handleInput($event)"
+     * @return {method}
      */
     this.handleLocInput = (e) => {
       if (e.keyCode === 13 && this.locSearchFilter.location) {
@@ -62,11 +69,12 @@ export class RegisterController {
         this.doParamSearch();
       }
     }
-
+    // Listens for a broadcast that says 'location'
     this.$scope.$on('location', (event, data) => {
       this.locationParam = data;
     });
-
+    // Listens for a broadcast saying keyword and then
+    // runs the doParamSearch function.
     this.$scope.$on('keyword', (event, data) => {
       this.keywordParam = data;
       this.doParamSearch();
@@ -98,6 +106,7 @@ export class RegisterController {
      * this.mileRange.value = ng-model.
      */
     this.mileRange = {
+      value: 500,
       options: {
         min: 50,
         floor: 50,
@@ -105,6 +114,9 @@ export class RegisterController {
         step: 50
       }
     }
+
+    // Listens for a broadcast saying topic and then
+    // runs a search with the updated topics.
     this.$scope.$on('topic', (event, data) => {
       if (data.hvac === true) {
         this.topicParam1 = 'hvac';
@@ -126,13 +138,14 @@ export class RegisterController {
     });
 
     this.doParamSearch = () => {
+
       let minDateRange = this.dateRange.start || '01';
       let maxDateRange = this.dateRange.end || '12';
       let radiusParam = this.mileRange.value || '250';
       //'keyword=' + keywordParam
       this.$http.get(searchAPI +
-          'keyword=' + this.keywordParam +
-          '&location=' + this.locationParam +
+          // 'keyword=' + this.keywordParam +
+          'location=' + this.locationParam +
           '&radius=' + radiusParam +
           '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +

@@ -6,7 +6,8 @@
 
 
   <div class="col-md-6" ng-repeat="(key, value) in seminar.seminarLocations | groupBy: 'state'">
-    <h3><strong>{{ key }}</strong></h3>
+    <h3 class="state-name"><strong>{{ key }}</strong></h3>
+    <div class="">
     <table class="table table-striped" width="90%">
       <tbody>
       <tr ng-repeat="location in value">
@@ -17,12 +18,13 @@
             {{ location.date}}
         </td>
         <td width="155px">
-          <a ui-sref="detail({id: location.id})">Register</a>
-          <!-- <a uib-popover-template="seminar.dynamicPopover.templateUrl" class="register-link" ui-sref="detail({id: location.id})" ng-click="seminar.registerSem(location.id)">Register</a> -->
+          <!-- <a ui-sref="detail({id: location.id})"><strong>Register</strong> <i class="fa fa-chevron-down"></i></a> -->
+          <a uib-popover-template="seminar.dynamicPopover.templateUrl" class="register-link" ng-click="seminar.registerSem({id: location.id})">Register</a>
         </td>
       </tr>
     </tbody>
     </table>
+  </div>
   </div>
 </div>
 </div>

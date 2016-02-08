@@ -18,6 +18,7 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       templateUrl: 'app/seminar/detail/detail.html',
       controller: 'SeminarDetailController',
       controllerAs: 'detail',
+
       resolve: {
         courseSearch: 'courseSearch',
         seminarDetails: function(courseSearch, $stateParams) {

@@ -1,9 +1,11 @@
+import { calculateTotalPrice } from '../utils';
 export class SeminarController {
-  constructor($log, courseSearch) {
+  constructor($log, courseSearch, cartService, $rootScope) {
     'ngInject';
 
     this.$log = $log;
-
+    this.cartService = cartService;
+    this.$rootScope = $rootScope;
     this.courseId = {};
     this.activate();
     this.requestSeminarData(courseSearch);
@@ -11,19 +13,26 @@ export class SeminarController {
     this.isCollapsed = true;
 
     this.dynamicPopover = {
-      templateUrl: 'app/seminar/detail/detail.html'
+      templateUrl: 'app/seminar/seminarPop.html',
     };
     this.addToCart();
 
-    this.registerSem = function() {
-      this.requestSeminarDetails();
-    }
+    // this.registerSem = function() {
+    //   this.requestSeminarDetails();
+    // }
 
     this.location = {};
     this.demo1 = {
       min: 0,
       max: 500
     };
+
+        this.addItemToCart = (item, qty) => {
+          cartService.addItem(item, qty);
+          this.cartItemList = cartService.getCartItems() || [];
+          this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+          $rootScope.$broadcast('cartUpdated', this.cartItemList);
+        };
 
   }
   activate() {
@@ -50,9 +59,9 @@ export class SeminarController {
     }
   }
 
-  requestSeminarDetails(courseSearch) {
+  requestSeminarDetails(courseSearch, id) {
     //const semId = localStorage.getItem('classId');
-    let semId
+    let semId = id;
     return courseSearch.getSeminarDetails(semId).then((data) => {
       this.$log.debug(data)
       let seminarDetail = data;

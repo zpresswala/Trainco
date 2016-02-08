@@ -7,7 +7,7 @@ export class SeminarDetailController {
     this.$rootScope = $rootScope;
     this.seminarDateDetails = {};
 
-    this.semId = $stateParams.id;
+    this.semId = location.id;
     this.details = courseSearch.getSeminarDetails(this.semId);
     this.seminarDetails = seminarDetails;
 
