@@ -46,7 +46,6 @@ export class SeminarController {
     this.seminarLocations = seminarsData.locationSchedules;
     for (let elem of this.seminarLocations) {
       const semId = elem.id;
-      this.$log.debug('kek', elem.id)
       return semId;
     }
   }

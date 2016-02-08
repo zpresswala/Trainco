@@ -74,10 +74,10 @@ export class RegisterController {
      */
     this.stateChanged = function() {
       if (this.locSearchFilter.locationAll) {
-        $rootScope.$broadcast('location', this.locSearchFilter.locationAll)
+        $rootScope.$broadcast('location', this.locSearchFilter.locationAll);
         this.$http.get(searchAPI + 'location=all')
         .then((data) => {
-          this.$state.go('results')
+          this.$state.go('results');
           let seminarsData = data.data.seminars;
           this.receiveSeminarData(seminarsData);
           return seminarsData;
