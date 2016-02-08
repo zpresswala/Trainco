@@ -67,6 +67,11 @@ export class RegisterController {
       this.locationParam = data;
     });
 
+    this.$scope.$on('keyword', (event, data) => {
+      this.keywordParam = data;
+      this.doParamSearch();
+    });
+
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function
@@ -126,7 +131,8 @@ export class RegisterController {
       let radiusParam = this.mileRange.value || '250';
       //'keyword=' + keywordParam
       this.$http.get(searchAPI +
-          'location=' + this.locationParam +
+          'keyword=' + this.keywordParam +
+          '&location=' + this.locationParam +
           '&radius=' + radiusParam +
           '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
