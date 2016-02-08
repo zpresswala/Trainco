@@ -32,16 +32,16 @@ export class RegisterController {
     let maxDateRange = localStorage.getItem('maxDateRange');
 
     this.searchData = $http.get(searchAPI +
-          'location=' + location +
-          '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
-          '&date-start=' + minDateRange + '-01-2016' +
-          '&date-end=' + maxDateRange + '-01-2016')
-        .then((data) => {
-          this.$state.go('results')
-          let seminarsData = data.data.seminars;
-          this.receiveSeminarData(seminarsData);
-          return seminarsData;
-        });
+        'location=' + location +
+        '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
+        '&date-start=' + minDateRange + '-01-2016' +
+        '&date-end=' + maxDateRange + '-01-2016')
+      .then((data) => {
+        this.$state.go('results')
+        let seminarsData = data.data.seminars;
+        this.receiveSeminarData(seminarsData);
+        return seminarsData;
+      });
     // End of the lovely on-load mess.
     // ----------------------------------------------
 
@@ -64,12 +64,12 @@ export class RegisterController {
      * @return {method}
      */
     this.handleLocInput = (e) => {
-      if (e.keyCode === 13 && this.locSearchFilter.location) {
-        $rootScope.$broadcast('location', this.locSearchFilter.location);
-        this.doParamSearch();
+        if (e.keyCode === 13 && this.locSearchFilter.location) {
+          $rootScope.$broadcast('location', this.locSearchFilter.location);
+          this.doParamSearch();
+        }
       }
-    }
-    // Listens for a broadcast that says 'location'
+      // Listens for a broadcast that says 'location'
     this.$scope.$on('location', (event, data) => {
       this.locationParam = data;
     });
@@ -89,22 +89,22 @@ export class RegisterController {
       if (this.locSearchFilter.locationAll) {
         $rootScope.$broadcast('location', this.locSearchFilter.locationAll);
         this.$http.get(searchAPI + 'location=all')
-        .then((data) => {
-          this.$state.go('results');
-          let seminarsData = data.data.seminars;
-          this.receiveSeminarData(seminarsData);
-          return seminarsData;
-        });
+          .then((data) => {
+            this.$state.go('results');
+            let seminarsData = data.data.seminars;
+            this.receiveSeminarData(seminarsData);
+            return seminarsData;
+          });
       }
     }
     this.watcherOfThings = function() {
-      this.doParamSearch();
-    }
-    /**
-     * Settings for the mileage slider.
-     * @type {Object}
-     * this.mileRange.value = ng-model.
-     */
+        this.doParamSearch();
+      }
+      /**
+       * Settings for the mileage slider.
+       * @type {Object}
+       * this.mileRange.value = ng-model.
+       */
     this.mileRange = {
       value: 500,
       options: {
@@ -118,22 +118,15 @@ export class RegisterController {
     // Listens for a broadcast saying topic and then
     // runs a search with the updated topics.
     this.$scope.$on('topic', (event, data) => {
-      if (data.hvac === true) {
-        this.topicParam1 = 'hvac';
-        this.doParamSearch();
-      }
-      if (data.electrical === true) {
-        this.topicParam2 = 'electrical';
-        this.doParamSearch();
-      }
-      if (data.mechanical === true) {
-        this.topicParam3 = 'mechanical';
-        this.doParamSearch();
-      }
-      if (data.management === true) {
-        this.topicParam4 = 'management';
-        this.doParamSearch();
-      }
+
+      let labelsArray = ['hvac', 'electrical', 'mechanical', 'management']
+      labelsArray.forEach((label, index) => {
+        if (data[label]) {
+          this[`topicParam${index+1}`] = label
+        } else {
+          this[`topicParam${index+1}`] = undefined
+        }
+      })
       this.doParamSearch();
     });
 

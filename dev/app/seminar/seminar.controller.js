@@ -15,7 +15,7 @@ export class SeminarController {
     this.dynamicPopover = {
       templateUrl: 'app/seminar/seminarPop.html',
     };
-    this.addToCart();
+
 
     // this.registerSem = function() {
     //   this.requestSeminarDetails();
@@ -68,11 +68,6 @@ export class SeminarController {
       // this.receiveSeminarData(seminarDetail);
       return seminarDetail;
     });
-  }
-
-  addToCart() {
-    this.$log.debug(this.attendees)
-    localStorage.setItem('attendees', this.attendees);
   }
 
   storeCourseId(seminarsData) {
