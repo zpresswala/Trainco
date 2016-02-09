@@ -11,7 +11,7 @@
       <ul class="list-inline cart-item-list">
         <li class="cart-item" ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
           <ul class="container">
-            <li class="class-title col-xs-12 col-sm-12 col-md-4">cartItem.title still not storing...</li>
+            <li class="class-title col-xs-12 col-sm-12 col-md-4">{{cartItem.title}}</li>
 
             <li class="location col-xs-12 col-sm-4 col-md-2">{{cartItem.city}}, {{cartItem.state}}</li>
             <li class="date col-xs-12 col-sm-4 col-md-2">{{cartItem.date}}</li>

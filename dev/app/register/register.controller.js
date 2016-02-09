@@ -130,26 +130,26 @@ export class RegisterController {
       this.doParamSearch();
     });
 
-    this.doParamSearch = () => {
-
-      let minDateRange = this.dateRange.start || '01';
-      let maxDateRange = this.dateRange.end || '12';
-      let radiusParam = this.mileRange.value || '250';
-      //'keyword=' + keywordParam
-      this.$http.get(searchAPI +
-          // 'keyword=' + this.keywordParam +
-          'location=' + this.locationParam +
-          '&radius=' + radiusParam +
-          '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
-          '&date-start=' + minDateRange + '-01-2016' +
-          '&date-end=' + maxDateRange + '-01-2016')
-        .then((data) => {
-          this.$state.go('results');
-          let seminarsData = data.data.seminars;
-          this.receiveSeminarData(seminarsData);
-          return seminarsData;
-        });
-    }
+    // this.doParamSearch = () => {
+    //
+    //   let minDateRange = this.dateRange.start || '01';
+    //   let maxDateRange = this.dateRange.end || '12';
+    //   let radiusParam = this.mileRange.value || '250';
+    //   //'keyword=' + keywordParam
+    //   this.$http.get(searchAPI +
+    //       // 'keyword=' + this.keywordParam +
+    //       'location=' + this.locationParam +
+    //       '&radius=' + radiusParam +
+    //       '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
+    //       '&date-start=' + minDateRange + '-01-2016' +
+    //       '&date-end=' + maxDateRange + '-01-2016')
+    //     .then((data) => {
+    //       this.$state.go('results');
+    //       let seminarsData = data.data.seminars;
+    //       this.receiveSeminarData(seminarsData);
+    //       return seminarsData;
+    //     });
+    // }
 
     this.months = [{
       'val': '01',
@@ -193,5 +193,26 @@ export class RegisterController {
   receiveSeminarData(seminarsData) {
     let seminarLocations = [];
     this.seminarLocations = seminarsData;
+  }
+
+  doParamSearch() {
+    const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+    let minDateRange = this.dateRange.start || '01';
+    let maxDateRange = this.dateRange.end || '12';
+    let radiusParam = this.mileRange.value || '250';
+    //'keyword=' + keywordParam
+    this.$http.get(searchAPI +
+        // 'keyword=' + this.keywordParam +
+        'location=' + this.locationParam +
+        '&radius=' + radiusParam +
+        '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
+        '&date-start=' + minDateRange + '-01-2016' +
+        '&date-end=' + maxDateRange + '-01-2016')
+      .then((data) => {
+        this.$state.go('results');
+        let seminarsData = data.data.seminars;
+        this.receiveSeminarData(seminarsData);
+        return seminarsData;
+      });
   }
 }

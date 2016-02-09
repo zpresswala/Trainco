@@ -35,10 +35,11 @@
     <td width="75px">
             <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
               <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="number" min="0" class="" name="qty">
-              <input id="cart-btn" class="btn btn-reg btn-blue-solid" ng-show="qty" ng-click="seminar.addItemToCart(location, qty || 1)" type="button" name="name" value="Add to Cart">
             </div>
       </td>
   </tr>
 </tbody>
 </table>
+<input class="btn btn-reg btn-blue-solid" ng-click="seminar.addItemToCart(location, qty || 1)" type="button" name="name" value="Add to Cart">
+
 </div>

@@ -17,9 +17,6 @@ exports.cities = [{
   value: 'Phoenix',
   label: 'Phoenix, AZ'
 },
-{
-  label: '-------- California'
-},
  {
   value: 'Burbank',
   label: 'Burbank, CA'
