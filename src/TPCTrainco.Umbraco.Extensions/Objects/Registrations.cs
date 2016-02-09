@@ -109,36 +109,48 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     string emailOrderSummaryList = "";
                     bool isCourseCancelling = false;
 
+
+
+
+
+
+
                     // Loop through attendees
                     foreach (temp_Reg tempReg in checkout.tempRegList)
                     {
                         string attendeeDetails = emailDetailTemplate;
                         string attendeeSummary = emailOrderSummaryTemplate;
 
-                        SCHEDULE schedule = Objects.CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
+                        SCHEDULE schedule = CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
 
                         if (schedule != null && schedule.ScheduleStatus != null && schedule.ScheduleStatus > 0)
                         {
                             isCourseCancelling = true;
                         }
 
-                        temp_Att tempAtt = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).FirstOrDefault();
+                        List<temp_Att> tempAttList = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).ToList();
 
-                        if (tempAtt != null)
+                        if (tempAttList != null && tempAttList.Count > 0)
                         {
-                            attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                            attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
-                            attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
+                            foreach (temp_Att tempAtt in tempAttList)
+                            {
+                                if (tempAtt != null)
+                                {
+                                    attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                                    attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+                                    attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
 
-                            emailOrderAttendeeDetailsList += attendeeDetails;
+                                    emailOrderAttendeeDetailsList += attendeeDetails;
 
-                            string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+                                    string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
 
-                            attendeeSummary = attendeeSummary.Replace("{{SEMINAR_TITLE}}", seminarTitle);
-                            attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                            attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+                                    attendeeSummary = attendeeSummary.Replace("{{SEMINAR_TITLE}}", seminarTitle);
+                                    attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                                    attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
 
-                            emailOrderSummaryList += attendeeSummary;
+                                    emailOrderSummaryList += attendeeSummary;
+                                }
+                            }
                         }
                     }
 

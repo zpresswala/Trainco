@@ -18,7 +18,6 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         public IPublishedContent Home;
         public IPublishedContent SiteSettings;
         public IPublishedContent News;
-        public IPublishedContent RedirectFolder;
         public IPublishedContent CourseCatalog;
         public IPublishedContent SeminarSearch;
         public IEnumerable<IPublishedContent> Redirects;
@@ -47,8 +46,6 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                             instance.Home = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("HomePage"));
                             instance.SiteSettings = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("SiteSettings"));
-                            instance.RedirectFolder = instance.SiteSettings.Children.FirstOrDefault(n => n.IsDocumentType("RedirectsFolder"));
-                            instance.Redirects = instance.RedirectFolder.Children;
 
                             instance.SocialLinkFolder = instance.SiteSettings.Children.FirstOrDefault(n => n.IsDocumentType("SocialLinks"));
                             instance.SocialLinks = instance.SocialLinkFolder.Children;
@@ -104,6 +101,40 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             }
 
             return seminarCategoryList;
+        }
+
+
+        public static IPublishedContent RedirectFolder()
+        {
+            IPublishedContent redirectFolder = null;
+
+            var umbHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            IPublishedContent siteSettings = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("SiteSettings"));
+
+            if (siteSettings != null)
+            {
+                redirectFolder = siteSettings.Children.FirstOrDefault(n => n.IsDocumentType("RedirectsFolder"));
+            }
+
+            return redirectFolder;
+        }
+
+
+        public static IEnumerable<IPublishedContent> RedirectList()
+        {
+            IEnumerable<IPublishedContent> redirectLIst = null;
+
+            var umbHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            IPublishedContent redirectFolder = RedirectFolder();
+
+            if (redirectFolder != null)
+            {
+                redirectLIst = redirectFolder.Children;
+            }
+
+            return redirectLIst;
         }
     }
 }
