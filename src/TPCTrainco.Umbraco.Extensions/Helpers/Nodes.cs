@@ -66,6 +66,19 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             }
         }
 
+
+        public static IPublishedContent SiteSettingsDirect()
+        {
+            IPublishedContent siteSettings = null;
+
+            var umbHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            siteSettings = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("SiteSettings"));
+
+            return siteSettings;
+        }
+
+
         public static IPublishedContent OnSiteTraining()
         {
             IPublishedContent onsiteTrainingNode = null;

@@ -78,7 +78,7 @@
         {
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
-                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString().Replace(",",""));
 
                 clearSession = true;
             }
@@ -98,7 +98,7 @@
         {
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
-                pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+                pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString().Replace(",", ""));
 
                 clearSession = true;
             }
