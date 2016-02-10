@@ -16,6 +16,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string LocationDetails { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinates { get; set; }
         public DateTime DateFilter { get; set; }
+        public string DateMonthYear { get; set; }
         public double? Distance { get; set; }
 
         public long Id { get; set; }

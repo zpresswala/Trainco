@@ -180,6 +180,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             result.DaysDescription = locationScheduleDetail.DaysDescription;
             result.Date = locationScheduleDetail.Date;
             result.DateFilter = locationScheduleDetail.DateFilter;
+            result.DateMonthYear = locationScheduleDetail.DateMonthYear;
             result.Price = locationScheduleDetail.Price;
 
             return result;
@@ -197,6 +198,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             result.State = locationScheduleDetail.State;
             result.LocationDetails = locationScheduleDetail.LocationDetails;
             result.DateFilter = locationScheduleDetail.DateFilter;
+            result.DateMonthYear = locationScheduleDetail.DateMonthYear;
             result.Distance = locationScheduleDetail.Distance ?? 0;
 
             result.DaysTitle = locationScheduleDetail.DaysTitle;
