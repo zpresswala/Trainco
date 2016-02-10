@@ -418,6 +418,9 @@ $handleActiveColor: #451aff;
         background-color: $handleDisabledColor;
       }
     }
+    .rz-pointer.rz-active {
+      background-color: darken($barFillColor, 2%)
+    }
 
     span {
       position: absolute;
@@ -482,7 +485,7 @@ $handleActiveColor: #451aff;
       }
 
       &.rz-active:after {
-        background-color: $handleActiveColor;
+        background-color: $handleInnerColor;
       }
     }
 

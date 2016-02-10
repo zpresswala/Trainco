@@ -1,45 +1,43 @@
-<div class="seminar-popover">
+<div class="popover-content">
 <ul class="list-inline">
     <li>
       <h3><strong>{{location.city}}</strong></h3>
     </li>
     <li>
-        {{ location.date}}
+      <strong>{{ location.date}}</strong>
     </li>
     <li>
-      Register
+      <a class="register-link">Register</a>
     </li>
   </ul>
 
 <p ng-bind="location.locationDetails"></p>
-<table class="table table-striped">
-  <tr>
-    <th>
+<div class="result-popover">
+  <div class="row result-table-head">
+    <div class="col-sm-5">
       Training Days
-    </th>
-    <th>
+    </div>
+    <div class="col-sm-3">
       Price
-    </th>
-    <th>
+    </div>
+    <div class="col-sm-4 attendees-txt">
       Attendees
-    </th>
-  </tr>
-  <tbody>
-  <tr>
-    <td width="255px">
-      {{location.daysTitle}}
-    </td>
-    <td width="125px">
+    </div>
+  </div>
+  <div class="row result-table-body">
+    <div class="col-sm-5">
+      <em>{{location.daysTitle}}</em>
+      </div>
+    <div class="col-sm-3">
     ${{location.price}}
-    </td>
-    <td width="75px">
+      </div>
+    <div class="col-sm-4 attendees">
             <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
               <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="number" min="0" class="" name="qty">
             </div>
-      </td>
-  </tr>
-</tbody>
-</table>
+      </div>
+</div>
+</div>
 <input class="btn btn-reg btn-blue-solid" ng-click="seminar.addItemToCart(location, qty || 1)" type="button" name="name" value="Add to Cart">
 
 </div>

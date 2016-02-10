@@ -77,7 +77,7 @@ export class RegisterController {
     // runs the doParamSearch function.
     this.$scope.$on('keyword', (event, data) => {
       this.keywordParam = data;
-      this.doParamSearch();
+      this.doKWParamSearch();
     });
 
     /**
@@ -100,10 +100,11 @@ export class RegisterController {
     this.watcherOfThings = function() {
         this.doParamSearch();
       }
+
       /**
        * Settings for the mileage slider.
        * @type {Object}
-       * this.mileRange.value = ng-model.
+       * translate adds the label to the value.
        */
     this.mileRange = {
       value: 500,
@@ -111,7 +112,10 @@ export class RegisterController {
         min: 50,
         floor: 50,
         ceil: 1000,
-        step: 50
+        step: 50,
+        translate: function(value) {
+          return  value + ' mile radius';
+        }
       }
     }
 
@@ -129,27 +133,6 @@ export class RegisterController {
       })
       this.doParamSearch();
     });
-
-    // this.doParamSearch = () => {
-    //
-    //   let minDateRange = this.dateRange.start || '01';
-    //   let maxDateRange = this.dateRange.end || '12';
-    //   let radiusParam = this.mileRange.value || '250';
-    //   //'keyword=' + keywordParam
-    //   this.$http.get(searchAPI +
-    //       // 'keyword=' + this.keywordParam +
-    //       'location=' + this.locationParam +
-    //       '&radius=' + radiusParam +
-    //       '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
-    //       '&date-start=' + minDateRange + '-01-2016' +
-    //       '&date-end=' + maxDateRange + '-01-2016')
-    //     .then((data) => {
-    //       this.$state.go('results');
-    //       let seminarsData = data.data.seminars;
-    //       this.receiveSeminarData(seminarsData);
-    //       return seminarsData;
-    //     });
-    // }
 
     this.months = [{
       'val': '01',
@@ -188,8 +171,8 @@ export class RegisterController {
       'val': '12',
       'name': 'December'
     }]
-
   }
+
   receiveSeminarData(seminarsData) {
     let seminarLocations = [];
     this.seminarLocations = seminarsData;
@@ -215,4 +198,24 @@ export class RegisterController {
         return seminarsData;
       });
   }
+    doKWParamSearch() {
+      const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+      let minDateRange = this.dateRange.start || '01';
+      let maxDateRange = this.dateRange.end || '12';
+      let radiusParam = this.mileRange.value || '250';
+      //'keyword=' + keywordParam
+      this.$http.get(searchAPI +
+          'keyword=' + this.keywordParam +
+          '&location=' + this.locationParam +
+          '&radius=' + radiusParam +
+          '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
+          '&date-start=' + minDateRange + '-01-2016' +
+          '&date-end=' + maxDateRange + '-01-2016')
+        .then((data) => {
+          this.$state.go('results');
+          let seminarsData = data.data.seminars;
+          this.receiveSeminarData(seminarsData);
+          return seminarsData;
+        });
+    }
 }

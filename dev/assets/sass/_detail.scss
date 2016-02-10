@@ -1,3 +1,34 @@
+.register-link {
+  font-weight: bold;
+  color: #008FC7;
+}
+.seminar-detail-header {
+  text-align: center;
+  padding-top: 40px;
+  margin-bottom: 0;
+}
+.course-col-header {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  .left-course-head {
+    font-size: 17px;
+    font-weight: 400;
+  }
+  .register-link {
+    font-weight: bold;
+    color: #008FC7;
+    font-size: 15px;
+    text-align: right;
+  }
+}
+.location-row {
+  font-size: 15px;
+
+  .city-name {
+    font-size: 17px;
+    font-style: italic;
+  }
+}
 .seminar-detail {
   padding-top: 100px;
 
@@ -119,4 +150,157 @@
     text-align: center;
     max-width: 150px;
   }
+}
+
+#register-seminars {
+  .slider-wrap {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  rzslider {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    margin: 65px 0 15px;
+    user-select: none;
+    vertical-align: middle;
+  }
+
+  rzslider[disabled] {
+    cursor: not-allowed;
+  }
+
+  rzslider[disabled] .rz-pointer {
+    cursor: not-allowed;
+    background-color: #d8e0f3;
+  }
+
+  rzslider span {
+    position: absolute;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  rzslider .rz-base {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  rzslider .rz-bar-wrapper {
+    z-index: 1;
+    left: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    border-radius: 25px;
+    background: #DCDADC;
+    padding-top: 0;
+  }
+
+  rzslider .rz-bar-wrapper.rz-draggable {
+    cursor: move;
+  }
+
+  rzslider .rz-bar {
+    z-index: 1;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  rzslider .rz-bar.rz-selection {
+    z-index: 2;
+    height: 40px;
+    background-color: rgba(228, 79, 77, 0.50);
+  }
+
+  rzslider .rz-pointer {
+    width: 60px;
+    z-index: 1;
+    height: 40px;
+    border-radius: 25px;
+    top: 0;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-pointer:after {
+    z-index: 1;
+    color: #fff;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-pointer:hover:after {
+    z-index: 1;
+    color: #fff;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-pointer.rz-active {
+    z-index: 1;
+    color: #fff;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-pointer.rz-active:after {
+    z-index: 1;
+    color: #fff;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-bubble {
+    display: none;
+  }
+
+  rzslider .rz-bubble.rz-selection {
+    top: 16px;
+  }
+
+  rzslider .rz-bubble.rz-limit {
+    display: none;
+  }
+
+  rzslider .rz-ticks {
+    position: absolute;
+    z-index: 1;
+    top: -3px;
+    left: 0;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    padding: 0 25px;
+    list-style: none;
+    justify-content: space-between;
+  }
+
+  rzslider .rz-ticks .tick {
+    cursor: pointer;
+    text-align: center;
+    background-color: transparent;
+    color: #fff;
+    z-index: 10;
+  }
+
+  rzslider .rz-ticks .tick.selected {
+    background-color: transparent;
+    color: #fff !important;
+  }
+
+  rzslider .rz-ticks .tick .tick-value {
+    position: absolute;
+    top: 10px;
+    transform: translate(-50%, 5px);
+    color: #4E4139;
+    z-index: 10;
+  }
+
 }
