@@ -25,6 +25,7 @@ angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 
   .directive('keywordInput', KeywordInputDirective)
   .directive('shoppingCart', CartDirective)
   .directive('stringToNumber', stringToNumber)
+
   .animation('.slide-toggle', ['$animateCss', function($animateCss) {
       let lastId = 0;
       let _cache = {};

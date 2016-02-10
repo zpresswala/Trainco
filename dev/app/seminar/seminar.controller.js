@@ -24,22 +24,25 @@ export class SeminarController {
       $rootScope.$broadcast('cartUpdated', this.cartItemList);
     };
 
-    this.sliderValues = {
-      minValue: 1,
-      maxValue: 8,
+    this.monthsSlider = {
+      minValue: 0, // initial position for left handle
+      maxValue: 8, // initial position for right handle
       options: {
-        floor: 0,
-        ceil: 15,
+        floor: 0, // left most value
+        ceil: 15, // right most value
         showTicks: true,
         showSelectionBarEnd: true,
         showTicksValues: true,
-        stepsArray: 'JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEPT,OCT,NOV,DEC,JAN,FEB,MAR'.split(',')
+        stepsArray: ' ,JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEPT,OCT,NOV,DEC,JAN,'.split(',')
       }
     };
 
-    let minDateRange = '0' + (this.sliderValues.minValue + 1);
-    let minDateParam = '2016-' +  minDateRange;
-    this.filterByD = ''; //minDateParam
+    let minMonthNumber = this.monthsSlider.minValue + 1;
+    let maxMonthNumber = this.monthsSlider.maxValue + 1;
+    //this.monthMin = minMonthNumber;
+    let minDateRange = minMonthNumber;
+    let minDateParam = minDateRange + '-2016';
+    this.monthMin = this.monthsSlider.minValue + 1 + '-2016'; //minDateParam
   }
   activate() {
     const classId = localStorage.getItem('classId');
@@ -59,7 +62,7 @@ export class SeminarController {
     let seminarLocationsArray = this.seminarLocations;
     seminarLocationsArray.forEach((location, index) => {
       const dateF = location.dateFilter;
-      this.$log.debug(dateF)
+    //  this.$log.debug(dateF)
       return dateF;
     });
   }

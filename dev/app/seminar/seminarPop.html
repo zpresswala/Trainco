@@ -1,17 +1,17 @@
 <div class="popover-content">
 <ul class="list-inline">
     <li>
-      <h3><strong>{{location.city}}</strong></h3>
+      <h3><strong>{{event.city}}</strong></h3>
     </li>
     <li>
-      <strong>{{ location.date}}</strong>
+      <strong>{{ event.date}}</strong>
     </li>
     <li>
       <a class="register-link">Register</a>
     </li>
   </ul>
 
-<p ng-bind="location.locationDetails"></p>
+<p ng-bind="event.locationDetails"></p>
 <div class="result-popover">
   <div class="row result-table-head">
     <div class="col-sm-5">
@@ -26,10 +26,10 @@
   </div>
   <div class="row result-table-body">
     <div class="col-sm-5">
-      <em>{{location.daysTitle}}</em>
+      <em>{{event.daysTitle}}</em>
       </div>
     <div class="col-sm-3">
-    ${{location.price}}
+    ${{event.price}}
       </div>
     <div class="col-sm-4 attendees">
             <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
@@ -38,6 +38,6 @@
       </div>
 </div>
 </div>
-<input class="btn btn-reg btn-blue-solid" ng-click="seminar.addItemToCart(location, qty || 1)" type="button" name="name" value="Add to Cart">
+<input class="btn btn-reg btn-blue-solid" ng-click="seminar.addItemToCart(event, qty || 1)" type="button" name="name" value="Add to Cart">
 
 </div>

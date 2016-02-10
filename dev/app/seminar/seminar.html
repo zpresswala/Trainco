@@ -5,7 +5,7 @@
   <div class="container">
     <h2 class="seminar-detail-header">Upcoming Dates and Locations</h2>
     <div class="slider-wrap">
-      <rzslider rz-slider-model="seminar.sliderValues.minValue" ng-model="seminar.sliderValues.minValue" ng-change="seminar.updateFilter()" rz-slider-high="seminar.sliderValues.maxValue" rz-slider-options="seminar.sliderValues.options"></rzslider>
+      <rzslider rz-slider-model="seminar.monthsSlider.minValue" ng-model="seminar.monthsSlider" rz-slider-high="seminar.monthsSlider.maxValue" rz-slider-options="seminar.monthsSlider.options"></rzslider>
     </div>
     <div class="row">
       <div class="col-md-6 course-col-header">
@@ -15,28 +15,30 @@
         <a class="register-link pull-right" href="#">Want this training at your facility instead?</a>
       </div>
     </div>
+   <!-- REMOVED -->
 
-    <div class="col-md-6" ng-repeat="(key, value) in seminar.seminarLocations | groupBy: 'state'">
-      <h3 class="state-name"><strong>{{ key }}</strong></h3>
+        <div class="col-md-6" ng-repeat="location in seminar.seminarLocations | groupBy:'state'">
+      <h3 class="state-name"><strong>{{ location[0].state }}</strong></h3>
       <div class="">
         <table class="table table-striped" width="90%">
           <tbody>
-            <tr ng-repeat="location in value | filter:seminar.filterByD" class="location-row">
+            <tr ng-repeat="event in location | filter: { dateMonthYear: seminar.monthsSlider.minValue }" class="location-row">
               <td width="155px">
-                <span class="city-name">{{ location.city }}</span>
+                <span class="city-name">{{ event.city }}</span>
               </td>
               <td width="185px">
-                {{ location.date}}
+                {{ event.date}}
               </td>
               <td width="155px">
                 <!-- <a ui-sref="detail({id: location.id})"><strong>Register</strong> <i class="fa fa-chevron-down"></i></a> -->
-                <a uib-popover-template="seminar.detailPop.templateUrl" class="register-link" ng-click="seminar.registerSem({id: location.id})">Register <i class="fa fa-chevron-down"></i></a>
+                <a uib-popover-template="seminar.detailPop.templateUrl" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i></a>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    <!-- REMOVED -->
   </div>
 </div>
 <div class="container-fluid onsite-section">
