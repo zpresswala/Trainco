@@ -1,74 +1,82 @@
 <shopping-cart></shopping-cart>
-<div id="register-seminars" class="row" data-classid="292">
+<div id="register-seminars" class="row" data-classid="292" style="padding-top: 40px;">
   <!-- <table tr-ng-grid items='seminar.seminarLocations'></table> -->
 
-<div class="container">
-
-
-  <div class="col-md-6" ng-repeat="(key, value) in seminar.seminarLocations | groupBy: 'state'">
-    <h3><strong>{{ key }}</strong></h3>
-    <table class="table table-striped" width="90%">
-      <tbody>
-      <tr ng-repeat="location in value">
-        <td width="155px">
-          {{ location.city }}
-        </td>
-        <td width="185px">
-            {{ location.date}}
-        </td>
-        <td width="155px">
-          <a ui-sref="detail({id: location.id})">Register</a>
-          <!-- <a uib-popover-template="seminar.dynamicPopover.templateUrl" class="register-link" ng-click="seminar.registerSem(location.id)">Register</a> -->
-        </td>
-      </tr>
-    </tbody>
-    </table>
-  </div>
-</div>
-</div>
-  <div class="container-fluid onsite-section">
-    <div class="left-skew">
-      <div class="skewed-side">
-        <div class="inner">
-          <h2 class="callout-headline">Take advantage of our on-site training
-          program.</h2>
-          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis
-          euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi
-          leo risus, porta ac consectetur ac, vestibulum at eros. Praesent
-          commodo cursus magna.</p><a class="btn-reg btn-white" href="#" role=
-          "button">Learn More</a>
-        </div>
+  <div class="container">
+    <h2 class="seminar-detail-header">Upcoming Dates and Locations</h2>
+    <div class="slider-wrap">
+      <rzslider rz-slider-model="seminar.monthsSlider.minValue" ng-model="seminar.monthsSlider" rz-slider-high="seminar.monthsSlider.maxValue" rz-slider-options="seminar.monthsSlider.options"></rzslider>
+    </div>
+    <div class="row">
+      <div class="col-md-6 course-col-header">
+        <span class="left-course-head">Choose a location and date below to register.</span>
+      </div>
+      <div class="col-md-6 course-col-header">
+        <a class="register-link pull-right" href="#">Want this training at your facility instead?</a>
       </div>
     </div>
-    <div class="right-img"><img alt="See our on-site programs" src=
-    "/assets/images/on-site.jpg"></div>
+   <!-- REMOVED -->
+
+        <div class="col-md-6" ng-repeat="location in seminar.seminarLocations | groupBy:'state'">
+      <h3 class="state-name"><strong>{{ location[0].state }}</strong></h3>
+      <div class="">
+        <table class="table table-striped" width="90%">
+          <tbody>
+            <tr ng-repeat="event in location | filter: { dateMonthYear: seminar.monthsSlider.minValue }" class="location-row">
+              <td width="155px">
+                <span class="city-name">{{ event.city }}</span>
+              </td>
+              <td width="185px">
+                {{ event.date}}
+              </td>
+              <td width="155px">
+                <!-- <a ui-sref="detail({id: location.id})"><strong>Register</strong> <i class="fa fa-chevron-down"></i></a> -->
+                <a uib-popover-template="seminar.detailPop.templateUrl" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- REMOVED -->
   </div>
-  <tpc-footer></tpc-footer>
+</div>
+<div class="container-fluid onsite-section">
+  <div class="left-skew">
+    <div class="skewed-side">
+      <div class="inner">
+        <h2 class="callout-headline">Take advantage of our on-site training
+          program.</h2>
+        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p><a class="btn-reg btn-white"
+          href="#" role="button">Learn More</a>
+      </div>
+    </div>
+  </div>
+  <div class="right-img"><img alt="See our on-site programs" src="/assets/images/on-site.jpg"></div>
+</div>
+<tpc-footer></tpc-footer>
 <script>
-
-
   var regSem = document.getElementById('register-seminars');
   var classId = regSem.dataset.classid;
   localStorage.setItem('classId', classId);
-    // Scroller
-$(function() {
+  // Scroller
+  $(function() {
     $('a.page-scroll').bind('click', function(event) {
-        var $anchor = $(this);
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top
-        }, 1500, 'easeInOutExpo');
-        event.preventDefault();
+      var $anchor = $(this);
+      $('html, body').stop().animate({
+        scrollTop: $($anchor.attr('href')).offset().top
+      }, 1500, 'easeInOutExpo');
+      event.preventDefault();
     });
-});
+  });
 
-// Highlight the top nav as scrolling occurs
-$('body').scrollspy({
+  // Highlight the top nav as scrolling occurs
+  $('body').scrollspy({
     target: '.navbar-lower'
-})
+  })
 
-// Closes the Responsive Menu on Menu Item Click
-$('.navbar-collapse ul li a').click(function() {
+  // Closes the Responsive Menu on Menu Item Click
+  $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
-});
-
+  });
 </script>

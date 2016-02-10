@@ -1,98 +1,306 @@
-.seminar-detail {
-
-	.btn-white {
-		padding: 11px 10px;
-	}
+.register-link {
+  font-weight: bold;
+  color: #008FC7;
 }
-.course-detail--content {
-  ul {
-    padding-left: 0;
+.seminar-detail-header {
+  text-align: center;
+  padding-top: 40px;
+  margin-bottom: 0;
+}
+.course-col-header {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  .left-course-head {
+    font-size: 17px;
+    font-weight: 400;
+  }
+  .register-link {
+    font-weight: bold;
+    color: #008FC7;
+    font-size: 15px;
+    text-align: right;
   }
 }
-.detail-page-app {
-	background-color: $white !important;
-	padding-top: 0 !important;
-	display: none;
-	.results {
-		margin-top: 0;
-	}
+.location-row {
+  font-size: 15px;
 
-	.class-loader {
-		top: 30px;
-	}
+  .city-name {
+    font-size: 17px;
+    font-style: italic;
+  }
+}
+.seminar-detail {
+  padding-top: 100px;
+
+  .btn-white {
+    display: none !important;
+    padding: 11px 10px;
+  }
+
+  .button-wrapper {
+    a {
+      display: block;
+      text-align: center;
+      max-width: 250px;
+      margin: 0 auto;
+    }
+
+    .btn-first {
+      float: right;
+      margin-bottom: 30px;
+      padding: 13px 10px;
+        @media (max-width : 992px) {
+          float: none;
+        }
+      @include med-desktop-and-up {
+        margin-right: -110px;
+      }
+    }
+  }
+}
+
+.detail-page-app {
+  background-color: $white !important;
+  padding-top: 0 !important;
+  display: none;
+
+  .results {
+    margin-top: 0;
+  }
+
+  .class-loader {
+    top: 30px;
+  }
 }
 
 .button-wrapper {
-	a {
-		display: block;
-		text-align: center;
-		max-width: 200px;
-		margin: 0 auto;
-	}
+  a {
+    display: block;
+    text-align: center;
+    max-width: 250px;
+    margin: 0 auto;
+  }
 
-	.btn-first {
-		margin-bottom: 30px;
-		padding: 13px 10px;
-	}
-
+  .btn-first {
+    margin-bottom: 30px;
+    padding: 13px 10px;
+  }
 }
 
 .share-btn-wrap {
-	text-align: right;
-	margin-top: 30px;
+  text-align: right;
+  margin-top: 30px;
 }
 
 .second-btn {
-	@include med-desktop-and-up {
-		margin-left: 0;
-	}
+  @include med-desktop-and-up {
+    margin-left: 0;
+  }
 }
 
 .single-day-description {
-	@include tablet-portrait-and-up {
-		padding-left: 40px;
-	}
+  @include tablet-portrait-and-up {
+    padding-left: 40px;
+  }
 
-	ul {
-		padding-left: 15px;
-	}
+  ul {
+    padding-left: 15px;
+  }
 
-	h3 {
-
-		color: #5C5C5C;
-		font-size: 24px;
-	}
+  h3 {
+    color: #5C5C5C;
+    font-size: 24px;
+  }
 }
 
 .secondary-search {
-	border-top: 1px solid $cart-border;
-	padding-top: 40px;
-	margin-top: 10px;
-	@include med-desktop-and-up {
-		padding-left: 15px;
-		padding-right: 15px;
-	}
-	.row {
-		margin: 0 auto 60px;
-	}
-	h2 {
-		text-align: center;
-	}
-	.ui-rangeSlider-innerBar {
-		background-color: rgba(0,0,0,0.10);
-	}
+  border-top: 1px solid $cart-border;
+  padding-top: 40px;
+  margin-top: 10px;
 
-	.month-label, .select-date-text {
-		color: $headline-black;
-	}
+  @include med-desktop-and-up {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
-	.select2-container {
-		margin: 0 auto 27px;
-	}
-	.btn-reg {
-		margin: 0 auto;
-	    display: block;
-	    text-align: center;
-	    max-width: 150px;
-	}
+  .row {
+    margin: 0 auto 60px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .ui-rangeSlider-innerBar {
+    background-color: rgba(0,0,0,0.10);
+  }
+
+  .month-label,
+  .select-date-text {
+    color: $headline-black;
+  }
+
+  .select2-container {
+    margin: 0 auto 27px;
+  }
+
+  .btn-reg {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    max-width: 150px;
+  }
+}
+
+#register-seminars {
+  .slider-wrap {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  rzslider {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    margin: 65px 0 15px;
+    user-select: none;
+    vertical-align: middle;
+  }
+
+  rzslider[disabled] {
+    cursor: not-allowed;
+  }
+
+  rzslider[disabled] .rz-pointer {
+    cursor: not-allowed;
+    background-color: #d8e0f3;
+  }
+
+  rzslider span {
+    position: absolute;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  rzslider .rz-base {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  rzslider .rz-bar-wrapper {
+    z-index: 1;
+    left: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    border-radius: 25px;
+    background: #DCDADC;
+    padding-top: 0;
+  }
+
+  rzslider .rz-bar-wrapper.rz-draggable {
+    cursor: move;
+  }
+
+  rzslider .rz-bar {
+    z-index: 1;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  rzslider .rz-bar.rz-selection {
+    z-index: 2;
+    height: 40px;
+    background-color: rgba(228, 79, 77, 0.50);
+  }
+
+  rzslider .rz-pointer {
+    width: 60px;
+    z-index: 1;
+    height: 40px;
+    border-radius: 25px;
+    top: 0;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-pointer:after {
+    z-index: 1;
+    color: #fff;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-pointer:hover:after {
+    z-index: 1;
+    color: #fff;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-pointer.rz-active {
+    z-index: 1;
+    color: #fff;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-pointer.rz-active:after {
+    z-index: 1;
+    color: #fff;
+    background-color: $red-button;
+  }
+
+  rzslider .rz-bubble {
+    display: none;
+  }
+
+  rzslider .rz-bubble.rz-selection {
+    top: 16px;
+  }
+
+  rzslider .rz-bubble.rz-limit {
+    display: none;
+  }
+
+  rzslider .rz-ticks {
+    position: absolute;
+    z-index: 1;
+    top: -3px;
+    left: 0;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    padding: 0 25px;
+    list-style: none;
+    justify-content: space-between;
+  }
+
+  rzslider .rz-ticks .tick {
+    cursor: pointer;
+    text-align: center;
+    background-color: transparent;
+    color: #fff;
+    z-index: 10;
+  }
+
+  rzslider .rz-ticks .tick.selected {
+    background-color: transparent;
+    color: #fff !important;
+  }
+
+  rzslider .rz-ticks .tick .tick-value {
+    position: absolute;
+    top: 10px;
+    transform: translate(-50%, 5px);
+    color: #4E4139;
+    z-index: 10;
+  }
+
 }

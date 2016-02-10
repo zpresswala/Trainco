@@ -1,4 +1,4 @@
-export function routerConfig ($stateProvider, $urlRouterProvider) {
+export function routerConfig($stateProvider, $urlRouterProvider) {
   'ngInject';
   $stateProvider
     .state('home', {
@@ -7,12 +7,6 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       controller: 'MainController',
       controllerAs: 'main'
     })
-    .state('listing', {
-      url: '/listing',
-      templateUrl: 'app/listing/listing.html',
-      controller: 'ListingController',
-      controllerAs: 'listing'
-    })
     .state('seminar', {
       url: '/seminar',
       templateUrl: 'app/seminar/seminar.html',
@@ -20,16 +14,16 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       controllerAs: 'seminar'
     })
     .state('detail', {
-      url: '/:id',
+      url: '/seminar/:id',
       templateUrl: 'app/seminar/detail/detail.html',
       controller: 'SeminarDetailController',
       controllerAs: 'detail',
+
       resolve: {
         courseSearch: 'courseSearch',
         seminarDetails: function(courseSearch, $stateParams) {
           let semId = $stateParams.id;
           return courseSearch.getSeminarDetails(semId);
-
         }
       }
     })

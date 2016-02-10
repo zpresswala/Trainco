@@ -1,40 +1,56 @@
+import { calculateTotalPrice } from '../utils';
 export class SeminarController {
-  constructor ($log, courseSearch) {
+  constructor($log, courseSearch, cartService, $rootScope, $scope) {
     'ngInject';
 
     this.$log = $log;
-
+    this.cartService = cartService;
+    this.$rootScope = $rootScope;
     this.courseId = {};
     this.activate();
     this.requestSeminarData(courseSearch);
-    this.requestSeminarDetails(courseSearch);
-    this.isCollapsed = true;
+    //this.requestSeminarDetails(courseSearch);
 
-    this.dynamicPopover = {
-      templateUrl: 'app/seminar/seminarPop.html'
+    this.detailPop = {
+      templateUrl: 'app/seminar/seminarPop.html',
     };
-    this.addToCart();
-
-    this.registerSem = function() {
-      this.requestSeminarDetails();
-    }
 
     this.location = {};
-        this.demo1 = {
-          min: 0,
-          max: 500
-        };
-  }
 
+    this.addItemToCart = (item, qty) => {
+      cartService.addItem(item, qty);
+      this.cartItemList = cartService.getCartItems() || [];
+      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+      $rootScope.$broadcast('cartUpdated', this.cartItemList);
+    };
+
+    this.monthsSlider = {
+      minValue: 0, // initial position for left handle
+      maxValue: 8, // initial position for right handle
+      options: {
+        floor: 0, // left most value
+        ceil: 15, // right most value
+        showTicks: true,
+        showSelectionBarEnd: true,
+        showTicksValues: true,
+        stepsArray: ' ,JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEPT,OCT,NOV,DEC,JAN,'.split(',')
+      }
+    };
+
+    let minMonthNumber = this.monthsSlider.minValue + 1;
+    let maxMonthNumber = this.monthsSlider.maxValue + 1;
+    //this.monthMin = minMonthNumber;
+    let minDateRange = minMonthNumber;
+    let minDateParam = minDateRange + '-2016';
+    this.monthMin = this.monthsSlider.minValue + 1 + '-2016'; //minDateParam
+  }
   activate() {
-     const classId = localStorage.getItem('classId');
-     this.$log.debug(classId);
+    const classId = localStorage.getItem('classId');
   }
   requestSeminarData(courseSearch) {
     const classId = localStorage.getItem('classId');
 
     return courseSearch.getSeminars(classId).then((data) => {
-      this.$log.debug(data.seminars[0])
       let seminarsData = data.seminars[0];
       this.receiveSeminarData(seminarsData);
       return seminarsData;
@@ -42,34 +58,26 @@ export class SeminarController {
   }
 
   receiveSeminarData(seminarsData) {
-    let seminarLocations = [];
     this.seminarLocations = seminarsData.locationSchedules;
-    for(let elem of this.seminarLocations) {
-      const semId = elem.id;
-      this.$log.debug('kek', elem.id)
-      return semId;
-    }
-  }
-
-  requestSeminarDetails(courseSearch) {
-    //const semId = localStorage.getItem('classId');
-    let semId
-    return courseSearch.getSeminarDetails(semId).then((data) => {
-      this.$log.debug(data)
-      let seminarDetail = data;
-      // this.receiveSeminarData(seminarDetail);
-      return seminarDetail;
+    let seminarLocationsArray = this.seminarLocations;
+    seminarLocationsArray.forEach((location, index) => {
+      const dateF = location.dateFilter;
+    //  this.$log.debug(dateF)
+      return dateF;
     });
   }
 
-  addToCart() {
-    this.$log.debug(this.attendees)
-    localStorage.setItem('attendees', this.attendees);
-  }
+  // requestSeminarDetails(courseSearch, id) {
+  //   let semId = id;
+  //   return courseSearch.getSeminarDetails(semId).then((data) => {
+  //     this.$log.debug(data)
+  //     let seminarDetail = data;
+  //     return seminarDetail;
+  //   });
+  // }
 
   storeCourseId(seminarsData) {
     let courseIden = seminarsData;
-    this.$log.debug(courseIden)
     localStorage.setItem('course', this.courseId);
   }
 }

@@ -160,7 +160,7 @@
 	position: relative;
 	z-index: 2;
 	@include tablet-portrait-and-up {
-		background-image: url('https://www.tpctrainco.com/images/bg-large.jpg');
+		background-image: url('/images/bg-large.jpg');
 	}
 
 	.jumbotron {

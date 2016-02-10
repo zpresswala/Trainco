@@ -15,13 +15,13 @@ export class CartService {
     const itemStr = window.localStorage.getItem('cartItemList'); // eslint-disable-line
     const itemList = itemStr ? JSON.parse(itemStr) : []; // eslint-disable-line
     const itemInCart = itemList.find((cartItem) => cartItem.id === item.id);
-
+    this.$log.debug(item)
     if (itemInCart) {
       itemInCart.quantity = item.quantity;
     } else {
       itemList.push({
         id: item.id,
-        title: item.title,
+        title: item.daysDescription,
         city: item.city,
         state: item.state,
         price: item.price,

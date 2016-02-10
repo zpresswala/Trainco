@@ -4,19 +4,12 @@ export function KeywordInputDirective() {
   let directive = {
     restrict: 'E',
       template: [
-        '<div class="form-group keyword-search">',
-        '<h4 class="sidebar-h4">Keyword Search:</h4>',
-        '<div class="search-input" ng-keydown="searchInput.handleInput($event)">',
-          '<input type="text" ng-model="searchInput.query" placeholder="Enter Keyword"></input>',
-          '<a href ng-click="searchInput.resetQuery()"><p ng-show="searchInput.query.length" class="mdi-navigation-close">click</p></a>',
-        '</div>',
-        '</div>'
+        '<div class="filter-location">',
+          '<label class="sidebar-label">Keyword Search</label>',
+          '<input type="search" ng-init="vm.kwFilter = {}" ng-keydown="vm.handleKWInput($event)" ng-model="vm.kwFilter.word" placeholder="Enter Keyword">',
+          '</div>'
       ].join(''),
-    scope: {
-      'query': '=',
-      'search': '&onSearch',
-      'clearResults': '&onClearResults'
-    },
+    scope: {},
     controller: KeywordInputController,
     controllerAs: 'vm',
     bindToController: true
@@ -25,25 +18,19 @@ export function KeywordInputDirective() {
   return directive;
 }
 class KeywordInputController {
-    function () {
+    constructor($rootScope) {
+      'ngInject';
+      this.$rootScope = $rootScope;
 
       /**
        * Handle key input
        * @param  {object} e the event
        */
-      this.handleInput = (e) => {
-        if (e.keyCode === 13 && this.query) {
-          this.search({query: this.query});
-        }
+    this.handleKWInput = (e) => {
+      if (e.keyCode === 13 && this.kwFilter.word) {
+        $rootScope.$broadcast('keyword', this.kwFilter.word);
+      //  this.doParamSearch();
       }
-
-      /**
-       * Reset the query
-       */
-      this.resetQuery = () => {
-        this.query = '';
-        this.clearResults();
-      }
-
+    }
     }
 }

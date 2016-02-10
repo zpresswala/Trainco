@@ -11,64 +11,56 @@
       seminars.</a></span></h3>
   </div>
   <div class="row">
-    <form role="form" ng-submit="vm.postCourseSearch()">
-      <div class="col-md-11 topic-circles">{{vm.formData}}
+      <div class="col-md-11 topic-circles">
         <h3>Select one or more topics and choose your location</h3>
-          <div class="form-group">
-            <label class="checkbox-inline">
-              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.all">
-              <div class="overlay-contain">
-                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/selectall-icon.jpg"></div>
-              <p>Search All Seminars</p>
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.electrical">
-              <div class="overlay-contain">
-                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/electrical.jpg"></div>
+        <ul>
+          <li class="seminar-topic" id="selectAllWrap">
+
+              <input id="selectAllCheck" type="checkbox" name="selectAllCheck" ng-model="vm.classTopics.all">
+              <label class="checkbox-inline" for="selectAllCheck"></label>
+
+              <p>All Seminar Topics</p>
+
+          </li>
+          <li class="seminar-topic" id="electricalWrap">
+
+              <input id="electricalCheck" type="checkbox" name="electricalCheck" ng-model="vm.classTopics.electrical">
+              <label class="checkbox-inline" for="electricalCheck"></label>
+
               <p>Electrical</p>
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.hvac">
-              <div class="overlay-contain">
-                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
+
+          </li>
+          <li class="seminar-topic" id="hvacWrap">
+
+              <input id="hvacCheck" type="checkbox" name="hvacCheck" ng-model="vm.classTopics.hvac">
+              <label class="checkbox-inline" for="hvacCheck"></label>
+
               <p>HVAC</p>
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.management">
-              <div class="overlay-contain">
-                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
+
+          </li>
+          <li class="seminar-topic" id="plantWrap">
+
+              <input id="plantCheck" type="checkbox" name="plantCheck" ng-model="vm.classTopics.plant">
+              <label class="checkbox-inline" for="plantCheck"></label>
+
               <p>Plant Management</p>
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" name="favoriteColors" ng-model="vm.course.classTopics.mechanical">
-              <div class="overlay-contain">
-                <div class="overlay"></div><img alt="Mechanical + Industrial" src="/assets/images/plantmgmt-icon.jpg"></div>
-              <p>Mechanical Management</p>
-            </label>
-          </div>
-        <!-- John: this is new -->
-        <select ng-model="vm.course.location" class="populate" data-location="" data-placeholder="Choose a City or Enter a Zip Code" id="main-search" multiple style="width:100%">
-          <option value="Alabama">
-            Alabama
-          </option>
-          <option value="Alaska">
-            Alaska
-          </option>
-          <option value="Missouri">
-            Missouri
-          </option>
-          <option value="Louisiana">
-            Louisiana
-          </option>
-          <option value="Vermont">
-            Vermont
-          </option>
-        </select>
+
+          </li>
+          <li class="seminar-topic" id="mechanicalWrap">
+
+              <input id="mechanicalCheck" type="checkbox" name="mechanicalCheck" ng-model="vm.classTopics.mechanical">
+              <label class="checkbox-inline" for="mechanicalCheck"></label>
+
+              <p>Mechanical and Industrial</p>
+
+          </li>
+        </ul>
+
+        <select2 ng-model="vm.courseSearch.location" s2-options="city.value as city.label for city in vm.cities" data-placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations' "></select2>
         <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
-        <a class="btn-reg btn-white" type="submit" ng-click="vm.postCourseSearch()"id="search-btn" role="button">Search</a>
+        <a class="btn-reg btn-white" type="submit" ng-click="vm.doParamSearch(vm.course.classTopics)" id="search-btn" role="button">Search</a>
         <!-- end new -->
       </div>
-    </form>
   </div>
   <!-- </div> -->
 </div>
