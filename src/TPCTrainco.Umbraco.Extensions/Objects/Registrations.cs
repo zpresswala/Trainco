@@ -73,7 +73,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             IEnumerable<IPublishedContent> emailTemplates = null;
 
-            emailTemplates = Helpers.Nodes.Instance.SiteSettings.Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
+            emailTemplates = Helpers.Nodes.SiteSettingsDirect().Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
 
             if (emailTemplates != null)
             {
@@ -115,30 +115,41 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         string attendeeDetails = emailDetailTemplate;
                         string attendeeSummary = emailOrderSummaryTemplate;
 
-                        SCHEDULE schedule = Objects.CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
+                        SCHEDULE schedule = CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
 
                         if (schedule != null && schedule.ScheduleStatus != null && schedule.ScheduleStatus > 0)
                         {
                             isCourseCancelling = true;
                         }
 
-                        temp_Att tempAtt = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).FirstOrDefault();
+                        string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+                        emailOrderSummaryList += "<tr><td colspan=\"3\">"+ seminarTitle + "</td></tr><tr><td colspan=\"3\" height=\"15\"></td></tr>";
 
-                        if (tempAtt != null)
+
+                        List<temp_Att> tempAttList = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).ToList();
+
+                        if (tempAttList != null && tempAttList.Count > 0)
                         {
-                            attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                            attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
-                            attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
+                            foreach (temp_Att tempAtt in tempAttList)
+                            {
+                                if (tempAtt != null)
+                                {
+                                    attendeeDetails = emailDetailTemplate;
+                                    attendeeSummary = emailOrderSummaryTemplate;
 
-                            emailOrderAttendeeDetailsList += attendeeDetails;
+                                    attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                                    attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+                                    attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
 
-                            string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+                                    emailOrderAttendeeDetailsList += attendeeDetails;
 
-                            attendeeSummary = attendeeSummary.Replace("{{SEMINAR_TITLE}}", seminarTitle);
-                            attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                            attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+                                    
+                                    attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                                    attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
 
-                            emailOrderSummaryList += attendeeSummary;
+                                    emailOrderSummaryList += attendeeSummary;
+                                }
+                            }
                         }
                     }
 
@@ -516,7 +527,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 output = output.Replace("</ul>", "</ul><br />" + Environment.NewLine);
                 output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
-                output = output.Replace("\n\r", "<br />" + Environment.NewLine);
+                output = output.Replace("\r\n", "<br />" + Environment.NewLine);
                 output = output.Replace("\"", "&quot;");
             }
 
