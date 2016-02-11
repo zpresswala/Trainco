@@ -43,7 +43,20 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       templateUrl: 'app/register/results/results.html',
       parent: 'register'
     })
+    .state('checkout', {
+      url: '/checkout',
+      templateUrl: 'app/checkout/checkout.html',
+      controller: 'CheckoutController'
 
+    })
+    .state('checkout.attendees', {
+      url: '/attendees',
+      templateUrl: 'app/checkout/attendees.html'
+    })
+    .state('checkout.information', {
+      url: '/information',
+      templateUrl: 'app/checkout/information.html'
+    })
 
   $urlRouterProvider.otherwise('/');
 }

@@ -30,6 +30,8 @@
         <select ng-model="register.dateRange.start" ng-options="month.val as month.name for month in register.months" ng-change="register.watcherOfThings()"></select>
         <h5>Through</h5>
         <select ng-model="register.dateRange.end" ng-options="month.val as month.name for month in register.months" ng-change="register.watcherOfThings()"></select>
+        <hr class="divider" />
+        <label><span class="register-link" ng-click="register.clearFilters()">Clear Filters</span></label>
       </div>
       <div class="col-md-9" class="search-results">
         <div ui-view></div>

@@ -98,14 +98,14 @@ export class RegisterController {
       }
     }
     this.watcherOfThings = function() {
-        this.doParamSearch();
-      }
+      this.doParamSearch();
+    }
 
-      /**
-       * Settings for the mileage slider.
-       * @type {Object}
-       * translate adds the label to the value.
-       */
+    /**
+     * Settings for the mileage slider.
+     * @type {Object}
+     * translate adds the label to the value.
+     */
     this.mileRange = {
       value: 500,
       options: {
@@ -114,7 +114,7 @@ export class RegisterController {
         ceil: 1000,
         step: 50,
         translate: function(value) {
-          return  value + ' mile radius';
+          return value + ' mile radius';
         }
       }
     }
@@ -198,24 +198,28 @@ export class RegisterController {
         return seminarsData;
       });
   }
-    doKWParamSearch() {
-      const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-      let minDateRange = this.dateRange.start || '01';
-      let maxDateRange = this.dateRange.end || '12';
-      let radiusParam = this.mileRange.value || '250';
-      //'keyword=' + keywordParam
-      this.$http.get(searchAPI +
-          'keyword=' + this.keywordParam +
-          '&location=' + this.locationParam +
-          '&radius=' + radiusParam +
-          '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
-          '&date-start=' + minDateRange + '-01-2016' +
-          '&date-end=' + maxDateRange + '-01-2016')
-        .then((data) => {
-          this.$state.go('results');
-          let seminarsData = data.data.seminars;
-          this.receiveSeminarData(seminarsData);
-          return seminarsData;
-        });
-    }
+  doKWParamSearch() {
+    const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+    let minDateRange = this.dateRange.start || '01';
+    let maxDateRange = this.dateRange.end || '12';
+    let radiusParam = this.mileRange.value || '250';
+    //'keyword=' + keywordParam
+    this.$http.get(searchAPI +
+        'keyword=' + this.keywordParam +
+        '&location=' + this.locationParam +
+        '&radius=' + radiusParam +
+        '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
+        '&date-start=' + minDateRange + '-01-2016' +
+        '&date-end=' + maxDateRange + '-01-2016')
+      .then((data) => {
+        this.$state.go('results');
+        let seminarsData = data.data.seminars;
+        this.receiveSeminarData(seminarsData);
+        return seminarsData;
+      });
+  }
+
+  clearFilters($state) {
+    this.$state.reload();
+  }
 }

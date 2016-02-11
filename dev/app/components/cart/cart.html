@@ -34,7 +34,7 @@
           <p class="cart-empty-msg" ng-if="vm.cartTotalPrice === 0">Your cart is currently empty.</p>
 
           <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
-            <a href="javascript:void(0);" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+            <a href="javascript:void(0);" ng-click="vm.doPurchase()" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
           </div>
         </div>
       </div>

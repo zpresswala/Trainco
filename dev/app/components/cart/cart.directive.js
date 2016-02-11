@@ -18,12 +18,13 @@ export function CartDirective() {
 
 class CartController {
 
-  constructor(cartService, $log, $scope) {
+  constructor(cartService, $log, $scope, $http, $window) {
     'ngInject';
     this.$log = $log;
     this.cartService = cartService;
     this.$scope = $scope;
-
+    this.$http = $http;
+    const purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
     this.cartItemList = cartService.getCartItems() || [];
     this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
 
@@ -50,6 +51,40 @@ class CartController {
         this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
       }
     }
+
+    this.doPurchase = () => {
+      this.cartItemList = this.cartService.getCartItems() || [];
+      this.$log.debug(this.cartItemList)
+      let cartDataArr = [];
+      this.cartItemList.forEach((item, index, array) => {
+        let id = item.id;
+        let quantity = item.quantity;
+        cartDataArr.push({Id: id, quantity: quantity})
+        this.$log.debug(cartDataArr)
+        window.localStorage.setItem('cartDataArr', JSON.stringify(cartDataArr)); // eslint-disable-line
+
+      });
+
+      this.$http({
+        method: 'POST',
+        url: purchaseAPI,
+        data: JSON.stringify(cartDataArr),
+        contentType: "application/json"
+      }).then(_success()).catch(_error());
+
+      function _success(response) {
+        let redirectGuid = response.cartGuid;
+        window.location.href = '/register/?cart=' + response.cartGuid;
+      }
+
+      function _error(err) {
+        this.$log.debug(err)
+      }
+
+    }
+
+
+
     this.cartImages = {
       initial: '/assets/images/icon-cart-tab.png',
       final: '/assets/images/icon-cart-close-arrow.png',
@@ -63,6 +98,4 @@ class CartController {
       };
     };
   }
-
-
 }

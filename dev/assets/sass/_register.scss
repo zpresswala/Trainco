@@ -13,9 +13,77 @@
 			&:before, &:after {
 				content: none;
 			}
-		}	
-	}
+		}
 
+.indicator {
+	width: 95%;
+	margin: 0 auto;
+	position: relative;
+	display: inline-block;
+	padding: 0;
+
+	li {
+		float: left;
+	}
+}
+
+.line {
+	width: 50%;
+	height: 14px;
+	background-color: #D6D6D6;
+}
+
+.step {
+	position: absolute;
+	background-color: #D6D6D6;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	top: 50%;
+	margin-top: -14px;
+
+	&:after {
+		position: relative;
+		bottom: -10px;
+		font-style: italic;
+		color: $headline-black;
+		width: 60px;
+		left: -50%;
+		font-weight: 400;
+		display: inline-block;
+		bottom: -35px;
+	}
+}
+
+.active {
+	&:after {
+		color: $headline-black;
+	}
+}
+
+.step1 {
+	left: -10px;
+	background-color: $red-button;
+	&:after {
+		content: 'Step 1';
+	}
+}
+
+.step2 {
+	left: 50%;
+	margin-left: -14px;
+	&:after {
+		content: 'Step 2';
+	}
+}
+
+.step3 {
+	right: -10px;
+	&:after {
+		content: 'Step 3';
+	}
+}
+	}
 	.container {
 		margin-bottom: 0;
 	}
@@ -30,7 +98,7 @@
 	margin: 0 auto;
 	position: relative;
 	display: inline-block;
-	padding: 0; 
+	padding: 0;
 
 	li {
 		float: left;
@@ -213,12 +281,12 @@ input[type=checkbox] {
 }
 
 input[type=checkbox] + label:before {
-    content: "";  
-    display: block;  
-    width: 20px;  
-    height: 20px;   
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
     background-color: $white;
-    border-radius: 3px; 
+    border-radius: 3px;
     border: 1px solid $cart-border;
     position: absolute;
     left: 14px;
@@ -228,7 +296,7 @@ input[type=checkbox] + label:before {
 
 input[type=checkbox]:checked + label:before {
 	content:"\2713";
-	color: $blue; 
+	color: $blue;
 	text-align:center;
 	line-height:17px;
     text-shadow:0px 0px 3px #eee;
@@ -338,7 +406,7 @@ input[type=checkbox]:checked + label:before {
 		padding: 0;
 	}
 	h2 {
-		
+
 		margin-bottom: 5px;
 		@include tablet-portrait-and-up {
 			margin-top: 0;

@@ -3,6 +3,7 @@ import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
 import { SeminarController } from './seminar/seminar.controller';
+import { CheckoutController } from './checkout/checkout';
 import { services } from './services/index'; // eslint-disable-line
 import { RegisterController } from './register/register.controller';
 import { FooterDirective } from './components/footer/footer.directive';
@@ -19,6 +20,7 @@ angular.module('train', ['ngAnimate','ngSanitize', 'ui.router', 'ui.bootstrap', 
   .controller('MainController', MainController)
   .controller('SeminarController', SeminarController)
   .controller('RegisterController', RegisterController)
+  .controller('CheckoutController', CheckoutController)
   .directive('tpcFooter', FooterDirective)
   .directive('mainSearch', MainSearchDirective)
   .directive('filterTopic', FilterTopicDirective)
