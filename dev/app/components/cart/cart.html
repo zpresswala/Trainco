@@ -43,7 +43,8 @@
 
   <div class="cart-visible">
     <a class="cart-tab" href="javascript:void(0);" ng-click="slideToggle1 =! slideToggle1">
-      <img src="/assets/images/icon-cart-tab.png" />
+        <img ng-click="vm.swapHere()" ng-src="{{ vm.cartImages.current }}"/>
+
     </a>
     <div class="container">
       <ul class="cart-total col-xs-12 col-md-4">

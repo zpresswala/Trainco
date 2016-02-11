@@ -16,8 +16,7 @@
       </div>
     </div>
    <!-- REMOVED -->
-
-        <div class="col-md-6" ng-repeat="location in seminar.seminarLocations | groupBy:'state'">
+<div class="col-md-6" ng-repeat="location in seminar.seminarLocations | groupBy:'state'">
       <h3 class="state-name"><strong>{{ location[0].state }}</strong></h3>
       <div class="">
         <table class="table table-striped" width="90%">

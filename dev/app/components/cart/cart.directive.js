@@ -1,12 +1,13 @@
-import { calculateTotalPrice } from '../../utils';
+import {
+  calculateTotalPrice
+} from '../../utils';
 export function CartDirective() {
   'ngInject';
 
   let directive = {
     restrict: 'E',
     templateUrl: 'app/components/cart/cart.html',
-    scope: {
-    },
+    scope: {},
     controller: CartController,
     controllerAs: 'vm',
     bindToController: true
@@ -40,7 +41,7 @@ class CartController {
     /**
      * Handle key input
      * @param  {object} e the event
-     * ng-keydown="searchInput.handleInput($event)"
+     * ng-keydown='searchInput.handleInput($event)'
      */
     this.handleLocInput = (e, cartItem, qty) => {
       if (e.keyCode === 13) {
@@ -49,6 +50,19 @@ class CartController {
         this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
       }
     }
+    this.cartImages = {
+      initial: '/assets/images/icon-cart-tab.png',
+      final: '/assets/images/icon-cart-close-arrow.png',
+      current: '/assets/images/icon-cart-tab.png'
+    };
+    this.swapHere = function() {
+      if (this.cartImages.current === this.cartImages.final) {
+        this.cartImages.current = this.cartImages.initial
+      } else if (this.cartImages.current === this.cartImages.initial) {
+        this.cartImages.current = this.cartImages.final
+      };
+    };
   }
+
 
 }
