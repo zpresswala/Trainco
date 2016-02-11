@@ -843,6 +843,17 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public static List<RegistrationTrackItem> GetRegistrationTrackItems(long registrationId)
+        {
+            List<RegistrationTrackItem> itemsList = new List<RegistrationTrackItem>();
+
+            
+
+
+            return itemsList;
+        }
+
+
         private int GetCartCache(string cartGuid)
         {
             object regIdObj = null;
