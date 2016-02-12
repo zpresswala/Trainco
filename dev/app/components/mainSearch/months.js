@@ -1,4 +1,13 @@
-exports.months = [{
+(function() {
+  'use strict';
+
+  angular
+      .module('train')
+      .service('months', months);
+
+  /** @ngInject */
+  function months() {
+    var data = [{
       'val': '01',
       'name': 'January'
     }, {
@@ -35,3 +44,13 @@ exports.months = [{
       'val': '12',
       'name': 'December'
     }]
+
+
+    this.getMonths = getMonths;
+
+    function getMonths() {
+      return data;
+    }
+  }
+
+})();
