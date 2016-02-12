@@ -54,6 +54,9 @@ class MainSearchController {
         if (this.sliderValues.minValue <= 8) {
           let minDateRange = '0' + (this.sliderValues.minValue + 1);
         }
+        if (this.sliderValues.maxValue <= 8) {
+          let maxDateRange = '0' + (this.sliderValues.maxValue + 1);
+        }
         let minDateRange = '0' + (this.sliderValues.minValue + 1);
         let maxDateRange = this.sliderValues.maxValue + 1 || '12';
 

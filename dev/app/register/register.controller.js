@@ -220,6 +220,7 @@ export class RegisterController {
   }
 
   clearFilters($state) {
-    this.$state.reload();
+    localStorage.clear();
+    this.doParamSearch();
   }
 }
