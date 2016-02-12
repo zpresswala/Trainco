@@ -213,9 +213,9 @@ namespace TPCTrainco.Umbraco.Controllers
                                 else
                                 {
                                     debug.AppendLine(" - isAlreadyProcessed (no error): " + isAlreadyProcessed);
-                                    
+
                                     CartCookies.Remove();
-                                    
+
                                     if (true == isAlreadyProcessed)
                                     {
                                         debug.AppendLine(" - reg: " + (reg == null ? "NULL!" : "ID: " + reg.RegistrationID));
@@ -246,15 +246,6 @@ namespace TPCTrainco.Umbraco.Controllers
                                             debug.AppendLine("Redirecting to: /register/success/");
 
                                             return Redirect("/register/success/");
-                                        }
-                                        else
-                                        {
-                                            debug.AppendLine("CAN'T FIND REGISTRATION!");
-
-                                            cartsObj.SendCartErrorEmail("ERROR: 95\n\rCan't Find Registration: (reg == null || reg.RegistrationID <= 0)\r\n\r\nDebug:\r\n" + debug.ToString());
-
-                                            return Redirect("/register/error/?error=95&regid=" + tempCust.reg_ID);
-                                        }
                                         }
                                         else
                                         {

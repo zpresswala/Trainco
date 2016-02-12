@@ -122,7 +122,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             List<LocationScheduleDetail> resultSearch = null;
             double radiusSearch = request.Radius;
 
-            while ((resultSearch == null || resultSearch.Count <= 0) && radiusSearch < 1500)
+            while ((resultSearch == null || resultSearch.Count <= 0) && radiusSearch < 4000)
             {
                 resultSearch = RadialSearchSeminarCatalog(locationScheduleDetailSearch, coordinateDetails, radiusSearch);
 

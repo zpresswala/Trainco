@@ -1,27 +1,18 @@
-﻿using MoreLinq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data.Entity.SqlServer;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Caching;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Web;
 using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.Models.SearchRequest;
 using TPCTrainco.Umbraco.Extensions.ViewModels.Search;
-using Umbraco.Core.Models;
 using Umbraco.Web;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
     public class SeminarSearch : SeminarCommon
     {
-        public int SchedulePageCount = 10;
+        public int SchedulePageCount = 1000;
 
 
         public SeminarSearch()
@@ -60,6 +51,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             List<Seminar> seminarViewModelList = new List<Seminar>();
 
+            if (ConfigurationManager.AppSettings["Search:PageCount"] != null && ConfigurationManager.AppSettings.Get("Search:PageCount").Length > 0)
+            {
+                SchedulePageCount = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Search:PageCount"));
+            }
+
             // Loop through courses
             foreach (CourseDetail courseDetail in courseDetailList)
             {
@@ -80,6 +76,15 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     locationSchedule = ConvertLocationScheduleToViewModel(locationScheduleDetail);
 
                     seminar.LocationSchedules.Add(locationSchedule);
+                }
+
+                int pageTotal = Convert.ToInt32(Math.Ceiling((double)seminar.LocationSchedules.Count / (double)SchedulePageCount));
+
+                seminar.PageTotal = pageTotal - 1;
+
+                if (seminar.PageTotal < 0)
+                {
+                    seminar.PageTotal = 0;
                 }
 
                 if (true == string.IsNullOrWhiteSpace(request.Location))
