@@ -14,24 +14,24 @@
 <p ng-bind="event.locationDetails"></p>
 <div class="result-popover">
   <div class="row result-table-head">
-    <div class="col-sm-5">
+    <div class="col-xs-5">
       Training Days
     </div>
-    <div class="col-sm-3">
+    <div class="col-xs-3">
       Price
     </div>
-    <div class="col-sm-4 attendees-txt">
+    <div class="col-xs-4 attendees-txt">
       Attendees
     </div>
   </div>
   <div class="row result-table-body">
-    <div class="col-sm-5">
+    <div class="col-xs-5">
       <em>{{event.daysTitle}}</em>
       </div>
-    <div class="col-sm-3">
+    <div class="col-xs-3">
     ${{event.price}}
       </div>
-    <div class="col-sm-4 attendees">
+    <div class="col-xs-4 attendees">
             <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
               <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="number" min="0" class="" name="qty">
             </div>
