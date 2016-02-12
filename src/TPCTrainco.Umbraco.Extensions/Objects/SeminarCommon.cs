@@ -106,12 +106,13 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             if (false == string.IsNullOrWhiteSpace(request.Keywords))
             {
+                string keywordsSearch = request.Keywords.ToLower();
 
-                locationScheduleDetailList = locationScheduleDetailList.Where(p => p.Description.Contains(request.Keywords) || 
-                    p.DaysDescription.Contains(request.Keywords) ||
-                    p.LocationDetails.Contains(request.Keywords) ||
-                    p.State.Contains(request.Keywords) ||
-                    p.City.Contains(request.Keywords)).ToList();
+                locationScheduleDetailList = locationScheduleDetailList.Where(p => p.Description.ToLower().Contains(keywordsSearch) || 
+                    p.DaysDescription.ToLower().Contains(keywordsSearch) ||
+                    p.LocationDetails.ToLower().Contains(keywordsSearch) ||
+                    p.State.ToLower().Contains(keywordsSearch) ||
+                    p.City.ToLower().Contains(keywordsSearch)).ToList();
             }
         }
 
