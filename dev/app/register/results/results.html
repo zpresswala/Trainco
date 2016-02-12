@@ -29,7 +29,7 @@
       </div>
       <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
         <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="tel" min="0" class="" name="qty">
-        <input id="cart-btn" class="btn btn-reg btn-blue-solid" ng-show="qty" ng-click="register.addItemToCart(location, qty)" type="button" name="name" value="Add to Cart">
+        <input id="cart-btn" class="btn btn-reg btn-blue-solid" ng-show="qty >0" ng-click="register.addItemToCart(location, qty)" type="button" name="name" value="Add to Cart">
       </div>
     </div>
   </section>
