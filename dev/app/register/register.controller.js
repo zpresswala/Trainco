@@ -9,16 +9,21 @@
   function RegisterController($log, searchService, $localStorage, $http, $state, $rootScope, $scope, cartService) {
     var vm = this;
     vm.dateRange = {};
-
+    vm.$storage = $localStorage;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
+    /**
+     * calculates the price for all the items in the shopping cart.
+     * @method calculateTotalPrice
+     * @param  {array}            itemList the items in the cart
+     * @return {int}                     the price.
+     */
     function calculateTotalPrice(itemList) {
       var totalPrice = itemList ? itemList.reduce(function(acc, item) {
         return acc + item.quantity * parseFloat(item.price);
       }, 0) : 0;
       return parseFloat(totalPrice.toFixed(2));
     }
-    vm.$storage = $localStorage;
 
 
     vm.cartItemList = cartService.getCartItems() || [];
@@ -28,13 +33,13 @@
     // search from the off page search component as soon as the page
     // loads.
     // ----------------------------------------------------------
-    var location = localStorage.getItem('location');
-    var topicParam1 = localStorage.getItem('topicParam1');
-    var topicParam2 = localStorage.getItem('topicParam2');
-    var topicParam3 = localStorage.getItem('topicParam3');
-    var topicParam4 = localStorage.getItem('topicParam4');
-    var minDateRange = localStorage.getItem('minDateRange');
-    var maxDateRange = localStorage.getItem('maxDateRange');
+    var location = vm.$storage.get('location');
+    var topicParam1 = vm.$storage.get('topicParam1');
+    var topicParam2 = vm.$storage.get('topicParam2');
+    var topicParam3 = vm.$storage.get('topicParam3');
+    var topicParam4 = vm.$storage.get('topicParam4');
+    var minDateRange = vm.$storage.get('minDateRange');
+    var maxDateRange = vm.$storage.get('maxDateRange');
 
     vm.searchData = $http.get(searchAPI +
         'location=' + location +
@@ -52,9 +57,9 @@
 
     vm.addItemToCart = function(item, quantity) {
       cartService.addItem(item, qty);
-      this.cartItemList = cartService.getCartItems() || [];
-      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
-      $rootScope.$broadcast('cartUpdated', this.cartItemList);
+      vm.cartItemList = cartService.getCartItems() || [];
+      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      $rootScope.$broadcast('cartUpdated', vm.cartItemList);
     };
 
     vm.removeItemFromCart = function(itemId) {
@@ -93,7 +98,7 @@
     vm.stateChanged = function() {
       if (vm.locSearchFilter.locationAll) {
         $rootScope.$broadcast('location', vm.locSearchFilter.locationAll);
-        $http.get(searchAPI + 'location=all')
+        $http.get(searchAPI + 'location= ')
           .then(function(data) {
             $state.go('results');
             var seminarsData = data.data.seminars;
@@ -130,11 +135,12 @@
       var labelsArray = ['hvac', 'electrical', 'mechanical', 'management'];
       labelsArray.forEach(function(label, index) {
         if (data[label]) {
-          undefined['topicParam' + (index + 1)] = label;
+          this['topicParam' + (index + 1)] = label + ',';
         } else {
-          undefined['topicParam' + (index + 1)] = undefined;
+          this['topicParam' + (index + 1)] = '';
         }
       });
+      $log.debug('asdf')
       doParamSearch();
     });
 
@@ -191,7 +197,7 @@
           // 'keyword=' + this.keywordParam +
           'location=' + vm.locationParam +
           '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1 + ',' + vm.topicParam2 + ',' + vm.topicParam3 + ',' + vm.topicParam4 +
+          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
           '&date-end=' + maxDateRange + '-01-2016')
         .then((data) => {
@@ -211,7 +217,7 @@
           'keyword=' + vm.keywordParam +
           '&location=' + vm.locationParam +
           '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1 + ',' + vm.topicParam2 + ',' + vm.topicParam3 + ',' + vm.topicParam4 +
+          '&topics=' + vm.topicParam1  + vm.topicParam2 + vm.topicParam3  + vm.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
           '&date-end=' + maxDateRange + '-01-2016')
         .then((data) => {

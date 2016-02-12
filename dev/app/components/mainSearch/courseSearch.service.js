@@ -7,32 +7,19 @@
 
   /** @ngInject */
   function courseSearch($log, $http) {
-    var apiHost = 'api/search';
-    var apiHost2 = 'http://trainco.axial-client.com/api/seminars2/search';
+    var apiHost = 'http://trainco.axial-client.com/api/seminars2/search';
     var apiSemDetails = 'http://trainco.axial-client.com/api/schedules2/details';
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
     var service = {
-      getResults: getResults,
       getSeminars: getSeminars,
       getSeminarDetails: getSeminarDetails,
       getSeminarsBox: getSeminarsBox
     };
 
     return service;
-
-    function getResults() {
-      return $http.get(apiHost)
-        .then(function(response) {
-          return response.data;
-        })
-        .catch(function(error) {
-          $log.error('XHR Failed for getResults.\n' + angular.toJson(error.data, true));
-        });
-    }
-
     function getSeminars(classId) {
-      return $http.get(apiHost2 + '/' + classId)
+      return $http.get(apiHost + '/' + classId)
         .then(function(response) {
           return response.data;
         })

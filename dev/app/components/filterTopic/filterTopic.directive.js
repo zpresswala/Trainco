@@ -37,11 +37,10 @@
        * @return {array} returns the array seminarsData containing all locations.
        */
       vm.stateChanged = function() {
-
-        if (vm.courseTopics.categories) {
+          $log.debug(vm.courseTopics.categories)
           $rootScope.$broadcast('topic', vm.courseTopics.categories);
         }
-      }
+      
     }
   }
 

@@ -9,7 +9,7 @@
   function config($logProvider, $httpProvider, $urlRouterProvider) {
   $urlRouterProvider.when('', '/');
   $urlRouterProvider.otherwise('/');
-  $logProvider.debugEnabled(false);
+  $logProvider.debugEnabled(true);
   $httpProvider.interceptors.push('loadingInterceptor');
   }
 
