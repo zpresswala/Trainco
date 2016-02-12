@@ -1,8 +1,16 @@
-import { LoadingInterceptor } from './services';
-export function config ($logProvider, $httpProvider, $urlRouterProvider) {
-  'ngInject';
+(function() {
+  'use strict';
+
+  angular
+    .module('train')
+    .config(config);
+
+  /** @ngInject */
+  function config($logProvider, $httpProvider, $urlRouterProvider) {
   $urlRouterProvider.when('', '/');
   $urlRouterProvider.otherwise('/');
-  $logProvider.debugEnabled(true);
+  $logProvider.debugEnabled(false);
   $httpProvider.interceptors.push('loadingInterceptor');
-}
+  }
+
+})();

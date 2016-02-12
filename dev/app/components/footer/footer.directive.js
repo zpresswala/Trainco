@@ -1,24 +1,29 @@
-export function FooterDirective() {
-  'ngInject';
+(function() {
+  'use strict';
 
-  let directive = {
-    restrict: 'E',
-    templateUrl: 'app/components/footer/footer.html',
-    scope: {
-    },
-    controller: FooterController,
-    controllerAs: 'vm',
-    bindToController: true
-  };
+  angular
+    .module('train')
+    .directive('footer', footer);
 
-  return directive;
-}
+  /** @ngInject */
+  function footer() {
+    var directive = {
+      restrict: 'E',
+      templateUrl: 'app/components/footer/footer.html',
+      scope: {
+      },
+      controller: FooterController,
+      controllerAs: 'vm',
+      bindToController: true
+    };
 
-class FooterController {
-  constructor () {
-    'ngInject';
+    return directive;
 
-    // "this.creation" is available by directive option "bindToController: true"
+    /** @ngInject */
+    function FooterController(searchService, $http, $log, $rootScope) {
+      var vm = this;
 
   }
 }
+
+})();

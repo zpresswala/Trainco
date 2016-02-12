@@ -1,61 +1,62 @@
-import {
-  calculateTotalPrice
-}
-from '../utils';
-export class RegisterController {
-  constructor($log, searchService, $http, $state, $rootScope, $scope, cartService) {
-    'ngInject';
-    this.$state = $state;
-    this.$log = $log;
-    this.cartService = cartService;
-    this.$scope = $scope;
-    this.$rootScope = $rootScope;
-    this.$http = $http;
+(function() {
+  'use strict';
 
-    this.dateRange = {};
+  angular
+    .module('train')
+    .controller('RegisterController', RegisterController);
 
-    const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+  /** @ngInject */
+  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService) {
+    var vm = this;
+    vm.dateRange = {};
 
-    this.cartItemList = this.cartService.getCartItems() || [];
-    this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+    var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+    function calculateTotalPrice(itemList) {
+      var totalPrice = itemList ? itemList.reduce(function (acc, item) {
+        return acc + item.quantity * parseFloat(item.price);
+      }, 0) : 0;
+      return parseFloat(totalPrice.toFixed(2));
+    }
+    vm.cartItemList = cartService.getCartItems() || [];
+    vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
     // This lovely mess pulls data from localStorage in order to run the
     // search from the off page search component as soon as the page
     // loads.
     // ----------------------------------------------------------
-    let location = localStorage.getItem('location');
-    let topicParam1 = localStorage.getItem('topicParam1');
-    let topicParam2 = localStorage.getItem('topicParam2');
-    let topicParam3 = localStorage.getItem('topicParam3');
-    let topicParam4 = localStorage.getItem('topicParam4');
-    let minDateRange = localStorage.getItem('minDateRange');
-    let maxDateRange = localStorage.getItem('maxDateRange');
+    var location = localStorage.getItem('location');
+    var topicParam1 = localStorage.getItem('topicParam1');
+    var topicParam2 = localStorage.getItem('topicParam2');
+    var topicParam3 = localStorage.getItem('topicParam3');
+    var topicParam4 = localStorage.getItem('topicParam4');
+    var minDateRange = localStorage.getItem('minDateRange');
+    var maxDateRange = localStorage.getItem('maxDateRange');
 
-    this.searchData = $http.get(searchAPI +
+    vm.searchData = $http.get(searchAPI +
         'location=' + location +
         '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
         '&date-start=' + minDateRange + '-01-2016' +
         '&date-end=' + maxDateRange + '-01-2016')
-      .then((data) => {
-        this.$state.go('results')
-        let seminarsData = data.data.seminars;
-        this.receiveSeminarData(seminarsData);
+      .then(function(data) {
+        $state.go('results')
+        var seminarsData = data.data.seminars;
+        vm.receiveSeminarData(seminarsData);
         return seminarsData;
       });
     // End of the lovely on-load mess.
     // ----------------------------------------------
 
-    this.addItemToCart = (item, qty) => {
+    vm.addItemToCart = function(item, qty) {
       cartService.addItem(item, qty);
-      this.cartItemList = cartService.getCartItems() || [];
-      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
-      $rootScope.$broadcast('cartUpdated', this.cartItemList);
+      vm.cartItemList = cartService.getCartItems() || [];
+      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      $rootScope.$broadcast('cartUpdated', vm.cartItemList);
     };
 
-    this.removeItemFromCart = (itemId) => {
+    vm.removeItemFromCart = function(itemId) {
       cartService.removeItem(itemId);
-      this.cartItemList = this.cartService.getCartItems() || [];
-      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+      vm.cartItemList = vm.cartService.getCartItems() || [];
+      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
     };
 
     /**
@@ -63,21 +64,21 @@ export class RegisterController {
      * @param  {object} e the event
      * @return {method}
      */
-    this.handleLocInput = (e) => {
-        if (e.keyCode === 13 && this.locSearchFilter.location) {
-          $rootScope.$broadcast('location', this.locSearchFilter.location);
-          this.doParamSearch();
+    vm.handleLocInput = function(e) {
+        if (e.keyCode === 13 && vm.locSearchFilter.location) {
+          $rootScope.$broadcast('location', vm.locSearchFilter.location);
+          doParamSearch();
         }
       }
       // Listens for a broadcast that says 'location'
-    this.$scope.$on('location', (event, data) => {
-      this.locationParam = data;
+    $scope.$on('location', function(event, data) {
+      vm.locationParam = data;
     });
     // Listens for a broadcast saying keyword and then
     // runs the doParamSearch function.
-    this.$scope.$on('keyword', (event, data) => {
-      this.keywordParam = data;
-      this.doKWParamSearch();
+    $scope.$on('keyword', function(event, data) {
+      vm.keywordParam = data;
+      vm.doKWParamSearch();
     });
 
     /**
@@ -85,20 +86,20 @@ export class RegisterController {
      * @method function
      * @return {array} returns the array seminarsData containing all locations.
      */
-    this.stateChanged = function() {
-      if (this.locSearchFilter.locationAll) {
-        $rootScope.$broadcast('location', this.locSearchFilter.locationAll);
-        this.$http.get(searchAPI + 'location=all')
-          .then((data) => {
-            this.$state.go('results');
-            let seminarsData = data.data.seminars;
-            this.receiveSeminarData(seminarsData);
+    vm.stateChanged = function() {
+      if (vm.locSearchFilter.locationAll) {
+        $rootScope.$broadcast('location', vm.locSearchFilter.locationAll);
+        $http.get(searchAPI + 'location=all')
+          .then(function(data) {
+            $state.go('results');
+            var seminarsData = data.data.seminars;
+            vm.receiveSeminarData(seminarsData);
             return seminarsData;
           });
       }
     }
-    this.watcherOfThings = function() {
-      this.doParamSearch();
+    vm.watcherOfThings = function() {
+      doParamSearch();
     }
 
     /**
@@ -106,7 +107,7 @@ export class RegisterController {
      * @type {Object}
      * translate adds the label to the value.
      */
-    this.mileRange = {
+    vm.mileRange = {
       value: 500,
       options: {
         min: 50,
@@ -121,20 +122,19 @@ export class RegisterController {
 
     // Listens for a broadcast saying topic and then
     // runs a search with the updated topics.
-    this.$scope.$on('topic', (event, data) => {
-
-      let labelsArray = ['hvac', 'electrical', 'mechanical', 'management']
-      labelsArray.forEach((label, index) => {
+    $scope.$on('topic', function(event, data) {
+      var labelsArray = ['hvac', 'electrical', 'mechanical', 'management'];
+      labelsArray.forEach(function(label, index) {
         if (data[label]) {
-          this[`topicParam${index+1}`] = label
+          undefined['topicParam' + (index + 1)] = label;
         } else {
-          this[`topicParam${index+1}`] = undefined
+          undefined['topicParam' + (index + 1)] = undefined;
         }
-      })
-      this.doParamSearch();
+      });
+      doParamSearch();
     });
 
-    this.months = [{
+    vm.months = [{
       'val': '01',
       'name': 'January'
     }, {
@@ -171,56 +171,56 @@ export class RegisterController {
       'val': '12',
       'name': 'December'
     }]
-  }
 
-  receiveSeminarData(seminarsData) {
-    let seminarLocations = [];
-    this.seminarLocations = seminarsData;
-  }
+    function receiveSeminarData(seminarsData) {
+      var seminarLocations = [];
+      vm.seminarLocations = seminarsData;
+    }
 
-  doParamSearch() {
-    const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-    let minDateRange = this.dateRange.start || '01';
-    let maxDateRange = this.dateRange.end || '12';
-    let radiusParam = this.mileRange.value || '250';
-    //'keyword=' + keywordParam
-    this.$http.get(searchAPI +
-        // 'keyword=' + this.keywordParam +
-        'location=' + this.locationParam +
-        '&radius=' + radiusParam +
-        '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
-        '&date-start=' + minDateRange + '-01-2016' +
-        '&date-end=' + maxDateRange + '-01-2016')
-      .then((data) => {
-        this.$state.go('results');
-        let seminarsData = data.data.seminars;
-        this.receiveSeminarData(seminarsData);
-        return seminarsData;
-      });
-  }
-  doKWParamSearch() {
-    const searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-    let minDateRange = this.dateRange.start || '01';
-    let maxDateRange = this.dateRange.end || '12';
-    let radiusParam = this.mileRange.value || '250';
-    //'keyword=' + keywordParam
-    this.$http.get(searchAPI +
-        'keyword=' + this.keywordParam +
-        '&location=' + this.locationParam +
-        '&radius=' + radiusParam +
-        '&topics=' + this.topicParam1 + ',' + this.topicParam2 + ',' + this.topicParam3 + ',' + this.topicParam4 +
-        '&date-start=' + minDateRange + '-01-2016' +
-        '&date-end=' + maxDateRange + '-01-2016')
-      .then((data) => {
-        this.$state.go('results');
-        let seminarsData = data.data.seminars;
-        this.receiveSeminarData(seminarsData);
-        return seminarsData;
-      });
-  }
+    function doParamSearch() {
+      var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+      var minDateRange = vm.dateRange.start || '01';
+      var maxDateRange = vm.dateRange.end || '12';
+      var radiusParam = vm.mileRange.value || '250';
+      //'keyword=' + keywordParam
+      $http.get(searchAPI +
+          // 'keyword=' + this.keywordParam +
+          'location=' + vm.locationParam +
+          '&radius=' + radiusParam +
+          '&topics=' + vm.topicParam1 + ',' + vm.topicParam2 + ',' + vm.topicParam3 + ',' + vm.topicParam4 +
+          '&date-start=' + minDateRange + '-01-2016' +
+          '&date-end=' + maxDateRange + '-01-2016')
+        .then((data) => {
+          $state.go('results');
+          var seminarsData = data.data.seminars;
+          vm.receiveSeminarData(seminarsData);
+          return seminarsData;
+        });
+    }
+    function doKWParamSearch() {
+      var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+      var minDateRange = vm.dateRange.start || '01';
+      var maxDateRange = vm.dateRange.end || '12';
+      var radiusParam = vm.mileRange.value || '250';
+      //'keyword=' + keywordParam
+      $http.get(searchAPI +
+          'keyword=' + vm.keywordParam +
+          '&location=' + vm.locationParam +
+          '&radius=' + radiusParam +
+          '&topics=' + vm.topicParam1 + ',' + vm.topicParam2 + ',' + vm.topicParam3 + ',' + vm.topicParam4 +
+          '&date-start=' + minDateRange + '-01-2016' +
+          '&date-end=' + maxDateRange + '-01-2016')
+        .then((data) => {
+          $state.go('results');
+          var seminarsData = data.data.seminars;
+          vm.receiveSeminarData(seminarsData);
+          return seminarsData;
+        });
+    }
 
-  clearFilters($state) {
-    localStorage.clear();
-    this.doParamSearch();
+    function clearFilters($state) {
+      localStorage.clear();
+      vm.doParamSearch();
+    }
   }
-}
+})();

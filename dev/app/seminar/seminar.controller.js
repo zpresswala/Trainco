@@ -1,30 +1,38 @@
-import { calculateTotalPrice } from '../utils';
-export class SeminarController {
-  constructor($log, courseSearch, cartService, $rootScope, $scope) {
-    'ngInject';
+(function() {
+  'use strict';
 
-    this.$log = $log;
-    this.cartService = cartService;
-    this.$rootScope = $rootScope;
-    this.courseId = {};
-    this.activate();
-    this.requestSeminarData(courseSearch);
-    //this.requestSeminarDetails(courseSearch);
+  angular
+    .module('train')
+    .controller('SeminarController', SeminarController);
 
-    this.detailPop = {
+  /** @ngInject */
+  function SeminarController($log, courseSearch, cartService, $rootScope, $scope) {
+    var vm = this;
+
+    vm.courseId = {};
+    vm.activate();
+    vm.requestSeminarData(courseSearch);
+  function calculateTotalPrice(itemList) {
+    var totalPrice = itemList ? itemList.reduce(function (acc, item) {
+      return acc + item.quantity * parseFloat(item.price);
+    }, 0) : 0;
+    return parseFloat(totalPrice.toFixed(2));
+  }
+
+    vm.detailPop = {
       templateUrl: 'app/seminar/seminarPop.html',
     };
 
-    this.location = {};
+    vm.location = {};
 
-    this.addItemToCart = (item, qty) => {
+    vm.addItemToCart = function(item, qty) {
       cartService.addItem(item, qty);
-      this.cartItemList = cartService.getCartItems() || [];
-      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
-      $rootScope.$broadcast('cartUpdated', this.cartItemList);
+      vm.cartItemList = cartService.getCartItems() || [];
+      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      $rootScope.$broadcast('cartUpdated', vm.cartItemList);
     };
 
-    this.monthsSlider = {
+    vm.monthsSlider = {
       minValue: 0, // initial position for left handle
       maxValue: 8, // initial position for right handle
       options: {
@@ -37,47 +45,34 @@ export class SeminarController {
       }
     };
 
-    let minMonthNumber = this.monthsSlider.minValue + 1;
-    let maxMonthNumber = this.monthsSlider.maxValue + 1;
+    var minMonthNumber = vm.monthsSlider.minValue + 1;
+    var maxMonthNumber = vm.monthsSlider.maxValue + 1;
     //this.monthMin = minMonthNumber;
-    let minDateRange = minMonthNumber;
-    let minDateParam = minDateRange + '-2016';
-    this.monthMin = this.monthsSlider.minValue + 1 + '-2016'; //minDateParam
-  }
-  activate() {
-    const classId = localStorage.getItem('classId');
-  }
-  requestSeminarData(courseSearch) {
-    const classId = localStorage.getItem('classId');
+    var minDateRange = minMonthNumber;
+    var minDateParam = minDateRange + '-2016';
+    vm.monthMin = vm.monthsSlider.minValue + 1 + '-2016'; //minDateParam
+    function activate() {
+      var classId = localStorage.getItem('classId');
+    }
 
-    return courseSearch.getSeminars(classId).then((data) => {
-      let seminarsData = data.seminars[0];
-      this.receiveSeminarData(seminarsData);
-      return seminarsData;
-    });
-  }
+    function requestSeminarData(courseSearch) {
+      var classId = localStorage.getItem('classId');
 
-  receiveSeminarData(seminarsData) {
-    this.seminarLocations = seminarsData.locationSchedules;
-    let seminarLocationsArray = this.seminarLocations;
-    seminarLocationsArray.forEach((location, index) => {
-      const dateF = location.dateFilter;
-    //  this.$log.debug(dateF)
-      return dateF;
-    });
-  }
+      return courseSearch.getSeminars(classId).then(function(data) {
+        var seminarsData = data.seminars[0];
+        vm.receiveSeminarData(seminarsData);
+        return seminarsData;
+      });
+    }
 
-  // requestSeminarDetails(courseSearch, id) {
-  //   let semId = id;
-  //   return courseSearch.getSeminarDetails(semId).then((data) => {
-  //     this.$log.debug(data)
-  //     let seminarDetail = data;
-  //     return seminarDetail;
-  //   });
-  // }
-
-  storeCourseId(seminarsData) {
-    let courseIden = seminarsData;
-    localStorage.setItem('course', this.courseId);
+    function receiveSeminarData(seminarsData) {
+      vm.seminarLocations = seminarsData.locationSchedules;
+      var seminarLocationsArray = vm.seminarLocations;
+      seminarLocationsArray.forEach(function(location, index) {
+        var dateF = location.dateFilter;
+        //  this.$log.debug(dateF)
+        return dateF;
+      });
+    }
   }
-}
+})();

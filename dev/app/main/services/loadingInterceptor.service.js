@@ -1,6 +1,15 @@
-let LoadingInterceptor = function($q, $log, $rootScope) {
-    let xhrCreations = 0;
-    let xhrResolutions = 0;
+(function() {
+  'use strict';
+
+  angular
+    .module('train')
+    .factory('LoadingInterceptor', LoadingInterceptor);
+
+  /** @ngInject */
+  function LoadingInterceptor($q, $log, $rootScope) {
+
+var xhrCreations = 0;
+    var xhrResolutions = 0;
 
     function isLoading() {
       return xhrResolutions < xhrCreations;
@@ -36,4 +45,4 @@ let LoadingInterceptor = function($q, $log, $rootScope) {
     };
 
   }
-export default LoadingInterceptor;
+})();

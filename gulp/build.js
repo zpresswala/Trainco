@@ -19,7 +19,7 @@ gulp.task('partials', function () {
       quotes: true
     }))
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
-      module: 'train',
+      module: 'ngapp',
       root: 'app'
     }))
     .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
@@ -44,12 +44,13 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe($.rev())
     .pipe(jsFilter)
     .pipe($.sourcemaps.init())
+    .pipe($.ngAnnotate())
     .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
     .pipe($.sourcemaps.write('maps'))
     .pipe(jsFilter.restore)
     .pipe(cssFilter)
     .pipe($.sourcemaps.init())
-    .pipe($.replace(/(?:\.\.\/)*bower_components\/.*?\/([^\/]*?\.(?:eot|svg|ttf|woff2|woff))/g, '../fonts/$1'))
+    .pipe($.replace('../../bower_components/bootstrap-sass/assets/fonts/bootstrap/', '../fonts/'))
     .pipe($.minifyCss({ processImport: false }))
     .pipe($.sourcemaps.write('maps'))
     .pipe(cssFilter.restore)
@@ -61,8 +62,7 @@ gulp.task('html', ['inject', 'partials'], function () {
       empty: true,
       spare: true,
       quotes: true,
-      conditionals: true,
-      loose: true
+      conditionals: true
     }))
     .pipe(htmlFilter.restore)
     .pipe(gulp.dest(path.join(conf.paths.dist, '/')))
