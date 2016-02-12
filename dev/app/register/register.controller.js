@@ -6,17 +6,21 @@
     .controller('RegisterController', RegisterController);
 
   /** @ngInject */
-  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService) {
+  function RegisterController($log, searchService, $localStorage, $http, $state, $rootScope, $scope, cartService) {
     var vm = this;
     vm.dateRange = {};
 
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+
     function calculateTotalPrice(itemList) {
-      var totalPrice = itemList ? itemList.reduce(function (acc, item) {
+      var totalPrice = itemList ? itemList.reduce(function(acc, item) {
         return acc + item.quantity * parseFloat(item.price);
       }, 0) : 0;
       return parseFloat(totalPrice.toFixed(2));
     }
+    vm.$storage = $localStorage;
+
+
     vm.cartItemList = cartService.getCartItems() || [];
     vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
@@ -46,11 +50,11 @@
     // End of the lovely on-load mess.
     // ----------------------------------------------
 
-    vm.addItemToCart = function(item, qty) {
+    vm.addItemToCart = function(item, quantity) {
       cartService.addItem(item, qty);
-      vm.cartItemList = cartService.getCartItems() || [];
-      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-      $rootScope.$broadcast('cartUpdated', vm.cartItemList);
+      this.cartItemList = cartService.getCartItems() || [];
+      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+      $rootScope.$broadcast('cartUpdated', this.cartItemList);
     };
 
     vm.removeItemFromCart = function(itemId) {
@@ -65,11 +69,11 @@
      * @return {method}
      */
     vm.handleLocInput = function(e) {
-        if (e.keyCode === 13 && vm.locSearchFilter.location) {
-          $rootScope.$broadcast('location', vm.locSearchFilter.location);
-          doParamSearch();
-        }
+      if (e.keyCode === 13 && vm.locSearchFilter.location) {
+        $rootScope.$broadcast('location', vm.locSearchFilter.location);
+        doParamSearch();
       }
+    }
       // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
@@ -78,7 +82,7 @@
     // runs the doParamSearch function.
     $scope.$on('keyword', function(event, data) {
       vm.keywordParam = data;
-      vm.doKWParamSearch();
+      doKWParamSearch();
     });
 
     /**

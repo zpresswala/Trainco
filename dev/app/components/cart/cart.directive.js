@@ -19,12 +19,15 @@
     return directive;
 
     /** @ngInject */
-    function CartController(cartService, $log, $scope, $http, $window) {
+    function CartController(cartService, $log, $scope, $http, $window, $localStorage) {
       var vm = this;
       var purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
-
+      vm.cartItem = {};
+      cartService.loadItems();
+      vm.myItems = vm.cartService.loadItems();
+      vm.$storage = $localStorage;
       function calculateTotalPrice(itemList) {
-        var totalPrice = itemList ? itemList.reduce(function (acc, item) {
+        var totalPrice = itemList ? itemList.reduce(function(acc, item) {
           return acc + item.quantity * parseFloat(item.price);
         }, 0) : 0;
         return parseFloat(totalPrice.toFixed(2));
@@ -33,29 +36,45 @@
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(this.cartItemList);
 
-      $scope.$on('cartUpdated', (event, data) => {
-        vm.cartItemList = cartService.getCartItems() || [];
-        vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      $scope.$on('cartUpdated', function(event, data) {
+       this.cartItemList = cartService.getCartItems() || [];
+      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
       });
 
-      vm.removeItemFromCart = (itemId) => {
+      vm.removeItemFromCart = function(itemId) {
         cartService.removeItem(itemId);
         vm.cartItemList = vm.cartService.getCartItems() || [];
         vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       };
 
-      /**
-       * Handle key input
-       * @param  {object} e the event
-       * ng-keydown='searchInput.handleInput($event)'
-       */
-      vm.handleLocInput = (e, cartItem, qty) => {
-        if (e.keyCode === 13) {
-          cartService.addItem(cartItem);
-          vm.cartItemList = cartService.getCartItems() || [];
-          vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-        }
+   /**
+     * Handle key input
+     * @param  {object} e the event
+     * ng-keydown="searchInput.handleInput($event)"
+     */
+    this.handleLocInput = function (e, cartItem, qty) {
+      if (e.keyCode === 13) {
+        cartService.addItem(cartItem);
+        this.cartItemList = cartService.getCartItems() || [];
+        this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
       }
+    }
+
+      vm.saveItems = cartService.saveItems();
+
+      vm.cartImages = {
+        initial: '/assets/images/icon-cart-tab.png',
+        final: '/assets/images/icon-cart-close-arrow.png',
+        current: '/assets/images/icon-cart-tab.png'
+      };
+      vm.swapHere = function() {
+        if (vm.cartImages.current === vm.cartImages.final) {
+          vm.cartImages.current = vm.cartImages.initial
+        } else if (vm.cartImages.current === vm.cartImages.initial) {
+          vm.cartImages.current = vm.cartImages.final
+        }
+        ;
+      };
 
       vm.doPurchase = () => {
         vm.cartItemList = vm.cartService.getCartItems() || [];
@@ -91,20 +110,6 @@
 
       }
 
-
-
-      vm.cartImages = {
-        initial: '/assets/images/icon-cart-tab.png',
-        final: '/assets/images/icon-cart-close-arrow.png',
-        current: '/assets/images/icon-cart-tab.png'
-      };
-      vm.swapHere = function() {
-        if (vm.cartImages.current === vm.cartImages.final) {
-          vm.cartImages.current = vm.cartImages.initial
-        } else if (vm.cartImages.current === vm.cartImages.initial) {
-          vm.cartImages.current = vm.cartImages.final
-        };
-      };
     }
   }
 
