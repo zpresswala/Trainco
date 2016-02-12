@@ -1,4 +1,8 @@
 ﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Models
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using Umbraco.Core.Models
+@using Umbraco.Web
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = null;
@@ -7,6 +11,8 @@
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
+
+    List<RegistrationTrackItem> trackItemsList = null;
 
     // Redirect
     if (currentPage.GetPropertyValue("pageRedirect") != null && currentPage.GetPropertyValue("pageRedirect").ToString().Length > 0)
@@ -69,6 +75,27 @@
     }
 
     bool clearSession = false;
+    string trackItemListStr = "";
+
+    if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
+    {
+        trackItemsList = Registrations.GetRegistrationTrackItems(Convert.ToInt32(Session["RegistrationId"]));
+
+        if (trackItemsList != null && trackItemsList.Count > 0)
+        {
+            foreach(RegistrationTrackItem trackItem in trackItemsList)
+            {
+                trackItemListStr += "ga('ecommerce:addItem', {\r\n";
+                trackItemListStr += "\t'id': '"+ trackItem.RegistrationId + "',\r\n";
+                trackItemListStr += "\t'name': '" + trackItem.Name + "',\r\n";
+                trackItemListStr += "\t'sku': '" + trackItem.Code + "',\r\n";
+                trackItemListStr += "\t'category': '" + trackItem.Category + "',\r\n";
+                trackItemListStr += "\t'price': '" + trackItem.Price.ToString("F2") + "',\r\n";
+                trackItemListStr += "\t'quantity': '"+ trackItem.Quantity + "'\r\n";
+                trackItemListStr += "});\r\n";
+            }
+        }
+    }
 
     if (currentPage.HasValue("pageHeaderScripts"))
     {
@@ -78,7 +105,7 @@
         {
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
-                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString().Replace(",",""));
 
                 clearSession = true;
             }
@@ -86,6 +113,7 @@
             if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
             {
                 pageHeaderScript = pageHeaderScript.Replace("{{REG_ID}}", Session["RegistrationId"].ToString());
+                pageHeaderScript = pageHeaderScript.Replace("{{REG_ITEMS}}", trackItemListStr);
             }
         }
     }
@@ -98,7 +126,7 @@
         {
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
-                pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+                pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString().Replace(",", ""));
 
                 clearSession = true;
             }
@@ -106,6 +134,7 @@
             if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
             {
                 pageFooterScript = pageFooterScript.Replace("{{REG_ID}}", Session["RegistrationId"].ToString());
+                pageHeaderScript = pageHeaderScript.Replace("{{REG_ITEMS}}", trackItemListStr);
             }
         }
     }

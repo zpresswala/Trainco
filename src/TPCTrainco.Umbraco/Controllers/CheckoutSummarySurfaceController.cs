@@ -183,7 +183,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                 else
                                 {
                                     // check for duplicate
-                                    debug.AppendLine("Checking for duplicate... (tempCust.reg_ID: "+ tempCust.reg_ID ?? 0 + ")");
+                                    debug.AppendLine("Checking for duplicate... (tempCust.reg_ID: " + tempCust.reg_ID ?? 0 + ")");
 
                                     reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
 
@@ -255,6 +255,15 @@ namespace TPCTrainco.Umbraco.Controllers
 
                                             return Redirect("/register/error/?error=95&regid=" + tempCust.reg_ID);
                                         }
+                                        }
+                                        else
+                                        {
+                                            debug.AppendLine("CAN'T FIND REGISTRATION!");
+
+                                            cartsObj.SendCartErrorEmail("ERROR: 95\n\rCan't Find Registration: (reg == null || reg.RegistrationID <= 0)\r\n\r\nDebug:\r\n" + debug.ToString());
+
+                                            return Redirect("/register/error/?error=95&regid=" + tempCust.reg_ID);
+                                        }
                                     }
                                     else
                                     {
@@ -307,7 +316,7 @@ namespace TPCTrainco.Umbraco.Controllers
                     }
                     catch (Exception ex)
                     {
-                        cartsObj.SendCheckoutErrorEmail("RegID: " + tempRegList[0].reg_ID + "\n\rDebug:\r\n"+ debug.ToString() + "\r\n\r\nError: " + ex.ToString());
+                        cartsObj.SendCheckoutErrorEmail("RegID: " + tempRegList[0].reg_ID + "\n\rDebug:\r\n" + debug.ToString() + "\r\n\r\nError: " + ex.ToString());
                     }
                 }
                 else

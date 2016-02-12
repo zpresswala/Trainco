@@ -330,6 +330,7 @@
     <Compile Include="Models\CheckoutDetails.cs" />
     <Compile Include="Models\CheckoutItem.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\RegistrationTrackItem.cs" />
     <Compile Include="Models\CoordinateDetails.cs" />
     <Compile Include="Models\CourseDetail.cs" />
     <Compile Include="Models\CreditCardResult.cs" />
@@ -357,6 +358,12 @@
     <Compile Include="Objects\Topics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REGISTRATION.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationAttendee.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationAttendeeSchedule.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SCHEDULE.cs">

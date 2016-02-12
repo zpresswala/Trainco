@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoreLinq;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -69,11 +70,110 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public static List<RegistrationAttendee> GetRegistrationAttendees(int regId)
+        {
+            List<RegistrationAttendee> attendeeList = null;
+
+            if (regId > 0)
+            {
+                using (var db = new americantraincoEntities())
+                {
+                    attendeeList = db.RegistrationAttendees.Where(p => p.RegistrationID == regId).ToList();
+                }
+            }
+
+            return attendeeList;
+        }
+
+
+        public static List<RegistrationAttendeeSchedule> GetRegistrationAttendeesSchedules(int regId)
+        {
+            List<RegistrationAttendeeSchedule> attendeesScheduleList = null;
+
+            List<RegistrationAttendee> attendeeList = GetRegistrationAttendees(regId);
+
+            if (attendeeList != null && attendeeList.Count > 0)
+            {
+                using (var db = new americantraincoEntities())
+                {
+                    List<int> attendeeIdArray = attendeeList.Select(p => p.RegistrationAttendeeID).ToList();
+
+                    attendeesScheduleList = db.RegistrationAttendeeSchedules.Where(p => attendeeIdArray.Contains(p.RegistrationAttendeeID)).ToList();
+                }
+            }
+
+            return attendeesScheduleList;
+        }
+
+
+        public static List<RegistrationTrackItem> GetRegistrationTrackItems(int regId)
+        {
+            List<RegistrationTrackItem> trackItemListFilter = null;
+            List<RegistrationTrackItem> trackItemList = new List<RegistrationTrackItem>();
+
+            List<RegistrationAttendeeSchedule> attendeesScheduleList = GetRegistrationAttendeesSchedules(regId);
+
+            if (attendeesScheduleList != null && attendeesScheduleList.Count > 0)
+            {
+                foreach (RegistrationAttendeeSchedule attendeeSchedule in attendeesScheduleList)
+                {
+                    int scheduleId = 0;
+
+                    scheduleId = attendeeSchedule.ScheduleID;
+
+                    if (scheduleId > 0)
+                    {
+                        SCHEDULE schedule = CacheObjects.GetScheduleList().Where(p => p.ScheduleID == scheduleId).FirstOrDefault();
+                        ScheduleCourseInstructor scheduleCourse = CacheObjects.GetScheduleCourseList().Where(p => p.ScheduleID == scheduleId).FirstOrDefault();
+
+                        if (schedule != null && scheduleCourse != null)
+                        {
+                            COURS course = CacheObjects.GetCourseList().Where(p => p.CourseID == scheduleCourse.CourseID).FirstOrDefault();
+
+                            if (course != null)
+                            {
+                                CourseTopic topic = CacheObjects.GetCourseTopicList().Where(p => p.CourseTopicID == course.CourseTopicID).FirstOrDefault();
+
+                                if (topic != null)
+                                {
+                                    RegistrationTrackItem trackItem = new RegistrationTrackItem();
+
+                                    trackItem.Category = topic.CourseTopicName;
+                                    trackItem.Code = schedule.ScheduleSeminarNumber;
+                                    trackItem.Name = course.TitlePlain;
+                                    trackItem.Price = Convert.ToDouble(scheduleCourse.CourseFee ?? 0);
+                                    trackItem.Quantity = 1;
+                                    trackItem.RegistrationId = regId;
+
+                                    trackItemList.Add(trackItem);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (trackItemList != null && trackItemList.Count > 0)
+            {
+                trackItemListFilter = trackItemList.DistinctBy(p => p.Code).ToList();
+
+                foreach(RegistrationTrackItem trackItem in trackItemListFilter)
+                {
+                    int itemCount = trackItemList.Where(p => p.Code == trackItem.Code).Count();
+
+                    trackItem.Quantity = itemCount;
+                }
+            }
+
+
+            return trackItemListFilter;
+        }
+
         public static void EmailOrderConfirmations(CheckoutDetails checkout, REGISTRATION reg)
         {
             IEnumerable<IPublishedContent> emailTemplates = null;
 
-            emailTemplates = Helpers.Nodes.Instance.SiteSettings.Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
+            emailTemplates = Helpers.Nodes.SiteSettingsDirect().Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
 
             if (emailTemplates != null)
             {
@@ -115,30 +215,41 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                         string attendeeDetails = emailDetailTemplate;
                         string attendeeSummary = emailOrderSummaryTemplate;
 
-                        SCHEDULE schedule = Objects.CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
+                        SCHEDULE schedule = CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
 
                         if (schedule != null && schedule.ScheduleStatus != null && schedule.ScheduleStatus > 0)
                         {
                             isCourseCancelling = true;
                         }
 
-                        temp_Att tempAtt = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).FirstOrDefault();
+                        string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+                        emailOrderSummaryList += "<tr><td colspan=\"3\">" + seminarTitle + "</td></tr><tr><td colspan=\"3\" height=\"15\"></td></tr>";
 
-                        if (tempAtt != null)
+
+                        List<temp_Att> tempAttList = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).ToList();
+
+                        if (tempAttList != null && tempAttList.Count > 0)
                         {
-                            attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                            attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
-                            attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
+                            foreach (temp_Att tempAtt in tempAttList)
+                            {
+                                if (tempAtt != null)
+                                {
+                                    attendeeDetails = emailDetailTemplate;
+                                    attendeeSummary = emailOrderSummaryTemplate;
 
-                            emailOrderAttendeeDetailsList += attendeeDetails;
+                                    attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                                    attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+                                    attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
 
-                            string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+                                    emailOrderAttendeeDetailsList += attendeeDetails;
 
-                            attendeeSummary = attendeeSummary.Replace("{{SEMINAR_TITLE}}", seminarTitle);
-                            attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                            attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
 
-                            emailOrderSummaryList += attendeeSummary;
+                                    attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                                    attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+
+                                    emailOrderSummaryList += attendeeSummary;
+                                }
+                            }
                         }
                     }
 
@@ -516,7 +627,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 output = output.Replace("</ul>", "</ul><br />" + Environment.NewLine);
                 output = output.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
-                output = output.Replace("\n\r", "<br />" + Environment.NewLine);
+                output = output.Replace("\r\n", "<br />" + Environment.NewLine);
                 output = output.Replace("\"", "&quot;");
             }
 
