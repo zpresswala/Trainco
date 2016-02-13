@@ -12,6 +12,7 @@
     vm.courseId = {};
     vm.activate();
     vm.requestSeminarData(courseSearch);
+
   function calculateTotalPrice(itemList) {
     var totalPrice = itemList ? itemList.reduce(function (acc, item) {
       return acc + item.quantity * parseFloat(item.price);
@@ -70,7 +71,6 @@
       var seminarLocationsArray = vm.seminarLocations;
       seminarLocationsArray.forEach(function(location, index) {
         var dateF = location.dateFilter;
-        //  this.$log.debug(dateF)
         return dateF;
       });
     }
