@@ -2,8 +2,7 @@
   'use strict';
 
   angular
-    .module('train', ['ngAnimate', 'ngTouch', 'ngSanitize','ui.router', 'ui.bootstrap', 'rzModule', 'angular.filter', 'rt.select2'])
-
+    .module('train', ['ngAnimate', 'ngSanitize', 'ngStorage', 'ui.router', 'ui.bootstrap', 'rzModule', 'angular.filter', 'rt.select2'])
     .animation('.slide-toggle', ['$animateCss', function($animateCss) {
         let lastId = 0;
         let _cache = {};

@@ -33,13 +33,13 @@
     // search from the off page search component as soon as the page
     // loads.
     // ----------------------------------------------------------
-    var location = vm.$storage.get('location');
-    var topicParam1 = vm.$storage.get('topicParam1');
-    var topicParam2 = vm.$storage.get('topicParam2');
-    var topicParam3 = vm.$storage.get('topicParam3');
-    var topicParam4 = vm.$storage.get('topicParam4');
-    var minDateRange = vm.$storage.get('minDateRange');
-    var maxDateRange = vm.$storage.get('maxDateRange');
+    var location = localStorage.getItem('location');
+    var topicParam1 = localStorage.getItem('topicParam1');
+    var topicParam2 = localStorage.getItem('topicParam2');
+    var topicParam3 = localStorage.getItem('topicParam3');
+    var topicParam4 = localStorage.getItem('topicParam4');
+    var minDateRange = localStorage.getItem('minDateRange');
+    var maxDateRange = localStorage.getItem('maxDateRange');
 
     vm.searchData = $http.get(searchAPI +
         'location=' + location +
@@ -55,7 +55,7 @@
     // End of the lovely on-load mess.
     // ----------------------------------------------
 
-    vm.addItemToCart = function(item, quantity) {
+    vm.addItemToCart = function(item, qty) {
       cartService.addItem(item, qty);
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
@@ -200,7 +200,7 @@
           '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
           '&date-end=' + maxDateRange + '-01-2016')
-        .then((data) => {
+        .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
           vm.receiveSeminarData(seminarsData);
@@ -220,7 +220,7 @@
           '&topics=' + vm.topicParam1  + vm.topicParam2 + vm.topicParam3  + vm.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
           '&date-end=' + maxDateRange + '-01-2016')
-        .then((data) => {
+        .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
           vm.receiveSeminarData(seminarsData);

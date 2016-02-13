@@ -23,8 +23,8 @@
       var vm = this;
       var purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
       vm.cartItem = {};
-      cartService.loadItems();
-      vm.myItems = vm.cartService.loadItems();
+
+
       vm.$storage = $localStorage;
       function calculateTotalPrice(itemList) {
         var totalPrice = itemList ? itemList.reduce(function(acc, item) {
@@ -60,7 +60,7 @@
       }
     }
 
-      vm.saveItems = cartService.saveItems();
+
 
       vm.cartImages = {
         initial: '/assets/images/icon-cart-tab.png',
@@ -76,11 +76,11 @@
         ;
       };
 
-      vm.doPurchase = () => {
+      vm.doPurchase = function() {
         vm.cartItemList = vm.cartService.getCartItems() || [];
         $log.debug(vm.cartItemList)
         var cartDataArr = [];
-        vm.cartItemList.forEach((item, index, array) => {
+        vm.cartItemList.forEach(function(item, index, array) {
           var id = item.id;
           var quantity = item.quantity;
           cartDataArr.push({

@@ -10,7 +10,7 @@
   $urlRouterProvider.when('', '/');
   $urlRouterProvider.otherwise('/');
   $logProvider.debugEnabled(true);
-  $httpProvider.interceptors.push('loadingInterceptor');
+  $httpProvider.interceptors.push('LoadingInterceptor');
   }
 
 })();

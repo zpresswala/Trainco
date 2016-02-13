@@ -22,12 +22,12 @@ gulp.task('styles', function() {
 
 var buildStyles = function() {
   var sassOptions = {
-    outputStyle: 'expanded'
+    style: 'expanded'
   };
 
   var injectFiles = gulp.src([
-    path.join(conf.paths.src, '/assets/**/*.scss'),
-    path.join('!' + conf.paths.src, '/index.scss')
+    path.join(conf.paths.src, '/assets/sass/**/*.scss'),
+    path.join('!' + conf.paths.src, '/assets/sass/main.scss')
   ], { read: false });
 
   var injectOptions = {
@@ -42,7 +42,7 @@ var buildStyles = function() {
 
 
   return gulp.src([
-    path.join(conf.paths.src, '/index.scss')
+    path.join(conf.paths.src, '/assets/sass/main.scss')
   ])
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))

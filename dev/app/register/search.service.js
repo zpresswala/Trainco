@@ -6,7 +6,7 @@
     .factory('searchService', searchService);
 
   /** @ngInject */
-  function githubContributor($log, $http) {
+  function searchService($log, $http) {
     var apiHost = 'http://trainco.axial-client.com/api/seminars2/search';
 
     var service = {
