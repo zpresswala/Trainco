@@ -3,7 +3,6 @@
 
   angular
     .module('train', ['ngAnimate', 'ngTouch', 'ngSanitize','ui.router', 'ui.bootstrap', 'rzModule', 'angular.filter', 'rt.select2'])
-    .directive('stringToNumber', stringToNumber)
 
     .animation('.slide-toggle', ['$animateCss', function($animateCss) {
         let lastId = 0;
