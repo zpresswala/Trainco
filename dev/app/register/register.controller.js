@@ -129,6 +129,9 @@
         step: 50,
         translate: function(value) {
           return value + ' mile radius';
+        },
+        onEnd:function(modelValue) {
+          doParamSearch()
         }
       }
     }
