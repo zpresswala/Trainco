@@ -57,8 +57,9 @@
       });
     // End of the lovely on-load mess.
     // ----------------------------------------------
-
+    vm.isDisabled = false;
     vm.addItemToCart = function(item, qty) {
+      vm.isDisabled = true;
       cartService.addItem(item, qty);
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
@@ -143,7 +144,7 @@
           vm['topicParam' + (index + 1)] = '';
         }
       });
-      $log.debug('asdf')
+
       doParamSearch();
     });
 

@@ -9,7 +9,7 @@
     </div>
     <div class="row">
       <ul class="list-inline cart-item-list">
-        <li class="cart-item" ng-repeat="cartItem in vm.cartItemList track by cartItem.id">
+        <li class="cart-item" ng-repeat="cartItem in vm.cartItemList track by $index">
           <ul class="container">
             <li class="class-title col-xs-12 col-sm-12 col-md-4">{{cartItem.title}}</li>
 

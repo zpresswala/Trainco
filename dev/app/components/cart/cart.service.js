@@ -18,7 +18,7 @@
     };
 
     return service;
-
+    // TODO: Merge objects that are common on add to cart.
     function loadItems() {
       var items = localStorage != null ? localStorage['cartItemList'] : null;
       if (items != null && JSON != null) {
@@ -46,12 +46,14 @@
 
       var itemStr = window.localStorage.getItem('cartItemList'); // eslint-disable-line
       var itemList = itemStr ? JSON.parse(itemStr) : []; // eslint-disable-line
-      var itemInCart = itemList.find(function(cartItem) {
-        return cartItem.id === item.id;
+      $log.debug(itemList)
+      var itemInCart = itemList.forEach(function(item, index) {
+        return itemInCart;
       });
-      $log.debug(qty)
+
       if (itemInCart) {
-        itemInCart.quantity = item.quantity;
+
+        itemInCart.quantity = qty;
       } else {
         itemList.push({
           id: item.id,
