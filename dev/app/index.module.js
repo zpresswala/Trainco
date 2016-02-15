@@ -9,5 +9,6 @@
             'ui.bootstrap',
             'rzModule',
             'angular.filter',
+            'darthwade.loading',
             'rt.select2']);
 })();

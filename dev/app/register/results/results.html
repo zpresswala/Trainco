@@ -1,6 +1,5 @@
 <!-- Search Results -->
-
-<div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result">
+<div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result" dw-loading="courses" dw-loading-options="register.options">
   <section class="row">
     <div class="col-md-2">
       <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">

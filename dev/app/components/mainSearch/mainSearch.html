@@ -11,56 +11,56 @@
       seminars.</a></span></h3>
   </div>
   <div class="row">
-      <div class="col-md-11 topic-circles">
-        <h3>Select one or more topics and choose your location</h3>
-        <ul>
-          <li class="seminar-topic" id="selectAllWrap">
+    <div class="col-md-11 topic-circles">
+      <h3>Select one or more topics and choose your location</h3>
+      <ul>
+        <li class="seminar-topic" id="selectAllWrap">
 
-              <input id="selectAllCheck" type="checkbox" name="selectAllCheck" ng-model="vm.classTopics.all">
-              <label class="checkbox-inline" for="selectAllCheck"></label>
+          <input id="selectAllCheck" type="checkbox" name="selectAllCheck" ng-model="vm.classTopics.all">
+          <label class="checkbox-inline" for="selectAllCheck"></label>
 
-              <p>All Seminar Topics</p>
+          <p>All Seminar Topics</p>
 
-          </li>
-          <li class="seminar-topic" id="electricalWrap">
+        </li>
+        <li class="seminar-topic" id="electricalWrap">
 
-              <input id="electricalCheck" type="checkbox" name="electricalCheck" ng-model="vm.classTopics.electrical">
-              <label class="checkbox-inline" for="electricalCheck"></label>
+          <input id="electricalCheck" type="checkbox" name="electricalCheck" ng-model="vm.classTopics.electrical">
+          <label class="checkbox-inline" for="electricalCheck"></label>
 
-              <p>Electrical</p>
+          <p>Electrical</p>
 
-          </li>
-          <li class="seminar-topic" id="hvacWrap">
+        </li>
+        <li class="seminar-topic" id="hvacWrap">
 
-              <input id="hvacCheck" type="checkbox" name="hvacCheck" ng-model="vm.classTopics.hvac">
-              <label class="checkbox-inline" for="hvacCheck"></label>
+          <input id="hvacCheck" type="checkbox" name="hvacCheck" ng-model="vm.classTopics.hvac">
+          <label class="checkbox-inline" for="hvacCheck"></label>
 
-              <p>HVAC</p>
+          <p>HVAC</p>
 
-          </li>
-          <li class="seminar-topic" id="plantWrap">
+        </li>
+        <li class="seminar-topic" id="plantWrap">
 
-              <input id="plantCheck" type="checkbox" name="plantCheck" ng-model="vm.classTopics.plant">
-              <label class="checkbox-inline" for="plantCheck"></label>
+          <input id="plantCheck" type="checkbox" name="plantCheck" ng-model="vm.classTopics.plant">
+          <label class="checkbox-inline" for="plantCheck"></label>
 
-              <p>Plant Management</p>
+          <p>Plant Management</p>
 
-          </li>
-          <li class="seminar-topic" id="mechanicalWrap">
+        </li>
+        <li class="seminar-topic" id="mechanicalWrap">
 
-              <input id="mechanicalCheck" type="checkbox" name="mechanicalCheck" ng-model="vm.classTopics.mechanical">
-              <label class="checkbox-inline" for="mechanicalCheck"></label>
+          <input id="mechanicalCheck" type="checkbox" name="mechanicalCheck" ng-model="vm.classTopics.mechanical">
+          <label class="checkbox-inline" for="mechanicalCheck"></label>
 
-              <p>Mechanical and Industrial</p>
+          <p>Mechanical and Industrial</p>
 
-          </li>
-        </ul>
+        </li>
+      </ul>
 
-        <select2 ng-model="vm.courseSearch.location" s2-options="city.value as city.label for city in vm.cities" data-placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations' "></select2>
-        <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
-        <a class="btn-reg btn-white" type="submit" ng-click="vm.doParamSearch(vm.course.classTopics)" id="search-btn" role="button">Search</a>
-        <!-- end new -->
-      </div>
+      <select2 ng-model="vm.courseSearch.location" s2-options="city.value as city.label for city in vm.cities" data-placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations' "></select2>
+      <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
+      <a class="btn-reg btn-white" type="submit" ng-click="vm.doParamSearch(vm.course.classTopics)" id="search-btn" role="button">Search</a>
+      <!-- end new -->
+    </div>
   </div>
   <!-- </div> -->
 </div>

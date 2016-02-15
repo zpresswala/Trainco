@@ -6,7 +6,7 @@
     .controller('RegisterController', RegisterController);
 
   /** @ngInject */
-  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService) {
+  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService, $loading) {
     var vm = this;
     vm.dateRange = {};
 
@@ -28,6 +28,31 @@
     function receiveSeminarData(seminarsData) {
       var seminarLocations = [];
       vm.seminarLocations = seminarsData;
+    }
+
+    vm.options = {
+      text: 'Loading...',
+      overlay: true, // Display overlay
+      spinner: true, // Display spinner
+      spinnerOptions: {
+        lines: 12, // The number of lines to draw
+        length: 7, // The length of each line
+        width: 4, // The line thickness
+        radius: 10, // The radius of the inner circle
+        rotate: 0, // Rotation offset
+        corners: 1, // Roundness (0..1)
+        color: '#000', // #rgb or #rrggbb
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        speed: 2, // Rounds per second
+        trail: 100, // Afterglow percentage
+        opacity: 1 / 4, // Opacity of the lines
+        fps: 20, // Frames per second when using setTimeout()
+        zIndex: 2e9, // Use a high z-index by default
+        className: 'dw-spinner', // CSS class to assign to the element
+        top: 'auto', // Center vertically
+        left: 'auto', // Center horizontally
+        position: 'relative' // Element position
+      }
     }
 
     vm.cartItemList = cartService.getCartItems() || [];
@@ -147,22 +172,22 @@
         }
       }
     }
-  vm.courseSearch = searchService;
-  vm.categories = {
-    hvac: true,
-    electrical: true,
-    mechanical: true,
-    management: true
-  }
-  vm.courseTopics = {};
-  vm.courseTopics.categories = [];
+    vm.courseSearch = searchService;
+    vm.categories = {
+      hvac: true,
+      electrical: true,
+      mechanical: true,
+      management: true
+    }
+    vm.courseTopics = {};
+    vm.courseTopics.categories = [];
 
-  /**
-   * Watches the locationAll checkbox and runs on checked.
-   * @method function
-   * @return {array} returns the array seminarsData containing all locations.
-   */
-  vm.stateChanged = function() {
+    /**
+     * Watches the locationAll checkbox and runs on checked.
+     * @method function
+     * @return {array} returns the array seminarsData containing all locations.
+     */
+    vm.stateChanged = function() {
       $log.debug(vm.courseTopics.categories)
       $rootScope.$broadcast('topic', vm.courseTopics.categories);
     }
@@ -221,14 +246,16 @@
     }]
 
     function doParamSearch() {
+      $loading.start('courses');
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
       var minDateRange = vm.dateRange.start || '01';
       var maxDateRange = vm.dateRange.end || '12';
       var radiusParam = vm.mileRange.value || '250';
+      var locParam = vm.locationParam || '';
       //'keyword=' + keywordParam
       $http.get(searchAPI +
           // 'keyword=' + this.keywordParam +
-          'location=' + vm.locationParam +
+          'location=' + locParam +
           '&radius=' + radiusParam +
           '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
@@ -237,6 +264,7 @@
           $state.go('results');
           var seminarsData = data.data.seminars;
           receiveSeminarData(seminarsData);
+          $loading.finish('courses');
           return seminarsData;
         });
     }
@@ -249,7 +277,7 @@
       //'keyword=' + keywordParam
       $http.get(searchAPI +
           'keyword=' + vm.keywordParam +
-          '&location=' + vm.locationParam +
+          '&location=' + '' +
           '&radius=' + radiusParam +
           '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
