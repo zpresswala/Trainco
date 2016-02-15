@@ -7,9 +7,29 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3 register-sidebar">
-        <keyword-input></keyword-input>
+        <div class="filter-location">
+          <label class="sidebar-label">Keyword Search</label>
+          <input type="search" ng-init="register.kwFilter = {}" ng-keydown="register.handleKWInput($event)" ng-model="register.kwFilter.word" placeholder="Enter Keyword">
+        </div>
         <hr class="dark-hr" />
-        <filter-topic></filter-topic>
+        <div class="filter-topic">
+          <h4 class="sidebar-h4">Search By:</h4>
+          <label class="sidebar-label">Seminar Topic</label>
+          <div class="input-group">
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.electrical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Electrical</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.hvac" ng-change="register.stateChanged(register.courseTopics.categories[category])">HVAC</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.management" ng-change="vm.stateChanged(register.courseTopics.categories[category])">Plant Management</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
+
+          </div>
+        </div>
+
         <hr class="divider" />
         <div class="filter-location">
           <label class="sidebar-label">City or ZIP</label>

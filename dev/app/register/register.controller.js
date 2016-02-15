@@ -6,10 +6,10 @@
     .controller('RegisterController', RegisterController);
 
   /** @ngInject */
-  function RegisterController($log, searchService, $localStorage, $http, $state, $rootScope, $scope, cartService) {
+  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService) {
     var vm = this;
     vm.dateRange = {};
-    vm.$storage = $localStorage;
+
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
     /**
@@ -24,6 +24,7 @@
       }, 0) : 0;
       return parseFloat(totalPrice.toFixed(2));
     }
+
     function receiveSeminarData(seminarsData) {
       var seminarLocations = [];
       vm.seminarLocations = seminarsData;
@@ -57,9 +58,9 @@
       });
     // End of the lovely on-load mess.
     // ----------------------------------------------
-    vm.isDisabled = false;
+
     vm.addItemToCart = function(item, qty) {
-      vm.isDisabled = true;
+
       cartService.addItem(item, qty);
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
@@ -83,6 +84,17 @@
         doParamSearch();
       }
     }
+
+    /**
+     * Handle key input
+     * @param  {object} e the event
+     */
+    vm.handleKWInput = function(e) {
+        if (e.keyCode === 13 && vm.kwFilter.word) {
+          $rootScope.$broadcast('keyword', vm.kwFilter.word);
+          //  this.doParamSearch();
+        }
+      }
       // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
@@ -130,10 +142,29 @@
         translate: function(value) {
           return value + ' mile radius';
         },
-        onEnd:function(modelValue) {
+        onEnd: function(modelValue) {
           doParamSearch()
         }
       }
+    }
+  vm.courseSearch = searchService;
+  vm.categories = {
+    hvac: true,
+    electrical: true,
+    mechanical: true,
+    management: true
+  }
+  vm.courseTopics = {};
+  vm.courseTopics.categories = [];
+
+  /**
+   * Watches the locationAll checkbox and runs on checked.
+   * @method function
+   * @return {array} returns the array seminarsData containing all locations.
+   */
+  vm.stateChanged = function() {
+      $log.debug(vm.courseTopics.categories)
+      $rootScope.$broadcast('topic', vm.courseTopics.categories);
     }
 
     // Listens for a broadcast saying topic and then
@@ -189,8 +220,6 @@
       'name': 'December'
     }]
 
-
-
     function doParamSearch() {
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
       var minDateRange = vm.dateRange.start || '01';
@@ -211,6 +240,7 @@
           return seminarsData;
         });
     }
+
     function doKWParamSearch() {
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
       var minDateRange = vm.dateRange.start || '01';
@@ -221,13 +251,13 @@
           'keyword=' + vm.keywordParam +
           '&location=' + vm.locationParam +
           '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1  + vm.topicParam2 + vm.topicParam3  + vm.topicParam4 +
+          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
           '&date-end=' + maxDateRange + '-01-2016')
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
-          vm.receiveSeminarData(seminarsData);
+          receiveSeminarData(seminarsData);
           return seminarsData;
         });
     }

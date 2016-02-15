@@ -19,13 +19,12 @@
     return directive;
 
     /** @ngInject */
-    function CartController(cartService, $log, $scope, $http, $window, $localStorage) {
+    function CartController(cartService, $log, $scope, $http, $window) {
       var vm = this;
       var purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
       vm.cartItem = {};
 
 
-      vm.$storage = $localStorage;
       function calculateTotalPrice(itemList) {
         var totalPrice = itemList ? itemList.reduce(function(acc, item) {
           return acc + item.quantity * parseFloat(item.price);

@@ -5,7 +5,6 @@
     .module('train', [
             'ngAnimate',
             'ngSanitize',
-            'ngStorage',
             'ui.router',
             'ui.bootstrap',
             'rzModule',
