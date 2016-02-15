@@ -32,9 +32,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
                 {
                     searchRequest.Keywords = HttpContext.Current.Request.QueryString.Get("keyword");
                 }
-                if (false == string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["topic"]))
+                if (false == string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["topics"]))
                 {
-                    searchRequest.Topics = HttpContext.Current.Request.QueryString.Get("topic").Split(',');
+                    searchRequest.Topics = HttpContext.Current.Request.QueryString.Get("topics").Split(',');
                 }
                 if (false == string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["location"]))
                 {

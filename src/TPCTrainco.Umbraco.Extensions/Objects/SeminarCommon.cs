@@ -68,6 +68,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 request.Radius = 50;
             }
 
+            if (request.Location == "undefined" || request.Location == "null")
+            {
+                request.Location = "";
+            }
+
             if (false == string.IsNullOrEmpty(request.Location))
             {
                 LocationCoordinates = GeoCoordinates.GetCoordinateDetailsFromCityState(request.Location);
@@ -79,7 +84,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             }
         }
 
-
+        
         protected void FilterByTopic(ref List<CourseDetail> courseDetailList, ref List<LocationScheduleDetail> locationScheduleDetailList, SeminarsSearchRequest2 request)
         {
             if (request.Topics != null && request.Topics.Length > 0)
@@ -88,11 +93,14 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 foreach (string classTopic in request.Topics)
                 {
-                    int topicId = Objects.Topics.TopicIdByShortName(classTopic);
-
-                    if (topicId > int.MinValue)
+                    if (false == string.IsNullOrWhiteSpace(classTopic) && classTopic != "undefined" && classTopic != "null")
                     {
-                        topicArray.Add(topicId);
+                        int topicId = Objects.Topics.TopicIdByShortName(classTopic);
+
+                        if (topicId > int.MinValue)
+                        {
+                            topicArray.Add(topicId);
+                        }
                     }
                 }
 
@@ -104,7 +112,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
         protected void FilterByKeyword(ref List<LocationScheduleDetail> locationScheduleDetailList, SeminarsSearchRequest2 request)
         {
-            if (false == string.IsNullOrWhiteSpace(request.Keywords))
+            if (false == string.IsNullOrWhiteSpace(request.Keywords) && request.Keywords != "undefined" && request.Keywords != "null")
             {
                 string keywordsSearch = request.Keywords.ToLower();
 
