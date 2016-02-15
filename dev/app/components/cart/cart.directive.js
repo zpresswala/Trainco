@@ -34,16 +34,16 @@
       }
 
       vm.cartItemList = cartService.getCartItems() || [];
-      vm.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
       $scope.$on('cartUpdated', function(event, data) {
-       this.cartItemList = cartService.getCartItems() || [];
-      this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+       vm.cartItemList = cartService.getCartItems() || [];
+      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       });
 
       vm.removeItemFromCart = function(itemId) {
         cartService.removeItem(itemId);
-        vm.cartItemList = vm.cartService.getCartItems() || [];
+        vm.cartItemList = cartService.getCartItems() || [];
         vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       };
 
@@ -52,7 +52,7 @@
      * @param  {object} e the event
      * ng-keydown="searchInput.handleInput($event)"
      */
-    this.handleLocInput = function (e, cartItem, qty) {
+    vm.handleLocInput = function (e, cartItem, qty) {
       if (e.keyCode === 13) {
         cartService.addItem(cartItem);
         this.cartItemList = cartService.getCartItems() || [];

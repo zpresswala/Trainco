@@ -24,7 +24,10 @@
       }, 0) : 0;
       return parseFloat(totalPrice.toFixed(2));
     }
-
+    function receiveSeminarData(seminarsData) {
+      var seminarLocations = [];
+      vm.seminarLocations = seminarsData;
+    }
 
     vm.cartItemList = cartService.getCartItems() || [];
     vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
@@ -49,7 +52,7 @@
       .then(function(data) {
         $state.go('results')
         var seminarsData = data.data.seminars;
-        vm.receiveSeminarData(seminarsData);
+        receiveSeminarData(seminarsData);
         return seminarsData;
       });
     // End of the lovely on-load mess.
@@ -135,9 +138,9 @@
       var labelsArray = ['hvac', 'electrical', 'mechanical', 'management'];
       labelsArray.forEach(function(label, index) {
         if (data[label]) {
-          this['topicParam' + (index + 1)] = label + ',';
+          vm['topicParam' + (index + 1)] = label + ',';
         } else {
-          this['topicParam' + (index + 1)] = '';
+          vm['topicParam' + (index + 1)] = '';
         }
       });
       $log.debug('asdf')
@@ -182,10 +185,7 @@
       'name': 'December'
     }]
 
-    function receiveSeminarData(seminarsData) {
-      var seminarLocations = [];
-      vm.seminarLocations = seminarsData;
-    }
+
 
     function doParamSearch() {
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
@@ -203,7 +203,7 @@
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
-          vm.receiveSeminarData(seminarsData);
+          receiveSeminarData(seminarsData);
           return seminarsData;
         });
     }
