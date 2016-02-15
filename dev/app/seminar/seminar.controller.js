@@ -10,8 +10,8 @@
     var vm = this;
 
     vm.courseId = {};
-    vm.activate();
-    vm.requestSeminarData(courseSearch);
+
+    requestSeminarData(courseSearch);
 
   function calculateTotalPrice(itemList) {
     var totalPrice = itemList ? itemList.reduce(function (acc, item) {
@@ -61,7 +61,7 @@
 
       return courseSearch.getSeminars(classId).then(function(data) {
         var seminarsData = data.seminars[0];
-        vm.receiveSeminarData(seminarsData);
+        receiveSeminarData(seminarsData);
         return seminarsData;
       });
     }
