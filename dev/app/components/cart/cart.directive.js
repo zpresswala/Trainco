@@ -36,8 +36,8 @@
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
       $scope.$on('cartUpdated', function(event, data) {
-       vm.cartItemList = cartService.getCartItems() || [];
-      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+        vm.cartItemList = cartService.getCartItems() || [];
+        vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       });
 
       vm.removeItemFromCart = function(itemId) {
@@ -46,20 +46,19 @@
         vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       };
 
-   /**
-     * Handle key input
-     * @param  {object} e the event
-     * ng-keydown="searchInput.handleInput($event)"
-     */
-    vm.handleLocInput = function (e, cartItem, qty) {
-      if (e.keyCode === 13) {
-        cartService.addItem(cartItem);
-        this.cartItemList = cartService.getCartItems() || [];
-        this.cartTotalPrice = calculateTotalPrice(this.cartItemList);
+      /**
+       * Handle key input
+       * @param  {object} e the event
+       * ng-keydown="searchInput.handleInput($event)"
+       */
+      vm.handleQuantInput = function(e, cartItem, qty) {
+        if (e.keyCode === 13) {
+          $log.debug(cartItem.quantity)
+          cartService.updateCart(cartItem);
+          vm.cartItemList = cartService.getCartItems() || [];
+          vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+        }
       }
-    }
-
-
 
       vm.cartImages = {
         initial: '/assets/images/icon-cart-tab.png',
@@ -71,8 +70,7 @@
           vm.cartImages.current = vm.cartImages.initial
         } else if (vm.cartImages.current === vm.cartImages.initial) {
           vm.cartImages.current = vm.cartImages.final
-        }
-        ;
+        };
       };
 
       vm.doPurchase = function() {

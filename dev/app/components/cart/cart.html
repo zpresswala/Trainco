@@ -19,7 +19,7 @@
               <a href="javascript:void(0);" ng-click="vm.removeItemFromCart(cartItem.id)" class="remove">X Remove</a>
             </li>
             <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">
-              <input class="class-qty" ng-model="cartItem.quantity" string-to-number value="{{qty}}" ng-keydown="vm.handleLocInput($event, cartItem)" type="tel" min="0" name="qty">
+              <input class="class-qty" ng-model="cartItem.quantity" string-to-number value="{{qty}}" ng-keydown="vm.handleQuantInput($event, cartItem)" type="tel" min="0" name="qty">
             </li>
             <li class="sub-total col-xs-12 col-sm-4 col-md-1">
               ${{cartItem.price * cartItem.quantity}}

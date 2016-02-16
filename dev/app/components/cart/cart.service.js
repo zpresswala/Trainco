@@ -69,15 +69,28 @@
       window.localStorage.setItem('cartItemList', JSON.stringify(itemList)); // eslint-disable-line
     }
 
-    function updateCart(itemId, item, qty) {
-      var quantityInt = parseInt(qty);
-      var itemStr = localStorage.getItem('cartItemList'); // eslint-disable-line
+    function updateCart(item, qty) {
+      var itemStr = window.localStorage.getItem('cartItemList'); // eslint-disable-line
       var itemList = itemStr ? JSON.parse(itemStr) : []; // eslint-disable-line
-      var itemInCart = itemList.findIndex(function(item) {
-        return item.id === itemId;
+      var itemInCart = itemList.find(function(cartItem) {
+        return cartItem.id === item.id;
       });
-      itemInCart.quantity = qty;
-      itemList.push(item);
+
+      if (itemInCart) {
+        itemInCart.quantity = item.quantity;
+      } else {
+        itemList.push({
+          id: item.id,
+          title: item.title,
+          city: item.city,
+          state: item.state,
+          price: item.price,
+          date: item.date,
+          quantity: quantity
+        });
+      }
+
+      window.localStorage.setItem('cartItemList', JSON.stringify(itemList)); // eslint-disable-line
     }
 
     function removeItem(itemId) {
