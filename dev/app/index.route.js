@@ -39,12 +39,12 @@
         templateUrl: '/app/register/register.html'
       })
       .state('empty', {
-        url: '/results',
+        url: '',
         templateUrl: '/app/register/results/empty.html',
         parent: 'register'
       })
       .state('results', {
-        url: '/results',
+        url: '',
         templateUrl: '/app/register/results/results.html',
         parent: 'register'
       })
