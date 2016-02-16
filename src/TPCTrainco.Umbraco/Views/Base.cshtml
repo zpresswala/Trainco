@@ -8,6 +8,7 @@
     Layout = null;
 
     string cacheVer = "1.19";
+    string htmlArgs = "";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
@@ -44,6 +45,7 @@
 
     bool cartPage = false;
     bool checkoutPage = true;
+    bool searchPage = false;
 
     if (currentPage.DocumentTypeAlias == "HomePage")
     {
@@ -51,7 +53,8 @@
     }
     else if (currentPage.DocumentTypeAlias == "SearchSeminars")
     {
-        cartPage = true;
+        searchPage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "SeminarItem")
     {
@@ -83,15 +86,15 @@
 
         if (trackItemsList != null && trackItemsList.Count > 0)
         {
-            foreach(RegistrationTrackItem trackItem in trackItemsList)
+            foreach (RegistrationTrackItem trackItem in trackItemsList)
             {
                 trackItemListStr += "ga('ecommerce:addItem', {\r\n";
-                trackItemListStr += "\t'id': '"+ trackItem.RegistrationId + "',\r\n";
+                trackItemListStr += "\t'id': '" + trackItem.RegistrationId + "',\r\n";
                 trackItemListStr += "\t'name': '" + trackItem.Name + "',\r\n";
                 trackItemListStr += "\t'sku': '" + trackItem.Code + "',\r\n";
                 trackItemListStr += "\t'category': '" + trackItem.Category + "',\r\n";
                 trackItemListStr += "\t'price': '" + trackItem.Price.ToString("F2") + "',\r\n";
-                trackItemListStr += "\t'quantity': '"+ trackItem.Quantity + "'\r\n";
+                trackItemListStr += "\t'quantity': '" + trackItem.Quantity + "'\r\n";
                 trackItemListStr += "});\r\n";
             }
         }
@@ -105,7 +108,7 @@
         {
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
-                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString().Replace(",",""));
+                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString().Replace(",", ""));
 
                 clearSession = true;
             }
@@ -147,7 +150,7 @@
 
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"@Html.Raw(htmlArgs)>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -188,8 +191,16 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" type="text/css" href="/css/vendor.css?@cacheVer">
+
     <link rel="stylesheet" type="text/css" href="/css/main.css?@cacheVer">
+    @if (searchPage)
+    {
+        <link rel="stylesheet" type="text/css" href="//rawgithub.com/darthwade/angular-loading/master/angular-loading.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" type="text/css" href="/css/vendor.css?@cacheVer">
+    }
     <link href="//fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic" rel="stylesheet" type="text/css">
 
     @if (true == siteSettingsActive.HasValue("googleAnalyticsId"))
@@ -205,7 +216,7 @@
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', '@(siteSettingsActive.GetPropertyValue<string>("googleAnalyticsId"))', 'auto');
             ga('send', 'pageview');
-			ga('require', 'ecommerce');
+            ga('require', 'ecommerce');
         </script>
     }
 
@@ -234,9 +245,53 @@
     @Html.Partial("Navigation/Bottom")
 
     <script>var ApiDomain = 'http@(Request.IsSecureConnection ? "s" : "")://@(Request.Url.Authority)';</script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
-    @if (cartPage)
+    @if (false == searchPage)
+    {
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
+    }
+    @if (searchPage)
+    {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.4.9/angular-sanitize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-animate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
+        <script src="//rawgithub.com/darthwade/angular-loading/master/angular-loading.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="/app/angular-select2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
+
+
+          <!-- build:js({.tmp/serve,.tmp/partials}) scripts/app.js -->
+  <!-- inject:js -->
+        <script src="/app/index.module.js"></script>
+        <script src="/app/components/mainSearch/months.js"></script>
+        <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
+        <script src="/app/components/mainSearch/courseSearch.service.js"></script>
+        <script src="/app/components/mainSearch/cities.js"></script>
+        <script src="/app/components/footer/footer.directive.js"></script>
+        <script src="/app/components/cart/cart.service.js"></script>
+        <script src="/app/components/cart/cart.directive.js"></script>
+        <script src="/app/utils/stringToNumber.directive.js"></script>
+        <script src="/app/seminar/seminar.controller.js"></script>
+        <script src="/app/register/search.service.js"></script>
+        <script src="/app/register/register.controller.js"></script>
+        <script src="/app/main/loadingInterceptor.service.js"></script>
+        <script src="/app/index.run.js"></script>
+        <script src="/app/index.route.js"></script>
+        <script src="/app/index.config.js"></script>
+  <!-- endinject -->
+
+
+
+    }
+    else if (cartPage)
     {
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
@@ -249,17 +304,20 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
     }
-    <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
-    <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
-    <script type="text/javascript">
-        $(window).load(function () {
-            tpcAppObj = new TPCApp();
-        });
-        $('a[href^="#"]').click(function(e) {
-          e.preventDefault();
-          $(window).stop(true).scrollTo(this.hash, {offset: -100,duration:1000, interrupt:true});
-        });
-    </script>
+    @if (false == searchPage)
+    {
+        <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
+        <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                tpcAppObj = new TPCApp();
+            });
+            $('a[href^="#"]').click(function (e) {
+                e.preventDefault();
+                $(window).stop(true).scrollTo(this.hash, { offset: -100, duration: 1000, interrupt: true });
+            });
+        </script>
+    }
     @Html.Raw(pageFooterScript)
 </body>
 </html>
