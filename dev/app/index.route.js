@@ -44,7 +44,7 @@
         parent: 'register'
       })
       .state('results', {
-        url: '',
+        url: '/',
         templateUrl: '/app/register/results/results.html',
         parent: 'register'
       })
