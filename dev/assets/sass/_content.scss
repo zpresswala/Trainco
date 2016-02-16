@@ -1,10 +1,10 @@
 .headline-section {
-	background-image: url('/images/content-pg-header-small.jpg');
+	background-image: url('https://www.tpctrainco.com/images/content-pg-header-small.jpg');
 	background-position: center top;
 	background-repeat: no-repeat;
 	background-size: cover;
 	@include tablet-landscape-and-up {
-		background-image: url('/images/content-pg-header-large.jpg');
+		background-image: url('https://www.tpctrainco.com/images/content-pg-header-large.jpg');
 	}
 
 	.jumbotron {
@@ -39,8 +39,8 @@
 .text-wrap {
 	line-height: 1.7;
 	letter-spacing: 0.4px;
-	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-top: 40px;
+	margin-bottom: 40px;
 
 	.share-btn-wrap {
 		margin-bottom: 40px;
@@ -48,7 +48,7 @@
 
 	.row {
 		margin-top: 30px;
-		margin-bottom: 48px;
+		margin-bottom: 30px;
     padding-left: 15px;
     padding-right: 15px;
   }

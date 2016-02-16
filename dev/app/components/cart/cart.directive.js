@@ -60,12 +60,15 @@
         }
       }
 
+
       vm.cartImages = {
         initial: '/assets/images/icon-cart-tab.png',
         final: '/assets/images/icon-cart-close-arrow.png',
         current: '/assets/images/icon-cart-tab.png'
       };
+      vm.isActive = false;
       vm.swapHere = function() {
+          vm.isActive = !vm.isActive;
         if (vm.cartImages.current === vm.cartImages.final) {
           vm.cartImages.current = vm.cartImages.initial
         } else if (vm.cartImages.current === vm.cartImages.initial) {
@@ -98,7 +101,7 @@
 
         function _success(response) {
           var redirectGuid = response.cartGuid;
-          window.location.href = '/register/?cart=' + response.cartGuid;
+          $window.location.href = '/register/?cart=' + response.cartGuid;
         }
 
         function _error(err) {

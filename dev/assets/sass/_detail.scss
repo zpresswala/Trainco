@@ -1,50 +1,58 @@
 .register-link {
   font-weight: bold;
   color: #008FC7;
+}
 
-}
 .seminar-register {
-      @media screen and (max-width: 990px) {
-      float:none;
-      text-align: center !important;
-      margin: 0 auto;
-      padding-left: 30px;
-      }
+  @media screen and (max-width: 990px) {
+    float: none;
+    text-align: center !important;
+    margin: 0 auto;
+    padding-left: 30px;
+  }
 }
+
 .seminar-training {
   float: right;
-    @media screen and (max-width: 990px) {
-    float:none;
+
+  @media screen and (max-width: 990px) {
+    float: none;
     text-align: center!important;
     margin: 0 auto;
     padding-left: 30px;
-    }
+  }
 }
+
 .slider-wrap {
   @media screen and (max-width: 768px) {
     display: none;
   }
 }
+
 .seminar-detail-header {
   text-align: center;
   padding-top: 40px;
   margin-bottom: 0;
 }
+
 .course-col-header {
   padding-top: 50px;
   padding-bottom: 50px;
   position: relative;
   margin: 0 auto;
+
   .left-course-head {
     font-size: 17px;
     font-weight: 400;
   }
+
   .register-link {
     font-weight: bold;
     color: #008FC7;
     font-size: 15px;
   }
 }
+
 .location-row {
   font-size: 15px;
 
@@ -53,6 +61,7 @@
     font-style: italic;
   }
 }
+
 .seminar-detail {
   padding-top: 100px;
 
@@ -73,9 +82,11 @@
       float: right;
       margin-bottom: 30px;
       padding: 13px 10px;
-        @media (max-width : 992px) {
-          float: none;
-        }
+
+      @media (max-width : 992px) {
+        float: none;
+      }
+
       @include med-desktop-and-up {
         margin-right: -110px;
       }
@@ -181,6 +192,7 @@
     padding-left: 50px;
     padding-right: 50px;
   }
+
   rzslider {
     position: relative;
     display: inline-block;
@@ -326,5 +338,4 @@
     color: #4E4139;
     z-index: 10;
   }
-
 }
