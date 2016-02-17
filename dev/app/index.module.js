@@ -7,9 +7,9 @@
             'ngSanitize',
             'ui.router',
             'ui.bootstrap',
+            'selector',
             'rzModule',
             'ngStorage',
             'angular.filter',
-            'darthwade.loading',
-            'rt.select2']);
+            'darthwade.loading']);
 })();
