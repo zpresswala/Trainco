@@ -9,7 +9,7 @@
   function mainSearch() {
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/mainSearch/mainSearch.html',
+      templateUrl: '/app/components/mainSearch/mainSearch.html',
       scope: {},
       controller: MainSearchController,
       controllerAs: 'vm',
@@ -19,8 +19,9 @@
     return directive;
 
     /** @ngInject */
-    function MainSearchController($state, cities, months) {
+    function MainSearchController($state, cities, months, $localStorage, $scope) {
       var vm = this;
+      $scope.$storage = $localStorage;
       vm.cities = cities.getCities();
 
       vm.createFunction = function (input) {
