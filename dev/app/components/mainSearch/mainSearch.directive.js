@@ -19,7 +19,7 @@
     return directive;
 
     /** @ngInject */
-    function MainSearchController($state, cities) {
+    function MainSearchController($state, cities, months) {
       var vm = this;
       vm.cities = cities.getCities();
 
@@ -45,6 +45,18 @@
           stepsArray: 'JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEPT,OCT,NOV,DEC,JAN,FEB,MAR'.split(',')
         }
       };
+    var today = new Date();
+    var thisMonth = today.getMonth();
+    var thisYear = today.getFullYear();
+    var futureYear = today.getFullYear() + 1;
+    var futureMonth = today.getMonth();
+    var threeMore = thisMonth + 3;
+    var monthNames = months.getMonths() || [];
+
+    vm.startingMonthArray = monthNames.slice(thisMonth);
+    vm.yearOfMonths = months.getMonths();
+    var defStart = vm.startingMonthArray[0].value;
+    var defEnd = vm.startingMonthArray[3].value;
 
       vm.doParamSearch = function() {
         if (vm.classTopics.hvac === true) {
@@ -76,8 +88,8 @@
         localStorage.setItem('topicParam2', vm.topicParam2);
         localStorage.setItem('topicParam3', vm.topicParam3);
         localStorage.setItem('topicParam4', vm.topicParam4);
-        localStorage.setItem('minDateRange', minDateRange);
-        localStorage.setItem('maxDateRange', maxDateRange);
+        localStorage.setItem('minDateRange', defStart);
+        localStorage.setItem('maxDateRange', defEnd);
         $state.go('results');
       }
     }
