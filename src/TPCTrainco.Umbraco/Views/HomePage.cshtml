@@ -1,5 +1,7 @@
 ﻿@using TPCTrainco.Umbraco.Extensions
 @using TPCTrainco.Umbraco.Extensions.Helpers
+@using Umbraco.Web
+@using Umbraco.Core.Models
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
@@ -24,6 +26,10 @@
 </div>
 
 
+
+
+
+
 @Html.Partial("Promos/OnsitePromo", currentPage);
 
 @{
@@ -44,30 +50,30 @@
 
 @helper RenderSeminar(IPublishedContent section, bool displayOpposite = false)
 {
-    string headline = section.GetPropertyValue<string>("headline");
-    string message = section.GetPropertyValue<string>("description");
-    string iconUrl = section.GetCropUrl("icon", "Image");
-    IEnumerable<IPublishedContent> seminarNodeList = section.GetPropertyValue<IEnumerable<IPublishedContent>>("seminarLink");
+string headline = section.GetPropertyValue<string>("headline");
+string message = section.GetPropertyValue<string>("description");
+string iconUrl = section.GetCropUrl("icon", "Image");
+IEnumerable<IPublishedContent> seminarNodeList = section.GetPropertyValue<IEnumerable<IPublishedContent>>("seminarLink");
 
-    string cost = "";
-    string registerUrl = "#";
+string cost = "";
+string registerUrl = "#";
 
-    if (seminarNodeList != null && seminarNodeList.Count() > 0)
+if (seminarNodeList != null && seminarNodeList.Count() > 0)
+{
+    IPublishedContent seminarNode = seminarNodeList.First();
+
+    registerUrl = seminarNode.Url;
+
+    if (seminarNode.HasValue("courseLink"))
     {
-        IPublishedContent seminarNode = seminarNodeList.First();
-        
-        registerUrl = seminarNode.Url;
+        COURS course = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseList().Where(p => p.CourseID == seminarNode.GetPropertyValue<int>("courseLink")).FirstOrDefault();
 
-        if (seminarNode.HasValue("courseLink"))
+        if (course != null)
         {
-            COURS course = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseList().Where(p => p.CourseID == seminarNode.GetPropertyValue<int>("courseLink")).FirstOrDefault();
-
-            if (course != null)
-            {
-                cost = course.CourseFeeDescription.Replace(Environment.NewLine," / ").ToLower();
-            }
+            cost = course.CourseFeeDescription.Replace(Environment.NewLine, " / ").ToLower();
         }
     }
+}
 
     <div class="container-fluid img-with-text@(displayOpposite ? " offwhite-section" : "")">
         <div class="container">
@@ -84,4 +90,7 @@
             </div>
         </div>
     </div>
+
+
+
 }

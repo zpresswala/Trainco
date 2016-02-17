@@ -1,7 +1,8 @@
 ﻿
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
 @{
-    
+    IPublishedContent homePage = Model.AncestorsOrSelf(1).First();
+    IPublishedContent searchSeminarNode = Nodes.Instance.SeminarSearch;
 }
 <script type="text/template" id="classTemplate">
     <div class="result-description">

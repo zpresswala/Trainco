@@ -311,6 +311,7 @@
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Email.cs" />
+    <Compile Include="Helpers\GenerateJavascript.cs" />
     <Compile Include="Helpers\ImportRedirects.cs" />
     <Compile Include="Helpers\Nodes.cs" />
     <Compile Include="Helpers\RedirectHelper.cs" />
