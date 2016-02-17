@@ -6,9 +6,10 @@
     .controller('RegisterController', RegisterController);
 
   /** @ngInject */
-  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService, $loading, months, $document) {
+  function RegisterController($log, searchService, $localStorage, $http, $state, $rootScope, $scope, cartService, $loading, months, $document) {
     var vm = this;
     vm.dateRange = {};
+    $scope.$storage = $localStorage;
 
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
@@ -107,6 +108,7 @@
      */
     vm.handleLocInput = function(e) {
       if (e.keyCode === 13 && vm.locSearchFilter.location) {
+        vm.locSearchFilter.locationAll=false
         $rootScope.$broadcast('location', vm.locSearchFilter.location);
         doParamSearch();
       }
@@ -205,6 +207,7 @@
       labelsArray.forEach(function(label, index) {
         if (data[label]) {
           vm['topicParam' + (index + 1)] = label + ',';
+          vm.courseTopics.categories.all=false
         } else {
           vm['topicParam' + (index + 1)] = '';
         }
@@ -212,7 +215,9 @@
 
       doParamSearch();
     });
-
+    $scope.$watch('vm.locationParam', function() {
+      doParamSearch();
+    });
     //vm.months = months.getMonths();
     var today = new Date();
     var thisMonth = today.getMonth();
@@ -261,7 +266,7 @@
       var minDateRange = vm.dateRange.start || '01';
       var maxDateRange = vm.dateRange.end || '12';
       var radiusParam = vm.mileRange.value || '250';
-      //'keyword=' + keywordParam
+      // 'keyword=' + keywordParam
       $http.get(searchAPI +
         'keyword=' + vm.keywordParam +
         '&location=' + '' +

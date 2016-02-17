@@ -8,6 +8,7 @@
             'ui.router',
             'ui.bootstrap',
             'rzModule',
+            'ngStorage',
             'angular.filter',
             'darthwade.loading',
             'rt.select2']);

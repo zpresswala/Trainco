@@ -1,5 +1,5 @@
 <div class="register-cart-wrap" style="padding-top: 80px;">
-  <shopping-cart></shopping-cart>
+<shopping-cart></shopping-cart>
 </div>
 <div class="register-page">
   <div class="responsive-sidebar-toggle">
@@ -27,8 +27,7 @@
             <label class="sidebar-label">
               <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
-
+              <input type="checkbox" ng-init="register.courseTopics.categories.all=true" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
           </div>
         </div>
 
@@ -39,7 +38,7 @@
           <h5>- or -</h5>
           <div class="input-group">
             <span class="input-group-addon">
-              <input ng-model="register.locSearchFilter.locationAll" ng-change="register.stateChanged(register.locSearchFilter.locationAll)" type="checkbox" aria-label="...">All Locations
+              <input ng-model="register.locSearchFilter.locationAll" ng-init="register.locSearchFilter.locationAll=true" ng-change="register.stateChanged(register.locSearchFilter.locationAll)" type="checkbox">All Locations
             </span>
           </div>
         </div>
@@ -49,9 +48,10 @@
         <hr class="divider" />
         <label>Date Range</label>
         <h5>From</h5>
-        <select ng-model="register.dateRange.start" ng-options="month.val as month.name for month in register.months" ng-change="register.watcherOfThings()"></select>
+
+        <select ng-model="register.dateRange.start" ng-options="month.val as month.name for month in register.monthNames" ng-change="register.watcherOfThings()"></select>
         <h5>Through</h5>
-        <select ng-model="register.dateRange.end" ng-options="month.val as month.name for month in register.months" ng-change="register.watcherOfThings()"></select>
+        <select ng-model="register.dateRange.end" ng-options="month.val as month.name for month in register.monthNames" ng-change="register.watcherOfThings()"></select>
         <hr class="divider" />
         <label><span class="register-link" ng-click="register.clearFilters()">Clear Filters</span></label>
       </div>
