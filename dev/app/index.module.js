@@ -7,6 +7,7 @@
             'ngSanitize',
             'ui.router',
             'ui.bootstrap',
+            'selector',
             'rzModule',
             'ngStorage',
             'angular.filter',

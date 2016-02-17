@@ -13,6 +13,9 @@ html {
     top: 0;
     width: 100%
 }
+.hidden {
+  display: none;
+}
 body {
 	color: $body-copy;
 	font-weight: 400;

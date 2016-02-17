@@ -23,6 +23,13 @@
       var vm = this;
       vm.cities = cities.getCities();
 
+      vm.createFunction = function (input) {
+			// format the option and return it
+			return {
+				value: vm.cities.length,
+				label: input
+			};
+		};
 
       vm.classTopics = {};
       //Range slider with ticks and values

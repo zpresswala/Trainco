@@ -8,7 +8,7 @@
   /** @ngInject */
   function cities() {
     var data = [{
-      value: 'all',
+      value: ' ',
       label: 'All Locations'
     }, {
       value: 'Birmingham',
