@@ -1,15 +1,4 @@
-<div class="container-fluid intro-section">
-  <div class="jumbotron">
-    <h1>American Trainco is now TPC Trainco</h1>
-    <p>The leader in instructor-led maintenance training is now part of TPC's
-      <span style="text-decoration: underline;"><a href=
-      "/blog/american-trainco-announces-rebranding-as-part-of-tpc-training-systems/">
-      total training solution.</a></span></p>
-    <h3><br>
-      <span style="text-decoration: underline;"><a href=
-      "/public-seminars/course-catalog/">Browse our catalog of 4,181 upcoming
-      seminars.</a></span></h3>
-  </div>
+
   <div class="row">
     <div class="col-md-11 topic-circles">
       <h3>Select one or more topics and choose your location</h3>
@@ -63,12 +52,7 @@
 			placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations'"
 			create="vm.createFunction(input)">
     </select>
-
-      <!-- <select2 ng-model="vm.courseSearch.location" s2-options="city.value as city.label for city in vm.cities" data-placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations' "></select2> -->
       <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
       <a class="btn-reg btn-white" type="submit" ng-click="vm.doParamSearch(vm.course.classTopics)" id="search-btn" role="button">Search</a>
-      <!-- end new -->
     </div>
   </div>
-  <!-- </div> -->
-</div>
