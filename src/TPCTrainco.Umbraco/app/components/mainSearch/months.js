@@ -2,54 +2,36 @@
   'use strict';
 
   angular
-      .module('train')
-      .service('months', months);
+    .module('train')
+    .service('months', months);
 
   /** @ngInject */
   function months() {
-    var data = [{
-      'val': '01',
-      'name': 'January'
-    }, {
-      'val': '02',
-      'name': 'February'
-    }, {
-      'val': '03',
-      'name': 'March'
-    }, {
-      'val': '04',
-      'name': 'April'
-    }, {
-      'val': '05',
-      'name': 'May'
-    }, {
-      'val': '06',
-      'name': 'June'
-    }, {
-      'val': '07',
-      'name': 'July'
-    }, {
-      'val': '08',
-      'name': 'August'
-    }, {
-      'val': '09',
-      'name': 'September'
-    }, {
-      'val': '10',
-      'name': 'October'
-    }, {
-      'val': '11',
-      'name': 'November'
-    }, {
-      'val': '12',
-      'name': 'December'
-    }]
-
 
     this.getMonths = getMonths;
 
-    function getMonths() {
-      return data;
+    function getMonths(data) {
+      var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      months = [];
+      var i;
+      for (i = 1; i <= 12; i++) {
+        if (i <= 9) {
+          var val = '0' + i;
+        } else {
+          var val = i;
+        }
+        months.push({
+          name: monthNames[i - 1],
+          value: val
+        });
+      }
+      if (data) {
+        var n = data.length;
+        for (j = n - 1; j >= 0; j--) {
+          months.splice(parseInt(data[j]), 1);
+        }
+      }
+      return months;
     }
   }
 
