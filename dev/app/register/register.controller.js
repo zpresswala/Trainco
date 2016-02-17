@@ -110,7 +110,7 @@
       if (e.keyCode === 13 && vm.locSearchFilter.location) {
         vm.locSearchFilter.locationAll=false
         $rootScope.$broadcast('location', vm.locSearchFilter.location);
-        doParamSearch();
+       doParamSearch();
       }
     }
 
@@ -121,7 +121,6 @@
     vm.handleKWInput = function(e) {
       if (e.keyCode === 13 && vm.kwFilter.word) {
         $rootScope.$broadcast('keyword', vm.kwFilter.word);
-      //  this.doParamSearch();
       }
     }
     // Listens for a broadcast that says 'location'
@@ -133,7 +132,7 @@
     // runs the doParamSearch function.
     $scope.$on('keyword', function(event, data) {
       vm.keywordParam = data;
-      doKWParamSearch();
+     doKWParamSearch();
     });
     vm.hideRadius = false;
     /**
@@ -156,7 +155,7 @@
       }
     }
     vm.watcherOfThings = function() {
-      doParamSearch();
+     doParamSearch();
     }
 
     /**
@@ -213,29 +212,23 @@
         }
       });
 
-      doParamSearch();
+     doParamSearch();
     });
     $scope.$watch('vm.locationParam', function() {
-      doParamSearch();
+     doParamSearch();
     });
+
     //vm.months = months.getMonths();
     var today = new Date();
     var thisMonth = today.getMonth();
     var thisYear = today.getFullYear();
     var futureYear = today.getFullYear() + 1;
     var futureMonth = today.getMonth();
-    vm.monthNames = months.getMonths();
-    // var i;
-    // for (i = 0; i < 12; i++) {
-    //   $log.debug(vm.monthNames[thisMonth]);
-    //   thisMonth++;
-    //   if (thisMonth > 11) {
-    //     thisMonth = 0;
-    //   }
-    // }
 
-    // $log.debug(vm.monthNames)
-    // $log.debug('Today ', vm.monthNames[thisMonth], thisMonth, thisYear, futureMonth, futureYear);
+    var monthNames = months.getMonths() || [];
+
+    vm.startingMonthArray = monthNames.slice(thisMonth);
+    vm.yearOfMonths = months.getMonths();
 
     function doParamSearch() {
       $loading.start('courses');
@@ -244,6 +237,12 @@
       var maxDateRange = vm.dateRange.end || '12';
       var radiusParam = vm.mileRange.value || '250';
       var locParam = vm.locationParam || '';
+
+      function checkYear() {
+        if (vm.dateRange.start >= vm.dateRange.end) {
+          return 2017;
+        }
+      }
       //'keyword=' + keywordParam
       $http.get(searchAPI +
         // 'keyword=' + this.keywordParam +
@@ -251,7 +250,7 @@
         '&radius=' + radiusParam +
         '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
         '&date-start=' + minDateRange + '-01-' + thisYear +
-        '&date-end=' + maxDateRange + '-01-' + thisYear)
+        '&date-end=' + maxDateRange + '-01-' + checkYear())
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
@@ -273,7 +272,7 @@
         '&radius=' + radiusParam +
         '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
         '&date-start=' + minDateRange + '-01-2016' +
-        '&date-end=' + maxDateRange + '-01-2016')
+        '&date-end=' + maxDateRange + '-01-' + checkYear())
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
