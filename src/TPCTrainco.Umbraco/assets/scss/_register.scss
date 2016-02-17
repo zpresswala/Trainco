@@ -1,7 +1,9 @@
 .form-control {
 	border: 1px solid $cart-border;
 }
-
+.register-cart-wrap {
+  padding-top: 80px;
+}
 .register-top {
 	background-color: #f1f1f1;
 	padding-bottom: 20px;
@@ -13,7 +15,7 @@
 			&:before, &:after {
 				content: none;
 			}
-		}	
+		}
 	}
 
 	.container {
@@ -30,7 +32,7 @@
 	margin: 0 auto;
 	position: relative;
 	display: inline-block;
-	padding: 0; 
+	padding: 0;
 
 	li {
 		float: left;
@@ -213,12 +215,12 @@ input[type=checkbox] {
 }
 
 input[type=checkbox] + label:before {
-    content: "";  
-    display: block;  
-    width: 20px;  
-    height: 20px;   
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
     background-color: $white;
-    border-radius: 3px; 
+    border-radius: 3px;
     border: 1px solid $cart-border;
     position: absolute;
     left: 14px;
@@ -228,7 +230,7 @@ input[type=checkbox] + label:before {
 
 input[type=checkbox]:checked + label:before {
 	content:"\2713";
-	color: $blue; 
+	color: $blue;
 	text-align:center;
 	line-height:17px;
     text-shadow:0px 0px 3px #eee;
@@ -338,7 +340,7 @@ input[type=checkbox]:checked + label:before {
 		padding: 0;
 	}
 	h2 {
-		
+
 		margin-bottom: 5px;
 		@include tablet-portrait-and-up {
 			margin-top: 0;

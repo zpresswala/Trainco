@@ -130,7 +130,7 @@
       vm.keywordParam = data;
       doKWParamSearch();
     });
-
+vm.hideRadius = false;
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function
@@ -138,10 +138,12 @@
      */
     vm.stateChanged = function() {
       if (vm.locSearchFilter.locationAll) {
+
         $rootScope.$broadcast('location', vm.locSearchFilter.locationAll);
         $http.get(searchAPI + 'location= ')
           .then(function(data) {
             $state.go('results');
+            vm.hideRadius = true;
             var seminarsData = data.data.seminars;
             vm.receiveSeminarData(seminarsData);
             return seminarsData;
@@ -172,7 +174,8 @@
         }
       }
     }
-    vm.courseSearch = searchService;
+
+
     vm.categories = {
       hvac: true,
       electrical: true,
@@ -239,8 +242,8 @@
           'location=' + locParam +
           '&radius=' + radiusParam +
           '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
-          '&date-start=' + minDateRange + '-01-2016' +
-          '&date-end=' + maxDateRange + '-01-2016')
+          '&date-start=' + minDateRange + '-01-' + thisYear +
+          '&date-end=' + maxDateRange + '-01-' + thisYear)
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
@@ -271,9 +274,11 @@
         });
     }
 
-    function clearFilters($state) {
+    vm.clearFilters = function($state) {
       localStorage.clear();
-      vm.doParamSearch();
+      vm.courseTopics.categories = [];
+      vm.locSearchFilter.locationAll = [];
+      // doParamSearch();
     }
   }
 })();
