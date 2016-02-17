@@ -104,8 +104,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     }
                 }
 
-                courseDetailList = courseDetailList.Where(p => topicArray.Any(r => r == p.TopicId)).ToList();
-                locationScheduleDetailList = locationScheduleDetailList.Where(p => topicArray.Any(r => r == p.TopicId)).ToList();
+                if (topicArray.Count > 0)
+                {
+                    courseDetailList = courseDetailList.Where(p => topicArray.Any(r => r == p.TopicId)).ToList();
+                    locationScheduleDetailList = locationScheduleDetailList.Where(p => topicArray.Any(r => r == p.TopicId)).ToList();
+                }
             }
         }
 
