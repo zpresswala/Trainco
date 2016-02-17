@@ -6,7 +6,7 @@
     .controller('RegisterController', RegisterController);
 
   /** @ngInject */
-  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService, $loading, months) {
+  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService, $loading, months, $document) {
     var vm = this;
     vm.dateRange = {};
 
@@ -30,6 +30,7 @@
       vm.seminarLocations = seminarsData;
     }
 
+    // $loading spinner options
     vm.options = {
       text: 'Loading...',
       overlay: true, // Display overlay
@@ -71,32 +72,33 @@
     var maxDateRange = localStorage.getItem('maxDateRange');
 
     vm.searchData = $http.get(searchAPI +
-        'location=' + location +
-        '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
-        '&date-start=' + minDateRange + '-01-2016' +
-        '&date-end=' + maxDateRange + '-01-2016')
+      'location=' + location +
+      '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
+      '&date-start=' + minDateRange + '-01-2016' +
+      '&date-end=' + maxDateRange + '-01-2016')
       .then(function(data) {
         $state.go('results')
         var seminarsData = data.data.seminars;
         receiveSeminarData(seminarsData);
         return seminarsData;
       });
-    // End of the lovely on-load mess.
-    // ----------------------------------------------
+      // End of the lovely on-load mess.
+      // ----------------------------------------------
 
+    /**
+     * adds item to the cart or updates the quantity
+     * @method function
+     * @param  {object} item the item and its properties
+     * @param  {int} qty  how many attendees
+     * @return {array}      returns the updated cartItemList
+     */
     vm.addItemToCart = function(item, qty) {
-
       cartService.addItem(item, qty);
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
     };
 
-    vm.removeItemFromCart = function(itemId) {
-      cartService.removeItem(itemId);
-      vm.cartItemList = vm.cartService.getCartItems() || [];
-      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-    };
 
     /**
      * Handle location input
@@ -115,22 +117,23 @@
      * @param  {object} e the event
      */
     vm.handleKWInput = function(e) {
-        if (e.keyCode === 13 && vm.kwFilter.word) {
-          $rootScope.$broadcast('keyword', vm.kwFilter.word);
-          //  this.doParamSearch();
-        }
+      if (e.keyCode === 13 && vm.kwFilter.word) {
+        $rootScope.$broadcast('keyword', vm.kwFilter.word);
+      //  this.doParamSearch();
       }
-      // Listens for a broadcast that says 'location'
+    }
+    // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
     });
+
     // Listens for a broadcast saying keyword and then
     // runs the doParamSearch function.
     $scope.$on('keyword', function(event, data) {
       vm.keywordParam = data;
       doKWParamSearch();
     });
-vm.hideRadius = false;
+    vm.hideRadius = false;
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function
@@ -238,12 +241,12 @@ vm.hideRadius = false;
       var locParam = vm.locationParam || '';
       //'keyword=' + keywordParam
       $http.get(searchAPI +
-          // 'keyword=' + this.keywordParam +
-          'location=' + locParam +
-          '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
-          '&date-start=' + minDateRange + '-01-' + thisYear +
-          '&date-end=' + maxDateRange + '-01-' + thisYear)
+        // 'keyword=' + this.keywordParam +
+        'location=' + locParam +
+        '&radius=' + radiusParam +
+        '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
+        '&date-start=' + minDateRange + '-01-' + thisYear +
+        '&date-end=' + maxDateRange + '-01-' + thisYear)
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
@@ -260,12 +263,12 @@ vm.hideRadius = false;
       var radiusParam = vm.mileRange.value || '250';
       //'keyword=' + keywordParam
       $http.get(searchAPI +
-          'keyword=' + vm.keywordParam +
-          '&location=' + '' +
-          '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
-          '&date-start=' + minDateRange + '-01-2016' +
-          '&date-end=' + maxDateRange + '-01-2016')
+        'keyword=' + vm.keywordParam +
+        '&location=' + '' +
+        '&radius=' + radiusParam +
+        '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
+        '&date-start=' + minDateRange + '-01-2016' +
+        '&date-end=' + maxDateRange + '-01-2016')
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
@@ -278,7 +281,8 @@ vm.hideRadius = false;
       localStorage.clear();
       vm.courseTopics.categories = [];
       vm.locSearchFilter.locationAll = [];
-      // doParamSearch();
+      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0
+      doParamSearch();
     }
   }
 })();
