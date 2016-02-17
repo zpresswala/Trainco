@@ -11,6 +11,5 @@
             'rzModule',
             'ngStorage',
             'angular.filter',
-            'darthwade.loading',
-            'rt.select2']);
+            'darthwade.loading']);
 })();
