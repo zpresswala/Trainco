@@ -73,6 +73,9 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 {
                     LocationSchedule locationSchedule = new LocationSchedule();
 
+                    locationScheduleDetail.SeminarId = seminar.Id;
+                    locationScheduleDetail.SeminarTitle = seminar.Title;
+
                     locationSchedule = ConvertLocationScheduleToViewModel(locationScheduleDetail);
 
                     seminar.LocationSchedules.Add(locationSchedule);
@@ -211,6 +214,9 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             result.Date = locationScheduleDetail.Date;
             result.Price = locationScheduleDetail.Price;
             //result.Description = locationScheduleDetail.Description;
+
+            result.SeminarId = locationScheduleDetail.SeminarId;
+            result.SeminarTitle = locationScheduleDetail.SeminarTitle;
 
             return result;
         }

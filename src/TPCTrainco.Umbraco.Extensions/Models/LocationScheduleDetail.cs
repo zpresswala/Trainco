@@ -27,5 +27,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string Date { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
+
+        public long SeminarId { get; set; }
+        public string SeminarTitle { get; set; }
     }
 }

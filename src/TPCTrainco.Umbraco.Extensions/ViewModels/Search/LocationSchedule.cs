@@ -21,5 +21,8 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels.Search
         public string DaysDescription { get; set; }
         public string Date { get; set; }
         public double Price { get; set; }
+
+        public long SeminarId { get; set; }
+        public string SeminarTitle { get; set; }
     }
 }
