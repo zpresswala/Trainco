@@ -6,7 +6,7 @@
     .controller('RegisterController', RegisterController);
 
   /** @ngInject */
-  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService, $loading) {
+  function RegisterController($log, searchService, $http, $state, $rootScope, $scope, cartService, $loading, months) {
     var vm = this;
     vm.dateRange = {};
 
@@ -99,7 +99,7 @@
     };
 
     /**
-     * Handle key input
+     * Handle location input
      * @param  {object} e the event
      * @return {method}
      */
@@ -111,7 +111,7 @@
     }
 
     /**
-     * Handle key input
+     * Handle kewword input
      * @param  {object} e the event
      */
     vm.handleKWInput = function(e) {
@@ -207,43 +207,24 @@
       doParamSearch();
     });
 
-    vm.months = [{
-      'val': '01',
-      'name': 'January'
-    }, {
-      'val': '02',
-      'name': 'February'
-    }, {
-      'val': '03',
-      'name': 'March'
-    }, {
-      'val': '04',
-      'name': 'April'
-    }, {
-      'val': '05',
-      'name': 'May'
-    }, {
-      'val': '06',
-      'name': 'June'
-    }, {
-      'val': '07',
-      'name': 'July'
-    }, {
-      'val': '08',
-      'name': 'August'
-    }, {
-      'val': '09',
-      'name': 'September'
-    }, {
-      'val': '10',
-      'name': 'October'
-    }, {
-      'val': '11',
-      'name': 'November'
-    }, {
-      'val': '12',
-      'name': 'December'
-    }]
+    //vm.months = months.getMonths();
+    var today = new Date();
+    var thisMonth = today.getMonth();
+    var thisYear = today.getFullYear();
+    var futureYear = today.getFullYear() + 1;
+    var futureMonth = today.getMonth();
+    vm.monthNames = months.getMonths();
+    // var i;
+    // for (i = 0; i < 12; i++) {
+    //   $log.debug(vm.monthNames[thisMonth]);
+    //   thisMonth++;
+    //   if (thisMonth > 11) {
+    //     thisMonth = 0;
+    //   }
+    // }
+
+    // $log.debug(vm.monthNames)
+    // $log.debug('Today ', vm.monthNames[thisMonth], thisMonth, thisYear, futureMonth, futureYear);
 
     function doParamSearch() {
       $loading.start('courses');

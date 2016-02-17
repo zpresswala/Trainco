@@ -1,4 +1,6 @@
+<div style="padding-top:80px">
 <shopping-cart></shopping-cart>
+</div>
 <div class="register-page">
   <div class="responsive-sidebar-toggle">
     <img class="img-left" src="/assets/images/icon-search.png" alt="Search Icon" /> Search By
@@ -47,14 +49,15 @@
         <hr class="divider" />
         <label>Date Range</label>
         <h5>From</h5>
-        <select ng-model="register.dateRange.start" ng-options="month.val as month.name for month in register.months" ng-change="register.watcherOfThings()"></select>
+
+        <select ng-model="register.dateRange.start" ng-options="month.val as month.name for month in register.monthNames" ng-change="register.watcherOfThings()"></select>
         <h5>Through</h5>
-        <select ng-model="register.dateRange.end" ng-options="month.val as month.name for month in register.months" ng-change="register.watcherOfThings()"></select>
+        <select ng-model="register.dateRange.end" ng-options="month.val as month.name for month in register.monthNames" ng-change="register.watcherOfThings()"></select>
         <hr class="divider" />
         <label><span class="register-link" ng-click="register.clearFilters()">Clear Filters</span></label>
       </div>
       <div class="col-md-9" class="search-results">
-        
+
         <div ui-view></div>
       </div>
     </div>

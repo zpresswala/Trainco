@@ -6,10 +6,9 @@
     .factory('cartService', cartService);
 
   /** @ngInject */
-  function cartService($log) {
+  function cartService($log, $window) {
 
     var service = {
-      loadItems: loadItems,
       getCartItems: getCartItems,
       addItem: addItem,
       updateCart: updateCart,
@@ -18,46 +17,47 @@
     };
 
     return service;
-    // TODO: Merge objects that are common on add to cart.
-    function loadItems() {
-      var items = localStorage != null ? localStorage['cartItemList'] : null;
-      if (items != null && JSON != null) {
-        try {
-          var items = JSON.parse(items); //eslint-disable-line
-          for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            if (item.id != null && item.title != null && item.price != null && item.quantity != null) {
-              item = new cartItem(item.id, item.name, item.price, item.quantity);
-              this.items.push(item);
-            }
-          }
-        } catch (err) {
-          // ignore errors while loading...
-        }
-      }
-    }
 
     function getCartItems() {
       var itemList = window.localStorage.getItem('cartItemList'); // eslint-disable-line
       return itemList && JSON.parse(itemList); // eslint-disable-line
     }
 
-    function addItem(item, qty) {
+    function getItemById(itemId) {
+      var items = getCartItems();
+      var foundInCart = false;
 
+      angular.forEach(items, function(item) {
+        if (item.id === itemId) {
+          foundInCart = item;
+        }
+      });
+      return foundInCart;
+    };
+
+    function addItem(item, qty) {
+      var id = item.id;
+      var itemInCart = getItemById(id);
+      $log.debug('1' + itemInCart);
+      // var itemInCart = {};
       var itemStr = window.localStorage.getItem('cartItemList'); // eslint-disable-line
       var itemList = itemStr ? JSON.parse(itemStr) : []; // eslint-disable-line
-      $log.debug(itemList)
-      var itemInCart = itemList.forEach(function(item, index) {
-        return itemInCart;
-      });
-
-      if (itemInCart) {
-
-        itemInCart.quantity = qty;
+      if (angular.isObject(itemInCart)) {
+        var additionalAttendees = parseInt(qty);
+        var currentAttendees = parseInt(itemInCart.quantity);
+        $log.debug('inCart.quantity: the LS ' + currentAttendees);
+        $log.debug('quantityInt: is the additional ' + additionalAttendees);
+        var updatedAttendees = currentAttendees += additionalAttendees;
+        itemInCart.quantity = updatedAttendees;
+        itemList.find(function(itemInCart) {
+          itemList['item'] = itemInCart;
+          localStorage['cartItemList'] = itemList;
+          return itemInCart.quantity = updatedAttendees;
+        });
       } else {
         itemList.push({
           id: item.id,
-          title: item.daysDescription,
+          title: item.title,
           city: item.city,
           state: item.state,
           price: item.price,
@@ -65,6 +65,7 @@
           quantity: qty
         });
       }
+
 
       window.localStorage.setItem('cartItemList', JSON.stringify(itemList)); // eslint-disable-line
     }
@@ -90,7 +91,7 @@
         });
       }
 
-      window.localStorage.setItem('cartItemList', JSON.stringify(itemList)); // eslint-disable-line
+      localStorage.setItem('cartItemList', JSON.stringify(itemList)); // eslint-disable-line
     }
 
     function removeItem(itemId) {
