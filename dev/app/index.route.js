@@ -13,28 +13,33 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider) {
+  function routerConfig($stateProvider, $locationProvider) {
     $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: 'app/main/main.html'
-      })
+    // .state('home', {
+    //   url: '/',
+    //   templateUrl: 'app/main/main.html'
+    // })
       .state('register', {
-        url: '/register',
+        url: '/search-seminars',
         controller: 'RegisterController',
         controllerAs: 'register',
-        templateUrl: 'app/register/register.html'
+        templateUrl: '/app/register/register.html'
       })
       .state('empty', {
-        url: '/results',
-        templateUrl: 'app/register/results/empty.html',
+        url: '',
+        templateUrl: '/app/register/results/empty.html',
         parent: 'register'
       })
       .state('results', {
-        url: '/results',
-        templateUrl: 'app/register/results/results.html',
+        url: '/',
+        templateUrl: '/app/register/results/results.html',
         parent: 'register'
       })
+
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
   }
 
 })();

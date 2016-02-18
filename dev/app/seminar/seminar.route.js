@@ -13,13 +13,18 @@
     .config(seminarRoutes);
 
   /** @ngInject */
-  function seminarRoutes($stateProvider) {
+  function seminarRoutes($stateProvider, $locationProvider) {
     $stateProvider
       .state('seminars', {
-        templateUrl: 'app/seminar/seminar.html',
+        // url: '/',
+        templateUrl: '/app/seminar/seminar.html',
         controller: 'SeminarController',
         controllerAs: 'seminar'
-      })
+      });
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
   }
 
 })();
