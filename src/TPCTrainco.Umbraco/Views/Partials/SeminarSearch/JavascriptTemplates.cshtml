@@ -1,4 +1,6 @@
-﻿
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using Umbraco.Web
+@using Umbraco.Core.Models
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
 @{
     IPublishedContent homePage = Model.AncestorsOrSelf(1).First();

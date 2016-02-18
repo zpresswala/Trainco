@@ -250,7 +250,7 @@
     @Html.Partial("Navigation/Bottom")
 
     <script>var ApiDomain = 'http@(Request.IsSecureConnection ? "s" : "")://@(Request.Url.Authority)';</script>
-    @if (false == searchPage)
+    @if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
