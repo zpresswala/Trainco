@@ -57,7 +57,7 @@
       } else {
         itemList.push({
           id: item.id,
-          title: item.title,
+          title: item.daysDescription,
           city: item.city,
           state: item.state,
           price: item.price,
@@ -82,7 +82,7 @@
       } else {
         itemList.push({
           id: item.id,
-          title: item.title,
+          title: item.daysDescription,
           city: item.city,
           state: item.state,
           price: item.price,

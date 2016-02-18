@@ -6,7 +6,7 @@
     .controller('MainSearchController', MainSearchController);
 
   /** @ngInject */
-  function MainSearchController($state, cities, months, $localStorage, $scope) {
+  function MainSearchController($location, cities, months, $localStorage, $scope) {
     var vm = this;
     vm.$storage = $localStorage;
 
@@ -80,7 +80,7 @@
       vm.$storage.SearchDRmin = defStart;
       vm.$storage.SearchDRmax = defEnd;
 
-      $state.go('register');
+      $location.path('/search-seminars/');
     }
   }
 })();

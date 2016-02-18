@@ -13,7 +13,7 @@
       // 'train.seminar',
       'ngAnimate',
       'ngSanitize',
-      'ui.router',
+      // 'ui.router',
       'ui.bootstrap',
       'selector',
       'rzModule',
@@ -22,7 +22,6 @@
       'darthwade.loading'
     ])
     .config(configure)
-    .run(runBlock)
     .animation('.slide-toggle', ['$animateCss', function($animateCss) {
       var lastId = 0;
       var _cache = {};
@@ -137,49 +136,21 @@
           doneFn();
         }
       };
-    }])
-
+    }]);
 
   /** @ngInject */
-  function configure($logProvider, $httpProvider, $urlRouterProvider, $localStorageProvider, $locationProvider) {
+  function configure($logProvider, $httpProvider, $localStorageProvider, $locationProvider) {
     /**
      * @ngdoc function
      * @name  config
      * @description
      * main configuration for trainco app.
      */
-          $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-          });
+    // $locationProvider.html5Mode(true);
     $logProvider.debugEnabled(true);
     $localStorageProvider.setKeyPrefix('tpc');
-      $urlRouterProvider.when('', '/');
-      $urlRouterProvider.otherwise('/');
+    // Expose XHR requests to server
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   }
 
-    /** @ngInject */
-    function runBlock($log, $rootScope, $state, $stateParams, $timeout) {
-      $rootScope.$state = $state;
-      $rootScope.$stateParams = $stateParams;
-
-      $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) { //eslint-disable-line
-        $state.previous = _.clone($state);
-        $state.toState = toState;
-        $state.toParams = toParams;
-        $state.fromState = fromState;
-        $state.fromParams = fromParams;
-      });
-
-      $rootScope.$on('$stateChangeSuccess', function(e, toState, toParams, fromState, fromParams) {//eslint-disable-line
-        $timeout(function() {
-          $rootScope.$emit('$stateChangeRender');
-        });
-      });
-
-      $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {//eslint-disable-line
-        /*eslint no-console:0 */
-        console.log.bind(console)
-      })
-    }
 })();

@@ -35,11 +35,16 @@
         templateUrl: '/app/register/results/results.html',
         parent: 'register'
       })
-
-    $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
-    });
+      .state('seminar', {
+        url: '/seminar',
+        controller: 'SeminarController',
+        controllerAs: 'seminar',
+        templateUrl: '/app/seminar/seminar.html'
+      })
+    // $locationProvider.html5Mode({
+    //   enabled: true,
+    //   requireBase: false
+    // });
   }
 
 })();

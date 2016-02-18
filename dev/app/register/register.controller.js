@@ -65,7 +65,7 @@
           cache: true
         })
         .then(function(data) {
-          var seminarsData = data.data.seminars;
+          var seminarsData = data.seminars;
           receiveSeminarData(seminarsData);
           return seminarsData;
         });
