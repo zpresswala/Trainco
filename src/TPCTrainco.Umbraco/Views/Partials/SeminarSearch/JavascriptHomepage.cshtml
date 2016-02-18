@@ -30,7 +30,7 @@
 
     }
 }
-@*<script type="text/ng-template" id="MainSearchTemplate">
+<script type="text/ng-template" id="./mainSearch.html">
     <div ng-controller="MainSearchController as vm">
 
         <div class="row">
@@ -66,7 +66,7 @@
                         {
                             dataTopic = "mechanical";
                         }
-                        <li class="seminar-topic" id="electricalWrap">
+                        <li class="seminar-topic" id="@(dataTopic)Wrap">
 
                             <input id="@(dataTopic)Check" type="checkbox" name="@(dataTopic)Check" ng-model="vm.classTopics.@(dataTopic)">
                             <label class="checkbox-inline" for="@(dataTopic)Check"></label>
@@ -88,4 +88,4 @@
             </div>
         </div>
     </div>
-</script>*@
+</script>
