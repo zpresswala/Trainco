@@ -137,7 +137,8 @@
           doneFn();
         }
       };
-    }]);
+    }])
+
 
   /** @ngInject */
   function configure($logProvider, $httpProvider, $urlRouterProvider, $localStorageProvider, $locationProvider) {
@@ -153,6 +154,8 @@
           });
     $logProvider.debugEnabled(true);
     $localStorageProvider.setKeyPrefix('tpc');
+      $urlRouterProvider.when('', '/');
+      $urlRouterProvider.otherwise('/');
   }
 
     /** @ngInject */

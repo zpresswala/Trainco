@@ -1,5 +1,5 @@
 <!-- Search Results -->
-<div ng-repeat="course in vm.seminarLocations | flatten" class="faceted-result" dw-loading="courses" dw-loading-options="vm.options">
+<div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result" dw-loading="courses" dw-loading-options="register.options">
   <section class="row">
     <div class="col-md-2">
       <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
@@ -28,7 +28,7 @@
       </div>
       <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
         <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="tel" min="1" class="" name="qty">
-        <input id="cart-btn" class="btn btn-reg btn-blue-solid" ng-disabled="vm.isDisabled" ng-show="qty > 0" ng-click="vm.addItemToCart(location, qty)" type="button" name="name" value="Add to Cart">
+        <input id="cart-btn" class="btn btn-reg btn-blue-solid" ng-disabled="register.isDisabled" ng-show="qty > 0" ng-click="register.addItemToCart(location, qty)" type="button" name="name" value="Add to Cart">
       </div>
     </div>
   </section>

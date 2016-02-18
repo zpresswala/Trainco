@@ -80,7 +80,7 @@
       vm.$storage.SearchDRmin = defStart;
       vm.$storage.SearchDRmax = defEnd;
 
-      $state.go('results');
+      $state.go('register');
     }
   }
 })();
