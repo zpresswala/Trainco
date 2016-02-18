@@ -169,6 +169,7 @@
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
     <link rel="canonical" href="@(canonical)" />
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com/">
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@htmlTitle - @siteName" />
@@ -194,7 +195,6 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link href="/images/favicon.ico" rel="shortcut icon">
-    <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -261,17 +261,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.4.0/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.4.9/angular-sanitize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-animate.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
-        <script src="//rawgithub.com/darthwade/angular-loading/master/angular-loading.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
+        <script src="http://rawgithub.com/darthwade/angular-loading/master/angular-loading.min.js"></script>
 
-        <script src="//cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.js"></script>
+        <script src="http://cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.js"></script>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
@@ -288,11 +287,9 @@
         <script src="/app/seminar/seminar.controller.js"></script>
         <script src="/app/register/search.service.js"></script>
         <script src="/app/register/register.controller.js"></script>
-        <script src="/app/index.route.js"></script>
 
         if (seminarDetailPage)
         {
-            <script src="/app/seminar/seminar.route.js"></script>
             <script src="/app/seminar/seminar.controller.js"></script>
         }
 

@@ -80,7 +80,7 @@
       vm.$storage.SearchDRmin = defStart;
       vm.$storage.SearchDRmax = defEnd;
 
-      $location.path('/search-seminars/');
+      window.location.href = '/search-seminars';
     }
   }
 })();

@@ -13,7 +13,9 @@
       // 'train.seminar',
       'ngAnimate',
       'ngSanitize',
-      // 'ui.router',
+      //@exclude
+      'ui.router',
+      //@endexclude
       'ui.bootstrap',
       'selector',
       'rzModule',
@@ -146,8 +148,9 @@
      * @description
      * main configuration for trainco app.
      */
-    // $locationProvider.html5Mode(true);
+    //@exclude
     $logProvider.debugEnabled(true);
+    //@endexclude
     $localStorageProvider.setKeyPrefix('tpc');
     // Expose XHR requests to server
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

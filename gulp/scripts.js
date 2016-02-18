@@ -20,6 +20,7 @@ gulp.task('scripts', function() {
 
 function buildScripts() {
   return gulp.src(path.join(conf.paths.src, '/app/**/*.js'))
+    .pipe($.preprocess({ context: { NODE_ENV: 'development' }}))
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.size())

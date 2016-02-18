@@ -8,10 +8,10 @@
   /** @ngInject */
   function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, months, $document) {
     var vm = this;
+    var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     vm.dateRange = {};
     vm.$storage = $localStorage;
     activate();
-    var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
     /**
      * calculates the price for all the items in the shopping cart.
@@ -31,11 +31,17 @@
       vm.seminarLocations = seminarsData;
     }
 
-    // This lovely mess pulls data from localStorage in order to run the
-    // search from the off page search component as soon as the page
-    // loads.
-    // ----------------------------------------------------------
+    /**
+     * pulls data from localStorage in order to run the
+     * search from the off page search component as soon as the page loads.
+     * @method activate
+     */
     function activate() {
+      $scope.$on('homesearch', function() {
+        vm.courseTopics.categories = [];
+        vm.locSearchFilter.locationAll = false;
+        $log.debug('yep it work')
+      })
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
       var location = vm.$storage.SearchLocation
@@ -109,6 +115,10 @@
       if (e.keyCode === 13 && vm.kwFilter.word) {
         $rootScope.$broadcast('keyword', vm.kwFilter.word);
       }
+      if
+        (e.type === 'blur' && vm.kwFilter.word) {
+          $rootScope.$broadcast('keyword', vm.kwFilter.word);
+        }
     }
     // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
