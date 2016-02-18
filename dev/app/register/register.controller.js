@@ -6,7 +6,7 @@
     .controller('RegisterController', RegisterController);
 
   /** @ngInject */
-  function RegisterController($log, searchService, $localStorage, $http, $state, $rootScope, $scope, cartService, $loading, months, $document) {
+  function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, months, $document) {
     var vm = this;
     vm.dateRange = {};
     vm.$storage = $localStorage;
@@ -65,7 +65,6 @@
           cache: true
         })
         .then(function(data) {
-          $state.go('results')
           var seminarsData = data.data.seminars;
           receiveSeminarData(seminarsData);
           return seminarsData;
@@ -134,7 +133,7 @@
         $rootScope.$broadcast('location', vm.locSearchFilter.locationAll);
         $http.get(searchAPI + 'location= ')
           .then(function(data) {
-            $state.go('results');
+
             vm.hideRadius = true;
             var seminarsData = data.data.seminars;
             vm.receiveSeminarData(seminarsData);
@@ -245,7 +244,7 @@
           cache: true
         })
         .then(function(data) {
-          $state.go('results');
+
           var seminarsData = data.data.seminars;
           receiveSeminarData(seminarsData);
           $loading.finish('courses');
@@ -277,14 +276,14 @@
           cache: true
         })
         .then(function(data) {
-          $state.go('results');
+
           var seminarsData = data.data.seminars;
           receiveSeminarData(seminarsData);
           return seminarsData;
         });
     }
 
-    vm.clearFilters = function($state) {
+    vm.clearFilters = function() {
       localStorage.clear();
       vm.courseTopics.categories = [];
       vm.locSearchFilter.locationAll = [];

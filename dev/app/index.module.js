@@ -140,14 +140,17 @@
     }]);
 
   /** @ngInject */
-  function configure($logProvider, $httpProvider, $urlRouterProvider, $localStorageProvider) {
+  function configure($logProvider, $httpProvider, $urlRouterProvider, $localStorageProvider, $locationProvider) {
     /**
      * @ngdoc function
      * @name  config
      * @description
      * main configuration for trainco app.
      */
-
+          $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+          });
     $logProvider.debugEnabled(true);
     $localStorageProvider.setKeyPrefix('tpc');
   }

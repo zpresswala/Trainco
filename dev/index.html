@@ -76,7 +76,67 @@
   </nav>
 
 
-<div ng-controller="MainSearchController as vm" ng-include src="'app/components/mainSearch/mainSearch.html'"></div>
+<div ng-controller="MainSearchController as vm" ng-include src="'./mainSearch.html'"></div>
+
+<script type="text/ng-template" id="./mainSearch.html">
+  <div class="row">
+    <div class="col-md-11 topic-circles">
+      <h3>Select one or more topics and choose your location</h3>
+      <ul>
+        <li class="seminar-topic" id="selectAllWrap">
+​
+          <input id="selectAllCheck" type="checkbox" name="selectAllCheck" ng-model="vm.classTopics.all">
+          <label class="checkbox-inline" for="selectAllCheck"></label>
+​
+          <p>All Seminar Topics</p>
+​
+        </li>
+        <li class="seminar-topic" id="electricalWrap">
+​
+          <input id="electricalCheck" type="checkbox" name="electricalCheck" ng-model="vm.classTopics.electrical">
+          <label class="checkbox-inline" for="electricalCheck"></label>
+​
+          <p>Electrical</p>
+​
+        </li>
+        <li class="seminar-topic" id="hvacWrap">
+​
+          <input id="hvacCheck" type="checkbox" name="hvacCheck" ng-model="vm.classTopics.hvac">
+          <label class="checkbox-inline" for="hvacCheck"></label>
+​
+          <p>HVAC</p>
+​
+        </li>
+        <li class="seminar-topic" id="plantWrap">
+​
+          <input id="plantCheck" type="checkbox" name="plantCheck" ng-model="vm.classTopics.plant">
+          <label class="checkbox-inline" for="plantCheck"></label>
+​
+          <p>Plant Management</p>
+​
+        </li>
+        <li class="seminar-topic" id="mechanicalWrap">
+​
+          <input id="mechanicalCheck" type="checkbox" name="mechanicalCheck" ng-model="vm.classTopics.mechanical">
+          <label class="checkbox-inline" for="mechanicalCheck"></label>
+​
+          <p>Mechanical and Industrial</p>
+​
+        </li>
+      </ul>
+		<select selector
+			model="vm.courseSearch.location"
+			multi="false"
+			options="vm.cities"
+			value-attr="label"
+			placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations'"
+			create="vm.createFunction(input)">
+    </select>
+      <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
+      <a class="btn-reg btn-white" type="submit" ng-click="vm.doParamSearch(vm.course.classTopics)" id="search-btn" role="button">Search</a>
+    </div>
+  </div>
+</script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.4.0/lodash.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
