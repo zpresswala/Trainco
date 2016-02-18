@@ -21,16 +21,17 @@
     /** @ngInject */
     function MainSearchController($state, cities, months, $localStorage, $scope) {
       var vm = this;
-      $scope.$storage = $localStorage;
+      vm.$storage = $localStorage;
+
       vm.cities = cities.getCities();
 
-      vm.createFunction = function (input) {
-			// format the option and return it
-			return {
-				value: vm.cities.length,
-				label: input
-			};
-		};
+      vm.createFunction = function(input) {
+        // format the option and return it
+        return {
+          value: vm.cities.length,
+          label: input
+        };
+      };
 
       vm.classTopics = {};
       //Range slider with ticks and values
@@ -46,18 +47,18 @@
           stepsArray: 'JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEPT,OCT,NOV,DEC,JAN,FEB,MAR'.split(',')
         }
       };
-    var today = new Date();
-    var thisMonth = today.getMonth();
-    var thisYear = today.getFullYear();
-    var futureYear = today.getFullYear() + 1;
-    var futureMonth = today.getMonth();
-    var threeMore = thisMonth + 3;
-    var monthNames = months.getMonths() || [];
+      var today = new Date();
+      var thisMonth = today.getMonth();
+      var thisYear = today.getFullYear();
+      var futureYear = today.getFullYear() + 1;
+      var futureMonth = today.getMonth();
+      var threeMore = thisMonth + 3;
+      var monthNames = months.getMonths() || [];
 
-    vm.startingMonthArray = monthNames.slice(thisMonth);
-    vm.yearOfMonths = months.getMonths();
-    var defStart = vm.startingMonthArray[0].value;
-    var defEnd = vm.startingMonthArray[3].value;
+      vm.startingMonthArray = monthNames.slice(thisMonth);
+      vm.yearOfMonths = months.getMonths();
+      var defStart = vm.startingMonthArray[0].value;
+      var defEnd = vm.startingMonthArray[3].value;
 
       vm.doParamSearch = function() {
         if (vm.classTopics.hvac === true) {
@@ -83,14 +84,15 @@
         }
         var minDateRange = '0' + (vm.sliderValues.minValue + 1);
         var maxDateRange = vm.sliderValues.maxValue + 1 || '12';
+        var theloc = vm.courseSearch.location.trim();
+        vm.$storage.SearchLocation = theloc;
+        vm.$storage.SearchTopic1 = vm.topicParam1;
+        vm.$storage.SearchTopic2 = vm.topicParam2;
+        vm.$storage.SearchTopic3 = vm.topicParam3;
+        vm.$storage.SearchTopic4 = vm.topicParam4;
+        vm.$storage.SearchDRmin = defStart;
+        vm.$storage.SearchDRmax = defEnd;
 
-        localStorage.setItem('location', vm.courseSearch.location);
-        localStorage.setItem('topicParam1', vm.topicParam1);
-        localStorage.setItem('topicParam2', vm.topicParam2);
-        localStorage.setItem('topicParam3', vm.topicParam3);
-        localStorage.setItem('topicParam4', vm.topicParam4);
-        localStorage.setItem('minDateRange', defStart);
-        localStorage.setItem('maxDateRange', defEnd);
         $state.go('results');
       }
     }

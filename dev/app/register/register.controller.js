@@ -9,8 +9,8 @@
   function RegisterController($log, searchService, $localStorage, $http, $state, $rootScope, $scope, cartService, $loading, months, $document) {
     var vm = this;
     vm.dateRange = {};
-    $scope.$storage = $localStorage;
-
+    vm.$storage = $localStorage;
+    activate();
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
     /**
@@ -31,60 +31,48 @@
       vm.seminarLocations = seminarsData;
     }
 
-    // $loading spinner options
-    vm.options = {
-      text: 'Loading...',
-      overlay: true, // Display overlay
-      spinner: true, // Display spinner
-      spinnerOptions: {
-        lines: 12, // The number of lines to draw
-        length: 7, // The length of each line
-        width: 4, // The line thickness
-        radius: 10, // The radius of the inner circle
-        rotate: 0, // Rotation offset
-        corners: 1, // Roundness (0..1)
-        color: '#000', // #rgb or #rrggbb
-        direction: 1, // 1: clockwise, -1: counterclockwise
-        speed: 2, // Rounds per second
-        trail: 100, // Afterglow percentage
-        opacity: 1 / 4, // Opacity of the lines
-        fps: 20, // Frames per second when using setTimeout()
-        zIndex: 2e9, // Use a high z-index by default
-        className: 'dw-spinner', // CSS class to assign to the element
-        top: 'auto', // Center vertically
-        left: 'auto', // Center horizontally
-        position: 'relative' // Element position
-      }
-    }
-
-    vm.cartItemList = cartService.getCartItems() || [];
-    vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-
     // This lovely mess pulls data from localStorage in order to run the
     // search from the off page search component as soon as the page
     // loads.
     // ----------------------------------------------------------
-    var location = localStorage.getItem('location');
-    var topicParam1 = localStorage.getItem('topicParam1');
-    var topicParam2 = localStorage.getItem('topicParam2');
-    var topicParam3 = localStorage.getItem('topicParam3');
-    var topicParam4 = localStorage.getItem('topicParam4');
-    var minDateRange = localStorage.getItem('minDateRange');
-    var maxDateRange = localStorage.getItem('maxDateRange');
+    function activate() {
+      var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
-    vm.searchData = $http.get(searchAPI +
+      var location = vm.$storage.SearchLocation
+      var topicParam1 = vm.$storage.SearchTopic1
+      var topicParam2 = vm.$storage.SearchTopic2
+      var topicParam3 = vm.$storage.SearchTopic3
+      var topicParam4 = vm.$storage.SearchTopic4
+      var defStart = vm.$storage.SearchDRmin
+      var defEnd = vm.$storage.SearchDRmax
+      var today = new Date();
+      var thisYear = today.getFullYear();
+
+      function checkYear() {
+        if (vm.dateRange.start >= vm.dateRange.end) {
+          return 2017;
+        } else {
+          return 2016
+        }
+      }
+
+      $http.get(searchAPI +
         'location=' + location +
+        '&radius=250' +
         '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
-        '&date-start=' + minDateRange + '-01-2016' +
-        '&date-end=' + maxDateRange + '-01-2016')
-      .then(function(data) {
-        $state.go('results')
-        var seminarsData = data.data.seminars;
-        receiveSeminarData(seminarsData);
-        return seminarsData;
-      });
-    // End of the lovely on-load mess.
-    // ----------------------------------------------
+        '&date-start=' + defStart + '-01-' + thisYear +
+        '&date-end=' + defEnd + '-01-' + checkYear(), {
+          cache: true
+        })
+        .then(function(data) {
+          $state.go('results')
+          var seminarsData = data.data.seminars;
+          receiveSeminarData(seminarsData);
+          return seminarsData;
+        });
+    }
+    vm.cartItemList = cartService.getCartItems() || [];
+    vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
     /**
      * adds item to the cart or updates the quantity
@@ -100,7 +88,6 @@
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
     };
-
 
     /**
      * Handle location input
@@ -120,11 +107,11 @@
      * @param  {object} e the event
      */
     vm.handleKWInput = function(e) {
-        if (e.keyCode === 13 && vm.kwFilter.word) {
-          $rootScope.$broadcast('keyword', vm.kwFilter.word);
-        }
+      if (e.keyCode === 13 && vm.kwFilter.word) {
+        $rootScope.$broadcast('keyword', vm.kwFilter.word);
       }
-      // Listens for a broadcast that says 'location'
+    }
+    // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
     });
@@ -180,7 +167,6 @@
       }
     }
 
-
     vm.categories = {
       hvac: true,
       electrical: true,
@@ -232,6 +218,7 @@
     vm.yearOfMonths = months.getMonths();
     var defStart = vm.startingMonthArray[0].value;
     var defEnd = vm.startingMonthArray[3].value
+
     function doParamSearch() {
       $loading.start('courses');
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
@@ -249,14 +236,14 @@
       }
       //'keyword=' + keywordParam
       $http.get(searchAPI +
-          // 'keyword=' + this.keywordParam +
-          'location=' + locParam +
-          '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
-          '&date-start=' + minDateRange + '-01-' + thisYear +
-          '&date-end=' + maxDateRange + '-01-' + checkYear(), {
-            cache: true
-          })
+        // 'keyword=' + this.keywordParam +
+        'location=' + locParam +
+        '&radius=' + radiusParam +
+        '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
+        '&date-start=' + minDateRange + '-01-' + thisYear +
+        '&date-end=' + maxDateRange + '-01-' + checkYear(), {
+          cache: true
+        })
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
@@ -281,14 +268,14 @@
       }
       // 'keyword=' + keywordParam
       $http.get(searchAPI +
-          'keyword=' + vm.keywordParam +
-          '&location=' + '' +
-          '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
-          '&date-start=' + minDateRange + '-01-2016' +
-          '&date-end=' + maxDateRange + '-01-' + checkYear(), {
-            cache: true
-          })
+        'keyword=' + vm.keywordParam +
+        '&location=' + '' +
+        '&radius=' + radiusParam +
+        '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
+        '&date-start=' + minDateRange + '-01-2016' +
+        '&date-end=' + maxDateRange + '-01-' + checkYear(), {
+          cache: true
+        })
         .then(function(data) {
           $state.go('results');
           var seminarsData = data.data.seminars;
@@ -303,6 +290,33 @@
       vm.locSearchFilter.locationAll = [];
       $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0
       doParamSearch();
+    }
+
+
+    // $loading spinner options
+    vm.options = {
+      text: 'Loading...',
+      overlay: true, // Display overlay
+      spinner: true, // Display spinner
+      spinnerOptions: {
+        lines: 12, // The number of lines to draw
+        length: 7, // The length of each line
+        width: 4, // The line thickness
+        radius: 10, // The radius of the inner circle
+        rotate: 0, // Rotation offset
+        corners: 1, // Roundness (0..1)
+        color: '#000', // #rgb or #rrggbb
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        speed: 2, // Rounds per second
+        trail: 100, // Afterglow percentage
+        opacity: 1 / 4, // Opacity of the lines
+        fps: 20, // Frames per second when using setTimeout()
+        zIndex: 2e9, // Use a high z-index by default
+        className: 'dw-spinner', // CSS class to assign to the element
+        top: 'auto', // Center vertically
+        left: 'auto', // Center horizontally
+        position: 'relative' // Element position
+      }
     }
   }
 })();
