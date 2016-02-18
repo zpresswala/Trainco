@@ -84,8 +84,9 @@
     </div>
 </div>
 
-@Html.Partial("Cart/MiniCart")
-
+<!-- include the cart template -->
+<div ng-include src="'/app/components/cart/cart.html'"></div>
+<!-- end include the cart template -->
 <div class="container-fluid gradient-bg main-content">
     <div class="row">
         <div class="col-md-8 col-md-offset-2 text-wrap" id="overview">
