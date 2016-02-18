@@ -16,10 +16,11 @@
   function seminarRoutes($stateProvider, $locationProvider) {
     $stateProvider
       .state('seminars', {
-        // url: '/',
+        url: '/',
         templateUrl: '/app/seminar/seminar.html',
         controller: 'SeminarController',
         controllerAs: 'seminar'
+
       });
     $locationProvider.html5Mode({
       enabled: true,
