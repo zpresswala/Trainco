@@ -11,7 +11,7 @@
       <div class="col-md-3 register-sidebar">
         <div class="filter-location">
           <label class="sidebar-label">Keyword Search</label>
-          <input type="search" ng-init="register.kwFilter = {}" ng-keydown="register.handleKWInput($event)" ng-model="register.kwFilter.word" placeholder="Enter Keyword">
+          <input type="search" ng-init="vm.kwFilter = {}" ng-keydown="vm.handleKWInput($event)" ng-model="vm.kwFilter.word" placeholder="Enter Keyword">
         </div>
         <hr class="dark-hr" />
         <div class="filter-topic">
@@ -19,41 +19,41 @@
           <label class="sidebar-label">Seminar Topic</label>
           <div class="input-group">
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.electrical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Electrical</label>
+              <input type="checkbox" ng-model="vm.courseTopics.categories.electrical" ng-change="vm.stateChanged(vm.courseTopics.categories[category])">Electrical</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.hvac" ng-change="register.stateChanged(register.courseTopics.categories[category])">HVAC</label>
+              <input type="checkbox" ng-model="vm.courseTopics.categories.hvac" ng-change="vm.stateChanged(vm.courseTopics.categories[category])">HVAC</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.management" ng-change="vm.stateChanged(register.courseTopics.categories[category])">Plant Management</label>
+              <input type="checkbox" ng-model="vm.courseTopics.categories.management" ng-change="vm.stateChanged(vm.courseTopics.categories[category])">Plant Management</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
+              <input type="checkbox" ng-model="vm.courseTopics.categories.mechanical" ng-change="vm.stateChanged(vm.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-init="register.courseTopics.categories.all=true" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
+              <input type="checkbox" ng-init="vm.courseTopics.categories.all=true" ng-model="vm.courseTopics.categories.all" ng-change="vm.stateChanged(vm.courseTopics.categories[category])">All Seminar Topics</label>
           </div>
         </div>
 
         <hr class="divider" />
         <div class="filter-location">
           <label class="sidebar-label">City or ZIP</label>
-          <input type="search" ng-init="register.locSearchFilter = {}" ng-keydown="register.handleLocInput($event)" ng-model="register.locSearchFilter.location" placeholder="Enter Location">
+          <input type="search" ng-init="vm.locSearchFilter = {}" ng-keydown="vm.handleLocInput($event)" ng-model="vm.locSearchFilter.location" placeholder="Enter Location">
           <h5>- or -</h5>
           <div class="input-group">
             <span class="input-group-addon">
-              <input ng-model="register.locSearchFilter.locationAll" ng-init="register.locSearchFilter.locationAll=true" ng-change="register.stateChanged(register.locSearchFilter.locationAll)" type="checkbox">All Locations
+              <input ng-model="vm.locSearchFilter.locationAll" ng-init="vm.locSearchFilter.locationAll=true" ng-change="vm.stateChanged(vm.locSearchFilter.locationAll)" type="checkbox">All Locations
             </span>
           </div>
         </div>
         <hr class="divider" />
         <label>Search Within a</label>
-        <rzslider rz-slider-model="register.mileRange.value" rz-slider-options="register.mileRange.options"></rzslider>
+        <rzslider rz-slider-model="vm.mileRange.value" rz-slider-options="vm.mileRange.options"></rzslider>
         <hr class="divider" />
         <label>Date Range</label>
         <h5>From</h5>
 
-        <select ng-model="register.dateRange.start" ng-options="month.value as month.name for month in register.startingMonthArray" ng-change="register.watcherOfThings()"></select>
+        <select ng-model="vm.dateRange.start" ng-options="month.value as month.name for month in vm.startingMonthArray" ng-change="vm.watcherOfThings()"></select>
         <h5>Through</h5>
-        <select ng-model="register.dateRange.end" ng-options="month.value as month.name for month in register.yearOfMonths" ng-change="register.watcherOfThings()"></select>
+        <select ng-model="vm.dateRange.end" ng-options="month.value as month.name for month in vm.yearOfMonths" ng-change="vm.watcherOfThings()"></select>
         <hr class="divider" />
-        <label><span class="register-link" ng-click="register.clearFilters()">Clear Filters</span></label>
+        <label><span class="register-link" ng-click="vm.clearFilters()">Clear Filters</span></label>
       </div>
       <div class="col-md-9" class="search-results">
 
