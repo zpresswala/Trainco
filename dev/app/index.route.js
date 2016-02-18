@@ -15,10 +15,10 @@
   /** @ngInject */
   function routerConfig($stateProvider, $locationProvider) {
     $stateProvider
-    // .state('home', {
-    //   url: '/',
-    //   templateUrl: 'app/main/main.html'
-    // })
+      .state('home', {
+        url: '/',
+        templateUrl: '/app/main/main.html'
+      })
       .state('register', {
         url: '/search-seminars',
         controller: 'RegisterController',
@@ -37,7 +37,7 @@
       })
 
     $locationProvider.html5Mode({
-      enabled: true,
+      enabled: false,
       requireBase: false
     });
   }

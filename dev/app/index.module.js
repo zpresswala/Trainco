@@ -147,8 +147,7 @@
      * @description
      * main configuration for trainco app.
      */
-    $urlRouterProvider.when('', '/');
-    $urlRouterProvider.otherwise('/');
+
     $logProvider.debugEnabled(true);
     $localStorageProvider.setKeyPrefix('tpc');
   }
