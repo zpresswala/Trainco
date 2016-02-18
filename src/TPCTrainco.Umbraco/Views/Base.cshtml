@@ -47,6 +47,7 @@
     bool checkoutPage = true;
     bool searchPage = false;
     bool homePage = false;
+    bool seminarDetailPage = false;
 
     if (currentPage.DocumentTypeAlias == "HomePage")
     {
@@ -62,6 +63,8 @@
     else if (currentPage.DocumentTypeAlias == "SeminarItem")
     {
         cartPage = true;
+        seminarDetailPage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterContainer")
     {
@@ -232,10 +235,6 @@
     <!--[if IE 9]>
         <body class="ie9">
     <![endif]-->
-    @if (false == searchPage)
-    {
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    }
 
     @Html.Raw(pageHeaderScript)
 </head>
@@ -256,7 +255,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
     }
-    @if (searchPage || homePage)
+    @if (searchPage || homePage || seminarDetailPage)
     {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.4.0/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -266,15 +265,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
-  <script src="//rawgithub.com/darthwade/angular-loading/master/angular-loading.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
+        <script src="//rawgithub.com/darthwade/angular-loading/master/angular-loading.min.js"></script>
 
-  <script src="//cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.js"></script>
+        <script src="//cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.js"></script>
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
         <script src="/app/index.module.js"></script>
         <script src="/app/components/mainSearch/months.js"></script>
@@ -284,14 +282,17 @@
         <script src="/app/components/cart/cart.service.js"></script>
         <script src="/app/components/cart/cart.directive.js"></script>
         <script src="/app/utils/stringToNumber.directive.js"></script>
-        <script src="/app/seminar/seminar.controller.js"></script>
+
         <script src="/app/register/search.service.js"></script>
         <script src="/app/register/register.controller.js"></script>
-        <script src="/app/main/loadingInterceptor.service.js"></script>
-        <script src="/app/index.run.js"></script>
         <script src="/app/index.route.js"></script>
-        <script src="/app/index.config.js"></script>
   <!-- endinject -->
+
+        if (seminarDetailPage)
+        {
+            <script src="/app/seminar/seminar.route.js"></script>
+            <script src="/app/seminar/seminar.controller.js"></script>
+        }
 
     }
     else if (cartPage)
