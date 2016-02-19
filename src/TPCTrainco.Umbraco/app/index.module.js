@@ -20,6 +20,7 @@
       'ngStorage',
       'angular.filter',
       'darthwade.loading'
+
     ])
     .config(configure)
     .animation('.slide-toggle', ['$animateCss', function($animateCss) {

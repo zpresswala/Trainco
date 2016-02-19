@@ -290,7 +290,13 @@
 
         if (seminarDetailPage)
         {
-            <script src="/app/seminar/seminar.controller.js"></script>
+                  <script type="text/javascript">
+
+                                  $('a[href^="#"]').click(function (e) {
+                                      e.preventDefault();
+                                      $(window).stop(true).scrollTo(this.hash, { offset: -100, duration: 1000, interrupt: true });
+                                  });
+                      </script>
         }
 
     }
@@ -307,19 +313,11 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
     }
-    @if (false == searchPage && false == homePage)
+    @if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
         <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
         <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
-        <script type="text/javascript">
-            $(window).load(function () {
-                tpcAppObj = new TPCApp();
-            });
-            $('a[href^="#"]').click(function (e) {
-                e.preventDefault();
-                $(window).stop(true).scrollTo(this.hash, { offset: -100, duration: 1000, interrupt: true });
-            });
-        </script>
+
     }
 
     @if (true == homePage)

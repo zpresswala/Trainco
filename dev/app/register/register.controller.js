@@ -30,18 +30,14 @@
       var seminarLocations = [];
       vm.seminarLocations = seminarsData;
     }
-
+    vm.sbIsCollapsed = false;
     /**
      * pulls data from localStorage in order to run the
      * search from the off page search component as soon as the page loads.
      * @method activate
      */
     function activate() {
-      $scope.$on('homesearch', function() {
-        vm.courseTopics.categories = [];
-        vm.locSearchFilter.locationAll = false;
-        $log.debug('yep it work')
-      })
+
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
       var location = vm.$storage.SearchLocation
@@ -182,8 +178,7 @@
       mechanical: true,
       management: true
     }
-    vm.courseTopics = {};
-    vm.courseTopics.categories = [];
+
 
     /**
      * Watches the locationAll checkbox and runs on checked.
@@ -235,7 +230,10 @@
       var maxDateRange = vm.dateRange.end || defEnd;
       var radiusParam = vm.mileRange.value || '250';
       var locParam = vm.locationParam || '';
-
+      var topicParam1 = vm.$storage.SearchTopic1 || vm.topicParm1;
+      var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
+      var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
+      var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
       function checkYear() {
         if (vm.dateRange.start >= vm.dateRange.end) {
           return 2017;
@@ -248,7 +246,7 @@
         // 'keyword=' + this.keywordParam +
         'location=' + locParam +
         '&radius=' + radiusParam +
-        '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
+        '&topics=' + topicParam1 + topicParam2 + topicParam3 + topicParam4 +
         '&date-start=' + minDateRange + '-01-' + thisYear +
         '&date-end=' + maxDateRange + '-01-' + checkYear(), {
           cache: true
@@ -275,7 +273,7 @@
           return 2016
         }
       }
-      // 'keyword=' + keywordParam
+
       $http.get(searchAPI +
         'keyword=' + vm.keywordParam +
         '&location=' + '' +

@@ -6,7 +6,7 @@
     .controller('MainSearchController', MainSearchController);
 
   /** @ngInject */
-  function MainSearchController($location, cities, months, $localStorage, $scope) {
+  function MainSearchController($log, cities, months, $localStorage, $scope) {
     var vm = this;
     vm.$storage = $localStorage;
 
@@ -21,31 +21,34 @@
     };
 
     vm.classTopics = {};
-    //Range slider with ticks and values
+    var today = new Date();
+    var thisMonth = today.getMonth();
+    var monthNames = months.getMonths() || [];
+    // Starts the array at the current month through December
+    var startingMonthArray = monthNames.slice(thisMonth);
+
+    var endingMonthArray = monthNames.splice(0, (thisMonth + 3));
+
+    var combinedMonthsArray = startingMonthArray.concat(endingMonthArray)
+    var lengthValue = startingMonthArray.length
+
+    var combinedMonthNames = _.map(combinedMonthsArray, _.property('name'));
+    var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
+    $log.debug(combinedMonthValues[0])
+
     vm.sliderValues = {
-      minValue: 1,
-      maxValue: 8,
+      minValue: combinedMonthValues[0],
+      maxValue: combinedMonthValues[14],
       options: {
-        floor: 0,
-        ceil: 15,
+        floor: combinedMonthValues[0],
+        ceil: combinedMonthValues[14],
         showTicks: true,
         showSelectionBarEnd: true,
         showTicksValues: true,
-        stepsArray: 'JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEPT,OCT,NOV,DEC,JAN,FEB,MAR'.split(',')
+        stepsArray: combinedMonthNames
       }
     };
-    var today = new Date();
-    var thisMonth = today.getMonth();
-    var thisYear = today.getFullYear();
-    var futureYear = today.getFullYear() + 1;
-    var futureMonth = today.getMonth();
-    var threeMore = thisMonth + 3;
-    var monthNames = months.getMonths() || [];
 
-    vm.startingMonthArray = monthNames.slice(thisMonth);
-    vm.yearOfMonths = months.getMonths();
-    var defStart = vm.startingMonthArray[0].value;
-    var defEnd = vm.startingMonthArray[3].value;
 
     vm.doParamSearch = function() {
       if (vm.classTopics.hvac === true) {
@@ -63,22 +66,17 @@
       if (vm.classTopics.all === true) {
         vm.topicParam1 = 'all'
       }
-      if (vm.sliderValues.minValue <= 8) {
-        var minDateRange = '0' + (vm.sliderValues.minValue + 1);
-      }
-      if (vm.sliderValues.maxValue <= 8) {
-        var maxDateRange = '0' + (vm.sliderValues.maxValue + 1);
-      }
-      var minDateRange = '0' + (vm.sliderValues.minValue + 1);
-      var maxDateRange = vm.sliderValues.maxValue + 1 || '12';
+
+      var defStart = vm.sliderValues.minValue;
+      var defEnd = vm.sliderValues.maxValue
       var theloc = vm.courseSearch.location.trim();
       vm.$storage.SearchLocation = theloc;
       vm.$storage.SearchTopic1 = vm.topicParam1;
       vm.$storage.SearchTopic2 = vm.topicParam2;
       vm.$storage.SearchTopic3 = vm.topicParam3;
       vm.$storage.SearchTopic4 = vm.topicParam4;
-      vm.$storage.SearchDRmin = defStart;
-      vm.$storage.SearchDRmax = defEnd;
+      vm.$storage.SearchDRmin = combinedMonthValues[defStart];
+      vm.$storage.SearchDRmax = combinedMonthValues[defEnd];
 
       window.location.href = '/search-seminars';
     }

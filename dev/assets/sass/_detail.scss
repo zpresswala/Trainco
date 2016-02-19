@@ -2,7 +2,16 @@
   font-weight: bold;
   color: #008FC7;
 }
-
+.popover-content {
+  li {
+padding-left: 0!important;
+  }
+}
+.slide-toggle {
+  ul {
+    padding-left: 0;
+  }
+}
 .seminar-loc--block {
   display: inline-block;
   width: 50%;
@@ -408,7 +417,7 @@
     position: absolute;
     top: 10px;
     transform: translate(-50%, 5px);
-    color: #4E4139;
+    color: #fff;
     z-index: 10;
   }
 }
