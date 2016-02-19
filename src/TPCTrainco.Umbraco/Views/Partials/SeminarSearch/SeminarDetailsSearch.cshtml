@@ -23,10 +23,38 @@
 
 <div id="register-seminars" class="row" ng-controller="SeminarController as seminar" data-classid="@CurrentPage.courseLink">
   <div class="container">
-    <h2 class="seminar-detail-header">Upcoming Dates and Locations</h2>
-    <!-- includes the angular template -->
-    <div ng-include="'/app/seminar/seminar.html'"></div>
-    <!-- end angular template -->
+  <div class="slider-wrap">
+      <rzslider rz-slider-model="seminar.monthsSlider.minValue" ng-model="seminar.monthsSlider" rz-slider-high="seminar.monthsSlider.maxValue" rz-slider-options="seminar.monthsSlider.options"></rzslider>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-6 course-col-header">
+        <span class="left-course-head seminar-register">Choose a location and date below to register.</span>
+      </div>
+      <div class="col-sm-12 col-md-6 course-col-header">
+        <a class="register-link seminar-training" href="#">Want this training at your facility instead?</a>
+      </div>
+    </div>
+    <ul>
+      <li class="seminar-loc--block" ng-repeat="location in seminar.seminarLocations | groupBy:'state'">
+        <h3 class="state-name"><strong>{{ location[0].state }}</strong></h3>
+        <div class="location-row">
+          <ul class="seminar-loc--row" ng-repeat="event in location | filter: { dateMonthYear: seminar.monthsSlider.minValue }">
+            <div class="result-table-body ">
+              <li class="faux-head--city col-md-4">
+                <span class="city-name">{{ event.city }}</span>
+              </li>
+              <li class="faux-head--date col-md-4">
+                <span class="event-date">{{ event.date}}</span>
+              </li>
+              <li class="faux-head--register col-md-4">
+                <a uib-popover-template="seminar.detailPop.templateUrl" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i></a>
+              </li>
+            </div>
+          </ul>
+        </div>
+
+      </li>
+    </ul>
     <div class="container">
       <div class="row">
         <div class="semdetail-text-center">

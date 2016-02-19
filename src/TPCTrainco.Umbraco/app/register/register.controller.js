@@ -183,7 +183,7 @@
     vm.startingMonthArray = monthNames.slice(thisMonth);
     vm.yearOfMonths = months.getMonths();
     var defStart = vm.startingMonthArray[0].value;
-    var defEnd = vm.startingMonthArray[6].value
+    var defEnd = vm.startingMonthArray[4].value
 
     function doParamSearch() {
       $loading.start('courses');
