@@ -11,6 +11,22 @@ input {
   top: -5px;
   right: -120px;
   border: 0;
+
+  @include below-tablet-portrait() {
+    position: absolute;
+    top: 1px;
+    right: 70px;
+    border: 0;
+    width: 100px;
+    font-size: 12px;
+  }
+}
+
+@include below-tablet-portrait() {
+  .btn-blue-solid {
+    background-color: #0090c5;
+    padding: 5px 24px;
+  }
 }
 
 .sidebar-h4 {
@@ -164,9 +180,23 @@ hr.divider {
 
     .sidebar-label {
       color: $white;
+      padding-top: 3px;
+      padding-bottom: 3px;
     }
 
     .sidebar-h4 {
+      color: $white;
+    }
+
+    .register-link {
+      color: $white;
+    }
+
+    rzslider .rz-bar-wrapper {
+      background: none!important;
+    }
+
+    rzslider .rz-bubble {
       color: $white;
     }
   }
