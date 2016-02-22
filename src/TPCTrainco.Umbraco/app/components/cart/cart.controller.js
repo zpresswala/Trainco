@@ -64,7 +64,7 @@
       };
 
       vm.doPurchase = function() {
-        vm.cartItemList = vm.cartService.getCartItems() || [];
+        vm.cartItemList = cartService.getCartItems() || [];
         $log.debug(vm.cartItemList)
         var cartDataArr = [];
         vm.cartItemList.forEach(function(item, index, array) {
@@ -84,17 +84,12 @@
           url: purchaseAPI,
           data: JSON.stringify(cartDataArr),
           contentType: 'application/json'
-        }).then(_success()).catch(_error());
+        }).success(function(data) {
+          $log.debug(data)
+                      vm.redirectGuid = data.cartGuid;
 
-        function _success(response) {
-          var redirectGuid = response.cartGuid;
-          $window.location.href = '/register/?cart=' + response.cartGuid;
-        }
-
-        function _error(err) {
-          $log.debug(err)
-        }
-
+                      $window.location.href = '/register/?cart=' + data.cartGuid;
+        })
       }
     }
 
