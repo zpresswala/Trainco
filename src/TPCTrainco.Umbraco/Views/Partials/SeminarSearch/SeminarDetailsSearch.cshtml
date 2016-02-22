@@ -23,9 +23,28 @@
 
 <div id="register-seminars" class="row" ng-controller="SeminarController as seminar" data-classid="@CurrentPage.courseLink">
   <div class="container">
+
   <div class="slider-wrap">
       <rzslider rz-slider-model="seminar.monthsSlider.minValue" ng-model="seminar.monthsSlider" rz-slider-high="seminar.monthsSlider.maxValue" rz-slider-options="seminar.monthsSlider.options"></rzslider>
     </div>
+      <div class="empty-results" ng-if="!seminar.seminarLocations.length">
+        <div class="no-results">
+          <h2>Sorry, no results were found.</h2>
+          <p>
+            Try refining your search, starting a new search or begin browsing below.
+          </p>
+        </div>
+        <ul class="empty-results-tags">
+          <li><a href="#">Electrical</a></li>
+          <li><a href="#">HVAC</a></li>
+          <li><a href="#">Plant Management</a></li>
+          <li><a href="#">Mechanical &amp; Industrial</a></li>
+        </ul>
+        <p class="empty-results-promo">
+          All of our public seminars are just $495 a day, and most are two days in length. All are also available for
+          <a href="/on-site-training/">on-site training</a>.
+        </p>
+      </div>
     <div class="row">
       <div class="col-sm-12 col-md-6 course-col-header">
         <span class="left-course-head seminar-register">Choose a location and date below to register.</span>
