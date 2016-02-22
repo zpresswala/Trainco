@@ -2,16 +2,28 @@
   font-weight: bold;
   color: #008FC7;
 }
-.popover-content {
-  li {
-padding-left: 0!important;
+
+#register-seminars {
+    @media screen and (max-width: 990px) {
+    ul {
+      font-size: .85em;
+      padding-left: 10px!important;
+    }
   }
 }
+
+.popover-content {
+  li {
+    padding-left: 0 !important;
+  }
+}
+
 .slide-toggle {
   ul {
     padding-left: 0;
   }
 }
+
 .seminar-loc--block {
   display: inline-block;
   width: 50%;
@@ -47,9 +59,9 @@ padding-left: 0!important;
     //
     // .faux-head--cit {}
     //
-    // .city-name {
-    //
-    // }
+    .city-name {
+      font-size: 1em;
+    }
     //
     // .faux-head--date {}
     //
@@ -68,9 +80,7 @@ padding-left: 0!important;
       padding-left: 20px;
     }
 
-    li:last-of-type {
-
-    }
+    li:last-of-type {}
   }
 }
 
@@ -141,6 +151,10 @@ padding-left: 0!important;
   .city-name {
     font-size: 17px;
     font-style: italic;
+  }
+
+  @mixin below-tablet-portrait {
+    padding-left: 0;
   }
 }
 

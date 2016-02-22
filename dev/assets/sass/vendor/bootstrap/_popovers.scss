@@ -1,12 +1,10 @@
 //
 // Popovers
 // --------------------------------------------------
-
-
 .popover {
   position: absolute;
   top: 0;
-  left: 0!important;
+  left: 0;
   z-index: $zindex-popover;
   display: none;
   width: 500px;
@@ -15,18 +13,27 @@
   // So reset our font and text properties to avoid inheriting weird values.
   @include reset-text;
   font-size: $font-size-base;
-
   background-color: $popover-bg;
   background-clip: padding-box;
   border: 1px solid #DBDBDB;
   border: 1px solid #DBDBDB;
   border-radius: 1;
-
   // Offset the popover to account for the popover arrow
-  &.top     { margin-top: -$popover-arrow-width; }
-  &.right   { margin-left: $popover-arrow-width; }
-  &.bottom  { margin-top: $popover-arrow-width; }
-  &.left    { margin-left: -$popover-arrow-width; }
+  &.top {
+    margin-top: -$popover-arrow-width;
+  }
+
+  &.right {
+    margin-left: $popover-arrow-width;
+  }
+
+  &.bottom {
+    margin-top: $popover-arrow-width;
+  }
+
+  &.left {
+    margin-left: -$popover-arrow-width;
+  }
 }
 
 .popover-title {
@@ -41,7 +48,6 @@
 .popover-content {
   padding: 9px 14px;
 }
-
 // Arrows
 //
 // .arrow is outer, .arrow:after is inner

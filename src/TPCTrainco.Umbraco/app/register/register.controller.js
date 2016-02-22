@@ -46,8 +46,12 @@
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
+        $scope.qty = '';
     };
-
+    $scope.$on('cartUpdated', function() {
+        $scope.qty = '';
+        $log.debug('heard ya')
+    })
     /**
      * Handle location input
      * @param  {object} e the event
@@ -133,7 +137,8 @@
       hvac: true,
       electrical: true,
       mechanical: true,
-      management: true
+      management: true,
+      all: true
     }
     vm.courseTopics = {};
     vm.courseTopics.categories = [];
@@ -145,6 +150,7 @@
      */
     vm.stateChanged = function() {
       $log.debug(vm.courseTopics.categories)
+
       $rootScope.$broadcast('topic', vm.courseTopics.categories);
     }
 
@@ -158,6 +164,7 @@
           vm.courseTopics.categories.all = false
         } else {
           vm['topicParam' + (index + 1)] = '';
+
         }
         vm.$storage.SearchTopic1 = vm.topicParam1;
         vm.$storage.SearchTopic2 = vm.topicParam2;

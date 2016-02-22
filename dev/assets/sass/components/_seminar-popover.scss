@@ -1,4 +1,12 @@
 .popover-content {
+
+  .popover {
+    @media screen and (max-width: 400px) {
+      top: -241px;
+      left: -289px !important;
+      width: 383px;
+    }
+  }
   ul {
     padding-left: 0;
   }
@@ -83,8 +91,6 @@
     font-size: 12px;
     font-weight: bold;
     line-height: 14px;
-
-
   }
 
   .result-table-body {
@@ -193,50 +199,51 @@
   }
 }
 
+
 [dw-loading] {
-    position: relative;
+  position: relative;
 }
 
 .dw-loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    text-align: center;
-    display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  display: none;
 }
 
 .dw-loading:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 
 .dw-loading.dw-loading-active {
-    display: block;
+  display: block;
 }
 
 .dw-loading.dw-loading-overlay {
-    background-color: rgba(255, 255, 255, .7);
-    z-index: 9999;
+  background-color: rgba(255, 255, 255, .7);
+  z-index: 9999;
 }
 
 .dw-loading > .dw-loading-body {
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
 }
 
 .dw-loading > .dw-loading-body > .dw-loading-spinner {
-    position: relative;
+  position: relative;
 }
 
 .dw-loading > .dw-loading-body > .dw-loading-text {
-    position: relative;
-    top: 25px;
-    font-weight: bold;
-    font-size: 11px;
-    text-shadow: 0 0 2px rgb(255, 255, 255);
+  position: relative;
+  top: 25px;
+  font-weight: bold;
+  font-size: 11px;
+  text-shadow: 0 0 2px rgb(255, 255, 255);
 }
