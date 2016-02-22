@@ -31,7 +31,7 @@
     }
 }
 <script type="text/ng-template" id="./mainSearch.html">
-    <div ng-controller="MainSearchController as vm">
+
 
         <div class="row">
             <div class="col-md-11 topic-circles">
@@ -83,9 +83,10 @@
                         value-attr="label"
                         placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations'"
                         create="vm.createFunction(input)"></select>
+                        <h4 class="select-date-text">Select a date range</h4>
                 <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
                 <a class="btn-reg btn-white" type="submit" ng-click="vm.doParamSearch(vm.course.classTopics)" id="search-btn" role="button">Search</a>
             </div>
-        </div>
+
     </div>
 </script>

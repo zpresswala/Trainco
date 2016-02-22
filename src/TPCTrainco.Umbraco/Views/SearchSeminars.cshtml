@@ -1,4 +1,4 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @using TPCTrainco.Umbraco.Extensions.Objects
 @using TPCTrainco.Umbraco.Extensions.ViewModels
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
@@ -10,5 +10,149 @@
 
 
 @Html.Partial("Messages/MessagesTop", currentPage)
-<div ui-view>
+<div class="register-cart-wrap" style="padding-top: 80px;" >
+<shopping-cart></shopping-cart>
+</div>
+<div class="register-page" ng-controller="RegisterController as register">
+  <div class="responsive-sidebar-toggle">
+    <img class="img-left" src="/images/icon-search.png" alt="Search Icon" /> Search By
+    <img ng-click="register.sbIsCollapsed = !register.sbIsCollapsed" class="img-right" src="/assets/images/icon-arrow-down.png" alt="Toggle Arrow" />
+        <div class="register-sidebar--sm" uib-collapse="register.sbIsCollapsed">
+          <div class="filter-location">
+            <label class="sidebar-label">Keyword Search</label>
+            <input type="search" ng-init="register.kwFilter = {}" ng-keydown="register.handleKWInput($event)" ng-model="register.kwFilter.word" placeholder="Enter Keyword">
+          </div>
+          <hr class="dark-hr" />
+          <div class="filter-topic">
+            <h4 class="sidebar-h4">Search By:</h4>
+            <label class="sidebar-label">Seminar Topic</label>
+            <div class="input-group">
+              <label class="sidebar-label">
+                <input type="checkbox" ng-model="register.courseTopics.categories.electrical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Electrical</label>
+              <label class="sidebar-label">
+                <input type="checkbox" ng-model="register.courseTopics.categories.hvac" ng-change="register.stateChanged(register.courseTopics.categories[category])">HVAC</label>
+              <label class="sidebar-label">
+                <input type="checkbox" ng-model="register.courseTopics.categories.management" ng-change="register.stateChanged(register.courseTopics.categories[category])">Plant Management</label>
+              <label class="sidebar-label">
+                <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
+              <label class="sidebar-label">
+                <input type="checkbox" ng-init="register.courseTopics.categories.all=true" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
+            </div>
+          </div>
+
+          <hr class="divider" />
+          <div class="filter-location">
+            <label class="sidebar-label">City or ZIP</label>
+            <input type="search" ng-init="register.locSearchFilter = {}" ng-keydown="register.handleLocInput($event)" ng-model="register.locSearchFilter.location" placeholder="Enter Location">
+            <h5>- or -</h5>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <input ng-model="register.locSearchFilter.locationAll" ng-init="register.locSearchFilter.locationAll=true" ng-change="register.stateChanged(register.locSearchFilter.locationAll)" type="checkbox">All Locations
+              </span>
+            </div>
+          </div>
+          <hr class="divider" />
+          <label>Search Within a</label>
+          <rzslider rz-slider-model="register.mileRange.value" rz-slider-options="register.mileRange.options"></rzslider>
+          <hr class="divider" />
+          <label>Date Range</label>
+          <h5>From</h5>
+
+          <select ng-model="register.dateRange.start" ng-options="month.value as month.name for month in register.startingMonthArray" ng-change="register.watcherOfThings()"></select>
+          <h5>Through</h5>
+          <select ng-model="register.dateRange.end" ng-options="month.value as month.name for month in register.yearOfMonths" ng-change="register.watcherOfThings()"></select>
+          <hr class="divider" />
+          <label><span class="register-link" ng-click="register.clearFilters()">Clear Filters</span></label>
+        </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 register-sidebar">
+        <div class="filter-location">
+          <label class="sidebar-label">Keyword Search</label>
+          <input type="search" ng-init="register.kwFilter = {}" ng-keydown="register.handleKWInput($event)" ng-model="register.kwFilter.word" placeholder="Enter Keyword">
+        </div>
+        <hr class="dark-hr" />
+        <div class="filter-topic">
+          <h4 class="sidebar-h4">Search By:</h4>
+          <label class="sidebar-label">Seminar Topic</label>
+          <div class="input-group">
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.electrical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Electrical</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.hvac" ng-change="register.stateChanged(register.courseTopics.categories[category])">HVAC</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.management" ng-change="register.stateChanged(register.courseTopics.categories[category])">Plant Management</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-init="register.courseTopics.categories.all=true" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
+          </div>
+        </div>
+
+        <hr class="divider" />
+        <div class="filter-location">
+          <label class="sidebar-label">City or ZIP</label>
+          <input type="search" ng-init="register.locSearchFilter = {}" ng-keydown="register.handleLocInput($event)" ng-model="register.locSearchFilter.location" placeholder="Enter Location">
+          <h5>- or -</h5>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <input ng-model="register.locSearchFilter.locationAll" ng-init="register.locSearchFilter.locationAll=true" ng-change="register.stateChanged(register.locSearchFilter.locationAll)" type="checkbox">All Locations
+            </span>
+          </div>
+        </div>
+        <hr class="divider" />
+        <label>Search Within a</label>
+        <rzslider rz-slider-model="register.mileRange.value" rz-slider-options="register.mileRange.options"></rzslider>
+        <hr class="divider" />
+        <label>Date Range</label>
+        <h5>From</h5>
+
+        <select ng-model="register.dateRange.start" ng-options="month.value as month.name for month in register.startingMonthArray" ng-change="register.watcherOfThings()"></select>
+        <h5>Through</h5>
+        <select ng-model="register.dateRange.end" ng-options="month.value as month.name for month in register.yearOfMonths" ng-change="register.watcherOfThings()"></select>
+        <hr class="divider" />
+        <label><span class="register-link" ng-click="register.clearFilters()">Clear Filters</span></label>
+      </div>
+      <div class="col-md-9" class="search-results">
+
+        <!-- Search Results -->
+        <div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result" dw-loading="courses" dw-loading-options="register.options">
+          <section class="row">
+            <div class="col-md-2">
+              <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
+              <h4 class="result-price">${{course.price}}</h4>
+            </div>
+            <div class="col-md-10" style="padding-left: 15px;">
+              <h2 class="result-course-title"><a ng-href="{{course.detailsUrl}}">{{course.title}}</a></h2>
+              <p class="result-course-subtitle">{{course.subTitle}}</p>
+            </div>
+          </section>
+          <section class="row result-table-head">
+            <div class="col-md-5 col-sm-10 col-xs-9">Location</div>
+            <div class="col-xs-5 hide-responsive">Seminar Information</div>
+            <div class="col-sm-2 col-xs-3 result-attendee-wrapper">Attendees</div>
+          </section>
+          <section class="row result-table-body">
+            <div ng-repeat="location in course.locationSchedules" class="result-location-row">
+              <div class="col-md-5 col-sm-10 col-xs-9 result-location">
+                <span class="state">{{location.state}}</span>
+                <span class="city">{{location.city}}</span>
+                <span class="date-responsive">{{location.date}}</span>
+              </div>
+              <div class="col-xs-5 result-date">
+                {{location.date}}
+                <span>{{location.locationDetails}}</span>
+              </div>
+              <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
+                <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="tel" min="1" class="" name="qty">
+                <input id="cart-btn" class="btn btn-reg btn-blue-solid" tpc-busy-button tpc-busy-when="register.cartButtonProcessing" ng-disabled="register.isDisabled" ng-show="qty > 0" ng-click="register.addItemToCart(location, qty)" type="button" name="name" value="Add to Cart">
+              </div>
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>

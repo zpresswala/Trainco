@@ -5,12 +5,30 @@ input {
 .attendee-input {
   width: 50px;
 }
+
 #cart-btn {
   position: absolute;
   top: -5px;
   right: -120px;
   border: 0;
+
+  @include below-tablet-portrait() {
+    position: absolute;
+    top: 1px;
+    right: 70px;
+    border: 0;
+    width: 100px;
+    font-size: 12px;
+  }
 }
+
+@include below-tablet-portrait() {
+  .btn-blue-solid {
+    background-color: #0090c5;
+    padding: 5px 24px;
+  }
+}
+
 .sidebar-h4 {
   color: $body-copy;
   font-weight: bold;
@@ -25,20 +43,22 @@ input {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 select {
-    border: 1px solid #d7d7d7;
-    width: 100%;
-    height: 35px;
-    padding: 6px 9px;
-    background-color: #fff;
-    background-image: none;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    font-size: 15px;
-    line-height: 1.42857;
-    color: #555;
-    max-width: none!important;
+  border: 1px solid #d7d7d7;
+  width: 100%;
+  height: 35px;
+  padding: 6px 9px;
+  background-color: #fff;
+  background-image: none;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  font-size: 15px;
+  line-height: 1.42857;
+  color: #555;
+  max-width: none!important;
 }
+
 hr.dark-hr {
   border-top-color: $cart-border;
   margin-left: -2000px;
@@ -133,7 +153,7 @@ hr.divider {
 }
 
 .responsive-sidebar-toggle {
-  background: #56524E;
+  background: #3a3a3a;
   margin-top: 50px;
   color: $white;
   padding: 15px 20px;
@@ -150,6 +170,35 @@ hr.divider {
 
   @include medium-sizes {
     display: none;
+  }
+
+  .register-sidebar--sm {
+    color: $white;
+    padding-top: 35px;
+    padding-left: 35px;
+    padding-right: 35px;
+
+    .sidebar-label {
+      color: $white;
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+
+    .sidebar-h4 {
+      color: $white;
+    }
+
+    .register-link {
+      color: $white;
+    }
+
+    rzslider .rz-bar-wrapper {
+      background: none!important;
+    }
+
+    rzslider .rz-bubble {
+      color: $white;
+    }
   }
 }
 
@@ -418,8 +467,9 @@ $handleActiveColor: #451aff;
         background-color: $handleDisabledColor;
       }
     }
+
     .rz-pointer.rz-active {
-      background-color: darken($barFillColor, 2%)
+      background-color: darken($barFillColor, 2%);
     }
 
     span {

@@ -6,12 +6,12 @@
     .controller('RegisterController', RegisterController);
 
   /** @ngInject */
-  function RegisterController($log, searchService, $localStorage, $http, $state, $rootScope, $scope, cartService, $loading, months, $document) {
+  function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, months, $document) {
     var vm = this;
+    var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     vm.dateRange = {};
     vm.$storage = $localStorage;
     activate();
-    var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
     /**
      * calculates the price for all the items in the shopping cart.
@@ -30,12 +30,14 @@
       var seminarLocations = [];
       vm.seminarLocations = seminarsData;
     }
-
-    // This lovely mess pulls data from localStorage in order to run the
-    // search from the off page search component as soon as the page
-    // loads.
-    // ----------------------------------------------------------
+    vm.sbIsCollapsed = false;
+    /**
+     * pulls data from localStorage in order to run the
+     * search from the off page search component as soon as the page loads.
+     * @method activate
+     */
     function activate() {
+
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
       var location = vm.$storage.SearchLocation
@@ -65,8 +67,7 @@
           cache: true
         })
         .then(function(data) {
-          $state.go('results')
-          var seminarsData = data.data.seminars;
+          var seminarsData = data.seminars;
           receiveSeminarData(seminarsData);
           return seminarsData;
         });
@@ -110,6 +111,10 @@
       if (e.keyCode === 13 && vm.kwFilter.word) {
         $rootScope.$broadcast('keyword', vm.kwFilter.word);
       }
+      if
+        (e.type === 'blur' && vm.kwFilter.word) {
+          $rootScope.$broadcast('keyword', vm.kwFilter.word);
+        }
     }
     // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
@@ -134,7 +139,7 @@
         $rootScope.$broadcast('location', vm.locSearchFilter.locationAll);
         $http.get(searchAPI + 'location= ')
           .then(function(data) {
-            $state.go('results');
+
             vm.hideRadius = true;
             var seminarsData = data.data.seminars;
             vm.receiveSeminarData(seminarsData);
@@ -173,8 +178,7 @@
       mechanical: true,
       management: true
     }
-    vm.courseTopics = {};
-    vm.courseTopics.categories = [];
+
 
     /**
      * Watches the locationAll checkbox and runs on checked.
@@ -226,7 +230,10 @@
       var maxDateRange = vm.dateRange.end || defEnd;
       var radiusParam = vm.mileRange.value || '250';
       var locParam = vm.locationParam || '';
-
+      var topicParam1 = vm.$storage.SearchTopic1 || vm.topicParm1;
+      var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
+      var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
+      var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
       function checkYear() {
         if (vm.dateRange.start >= vm.dateRange.end) {
           return 2017;
@@ -239,13 +246,13 @@
         // 'keyword=' + this.keywordParam +
         'location=' + locParam +
         '&radius=' + radiusParam +
-        '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
+        '&topics=' + topicParam1 + topicParam2 + topicParam3 + topicParam4 +
         '&date-start=' + minDateRange + '-01-' + thisYear +
         '&date-end=' + maxDateRange + '-01-' + checkYear(), {
           cache: true
         })
         .then(function(data) {
-          $state.go('results');
+
           var seminarsData = data.data.seminars;
           receiveSeminarData(seminarsData);
           $loading.finish('courses');
@@ -266,7 +273,7 @@
           return 2016
         }
       }
-      // 'keyword=' + keywordParam
+
       $http.get(searchAPI +
         'keyword=' + vm.keywordParam +
         '&location=' + '' +
@@ -277,14 +284,14 @@
           cache: true
         })
         .then(function(data) {
-          $state.go('results');
+
           var seminarsData = data.data.seminars;
           receiveSeminarData(seminarsData);
           return seminarsData;
         });
     }
 
-    vm.clearFilters = function($state) {
+    vm.clearFilters = function() {
       localStorage.clear();
       vm.courseTopics.categories = [];
       vm.locSearchFilter.locationAll = [];

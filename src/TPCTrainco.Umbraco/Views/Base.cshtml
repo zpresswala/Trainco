@@ -169,6 +169,7 @@
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
     <link rel="canonical" href="@(canonical)" />
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com/">
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@htmlTitle - @siteName" />
@@ -179,6 +180,7 @@
     <meta name="twitter:description" content="@(currentPage.GetPropertyValue<string>("pageDescription"))" />
     <meta name="twitter:title" content="TPC Trainco training" />
     <meta name="twitter:domain" content="TPC Trainco" />
+	<base href="/" />
     <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
@@ -193,14 +195,13 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link href="/images/favicon.ico" rel="shortcut icon">
-    <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    @if (searchPage || homePage)
+    @if (searchPage || homePage || seminarDetailPage)
     {
-        <link rel="stylesheet" type="text/css" href="//rawgithub.com/darthwade/angular-loading/master/angular-loading.css" />
+
         <link rel="stylesheet" href="/app/main.css?@cacheVer">
     }
     else
@@ -265,17 +266,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.4.0/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.4.9/angular-sanitize.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-animate.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
-        <script src="//rawgithub.com/darthwade/angular-loading/master/angular-loading.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
+        <script src="http://rawgithub.com/darthwade/angular-loading/master/angular-loading.min.js"></script>
 
-        <script src="//cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.js"></script>
+        <script src="http://cdn.rawgit.com/indrimuska/angular-selector/master/dist/angular-selector.js"></script>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
@@ -292,12 +292,16 @@
         <script src="/app/seminar/seminar.controller.js"></script>
         <script src="/app/register/search.service.js"></script>
         <script src="/app/register/register.controller.js"></script>
-        <script src="/app/index.route.js"></script>
 
         if (seminarDetailPage)
         {
-            <script src="/app/seminar/seminar.route.js"></script>
-            <script src="/app/seminar/seminar.controller.js"></script>
+                  <script type="text/javascript">
+
+                                  $('a[href^="#"]').click(function (e) {
+                                      e.preventDefault();
+                                      $(window).stop(true).scrollTo(this.hash, { offset: -100, duration: 1000, interrupt: true });
+                                  });
+                      </script>
         }
 
     }
@@ -314,19 +318,11 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
     }
-    @if (false == searchPage && false == homePage)
+    @if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
         <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
         <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
-        <script type="text/javascript">
-            $(window).load(function () {
-                tpcAppObj = new TPCApp();
-            });
-            $('a[href^="#"]').click(function (e) {
-                e.preventDefault();
-                $(window).stop(true).scrollTo(this.hash, { offset: -100, duration: 1000, interrupt: true });
-            });
-        </script>
+
     }
 
     @if (true == homePage)

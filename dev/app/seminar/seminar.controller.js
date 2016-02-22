@@ -21,7 +21,7 @@
   }
 
     vm.detailPop = {
-      templateUrl: 'app/seminar/seminarPop.html',
+      templateUrl: '/app/seminar/seminarPop.html',
     };
 
     vm.location = {};

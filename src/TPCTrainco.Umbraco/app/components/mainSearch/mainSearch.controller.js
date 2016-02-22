@@ -6,7 +6,7 @@
     .controller('MainSearchController', MainSearchController);
 
   /** @ngInject */
-  function MainSearchController($log, cities, months, $localStorage, $scope) {
+  function MainSearchController($location, cities, months, $localStorage, $scope) {
     var vm = this;
     vm.$storage = $localStorage;
 
@@ -34,8 +34,6 @@
 
     var combinedMonthNames = _.map(combinedMonthsArray, _.property('name'));
     var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
-    $log.debug(combinedMonthValues[0])
-
     vm.sliderValues = {
       minValue: combinedMonthValues[0],
       maxValue: combinedMonthValues[14],

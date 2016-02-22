@@ -23,7 +23,7 @@
             <label class="sidebar-label">
               <input type="checkbox" ng-model="register.courseTopics.categories.hvac" ng-change="register.stateChanged(register.courseTopics.categories[category])">HVAC</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.management" ng-change="vm.stateChanged(register.courseTopics.categories[category])">Plant Management</label>
+              <input type="checkbox" ng-model="register.courseTopics.categories.management" ng-change="register.stateChanged(register.courseTopics.categories[category])">Plant Management</label>
             <label class="sidebar-label">
               <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
             <label class="sidebar-label">
@@ -56,8 +56,42 @@
         <label><span class="register-link" ng-click="register.clearFilters()">Clear Filters</span></label>
       </div>
       <div class="col-md-9" class="search-results">
+<!-- Search Results -->
+<div ng-repeat="course in register.seminarLocations | flatten" class="faceted-result" dw-loading="courses" dw-loading-options="register.options">
+  <section class="row">
+    <div class="col-md-2">
+      <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
+      <h4 class="result-price">${{course.price}}</h4>
+    </div>
+    <div class="col-md-10" style="padding-left: 15px;">
+      <h2 class="result-course-title"><a ng-href="{{course.detailsUrl}}">{{course.title}}</a></h2>
+      <p class="result-course-subtitle">{{course.subTitle}}</p>
+    </div>
+  </section>
+  <section class="row result-table-head">
+    <div class="col-md-5 col-sm-10 col-xs-9">Location</div>
+    <div class="col-xs-5 hide-responsive">Seminar Information</div>
+    <div class="col-sm-2 col-xs-3 result-attendee-wrapper">Attendees</div>
+  </section>
+  <section class="row result-table-body">
+    <div ng-repeat="location in course.locationSchedules" class="result-location-row">
+      <div class="col-md-5 col-sm-10 col-xs-9 result-location">
+        <span class="state">{{location.state}}</span>
+        <span class="city">{{location.city}}</span>
+        <span class="date-responsive">{{location.date}}</span>
+      </div>
+      <div class="col-xs-5 result-date">
+        {{location.date}}
+        <span>{{location.locationDetails}}</span>
+      </div>
+      <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
+        <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="tel" min="1" class="" name="qty">
+        <input id="cart-btn" class="btn btn-reg btn-blue-solid" ng-disabled="register.isDisabled" ng-show="qty > 0" ng-click="register.addItemToCart(location, qty)" type="button" name="name" value="Add to Cart">
+      </div>
+    </div>
+  </section>
+</div>
 
-        <div ui-view></div>
       </div>
     </div>
   </div>

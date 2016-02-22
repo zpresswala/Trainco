@@ -180,28 +180,26 @@
       </div>
     </div>
     <ul>
-
-
-      <li style="display:inline-block; width: 50%; padding: 15px;" ng-repeat="location in seminar.seminarLocations | groupBy:'state'">
+      <li class="seminar-loc--block" ng-repeat="location in seminar.seminarLocations | groupBy:'state'">
         <h3 class="state-name"><strong>{{ location[0].state }}</strong></h3>
-
-
-
-              <div ng-repeat="event in location | filter: { dateMonthYear: seminar.monthsSlider.minValue }" class="location-row">
-                <div>
-                  <span class="city-name">{{ event.city }}</span>
-                </div>
-                <div>
-                  {{ event.date}}
-              </div>
-                  <div>
-                  <!-- <a ui-sref="detail({id: location.id})"><strong>Register</strong> <i class="fa fa-chevron-down"></i></a> -->
-                  <a uib-popover-template="seminar.detailPop.templateUrl" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i></a>
-                </div>
-              </div>
+        <div class="location-row">
+          <ul class="seminar-loc--row" ng-repeat="event in location | filter: { dateMonthYear: seminar.monthsSlider.minValue }">
+            <div class="result-table-body ">
+              <li class="faux-head--city col-md-4">
+                <span class="city-name">{{ event.city }}</span>
+              </li>
+              <li class="faux-head--date col-md-4">
+                <span class="event-date">{{ event.date}}</span>
+              </li>
+              <li class="faux-head--register col-md-4">
+                <a uib-popover-template="seminar.detailPop.templateUrl" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i></a>
+              </li>
+            </div>
+          </ul>
+        </div>
 
       </li>
-</ul>
+    </ul>
 
     <div class="container">
       <div class="row">
@@ -218,24 +216,4 @@
     var regSem = document.getElementById('register-seminars');
     var classId = regSem.dataset.classid;
     localStorage.setItem('classId', classId);
-    // Scroller
-    $(function() {
-      $('a.page-scroll').bind('click', function(event) {
-        var $anchor = $(this);
-        $('html, body').stop().animate({
-          scrollTop: $($anchor.attr('href')).offset().top
-        }, 1500, 'easeInOutExpo');
-        event.preventDefault();
-      });
-    });
-
-    // Highlight the top nav as scrolling occurs
-    $('body').scrollspy({
-      target: '.navbar-lower'
-    })
-
-    // Closes the Responsive Menu on Menu Item Click
-    $('.navbar-collapse ul li a').click(function() {
-      $('.navbar-toggle:visible').click();
-    });
   </script>
