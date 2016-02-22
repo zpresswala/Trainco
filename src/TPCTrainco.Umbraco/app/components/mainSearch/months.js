@@ -11,7 +11,7 @@
     this.getMonths = getMonths;
 
     function getMonths(data) {
-      var monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
+      var monthNames = ['JAN 2017', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
       months = [];
       var i;
       for (i = 1; i <= 12; i++) {
