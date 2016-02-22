@@ -25,7 +25,7 @@
           <label class="sidebar-label">
             <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
           <label class="sidebar-label">
-            <input type="checkbox" ng-init="register.courseTopics.categories.all=true" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
+            <input type="checkbox" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
         </div>
       </div>
 
@@ -134,8 +134,8 @@
                 <span>{{location.locationDetails}}</span>
               </div>
               <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
-                <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="tel" min="1" class="" name="qty">
-                <input id="cart-btn" class="btn btn-reg btn-blue-solid" ng-show="qty > 0" ng-click="register.addItemToCart(location, qty)" type="button" value="Add to Cart">
+                <input class="attendee-input" ng-model="register.qty" string-to-number value="{{register.qty}}" type="tel" min="1" class="" name="qty">
+                <input id="cart-btn" class="btn btn-reg btn-blue-solid" ng-show="register.qty > 0" ng-click="register.addItemToCart(location, qty)" type="button" value="Add to Cart">
               </div>
             </div>
           </section>

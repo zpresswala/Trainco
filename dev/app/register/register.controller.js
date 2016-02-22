@@ -135,7 +135,7 @@
      */
     vm.stateChanged = function() {
       if (vm.locSearchFilter.locationAll) {
-
+        vm.locSearchFilter.location = '';
         $rootScope.$broadcast('location', vm.locSearchFilter.locationAll);
         $http.get(searchAPI + 'location= ')
           .then(function(data) {
