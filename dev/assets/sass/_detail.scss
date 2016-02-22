@@ -6,6 +6,7 @@
 #register-seminars {
     @media screen and (max-width: 990px) {
     ul {
+      font-size: .85em;
       padding-left: 10px!important;
     }
   }
@@ -58,9 +59,9 @@
     //
     // .faux-head--cit {}
     //
-    // .city-name {
-    //
-    // }
+    .city-name {
+      font-size: 1em;
+    }
     //
     // .faux-head--date {}
     //
