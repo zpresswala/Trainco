@@ -63,7 +63,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 seminar.LocationSchedules = new List<LocationSchedule>();
 
-                locationScheduleDetailList = locationScheduleDetailList.Where(p => p.ParentId == 0).ToList();
+                //locationScheduleDetailList = locationScheduleDetailList.Where(p => p.ParentId == 0).ToList();
 
                 locationScheduleDetailList = locationScheduleDetailList.OrderBy(p => p.Distance).ThenBy(p => p.DateFilter).ToList();
 
