@@ -6,6 +6,8 @@
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     vm.dateRange = {};
     vm.$storage = $localStorage;
+    vm.initialDirections = false;
+
     activate();
 
     /**
@@ -106,24 +108,19 @@
      */
     vm.handleKWInput = function(e) {
       $window.addEventListener('keyup', function(e) {
-
         $timeout = setTimeout(function() {
             doKWParamSearch();
         }, 2500);
       });
     }
+
     // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
     });
 
-    // Listens for a broadcast saying keyword and then
-    // runs the doParamSearch function.
-    $scope.$on('keyword', function(event, data) {
-      vm.keywordParam = data;
-      doKWParamSearch();
-    });
     vm.hideRadius = false;
+
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function
@@ -143,6 +140,7 @@
           });
       }
     }
+
     vm.watcherOfThings = function() {
       doParamSearch();
     }
@@ -163,7 +161,7 @@
           return value + ' mile radius';
         },
         onEnd: function(modelValue) {
-          doParamSearch()
+          doParamSearch();
         }
       }
     }
@@ -174,7 +172,6 @@
       mechanical: true,
       management: true
     }
-
 
     /**
      * Watches the locationAll checkbox and runs on checked.
@@ -230,6 +227,8 @@
       var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
       var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
       var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
+      vm.initialDirections = false;
+
       function checkYear() {
         if (vm.dateRange.start >= vm.dateRange.end) {
           return 2017;
@@ -262,6 +261,7 @@
       var maxDateRange = vm.dateRange.end || '12';
       var radiusParam = vm.mileRange.value || '250';
       var keywordParam = vm.kwFilter.word;
+      vm.initialDirections = false;
       function checkYear() {
         if (vm.dateRange.start >= vm.dateRange.end) {
           return 2017;
@@ -291,8 +291,9 @@
       localStorage.clear();
       vm.courseTopics.categories = [];
       vm.locSearchFilter.locationAll = [];
-      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0
-      doParamSearch();
+      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+      vm.initialDirections = true;
+
     }
 
 
