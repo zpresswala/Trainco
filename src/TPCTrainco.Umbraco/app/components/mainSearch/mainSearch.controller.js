@@ -6,7 +6,7 @@
     .controller('MainSearchController', MainSearchController);
 
   /** @ngInject */
-  function MainSearchController($location, cities, months, $localStorage, $scope) {
+  function MainSearchController($location, cities, months, $localStorage, $scope, _) {
     var vm = this;
     vm.$storage = $localStorage;
 

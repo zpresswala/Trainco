@@ -1,7 +1,7 @@
 (function(module) {
   'use strict';
   /** @ngInject */
-  module.controller('RegisterController', function($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, months, $document) {
+  module.controller('RegisterController', function($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading,$timeout, months, $document, $window) {
     var vm = this;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     vm.dateRange = {};
@@ -91,11 +91,14 @@
      * @return {method}
      */
     vm.handleLocInput = function(e) {
-      if (e.keyCode === 13 && vm.locSearchFilter.location) {
+      $window.addEventListener('keyup', function(e) {
         vm.locSearchFilter.locationAll = false
         $rootScope.$broadcast('location', vm.locSearchFilter.location);
-        doParamSearch();
-      }
+        $timeout = setTimeout(function() {
+            doParamSearch();
+        }, 2500);
+      });
+
     }
 
     /**

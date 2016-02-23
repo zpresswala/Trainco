@@ -22,7 +22,7 @@
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   });
 
-  app.run(function() {});
+  app.run(function(_) {});
 
 }(angular.module('train', [
   'train.register',

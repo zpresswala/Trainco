@@ -25,3 +25,16 @@ function buildScripts() {
     .pipe($.eslint.format())
     .pipe($.size())
 };
+
+gulp.task('vendor', function() {
+  return buildVendor();
+});
+
+function buildVendor() {
+  return gulp.src(path.join(conf.paths.src, '/lib/**/*.js'))
+    .pipe($.ngAnnotate())
+    .pipe($.concat('vendor.js'))
+    .pipe($.uglify())
+    .pipe($.size())
+    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/lib')));
+};
