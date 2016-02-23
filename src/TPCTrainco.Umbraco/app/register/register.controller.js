@@ -6,7 +6,7 @@
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     vm.dateRange = {};
     vm.$storage = $localStorage;
-    vm.initialDirections = false;
+    vm.initialDirections = true;
 
     activate();
 
@@ -44,33 +44,35 @@
       var topicParam4 = vm.$storage.SearchTopic4
       var defStart = vm.$storage.SearchDRmin
       var defEnd = vm.$storage.SearchDRmax
-      var today = new Date();
-      var thisYear = today.getFullYear();
-
-      function checkYear() {
-        if (vm.dateRange.start >= vm.dateRange.end) {
-          return 2017;
-        } else {
-          return 2016
-        }
-      }
-
-      $http.get(searchAPI +
-        'location=' + location +
-        '&radius=250' +
-        '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
-        '&date-start=' + defStart + '-01-' + thisYear +
-        '&date-end=' + defEnd + '-01-' + checkYear(), {
-          cache: true
-        })
-        .then(function(data) {
-          var seminarsData = data.seminars;
-          receiveSeminarData(seminarsData);
-          return seminarsData;
-        });
+      // var today = new Date();
+      // var thisYear = today.getFullYear();
+      //
+      // function checkYear() {
+      //   if (vm.dateRange.start >= vm.dateRange.end) {
+      //     return 2017;
+      //   } else {
+      //     return 2016
+      //   }
+      // }
+      //
+      // $http.get(searchAPI +
+      //   'location=' + location +
+      //   '&radius=250' +
+      //   '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
+      //   '&date-start=' + defStart + '-01-' + thisYear +
+      //   '&date-end=' + defEnd + '-01-' + checkYear(), {
+      //     cache: true
+      //   })
+      //   .then(function(data) {
+      //     vm.initialDirections = false;
+      //     var seminarsData = data.seminars;
+      //     receiveSeminarData(seminarsData);
+      //     return seminarsData;
+      //   });
     }
     vm.cartItemList = cartService.getCartItems() || [];
     vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+
 
     /**
      * adds item to the cart or updates the quantity
@@ -79,13 +81,30 @@
      * @param  {int} qty  how many attendees
      * @return {array}      returns the updated cartItemList
      */
-    vm.addItemToCart = function(item, qty) {
-      $log.debug(item)
-      cartService.addItem(item, qty);
+    vm.addItemToCart = function(item, qty, $event) {
+
+      cartService.addItem(item, qty)
+
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
+
+      $($event.target).val('Added!');
+
+        $timeout = setTimeout(function() {
+        $($event.target).val('Add to cart');
+        }, 3500);
+      item.qty = '';
+      // $($event.target).closest('.result-attendee-wrapper').find('.attendee-input').val('');
+      // $($event.target).fadeOut().removeAttr('style').removeClass('.ng-show');
+
     };
+
+    $scope.$on('cartUpdated', function(event, data) {
+
+    });
+
 
     /**
      * Handle location input
@@ -222,15 +241,17 @@
     function doParamSearch() {
       $loading.start('courses');
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-      var minDateRange = vm.dateRange.start || defStart;
-      var maxDateRange = vm.dateRange.end || defEnd;
+      var keywordParam =  vm.$storage.kword || vm.kwFilter.word;
       var radiusParam = vm.mileRange.value || '250';
-      var locParam = vm.locationParam || '';
+      var locParam = vm.$storage.SearchLocation || vm.locationParam || '';
       var topicParam1 = vm.$storage.SearchTopic1 || vm.topicParm1;
       var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
       var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
       var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
-
+      var defStart = vm.$storage.SearchDRmin || vm.dateRange.start;
+      var defEnd = vm.$storage.SearchDRmax  || vm.dateRange.end;
+      var today = new Date();
+      var thisYear = today.getFullYear();
       var theTopics = [topicParam1, topicParam2, topicParam3, topicParam4];
       vm.initialDirections = false;
 
@@ -243,12 +264,12 @@
       }
       //'keyword=' + keywordParam
       $http.get(searchAPI +
-        // 'keyword=' + this.keywordParam +
+        'keyword=' + keywordParam +
         'location=' + locParam +
         '&radius=' + radiusParam +
         '&topics=' + theTopics +
-        '&date-start=' + minDateRange + '-01-' + thisYear +
-        '&date-end=' + maxDateRange + '-01-' + checkYear(), {
+        '&date-start=' + defStart + '-01-' + thisYear +
+        '&date-end=' + defEnd + '-01-' + checkYear(), {
           cache: true
         })
         .then(function(data) {
