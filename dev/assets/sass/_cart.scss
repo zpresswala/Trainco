@@ -230,7 +230,7 @@
   font-style: italic;
   font-weight: 400;
 
-  @include tablet-portrait-and-up {}
+  @include tablet-portrait-and-up();
 }
 
 .cart-tab {
@@ -252,7 +252,7 @@
     position: relative;
     top: -10px;
     left: 50%;
-    margin-left: -16px;
+    margin-left: -12px;
   }
 }
 

@@ -39,8 +39,6 @@
        * ng-keydown="searchInput.handleInput($event)"
        */
       vm.handleQuantInput = function(e, cartItem) {
-      $log.debug(cartItem.quantity)
-
         cartService.updateCart(cartItem);
         vm.cartItemList = cartService.getCartItems() || [];
         vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
@@ -50,7 +48,6 @@
         if (cartItem.quantity < 1) {
           cartItem.quantity = 1;
         }
-        $log.debug('we are sanitizing')
         vm.handleQuantInput(e, cartItem);
       }
 
@@ -71,7 +68,6 @@
 
       vm.doPurchase = function() {
         vm.cartItemList = cartService.getCartItems() || [];
-        $log.debug(vm.cartItemList)
         var cartDataArr = [];
         vm.cartItemList.forEach(function(item, index, array) {
           var id = item.id;
@@ -80,7 +76,6 @@
             Id: id,
             quantity: quantity
           })
-          $log.debug(cartDataArr)
           window.localStorage.setItem('cartDataArr', JSON.stringify(cartDataArr)); // eslint-disable-line
 
         });
@@ -91,7 +86,7 @@
           data: JSON.stringify(cartDataArr),
           contentType: 'application/json'
         }).success(function(data) {
-          $log.debug(data)
+
                       vm.redirectGuid = data.cartGuid;
 
                       $window.location.href = '/register/?cart=' + data.cartGuid;

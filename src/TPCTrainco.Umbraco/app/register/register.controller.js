@@ -7,8 +7,18 @@
     vm.dateRange = {};
     vm.$storage = $localStorage;
     vm.initialDirections = true;
-    vm.OGFilter = {};
+
     vm.sbIsCollapsed = false; // mobile sidebar converted into menu.
+    var OGFilter = {
+      keywordParam: '',
+      locParam: '',
+      topicParam1: '',
+      topicParam2:'' ,
+      topicParam3: '',
+      topicParam4: '',
+      defStart: '',
+      defEnd: ''
+    }
     activate();
 
     /**
@@ -35,30 +45,24 @@
      * @method activate
      */
     function activate() {
-
-      var location = vm.$storage.SearchLocation;
-      var topicParam1 = vm.$storage.SearchTopic1;
-      var topicParam2 = vm.$storage.SearchTopic2;
-      var topicParam3 = vm.$storage.SearchTopic3;
-      var topicParam4 = vm.$storage.SearchTopic4;
-      var defStart = vm.$storage.SearchDRmin;
-      var defEnd = vm.$storage.SearchDRmax;
+      var keywordParam = '';
       if (location === undefined) {
         vm.initialDirections = true;
       }
-      vm.OGFilter = {
-        location: location,
-        topicParam1: topicParam1,
-        topicParam2: topicParam2,
-        topicParam3: topicParam3,
-        topicParam4: topicParam4,
-        defStart: defStart,
-        defEnd: defEnd
+      var OGFilter = {
+        keywordParam: keywordParam,
+        locParam: vm.$storage.SearchLocation,
+        topicParam1: vm.$storage.SearchTopic1,
+        topicParam2: vm.$storage.SearchTopic2,
+        topicParam3: vm.$storage.SearchTopic3,
+        topicParam4: vm.$storage.SearchTopic4,
+        defStart: vm.$storage.SearchDRmin,
+        defEnd: vm.$storage.SearchDRmax
       }
     }
     vm.cartItemList = cartService.getCartItems() || [];
     vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-    $log.debug(vm.OGFilter)
+    $log.debug(OGFilter)
 
     /**
      * adds item to the cart or updates the quantity
@@ -212,10 +216,15 @@
     vm.yearOfMonths = months.getMonths();
     var defaultStart = vm.startingMonthArray[0].value;
     var defaultEnd = vm.startingMonthArray[3].value
-
+      function checkYear() {
+        if (vm.dateRange.start >= vm.dateRange.end) {
+          return 2017;
+        } else {
+          return 2016
+        }
+      }
     function doParamSearch() {
       $loading.start('courses');
-      var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
       var keywordParam = vm.$storage.kword || vm.kwFilter.word;
       var radiusParam = vm.mileRange.value || '250';
       var locParam = vm.$storage.SearchLocation || vm.locSearchFilter.location;
@@ -225,35 +234,25 @@
       var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
       var defStart = vm.$storage.SearchDRmin || vm.dateRange.start || defaultStart;
       var defEnd = vm.$storage.SearchDRmax || vm.dateRange.end || defaultEnd;
-      var today = new Date();
-      var thisYear = today.getFullYear();
-      var theTopics = [topicParam1, topicParam2, topicParam3, topicParam4];
       vm.initialDirections = false;
 
-      function checkYear() {
-        if (vm.dateRange.start >= vm.dateRange.end) {
-          return 2017;
-        } else {
-          return 2016
-        }
+      var OGFilter = {
+        keywordParam: keywordParam,
+        locParam: locParam,
+        radiusParam: radiusParam,
+        topicParam1: topicParam1,
+        topicParam2: topicParam2,
+        topicParam3: topicParam3,
+        topicParam4: topicParam4,
+        defStart: defStart,
+        defEnd: defEnd,
+        endYear: checkYear()
       }
-      //'keyword=' + keywordParam
-      $http.get(searchAPI +
-
-          'location=' + locParam +
-          '&radius=' + radiusParam +
-          '&topics=' + theTopics +
-          '&date-start=' + defStart + '-01-' + thisYear +
-          '&date-end=' + defEnd + '-01-' + checkYear(), {
-            cache: true
-          })
-        .then(function(data) {
-
-          var seminarsData = data.data.seminars;
-          receiveSeminarData(seminarsData);
-          $loading.finish('courses');
-          return seminarsData;
-        });
+      searchService.performSearch(OGFilter).then(function(data) {
+        var seminarsData = data.seminars;
+        receiveSeminarData(seminarsData);
+        return seminarsData;
+      });
     }
 
     function doKWParamSearch() {

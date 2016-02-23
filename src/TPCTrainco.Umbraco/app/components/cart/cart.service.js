@@ -38,15 +38,12 @@
     function addItem(item, qty) {
       var id = item.id;
       var itemInCart = getItemById(id);
-      $log.debug('1' + itemInCart);
       // var itemInCart = {};
       var itemStr = window.localStorage.getItem('cartItemList'); // eslint-disable-line
       var itemList = itemStr ? JSON.parse(itemStr) : []; // eslint-disable-line
       if (angular.isObject(itemInCart)) {
         var additionalAttendees = parseInt(qty);
         var currentAttendees = parseInt(itemInCart.quantity);
-        $log.debug('inCart.quantity: the LS ' + currentAttendees);
-        $log.debug('quantityInt: is the additional ' + additionalAttendees);
         var updatedAttendees = currentAttendees += additionalAttendees;
         itemInCart.quantity = updatedAttendees;
         itemList.find(function(itemInCart) {
