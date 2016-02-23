@@ -189,13 +189,16 @@
       var labelsArray = ['hvac', 'electrical', 'mechanical', 'management'];
       labelsArray.forEach(function(label, index) {
         if (data[label]) {
-          vm['topicParam' + (index + 1)] = label + ',';
+          vm['topicParam' + (index + 1)] = label;
           vm.courseTopics.categories.all = false
         } else {
-          vm['topicParam' + (index + 1)] = '';
+          vm.courseTopics.categories.all = ['hvac', 'electrical', 'mechanical', 'management'];
         }
+        vm.$storage.SearchTopic1 = vm.topicParam1;
+        vm.$storage.SearchTopic2 = vm.topicParam2;
+        vm.$storage.SearchTopic3 = vm.topicParam3;
+        vm.$storage.SearchTopic4 = vm.topicParam4;
       });
-
       doParamSearch();
     });
     $scope.$watch('vm.locationParam', function() {
@@ -227,6 +230,8 @@
       var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
       var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
       var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
+
+      var theTopics = [topicParam1, topicParam2, topicParam3, topicParam4];
       vm.initialDirections = false;
 
       function checkYear() {
@@ -241,7 +246,7 @@
         // 'keyword=' + this.keywordParam +
         'location=' + locParam +
         '&radius=' + radiusParam +
-        '&topics=' + topicParam1 + topicParam2 + topicParam3 + topicParam4 +
+        '&topics=' + theTopics +
         '&date-start=' + minDateRange + '-01-' + thisYear +
         '&date-end=' + maxDateRange + '-01-' + checkYear(), {
           cache: true

@@ -6,7 +6,7 @@
     .controller('CartController', CartController);
 
     /** @ngInject */
-    function CartController(cartService, $log, $scope, $http, $window) {
+    function CartController(cartService, $log, $scope, $http, $window, $timeout) {
       var vm = this;
       var purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
       vm.cartItem = {};
@@ -38,26 +38,22 @@
        * @param  {object} e the event
        * ng-keydown="searchInput.handleInput($event)"
        */
-      vm.handleQuantInput = function(e, cartItem, qty) {
-        if (e.keyCode === 13) {
-          $log.debug(cartItem.quantity)
-          cartService.updateCart(cartItem);
-          vm.cartItemList = cartService.getCartItems() || [];
-          vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      vm.handleQuantInput = function(e, cartItem) {
+      $log.debug(cartItem.quantity)
+
+        cartService.updateCart(cartItem);
+        vm.cartItemList = cartService.getCartItems() || [];
+        vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      }
+
+      vm.sanitizeQuantInput = function(e, cartItem) {
+        if (cartItem.quantity < 1) {
+          cartItem.quantity = 1;
         }
+        $log.debug('we are sanitizing')
+        vm.handleQuantInput(e, cartItem);
       }
 
-      var timeout = null;
-  var debounceUpdate = function(newVal, oldVal) {
-    if (newVal != oldVal) {
-      if (timeout) {
-        $timeout.cancel(timeout);
-      }
-      timeout = $timeout(cartService.updateCart(cartItem), 1 * 1000);
-    }
-  };
-
-  $scope.$watch('qty', debounceUpdate);
       vm.cartImages = {
         initial: '/assets/images/icon-cart-tab.png',
         final: '/assets/images/icon-cart-close-arrow.png',
