@@ -98,7 +98,6 @@
             doParamSearch();
         }, 2500);
       });
-
     }
 
     /**
@@ -106,13 +105,12 @@
      * @param  {object} e the event
      */
     vm.handleKWInput = function(e) {
-      if (e.keyCode === 13 && vm.kwFilter.word) {
-        $rootScope.$broadcast('keyword', vm.kwFilter.word);
-      }
-      if
-        (e.type === 'blur' && vm.kwFilter.word) {
-          $rootScope.$broadcast('keyword', vm.kwFilter.word);
-        }
+      $window.addEventListener('keyup', function(e) {
+
+        $timeout = setTimeout(function() {
+            doKWParamSearch();
+        }, 2500);
+      });
     }
     // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
@@ -263,7 +261,7 @@
       var minDateRange = vm.dateRange.start || '01';
       var maxDateRange = vm.dateRange.end || '12';
       var radiusParam = vm.mileRange.value || '250';
-
+      var keywordParam = vm.kwFilter.word;
       function checkYear() {
         if (vm.dateRange.start >= vm.dateRange.end) {
           return 2017;
@@ -273,7 +271,7 @@
       }
 
       $http.get(searchAPI +
-        'keyword=' + vm.keywordParam +
+        'keyword=' + keywordParam +
         '&location=' + '' +
         '&radius=' + radiusParam +
         '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
