@@ -1,12 +1,7 @@
-(function() {
+(function(module) {
   'use strict';
-
-  angular
-    .module('train')
-    .controller('SeminarController', SeminarController);
-
   /** @ngInject */
-  function SeminarController($log, courseSearch, cartService, $rootScope, $scope) {
+  module.controller('SeminarController', function($log, courseSearch, cartService, $rootScope, $scope) {
     var vm = this;
 
     vm.courseId = {};
@@ -74,5 +69,5 @@
         return dateF;
       });
     }
-  }
-})();
+  })
+}(angular.module('train.seminar')));

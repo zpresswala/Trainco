@@ -6,7 +6,7 @@
     .controller('CartController', CartController);
 
     /** @ngInject */
-    function CartController(cartService, $log, $scope, $http, $window, $timeout) {
+    function CartController(cartService, $log, $scope, $http, $window) {
       var vm = this;
       var purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
       vm.cartItem = {};
@@ -33,7 +33,6 @@
         vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       };
 
-
       /**
        * Handle key input
        * @param  {object} e the event
@@ -48,7 +47,17 @@
         }
       }
 
+      var timeout = null;
+  var debounceUpdate = function(newVal, oldVal) {
+    if (newVal != oldVal) {
+      if (timeout) {
+        $timeout.cancel(timeout);
+      }
+      timeout = $timeout(cartService.updateCart(cartItem), 1 * 1000);
+    }
+  };
 
+  $scope.$watch('qty', debounceUpdate);
       vm.cartImages = {
         initial: '/assets/images/icon-cart-tab.png',
         final: '/assets/images/icon-cart-close-arrow.png',

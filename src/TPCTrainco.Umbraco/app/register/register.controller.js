@@ -1,16 +1,13 @@
-(function() {
+(function(module) {
   'use strict';
-
-  angular
-    .module('train')
-    .controller('RegisterController', RegisterController);
-
   /** @ngInject */
-  function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, months, $document) {
+  module.controller('RegisterController', function($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, months, $document) {
     var vm = this;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     vm.dateRange = {};
     vm.$storage = $localStorage;
+    activate();
+
     /**
      * calculates the price for all the items in the shopping cart.
      * @method calculateTotalPrice
@@ -29,7 +26,47 @@
       vm.seminarLocations = seminarsData;
     }
     vm.sbIsCollapsed = false;
+    /**
+     * pulls data from localStorage in order to run the
+     * search from the off page search component as soon as the page loads.
+     * @method activate
+     */
+    function activate() {
 
+      var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+
+      var location = vm.$storage.SearchLocation
+      var topicParam1 = vm.$storage.SearchTopic1
+      var topicParam2 = vm.$storage.SearchTopic2
+      var topicParam3 = vm.$storage.SearchTopic3
+      var topicParam4 = vm.$storage.SearchTopic4
+      var defStart = vm.$storage.SearchDRmin
+      var defEnd = vm.$storage.SearchDRmax
+      var today = new Date();
+      var thisYear = today.getFullYear();
+
+      function checkYear() {
+        if (vm.dateRange.start >= vm.dateRange.end) {
+          return 2017;
+        } else {
+          return 2016
+        }
+      }
+
+      $http.get(searchAPI +
+        'location=' + location +
+        '&radius=250' +
+        '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
+        '&date-start=' + defStart + '-01-' + thisYear +
+        '&date-end=' + defEnd + '-01-' + checkYear(), {
+          cache: true
+        })
+        .then(function(data) {
+          var seminarsData = data.seminars;
+          receiveSeminarData(seminarsData);
+          return seminarsData;
+        });
+    }
     vm.cartItemList = cartService.getCartItems() || [];
     vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
@@ -46,12 +83,8 @@
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
-        $scope.qty = '';
     };
-    $scope.$on('cartUpdated', function() {
-        $scope.qty = '';
-        $log.debug('heard ya')
-    })
+
     /**
      * Handle location input
      * @param  {object} e the event
@@ -59,25 +92,26 @@
      */
     vm.handleLocInput = function(e) {
       if (e.keyCode === 13 && vm.locSearchFilter.location) {
-        vm.locSearchFilter.locationAll = false;
-        vm.$storage.SearchLocation = vm.locSearchFilter.location;
+        vm.locSearchFilter.locationAll = false
         $rootScope.$broadcast('location', vm.locSearchFilter.location);
         doParamSearch();
       }
     }
+
     /**
      * Handle kewword input
      * @param  {object} e the event
      */
     vm.handleKWInput = function(e) {
-        if (e.keyCode === 13 && vm.kwFilter.word) {
-          $rootScope.$broadcast('keyword', vm.kwFilter.word);
-        }
-        if (e.type === 'blur' && vm.kwFilter.word) {
-          $rootScope.$broadcast('keyword', vm.kwFilter.word);
-        }
+      if (e.keyCode === 13 && vm.kwFilter.word) {
+        $rootScope.$broadcast('keyword', vm.kwFilter.word);
       }
-      // Listens for a broadcast that says 'location'
+      if
+        (e.type === 'blur' && vm.kwFilter.word) {
+          $rootScope.$broadcast('keyword', vm.kwFilter.word);
+        }
+    }
+    // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
     });
@@ -88,7 +122,7 @@
       vm.keywordParam = data;
       doKWParamSearch();
     });
-
+    vm.hideRadius = false;
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function
@@ -96,7 +130,7 @@
      */
     vm.stateChanged = function() {
       if (vm.locSearchFilter.locationAll) {
-
+        vm.locSearchFilter.location = '';
         $rootScope.$broadcast('location', vm.locSearchFilter.locationAll);
         $http.get(searchAPI + 'location= ')
           .then(function(data) {
@@ -137,11 +171,9 @@
       hvac: true,
       electrical: true,
       mechanical: true,
-      management: true,
-      all: true
+      management: true
     }
-    vm.courseTopics = {};
-    vm.courseTopics.categories = [];
+
 
     /**
      * Watches the locationAll checkbox and runs on checked.
@@ -150,7 +182,6 @@
      */
     vm.stateChanged = function() {
       $log.debug(vm.courseTopics.categories)
-
       $rootScope.$broadcast('topic', vm.courseTopics.categories);
     }
 
@@ -160,16 +191,11 @@
       var labelsArray = ['hvac', 'electrical', 'mechanical', 'management'];
       labelsArray.forEach(function(label, index) {
         if (data[label]) {
-          vm['topicParam' + (index + 1)] = label;
+          vm['topicParam' + (index + 1)] = label + ',';
           vm.courseTopics.categories.all = false
         } else {
           vm['topicParam' + (index + 1)] = '';
-
         }
-        vm.$storage.SearchTopic1 = vm.topicParam1;
-        vm.$storage.SearchTopic2 = vm.topicParam2;
-        vm.$storage.SearchTopic3 = vm.topicParam3;
-        vm.$storage.SearchTopic4 = vm.topicParam4;
       });
 
       doParamSearch();
@@ -190,20 +216,19 @@
     vm.startingMonthArray = monthNames.slice(thisMonth);
     vm.yearOfMonths = months.getMonths();
     var defStart = vm.startingMonthArray[0].value;
-    var defEnd = vm.startingMonthArray[4].value
+    var defEnd = vm.startingMonthArray[3].value
 
     function doParamSearch() {
       $loading.start('courses');
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-      var minDateRange = vm.$storage.SearchDRmin || vm.dateRange.start || defStart;
-      var maxDateRange = vm.$storage.SearchDRmax || vm.dateRange.end || defEnd;
+      var minDateRange = vm.dateRange.start || defStart;
+      var maxDateRange = vm.dateRange.end || defEnd;
       var radiusParam = vm.mileRange.value || '250';
-      var locParam = vm.$storage.SearchLocation || vm.locationParam || '';
+      var locParam = vm.locationParam || '';
       var topicParam1 = vm.$storage.SearchTopic1 || vm.topicParm1;
       var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
       var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
       var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
-
       function checkYear() {
         if (vm.dateRange.start >= vm.dateRange.end) {
           return 2017;
@@ -213,14 +238,14 @@
       }
       //'keyword=' + keywordParam
       $http.get(searchAPI +
-          // 'keyword=' + this.keywordParam +
-          'location=' + locParam +
-          '&radius=' + radiusParam +
-          '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
-          '&date-start=' + minDateRange + '-01-' + thisYear +
-          '&date-end=' + maxDateRange + '-01-' + checkYear(), {
-            cache: true
-          })
+        // 'keyword=' + this.keywordParam +
+        'location=' + locParam +
+        '&radius=' + radiusParam +
+        '&topics=' + topicParam1 + topicParam2 + topicParam3 + topicParam4 +
+        '&date-start=' + minDateRange + '-01-' + thisYear +
+        '&date-end=' + maxDateRange + '-01-' + checkYear(), {
+          cache: true
+        })
         .then(function(data) {
 
           var seminarsData = data.data.seminars;
@@ -245,14 +270,14 @@
       }
 
       $http.get(searchAPI +
-          'keyword=' + vm.keywordParam +
-          '&location=' + '' +
-          '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
-          '&date-start=' + minDateRange + '-01-2016' +
-          '&date-end=' + maxDateRange + '-01-' + checkYear(), {
-            cache: true
-          })
+        'keyword=' + vm.keywordParam +
+        '&location=' + '' +
+        '&radius=' + radiusParam +
+        '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
+        '&date-start=' + minDateRange + '-01-2016' +
+        '&date-end=' + maxDateRange + '-01-' + checkYear(), {
+          cache: true
+        })
         .then(function(data) {
 
           var seminarsData = data.data.seminars;
@@ -263,11 +288,10 @@
 
     vm.clearFilters = function() {
       localStorage.clear();
-      doParamSearch();
       vm.courseTopics.categories = [];
       vm.locSearchFilter.locationAll = [];
-      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
-      $document.location.reload(true);
+      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0
+      doParamSearch();
     }
 
 
@@ -296,5 +320,5 @@
         position: 'relative' // Element position
       }
     }
-  }
-})();
+  })
+}(angular.module('train.register')));

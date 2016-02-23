@@ -11,7 +11,6 @@
       <ul class="list-inline cart-item-list">
         <li class="cart-item" ng-repeat="cartItem in vm.cartItemList track by $index">
           <ul class="container">
-            <form name="shoppingCartForm">
             <li class="class-title col-xs-12 col-sm-12 col-md-4">{{cartItem.title}}</li>
 
             <li class="location col-xs-12 col-sm-4 col-md-2">{{cartItem.city}}, {{cartItem.state}}</li>
@@ -25,7 +24,6 @@
             <li class="sub-total col-xs-12 col-sm-4 col-md-1">
               ${{cartItem.price * cartItem.quantity}}
             </li>
-          </form>
           </ul>
         </li>
       </ul>

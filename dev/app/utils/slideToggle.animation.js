@@ -1,29 +1,7 @@
-/**
- * @ngdoc overview
- * @name train
- * @description
- * The main module for the trainco
- */
-
 (function() {
   'use strict';
 
-  angular
-    .module('train', [
-      // 'train.seminar',
-      'ngAnimate',
-      'ngSanitize',
-      //@exclude
-      'ui.router',
-      //@endexclude
-      'ui.bootstrap',
-      'selector',
-      'rzModule',
-      'ngStorage',
-      'angular.filter',
-      'darthwade.loading'
-    ])
-    .config(configure)
+  angular.module('train')
     .animation('.slide-toggle', ['$animateCss', function($animateCss) {
       var lastId = 0;
       var _cache = {};
@@ -81,12 +59,11 @@
             });
             if (animator) {
               if (state.animating) {
-                state.doneFn =
-                  generateRunner(true,
-                    state,
-                    animator,
-                    element,
-                    doneFn);
+                state.doneFn = generateRunner(true,
+                  state,
+                  animator,
+                  element,
+                  doneFn);
                 return state.animator.end();
               } else {
                 state.height = height;
@@ -139,21 +116,4 @@
         }
       };
     }]);
-
-  /** @ngInject */
-  function configure($logProvider, $httpProvider, $localStorageProvider, $locationProvider) {
-    /**
-     * @ngdoc function
-     * @name  config
-     * @description
-     * main configuration for trainco app.
-     */
-    //@exclude
-    $logProvider.debugEnabled(true);
-    //@endexclude
-    $localStorageProvider.setKeyPrefix('tpc');
-    // Expose XHR requests to server
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-  }
-
 })();
