@@ -42,6 +42,7 @@
     string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
     string pageHeaderScript = "";
     string pageFooterScript = "";
+    string bodyId = "";
 
     bool cartPage = false;
     bool checkoutPage = true;
@@ -81,6 +82,11 @@
     else if (currentPage.DocumentTypeAlias == "RegisterSuccess")
     {
         cartPage = true;
+    }
+
+    if (searchPage || homePage || seminarDetailPage)
+    {
+        bodyId = " id=\"page-top\"";
     }
 
     bool clearSession = false;
@@ -246,7 +252,7 @@
     @Html.Raw(pageHeaderScript)
 </head>
 
-<body class="gradient-bg" id="page-top">
+<body class="gradient-bg"@(bodyId)>
 
     @Html.Partial("Navigation/Top")
 
@@ -324,8 +330,12 @@
     {
         <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
         <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
-
-    }
+        <script type="text/javascript">
+        $(window).load(function () {
+            tpcAppObj = new TPCApp();
+        });
+        </script>
+     }
 
     @if (true == homePage)
     {
