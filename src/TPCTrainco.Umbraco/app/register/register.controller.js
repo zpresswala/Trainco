@@ -83,11 +83,6 @@
       item.qty = '';
     };
 
-    $scope.$on('cartUpdated', function(event, data) {
-
-    });
-
-
     /**
      * Handle location input
      * @param  {object} e the event
