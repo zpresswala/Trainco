@@ -11,7 +11,7 @@
       <div class="col-md-3 register-sidebar">
         <div class="filter-location">
           <label class="sidebar-label">Keyword Search</label>
-          <input type="search" ng-init="register.kwFilter = {}" ng-keydown="register.handleKWInput($event)" ng-model="register.kwFilter.word" placeholder="Enter Keyword">
+          <input type="search" ng-init="register.kwFilter = {}" ng-keyup="register.handleKWInput($event)" ng-model="register.kwFilter.word" placeholder="Enter Keyword">
         </div>
         <hr class="dark-hr" />
         <div class="filter-topic">
@@ -34,7 +34,7 @@
         <hr class="divider" />
         <div class="filter-location">
           <label class="sidebar-label">City or ZIP</label>
-          <input type="search" ng-init="register.locSearchFilter = {}" ng-keydown="register.handleLocInput($event)" ng-model="register.locSearchFilter.location" placeholder="Enter Location">
+          <input type="search" ng-init="register.locSearchFilter = {}" ng-keyup="register.handleLocInput($event)" ng-model="register.locSearchFilter.location" placeholder="Enter Location">
           <h5>- or -</h5>
           <div class="input-group">
             <span class="input-group-addon">

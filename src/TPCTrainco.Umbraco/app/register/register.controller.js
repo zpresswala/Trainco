@@ -1,13 +1,14 @@
 (function(module) {
   'use strict';
   /** @ngInject */
-  module.controller('RegisterController', function($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading,$timeout, months, $document, $window) {
+  module.controller('RegisterController', function($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
     var vm = this;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     vm.dateRange = {};
     vm.$storage = $localStorage;
     vm.initialDirections = true;
-
+    vm.OGFilter = {};
+    vm.sbIsCollapsed = false; // mobile sidebar converted into menu.
     activate();
 
     /**
@@ -27,7 +28,7 @@
       var seminarLocations = [];
       vm.seminarLocations = seminarsData;
     }
-    vm.sbIsCollapsed = false;
+
     /**
      * pulls data from localStorage in order to run the
      * search from the off page search component as soon as the page loads.
@@ -35,44 +36,29 @@
      */
     function activate() {
 
-      var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-
-      var location = vm.$storage.SearchLocation
-      var topicParam1 = vm.$storage.SearchTopic1
-      var topicParam2 = vm.$storage.SearchTopic2
-      var topicParam3 = vm.$storage.SearchTopic3
-      var topicParam4 = vm.$storage.SearchTopic4
-      var defStart = vm.$storage.SearchDRmin
-      var defEnd = vm.$storage.SearchDRmax
-      // var today = new Date();
-      // var thisYear = today.getFullYear();
-      //
-      // function checkYear() {
-      //   if (vm.dateRange.start >= vm.dateRange.end) {
-      //     return 2017;
-      //   } else {
-      //     return 2016
-      //   }
-      // }
-      //
-      // $http.get(searchAPI +
-      //   'location=' + location +
-      //   '&radius=250' +
-      //   '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
-      //   '&date-start=' + defStart + '-01-' + thisYear +
-      //   '&date-end=' + defEnd + '-01-' + checkYear(), {
-      //     cache: true
-      //   })
-      //   .then(function(data) {
-      //     vm.initialDirections = false;
-      //     var seminarsData = data.seminars;
-      //     receiveSeminarData(seminarsData);
-      //     return seminarsData;
-      //   });
+      var location = vm.$storage.SearchLocation;
+      var topicParam1 = vm.$storage.SearchTopic1;
+      var topicParam2 = vm.$storage.SearchTopic2;
+      var topicParam3 = vm.$storage.SearchTopic3;
+      var topicParam4 = vm.$storage.SearchTopic4;
+      var defStart = vm.$storage.SearchDRmin;
+      var defEnd = vm.$storage.SearchDRmax;
+      if (location === undefined) {
+        vm.initialDirections = true;
+      }
+      vm.OGFilter = {
+        location: location,
+        topicParam1: topicParam1,
+        topicParam2: topicParam2,
+        topicParam3: topicParam3,
+        topicParam4: topicParam4,
+        defStart: defStart,
+        defEnd: defEnd
+      }
     }
     vm.cartItemList = cartService.getCartItems() || [];
     vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-
+    $log.debug(vm.OGFilter)
 
     /**
      * adds item to the cart or updates the quantity
@@ -82,7 +68,6 @@
      * @return {array}      returns the updated cartItemList
      */
     vm.addItemToCart = function(item, qty, $event) {
-
       cartService.addItem(item, qty)
 
       vm.cartItemList = cartService.getCartItems() || [];
@@ -92,13 +77,10 @@
 
       $($event.target).val('Added!');
 
-        $timeout = setTimeout(function() {
+      $timeout = setTimeout(function() {
         $($event.target).val('Add to cart');
-        }, 3500);
+      }, 3500);
       item.qty = '';
-      // $($event.target).closest('.result-attendee-wrapper').find('.attendee-input').val('');
-      // $($event.target).fadeOut().removeAttr('style').removeClass('.ng-show');
-
     };
 
     $scope.$on('cartUpdated', function(event, data) {
@@ -112,13 +94,12 @@
      * @return {method}
      */
     vm.handleLocInput = function(e) {
-      $window.addEventListener('keyup', function(e) {
-        vm.locSearchFilter.locationAll = false
+      vm.locSearchFilter.locationAll = false;
+
+      $timeout = setTimeout(function() {
         $rootScope.$broadcast('location', vm.locSearchFilter.location);
-        $timeout = setTimeout(function() {
-            doParamSearch();
-        }, 2500);
-      });
+        doParamSearch();
+      }, 3000);
     }
 
     /**
@@ -126,16 +107,15 @@
      * @param  {object} e the event
      */
     vm.handleKWInput = function(e) {
-      $window.addEventListener('keyup', function(e) {
-        $timeout = setTimeout(function() {
-            doKWParamSearch();
-        }, 2500);
-      });
+      $timeout = setTimeout(function() {
+        doKWParamSearch();
+      }, 2500);
     }
 
     // Listens for a broadcast that says 'location'
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
+      vm.$storage.SearchLocation = data;
     });
 
     vm.hideRadius = false;
@@ -241,15 +221,15 @@
     function doParamSearch() {
       $loading.start('courses');
       var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-      var keywordParam =  vm.$storage.kword || vm.kwFilter.word;
+      var keywordParam = vm.$storage.kword || vm.kwFilter.word;
       var radiusParam = vm.mileRange.value || '250';
-      var locParam = vm.$storage.SearchLocation || vm.locationParam || '';
+      var locParam = vm.$storage.SearchLocation || vm.locSearchFilter.location;
       var topicParam1 = vm.$storage.SearchTopic1 || vm.topicParm1;
       var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
       var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
       var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
-      var defStart = vm.$storage.SearchDRmin || vm.dateRange.start;
-      var defEnd = vm.$storage.SearchDRmax  || vm.dateRange.end;
+      var defStart = vm.$storage.SearchDRmin || vm.dateRange.start || '02';
+      var defEnd = vm.$storage.SearchDRmax || vm.dateRange.end || '12';
       var today = new Date();
       var thisYear = today.getFullYear();
       var theTopics = [topicParam1, topicParam2, topicParam3, topicParam4];
@@ -264,14 +244,14 @@
       }
       //'keyword=' + keywordParam
       $http.get(searchAPI +
-        'keyword=' + keywordParam +
-        'location=' + locParam +
-        '&radius=' + radiusParam +
-        '&topics=' + theTopics +
-        '&date-start=' + defStart + '-01-' + thisYear +
-        '&date-end=' + defEnd + '-01-' + checkYear(), {
-          cache: true
-        })
+
+          'location=' + locParam +
+          '&radius=' + radiusParam +
+          '&topics=' + theTopics +
+          '&date-start=' + defStart + '-01-' + thisYear +
+          '&date-end=' + defEnd + '-01-' + checkYear(), {
+            cache: true
+          })
         .then(function(data) {
 
           var seminarsData = data.data.seminars;
@@ -288,6 +268,7 @@
       var radiusParam = vm.mileRange.value || '250';
       var keywordParam = vm.kwFilter.word;
       vm.initialDirections = false;
+
       function checkYear() {
         if (vm.dateRange.start >= vm.dateRange.end) {
           return 2017;
@@ -297,14 +278,14 @@
       }
 
       $http.get(searchAPI +
-        'keyword=' + keywordParam +
-        '&location=' + '' +
-        '&radius=' + radiusParam +
-        '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
-        '&date-start=' + minDateRange + '-01-2016' +
-        '&date-end=' + maxDateRange + '-01-' + checkYear(), {
-          cache: true
-        })
+          'keyword=' + keywordParam +
+          '&location=' + '' +
+          '&radius=' + radiusParam +
+          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
+          '&date-start=' + minDateRange + '-01-2016' +
+          '&date-end=' + maxDateRange + '-01-' + checkYear(), {
+            cache: true
+          })
         .then(function(data) {
 
           var seminarsData = data.data.seminars;
