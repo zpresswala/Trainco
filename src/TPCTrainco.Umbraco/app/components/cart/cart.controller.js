@@ -6,7 +6,7 @@
     .controller('CartController', CartController);
 
     /** @ngInject */
-    function CartController(cartService, $log, $scope, $http, $window) {
+    function CartController(cartService, $log, $scope, $http, $window, $timeout) {
       var vm = this;
       var purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
       vm.cartItem = {};
@@ -32,6 +32,7 @@
         vm.cartItemList = cartService.getCartItems() || [];
         vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       };
+
 
       /**
        * Handle key input

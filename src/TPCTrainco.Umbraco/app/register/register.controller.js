@@ -263,10 +263,11 @@
 
     vm.clearFilters = function() {
       localStorage.clear();
+      doParamSearch();
       vm.courseTopics.categories = [];
       vm.locSearchFilter.locationAll = [];
-      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0
-      doParamSearch();
+      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+      $document.location.reload(true);
     }
 
 
