@@ -29,16 +29,8 @@
             <h4 class="sidebar-h4">Search By:</h4>
             <label class="sidebar-label">Seminar Topic</label>
           <div class="input-group">
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.electrical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Electrical</label>
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.hvac" ng-change="register.stateChanged(register.courseTopics.categories[category])">HVAC</label>
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.management" ng-change="register.stateChanged(register.courseTopics.categories[category])">Plant Management</label>
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories.all)">All Seminar Topics</label>
+            <label class="sidebar-label" ng-repeat="category in register.categories">
+              <input type="checkbox" checklist-model="register.courseTopics.categories.electrical" checklist-value="register.category">{{category}}</label>
           </div>
           </div>
 

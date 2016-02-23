@@ -210,8 +210,8 @@
 
     vm.startingMonthArray = monthNames.slice(thisMonth);
     vm.yearOfMonths = months.getMonths();
-    var defStart = vm.startingMonthArray[0].value;
-    var defEnd = vm.startingMonthArray[3].value
+    var defaultStart = vm.startingMonthArray[0].value;
+    var defaultEnd = vm.startingMonthArray[3].value
 
     function doParamSearch() {
       $loading.start('courses');
@@ -223,8 +223,8 @@
       var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
       var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
       var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
-      var defStart = vm.$storage.SearchDRmin || vm.dateRange.start || '02';
-      var defEnd = vm.$storage.SearchDRmax || vm.dateRange.end || '12';
+      var defStart = vm.$storage.SearchDRmin || vm.dateRange.start || defaultStart;
+      var defEnd = vm.$storage.SearchDRmax || vm.dateRange.end || defaultEnd;
       var today = new Date();
       var thisYear = today.getFullYear();
       var theTopics = [topicParam1, topicParam2, topicParam3, topicParam4];
