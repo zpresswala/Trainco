@@ -108,7 +108,7 @@
      */
     vm.handleKWInput = function(e) {
       $timeout = setTimeout(function() {
-        doKWParamSearch();
+        doParamSearch();
       }, 2500);
     }
 
@@ -204,7 +204,7 @@
       }
     function doParamSearch() {
       $loading.start('courses');
-      var keywordParam = vm.$storage.kword || vm.kwFilter.word;
+      var keywordParam = vm.$storage.kword;
       var radiusParam = vm.mileRange.value || '250';
       var locParam = vm.$storage.SearchLocation || vm.locSearchFilter.location;
       var topicParam1 = vm.$storage.SearchTopic1 || vm.topicParm1;

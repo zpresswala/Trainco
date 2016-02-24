@@ -6,7 +6,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1060;
+  z-index: 1400;
   height: 50px;
 
   @include tablet-landscape-and-up {
@@ -219,7 +219,7 @@
   height: 50px;
   background-color: #5c5c5c;
   width: 100%;
-  z-index: 1500;
+  z-index: 1250;
 
   @media screen and (max-width: 1025px) {
     display: none;

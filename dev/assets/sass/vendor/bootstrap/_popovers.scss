@@ -34,6 +34,21 @@
   &.left {
     margin-left: -$popover-arrow-width;
   }
+    @media screen and (max-width: 600px) {
+
+          left: -260px;
+          width: 350px;
+    }
+    @media screen and (max-width: 500px) {
+
+          left: -260px;
+          width: 350px;
+    }
+    @media screen and (max-width: 400px) {
+
+          left: -260px;
+          width: 350px;
+    }
 }
 
 .popover-title {
