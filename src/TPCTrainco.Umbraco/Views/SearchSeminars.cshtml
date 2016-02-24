@@ -165,7 +165,7 @@
             <div class="col-sm-2 col-xs-3 result-attendee-wrapper">Attendees</div>
           </section>
           <section class="row result-table-body">
-            <div ng-repeat="location in course.locationSchedules" class="result-location-row">
+            <div ng-repeat="location in course.locationSchedules | startFrom: currentPage*pageSize | limitTo:pageSize" class="result-location-row">
               <div class="col-md-5 col-sm-10 col-xs-9 result-location">
                 <span class="state">{{::location.state}}</span>
                 <span class="city">{{::location.city}}</span>
@@ -182,7 +182,15 @@
                       ng-click="register.addItemToCart(location, location.qty, $event)"
                       type="button" name="name" value="Add to Cart">
               </div>
+
             </div>
+            <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                    Previous
+            </button>
+                {{currentPage+1}}/{{course.locationSchedules.length/pageSize - 1| number:0}}
+                <button ng-disabled="currentPage >= course.locationSchedules.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                    Next
+                </button>
           </section>
         </div>
 

@@ -1,7 +1,7 @@
 (function(module) {
   'use strict';
   /** @ngInject */
-  module.controller('RegisterController', function($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
+  module.controller('RegisterController', function($log, Pagination, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
     var vm = this;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     vm.dateRange = {};
@@ -117,8 +117,7 @@
       vm.$storage.SearchLocation = data;
     });
 
-    vm.hideRadius = false;
-
+    vm.pagination = Pagination.getNew(10);
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function
@@ -138,7 +137,8 @@
           });
       }
     }
-
+  vm.currentPage = 1;
+  $scope.pageSize = 10;
     vm.watcherOfThings = function() {
       doParamSearch();
     }
@@ -296,7 +296,9 @@
       vm.initialDirections = true;
 
     }
-
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.data = [];
 
     // $loading spinner options
     vm.options = {
