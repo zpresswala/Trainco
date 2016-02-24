@@ -8,7 +8,7 @@
     vm.$storage = $localStorage;
     vm.initialDirections = true;
 
-    vm.sbIsCollapsed = false; // mobile sidebar converted into menu.
+    vm.sbIsCollapsed = true; // mobile sidebar converted into menu.
     var OGFilter = {
       keywordParam: '',
       locParam: '',
@@ -255,9 +255,10 @@
     }
 
     vm.clearFilters = function() {
-      localStorage.clear();
+      $localStorage.$reset();
       vm.courseTopics.categories = [];
-      vm.locSearchFilter.locationAll = [];
+      vm.locSearchFilter.locationAll = true;
+      vm.locSearchFilter.location = '';
       $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
       vm.initialDirections = true;
     }
