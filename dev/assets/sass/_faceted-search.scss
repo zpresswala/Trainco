@@ -253,6 +253,9 @@ hr.divider {
     width: 100%;
     padding: 6px 8px;
     background: $gray-background;
+    @include below-tablet-portrait() {
+      color: $headline-black;
+    }
   }
 
   h5 {
