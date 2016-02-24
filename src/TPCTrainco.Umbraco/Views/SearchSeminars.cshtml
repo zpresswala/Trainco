@@ -19,60 +19,58 @@
     <img ng-click="ctrl.sbIsCollapsed = !ctrl.sbIsCollapsed" class="img-right" src="/assets/images/icon-arrow-down.png" alt="Toggle Arrow" />
         <div class="register-sidebar--sm" uib-collapse="ctrl.sbIsCollapsed">
           <div class="filter-location">
-            <form novalidate id="fastSearchForm">
-            <label class="sidebar-label">Keyword Search</label>
-            <input class="fastSearch" type="search" ng-init="ctrl.kwFilter = {}" ng-keyup="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
-          </form>
-          </div>
-          <hr class="dark-hr" />
-          <div class="filter-topic">
-            <h4 class="sidebar-h4">Search By:</h4>
-            <label class="sidebar-label">Seminar Topic</label>
-          <div class="input-group">
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.courseTopics.categories.electrical" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Electrical</label>
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.courseTopics.categories.hvac" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">HVAC</label>
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.courseTopics.categories.management" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Plant Management</label>
-            <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.courseTopics.categories.mechanical" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
-            <label class="sidebar-label">
-              <input type="checkbox" ng-init="ctrl.courseTopics.categories.all=true" ng-model="ctrl.courseTopics.categories.all" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">All Seminar Topics</label>
-          </div>
-          </div>
+    <label class="sidebar-label">Keyword Search</label>
+    <input type="search" ng-keydown="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
+  </div>
+  <hr class="dark-hr" />
+  <div class="filter-topic">
+    <h4 class="sidebar-h4">Search By:</h4>
+    <label class="sidebar-label">Seminar Topic</label>
+    <div class="input-group">
+      <label class="sidebar-label">
+        <input type="checkbox" ng-model="ctrl.courseTopics.categories.electrical" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Electrical</label>
+      <label class="sidebar-label">
+        <input type="checkbox" ng-model="ctrl.courseTopics.categories.hvac" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">HVAC</label>
+      <label class="sidebar-label">
+        <input type="checkbox" ng-model="ctrl.courseTopics.categories.management" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Plant Management</label>
+      <label class="sidebar-label">
+        <input type="checkbox" ng-model="ctrl.courseTopics.categories.mechanical" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
+      <label class="sidebar-label">
+        <input type="checkbox" ng-init="ctrl.courseTopics.categories.all=true" ng-model="ctrl.courseTopics.categories.all" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">All Seminar Topics</label>
+    </div>
+  </div>
 
-          <hr class="divider" />
-          <div class="filter-location">
-            <label class="sidebar-label">City or ZIP</label>
-            <input type="search" ng-keyup="ctrl.handleLocInput($event)" ng-model="ctrl.locSearchFilter.location" placeholder="Enter Location">
-            <h5>- or -</h5>
-            <div class="input-group">
-              <span class="input-group-addon">
-                <input ng-model="ctrl.locSearchFilter.locationAll" ng-init="ctrl.locSearchFilter.locationAll=true" ng-change="ctrl.stateChanged(ctrl.locSearchFilter.locationAll)" type="checkbox">All Locations
-              </span>
-            </div>
-          </div>
-          <hr class="divider" />
-          <label>Search Within a</label>
-          <rzslider rz-slider-model="ctrl.mileRange.value" rz-slider-options="ctrl.mileRange.options"></rzslider>
-          <hr class="divider" />
-          <label>Date Range</label>
-          <h5>From</h5>
+  <hr class="divider" />
+  <div class="filter-location">
+    <label class="sidebar-label">City or ZIP</label>
+    <input type="search" ng-keydown="ctrl.handleLocInput($event)" ng-model="ctrl.locSearchFilter.location" placeholder="Enter Location">
+    <h5>- or -</h5>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <input ng-model="ctrl.locSearchFilter.locationAll" ng-init="ctrl.locSearchFilter.locationAll=true" ng-change="ctrl.locSearchFilter.location = ''" type="checkbox">All Locations
+      </span>
+    </div>
+  </div>
+  <hr class="divider" />
+  <label>Search Within a</label>
+  <rzslider rz-slider-model="ctrl.mileRange.value" rz-slider-options="ctrl.mileRange.options"></rzslider>
+  <hr class="divider" />
+  <label>Date Range</label>
+  <h5>From</h5>
 
-          <select ng-model="ctrl.dateRange.start" ng-options="month.value as month.name for month in ctrl.startingMonthArray" ng-change="ctrl.watcherOfThings()"></select>
-          <h5>Through</h5>
-          <select ng-model="ctrl.dateRange.end" ng-options="month.value as month.name for month in ctrl.yearOfMonths" ng-change="ctrl.watcherOfThings()"></select>
-          <hr class="divider" />
-          <label><span class="register-link" ng-click="ctrl.clearFilters()">Clear Filters</span></label>
-        </div>
+  <select ng-model="ctrl.dateRange.start" ng-options="month.value as month.name for month in ctrl.startingMonthArray"></select>
+  <h5>Through</h5>
+  <select ng-model="ctrl.dateRange.end" ng-options="month.value as month.name for month in ctrl.yearOfMonths" ng-change="ctrl.watcherOfThings()"></select>
+  <hr class="divider" />
+  <label><span class="register-link" ng-click="ctrl.clearFilters()">Clear Filters</span></label>
+</div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-md-3 register-sidebar">
         <div class="filter-location">
           <label class="sidebar-label">Keyword Search</label>
-          <input type="search" ng-init="ctrl.kwFilter = {}" ng-keydown="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
+          <input type="search" ng-keydown="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
         </div>
         <hr class="dark-hr" />
         <div class="filter-topic">
@@ -136,14 +134,14 @@
             <span class="empty-results-number">3</span> Adjust the date range as needed.
           </div>
           <ul class="empty-results-tags">
-            <li><a href="#">Electrical</a></li>
-            <li><a href="#">HVAC</a></li>
-            <li><a href="#">Plant Management</a></li>
-            <li><a href="#">Mechanical &amp; Industrial</a></li>
+            <li><a href="/public-seminars/electrical-training/">Electrical</a></li>
+            <li><a href="/public-seminars/hvac-training/">HVAC</a></li>
+            <li><a href="/public-seminars/plant-management/">Plant Management</a></li>
+            <li><a href="/public-seminars/mechanical-and-industrial-training/">Mechanical &amp; Industrial</a></li>
           </ul>
           <p class="empty-results-promo">
             All of our public seminars are just $495 a day, and most are two days in length. All are also available for
-            <a href="#">on-site training</a>.
+            <a href="/on-site-training/">on-site training</a>.
           </p>
         </div>
         <!-- END No Results -->
