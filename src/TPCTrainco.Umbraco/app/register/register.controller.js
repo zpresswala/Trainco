@@ -37,6 +37,7 @@
     function receiveSeminarData(seminarsData) {
       var seminarLocations = [];
       vm.seminarLocations = seminarsData;
+      vm.semLocLength = vm.seminarLocations.length / 4;
     }
 
     /**
@@ -117,7 +118,6 @@
       vm.$storage.SearchLocation = data;
     });
 
-    vm.pagination = Pagination.getNew(10);
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function
@@ -137,11 +137,10 @@
           });
       }
     }
-  vm.currentPage = 1;
-  $scope.pageSize = 10;
-    vm.watcherOfThings = function() {
-      doParamSearch();
-    }
+
+      vm.watcherOfThings = function() {
+        doParamSearch();
+      }
 
     /**
      * Settings for the mileage slider.
@@ -255,51 +254,22 @@
       });
     }
 
-    function doKWParamSearch() {
-      var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-      var minDateRange = vm.dateRange.start || '01';
-      var maxDateRange = vm.dateRange.end || '12';
-      var radiusParam = vm.mileRange.value || '250';
-      var keywordParam = vm.kwFilter.word;
-      vm.initialDirections = false;
-
-      function checkYear() {
-        if (vm.dateRange.start >= vm.dateRange.end) {
-          return 2017;
-        } else {
-          return 2016
-        }
-      }
-
-      $http.get(searchAPI +
-          'keyword=' + keywordParam +
-          '&location=' + '' +
-          '&radius=' + radiusParam +
-          '&topics=' + vm.topicParam1 + vm.topicParam2 + vm.topicParam3 + vm.topicParam4 +
-          '&date-start=' + minDateRange + '-01-2016' +
-          '&date-end=' + maxDateRange + '-01-' + checkYear(), {
-            cache: true
-          })
-        .then(function(data) {
-
-          var seminarsData = data.data.seminars;
-          receiveSeminarData(seminarsData);
-          return seminarsData;
-        });
-    }
-
     vm.clearFilters = function() {
       localStorage.clear();
       vm.courseTopics.categories = [];
       vm.locSearchFilter.locationAll = [];
       $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
       vm.initialDirections = true;
-
     }
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
-    $scope.data = [];
 
+    vm.mainCurrentPage = 0;
+    vm.mainPageSize = 4;
+    vm.inceptCurrentPage = 0;
+    vm.inceptPageSize = 10;
+        vm.goNextPage = function() {
+          vm.mainCurrentPage = vm.mainCurrentPage + 1;
+          $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+        }
     // $loading spinner options
     vm.options = {
       text: 'Loading...',
