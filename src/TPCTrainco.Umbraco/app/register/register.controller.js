@@ -118,26 +118,6 @@
       vm.$storage.SearchLocation = data;
     });
 
-    /**
-     * Watches the locationAll checkbox and runs on checked.
-     * @method function
-     * @return {array} returns the array seminarsData containing all locations.
-     */
-    vm.stateChanged = function() {
-      if (vm.locSearchFilter.locationAll) {
-        vm.locSearchFilter.location = '';
-        $rootScope.$broadcast('location', vm.locSearchFilter.locationAll);
-        $http.get(searchAPI + 'location= ')
-          .then(function(data) {
-
-            vm.hideRadius = true;
-            var seminarsData = data.data.seminars;
-            vm.receiveSeminarData(seminarsData);
-            return seminarsData;
-          });
-      }
-    }
-
       vm.watcherOfThings = function() {
         doParamSearch();
       }
@@ -169,7 +149,7 @@
       mechanical: true,
       management: true
     }
-
+    vm.numLimit = 10;
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function

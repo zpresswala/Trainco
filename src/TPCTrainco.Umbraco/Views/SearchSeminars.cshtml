@@ -95,11 +95,11 @@
         <hr class="divider" />
         <div class="filter-location">
           <label class="sidebar-label">City or ZIP</label>
-          <input type="search" ng-init="ctrl.locSearchFilter = {}" ng-keydown="ctrl.handleLocInput($event)" ng-touched="ctrl.doParamSearch()" ng-model="ctrl.locSearchFilter.location" placeholder="Enter Location">
+          <input type="search" ng-keydown="ctrl.handleLocInput($event)" ng-model="ctrl.locSearchFilter.location" placeholder="Enter Location">
           <h5>- or -</h5>
           <div class="input-group">
             <span class="input-group-addon">
-              <input ng-model="ctrl.locSearchFilter.locationAll" ng-init="ctrl.locSearchFilter.locationAll=true" ng-change="ctrl.stateChanged(ctrl.locSearchFilter.locationAll)" type="checkbox">All Locations
+              <input ng-model="ctrl.locSearchFilter.locationAll" ng-init="ctrl.locSearchFilter.locationAll=true" ng-change="ctrl.locSearchFilter.location = ''" type="checkbox">All Locations
             </span>
           </div>
         </div>
@@ -167,7 +167,7 @@
           </section>
           <section class="row result-table-body">
             <div class="result-location-row"
-                  ng-repeat="location in ctrl.seminarLocations | createarray: 'locationSchedules'">
+                  ng-repeat="location in ctrl.seminarLocations | createarray: 'locationSchedules' | limitTo:ctrl.numLimit">
               <div class="col-md-5 col-sm-10 col-xs-9 result-location">
                 <span class="state">{{::location.state}}</span>
                 <span class="city">{{::location.city}}</span>
@@ -186,7 +186,7 @@
                       ng-click="ctrl.addItemToCart(location, location.qty, $event)"/>
               </div>
             </div>
-
+            <span class="additional-showing" ng-click="ctrl.numLimit=30"><i class="fa fa-plus-circle"></i> Show additional seminars for this topic</span>
           </section>
         </div>
         <ul class="pagination-btn-wrapper">
