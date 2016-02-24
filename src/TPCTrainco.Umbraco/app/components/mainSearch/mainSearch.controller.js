@@ -23,7 +23,7 @@
     vm.classTopics = {};
     var today = new Date();
     var thisMonth = today.getMonth();
-    var monthNames = months.getMonths() || [];
+    var monthNames = months.getAbrvMonths() || [];
     // Starts the array at the current month through December
     var startingMonthArray = monthNames.slice(thisMonth);
 

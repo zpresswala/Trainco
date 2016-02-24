@@ -62,7 +62,7 @@
     }
     vm.cartItemList = cartService.getCartItems() || [];
     vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-    $log.debug(OGFilter)
+
 
     /**
      * adds item to the cart or updates the quantity

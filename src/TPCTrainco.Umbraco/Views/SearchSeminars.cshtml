@@ -29,8 +29,16 @@
             <h4 class="sidebar-h4">Search By:</h4>
             <label class="sidebar-label">Seminar Topic</label>
           <div class="input-group">
-            <label class="sidebar-label" ng-repeat="category in register.categories">
-              <input type="checkbox" checklist-model="register.courseTopics.categories.electrical" checklist-value="register.category">{{category}}</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.electrical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Electrical</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.hvac" ng-change="register.stateChanged(register.courseTopics.categories[category])">HVAC</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.management" ng-change="register.stateChanged(register.courseTopics.categories[category])">Plant Management</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-model="register.courseTopics.categories.mechanical" ng-change="register.stateChanged(register.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
+            <label class="sidebar-label">
+              <input type="checkbox" ng-init="register.courseTopics.categories.all=true" ng-model="register.courseTopics.categories.all" ng-change="register.stateChanged(register.courseTopics.categories[category])">All Seminar Topics</label>
           </div>
           </div>
 
@@ -102,7 +110,7 @@
         <label>Date Range</label>
         <h5>From</h5>
 
-        <select ng-model="register.dateRange.start" ng-options="month.value as month.name for month in register.startingMonthArray" ng-change="register.watcherOfThings()"></select>
+        <select ng-model="register.dateRange.start" ng-options="month.value as month.name for month in register.startingMonthArray"></select>
         <h5>Through</h5>
         <select ng-model="register.dateRange.end" ng-options="month.value as month.name for month in register.yearOfMonths" ng-change="register.watcherOfThings()"></select>
         <hr class="divider" />
