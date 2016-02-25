@@ -36,6 +36,7 @@
     }
 
     function receiveSeminarData(seminarsData) {
+      vm.initialDirections = false;
       var seminarLocations = [];
       vm.seminarLocations = seminarsData;
       // below is to calculate the pagination
@@ -49,9 +50,7 @@
      */
     function activate() {
       var keywordParam = '';
-      if (location === undefined) {
-        vm.initialDirections = true;
-      }
+      vm.initialDirections = true;
       var OGFilter = {
         keywordParam: keywordParam,
         locParam: vm.$storage.SearchLocation,
@@ -227,7 +226,7 @@
     vm.startingMonthArray = monthNames.slice(thisMonth);
     vm.yearOfMonths = months.getMonths();
     var defaultStart = vm.startingMonthArray[0].value;
-    var defaultEnd = vm.startingMonthArray[3].value
+    var defaultEnd = vm.startingMonthArray[3].value;
       function checkYear() {
         if (vm.dateRange.start >= vm.dateRange.end) {
           return 2017;
@@ -237,7 +236,7 @@
       }
     function doParamSearch() {
       $loading.start('courses');
-      var keywordParam = vm.$storage.kword;
+      var keywordParam = vm.$storage.kword || vm.kwFilter.word;
       var radiusParam = vm.mileRange.value || '250';
       var locParam = vm.$storage.SearchLocation || vm.locSearchFilter.location;
       var topicParam1 = vm.$storage.SearchTopic1 || vm.topicParm1;

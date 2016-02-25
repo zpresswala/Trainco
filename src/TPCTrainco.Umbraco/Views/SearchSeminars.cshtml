@@ -20,7 +20,7 @@
         <div class="register-sidebar--sm" uib-collapse="ctrl.sbIsCollapsed">
           <div class="filter-location">
     <label class="sidebar-label">Keyword Search</label>
-    <input type="search" ng-keydown="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
+    <input type="search" ng-init="ctrl.kwFilter.word = ''" ng-keydown="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
   </div>
   <hr class="dark-hr" />
   <div class="filter-topic">
@@ -70,7 +70,7 @@
       <div class="col-md-3 register-sidebar">
         <div class="filter-location">
           <label class="sidebar-label">Keyword Search</label>
-          <input type="search" ng-keydown="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
+          <input type="search" ng-keydown="ctrl.handleKWInput($event, ctrl.kwFilter.word)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
         </div>
         <hr class="dark-hr" />
         <div class="filter-topic">
@@ -116,13 +116,8 @@
       </div>
       <div class="col-md-9" class="search-results">
         <!-- No Results -->
-        <div class="empty-results" ng-if="!ctrl.seminarLocations.length">
-          <div class="no-results">
-            <h2>Sorry, no results were found.</h2>
-            <p>
-              Try refining your search, starting a new search or begin browsing below.
-            </p>
-          </div>
+        <div class="empty-results" ng-if="ctrl.initialDirections">
+
           <h3>Use the menu on the left side to:</h3>
           <div class="empty-results-instructions">
             <span class="empty-results-number">1</span> Choose a topic or select a specific seminar title.
@@ -145,9 +140,39 @@
           </p>
         </div>
         <!-- END No Results -->
+  <!-- No Results -->
+  <div class="empty-results" ng-show="!ctrl.seminarLocations.length" ng-if="ctrl.initialDirections = false">
+              <div class="no-results">
+                <h2>Sorry, no results were found.</h2>
+                <p>
+                  Try refining your search, starting a new search or begin browsing below.
+                </p>
+              </div>
+    <h3>Use the menu on the left side to:</h3>
+    <div class="empty-results-instructions">
+      <span class="empty-results-number">1</span> Choose a topic or select a specific seminar title.
+    </div>
+    <div class="empty-results-instructions">
+      <span class="empty-results-number">2</span> Check All Locations to view all.
+    </div>
+    <div class="empty-results-instructions">
+      <span class="empty-results-number">3</span> Adjust the date range as needed.
+    </div>
+    <ul class="empty-results-tags">
+      <li><a href="/public-seminars/electrical-training/">Electrical</a></li>
+      <li><a href="/public-seminars/hvac-training/">HVAC</a></li>
+      <li><a href="/public-seminars/plant-management/">Plant Management</a></li>
+      <li><a href="/public-seminars/mechanical-and-industrial-training/">Mechanical &amp; Industrial</a></li>
+    </ul>
+    <p class="empty-results-promo">
+      All of our public seminars are just $495 a day, and most are two days in length. All are also available for
+      <a href="/on-site-training/">on-site training</a>.
+    </p>
+  </div>
+  <!-- END No Results -->
 
         <!-- Search Results -->
-        <div class="faceted-result" ng-repeat="course in ctrl.seminarLocations | flatten | startFrom: ctrl.mainCurrentPage * 4 | limitTo:4" dw-loading="courses" dw-loading-options="ctrl.options">
+        <div class="faceted-result" ng-if="!ctrl.initialDirections && ctrl.seminarLocations.length" ng-repeat="course in ctrl.seminarLocations | flatten | startFrom: ctrl.mainCurrentPage * 4 | limitTo:4" dw-loading="courses" dw-loading-options="ctrl.options">
           <section class="row">
             <div class="col-md-2">
               <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
