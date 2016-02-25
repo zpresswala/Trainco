@@ -1,13 +1,22 @@
-(function(module) {
+/**
+ * @ngdoc overview
+ * @name train.register
+ * @description
+ * The register / search module for TrainCO
+ */
 
-}(angular.module('train.register', [
-  'ngAnimate',
-  'ui.bootstrap',
-  'selector',
-  'rzModule',
-  'ngStorage',
-  'angular.filter',
-  'darthwade.loading'
+(function() {
+  'use strict';
+
+angular
+  .module('train.register', [
+    'ngAnimate',
+    'ui.bootstrap',
+    'selector',
+    'rzModule',
+    'ngStorage',
+    'angular.filter',
+    'darthwade.loading'
 ]).filter('startFrom', function() {
  return function(input, start) {
       if (input === undefined) {
@@ -26,4 +35,5 @@
         });
         return arrayList;
     }
-})));
+  });
+})();

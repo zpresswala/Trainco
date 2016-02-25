@@ -64,7 +64,7 @@
                 <span class="event-date">{{ event.date}}</span>
               </li>
               <li class="faux-head--register col-xs-3 col-md-4">
-                <a uib-popover-template="seminar.detailPop.templateUrl" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i> </a>
+                <a uib-popover-template="seminar.detailPop.templateUrl" popover-trigger="outsideClick"  popover-placement="top" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i> </a>
               </li>
             </div>
           </ul>

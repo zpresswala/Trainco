@@ -2,36 +2,42 @@
  * @ngdoc overview
  * @name train
  * @description
- * The main module for the trainco
+ * The main module for TrainCO
  */
 
-(function(app) {
+(function () {
+    'use strict';
 
-  app.config(function($logProvider, $httpProvider, $localStorageProvider, $locationProvider) {
+angular
+  .module('train', [
+    'ngAnimate',
+    'ui.bootstrap',
+    'selector',
+    'rzModule',
+    'ngStorage',
+    'angular.filter',
+    'darthwade.loading',
+    'train.register',
+    'train.seminar'
+  ])
+  .config(configure)
+  .run(run);
+
+  configure.$inject = ['$logProvider', '$compileProvider', '$httpProvider', '$localStorageProvider', '$locationProvider'];
+  function configure($logProvider, $compileProvider, $httpProvider, $localStorageProvider, $locationProvider) {
     /**
      * @ngdoc function
      * @name  config
      * @description
      * main configuration for trainco app.
      */
-    //@exclude
     $logProvider.debugEnabled(true);
-    //@endexclude
+    $compileProvider.debugInfoEnabled(true);
     $localStorageProvider.setKeyPrefix('tpc');
     // Expose XHR requests to server
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-  });
+  };
+  run.$inject = ['_'];
+  function run(_) {};
 
-  app.run(function(_) {});
-
-}(angular.module('train', [
-  'train.register',
-  'train.seminar',
-  'ngAnimate',
-  'ui.bootstrap',
-  'selector',
-  'rzModule',
-  'ngStorage',
-  'angular.filter',
-  'darthwade.loading'
-])));
+})();

@@ -34,19 +34,23 @@
   &.left {
     margin-left: -$popover-arrow-width;
   }
+      @media screen and (min-width: 600px) {
+
+            left: -400px !important;
+      }
     @media screen and (max-width: 600px) {
 
-          left: -260px;
+          left: -260px !important;
           width: 350px;
     }
     @media screen and (max-width: 500px) {
 
-          left: -260px;
+          left: -260px !important;
           width: 350px;
     }
     @media screen and (max-width: 400px) {
 
-          left: -260px;
+          left: -260px !important;
           width: 350px;
     }
 }

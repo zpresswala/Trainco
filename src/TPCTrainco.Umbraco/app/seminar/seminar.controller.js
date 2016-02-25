@@ -1,7 +1,11 @@
-(function(module) {
+(function() {
   'use strict';
+
+  angular
+    .module('train.seminar')
+    .controller('SeminarController', SeminarController);
   /** @ngInject */
-  module.controller('SeminarController', function($log, courseSearch, cartService, $rootScope, $scope) {
+  function SeminarController($log, courseSearch, cartService, $rootScope, $scope ) {
     var vm = this;
 
     vm.courseId = {};
@@ -16,9 +20,15 @@
   }
 
     vm.detailPop = {
-      templateUrl: '/app/seminar/seminarPop.html',
+      templateUrl: '/app/seminar/seminarPop.html'
     };
-
+    vm.registerSem = function() {
+      vm.popoverIsOpen = true;
+      popoverIsOpen: true;
+    }
+    vm.popoverClose = function() {
+      vm.popoverIsOpen = false;
+    }
     vm.location = {};
 
     vm.addItemToCart = function(item, qty) {
@@ -69,5 +79,5 @@
         return dateF;
       });
     }
-  })
-}(angular.module('train.seminar')));
+  }
+})();

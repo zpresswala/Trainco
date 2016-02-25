@@ -1,7 +1,11 @@
-(function(module) {
+(function() {
   'use strict';
   /** @ngInject */
-  module.controller('RegisterController', function($log, Pagination, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
+  angular
+    .module('train.register')
+    .controller('RegisterController', RegisterController);
+
+    function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
     var vm = this;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     var OGFilter = {
@@ -307,5 +311,5 @@
         position: 'relative' // Element position
       }
     }
-  })
-}(angular.module('train.register')));
+  }
+})();
