@@ -399,8 +399,14 @@ button {
 ul.pagination-btn-wrapper li {
   display: inline-block;
   margin-left: 125px;
-
+    @media (max-width: 900) {
+    margin-left: 110px;
+  }
+    @media (max-width: 500) {
+    margin-left: 0!important;;
+  }
 }
+
 .pagination-length {
   text-align: center;
 }

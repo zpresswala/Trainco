@@ -4,11 +4,6 @@
   module.controller('RegisterController', function($log, Pagination, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
     var vm = this;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-    vm.dateRange = {};
-    vm.$storage = $localStorage;
-    vm.initialDirections = true;
-
-    vm.sbIsCollapsed = true; // mobile sidebar converted into menu.
     var OGFilter = {
       keywordParam: '',
       locParam: '',
@@ -19,6 +14,12 @@
       defStart: '',
       defEnd: ''
     }
+    vm.dateRange = {};
+    vm.$storage = $localStorage;
+    vm.initialDirections = true;
+
+    vm.sbIsCollapsed = true; // mobile sidebar converted into menu.
+
     activate();
 
     /**
@@ -37,6 +38,7 @@
     function receiveSeminarData(seminarsData) {
       var seminarLocations = [];
       vm.seminarLocations = seminarsData;
+      // below is to calculate the pagination
       vm.semLocLength = vm.seminarLocations.length / 4;
     }
 
@@ -60,10 +62,10 @@
         defStart: vm.$storage.SearchDRmin,
         defEnd: vm.$storage.SearchDRmax
       }
-    }
-    vm.cartItemList = cartService.getCartItems() || [];
-    vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
+      vm.cartItemList = cartService.getCartItems() || [];
+      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+    }
 
     /**
      * adds item to the cart or updates the quantity
@@ -71,6 +73,12 @@
      * @param  {object} item the item and its properties
      * @param  {int} qty  how many attendees
      * @return {array}      returns the updated cartItemList
+     *
+     * @desc
+     * The most important thing here is to understand that
+     * qty DOES NOT exist on the $scope. it is only an input value
+     * that gets passed to the cart service. It does not exist on the location
+     *
      */
     vm.addItemToCart = function(item, qty, $event) {
       cartService.addItem(item, qty)
@@ -79,12 +87,15 @@
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
-
+      // dirty, but gets the job done. Changes the button text to
+      // display added on click.
       $($event.target).val('Added!');
 
       $timeout = setTimeout(function() {
+        // restore the button to add to cart
         $($event.target).val('Add to cart');
       }, 3500);
+      // clear the item qty in order to hide button again.
       item.qty = '';
     };
 
@@ -94,9 +105,12 @@
      * @return {method}
      */
     vm.handleLocInput = function(e) {
+      // Set all locations checkbox to unchecked because we are
+      // doing a search from the input field.
       vm.locSearchFilter.locationAll = false;
-
       $timeout = setTimeout(function() {
+        // announce to other controllers the value for location from the text
+        // input field. Then do a search after 3 seconds from last keystroke.
         $rootScope.$broadcast('location', vm.locSearchFilter.location);
         doParamSearch();
       }, 3000);
@@ -112,7 +126,15 @@
       }, 2500);
     }
 
-    // Listens for a broadcast that says 'location'
+    /**
+     * Listens for a broadcast that says 'location'
+     * @method $on
+     * @param  {string} 'location'      the trigger from $rootScope
+     * @param  {method} function(event, data          the event aka the broadcast 'location'
+     * and the data being vm.locSearchFilter.location.
+     * @return {string}                 vm.locationParam is the data from the handleLocInput.
+     * We are also setting this to localStorage as SearchLocation.
+     */
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
       vm.$storage.SearchLocation = data;
@@ -128,15 +150,27 @@
      * translate adds the label to the value.
      */
     vm.mileRange = {
-      value: 500,
+      value: 500, // default miles
       options: {
-        min: 50,
+        min: 50, // minimum range.
         floor: 50,
-        ceil: 1000,
-        step: 50,
+        ceil: 1000, // maximum
+        step: 50, // amount of miles to go up each step.
+        /**
+         * displays X mile radius above the slider handle thing.
+         * @method function
+         * @param  {int} value the number of miles aka where the handle lies.
+         * @return {string}       the value plus text.
+         */
         translate: function(value) {
           return value + ' mile radius';
         },
+        /**
+         * when the month range slider stops
+         * @method function
+         * @param  {int} modelValue the value of the slider 01, 02, 03...
+         * @return {method}            do the search.
+         */
         onEnd: function(modelValue) {
           doParamSearch();
         }
@@ -149,7 +183,6 @@
       mechanical: true,
       management: true
     }
-    vm.numLimit = 10;
     /**
      * Watches the locationAll checkbox and runs on checked.
      * @method function
@@ -178,11 +211,11 @@
       });
       doParamSearch();
     });
+
     $scope.$watch('vm.locationParam', function() {
       doParamSearch();
     });
 
-    //vm.months = months.getMonths();
     var today = new Date();
     var thisMonth = today.getMonth();
     var thisYear = today.getFullYear();
@@ -243,14 +276,13 @@
       vm.initialDirections = true;
     }
 
+    vm.numLimit = 10;
     vm.mainCurrentPage = 0;
     vm.mainPageSize = 4;
-    vm.inceptCurrentPage = 0;
-    vm.inceptPageSize = 10;
-        vm.goNextPage = function() {
-          vm.mainCurrentPage = vm.mainCurrentPage + 1;
-          $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
-        }
+    vm.goNextPage = function() {
+      vm.mainCurrentPage = vm.mainCurrentPage + 1;
+      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+    }
     // $loading spinner options
     vm.options = {
       text: 'Loading...',

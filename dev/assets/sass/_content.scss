@@ -19,7 +19,9 @@
 	}
 }
 
-.campaign, .seminar-detail, .onsite {
+.campaign,
+.seminar-detail,
+.onsite {
 	.jumbotron {
 		@include med-desktop-and-up {
 			margin: 95px auto 15px;
