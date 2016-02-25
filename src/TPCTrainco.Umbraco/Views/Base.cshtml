@@ -265,7 +265,7 @@
     <script>var ApiDomain = 'http@(Request.IsSecureConnection ? "s" : "")://@(Request.Url.Authority)';</script>
     @if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
     }
@@ -282,18 +282,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
         <script src="/app/lib/angular-loading.js"></script>
-        <script src="/app/lib/pagination.js"></script>
         <script src="/app/lib/angular-selector.js"></script>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
         <script src="/app/index.js"></script>
-		<script src="/app/register/register.js"></script>
-		<script src="/app/seminar/seminar.js"></script>
+		    <script src="/app/register/register.js"></script>
+		    <script src="/app/seminar/seminar.js"></script>
         <script src="/app/utils/lodash.js"></script>
         <script src="/app/utils/stringToNumber.directive.js"></script>
         <script src="/app/utils/slideToggle.animation.js"></script>
         <script src="/app/components/mainSearch/months.js"></script>
+
         <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
         <script src="/app/components/mainSearch/mainSearch.controller.js"></script>
         <script src="/app/components/mainSearch/courseSearch.service.js"></script>
@@ -305,7 +305,8 @@
         <script src="/app/seminar/seminar.controller.js"></script>
         <script src="/app/register/search.service.js"></script>
         <script src="/app/register/register.controller.js"></script>
-
+        <script src="/app/filters/createArray.filter.js"></script>
+        <script src="/app/filters/startFrom.filter.js"></script>
         if (seminarDetailPage)
         {
                   <script type="text/javascript">

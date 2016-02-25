@@ -5,7 +5,7 @@
     .module('train.seminar')
     .controller('SeminarController', SeminarController);
   /** @ngInject */
-  function SeminarController($log, courseSearch, cartService, $rootScope, $scope, months, _) {
+  function SeminarController($log, courseSearch, cartService, $timeout,$document, $window, $rootScope, $scope, months, _) {
     var vm = this;
 
     vm.courseId = {};
@@ -31,12 +31,39 @@
     }
     vm.location = {};
 
-    vm.addItemToCart = function(item, qty) {
-      cartService.addItem(item, qty);
+    /**
+     * adds item to the cart or updates the quantity
+     * @method function
+     * @param  {object} item the item and its properties
+     * @param  {int} qty  how many attendees
+     * @return {array}      returns the updated cartItemList
+     *
+     * @desc
+     * The most important thing here is to understand that
+     * qty DOES NOT exist on the $scope. it is only an input value
+     * that gets passed to the cart service. It does not exist on the location
+     *
+     */
+    vm.addItemToCart = function(item, qty, $event) {
+      $log.debug(item, qty, $event)
+      cartService.addItem(item, qty)
+
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
+      // dirty, but gets the job done. Changes the button text to
+      // display added on click.
+      $($event.target).val('Added!');
+
+      $timeout = setTimeout(function() {
+        // restore the button to add to cart
+        $($event.target).val('Add to cart');
+      }, 3500);
+      // clear the item qty in order to hide button again.
+      item.qty = '';
     };
+
     var today = new Date();
     var thisMonth = today.getMonth();
     var monthNames = months.getAbrvMonths();

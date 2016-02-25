@@ -17,5 +17,22 @@ angular
     'ngStorage',
     'angular.filter',
     'darthwade.loading'
-  ]);
+  ]).filter('startFrom', function() {
+ return function(input, start) {
+      if (input === undefined) {
+        return input;
+      } else {
+        return input.slice(+start);
+      }
+    };
+}).filter('createarray', function () {
+    return function (value, propertyName) {
+        var arrayList = [];
+        angular.forEach(value, function (val) {
+            angular.forEach(val[propertyName], function (v) {
+                arrayList.push(v)
+            });
+        });
+        return arrayList;
+    }})
 })();

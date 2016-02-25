@@ -32,12 +32,14 @@
     ${{event.price}}
       </div>
     <div class="col-xs-4 attendees">
-            <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
-              <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="tel" min="0" class="" name="qty">
-            </div>
-      </div>
-</div>
-</div>
-<input class="btn btn-reg btn-blue-solid" ng-click="seminar.addItemToCart(event, qty || 1)" type="button" name="name" value="Add to Cart">
+      <input class="attendee-input" ng-model="qty" string-to-number type="tel" min="1">
+    </div>
+    </div>
+      <input class="btn btn-reg btn-blue-solid"
+        type="button"
+        value="Add to Cart"
+        ng-click="seminar.addItemToCart(event, qty, $event)"/>
 
+
+</div>
 </div>

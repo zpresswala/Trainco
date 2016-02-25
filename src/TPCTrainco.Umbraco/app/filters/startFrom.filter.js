@@ -3,13 +3,13 @@
  * @name startFrom
  * @kind function
  * @description
- * 
+ *
  */
 (function() {
   'use strict';
 
   angular
-    .module('train')
+    .module('train.register')
     .filter('startFrom', startFrom);
 
   function startFrom() {
