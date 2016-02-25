@@ -25,6 +25,9 @@
 @import 'footer';
 @import 'components/seminar-popover';
 
+html * {
+  outline: none!important;
+}
 .result-attendee-wrapper {
   .ng-hide-add {
     transition: opacity 1.5s ease;

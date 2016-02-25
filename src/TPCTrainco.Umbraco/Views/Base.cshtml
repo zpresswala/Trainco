@@ -310,9 +310,10 @@
         {
                   <script type="text/javascript">
 
-                                  $('a[href^="#"]').click(function (e) {
+                                  $('a[href^="#"]').click(function(e) {
                                       e.preventDefault();
-                                      $(window).stop(true).scrollTo(this.hash, { offset: -100, duration: 1000, interrupt: true });
+                                      var hash = $(this).attr('href');
+                                      $('html, body').stop(true).animate({scrollTop: $(hash).offset().top - 125}, 500);
                                   });
                       </script>
         }

@@ -5,7 +5,7 @@
     .module('train.seminar')
     .controller('SeminarController', SeminarController);
   /** @ngInject */
-  function SeminarController($log, courseSearch, cartService, $rootScope, $scope ) {
+  function SeminarController($log, courseSearch, cartService, $rootScope, $scope, months, _) {
     var vm = this;
 
     vm.courseId = {};
@@ -37,26 +37,92 @@
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
     };
+    var today = new Date();
+    var thisMonth = today.getMonth();
+    var monthNames = months.getAbrvMonths();
 
+    // Starts the array at the current month through December
+    var startingMonthArray = monthNames.slice(thisMonth);
+
+    function fixEndingArray(endingMonthArray) {
+      var first = endingMonthArray[0];
+      var num = parseInt(first.name.slice(3))
+      var trunc = first.name.slice(0, 3)
+      first.name = trunc + (num + 1);
+
+      return endingMonthArray;
+    }
+    var endingMonthArray = fixEndingArray(monthNames.slice(0, (thisMonth)));
+
+    var combinedMonthsArray = startingMonthArray.concat(endingMonthArray)
+
+    var combinedMonthNames = _.map(combinedMonthsArray, _.property('name'));
+    var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
     vm.monthsSlider = {
-      minValue: 0, // initial position for left handle
-      maxValue: 8, // initial position for right handle
+      minValue: parseInt(combinedMonthValues[0]-2),
+      maxValue:  parseInt(combinedMonthValues[3]),
       options: {
-        floor: 0, // left most value
-        ceil: 15, // right most value
+        floor: parseInt(combinedMonthValues[0]-2),
+        ceil: parseInt(combinedMonthValues[11]),
         showTicks: true,
         showSelectionBarEnd: true,
         showTicksValues: true,
-        stepsArray: ' ,JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEPT,OCT,NOV,DEC,JAN,'.split(',')
+        stepsArray: combinedMonthNames,
+        onEnd: function(modelValue) {
+          watchHandles()
+        }
       }
     };
 
-    var minMonthNumber = vm.monthsSlider.minValue + 1;
-    var maxMonthNumber = vm.monthsSlider.maxValue + 1;
-    //this.monthMin = minMonthNumber;
-    var minDateRange = minMonthNumber;
-    var minDateParam = minDateRange + '-2016';
-    vm.monthMin = vm.monthsSlider.minValue + 1 + '-2016'; //minDateParam
+    function watchHandles() {
+      var mapNum = parseInt(combinedMonthValues[0]);
+      var thisYear = (new Date()).getFullYear();
+      var minValue = (parseInt(vm.monthsSlider.minValue) + mapNum);
+      var maxValue = (parseInt(vm.monthsSlider.maxValue) + mapNum);
+
+      vm.filterMin = minValue + '-' + thisYear;
+      if (maxValue > 11) {
+        thisYear = thisYear + 1;
+        maxValue = maxValue - 11;
+      }
+      vm.filterMax = maxValue + '-' + thisYear;
+
+
+    function fixFormat(badDate) {
+      return badDate.replace(/^(\d+\-)/, '$11-');
+    }
+
+    vm.isBetween = function(testDate) {
+      return function(item) {
+
+      var testDate = item.dateMonthYear;
+      var beginDate = vm.filterMin;
+      var endDate = vm.filterMax;
+      var fixTest = new Date(fixFormat(testDate));
+      var fixBegin = new Date(fixFormat(beginDate));
+      var fixEnd = new Date(fixFormat(endDate));
+      var testMonth = fixTest.getMonth();
+      var beginMonth = fixBegin.getMonth();
+      var endMonth = fixEnd.getMonth();
+      var testYear = fixTest.getFullYear();
+      var beginYear = fixBegin.getFullYear();
+      var endYear = fixEnd.getFullYear();
+      if (testYear >= beginYear && testYear <= endYear) {
+        if (testYear < endYear) {
+          if (testMonth >= beginMonth) {
+            return true;
+          }
+        } else {
+          if (testMonth >= beginMonth && testMonth <= endMonth) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+  }
+}
+watchHandles()
     function activate() {
       var classId = localStorage.getItem('classId');
     }

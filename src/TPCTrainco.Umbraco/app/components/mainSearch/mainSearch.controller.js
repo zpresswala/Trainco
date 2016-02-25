@@ -27,7 +27,16 @@
     // Starts the array at the current month through December
     var startingMonthArray = monthNames.slice(thisMonth);
 
-    var endingMonthArray = monthNames.splice(0, (thisMonth + 3));
+        function fixEndingArray(endingMonthArray) {
+          var first = endingMonthArray[0];
+          var num = parseInt(first.name.slice(3))
+          var trunc = first.name.slice(0, 3)
+
+          first.name = trunc + (num + 1);
+
+          return endingMonthArray;
+        }
+        var endingMonthArray = fixEndingArray(monthNames.slice(0, (thisMonth + 3)));
 
     var combinedMonthsArray = startingMonthArray.concat(endingMonthArray)
     var lengthValue = startingMonthArray.length

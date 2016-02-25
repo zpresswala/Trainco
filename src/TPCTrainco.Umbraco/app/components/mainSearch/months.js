@@ -12,8 +12,10 @@
     this.getMonths = getMonths;
 
     function getAbrvMonths(data) {
-      var monthNames = ['JAN 2017', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
+
+      var monthNames = ['JAN ' + (new Date()).getFullYear(), 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
       months = [];
+
       var i;
       for (i = 1; i <= 12; i++) {
         if (i <= 9) {
@@ -21,6 +23,7 @@
         } else {
           var val = i;
         }
+
         months.push({
           name: monthNames[i - 1],
           value: val
