@@ -5,7 +5,16 @@
     padding-left: 0;
   }
 }
-
+.register-cart-wrap{
+  background-color: #F2F2F2;
+  z-index: 1200;
+  position: fixed;
+  width: 100%;
+  top: 50px;
+  @include med-desktop-and-up {
+    top: 80px;
+  }
+}
 .attendee-input--cart {
   width: 60px;
 }

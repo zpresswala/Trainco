@@ -2,9 +2,10 @@
   'use strict';
 
   angular
-    .module('train')
+    .module('train.components')
     .controller('MainSearchController', MainSearchController);
 
+  /** @ngInject */
   /** @ngInject */
   function MainSearchController($location, cities, months, $localStorage, $scope, _) {
     var vm = this;
@@ -27,16 +28,16 @@
     // Starts the array at the current month through December
     var startingMonthArray = monthNames.slice(thisMonth);
 
-        function fixEndingArray(endingMonthArray) {
-          var first = endingMonthArray[0];
-          var num = parseInt(first.name.slice(3))
-          var trunc = first.name.slice(0, 3)
+    function fixEndingArray(endingMonthArray) {
+      var first = endingMonthArray[0];
+      var num = parseInt(first.name.slice(3))
+      var trunc = first.name.slice(0, 3)
 
-          first.name = trunc + (num + 1);
+      first.name = trunc + (num + 1);
 
-          return endingMonthArray;
-        }
-        var endingMonthArray = fixEndingArray(monthNames.slice(0, (thisMonth + 3)));
+      return endingMonthArray;
+    }
+    var endingMonthArray = fixEndingArray(monthNames.slice(0, (thisMonth + 3)));
 
     var combinedMonthsArray = startingMonthArray.concat(endingMonthArray)
     var lengthValue = startingMonthArray.length

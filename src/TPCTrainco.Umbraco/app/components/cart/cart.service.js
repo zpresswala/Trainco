@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('train')
+    .module('train.components')
     .factory('cartService', cartService);
 
   /** @ngInject */

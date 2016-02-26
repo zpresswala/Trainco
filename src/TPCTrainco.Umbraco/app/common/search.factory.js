@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('train')
+    .module('train.common')
     .factory('searchService', searchService);
 
   /** @ngInject */

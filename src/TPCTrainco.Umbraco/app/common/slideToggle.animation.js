@@ -1,7 +1,15 @@
-(function() {
+/**
+ * @ngdoc animation
+ * @name train.common.animation:.slide-toggle
+ * @description ng-Animate slide-toggle css animation.
+ */
+
+(function(){
+
   'use strict';
 
-  angular.module('train')
+  angular
+    .module('train.common')
     .animation('.slide-toggle', ['$animateCss', function($animateCss) {
       var lastId = 0;
       var _cache = {};
@@ -135,4 +143,4 @@
         }
       };
     });
-})();
+}());

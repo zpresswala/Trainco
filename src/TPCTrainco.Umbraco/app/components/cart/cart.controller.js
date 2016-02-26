@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('train')
+    .module('train.components')
     .controller('CartController', CartController);
 
     /** @ngInject */
