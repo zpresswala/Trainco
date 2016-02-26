@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('train')
+    .module('train.seminar')
     .factory('courseSearch', courseSearch);
 
   /** @ngInject */

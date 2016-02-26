@@ -1,17 +1,20 @@
 /**
  * @ngdoc filter
- * @name startFrom
- * @kind function
- * @description
- *
+ * @name train.common.filer:startFrom
+ * @description < description placeholder >
+ * @param {object} input object to be filtered
+ * @returns {object} < returns placeholder >
  */
+
 (function() {
+
   'use strict';
 
   angular
-    .module('train.register')
+    .module('train.common')
     .filter('startFrom', startFrom);
 
+  /* @ngInject */
   function startFrom() {
     return function(input, start) {
       if (input === undefined) {
@@ -21,4 +24,5 @@
       }
     };
   }
-})();
+
+}());

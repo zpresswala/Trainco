@@ -1,29 +1,19 @@
 /**
  * @ngdoc overview
- * @name train
- * @description
- * The main module for TrainCO
+ * @name train.core
+ * @description Configuration block for TrainCO
  */
 
-(function () {
-    'use strict';
+(function() {
 
-angular
-  .module('train', [
-    'ngAnimate',
-    'ui.bootstrap',
-    'selector',
-    'rzModule',
-    'ngStorage',
-    'angular.filter',
-    'darthwade.loading',
-    'train.register',
-    'train.seminar'
-  ])
-  .config(configure)
-  .run(run);
+  'use strict';
+
+  angular.module('train.core')
+    .config(configuration)
+    .run(runBlock);
 
   configure.$inject = ['$logProvider', '$compileProvider', '$httpProvider', '$localStorageProvider', '$locationProvider'];
+  /* @ngInject */
   function configure($logProvider, $compileProvider, $httpProvider, $localStorageProvider, $locationProvider) {
     /**
      * @ngdoc function
@@ -37,7 +27,10 @@ angular
     // Expose XHR requests to server
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   };
-  run.$inject = ['_'];
-  function run(_) {};
 
-})();
+
+  runBlock.$inject = ['_'];
+  /* @ngInject */
+  function runBlock(_) {};
+
+}());

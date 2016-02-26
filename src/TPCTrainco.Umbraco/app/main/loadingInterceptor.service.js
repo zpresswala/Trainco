@@ -8,7 +8,7 @@
   /** @ngInject */
   function LoadingInterceptor($q, $log, $rootScope) {
 
-var xhrCreations = 0;
+    var xhrCreations = 0;
     var xhrResolutions = 0;
 
     function isLoading() {

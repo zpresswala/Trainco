@@ -1,21 +1,21 @@
 /**
  * @ngdoc overview
- * @name train.seminar
- * @description
- * The seminar module for TrainCO
+ * @name train.core
+ * @description Core is where the additional libraries are loaded.
  */
 
-(function() {
+(function(){
+
   'use strict';
 
-angular
-  .module('train.seminar', [
+  angular.module('train.core', [
     'ngAnimate',
     'ui.bootstrap',
+    'selector',
     'rzModule',
     'ngStorage',
     'angular.filter',
     'darthwade.loading'
   ]);
 
-})();
+}());

@@ -1,7 +1,17 @@
-(function() {
+/**
+ * @ngdoc animation
+ * @name train.common.filer:.slideToggle
+ * @description < description placeholder >
+ * @param {object} input object to be filtered
+ * @returns {object} < returns placeholder >
+ */
+
+(function(){
+
   'use strict';
 
-  angular.module('train')
+  angular
+    .module('train.common')
     .animation('.slide-toggle', ['$animateCss', function($animateCss) {
       var lastId = 0;
       var _cache = {};
@@ -135,4 +145,4 @@
         }
       };
     });
-})();
+}());

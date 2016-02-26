@@ -1,17 +1,40 @@
-(function() {
+/**
+ * @ngdoc service
+ * @name train.common.months
+ * @description < description placeholder >
+ */
+
+(function(){
+
   'use strict';
 
-  angular
-    .module('train')
-    .service('months', months);
+	angular
+		.module('train.common')
+		.factory('months', months);
 
-  /** @ngInject */
-  function months() {
+  /* @ngInject */
+  function months(){
+		return {
+			getAbrvMonths: getAbrvMonths,
+      getMonths: getMonths
+		};
 
-    this.getAbrvMonths = getAbrvMonths;
-    this.getMonths = getMonths;
+		////////////////////
 
-    function getAbrvMonths(data) {
+    /**
+     * @ngdoc
+     * @name train.common.months#testFunction
+     * @methodOf train.common.months
+     *
+     * @description < description placeholder >
+     * @example
+     * <pre>
+     * months.testFunction(id);
+     * </pre>
+     * @param {int} entity id
+     */
+
+		function getAbrvMonths(data) {
 
       var monthNames = ['JAN ' + (new Date()).getFullYear(), 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
       months = [];
@@ -61,6 +84,6 @@
       }
       return months;
     }
-  }
+	}
 
-})();
+}());

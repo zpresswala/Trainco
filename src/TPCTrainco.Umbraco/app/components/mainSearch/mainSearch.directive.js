@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('train')
+    .module('train.components')
     .directive('mainSearch', mainSearch);
 
   /** @ngInject */
@@ -17,8 +17,7 @@
     };
 
     return directive;
+}
 
-
-  }
 
 })();

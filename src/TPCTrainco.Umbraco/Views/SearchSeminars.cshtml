@@ -190,7 +190,7 @@
           </section>
           <section class="row result-table-body">
             <div class="result-location-row"
-                  ng-repeat="location in ctrl.seminarLocations | createarray: 'locationSchedules' | limitTo:ctrl.numLimit">
+                  ng-repeat="location in ctrl.seminarLocations | createArray: 'locationSchedules' | limitTo:ctrl.numLimit">
               <div class="col-md-5 col-sm-10 col-xs-9 result-location">
                 <span class="state">{{::location.state}}</span>
                 <span class="city">{{::location.city}}</span>
