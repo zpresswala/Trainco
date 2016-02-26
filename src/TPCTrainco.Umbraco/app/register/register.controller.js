@@ -348,6 +348,9 @@
       vm.seminarLocations = [];
       vm.locSearchFilter.location = '';
       vm.kwFilter.word = '';
+      vm.mileRange.value = '';
+      vm.dateRange.start = '';
+      vm.dateRange.end = '';
     }
 
     vm.numLimit = 10;

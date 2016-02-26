@@ -19,7 +19,7 @@
 
     return service;
     function getSeminars(classId) {
-      return $http.get(apiHost + '/' + classId + '?date-start=2/1/2016&date-end=12/31/2016')
+      return $http.get(apiHost + '/' + classId + '?date-start=02/1/2016&date-end=12/31/2016')
         .then(function(response) {
           return response.data;
         })

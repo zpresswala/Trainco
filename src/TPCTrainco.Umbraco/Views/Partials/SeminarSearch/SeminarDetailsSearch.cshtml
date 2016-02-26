@@ -54,10 +54,10 @@
       </div>
 
     <ul>
-      <li class="seminar-loc--block" ng-repeat="location in seminar.seminarLocations | groupBy:'state'" ng-if="location.length - 1">
+      <li class="seminar-loc--block" ng-repeat="location in seminar.seminarLocations | filter: seminar.isBetween(location.dateMonthYear) | groupBy:'state'">
         <h3 class="state-name"><strong>{{ location[0].state }}</strong></h3>
         <div class="location-row">
-          <ul class="seminar-loc--row" ng-repeat="event in location | filter: seminar.isBetween(event.dateMonthYear)">
+          <ul class="seminar-loc--row" ng-repeat="event in location ">
             <div class="result-table-body ">
               <li class="faux-head--city col-xs-4 col-md-4">
                 <span class="city-name">{{ event.city }}</span>

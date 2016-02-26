@@ -116,7 +116,9 @@
 
 
     function fixFormat(badDate) {
-      return badDate.replace(/^(\d+\-)/, '$11-');
+      var x = badDate.replace(/^(\d+\-)/, '$11-').replace(/\-/g, '/');
+      console.log(x)
+      return x;
     }
 
     vm.isBetween = function(testDate) {
@@ -125,22 +127,29 @@
       var testDate = item.dateMonthYear;
       var beginDate = vm.filterMin;
       var endDate = vm.filterMax;
+
+
       var fixTest = new Date(fixFormat(testDate));
       var fixBegin = new Date(fixFormat(beginDate));
+        $log.debug('fixBegin', fixBegin)
       var fixEnd = new Date(fixFormat(endDate));
+      $log.debug('fixend', fixEnd)
       var testMonth = fixTest.getMonth();
       var beginMonth = fixBegin.getMonth();
       var endMonth = fixEnd.getMonth();
       var testYear = fixTest.getFullYear();
       var beginYear = fixBegin.getFullYear();
       var endYear = fixEnd.getFullYear();
+      // only chrome makes it past
       if (testYear >= beginYear && testYear <= endYear) {
         if (testYear < endYear) {
           if (testMonth >= beginMonth) {
+
             return true;
           }
         } else {
           if (testMonth >= beginMonth && testMonth <= endMonth) {
+
             return true;
           }
         }
@@ -158,6 +167,7 @@ watchHandles()
       var classId = localStorage.getItem('classId');
 
       return courseSearch.getSeminars(classId).then(function(data) {
+        $log.debug(data)
         var seminarsData = data.seminars[0];
         receiveSeminarData(seminarsData);
         return seminarsData;
