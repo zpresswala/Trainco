@@ -5,7 +5,12 @@
     padding-left: 0;
   }
 }
-
+.fixed-top-cart {
+  background-color: #F2F2F2;
+  z-index: 1200;
+  position: fixed;
+  width: 100%;
+}
 .attendee-input--cart {
   width: 60px;
 }

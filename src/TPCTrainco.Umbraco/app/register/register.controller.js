@@ -84,11 +84,12 @@
      *
      */
     vm.addItemToCart = function(item, qty, $event) {
+      $log.debug(item, qty, $event)
       cartService.addItem(item, qty)
 
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-
+        $log.debug(vm.cartItemList)
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
       // dirty, but gets the job done. Changes the button text to
       // display added on click.
