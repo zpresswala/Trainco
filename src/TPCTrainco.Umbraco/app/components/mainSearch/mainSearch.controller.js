@@ -78,7 +78,7 @@
       var defStart = vm.sliderValues.minValue;
       var defEnd = vm.sliderValues.maxValue
       var theloc = vm.courseSearch.location.trim();
-      vm.$storage.SearchLocation = theloc;
+      vm.$storage.SearchLocation = theloc || ' ';
       vm.$storage.SearchTopic1 = vm.topicParam1;
       vm.$storage.SearchTopic2 = vm.topicParam2;
       vm.$storage.SearchTopic3 = vm.topicParam3;

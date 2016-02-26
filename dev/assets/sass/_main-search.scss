@@ -2,7 +2,11 @@
   width: 100%;
   height: 60px;
 }
-
+.selector-optgroup {
+  font-weight: bold;
+  padding-left: 15px;
+  text-align: left;
+}
 #selectAllWrap {
   input[type=checkbox] {
     display: none;
@@ -390,4 +394,14 @@ rzslider .rz-ticks .tick .tick-value {
   &:last-of-type {
     padding-right: 15px;
   }
+}
+
+.home-selector {
+  input {
+  @include placeholder(inherit, 1, 300, normal);
+}
+}
+
+.selector-option {
+  text-align: left !important;
 }

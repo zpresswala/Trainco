@@ -7,6 +7,8 @@
 
   function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
     var vm = this;
+    vm.kwFilter = {};
+    vm.mileRange = {};
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     var OGFilter = {
       keywordParam: '',
@@ -53,11 +55,10 @@
      */
     function activate() {
       if (vm.$storage.SearchLocation) {
-        $log.debug('running from activate')
         var keywordParam = '';
         vm.initialDirections = true;
         var OGFilter = {
-          keywordParam: keywordParam,
+          keywordParam: null,
           locParam: vm.$storage.SearchLocation,
           topicParam1: vm.$storage.SearchTopic1,
           topicParam2: vm.$storage.SearchTopic2,
@@ -66,6 +67,10 @@
           defStart: vm.$storage.SearchDRmin,
           defEnd: vm.$storage.SearchDRmax
         }
+
+        doParamSearch();
+        localStorage.removeItem('ngStorage-SearchDRmin');
+        localStorage.removeItem('ngStorage-SearchDRmax');
       } else {
         vm.showDirections = true;
       }
@@ -298,7 +303,6 @@
     }
 
     function doParamSearch() {
-      $log.debug('SEARCHING')
       $loading.start('courses');
       var keywordParam = vm.$storage.kword || vm.kwFilter.word;
       var radiusParam = vm.mileRange.value || '250';
@@ -326,6 +330,8 @@
       searchService.performSearch(OGFilter).then(function(data) {
         if (data.seminars.length) {
           vm.showDirections = false;
+        } else {
+          vm.showDirections = true;
         }
         var seminarsData = data.seminars;
         receiveSeminarData(seminarsData);
