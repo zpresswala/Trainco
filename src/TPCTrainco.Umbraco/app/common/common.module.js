@@ -8,8 +8,6 @@
 
   'use strict';
 
-  angular.module('train.common', [
-
-  ]);
+  angular.module('train.common', []);
 
 }());

@@ -1,9 +1,8 @@
 /**
  * @ngdoc filter
  * @name train.common.filer:createArray
- * @description < description placeholder >
- * @param {object} input object to be filtered
- * @returns {object} < returns placeholder >
+ * @description Runs a forEach making nested data easier to ng-repeat
+ * @returns {array} arrayList
  */
 
 (function() {

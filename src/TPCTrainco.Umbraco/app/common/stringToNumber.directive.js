@@ -2,10 +2,9 @@
  * @ngdoc directive
  * @name train.common.directive:stringToNumber
  * @scope true
- * @param {object} test test object
- * @restrict E
  *
- * @description < description placeholder >
+ * @description converts a string to a number. Used for shopping
+ * cart inputs.
  *
  */
 

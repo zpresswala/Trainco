@@ -1,9 +1,7 @@
 /**
  * @ngdoc animation
- * @name train.common.filer:.slideToggle
- * @description < description placeholder >
- * @param {object} input object to be filtered
- * @returns {object} < returns placeholder >
+ * @name train.common.animation:.slide-toggle
+ * @description ng-Animate slide-toggle css animation.
  */
 
 (function(){

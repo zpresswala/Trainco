@@ -1,7 +1,7 @@
 /**
  * @ngdoc service
  * @name train.common.cities
- * @description < description placeholder >
+ * @description Contains a list of all the cities where TrainCO has seminars.
  */
 
 (function(){
@@ -22,15 +22,10 @@
 
     /**
      * @ngdoc
-     * @name train.common.months#testFunction
-     * @methodOf train.common.months
+     * @name train.common.cities#getCities
+     * @methodOf train.common.cities
      *
-     * @description < description placeholder >
-     * @example
-     * <pre>
-     * months.testFunction(id);
-     * </pre>
-     * @param {int} entity id
+     * @description a list of all the cities where there might be seminars
      */
 
 		function getCities(data) {

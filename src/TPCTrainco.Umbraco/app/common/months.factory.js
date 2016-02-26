@@ -1,7 +1,7 @@
 /**
  * @ngdoc service
  * @name train.common.months
- * @description < description placeholder >
+ * @description Handles months for the slider and dropdowns.
  */
 
 (function(){
@@ -23,15 +23,16 @@
 
     /**
      * @ngdoc
-     * @name train.common.months#testFunction
+     * @name train.common.months#getAbrvMonths
      * @methodOf train.common.months
      *
-     * @description < description placeholder >
+     * @description Gets months in abbreviated form. Takes the array of abbreviated
+     * month names and converts to the correct numerical value of each month.
      * @example
      * <pre>
-     * months.testFunction(id);
+     * months.getAbrvMonths();
      * </pre>
-     * @param {int} entity id
+     * @returns {array}
      */
 
 		function getAbrvMonths(data) {
@@ -60,7 +61,19 @@
       }
       return months;
     }
-
+    /**
+     * @ngdoc
+     * @name train.common.months#getMonths
+     * @methodOf train.common.months
+     *
+     * @description Gets months in non-abbreviated form. Takes the array of
+     * month names and converts to the correct numerical value of each month.
+     * @example
+     * <pre>
+     * months.getMonths();
+     * </pre>
+     * @returns {array}
+     */
     function getMonths(data) {
       var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Sept', 'October', 'November', 'December'];
       months = [];
