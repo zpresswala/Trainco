@@ -41,8 +41,10 @@
             {
                 <li><a href="#atmt" class="page-scroll nav-link regular-link">ATMT Certification</a></li>
             }
-
-            <li><a href="#register-seminars" class="page-scroll regular-link nav-link">Purchase Program</a></li>
+            @if (CurrentPage.blockPurchase)
+            {
+                <li><a href="#block-purchase" class="page-scroll regular-link nav-link">Purchase Program</a></li>
+            }
             <li><a href="#register-seminars" class="page-scroll regular-link nav-link">Upcoming Dates and Locations</a></li>
         </ul>
     </div>
@@ -218,7 +220,7 @@
 
             @if (CurrentPage.blockPurchase)
             {
-                <div class="row">
+                <div id="block-purchase" class="row">
                     <h2>@seminarContainer.blockHeader</h2>
                     @seminarContainer.blockCopy
                 </div>
