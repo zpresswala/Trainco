@@ -5,14 +5,14 @@
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
-    function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
+  function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
     var vm = this;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     var OGFilter = {
       keywordParam: '',
       locParam: '',
       topicParam1: '',
-      topicParam2:'' ,
+      topicParam2: '',
       topicParam3: '',
       topicParam4: '',
       defStart: '',
@@ -20,8 +20,7 @@
     }
     vm.dateRange = {};
     vm.$storage = $localStorage;
-    vm.initialDirections = true;
-
+    vm.searchFired = false;
     vm.sbIsCollapsed = true; // mobile sidebar converted into menu.
 
     activate();
@@ -53,21 +52,26 @@
      * @method activate
      */
     function activate() {
-      var keywordParam = '';
-      vm.initialDirections = true;
-      var OGFilter = {
-        keywordParam: keywordParam,
-        locParam: vm.$storage.SearchLocation,
-        topicParam1: vm.$storage.SearchTopic1,
-        topicParam2: vm.$storage.SearchTopic2,
-        topicParam3: vm.$storage.SearchTopic3,
-        topicParam4: vm.$storage.SearchTopic4,
-        defStart: vm.$storage.SearchDRmin,
-        defEnd: vm.$storage.SearchDRmax
+      if (vm.$storage.SearchLocation) {
+        $log.debug('running from activate')
+        var keywordParam = '';
+        vm.initialDirections = true;
+        var OGFilter = {
+          keywordParam: keywordParam,
+          locParam: vm.$storage.SearchLocation,
+          topicParam1: vm.$storage.SearchTopic1,
+          topicParam2: vm.$storage.SearchTopic2,
+          topicParam3: vm.$storage.SearchTopic3,
+          topicParam4: vm.$storage.SearchTopic4,
+          defStart: vm.$storage.SearchDRmin,
+          defEnd: vm.$storage.SearchDRmax
+        }
+      } else {
+        vm.showDirections = true;
       }
-
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+
     }
 
     /**
@@ -89,7 +93,7 @@
 
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-        $log.debug(vm.cartItemList)
+      $log.debug(vm.cartItemList)
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
       // dirty, but gets the job done. Changes the button text to
       // display added on click.
@@ -116,18 +120,40 @@
         // announce to other controllers the value for location from the text
         // input field. Then do a search after 3 seconds from last keystroke.
         $rootScope.$broadcast('location', vm.locSearchFilter.location);
-        doParamSearch();
+        //    doParamSearch();
       }, 3000);
     }
 
     /**
-     * Handle kewword input
+     * Handles the blur and enter for text box inputs.
+     * @name manualTextBoxHandler
      * @param  {object} e the event
+     * @return {method}   doParamSearch()
      */
-    vm.handleKWInput = function(e) {
-      $timeout = setTimeout(function() {
+    vm.manualTextBoxHandler = function(e) {
+      if (e.keyCode === 13 || e.type === 'blur') {
         doParamSearch();
-      }, 2500);
+      }
+    }
+
+    vm.typingTimeout = '';
+    /**
+     * Handles the text input as a user types.
+     * @name typingTextBoxHandler
+     * @param  {object} e the event
+     * @return {method}   doParamSearch()
+     */
+    vm.typingTextBoxHandler = function(e) {
+      if (e.keyCode != 13) {
+        if (vm.typingTimeout) {
+          clearTimeout(vm.typingTimeout)
+        }
+
+        vm.typingTimeout = setTimeout(function(e) {
+          $log.debug('typingTextBoxHandler running')
+          doParamSearch();
+        }, 1000)
+      }
     }
 
     /**
@@ -142,11 +168,13 @@
     $scope.$on('location', function(event, data) {
       vm.locationParam = data;
       vm.$storage.SearchLocation = data;
+      $log.debug('running')
+        // doParamSearch();
     });
 
-      vm.watcherOfThings = function() {
-        doParamSearch();
-      }
+    vm.watcherOfThings = function() {
+      //doParamSearch();
+    }
 
     /**
      * Settings for the mileage slider.
@@ -176,24 +204,23 @@
          * @return {method}            do the search.
          */
         onEnd: function(modelValue) {
-          doParamSearch();
+          //doParamSearch();
         }
       }
     }
 
     vm.categories = {
-      hvac: true,
-      electrical: true,
-      mechanical: true,
-      management: true
-    }
-    /**
-     * Watches the locationAll checkbox and runs on checked.
-     * @method function
-     * @return {array} returns the array seminarsData containing all locations.
-     */
+        hvac: true,
+        electrical: true,
+        mechanical: true,
+        management: true
+      }
+      /**
+       * Watches the locationAll checkbox and runs on checked.
+       * @method function
+       * @return {array} returns the array seminarsData containing all locations.
+       */
     vm.stateChanged = function() {
-      $log.debug(vm.courseTopics.categories)
       $rootScope.$broadcast('topic', vm.courseTopics.categories);
     }
 
@@ -213,11 +240,11 @@
         vm.$storage.SearchTopic3 = vm.topicParam3;
         vm.$storage.SearchTopic4 = vm.topicParam4;
       });
-      doParamSearch();
+      //  doParamSearch();
     });
 
     $scope.$watch('vm.locationParam', function() {
-      doParamSearch();
+      //  doParamSearch();
     });
 
     var today = new Date();
@@ -229,17 +256,29 @@
     var monthNames = months.getMonths() || [];
 
     vm.startingMonthArray = monthNames.slice(thisMonth);
-    vm.yearOfMonths = months.getMonths();
+    vm.yearOfMonths = vm.startingMonthArray.concat(monthNames.slice(0, thisMonth).map(function addYear(month) {
+      if (parseInt(month.value) === 1) {
+        return {
+          name: month.name + ' ' + (thisYear + 1),
+          value: month.value
+        }
+      } else {
+        return month
+      }
+    }));
     var defaultStart = vm.startingMonthArray[0].value;
     var defaultEnd = vm.startingMonthArray[3].value;
-      function checkYear() {
-        if (vm.dateRange.start >= vm.dateRange.end) {
-          return 2017;
-        } else {
-          return 2016
-        }
+
+    function checkYear() {
+      if (vm.dateRange.start >= vm.dateRange.end) {
+        return 2017;
+      } else {
+        return 2016
       }
+    }
+
     function doParamSearch() {
+      $log.debug('SEARCHING')
       $loading.start('courses');
       var keywordParam = vm.$storage.kword || vm.kwFilter.word;
       var radiusParam = vm.mileRange.value || '250';
@@ -265,8 +304,12 @@
         endYear: checkYear()
       }
       searchService.performSearch(OGFilter).then(function(data) {
+        if (data.seminars.length) {
+          vm.showDirections = false;
+        }
         var seminarsData = data.seminars;
         receiveSeminarData(seminarsData);
+        vm.searchFired = true;
         return seminarsData;
       });
     }
@@ -284,10 +327,10 @@
     vm.mainCurrentPage = 0;
     vm.mainPageSize = 4;
     vm.goNextPage = function() {
-      vm.mainCurrentPage = vm.mainCurrentPage + 1;
-      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
-    }
-    // $loading spinner options
+        vm.mainCurrentPage = vm.mainCurrentPage + 1;
+        $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+      }
+      // $loading spinner options
     vm.options = {
       text: 'Loading...',
       overlay: true, // Display overlay
