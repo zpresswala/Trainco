@@ -108,23 +108,6 @@
     };
 
     /**
-     * Handle location input
-     * @param  {object} e the event
-     * @return {method}
-     */
-    vm.handleLocInput = function(e) {
-      // Set all locations checkbox to unchecked because we are
-      // doing a search from the input field.
-      vm.locSearchFilter.locationAll = false;
-      $timeout = setTimeout(function() {
-        // announce to other controllers the value for location from the text
-        // input field. Then do a search after 3 seconds from last keystroke.
-        $rootScope.$broadcast('location', vm.locSearchFilter.location);
-        //    doParamSearch();
-      }, 3000);
-    }
-
-    /**
      * Handles the blur and enter for text box inputs.
      * @name manualTextBoxHandler
      * @param  {object} e the event
@@ -132,6 +115,7 @@
      */
     vm.manualTextBoxHandler = function(e) {
       if (e.keyCode === 13 || e.type === 'blur') {
+        $rootScope.$broadcast('textInput', e);
         doParamSearch();
       }
     }
@@ -143,7 +127,10 @@
      * @param  {object} e the event
      * @return {method}   doParamSearch()
      */
-    vm.typingTextBoxHandler = function(e) {
+    vm.typingTextBoxHandler = function(e, field) {
+      if (field === 'loc') {
+        vm.locSearchFilter.locationAll = false;
+      }
       if (e.keyCode != 13) {
         if (vm.typingTimeout) {
           clearTimeout(vm.typingTimeout)
@@ -165,15 +152,23 @@
      * @return {string}                 vm.locationParam is the data from the handleLocInput.
      * We are also setting this to localStorage as SearchLocation.
      */
-    $scope.$on('location', function(event, data) {
-      vm.locationParam = data;
-      vm.$storage.SearchLocation = data;
-      $log.debug('running')
-        // doParamSearch();
+    $scope.$on('textInput', function(event, data) {
+
     });
 
-    vm.watcherOfThings = function() {
-      //doParamSearch();
+    vm.locWatcher = function() {
+      if (vm.locSearchFilter.locationAll === true) {
+        vm.locSearchFilter.location = '';
+        doParamSearch();
+      }
+    }
+    vm.fromDateWatcher = function() {
+      if (vm.dateRange.end) {
+        doParamSearch();
+      }
+    }
+    vm.dateWatcher = function() {
+      doParamSearch();
     }
 
     /**
@@ -204,16 +199,17 @@
          * @return {method}            do the search.
          */
         onEnd: function(modelValue) {
-          //doParamSearch();
+          doParamSearch();
         }
       }
     }
 
     vm.categories = {
-        hvac: true,
-        electrical: true,
-        mechanical: true,
-        management: true
+        hvac: false,
+        electrical: false,
+        mechanical: false,
+        management: false,
+        all: true
       }
       /**
        * Watches the locationAll checkbox and runs on checked.
@@ -221,31 +217,55 @@
        * @return {array} returns the array seminarsData containing all locations.
        */
     vm.stateChanged = function() {
-      $rootScope.$broadcast('topic', vm.courseTopics.categories);
+
+      $rootScope.$broadcast('topic', vm.categories);
     }
+
+    function anyAreTrue(obj) {
+      var labels = ['hvac', 'electrical', 'mechanical', 'management'];
+      var output = false;
+      labels.every(function (label) {
+        if (obj[label]) {
+          output = true;
+          return false;
+        }
+        return true;
+      });
+      return output;
+    }
+
+    vm.$storage.SearchTopic5 = true;
 
     // Listens for a broadcast saying topic and then
     // runs a search with the updated topics.
     $scope.$on('topic', function(event, data) {
-      var labelsArray = ['hvac', 'electrical', 'mechanical', 'management'];
-      labelsArray.forEach(function(label, index) {
-        if (data[label]) {
-          vm['topicParam' + (index + 1)] = label;
-          vm.courseTopics.categories.all = false
-        } else {
-          vm.courseTopics.categories.all = ['hvac', 'electrical', 'mechanical', 'management'];
-        }
-        vm.$storage.SearchTopic1 = vm.topicParam1;
-        vm.$storage.SearchTopic2 = vm.topicParam2;
-        vm.$storage.SearchTopic3 = vm.topicParam3;
-        vm.$storage.SearchTopic4 = vm.topicParam4;
-      });
-      //  doParamSearch();
+      var labelsArray = ['hvac', 'electrical', 'mechanical', 'management', 'all'];
+      var previouslyAll = vm.$storage.SearchTopic5;
+
+      $log.debug(previouslyAll, anyAreTrue(data));
+      // if all was previously false but now it's true, set the others
+      // to false and end.
+      if (!previouslyAll && data.all === true) {
+         vm.categories.hvac = false;
+         vm.categories.electrical = false;
+         vm.categories.management = false;
+         vm.categories.mechanical = false;
+         vm.categories.all = true;
+      // if all was previously true and any are true now,
+      // set all to false and end.
+      } else if (previouslyAll && anyAreTrue(data)) {
+        vm.categories.all = false;
+      }
+
+      vm.$storage.SearchTopic1 = data.hvac ? 'hvac' : undefined;
+      vm.$storage.SearchTopic2 = data.electrical ? 'electrical' : undefined;
+      vm.$storage.SearchTopic3 = data.mechanical ? 'mechanical' : undefined;
+      vm.$storage.SearchTopic4 = data.management ? 'management' : undefined;
+      vm.$storage.SearchTopic5 = vm.categories.all;
+
+      doParamSearch();
     });
 
-    $scope.$watch('vm.locationParam', function() {
-      //  doParamSearch();
-    });
 
     var today = new Date();
     var thisMonth = today.getMonth();
@@ -283,10 +303,10 @@
       var keywordParam = vm.$storage.kword || vm.kwFilter.word;
       var radiusParam = vm.mileRange.value || '250';
       var locParam = vm.$storage.SearchLocation || vm.locSearchFilter.location;
-      var topicParam1 = vm.$storage.SearchTopic1 || vm.topicParm1;
-      var topicParam2 = vm.$storage.SearchTopic2 || vm.topicParm2;
-      var topicParam3 = vm.$storage.SearchTopic3 || vm.topicParm3;
-      var topicParam4 = vm.$storage.SearchTopic4 || vm.topicParm4;
+      var topicParam1 = vm.$storage.SearchTopic1;
+      var topicParam2 = vm.$storage.SearchTopic2;
+      var topicParam3 = vm.$storage.SearchTopic3;
+      var topicParam4 = vm.$storage.SearchTopic4;
       var defStart = vm.$storage.SearchDRmin || vm.dateRange.start || defaultStart;
       var defEnd = vm.$storage.SearchDRmax || vm.dateRange.end || defaultEnd;
       vm.initialDirections = false;
@@ -316,11 +336,12 @@
 
     vm.clearFilters = function() {
       $localStorage.$reset();
-      vm.courseTopics.categories = [];
-      vm.locSearchFilter.locationAll = true;
-      vm.locSearchFilter.location = '';
       $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
-      vm.initialDirections = true;
+      vm.showDirections = true;
+      vm.searchFired = false;
+      vm.seminarLocations = [];
+      vm.locSearchFilter.location = '';
+      vm.kwFilter.word = '';
     }
 
     vm.numLimit = 10;

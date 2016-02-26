@@ -11,8 +11,11 @@
   position: fixed;
   width: 100%;
   top: 50px;
-  @include med-desktop-and-up {
+  @include tablet-portrait-and-up() {
     top: 80px;
+  }
+  @media screen and (max-width: 1024px) {
+    top: 50px;
   }
 }
 .attendee-input--cart {
