@@ -5,7 +5,7 @@
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
-  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, months, $loading, $timeout, $document, $window) {
+  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, Months, $loading, $timeout, $document, $window) {
     var vm = this;
     vm.kwFilter = {};
     vm.mileRange = {};
@@ -275,7 +275,7 @@
     var today = new Date();
     var thisMonth = today.getMonth();
     var thisYear = today.getFullYear();
-    var monthNames = months.getMonths();
+    var monthNames = Months.getMonths();
 
     vm.startingMonthArray = monthNames.slice(thisMonth);
 

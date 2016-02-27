@@ -1,6 +1,6 @@
 /**
  * @ngdoc service
- * @name train.common.cities
+ * @name train.common.Cities
  * @description Contains a list of all the cities where TrainCO has seminars.
  */
 
@@ -10,10 +10,10 @@
 
 	angular
 		.module('train.common')
-		.factory('cities', cities);
+		.factory('Cities', Cities);
 
   /* @ngInject */
-  function cities(){
+  function Cities() {
 		return {
 			getCities: getCities
 		};

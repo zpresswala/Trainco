@@ -1,6 +1,6 @@
 /**
  * @ngdoc service
- * @name train.common.months
+ * @name train.common.Months
  * @description Handles months for the slider and dropdowns.
  */
 
@@ -10,10 +10,10 @@
 
 	angular
 		.module('train.common')
-		.factory('months', months);
+		.factory('Months', Months);
 
   /* @ngInject */
-  function months(){
+  function Months(){
 		return {
 			getAbrvMonths: getAbrvMonths,
       getMonths: getMonths

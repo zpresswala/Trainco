@@ -7,11 +7,11 @@
 
   /** @ngInject */
   /** @ngInject */
-  function MainSearchController($location, cities, months, $localStorage, $scope, _) {
+  function MainSearchController($location, Cities, Months, $localStorage, $scope, _) {
     var vm = this;
     vm.$storage = $localStorage;
 
-    vm.cities = cities.getCities();
+    vm.cities = Cities.getCities();
 
     vm.createFunction = function(input) {
       // format the option and return it
@@ -24,7 +24,7 @@
     vm.classTopics = {};
     var today = new Date();
     var thisMonth = today.getMonth();
-    var monthNames = months.getAbrvMonths() || [];
+    var monthNames = Months.getAbrvMonths() || [];
     // Starts the array at the current month through December
     var startingMonthArray = monthNames.slice(thisMonth);
 
