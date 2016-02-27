@@ -45,11 +45,11 @@
     var combinedMonthNames = _.map(combinedMonthsArray, _.property('name'));
     var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
     vm.sliderValues = {
-      minValue: combinedMonthValues[0],
-      maxValue: combinedMonthValues[14],
+      minValue: parseInt(combinedMonthValues[0]-2),
+      maxValue:  parseInt(combinedMonthValues[3]),
       options: {
-        floor: combinedMonthValues[0],
-        ceil: combinedMonthValues[14],
+        floor: parseInt(combinedMonthValues[0]-2),
+        ceil: parseInt(combinedMonthValues[14]),
         showTicks: true,
         showSelectionBarEnd: true,
         showTicksValues: true,
