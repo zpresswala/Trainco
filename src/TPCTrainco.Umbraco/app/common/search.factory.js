@@ -19,15 +19,15 @@
 
     return service;
 
-    function performSearch(OGFilter) {
-      var theTopics = [OGFilter.topicParam1, OGFilter.topicParam2, OGFilter.topicParam3, OGFilter.topicParam4];
+    function performSearch(searchObj) {
+      var theTopics = [searchObj.topicParam1, searchObj.topicParam2, searchObj.topicParam3, searchObj.topicParam4];
       return $http.get(apiHost + '?' +
-          'keyword=' + OGFilter.keywordParam +
-          '&location=' + OGFilter.locParam +
-          '&radius=' + OGFilter.radiusParam +
+          'keyword=' + searchObj.keywordParam +
+          '&location=' + searchObj.locParam +
+          '&radius=' + searchObj.radiusParam +
           '&topics=' + theTopics +
-          '&date-start=' + OGFilter.defStart + '-01-' + thisYear +
-          '&date-end=' + OGFilter.defEnd + '-01-' + OGFilter.endYear, {
+          '&date-start=' + searchObj.defStart + '-01-' + thisYear +
+          '&date-end=' + searchObj.defEnd + '-01-' + searchObj.endYear, {
             cache: true
           })
         .then(getSearchComplete)

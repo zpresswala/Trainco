@@ -10,7 +10,7 @@
     vm.kwFilter = {};
     vm.mileRange = {};
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-    var OGFilter = {
+    var searchObj = {
       keywordParam: '',
       locParam: '',
       topicParam1: '',
@@ -22,7 +22,7 @@
     }
     vm.dateRange = {};
     vm.$storage = $localStorage;
-    vm.searchFired = false;
+    vm.searchFired = false; // determines whether or not we will show an error message.
     vm.sbIsCollapsed = true; // mobile sidebar converted into menu.
 
     activate();
@@ -48,6 +48,11 @@
       vm.semLocLength = vm.seminarLocations.length / 4;
     }
 
+    /**
+     * selectively clears localStorage, leaving the cart
+     * and the SearchTopic5 (all) intact.
+     * @method emptyLocalStorage
+     */
     function emptyLocalStorage() {
       delete vm.$storage.SearchLocation;
       delete vm.$storage.SearchTopic1;
@@ -67,7 +72,7 @@
       if (vm.$storage.SearchLocation) {
         var keywordParam = '';
         vm.initialDirections = true;
-        var OGFilter = {
+        var searchObj = {
           keywordParam: null,
           locParam: vm.$storage.SearchLocation,
           topicParam1: vm.$storage.SearchTopic1,
@@ -130,7 +135,6 @@
      */
     vm.manualTextBoxHandler = function(e) {
       if (e.keyCode === 13 || e.type === 'blur') {
-        $rootScope.$broadcast('textInput', e);
         doParamSearch();
       }
     }
@@ -152,24 +156,11 @@
         }
 
         vm.typingTimeout = setTimeout(function(e) {
-          $log.debug('typingTextBoxHandler running')
+          $log.debug('typingTextBoxHandler running');
           doParamSearch();
         }, 1000)
       }
     }
-
-    /**
-     * Listens for a broadcast that says 'location'
-     * @method $on
-     * @param  {string} 'location'      the trigger from $rootScope
-     * @param  {method} function(event, data          the event aka the broadcast 'location'
-     * and the data being vm.locSearchFilter.location.
-     * @return {string}                 vm.locationParam is the data from the handleLocInput.
-     * We are also setting this to localStorage as SearchLocation.
-     */
-    $scope.$on('textInput', function(event, data) {
-
-    });
 
     vm.locWatcher = function() {
       if (vm.locSearchFilter.locationAll === true) {
@@ -232,7 +223,6 @@
        * @return {array} returns the array seminarsData containing all locations.
        */
     vm.stateChanged = function() {
-
       $rootScope.$broadcast('topic', vm.categories);
     }
 
@@ -306,9 +296,9 @@
 
     function checkYear() {
       if (vm.dateRange.start >= vm.dateRange.end) {
-        return 2017;
+        return today.getFullYear() + 1;
       } else {
-        return 2016
+        return today.getFullYear();
       }
     }
 
@@ -325,7 +315,7 @@
       var defEnd = vm.$storage.SearchDRmax || vm.dateRange.end || defaultEnd;
       vm.initialDirections = false;
 
-      var OGFilter = {
+      var searchObj = {
         keywordParam: keywordParam,
         locParam: locParam,
         radiusParam: radiusParam,
@@ -337,7 +327,7 @@
         defEnd: defEnd,
         endYear: checkYear()
       }
-      searchService.performSearch(OGFilter).then(function(data) {
+      searchService.performSearch(searchObj).then(function(data) {
         emptyLocalStorage();
         if (data.seminars.length) {
           vm.showDirections = false;
@@ -351,17 +341,21 @@
       });
     }
 
-    vm.clearFilters = function() {
-      $localStorage.$reset();
-      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
-      vm.showDirections = true;
-      vm.searchFired = false;
+    function resetFields() {
       vm.seminarLocations = [];
       vm.locSearchFilter.location = '';
       vm.kwFilter.word = '';
       vm.mileRange.value = '';
       vm.dateRange.start = '';
       vm.dateRange.end = '';
+    }
+
+    vm.clearFilters = function() {
+      emptyLocalStorage();
+      resetFields();
+      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+      vm.showDirections = true;
+      vm.searchFired = false;
     }
 
     vm.numLimit = 10;
