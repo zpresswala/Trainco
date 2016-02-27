@@ -328,6 +328,7 @@
         endYear: checkYear()
       }
       searchService.performSearch(OGFilter).then(function(data) {
+        $localStorage.$reset();
         if (data.seminars.length) {
           vm.showDirections = false;
         } else {
