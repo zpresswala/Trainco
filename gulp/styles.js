@@ -3,7 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-
+var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync');
 
 var $ = require('gulp-load-plugins')();
@@ -23,14 +23,21 @@ var buildStyles = function() {
   var sassOptions = {
     style: 'expanded'
   };
+  var processors = [
+    autoprefixer({browsers: ['> 1%', 'last 3 version']})
+  ];
 
   return gulp.src([
-    path.join(conf.paths.src, '/assets/sass/main.scss')
+    path.join(conf.paths.src, '/sass/main.scss')
   ])
     .pipe($.sourcemaps.init())
-    .pipe($.sass(sassOptions)).on('error', conf.errorHandler('Sass'))
-    .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
+    .pipe($.sass.sync({
+      outputStyle: 'expanded',
+      precision: 10,
+      includePaths: ['.']
+    }).on('error', conf.errorHandler('Sass')))
+    .pipe($.postcss(processors))
+    .pipe($.cssnano())
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
     .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/')));
 };
