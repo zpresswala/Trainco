@@ -3,10 +3,10 @@
 
   angular
     .module('train.common')
-    .factory('searchService', searchService);
+    .factory('Search', Search);
 
   /** @ngInject */
-  function searchService($log, $http) {
+  function Search($log, $http) {
     var apiHost = 'http://trainco.axial-client.com/api/seminars2/search/';
     var today = new Date();
     var thisYear = today.getFullYear();

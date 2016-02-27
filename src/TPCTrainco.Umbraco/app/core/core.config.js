@@ -25,7 +25,8 @@
     $compileProvider.debugInfoEnabled(true);
     $localStorageProvider.setKeyPrefix('tpc');
     // Expose XHR requests to server
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    $httpProvider.defaults.useXDomain = true;
+		delete $httpProvider.defaults.headers.common['X-Requested-With'];
   };
 
 

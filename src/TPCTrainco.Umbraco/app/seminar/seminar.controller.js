@@ -5,7 +5,7 @@
     .module('train.seminar')
     .controller('SeminarController', SeminarController);
   /** @ngInject */
-  function SeminarController($log, courseSearch, cartService, $timeout,$document, $window, $rootScope, $scope, months, _) {
+  function SeminarController($log, courseSearch, cartService, $timeout, $document, $window, $rootScope, $scope, months, _) {
     var vm = this;
 
     vm.courseId = {};
@@ -45,7 +45,6 @@
      *
      */
     vm.addItemToCart = function(item, qty, $event) {
-      $log.debug(item, qty, $event)
       cartService.addItem(item, qty)
 
       vm.cartItemList = cartService.getCartItems() || [];
@@ -117,7 +116,6 @@
 
     function fixFormat(badDate) {
       var x = badDate.replace(/^(\d+\-)/, '$11-').replace(/\-/g, '/');
-      console.log(x)
       return x;
     }
 
@@ -131,9 +129,7 @@
 
       var fixTest = new Date(fixFormat(testDate));
       var fixBegin = new Date(fixFormat(beginDate));
-        $log.debug('fixBegin', fixBegin)
       var fixEnd = new Date(fixFormat(endDate));
-      $log.debug('fixend', fixEnd)
       var testMonth = fixTest.getMonth();
       var beginMonth = fixBegin.getMonth();
       var endMonth = fixEnd.getMonth();
@@ -167,7 +163,6 @@ watchHandles()
       var classId = localStorage.getItem('classId');
 
       return courseSearch.getSeminars(classId).then(function(data) {
-        $log.debug(data)
         var seminarsData = data.seminars[0];
         receiveSeminarData(seminarsData);
         return seminarsData;

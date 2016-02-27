@@ -5,7 +5,7 @@
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
-  function RegisterController($log, searchService, $localStorage, $http, $rootScope, $scope, cartService, $loading, $timeout, months, $document, $window) {
+  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, months, $loading, $timeout, $document, $window) {
     var vm = this;
     vm.kwFilter = {};
     vm.mileRange = {};
@@ -119,7 +119,7 @@
       // display added on click.
       $($event.target).val('Added!');
 
-      $timeout = setTimeout(function() {
+      $timeout(function() {
         // restore the button to add to cart
         $($event.target).val('Add to cart');
       }, 3500);
@@ -155,7 +155,7 @@
           clearTimeout(vm.typingTimeout)
         }
 
-        vm.typingTimeout = setTimeout(function(e) {
+        vm.typingTimeout = $timeout(function(e) {
           $log.debug('typingTextBoxHandler running');
           doParamSearch();
         }, 1000)
@@ -327,7 +327,7 @@
         defEnd: defEnd,
         endYear: checkYear()
       }
-      searchService.performSearch(searchObj).then(function(data) {
+      Search.performSearch(searchObj).then(function(data) {
         emptyLocalStorage();
         if (data.seminars.length) {
           vm.showDirections = false;
