@@ -275,13 +275,14 @@
     var today = new Date();
     var thisMonth = today.getMonth();
     var thisYear = today.getFullYear();
-    var futureYear = today.getFullYear() + 1;
-    var futureMonth = today.getMonth();
-    var threeMore = thisMonth + 3;
-    var monthNames = months.getMonths() || [];
+    var monthNames = months.getMonths();
 
     vm.startingMonthArray = monthNames.slice(thisMonth);
-    vm.yearOfMonths = vm.startingMonthArray.concat(monthNames.slice(0, thisMonth).map(function addYear(month) {
+
+    vm.yearOfMonths = vm.startingMonthArray
+    .concat(monthNames
+    .slice(0, thisMonth)
+    .map(function addYear(month) {
       if (parseInt(month.value) === 1) {
         return {
           name: month.name + ' ' + (thisYear + 1),
@@ -295,6 +296,7 @@
     var defaultEnd = vm.startingMonthArray[3].value;
 
     function checkYear() {
+      var today = new Date();
       if (vm.dateRange.start >= vm.dateRange.end) {
         return today.getFullYear() + 1;
       } else {

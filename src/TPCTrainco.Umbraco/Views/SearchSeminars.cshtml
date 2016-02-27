@@ -180,7 +180,7 @@
                   ng-click="ctrl.addItemToCart(location, location.qty, $event)"/>
           </div>
         </div>
-        <span class="additional-showing" ng-click="ctrl.numLimit=30"><i class="fa fa-plus-circle"></i> Show additional seminars for this topic</span>
+        <span class="additional-showing" ng-if="course.locationSchedules.length > 10" ng-click="ctrl.numLimit=30"><i class="fa fa-plus-circle"></i> Show additional seminars for this topic</span>
       </section>
     </div>
     <ul class="pagination-btn-wrapper" ng-hide="ctrl.showDirections">
