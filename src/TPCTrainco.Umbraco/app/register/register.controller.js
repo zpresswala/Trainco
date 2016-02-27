@@ -48,6 +48,16 @@
       vm.semLocLength = vm.seminarLocations.length / 4;
     }
 
+    function emptyLocalStorage() {
+      delete vm.$storage.SearchLocation;
+      delete vm.$storage.SearchTopic1;
+      delete vm.$storage.SearchTopic2 ;
+      delete vm.$storage.SearchTopic3;
+      delete vm.$storage.SearchTopic4;
+      delete vm.$storage.SearchDRmin;
+      delete vm.$storage.SearchDRmax;
+    }
+
     /**
      * pulls data from localStorage in order to run the
      * search from the off page search component as soon as the page loads.
@@ -328,7 +338,7 @@
         endYear: checkYear()
       }
       searchService.performSearch(OGFilter).then(function(data) {
-        $localStorage.$reset();
+        emptyLocalStorage();
         if (data.seminars.length) {
           vm.showDirections = false;
         } else {
