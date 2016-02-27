@@ -51,7 +51,7 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe(jsFilter.restore)
     .pipe(cssFilter)
     .pipe($.sourcemaps.init())
-    .pipe($.minifyCss({ processImport: false }))
+    .pipe($.cssnano())
     .pipe($.sourcemaps.write('maps'))
     .pipe(cssFilter.restore)
     .pipe(assets.restore())

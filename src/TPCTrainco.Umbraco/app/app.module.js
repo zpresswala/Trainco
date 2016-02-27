@@ -12,9 +12,6 @@
     'train.core',
     'train.common',
     'train.components',
-  /**
-    * Application modules
-  **/
     'train.register',
     'train.seminar'
   ]);
