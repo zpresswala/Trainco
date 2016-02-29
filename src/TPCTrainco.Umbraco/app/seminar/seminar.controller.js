@@ -5,7 +5,7 @@
     .module('train.seminar')
     .controller('SeminarController', SeminarController);
   /** @ngInject */
-  function SeminarController($log, courseSearch, cartService, $timeout, $document, $window, $rootScope, $scope, Months, _) {
+  function SeminarController($log, courseSearch, cartService, $timeout, $document, $window, $rootScope, $scope, MonthSvc, _) {
     var vm = this;
 
     vm.courseId = {};
@@ -65,7 +65,7 @@
 
     var today = new Date();
     var thisMonth = today.getMonth();
-    var monthNames = Months.getAbrvMonths();
+    var monthNames = MonthSvc.getAbrvMonths();
 
     // Starts the array at the current month through December
     var startingMonthArray = monthNames.slice(thisMonth);

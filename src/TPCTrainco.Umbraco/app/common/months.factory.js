@@ -10,10 +10,10 @@
 
 	angular
 		.module('train.common')
-		.factory('Months', Months);
+		.factory('MonthSvc', MonthSvc);
 
   /* @ngInject */
-  function Months(){
+  function MonthSvc(){
 		return {
 			getAbrvMonths: getAbrvMonths,
       getMonths: getMonths
@@ -38,7 +38,7 @@
 		function getAbrvMonths(data) {
 
       var monthNames = ['JAN ' + (new Date()).getFullYear(), 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
-      months = [];
+      var months = [];
 
       var i;
       for (i = 1; i <= 12; i++) {
@@ -76,7 +76,7 @@
      */
     function getMonths(data) {
       var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Sept', 'October', 'November', 'December'];
-      months = [];
+      var months = [];
       var i;
       for (i = 1; i <= 12; i++) {
         if (i <= 9) {

@@ -5,7 +5,7 @@
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
-  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, Months, $loading, $timeout, $document, $window) {
+  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, MonthSvc, $loading, $timeout, $document, $window) {
     var vm = this;
     vm.kwFilter = {};
     vm.mileRange = {};
@@ -87,11 +87,11 @@
         localStorage.removeItem('ngStorage-SearchDRmin');
         localStorage.removeItem('ngStorage-SearchDRmax');
       } else {
+        // showDirections displays the default blank state message
         vm.showDirections = true;
       }
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-
     }
 
     /**
@@ -275,7 +275,7 @@
     var today = new Date();
     var thisMonth = today.getMonth();
     var thisYear = today.getFullYear();
-    var monthNames = Months.getMonths();
+    var monthNames = MonthSvc.getMonths();
 
     vm.startingMonthArray = monthNames.slice(thisMonth);
 
@@ -306,38 +306,40 @@
 
     function doParamSearch() {
       $loading.start('courses');
-      var keywordParam = vm.$storage.kword || vm.kwFilter.word;
-      var radiusParam = vm.mileRange.value || '250';
-      var locParam = vm.$storage.SearchLocation || vm.locSearchFilter.location;
-      var topicParam1 = vm.$storage.SearchTopic1;
-      var topicParam2 = vm.$storage.SearchTopic2;
-      var topicParam3 = vm.$storage.SearchTopic3;
-      var topicParam4 = vm.$storage.SearchTopic4;
-      var defStart = vm.$storage.SearchDRmin || vm.dateRange.start || defaultStart;
-      var defEnd = vm.$storage.SearchDRmax || vm.dateRange.end || defaultEnd;
-      vm.initialDirections = false;
 
       var searchObj = {
-        keywordParam: keywordParam,
-        locParam: locParam,
-        radiusParam: radiusParam,
-        topicParam1: topicParam1,
-        topicParam2: topicParam2,
-        topicParam3: topicParam3,
-        topicParam4: topicParam4,
-        defStart: defStart,
-        defEnd: defEnd,
+        keywordParam: vm.$storage.kword || vm.kwFilter.word,
+        locParam: vm.mileRange.value || '250',
+        radiusParam: vm.$storage.SearchLocation || vm.locSearchFilter.location,
+        topicParam1: vm.$storage.SearchTopic1,
+        topicParam2: vm.$storage.SearchTopic2,
+        topicParam3: vm.$storage.SearchTopic3,
+        topicParam4: vm.$storage.SearchTopic4,
+        defStart: vm.$storage.SearchDRmin || vm.dateRange.start || defaultStart,
+        defEnd: vm.$storage.SearchDRmax || vm.dateRange.end || defaultEnd,
         endYear: checkYear()
       }
+
       Search.performSearch(searchObj).then(function(data) {
+        /**
+         * Clears localStorage search params because we executed a search
+         * @method emptyLocalStorage
+         * @return {any}          its going to happen regardless of whether or not theres values in LS.
+         */
         emptyLocalStorage();
         if (data.seminars.length) {
+          // Set showDirections to false because a search has now been executed
+          // and that search returns results.
           vm.showDirections = false;
         } else {
+          // Set showDirections to true if a search was made, but doesnt have results because
+          // we will be displaying and setting searchFired to true in order to display
+          // the error message.
           vm.showDirections = true;
         }
         var seminarsData = data.seminars;
         receiveSeminarData(seminarsData);
+        // Set true to show error.
         vm.searchFired = true;
         return seminarsData;
       });
@@ -350,6 +352,11 @@
       vm.mileRange.value = '';
       vm.dateRange.start = '';
       vm.dateRange.end = '';
+      vm.categories.hvac = false;
+      vm.categories.electrical = false;
+      vm.categories.management = false;
+      vm.categories.mechanical = false;
+      vm.categories.all = false;
     }
 
     vm.clearFilters = function() {

@@ -7,7 +7,7 @@
 
   /** @ngInject */
   /** @ngInject */
-  function MainSearchController($location, Cities, Months, $localStorage, $scope, _) {
+  function MainSearchController($location, Cities, MonthSvc, $localStorage, $scope, _) {
     var vm = this;
     vm.$storage = $localStorage;
 
@@ -24,7 +24,7 @@
     vm.classTopics = {};
     var today = new Date();
     var thisMonth = today.getMonth();
-    var monthNames = Months.getAbrvMonths() || [];
+    var monthNames = MonthSvc.getAbrvMonths() || [];
     // Starts the array at the current month through December
     var startingMonthArray = monthNames.slice(thisMonth);
 
