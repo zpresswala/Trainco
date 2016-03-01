@@ -14,7 +14,8 @@
 
     var service = {
       apiHost: apiHost,
-      performSearch: performSearch
+      performSearch: performSearch,
+      seminarSearch: seminarSearch
     };
 
     return service;
@@ -40,6 +41,16 @@
       function getSearchFailed(error) {
         $log.error('XHR Failed for getContributors.\n' + angular.toJson(error.data, true));
       }
+    }
+
+    function seminarSearch(classId) {
+      return $http.get(apiHost + '/' + classId + '?date-start=02/1/'+ thisYear + '&date-end=12/31/' + (thisYear+1))
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          $log.error('XHR Failed for getResults.\n' + angular.toJson(error.data, true));
+        });
     }
   }
 })();

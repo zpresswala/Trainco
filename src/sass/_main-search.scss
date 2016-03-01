@@ -1,8 +1,16 @@
+.yearblock {
+display: block!important;
+    white-space: normal!important;
+  font-size: 12px;
+  margin-top: -7px;
+}
+
 .selector-optgroup {
   font-weight: bold;
   padding-left: 15px;
   text-align: left;
 }
+
 #selectAllWrap {
   input[type=checkbox] {
     display: none;
@@ -174,15 +182,17 @@
 }
 
 .select-date-text {
-    @include below-tablet-portrait() {
-      display: none;
-    }
+  @include below-tablet-portrait() {
+    display: none;
+  }
 }
+
 .topic-circles .btn-white {
-    @include below-tablet-portrait() {
-      margin-top: 20px;
-    }
+  @include below-tablet-portrait() {
+    margin-top: 20px;
+  }
 }
+
 rzslider {
   position: relative;
   display: inline-block;
@@ -344,8 +354,8 @@ rzslider .rz-ticks .tick .tick-value {
 
 .home-selector {
   input {
-  @include placeholder(inherit, 1, 300, normal);
-}
+    @include placeholder(inherit, 1, 300, normal);
+  }
 }
 
 .selector-option {

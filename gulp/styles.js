@@ -38,6 +38,6 @@ var buildStyles = function() {
     }).on('error', conf.errorHandler('Sass')))
     .pipe($.postcss(processors))
     .pipe($.cssnano())
-    .pipe($.sourcemaps.write())
+    .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/')));
 };

@@ -12,9 +12,9 @@
     .config(configuration)
     .run(runBlock);
 
-  configure.$inject = ['$logProvider', '$compileProvider', '$httpProvider', '$localStorageProvider', '$locationProvider'];
+  configure.$inject = ['$logProvider', '$compileProvider', '$httpProvider', '$localStorageProvider', '$locationProvider', '$sceProvider'];
   /* @ngInject */
-  function configure($logProvider, $compileProvider, $httpProvider, $localStorageProvider, $locationProvider) {
+  function configure($logProvider, $compileProvider, $httpProvider, $localStorageProvider, $locationProvider, $sceProvider) {
     /**
      * @ngdoc function
      * @name  config
@@ -27,6 +27,8 @@
     // Expose XHR requests to server
     $httpProvider.defaults.useXDomain = true;
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
+    $sceProvider.isEnabled(true);
   };
 
 

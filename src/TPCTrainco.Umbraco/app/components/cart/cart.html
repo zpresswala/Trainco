@@ -1,9 +1,9 @@
-<div class="fixed-top-cart slide-toggle" ng-controller="CartController as vm">
-  <div ng-show="slideToggle1">
+<div class="fixed-top-cart slide-toggle" data-slide-toggle ng-controller="CartController as vm">
+  <div ng-show="vm.isCartOpened">
     <div class="row cart-top">
       <div class="container">
         <div class="col-xs-12">
-          <h3 ng-class="{'cart-left': vm.isActive}"><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
+          <h3 ng-class="{'cart-left': vm.isCartOpened}"><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
         </div>
       </div>
     </div>
@@ -45,10 +45,11 @@
   </div>
 
   <div class="cart-visible">
-    <a class="cart-tab" href="javascript:void(0);" ng-click="slideToggle1 =! slideToggle1">
-        <img ng-click="vm.swapHere()" ng-src="{{ vm.cartImages.current }}"/>
+    <a class="cart-tab" href="javascript:void(0);" ng-click="vm.cartIsOpen()">
+        <img ng-if="!vm.isCartOpened" src="/assets/images/icon-cart-tab.png" class="cart-img-cart">
+        <img ng-if="vm.isCartOpened" src="/assets/images/icon-cart-close-arrow.png" class="cart-img-arrow">
     </a>
-    <div class="container" ng-show="!slideToggle1">
+    <div class="container" ng-show="!vm.isCartOpened">
       <ul class="cart-total col-xs-12 col-md-4">
         <li class="items-total">{{ vm.cartItemList.length }} Items</li>
         <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>

@@ -28,8 +28,13 @@
      * @description a list of all the cities where there might be seminars
      */
 
-		function getCities(data) {
-      var data = [{
+		function getCities() {
+      var curVal = window.currentCityValue;
+      var manualObject = {
+        value: curVal.slice(0, curVal.indexOf(',')),
+        label: curVal
+      };
+      var data = [manualObject, {
         value: ' ',
         label: 'All Locations'
       }, {
@@ -800,7 +805,7 @@
         value: 'Regina',
         label: 'Regina, SK',
         group: 'Saskatchewan, Canada'
-      }]
+      }];
 
       return data;
     }

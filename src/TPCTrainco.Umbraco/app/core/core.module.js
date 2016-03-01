@@ -10,6 +10,7 @@
 
   angular.module('train.core', [
     'ngAnimate',
+    'ngSanitize',
     'ui.bootstrap',
     'selector',
     'rzModule',

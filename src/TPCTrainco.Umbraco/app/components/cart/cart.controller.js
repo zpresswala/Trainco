@@ -6,12 +6,14 @@
     .controller('CartController', CartController);
 
   /** @ngInject */
-  function CartController(cartService, $log, $scope, $http, $window, $timeout) {
+  function CartController(cartService, $log, $scope, $http, $window, $document, $timeout) {
     var vm = this;
     var purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
     vm.cartItem = {};
-
-
+    vm.isCartOpened = false;
+    vm.cartIsOpen = function() {
+      vm.isCartOpened =! vm.isCartOpened
+    }
     function calculateTotalPrice(itemList) {
       var totalPrice = itemList ? itemList.reduce(function(acc, item) {
         return acc + item.quantity * parseFloat(item.price);
@@ -23,8 +25,11 @@
     vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
 
     $scope.$on('cartUpdated', function(event, data) {
+      vm.isCartOpened = true;
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      $('html, body').stop(true).animate({scrollTop: 285}, 500);
+
     });
 
     vm.removeItemFromCart = function(itemId) {
@@ -57,15 +62,6 @@
       current: '/assets/images/icon-cart-tab.png'
     };
     vm.isActive = false;
-    vm.swapHere = function() {
-      vm.isActive = !vm.isActive;
-      if (vm.cartImages.current === vm.cartImages.final) {
-        vm.cartImages.current = vm.cartImages.initial
-      } else if (vm.cartImages.current === vm.cartImages.initial) {
-        vm.cartImages.current = vm.cartImages.final
-      }
-      ;
-    };
 
     vm.doPurchase = function() {
       vm.cartItemList = cartService.getCartItems() || [];

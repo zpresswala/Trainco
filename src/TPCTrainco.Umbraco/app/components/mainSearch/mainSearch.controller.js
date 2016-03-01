@@ -7,7 +7,7 @@
 
   /** @ngInject */
   /** @ngInject */
-  function MainSearchController($location, Cities, MonthSvc, $localStorage, $scope, _) {
+  function MainSearchController($location, $log, Cities, MonthSvc, $localStorage, $timeout, $scope, _) {
     var vm = this;
     vm.$storage = $localStorage;
 
@@ -31,32 +31,45 @@
     function fixEndingArray(endingMonthArray) {
       var first = endingMonthArray[0];
       var num = parseInt(first.name.slice(3))
+      $log.debug(first.name);
       var trunc = first.name.slice(0, 3)
 
-      first.name = trunc + (num + 1);
+      first.name = trunc + ' ' + (num + 1);
 
       return endingMonthArray;
     }
-    var endingMonthArray = fixEndingArray(monthNames.slice(0, (thisMonth + 3)));
+    var endingMonthArray = fixEndingArray(monthNames.slice(0, (thisMonth)));
 
     var combinedMonthsArray = startingMonthArray.concat(endingMonthArray)
     var lengthValue = startingMonthArray.length
 
     var combinedMonthNames = _.map(combinedMonthsArray, _.property('name'));
     var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
+    $log.debug(combinedMonthNames)
     vm.sliderValues = {
       minValue: parseInt(combinedMonthValues[0]-2),
       maxValue:  parseInt(combinedMonthValues[3]),
       options: {
         floor: parseInt(combinedMonthValues[0]-2),
-        ceil: parseInt(combinedMonthValues[14]),
+        ceil: parseInt(combinedMonthValues[11]),
         showTicks: true,
         showSelectionBarEnd: true,
         showTicksValues: true,
         stepsArray: combinedMonthNames
       }
     };
+    $timeout(function() {
+      $scope.$broadcast('rzSliderForceRender');
+      $('.tick > span').each(function (index, item) {
+        var $item = $(item);
+        var html = $item.html();
+        var numTest = /^([^\d]+)(\d+)$/;
+        var hasYear = numTest.test(html);
 
+        if (hasYear) {
+          $item.html(html.replace(numTest, '$1<span class="yearblock">$2</span>'));
+        }
+      }) }, 300);
 
     vm.doParamSearch = function() {
       if (vm.classTopics.hvac === true) {

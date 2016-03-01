@@ -215,7 +215,7 @@
         electrical: false,
         mechanical: false,
         management: false,
-        all: true
+        all: false
       }
       /**
        * Watches the locationAll checkbox and runs on checked.
@@ -276,14 +276,24 @@
     var thisMonth = today.getMonth();
     var thisYear = today.getFullYear();
     var monthNames = MonthSvc.getMonths();
-
-    vm.startingMonthArray = monthNames.slice(thisMonth);
-
+    var curMonthArrayVal = monthNames.slice(thisMonth);
+    vm.startingMonthArray =
+      monthNames.slice(thisMonth)
+        .map(function addYear(month) {
+          if (parseInt(month.value) <= 12) {
+            return {
+              name: month.name + ' ' + (thisYear),
+              value: month.value
+            }
+          } else {
+            return month
+          }
+        });
     vm.yearOfMonths = vm.startingMonthArray
     .concat(monthNames
     .slice(0, thisMonth)
     .map(function addYear(month) {
-      if (parseInt(month.value) === 1) {
+      if (parseInt(month.value) <= 12) {
         return {
           name: month.name + ' ' + (thisYear + 1),
           value: month.value
@@ -309,8 +319,8 @@
 
       var searchObj = {
         keywordParam: vm.$storage.kword || vm.kwFilter.word,
-        locParam: vm.mileRange.value || '250',
-        radiusParam: vm.$storage.SearchLocation || vm.locSearchFilter.location,
+        locParam: vm.$storage.SearchLocation || vm.locSearchFilter.location,
+        radiusParam: vm.mileRange.value || '250',
         topicParam1: vm.$storage.SearchTopic1,
         topicParam2: vm.$storage.SearchTopic2,
         topicParam3: vm.$storage.SearchTopic3,

@@ -99,7 +99,18 @@
         }
       }
     };
+    $timeout(function() {
+      $scope.$broadcast('rzSliderForceRender');
+      $('.tick > span').each(function (index, item) {
+        var $item = $(item);
+        var html = $item.html();
+        var numTest = /^([^\d]+)(\d+)$/;
+        var hasYear = numTest.test(html);
 
+        if (hasYear) {
+          $item.html(html.replace(numTest, '$1<span class="yearblock">$2</span>'));
+        }
+      }) }, 300);
     function watchHandles() {
       var mapNum = parseInt(combinedMonthValues[0]);
       var thisYear = (new Date()).getFullYear();

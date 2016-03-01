@@ -1,4 +1,9 @@
-
+.slide-toggle-in {
+  @include slideInDown();
+}
+.slide-toggle-out {
+  @include slideOutUp();
+}
 .slide-toggle {
 
   ul {

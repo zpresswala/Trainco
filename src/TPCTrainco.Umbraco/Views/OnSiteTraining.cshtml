@@ -28,7 +28,7 @@
         <div class="jumbotron">
             <h1>@(currentPage.GetPropertyValue<string>("pageTitle", currentPage.Name))</h1>
         </div>
-        <a href="#cf-container" class="btn-reg" role="button">Get a Quote</a>
+        <a href="#cfcontainer" class="btn-reg" role="button">Get a Quote</a>
     </div>
 </div>
 <div class="container-fluid gradient-bg main-content">
@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<div class="caro-form-container" id="cf-container">
+<div class="caro-form-container" id="cfcontainer">
     <div class="container">
         <div class="form-wrap pull-right col-xs-12 col-md-6">
             @CurrentPage.form
@@ -56,3 +56,11 @@
 
     </div>
 </div> <!-- end container -->
+                  <script type="text/javascript">
+
+                                  $('a[href^="#"]').click(function(e) {
+                                      e.preventDefault();
+                                      var hash = $(this).attr('href');
+                                      $('html, body').stop(true).animate({scrollTop: $(hash).offset().top - 125}, 500);
+                                  });
+                      </script>

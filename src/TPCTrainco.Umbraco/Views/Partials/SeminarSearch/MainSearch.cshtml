@@ -14,9 +14,9 @@
 
     IPublishedContent seminarMainOverview = homePage.Children.FirstOrDefault(n => n.IsDocumentType("SeminarMainOverview"));
     IEnumerable<IPublishedContent> seminarCategoryList = seminarMainOverview.Children.Where(n => n.IsDocumentType("SeminarCategory"));
-    
+
     IPublishedContent seminarCatalog = homePage.Descendants("SeminarCatalog").FirstOrDefault();
-    
+
     //List locations
 
     List<City> cityList = CacheObjects.GetCityList();
@@ -24,7 +24,7 @@
 
     string allIconUrl = "";
     string allTotalSeminars = "";
-    
+
     if (seminarCatalog != null)
     {
         allIconUrl = seminarCatalog.GetCropUrl("searchIcon", "Image");
@@ -33,9 +33,9 @@
         {
             allTotalSeminars = "<p class=\"num-seminars\">" + string.Format("{0:N0}", seminarCatalog.GetPropertyValue<decimal>("totalSeminars")) + " Total Seminars</p>";
         }
-        
+
     }
-    
+
     if (Request.QueryString["homeref"] != null && Request.QueryString.Get("homeref").Length > 0)
     {
 
@@ -53,5 +53,7 @@
         }
     }
 }
+<script>
+	window.currentCityValue = '@currentCityState';
+</script>
     <div ng-controller="MainSearchController as vm" ng-include src="'./mainSearch.html'"></div>
-
