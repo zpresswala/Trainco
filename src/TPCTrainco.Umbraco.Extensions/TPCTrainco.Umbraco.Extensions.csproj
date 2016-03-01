@@ -343,7 +343,7 @@
     <Compile Include="Models\SearchRequest\SchedulesSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest2.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
-    <Compile Include="Models\UmbracoSeminarDetail.cs" />
+    <Compile Include="Models\UmbracoCourseDetail.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
     <Compile Include="Objects\CartCookies.cs" />
     <Compile Include="Objects\Carts.cs" />

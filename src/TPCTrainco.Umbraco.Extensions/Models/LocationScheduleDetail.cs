@@ -7,12 +7,13 @@ namespace TPCTrainco.Umbraco.Extensions.Models
     [TableName("CacheLocationScheduleDetail")]
     public class LocationScheduleDetail
     {
+        public long Id { get; set; }
+
         public int CourseId { get; set; }
 
         public int TopicId { get; set; }
 
         [NullSetting(NullSetting = NullSettings.Null)]
-
         public string City { get; set; }
 
         [NullSetting(NullSetting = NullSettings.Null)]
@@ -29,12 +30,12 @@ namespace TPCTrainco.Umbraco.Extensions.Models
 
         [NullSetting(NullSetting = NullSettings.Null)]
         public DateTime DateFilter { get; set; }
+
+        [NullSetting(NullSetting = NullSettings.Null)]
         public string DateMonthYear { get; set; }
 
         [NullSetting(NullSetting = NullSettings.Null)]
         public double? Distance { get; set; }
-
-        public long Id { get; set; }
 
         [NullSetting(NullSetting = NullSettings.Null)]
         public long ParentId { get; set; }
