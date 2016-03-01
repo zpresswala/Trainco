@@ -13,6 +13,9 @@ html {
     top: 0;
     width: 100%
 }
+.hidden {
+  display: none;
+}
 body {
 	color: $body-copy;
 	font-weight: 400;
@@ -69,7 +72,9 @@ button {
 	font-weight: 600;
 	position: relative;
 	@include transition(background-color 0.25s);
-
+      @media (max-width: 768px) {
+        margin-left: 32%;
+      }
 	&:hover {
 		color: $white;
 		text-decoration: none;

@@ -1,30 +1,22 @@
-export function CartDirective() {
-  'ngInject';
+(function() {
+  'use strict';
 
-  let directive = {
-    restrict: 'E',
-    templateUrl: 'app/components/cart/cart.html',
-    scope: {
-    },
-    controller: CartController,
-    controllerAs: 'vm',
-    bindToController: true
-  };
+  angular
+    .module('train')
+    .directive('shoppingCart', shoppingCart);
 
-  return directive;
-}
+  /** @ngInject */
+  function shoppingCart() {
+    var directive = {
+      restrict: 'E',
+      templateUrl: '/app/components/cart/cart.html',
+      scope: {},
+      controller: 'CartController',
+      controllerAs: 'vm',
+      bindToController: true
+    };
 
-class CartController {
-
-  constructor() {
-    'ngInject';
+    return directive;
   }
 
-}
-// etItemListQuantity() {
-//     let quantity = 0;
-//     this.forEach(this.items, (item) => {
-//         quantity += item.quantity();
-//     });
-//     return quantity;
-// }
+})();

@@ -32,21 +32,28 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             badUrl3 = badUrl3.Replace(" ", "%20");
             badUrl4 = badUrl4.Replace(" ", "%20");
 
-            var redirect = redirects.Where(x => x.UrlToRedirect == badUrl || x.UrlToRedirect == badUrl2
-                 || x.UrlToRedirect == badUrl3 || x.UrlToRedirect == badUrl4).FirstOrDefault();
-
-            if (redirect != null)
+            if (false == badUrl.EndsWith(".png") && false == badUrl.EndsWith(".gif") && false == badUrl.EndsWith(".jpg"))
             {
-                LogHelper.Info<Redirect>(string.Format("Redirecting '{0}' to '{1}' with status {2}", redirect.UrlToRedirect, redirect.RedirectToUrl, redirect.StatusCode));
-                context.Response.StatusCode = redirect.StatusCode;
+                var redirect = redirects.Where(x => x.UrlToRedirect.ToLower() == badUrl.ToLower() || x.UrlToRedirect.ToLower() == badUrl2.ToLower()
+                     || x.UrlToRedirect.ToLower() == badUrl3.ToLower() || x.UrlToRedirect.ToLower() == badUrl4.ToLower()).FirstOrDefault();
 
-                if (context.Response.StatusCode == 301)
+                if (redirect != null)
                 {
-                    context.Response.RedirectPermanent(redirect.RedirectToUrl, true);
+                    LogHelper.Info<Redirect>(string.Format("Redirecting '{0}' to '{1}' with status {2}", redirect.UrlToRedirect, redirect.RedirectToUrl, redirect.StatusCode));
+                    context.Response.StatusCode = redirect.StatusCode;
+
+                    if (context.Response.StatusCode == 301)
+                    {
+                        context.Response.RedirectPermanent(redirect.RedirectToUrl, true);
+                    }
+                    else
+                    {
+                        context.Response.Redirect(redirect.RedirectToUrl, true);
+                    }
                 }
                 else
                 {
-                    context.Response.Redirect(redirect.RedirectToUrl, true);
+                    LogHelper.Info<Redirect>(string.Format("No Redirect found '{0}'", badUrl));
                 }
             }
         }

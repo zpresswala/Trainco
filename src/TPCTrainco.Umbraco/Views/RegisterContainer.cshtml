@@ -11,7 +11,15 @@
     if (Request.QueryString["cart"] != null && Request.QueryString.Get("cart").Length > 0)
     {
         cartGuid = Request.QueryString.Get("cart").ToLower();
+    }
+    else
+    {
+        cartGuid = Carts.GetCartGuid(Session);
+    }
 
+
+    if (false == string.IsNullOrWhiteSpace(cartGuid))
+    {
         Carts cartsObj = new Carts();
 
         cartList = cartsObj.GetCart(cartGuid);
@@ -26,10 +34,11 @@
         else
         {
             Session["CartId"] = cartGuid;
+            CartCookies.Set(cartGuid);
 
             cartsObj.DeleteTempAtt(cartList[0].reg_ID);
             cartsObj.DeleteTempCust(cartList[0].reg_ID);
-            
+
             totalItems = cartList.Count;
             cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
         }
@@ -41,7 +50,7 @@
 }
 
 @Html.Partial("Cart/ReadOnlyCart")
-
+<div class="register-standalone">
 <div class="container-fluid register-top">
 
     <div class="container">
@@ -157,4 +166,5 @@
         <p class="checkout-err-msg" style="display: none;"></p>
     </div>
     <a id="reg-submit" class="btn-reg btn-blue-solid next-btn" href="/search-seminars/?error=90" data-page="1">Next</a>
+</div>
 </div>

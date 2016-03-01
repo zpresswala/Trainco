@@ -21,10 +21,10 @@ namespace TPCTrainco.Umbraco.Controllers
             List<temp_Att> tempAttList = null;
             string cartGuid = null;
 
-            if (Session["CartId"] != null && Session["CartId"].ToString().Length > 0)
-            {
-                cartGuid = Session["CartId"].ToString().ToLower();
+            cartGuid = Carts.GetCartGuid(Session);
 
+            if (false == string.IsNullOrWhiteSpace(cartGuid))
+            {
                 Carts cartsObj = new Carts();
 
                 tempRegList = cartsObj.GetCart(cartGuid);
@@ -87,10 +87,10 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 debug.AppendLine("Loading cart...");
 
-                if (Session["CartId"] != null && Session["CartId"].ToString().Length > 0)
-                {
-                    cartGuid = Session["CartId"].ToString().ToLower();
+                cartGuid = Carts.GetCartGuid(Session);
 
+                if (false == string.IsNullOrWhiteSpace(cartGuid))
+                {
                     tempRegList = cartsObj.GetCart(cartGuid);
 
                     if (tempRegList == null)
@@ -183,7 +183,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                 else
                                 {
                                     // check for duplicate
-                                    debug.AppendLine("Checking for duplicate... (tempCust.reg_ID: "+ tempCust.reg_ID ?? 0 + ")");
+                                    debug.AppendLine("Checking for duplicate... (tempCust.reg_ID: " + tempCust.reg_ID ?? 0 + ")");
 
                                     reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
 
@@ -213,6 +213,8 @@ namespace TPCTrainco.Umbraco.Controllers
                                 else
                                 {
                                     debug.AppendLine(" - isAlreadyProcessed (no error): " + isAlreadyProcessed);
+
+                                    CartCookies.Remove();
 
                                     if (true == isAlreadyProcessed)
                                     {
@@ -305,7 +307,7 @@ namespace TPCTrainco.Umbraco.Controllers
                     }
                     catch (Exception ex)
                     {
-                        cartsObj.SendCheckoutErrorEmail("RegID: " + tempRegList[0].reg_ID + "\n\rDebug:\r\n"+ debug.ToString() + "\r\n\r\nError: " + ex.ToString());
+                        cartsObj.SendCheckoutErrorEmail("RegID: " + tempRegList[0].reg_ID + "\n\rDebug:\r\n" + debug.ToString() + "\r\n\r\nError: " + ex.ToString());
                     }
                 }
                 else

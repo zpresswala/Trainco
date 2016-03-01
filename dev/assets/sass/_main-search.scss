@@ -1,0 +1,393 @@
+.select2-container {
+  width: 100%;
+  height: 60px;
+}
+
+#selectAllWrap {
+  input[type=checkbox] {
+    display: none;
+  }
+
+  input[type=checkbox] + label {
+    background: url('/assets/images/selectall-icon.jpg') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+
+    &:hover {
+      background: url('/assets/images/selectAllHover.png') no-repeat;
+      -webkit-transition: all .3s ease-in-out;
+      transition: all .1s ease-in-out;
+    }
+  }
+
+  input[type=checkbox]:checked + label {
+    background: url('/assets/images/selectAllSelected.png') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+}
+
+#electricalWrap {
+  input[type=checkbox] {
+    display: none;
+  }
+
+  input[type=checkbox] + label {
+    background: url('/assets/images/electrical.jpg') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+
+    &:hover {
+      background: url('/assets/images/electricalHover.png') no-repeat;
+      -webkit-transition: all .3s ease-in-out;
+      transition: all .1s ease-in-out;
+    }
+  }
+
+  input[type=checkbox]:checked + label {
+    background: url('/assets/images/electricalSelected.png') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+}
+
+#hvacWrap {
+  input[type=checkbox] {
+    display: none;
+  }
+
+  input[type=checkbox] + label {
+    background: url('/assets/images/hvac.png') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+
+    &:hover {
+      background: url('/assets/images/hvacHover.png') no-repeat;
+      -webkit-transition: all .3s ease-in-out;
+      transition: all .1s ease-in-out;
+    }
+  }
+
+  input[type=checkbox]:checked + label {
+    background: url('/assets/images/hvacSelected.png') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+}
+
+#plantWrap {
+  input[type=checkbox] {
+    display: none;
+  }
+
+  input[type=checkbox] + label {
+    background: url('/assets/images/plantmgmt-icon.jpg') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+
+    &:hover {
+      background: url('/assets/images/plantHover.png') no-repeat;
+      -webkit-transition: all .3s ease-in-out;
+      transition: all .1s ease-in-out;
+    }
+  }
+
+  input[type=checkbox]:checked + label {
+    background: url('/assets/images/plantSelected.png') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+}
+
+#mechanicalWrap {
+  input[type=checkbox] {
+    display: none;
+  }
+
+  input[type=checkbox] + label {
+    background: url('/assets/images/mechanical-icon.jpg') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+
+    &:hover {
+      background: url('/assets/images/mechanicalHover.png') no-repeat;
+      -webkit-transition: all .3s ease-in-out;
+      transition: all .1s ease-in-out;
+    }
+  }
+
+  input[type=checkbox]:checked + label {
+    background: url('/assets/images/mechanicalSelected.png') no-repeat;
+    background-size: 100%;
+    height: 105px;
+    display: inline-block;
+    padding: 0;
+    width: 105px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+}
+
+.select2-container {
+  margin: 0 auto 45px;
+  display: block;
+  border-radius: 50px;
+  background-color: #0090c5;
+  border: 0;
+  font-size: 18px;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 38px;
+  width: 100%;
+  position: relative;
+  vertical-align: middle;
+
+  .select2-choice {
+    width: 95%;
+    margin: 0 auto;
+    border: 0!important;
+    background-color: transparent;
+    background-image: none !important;
+  }
+}
+
+.select2-drop.select2-drop-above {
+  margin-top: 1px;
+  border-top: 0;
+  border-bottom: 0;
+  border-radius: 0;
+  box-shadow: 0 !important;
+}
+
+.select2-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.select2-dropdown-open .select2-choice {
+  border-bottom-color: transparent;
+  box-shadow: 0;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  display: none;
+}
+.select-date-text {
+    @include below-tablet-portrait() {
+      display: none;
+    }
+}
+.topic-circles .btn-white {
+    @include below-tablet-portrait() {
+      margin-top: 20px;
+    }
+}
+rzslider {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  margin: 5px 0 15px;
+  user-select: none;
+  vertical-align: middle;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @include below-tablet-portrait() {
+    display: none;
+  }
+}
+
+rzslider[disabled] {
+  cursor: not-allowed;
+}
+
+rzslider[disabled] .rz-pointer {
+  cursor: not-allowed;
+  background-color: #d8e0f3;
+}
+
+rzslider span {
+  position: absolute;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+rzslider .rz-base {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+rzslider .rz-bar-wrapper {
+  z-index: 1;
+  left: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, .2);
+  padding-top: 0;
+}
+
+rzslider .rz-bar-wrapper.rz-draggable {
+  cursor: move;
+}
+
+rzslider .rz-bar {
+  z-index: 1;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, .2);
+}
+
+rzslider .rz-bar.rz-selection {
+  z-index: 2;
+  height: 40px;
+  background-color: rgba(228, 79, 77, 0.50);
+}
+
+rzslider .rz-pointer {
+  width: 55px;
+  z-index: 1;
+  height: 40px;
+  border-radius: 25px;
+  top: 0;
+  background-color: $red-button;
+}
+
+rzslider .rz-pointer:after {
+  z-index: 1;
+  color: #fff;
+  background-color: $red-button;
+}
+
+rzslider .rz-pointer:hover:after {
+  z-index: 1;
+  color: #fff;
+  background-color: $red-button;
+}
+
+rzslider .rz-pointer.rz-active {
+  z-index: 1;
+  color: #fff;
+  background-color: $red-button;
+}
+
+rzslider .rz-pointer.rz-active:after {
+  z-index: 1;
+  color: #fff;
+  background-color: $red-button;
+}
+
+rzslider .rz-bubble {
+  display: none;
+}
+
+rzslider .rz-bubble.rz-selection {
+  top: 16px;
+}
+
+rzslider .rz-bubble.rz-limit {
+  display: none;
+}
+
+rzslider .rz-ticks {
+  position: absolute;
+  z-index: 1;
+  top: -3px;
+  left: 0;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 0;
+  margin: 0;
+  padding: 0 25px;
+  list-style: none;
+  justify-content: space-between;
+}
+
+rzslider .rz-ticks .tick {
+  cursor: pointer;
+  text-align: center;
+  background-color: transparent;
+  color: #fff;
+  z-index: 10;
+}
+
+rzslider .rz-ticks .tick.selected {
+  background-color: transparent;
+}
+
+rzslider .rz-ticks .tick .tick-value {
+  position: absolute;
+  top: 8px;
+  transform: translate(-50%, 5px);
+  color: #fff;
+  z-index: 10;
+
+  &:first-of-type {
+    padding-left: 15px;
+  }
+
+  &:last-of-type {
+    padding-right: 15px;
+  }
+}

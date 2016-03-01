@@ -30,6 +30,8 @@
         <EntityTypeShape EntityType="americantraincoModel.SCHEDULE" Width="1.5" PointX="17.375" PointY="4.75" />
         <EntityTypeShape EntityType="americantraincoModel.ScheduleCourseInstructor" Width="1.5" PointX="0.75" PointY="15.75" />
         <EntityTypeShape EntityType="americantraincoModel.Seminar_Catalog" Width="1.5" PointX="11.375" PointY="17.75" />
+        <EntityTypeShape EntityType="americantraincoModel.RegistrationAttendee" Width="1.5" PointX="17.375" PointY="12.75" />
+        <EntityTypeShape EntityType="americantraincoModel.RegistrationAttendeeSchedule" Width="1.5" PointX="13.375" PointY="17.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

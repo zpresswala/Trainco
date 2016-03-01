@@ -1,0 +1,249 @@
+.popover-content {
+
+  .popover {
+    @media screen and (max-width: 400px) {
+    top: -241px;
+    left: -260px;
+    width: 350px;
+    }
+  }
+  ul {
+    padding-left: 0;
+  }
+
+  ul li {
+    display: inline;
+
+    h3 {
+      display: inline;
+      margin-right: 60px;
+      padding-left: 0;
+
+      @media screen and (max-width: 990px) {
+        margin: 0 auto;
+      }
+    }
+
+    &:last-child {
+      float: right;
+      padding-right: 30px;
+
+      @media screen and (max-width: 990px) {
+        float: none;
+      }
+    }
+  }
+
+  p {
+    font-size: 12px;
+
+    @media screen and (max-width: 990px) {
+      float: none;
+      text-align: center!important;
+      margin: 0 auto;
+      padding-right: 35px;
+    }
+
+    @media screen and (max-width: 768px) {
+      float: none;
+      text-align: center!important;
+      margin: 0 auto;
+      padding-right: 100px;
+    }
+  }
+
+  .btn-blue-solid {
+    float: right;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    border: 0;
+    box-shadow: 0;
+
+    @media screen and (max-width: 990px) {
+      float: none;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    @media screen and (max-width: 500px) {
+      float: none;
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+
+  .attendees-txt {
+    padding-left: 60px;
+  }
+
+  .attendees {
+    padding-left: 50px;
+  }
+
+  .result-table-head {
+    height: 50px;
+    margin-right: -25px;
+    margin-bottom: 10px;
+    margin-left: -25px;
+    padding-top: 20px;
+    color: $headline-black-on-white;
+    background: #F9F9F9;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 14px;
+  }
+
+  .result-table-body {
+    margin-right: -25px;
+    margin-left: -25px;
+    padding: 10px;
+    color: $headline-black;
+    font-weight: bold;
+
+    &:after {
+      display: block;
+      clear: both;
+      height: 1px;
+      margin: 0 15px;
+      content: '';
+      background: $cart-border;
+    }
+
+    div {
+      padding-bottom: 10px;
+    }
+  }
+
+  .result-location-row {
+    padding: 10px 0 0;
+
+    &:after {
+      display: block;
+      clear: both;
+      height: 1px;
+      margin: 0 25px;
+      content: '';
+      background: $cart-border;
+    }
+
+    div {
+      padding-bottom: 10px;
+    }
+
+    &:last-child:after {
+      display: none;
+    }
+  }
+
+  .result-attendee-wrapper {
+    text-align: right;
+  }
+
+  .result-attendee-input {
+    max-width: 100%;
+    text-align: center;
+    border: 1px solid $cart-border;
+    background: $gray-background;
+    @include corners(2px);
+    @include size(35px, 35px);
+  }
+
+  .result-location {
+    span {
+      display: inline-block;
+      font-size: 16px;
+      font-style: italic;
+
+      @include medium-sizes {
+        width: 48%;
+      }
+
+      &:first-child:after {
+        content: ',';
+
+        @include medium-sizes {
+          display: none;
+        }
+      }
+    }
+
+    span.date-responsive {
+      width: 100%;
+      font-style: normal;
+
+      @include medium-sizes {
+        display: none;
+      }
+    }
+  }
+
+  .result-date {
+    display: none;
+
+    @include medium-sizes {
+      display: block;
+    }
+
+    span {
+      display: block;
+      padding-top: 10px;
+      color: lighten($body-copy, 15%);
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+
+[dw-loading] {
+  position: relative;
+}
+
+.dw-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  display: none;
+}
+
+.dw-loading:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.dw-loading.dw-loading-active {
+  display: block;
+}
+
+.dw-loading.dw-loading-overlay {
+  background-color: rgba(255, 255, 255, .7);
+  z-index: 9999;
+}
+
+.dw-loading > .dw-loading-body {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+
+.dw-loading > .dw-loading-body > .dw-loading-spinner {
+  position: relative;
+}
+
+.dw-loading > .dw-loading-body > .dw-loading-text {
+  position: relative;
+  top: 25px;
+  font-weight: bold;
+  font-size: 11px;
+  text-shadow: 0 0 2px rgb(255, 255, 255);
+}

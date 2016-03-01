@@ -13,6 +13,7 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels.Search
         public string State { get; set; }
         public string LocationDetails { get; set; }
         public DateTime DateFilter { get; set; }
+        public string DateMonthYear { get; set; }
         public double Distance { get; set; }
 
         public long Id { get; set; }
@@ -20,5 +21,8 @@ namespace TPCTrainco.Umbraco.Extensions.ViewModels.Search
         public string DaysDescription { get; set; }
         public string Date { get; set; }
         public double Price { get; set; }
+
+        public long SeminarId { get; set; }
+        public string SeminarTitle { get; set; }
     }
 }

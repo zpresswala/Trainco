@@ -68,6 +68,11 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 request.Radius = 50;
             }
 
+            if (request.Location == "undefined" || request.Location == "null")
+            {
+                request.Location = "";
+            }
+
             if (false == string.IsNullOrEmpty(request.Location))
             {
                 LocationCoordinates = GeoCoordinates.GetCoordinateDetailsFromCityState(request.Location);
@@ -79,7 +84,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             }
         }
 
-
+        
         protected void FilterByTopic(ref List<CourseDetail> courseDetailList, ref List<LocationScheduleDetail> locationScheduleDetailList, SeminarsSearchRequest2 request)
         {
             if (request.Topics != null && request.Topics.Length > 0)
@@ -88,30 +93,37 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 foreach (string classTopic in request.Topics)
                 {
-                    int topicId = Objects.Topics.TopicIdByShortName(classTopic);
-
-                    if (topicId > int.MinValue)
+                    if (false == string.IsNullOrWhiteSpace(classTopic) && classTopic != "undefined" && classTopic != "null")
                     {
-                        topicArray.Add(topicId);
+                        int topicId = Objects.Topics.TopicIdByShortName(classTopic);
+
+                        if (topicId > int.MinValue)
+                        {
+                            topicArray.Add(topicId);
+                        }
                     }
                 }
 
-                courseDetailList = courseDetailList.Where(p => topicArray.Any(r => r == p.TopicId)).ToList();
-                locationScheduleDetailList = locationScheduleDetailList.Where(p => topicArray.Any(r => r == p.TopicId)).ToList();
+                if (topicArray.Count > 0)
+                {
+                    courseDetailList = courseDetailList.Where(p => topicArray.Any(r => r == p.TopicId)).ToList();
+                    locationScheduleDetailList = locationScheduleDetailList.Where(p => topicArray.Any(r => r == p.TopicId)).ToList();
+                }
             }
         }
 
 
         protected void FilterByKeyword(ref List<LocationScheduleDetail> locationScheduleDetailList, SeminarsSearchRequest2 request)
         {
-            if (false == string.IsNullOrWhiteSpace(request.Keywords))
+            if (false == string.IsNullOrWhiteSpace(request.Keywords) && request.Keywords != "undefined" && request.Keywords != "null")
             {
+                string keywordsSearch = request.Keywords.ToLower();
 
-                locationScheduleDetailList = locationScheduleDetailList.Where(p => p.Description.Contains(request.Keywords) || 
-                    p.DaysDescription.Contains(request.Keywords) ||
-                    p.LocationDetails.Contains(request.Keywords) ||
-                    p.State.Contains(request.Keywords) ||
-                    p.City.Contains(request.Keywords)).ToList();
+                locationScheduleDetailList = locationScheduleDetailList.Where(p => p.Description.ToLower().Contains(keywordsSearch) || 
+                    p.DaysDescription.ToLower().Contains(keywordsSearch) ||
+                    p.LocationDetails.ToLower().Contains(keywordsSearch) ||
+                    p.State.ToLower().Contains(keywordsSearch) ||
+                    p.City.ToLower().Contains(keywordsSearch)).ToList();
             }
         }
 
@@ -121,7 +133,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             List<LocationScheduleDetail> resultSearch = null;
             double radiusSearch = request.Radius;
 
-            while ((resultSearch == null || resultSearch.Count <= 0) && radiusSearch < 1500)
+            while ((resultSearch == null || resultSearch.Count <= 0) && radiusSearch < 4000)
             {
                 resultSearch = RadialSearchSeminarCatalog(locationScheduleDetailSearch, coordinateDetails, radiusSearch);
 

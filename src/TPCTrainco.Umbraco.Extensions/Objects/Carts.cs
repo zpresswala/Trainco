@@ -825,6 +825,34 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public static string GetCartGuid(HttpSessionStateBase session)
+        {
+            string output = null;
+
+            if (session != null && session["CartId"] != null && session["CartId"].ToString().Length > 5)
+            {
+                output = session["CartId"].ToString();
+            }
+            else
+            {
+                output = CartCookies.Get();
+            }
+
+
+            return output;
+        }
+
+
+        public static List<RegistrationTrackItem> GetRegistrationTrackItems(long registrationId)
+        {
+            List<RegistrationTrackItem> itemsList = new List<RegistrationTrackItem>();
+
+            
+
+
+            return itemsList;
+        }
+
 
         private int GetCartCache(string cartGuid)
         {

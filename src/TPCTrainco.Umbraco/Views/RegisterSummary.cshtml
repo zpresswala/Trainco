@@ -6,10 +6,10 @@
     List<TPCTrainco.Umbraco.Extensions.temp_Reg> cartList = null;
     string cartGuid = null;
 
-    if (Session["CartId"] != null && Session["CartId"].ToString().Length > 0)
-    {
-        cartGuid = Session["CartId"].ToString().ToLower();
+    cartGuid = TPCTrainco.Umbraco.Extensions.Objects.Carts.GetCartGuid(Session);
 
+    if (false == string.IsNullOrWhiteSpace(cartGuid))
+    {
         TPCTrainco.Umbraco.Extensions.Objects.Carts cartsObj = new TPCTrainco.Umbraco.Extensions.Objects.Carts();
 
         cartList = cartsObj.GetCart(cartGuid);

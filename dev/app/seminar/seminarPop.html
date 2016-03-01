@@ -1,32 +1,43 @@
-<h2>{{location.city}}</h2>  {{ location.date}}
-<br />
-{{ location.locationDetails }}
-<table class="table table-striped">
-  <tr>
-    <th>
+<div class="popover-content">
+<ul class="list-inline">
+    <li>
+      <h3><strong>{{event.city}}</strong></h3>
+    </li>
+    <li>
+      <strong>{{ event.date}}</strong>
+    </li>
+    <li>
+      <a class="register-link">Register</a>
+    </li>
+  </ul>
+
+<p ng-bind="event.locationDetails"></p>
+<div class="result-popover">
+  <div class="row result-table-head">
+    <div class="col-xs-5">
       Training Days
-    </th>
-    <th>
+    </div>
+    <div class="col-xs-3">
       Price
-    </th>
-    <th>
+    </div>
+    <div class="col-xs-4 attendees-txt">
       Attendees
-    </th>
-  </tr>
-  <tbody>
-  <tr>
-    <td width="255px">
-      {{location.schedules[0].daysTitle}}
-    </td>
-    <td width="125px">
-    ${{location.schedules[0].price}}
-    </td>
-    <td width="75px">
-        <div class="form-group">
-          <input type="text" ng-model="seminar.attendees" class="form-control">
-        </div>
-      </td>
-  </tr>
-</tbody>
-</table>
-<button ng-click="seminar.addToCart(seminar.attendees)" class="btn primary btn-reg btn-blue-solid">Add to cart</button>
+    </div>
+  </div>
+  <div class="row result-table-body">
+    <div class="col-xs-5">
+      <em>{{event.daysTitle}}</em>
+      </div>
+    <div class="col-xs-3">
+    ${{event.price}}
+      </div>
+    <div class="col-xs-4 attendees">
+            <div class="col-sm-2 col-xs-3 result-attendee-wrapper">
+              <input class="attendee-input" ng-model="qty" string-to-number value="{{qty}}" type="tel" min="0" class="" name="qty">
+            </div>
+      </div>
+</div>
+</div>
+<input class="btn btn-reg btn-blue-solid" ng-click="seminar.addItemToCart(event, qty || 1)" type="button" name="name" value="Add to Cart">
+
+</div>

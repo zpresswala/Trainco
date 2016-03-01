@@ -257,6 +257,45 @@
           <Property Name="CreatedMemberID" Type="int" Nullable="false" />
           <Property Name="ModifiedMemberID" Type="int" />
         </EntityType>
+        <EntityType Name="RegistrationAttendees">
+          <Key>
+            <PropertyRef Name="RegistrationAttendeeID" />
+          </Key>
+          <Property Name="RegistrationAttendeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationID" Type="int" Nullable="false" />
+          <Property Name="RegAttendeeFirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegAttendeeLastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegAttendeeTitle" Type="varchar" MaxLength="255" />
+          <Property Name="RegAttendeeEmail" Type="varchar" MaxLength="255" />
+          <Property Name="RegAttendeeNote" Type="varchar" MaxLength="255" />
+          <Property Name="Attendance" Type="varchar" MaxLength="50" />
+          <Property Name="WebUpdatedDate" Type="datetime" />
+          <Property Name="OfficeUpdatedDate" Type="datetime" />
+          <Property Name="CancelledDate" Type="datetime" />
+          <Property Name="RegAttendeeMiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="RegAttendeeSuffix" Type="varchar" MaxLength="50" />
+          <Property Name="Att_Discount" Type="int" />
+          <Property Name="CourseFee" Type="money" />
+          <Property Name="Att_Price" Type="money" />
+          <Property Name="Att_Paid" Type="money" />
+          <Property Name="Att_Balance" Type="money" StoreGeneratedPattern="Computed" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="LastActionStatus" Type="varchar" MaxLength="255" />
+          <Property Name="LastActionFor" Type="varchar" MaxLength="50" />
+          <Property Name="LastReminderSent" Type="datetime" />
+          <Property Name="ThankYouSent" Type="datetime" />
+          <Property Name="CodeSummarized" Type="bit" />
+          <Property Name="ML_RcdNbr" Type="bigint" />
+          <Property Name="Flag" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="RegistrationAttendeeSchedules">
+          <Key>
+            <PropertyRef Name="RegAttendeeScheduleID" />
+          </Key>
+          <Property Name="RegAttendeeScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationAttendeeID" Type="int" Nullable="false" />
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="REGISTRATIONS">
           <Key>
             <PropertyRef Name="RegistrationID" />
@@ -628,6 +667,8 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySet Name="CourseTypes" EntityType="Self.CourseTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationTypes" EntityType="Self.LocationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistrationAttendees" EntityType="Self.RegistrationAttendees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistrationAttendeeSchedules" EntityType="Self.RegistrationAttendeeSchedules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REGISTRATIONS" EntityType="Self.REGISTRATIONS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduleCourseInstructors" EntityType="Self.ScheduleCourseInstructors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SCHEDULES" EntityType="Self.SCHEDULES" Schema="dbo" store:Type="Tables" />
@@ -1189,6 +1230,8 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySet Name="SCHEDULES" EntityType="americantraincoModel.SCHEDULE" />
           <EntitySet Name="ScheduleCourseInstructors" EntityType="americantraincoModel.ScheduleCourseInstructor" />
           <EntitySet Name="Seminar_Catalog" EntityType="americantraincoModel.Seminar_Catalog" />
+          <EntitySet Name="RegistrationAttendees" EntityType="americantraincoModel.RegistrationAttendee" />
+          <EntitySet Name="RegistrationAttendeeSchedules" EntityType="americantraincoModel.RegistrationAttendeeSchedule" />
         </EntityContainer>
         <EntityType Name="CourseTopic">
           <Key>
@@ -1312,6 +1355,45 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="Longitude" Type="Double" />
           <Property Name="Coordinates" Type="Geography" />
           <Property Name="CourseTier" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RegistrationAttendee">
+          <Key>
+            <PropertyRef Name="RegistrationAttendeeID" />
+          </Key>
+          <Property Name="RegistrationAttendeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" />
+          <Property Name="RegAttendeeFirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAttendeeLastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAttendeeTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAttendeeEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RegAttendeeNote" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Attendance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WebUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="OfficeUpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CancelledDate" Type="DateTime" Precision="3" />
+          <Property Name="RegAttendeeMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RegAttendeeSuffix" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Att_Discount" Type="Int32" />
+          <Property Name="CourseFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Att_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Att_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Att_Balance" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastActionStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastActionFor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastReminderSent" Type="DateTime" Precision="3" />
+          <Property Name="ThankYouSent" Type="DateTime" Precision="3" />
+          <Property Name="CodeSummarized" Type="Boolean" />
+          <Property Name="ML_RcdNbr" Type="Int64" />
+          <Property Name="Flag" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RegistrationAttendeeSchedule">
+          <Key>
+            <PropertyRef Name="RegAttendeeScheduleID" />
+          </Key>
+          <Property Name="RegAttendeeScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationAttendeeID" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1920,6 +2002,47 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
                 <ScalarProperty Name="TopicID" ColumnName="TopicID" />
                 <ScalarProperty Name="SchID" ColumnName="SchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistrationAttendees">
+            <EntityTypeMapping TypeName="americantraincoModel.RegistrationAttendee">
+              <MappingFragment StoreEntitySet="RegistrationAttendees">
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="ML_RcdNbr" ColumnName="ML_RcdNbr" />
+                <ScalarProperty Name="CodeSummarized" ColumnName="CodeSummarized" />
+                <ScalarProperty Name="ThankYouSent" ColumnName="ThankYouSent" />
+                <ScalarProperty Name="LastReminderSent" ColumnName="LastReminderSent" />
+                <ScalarProperty Name="LastActionFor" ColumnName="LastActionFor" />
+                <ScalarProperty Name="LastActionStatus" ColumnName="LastActionStatus" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Att_Balance" ColumnName="Att_Balance" />
+                <ScalarProperty Name="Att_Paid" ColumnName="Att_Paid" />
+                <ScalarProperty Name="Att_Price" ColumnName="Att_Price" />
+                <ScalarProperty Name="CourseFee" ColumnName="CourseFee" />
+                <ScalarProperty Name="Att_Discount" ColumnName="Att_Discount" />
+                <ScalarProperty Name="RegAttendeeSuffix" ColumnName="RegAttendeeSuffix" />
+                <ScalarProperty Name="RegAttendeeMiddleName" ColumnName="RegAttendeeMiddleName" />
+                <ScalarProperty Name="CancelledDate" ColumnName="CancelledDate" />
+                <ScalarProperty Name="OfficeUpdatedDate" ColumnName="OfficeUpdatedDate" />
+                <ScalarProperty Name="WebUpdatedDate" ColumnName="WebUpdatedDate" />
+                <ScalarProperty Name="Attendance" ColumnName="Attendance" />
+                <ScalarProperty Name="RegAttendeeNote" ColumnName="RegAttendeeNote" />
+                <ScalarProperty Name="RegAttendeeEmail" ColumnName="RegAttendeeEmail" />
+                <ScalarProperty Name="RegAttendeeTitle" ColumnName="RegAttendeeTitle" />
+                <ScalarProperty Name="RegAttendeeLastName" ColumnName="RegAttendeeLastName" />
+                <ScalarProperty Name="RegAttendeeFirstName" ColumnName="RegAttendeeFirstName" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+                <ScalarProperty Name="RegistrationAttendeeID" ColumnName="RegistrationAttendeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistrationAttendeeSchedules">
+            <EntityTypeMapping TypeName="americantraincoModel.RegistrationAttendeeSchedule">
+              <MappingFragment StoreEntitySet="RegistrationAttendeeSchedules">
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="RegistrationAttendeeID" ColumnName="RegistrationAttendeeID" />
+                <ScalarProperty Name="RegAttendeeScheduleID" ColumnName="RegAttendeeScheduleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

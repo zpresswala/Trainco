@@ -7,13 +7,28 @@
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
     IPublishedContent parentPage = currentPage.Parent;
-    IEnumerable<IPublishedContent> seminarCategories = parentPage.Children.Where(p => p.DocumentTypeAlias != "SeminarCatalog").OrderBy("SortOrder");
 
-    IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
-    IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
-    IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
-    List<COURS> courseList = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseList();
-    List<Country> countryList = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCountryList();
+    IEnumerable<IPublishedContent> seminarCategories = null;
+    IPublishedContent onsitePromo = null;
+    IEnumerable<IPublishedContent> activeSeminarList = null;
+    IEnumerable<IPublishedContent> userQuoteList = null;
+    List<COURS> courseList = null;
+    List<Country> countryList = null;
+
+    try
+    {
+        seminarCategories = parentPage.Children.Where(p => p.DocumentTypeAlias != "SeminarCatalog").OrderBy("SortOrder");
+
+        onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
+        activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
+        userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+        courseList = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCourseList();
+        countryList = TPCTrainco.Umbraco.Extensions.Objects.CacheObjects.GetCountryList();
+    }
+    catch (Exception ex)
+    {
+        Response.RedirectPermanent("/public-seminars/course-catalog/");
+    }
 }
 
 <div class="container-fluid headline-section">
@@ -30,22 +45,25 @@
             @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))
 
             <ul class="col-md-8 col-md-offset-2">
-                @foreach (IPublishedContent item in seminarCategories)
+                @if (seminarCategories != null && seminarCategories.Any())
                 {
-                    string colClass = "col-md-3";
-                    string menuText = item.GetPropertyValue<string>("shortName", item.Name);
-                    string anchorText = menuText.ToUrlSegment();
-
-                    if (menuText.Length > 22)
+                    foreach (IPublishedContent item in seminarCategories)
                     {
-                        colClass = "col-md-4";
-                    }
-                    else if (menuText.Length < 8)
-                    {
-                        colClass = "col-md-2";
-                    }
+                        string colClass = "col-md-3";
+                        string menuText = item.GetPropertyValue<string>("shortName", item.Name);
+                        string anchorText = menuText.ToUrlSegment();
 
-                    <li class="col-xs-6 @(colClass)"><a href="#@(anchorText)" class="regular-link class-category">@(menuText)</a></li>
+                        if (menuText.Length > 22)
+                        {
+                            colClass = "col-md-4";
+                        }
+                        else if (menuText.Length < 8)
+                        {
+                            colClass = "col-md-2";
+                        }
+
+                        <li class="col-xs-6 @(colClass)"><a href="#@(anchorText)" class="regular-link class-category">@(menuText)</a></li>
+                    }
                 }
             </ul>
         </div>
@@ -59,45 +77,47 @@
 
 <div class="container">
 
-    @foreach (IPublishedContent item in seminarCategories)
+    @if (seminarCategories != null && seminarCategories.Any())
     {
-        string menuText = item.GetPropertyValue<string>("shortName", item.Name);
-        string anchorText = menuText.ToUrlSegment();
-        bool isElectrical = item.Name.IndexOf("Electrical") >= 0;
+        foreach (IPublishedContent item in seminarCategories)
+        {
+            string menuText = item.GetPropertyValue<string>("shortName", item.Name);
+            string anchorText = menuText.ToUrlSegment();
+            bool isElectrical = item.Name.IndexOf("Electrical") >= 0;
 
-        <div class="col-xs-12 course-section@(true == isElectrical ? " electric" : "")">
-            <div class="row">
-                <div class="col-md-9 offset">
-                    <a href="@item.Url">
-                        <h2 id="@(anchorText)">@(menuText)</h2>
-                    </a>
+            <div class="col-xs-12 course-section@(true == isElectrical ? " electric" : "")">
+                <div class="row">
+                    <div class="col-md-9 offset">
+                        <a href="@item.Url">
+                            <h2 id="@(anchorText)">@(menuText)</h2>
+                        </a>
 
-                    @if (true == isElectrical)
+                        @if (true == isElectrical)
                     {
-                        <ul class="sort">
-                            <li class="current col-xs-6 col-md-2"><a href="#" class="elec-sort-category regular-link" data-category="all">All</a></li>
-                            @foreach (IPublishedContent subItem in item.Children)
-                            {
+                            <ul class="sort">
+                                <li class="current col-xs-6 col-md-2"><a href="#" class="elec-sort-category regular-link" data-category="all">All</a></li>
+                                @foreach (IPublishedContent subItem in item.Children)
+                                {
 
-                                string subMenuText = subItem.GetPropertyValue<string>("shortName", subItem.Name);
-                                string subAnchorText = subMenuText.ToUrlSegment();
+                                    string subMenuText = subItem.GetPropertyValue<string>("shortName", subItem.Name);
+                                    string subAnchorText = subMenuText.ToUrlSegment();
 
-                                <li class="col-xs-6 col-md-3"><a href="#" class="elec-sort-category regular-link" data-category="@(subAnchorText)">@(subMenuText)</a></li>
-                            }
-                        </ul>
+                                    <li class="col-xs-6 col-md-3"><a href="#" class="elec-sort-category regular-link" data-category="@(subAnchorText)">@(subMenuText)</a></li>
+                                }
+                            </ul>
 
-                        <p class="elec-description">@(item.GetPropertyValue<string>("pageTitle"))</p>
-                    }
-                    else
-                    {
-                        <p>@(item.GetPropertyValue<string>("pageTitle"))</p>
-                    }
+                            <p class="elec-description">@(item.GetPropertyValue<string>("pageTitle"))</p>
+                        }
+                        else
+                        {
+                            <p>@(item.GetPropertyValue<string>("pageTitle"))</p>
+                        }
 
 
-                </div>
+                    </div>
 
-                <ul class="col-xs-12">
-                    @if (true == isElectrical)
+                    <ul class="col-xs-12">
+                        @if (true == isElectrical)
                     {
                         foreach (IPublishedContent subItem in item.Children)
                         {
@@ -123,36 +143,37 @@
                                         <p>@(subSubItem.GetPropertyValue<string>("pageTitle", subItem.Name))</p>
                                     </a>
                                 </li>
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        foreach (IPublishedContent subItem in item.Children)
+                        else
                         {
-                            string imageUrl = subItem.GetCropUrl("image", "Image");
-                            string countryName = GetCountryName(countryList, subItem);
-
-                            if (true == string.IsNullOrEmpty(imageUrl) || (imageUrl.IndexOf(".jpg") < 0 && imageUrl.IndexOf(".png") < 0))
+                            foreach (IPublishedContent subItem in item.Children)
                             {
-                                imageUrl = "/images/selectall-icon.jpg";
+                                string imageUrl = subItem.GetCropUrl("image", "Image");
+                                string countryName = GetCountryName(countryList, subItem);
+
+                                if (true == string.IsNullOrEmpty(imageUrl) || (imageUrl.IndexOf(".jpg") < 0 && imageUrl.IndexOf(".png") < 0))
+                                {
+                                    imageUrl = "/images/selectall-icon.jpg";
+                                }
+
+                                <li class="seminar-topic col-xs-6 col-sm-4 col-md-3" data-country="@(countryName)">
+                                    <a href="@(subItem.Url)">
+                                        <div class="overlay-contain">
+                                            <div class="overlay"></div>
+                                            <img src="@(imageUrl)" alt="@(subItem.GetPropertyValue<string>("pageTitle", subItem.Name))" />
+                                        </div>
+                                        <p>@(subItem.GetPropertyValue<string>("pageTitle", subItem.Name))</p>
+                                    </a>
+                                </li>
                             }
-
-                            <li class="seminar-topic col-xs-6 col-sm-4 col-md-3" data-country="@(countryName)">
-                                <a href="@(subItem.Url)">
-                                    <div class="overlay-contain">
-                                        <div class="overlay"></div>
-                                        <img src="@(imageUrl)" alt="@(subItem.GetPropertyValue<string>("pageTitle", subItem.Name))" />
-                                    </div>
-                                    <p>@(subItem.GetPropertyValue<string>("pageTitle", subItem.Name))</p>
-                                </a>
-                            </li>
                         }
-                    }
 
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
+        }
     }
 </div>
 
@@ -176,7 +197,7 @@
 
             //    countryName = country.CountryCode.ToLower();
             //}
-            
+
             if (course != null && course.TitlePlain.IndexOf("Canada") >= 0)
             {
                 countryName = "ca";

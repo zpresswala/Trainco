@@ -11,6 +11,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 .sass-cache/
+dist/
 
 [Dd]ebug/
 [Bb]uild/
@@ -20,7 +21,7 @@ $RECYCLE.BIN/
 src/[Pp]ackages/
 node_modules/
 bower_components/
-
+dev/assets/images/
 tmp
 
 *.aps
@@ -61,40 +62,32 @@ tmp
 
 dummy.txt
 
-src/*.Umbraco/App_Data/cache/
-src/*.Umbraco/App_Data/ClientDependency/
-src/*.Umbraco/App_Data/ExamineIndexes/
-src/*.Umbraco/App_Data/Logs/
-src/*.Umbraco/App_Data/NuGetBackup/
-src/*.Umbraco/App_Data/TEMP/
-src/*.Umbraco/App_Data/preview/
-src/*.Umbraco/App_Data/access.config
-src/*.Umbraco/App_Data/umbraco.config
-src/*.Umbraco/aspnet_client/
-src/*.Umbraco/media/
-src/*.Umbraco/imagecache/
-src/*.Umbraco/install/
-src/*.Umbraco/umbraco/*
-!src/*.Umbraco/umbraco/Plugins
-src/*.Umbraco/umbraco_client/
-src/*.Umbraco/uSync.Archive/
-src/*.Umbraco/js/*.js
-src/*.Umbraco/css/*.css
-src/*.Umbraco/css/app.css
-src/*.UI/bower/
-src/TPCTrainco.Umbraco/js/main.js
-src/TPCTrainco.Umbraco/css/main.css
+src/TPCTrainco.Umbraco/App_Data/cache/
+src/TPCTrainco.Umbraco/App_Data/ClientDependency/
+src/TPCTrainco.Umbraco/App_Data/ExamineIndexes/
+src/TPCTrainco.Umbraco/App_Data/Logs/
+src/TPCTrainco.Umbraco/App_Data/NuGetBackup/
+src/TPCTrainco.Umbraco/App_Data/TEMP/
+src/TPCTrainco.Umbraco/App_Data/preview/
+src/TPCTrainco.Umbraco/App_Data/access.config
+src/TPCTrainco.Umbraco/App_Data/umbraco.config
+src/TPCTrainco.Umbraco/aspnet_client/
+src/TPCTrainco.Umbraco/media/
+src/TPCTrainco.Umbraco/imagecache/
+src/TPCTrainco.Umbraco/install/
+src/TPCTrainco.Umbraco/umbraco/*
+!src/TPCTrainco.Umbraco/umbraco/Plugins
+src/TPCTrainco.Umbraco/umbraco_client/
+src/TPCTrainco.Umbraco/uSync.Archive/
+src/TPCTrainco.Umbraco/js/
+src/TPCTrainco.Umbraco/css/
+
+src/TPCTrainco.UI/bower/
+
+src/TPCTrainco.Umbraco/images/
+src/TPCTrainco.Umbraco/ip-db/
 
 pkg/
 
 *[Rr]e[Ss]harper.user
 _ReSharper.*/
-
-node_modules
-
-src/TPCTrainco.Umbraco/images/
-src/TPCTrainco.Umbraco/ip-db/
-client/js
-client/assets
-client/css
-dist/

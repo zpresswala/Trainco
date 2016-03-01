@@ -556,6 +556,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                             locationScheduleDetail.Coordinates = legacyCity.Coordinates;
                             locationScheduleDetail.DateFilter = legacySchedule.ScheduleDate;
+                                    locationScheduleDetail.DateMonthYear = locationScheduleDetail.DateFilter.ToString("M-yyyy");
                             locationScheduleDetail.Distance = 0;
                         }
 

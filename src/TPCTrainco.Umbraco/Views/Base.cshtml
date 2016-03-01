@@ -1,12 +1,19 @@
 ﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Models
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using Umbraco.Core.Models
+@using Umbraco.Web
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = null;
 
     string cacheVer = "1.19";
+    string htmlArgs = "";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
+
+    List<RegistrationTrackItem> trackItemsList = null;
 
     // Redirect
     if (currentPage.GetPropertyValue("pageRedirect") != null && currentPage.GetPropertyValue("pageRedirect").ToString().Length > 0)
@@ -35,21 +42,30 @@
     string phoneNumber = siteSettings.GetPropertyValue<string>("phoneNumber");
     string pageHeaderScript = "";
     string pageFooterScript = "";
+    string bodyId = "";
 
     bool cartPage = false;
     bool checkoutPage = true;
+    bool searchPage = false;
+    bool homePage = false;
+    bool seminarDetailPage = false;
 
     if (currentPage.DocumentTypeAlias == "HomePage")
     {
         cartPage = true;
+        homePage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "SearchSeminars")
     {
-        cartPage = true;
+        searchPage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "SeminarItem")
     {
         cartPage = true;
+        seminarDetailPage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterContainer")
     {
@@ -68,7 +84,33 @@
         cartPage = true;
     }
 
+    if (searchPage || homePage || seminarDetailPage)
+    {
+        bodyId = " id=\"page-top\"";
+    }
+
     bool clearSession = false;
+    string trackItemListStr = "";
+
+    if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
+    {
+        trackItemsList = Registrations.GetRegistrationTrackItems(Convert.ToInt32(Session["RegistrationId"]));
+
+        if (trackItemsList != null && trackItemsList.Count > 0)
+        {
+            foreach (RegistrationTrackItem trackItem in trackItemsList)
+            {
+                trackItemListStr += "ga('ecommerce:addItem', {\r\n";
+                trackItemListStr += "\t'id': '" + trackItem.RegistrationId + "',\r\n";
+                trackItemListStr += "\t'name': '" + trackItem.Name + "',\r\n";
+                trackItemListStr += "\t'sku': '" + trackItem.Code + "',\r\n";
+                trackItemListStr += "\t'category': '" + trackItem.Category + "',\r\n";
+                trackItemListStr += "\t'price': '" + trackItem.Price.ToString("F2") + "',\r\n";
+                trackItemListStr += "\t'quantity': '" + trackItem.Quantity + "'\r\n";
+                trackItemListStr += "});\r\n";
+            }
+        }
+    }
 
     if (currentPage.HasValue("pageHeaderScripts"))
     {
@@ -78,7 +120,7 @@
         {
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
-                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+                pageHeaderScript = pageHeaderScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString().Replace(",", ""));
 
                 clearSession = true;
             }
@@ -86,6 +128,7 @@
             if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
             {
                 pageHeaderScript = pageHeaderScript.Replace("{{REG_ID}}", Session["RegistrationId"].ToString());
+                pageHeaderScript = pageHeaderScript.Replace("{{REG_ITEMS}}", trackItemListStr);
             }
         }
     }
@@ -98,7 +141,7 @@
         {
             if (Session["RegistrationTotal"] != null && Session["RegistrationTotal"].ToString().Length > 0)
             {
-                pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString());
+                pageFooterScript = pageFooterScript.Replace("{{PRICE_TOTAL}}", Session["RegistrationTotal"].ToString().Replace(",", ""));
 
                 clearSession = true;
             }
@@ -106,6 +149,7 @@
             if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
             {
                 pageFooterScript = pageFooterScript.Replace("{{REG_ID}}", Session["RegistrationId"].ToString());
+                pageHeaderScript = pageHeaderScript.Replace("{{REG_ITEMS}}", trackItemListStr);
             }
         }
     }
@@ -118,7 +162,7 @@
 
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" @Html.Raw(htmlArgs)>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -131,6 +175,7 @@
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
     <link rel="canonical" href="@(canonical)" />
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com/">
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@htmlTitle - @siteName" />
@@ -141,6 +186,7 @@
     <meta name="twitter:description" content="@(currentPage.GetPropertyValue<string>("pageDescription"))" />
     <meta name="twitter:title" content="TPC Trainco training" />
     <meta name="twitter:domain" content="TPC Trainco" />
+	<base href="/" />
     <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
@@ -155,12 +201,21 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link href="/images/favicon.ico" rel="shortcut icon">
-    <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" type="text/css" href="/css/vendor.css?@cacheVer">
-    <link rel="stylesheet" type="text/css" href="/css/main.css?@cacheVer">
+
+    @if (searchPage || homePage || seminarDetailPage)
+    {
+
+        <link rel="stylesheet" href="/app/main.css?@cacheVer">
+    }
+    else
+    {
+        <link rel="stylesheet" type="text/css" href="/css/main.css?@cacheVer">
+        <link rel="stylesheet" type="text/css" href="/css/vendor.css?@cacheVer">
+    }
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="//fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic" rel="stylesheet" type="text/css">
 
     @if (true == siteSettingsActive.HasValue("googleAnalyticsId"))
@@ -176,7 +231,7 @@
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', '@(siteSettingsActive.GetPropertyValue<string>("googleAnalyticsId"))', 'auto');
             ga('send', 'pageview');
-			ga('require', 'ecommerce');
+            ga('require', 'ecommerce');
         </script>
     }
 
@@ -189,12 +244,15 @@
         <body class="ie9">
     <![endif]-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    @if (false == searchPage && false == homePage && false == seminarDetailPage)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    }
 
     @Html.Raw(pageHeaderScript)
 </head>
 
-<body class="gradient-bg">
+<body class="gradient-bg"@(bodyId)>
 
     @Html.Partial("Navigation/Top")
 
@@ -205,9 +263,71 @@
     @Html.Partial("Navigation/Bottom")
 
     <script>var ApiDomain = 'http@(Request.IsSecureConnection ? "s" : "")://@(Request.Url.Authority)';</script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
-    @if (cartPage)
+    @if (false == searchPage && false == homePage && false == seminarDetailPage)
+    {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
+    }
+    @if (searchPage || homePage || seminarDetailPage)
+    {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.4.0/lodash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.4.9/angular-sanitize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-animate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
+        <script src="/app/lib/angular-loading.js"></script>
+        <script src="/app/lib/angular-selector.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <script src="/app/core/core.module.js"></script>
+  <script src="/app/common/common.module.js"></script>
+  <script src="/app/components/components.module.js"></script>
+  <script src="/app/register/register.module.js"></script>
+  <script src="/app/seminar/seminar.module.js"></script>
+  <script src="/app/app.module.js"></script>
+
+  <script src="/app/common/search.factory.js"></script>
+  <script src="/app/common/startFrom.filter.js"></script>
+  <script src="/app/common/createArray.filter.js"></script>
+  <script src="/app/common/months.factory.js"></script>
+  <script src="/app/common/cities.factory.js"></script>
+  <script src="/app/common/dropIn.animation.js"></script>
+  <script src="/app/common/slideToggle.animation.js"></script>
+  <script src="/app/components/cart/cart.directive.js"></script>
+  <script src="/app/common/stringToNumber.directive.js"></script>
+  <script src="/app/seminar/seminar.controller.js"></script>
+  <script src="/app/seminar/courseSearch.service.js"></script>
+  <script src="/app/register/register.controller.js"></script>
+  <script src="/app/core/lodash.factory.js"></script>
+  <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
+  <script src="/app/components/mainSearch/mainSearch.controller.js"></script>
+  <script src="/app/components/cart/cart.service.js"></script>
+  <script src="/app/components/cart/cart.controller.js"></script>
+
+
+
+        if (seminarDetailPage)
+        {
+                  <script type="text/javascript">
+
+                                  $('a[href^="#"]').click(function(e) {
+                                      e.preventDefault();
+                                      var hash = $(this).attr('href');
+                                      $('html, body').stop(true).animate({scrollTop: $(hash).offset().top - 125}, 500);
+                                  });
+                      </script>
+        }
+
+    }
+    else if (cartPage)
     {
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
@@ -220,17 +340,22 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
     }
-    <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
-    <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
-    <script type="text/javascript">
+    @if (false == searchPage && false == homePage && false == seminarDetailPage)
+    {
+        <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
+        <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
+        <script type="text/javascript">
         $(window).load(function () {
             tpcAppObj = new TPCApp();
         });
-        $('a[href^="#"]').click(function(e) {
-          e.preventDefault();
-          $(window).stop(true).scrollTo(this.hash, {offset: -100,duration:1000, interrupt:true});
-        });
-    </script>
+        </script>
+     }
+
+    @if (true == homePage)
+    {
+        @Html.Partial("SeminarSearch/JavascriptHomepage")
+    }
+
     @Html.Raw(pageFooterScript)
 </body>
 </html>

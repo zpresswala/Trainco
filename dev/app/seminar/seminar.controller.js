@@ -1,75 +1,73 @@
-export class SeminarController {
-  constructor ($log, courseSearch) {
-    'ngInject';
+(function(module) {
+  'use strict';
+  /** @ngInject */
+  module.controller('SeminarController', function($log, courseSearch, cartService, $rootScope, $scope) {
+    var vm = this;
 
-    this.$log = $log;
+    vm.courseId = {};
 
-    this.courseId = {};
-    this.activate();
-    this.requestSeminarData(courseSearch);
-    this.requestSeminarDetails(courseSearch);
-    this.isCollapsed = true;
+    requestSeminarData(courseSearch);
 
-    this.dynamicPopover = {
-      templateUrl: 'app/seminar/seminarPop.html'
+  function calculateTotalPrice(itemList) {
+    var totalPrice = itemList ? itemList.reduce(function (acc, item) {
+      return acc + item.quantity * parseFloat(item.price);
+    }, 0) : 0;
+    return parseFloat(totalPrice.toFixed(2));
+  }
+
+    vm.detailPop = {
+      templateUrl: '/app/seminar/seminarPop.html',
     };
-    this.addToCart();
 
-    this.registerSem = function() {
-      this.requestSeminarDetails();
+    vm.location = {};
+
+    vm.addItemToCart = function(item, qty) {
+      cartService.addItem(item, qty);
+      vm.cartItemList = cartService.getCartItems() || [];
+      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      $rootScope.$broadcast('cartUpdated', vm.cartItemList);
+    };
+
+    vm.monthsSlider = {
+      minValue: 0, // initial position for left handle
+      maxValue: 8, // initial position for right handle
+      options: {
+        floor: 0, // left most value
+        ceil: 15, // right most value
+        showTicks: true,
+        showSelectionBarEnd: true,
+        showTicksValues: true,
+        stepsArray: ' ,JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEPT,OCT,NOV,DEC,JAN,'.split(',')
+      }
+    };
+
+    var minMonthNumber = vm.monthsSlider.minValue + 1;
+    var maxMonthNumber = vm.monthsSlider.maxValue + 1;
+    //this.monthMin = minMonthNumber;
+    var minDateRange = minMonthNumber;
+    var minDateParam = minDateRange + '-2016';
+    vm.monthMin = vm.monthsSlider.minValue + 1 + '-2016'; //minDateParam
+    function activate() {
+      var classId = localStorage.getItem('classId');
     }
 
-    this.location = {};
-        this.demo1 = {
-          min: 0,
-          max: 500
-        };
-  }
+    function requestSeminarData(courseSearch) {
+      var classId = localStorage.getItem('classId');
 
-  activate() {
-     const classId = localStorage.getItem('classId');
-     this.$log.debug(classId);
-  }
-  requestSeminarData(courseSearch) {
-    const classId = localStorage.getItem('classId');
-
-    return courseSearch.getSeminars(classId).then((data) => {
-      this.$log.debug(data.seminars[0])
-      let seminarsData = data.seminars[0];
-      this.receiveSeminarData(seminarsData);
-      return seminarsData;
-    });
-  }
-
-  receiveSeminarData(seminarsData) {
-    let seminarLocations = [];
-    this.seminarLocations = seminarsData.locationSchedules;
-    for(let elem of this.seminarLocations) {
-      const semId = elem.id;
-      this.$log.debug('kek', elem.id)
-      return semId;
+      return courseSearch.getSeminars(classId).then(function(data) {
+        var seminarsData = data.seminars[0];
+        receiveSeminarData(seminarsData);
+        return seminarsData;
+      });
     }
-  }
 
-  requestSeminarDetails(courseSearch) {
-    //const semId = localStorage.getItem('classId');
-    let semId
-    return courseSearch.getSeminarDetails(semId).then((data) => {
-      this.$log.debug(data)
-      let seminarDetail = data;
-      // this.receiveSeminarData(seminarDetail);
-      return seminarDetail;
-    });
-  }
-
-  addToCart() {
-    this.$log.debug(this.attendees)
-    localStorage.setItem('attendees', this.attendees);
-  }
-
-  storeCourseId(seminarsData) {
-    let courseIden = seminarsData;
-    this.$log.debug(courseIden)
-    localStorage.setItem('course', this.courseId);
-  }
-}
+    function receiveSeminarData(seminarsData) {
+      vm.seminarLocations = seminarsData.locationSchedules;
+      var seminarLocationsArray = vm.seminarLocations;
+      seminarLocationsArray.forEach(function(location, index) {
+        var dateF = location.dateFilter;
+        return dateF;
+      });
+    }
+  })
+}(angular.module('train.seminar')));

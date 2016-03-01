@@ -29,6 +29,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
 
         [NullSetting(NullSetting = NullSettings.Null)]
         public DateTime DateFilter { get; set; }
+        public string DateMonthYear { get; set; }
 
         [NullSetting(NullSetting = NullSettings.Null)]
         public double? Distance { get; set; }
@@ -54,5 +55,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models
 
         [NullSetting(NullSetting = NullSettings.Null)]
         public string Description { get; set; }
+
+        public long SeminarId { get; set; }
+        public string SeminarTitle { get; set; }
     }
 }

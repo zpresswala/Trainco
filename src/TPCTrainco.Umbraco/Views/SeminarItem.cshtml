@@ -32,18 +32,19 @@
     <div class="container">
         <ul class="nav navbar-nav">
             <li><a href="#overview" class="page-scroll nav-link regular-link active">Seminar Overview</a></li>
+            @if (false == string.IsNullOrWhiteSpace(CurrentPage.day1Header) || false == string.IsNullOrWhiteSpace(CurrentPage.day2Header) || false == string.IsNullOrWhiteSpace(CurrentPage.day3Header) || false == string.IsNullOrWhiteSpace(CurrentPage.day4Header))
+            {
             <li><a href="#discussion" class="page-scroll nav-link regular-link">Discussion Topics</a></li>
-            @if (CurrentPage.HasValue("certificationCopy"))
-            {
-                <li><a href="#ceu" class="page-scroll nav-link regular-link">(CEUs)</a></li>
             }
-            @if (CurrentPage.includeAtmt)
+            @if (CurrentPage.HasValue("certificationCopy") || CurrentPage.includeCeu || CurrentPage.includeAtmt)
             {
-                <li><a href="#atmt" class="page-scroll nav-link regular-link">ATMT Certification</a></li>
+                <li><a href="#certification" class="page-scroll nav-link regular-link">Certification</a></li>
             }
-
-            <li><a href="#register-seminars" class="page-scroll regular-link nav-link">Purchase Program</a></li>
-            <li><a href="#register-seminars" class="page-scroll regular-link nav-link">Upcoming Dates and Locations</a></li>
+            @if (CurrentPage.blockPurchase)
+            {
+                <li><a href="#block-purchase" class="page-scroll regular-link nav-link">Block Purchasing</a></li>
+            }
+            <li><a href="#register-seminars" class="page-scroll regular-link nav-link">Dates and Locations</a></li>
         </ul>
     </div>
 </nav>
@@ -67,32 +68,39 @@
         </div>
         @if (CurrentPage.onSiteQuote)
         {
-            <div class="button-wrapper col-xs-12 col-md-8 col-md-offset-2">
-                <div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-2">
+            <div class="button-wrapper">
+                <ul class="list-inline">
+                  <li>
                     <a href="#register-seminars" class="btn-reg btn-first" role="button">Check Dates and Locations</a>
-                </div>
+                  </li>
+                  <li>
+                    <a href="/on-site-training/#cf-container" class="btn-reg btn-white" role="button">Get an On-Site Quote</a>
+                  </li>
+                </ul>
             </div>
         }
         else
         {
-            <div class="button-wrapper col-xs-12">
-                <div class="col-xs-12">
-                    <a href="#register-seminars" class="btn-reg btn-first" role="button">Register Now</a>
-                </div>
+            <div class="button-wrapper">
+                <ul class="list-inline">
+                  <li>
+                    <a href="#register-seminars" class="btn-reg btn-first" role="button">Check Dates and Locations</a>
+                  </li>
+                  <li>
+                    <a href="/on-site-training/#cf-container" class="btn-reg btn-white" role="button">Get an On-Site Quote</a>
+                  </li>
+                </ul>
             </div>
         }
     </div>
 </div>
 
-@Html.Partial("Cart/MiniCart")
-
+<!-- include the cart template -->
+<div ng-include src="'/app/components/cart/cart.html'"></div>
+<!-- end include the cart template -->
 <div class="container-fluid gradient-bg main-content">
     <div class="row">
         <div class="col-md-8 col-md-offset-2 text-wrap" id="overview">
-
-            @Html.Partial("Share/ShareModule", currentPage)
-
-
 
             <div class="row">
                 <h2>Seminar Overview</h2>
@@ -188,34 +196,39 @@
                 </div>
             }
 
-            @if (CurrentPage.HasValue("certificationCopy"))
+            @if (CurrentPage.HasValue("certificationCopy") || CurrentPage.includeCeu || CurrentPage.includeAtmt)
             {
                 <!-- end column area -->
-                <div class="row" id="ceu">
-                    <h2>@CurrentPage.certificationHeader</h2>
+                <div class="row" id="certification">
+                    @if (CurrentPage.HasValue("certificationCopy"))
+                    {
+                        <div class="row">
+                            <h2>@CurrentPage.certificationHeader</h2>
 
-                    @CurrentPage.certificationCopy
-                </div>
-            }
-            @if (CurrentPage.includeCeu)
-            {
-                <div class="row">
-                    <h2>@seminarContainer.ceuHeader</h2>
-                    @seminarContainer.ceuCopy
-                </div>
-            }
-            @if (CurrentPage.includeAtmt)
-            {
+                            @CurrentPage.certificationCopy
+                        </div>
+                    }
+                    @if (CurrentPage.includeCeu)
+                    {
+                        <div class="row">
+                            <h2>@seminarContainer.ceuHeader</h2>
+                            @seminarContainer.ceuCopy
+                        </div>
+                    }
+                    @if (CurrentPage.includeAtmt)
+                    {
 
-                <div class="row" id="atmt">
-                    <h2>@seminarContainer.atmtHeader</h2>
-                    @seminarContainer.atmtCopy
+                        <div class="row">
+                            <h2>@seminarContainer.atmtHeader</h2>
+                            @seminarContainer.atmtCopy
+                        </div>
+                    }
                 </div>
             }
 
             @if (CurrentPage.blockPurchase)
             {
-                <div class="row">
+                <div id="block-purchase" class="row">
                     <h2>@seminarContainer.blockHeader</h2>
                     @seminarContainer.blockCopy
                 </div>

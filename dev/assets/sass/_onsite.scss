@@ -12,14 +12,24 @@
   background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
-  max-height: 400px;
+  color: $white;
   display: table;
   width: 100%;
   position: relative;
   padding-top: 30px;
   padding-bottom: 30px;
 
+  ul {
+    list-style: none;
+    padding-left: 0;
+    li {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+  }
+  ul li a {
+    color: #fff;
+  }
   @include tablet-portrait-and-up {
     background-image: url('/images/carousel-bg.jpg');
   }
@@ -31,15 +41,31 @@
   h3 {
     color: $white;
     text-align: center;
-    margin: 40px 0 30px;
 
     @include med-desktop-and-up {
       text-align: left;
-      margin: 40px 0 20px 15px;
       font-size: 20px;
     }
   }
+  h3 {
+    a {
+    color: $white !important;
+    }
+  }
 
+.caro-form-container .carousel {
+  height: 100%;
+  @media (min-width: 992px) {
+    margin-top: -230px !important;
+  }
+    @media (max-width: 768px) {
+      height: 100%;
+    }
+    @media (max-width: 990px) {
+      height: 100%;
+    }
+
+}
   .carousel {
     background: none;
 
@@ -47,7 +73,7 @@
       width: 50%;
       position: absolute;
       top: 50%;
-      margin-top: -230px;
+      margin-top: -220px;
       left: 0;
     }
 

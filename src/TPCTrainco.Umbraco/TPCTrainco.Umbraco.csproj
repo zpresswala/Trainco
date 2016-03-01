@@ -3374,6 +3374,7 @@
     <Content Include="Views\LandingPageContactUs.cshtml" />
     <Content Include="Views\Partials\Messages\MessagesTop.cshtml" />
     <Content Include="Views\Partials\Seminars\SeminarList.cshtml" />
+    <Content Include="Views\Partials\SeminarSearch\JavascriptHomepage.cshtml" />
     <None Include="Web.Debug-Trainco.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
