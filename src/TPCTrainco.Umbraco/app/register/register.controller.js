@@ -9,6 +9,7 @@
     var vm = this;
     vm.kwFilter = {};
     vm.mileRange = {};
+    vm.locSearchFilter = {};
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
     var searchObj = {
       keywordParam: '',
@@ -82,8 +83,9 @@
           defStart: vm.$storage.SearchDRmin,
           defEnd: vm.$storage.SearchDRmax
         }
-
+        vm.$storage.searchObj = searchObj;
         doParamSearch();
+
         localStorage.removeItem('ngStorage-SearchDRmin');
         localStorage.removeItem('ngStorage-SearchDRmax');
       } else {
@@ -268,6 +270,11 @@
       vm.$storage.SearchTopic4 = data.management ? 'management' : undefined;
       vm.$storage.SearchTopic5 = vm.categories.all;
 
+      vm.topicParam1 = vm.$storage.SearchTopic1;
+      vm.topicParam2 = vm.$storage.SearchTopic2;
+      vm.topicParam3 = vm.$storage.SearchTopic3;
+      vm.topicParam4 = vm.$storage.SearchTopic4;
+
       doParamSearch();
     });
 
@@ -318,16 +325,16 @@
       $loading.start('courses');
 
       var searchObj = {
-        keywordParam: vm.$storage.kword || vm.kwFilter.word,
-        locParam: vm.$storage.SearchLocation || vm.locSearchFilter.location,
+        keywordParam: vm.kwFilter.word || vm.$storage.kword,
+        locParam: vm.locSearchFilter.location || vm.$storage.SearchLocation,
         radiusParam: vm.mileRange.value || '250',
-        topicParam1: vm.$storage.SearchTopic1,
-        topicParam2: vm.$storage.SearchTopic2,
-        topicParam3: vm.$storage.SearchTopic3,
-        topicParam4: vm.$storage.SearchTopic4,
-        defStart: vm.$storage.SearchDRmin || vm.dateRange.start || defaultStart,
-        defEnd: vm.$storage.SearchDRmax || vm.dateRange.end || defaultEnd,
-        endYear: checkYear()
+        topicParam1: vm.topicParam1 || vm.$storage.SearchTopic1,
+        topicParam2: vm.topicParam2 || vm.$storage.SearchTopic2,
+        topicParam3: vm.topicParam3 || vm.$storage.SearchTopic3,
+        topicParam4: vm.topicParam4 || vm.$storage.SearchTopic4,
+        defStart: vm.dateRange.start ||vm.$storage.SearchDRmin || defaultStart,
+        defEnd: vm.dateRange.end || vm.$storage.SearchDRmax || defaultEnd,
+        endYear: vm.$storage.SearchDRyear || checkYear()
       }
 
       Search.performSearch(searchObj).then(function(data) {
@@ -336,11 +343,12 @@
          * @method emptyLocalStorage
          * @return {any}          its going to happen regardless of whether or not theres values in LS.
          */
-        emptyLocalStorage();
+        //emptyLocalStorage();
         if (data.seminars.length) {
           // Set showDirections to false because a search has now been executed
           // and that search returns results.
           vm.showDirections = false;
+          delete vm.$storage.SearchDRyear;
         } else {
           // Set showDirections to true if a search was made, but doesnt have results because
           // we will be displaying and setting searchFired to true in order to display

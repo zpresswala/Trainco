@@ -47,10 +47,10 @@
     var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
     $log.debug(combinedMonthNames)
     vm.sliderValues = {
-      minValue: parseInt(combinedMonthValues[0]-2),
-      maxValue:  parseInt(combinedMonthValues[3]),
+      minValue: parseInt(combinedMonthValues[0] - 3),
+      maxValue: parseInt(combinedMonthValues[3]),
       options: {
-        floor: parseInt(combinedMonthValues[0]-2),
+        floor: parseInt(combinedMonthValues[0] - 2),
         ceil: parseInt(combinedMonthValues[11]),
         showTicks: true,
         showSelectionBarEnd: true,
@@ -60,16 +60,17 @@
     };
     $timeout(function() {
       $scope.$broadcast('rzSliderForceRender');
-      $('.tick > span').each(function (index, item) {
+      $('.tick > span').each(function(index, item) {
         var $item = $(item);
         var html = $item.html();
         var numTest = /^([^\d]+)(\d+)$/;
         var hasYear = numTest.test(html);
 
         if (hasYear) {
-          $item.html(html.replace(numTest, '$1<span class="yearblock">$2</span>'));
+          $item.html(html.replace(numTest, '<span class="monthblock">$1</span><span class="yearblock">$2</span>'));
         }
-      }) }, 300);
+      })
+    }, 300);
 
     vm.doParamSearch = function() {
       if (vm.classTopics.hvac === true) {
@@ -90,17 +91,27 @@
         vm.topicParam3 = 'mechanical'
         vm.topicParam4 = 'management'
       }
-
       var defStart = vm.sliderValues.minValue;
       var defEnd = vm.sliderValues.maxValue
       var theloc = vm.courseSearch.location.trim();
       vm.$storage.SearchLocation = theloc || ' ';
+
+      function checkYear() {
+        var today = new Date();
+        if (combinedMonthValues[defStart] >= combinedMonthValues[defEnd]) {
+          return today.getFullYear() + 1;
+        } else {
+          return today.getFullYear();
+        }
+      }
+
       vm.$storage.SearchTopic1 = vm.topicParam1;
       vm.$storage.SearchTopic2 = vm.topicParam2;
       vm.$storage.SearchTopic3 = vm.topicParam3;
       vm.$storage.SearchTopic4 = vm.topicParam4;
       vm.$storage.SearchDRmin = combinedMonthValues[defStart];
       vm.$storage.SearchDRmax = combinedMonthValues[defEnd];
+      vm.$storage.SearchDRyear = checkYear();
 
       window.location.href = '/search-seminars';
     }

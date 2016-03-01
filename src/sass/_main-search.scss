@@ -1,8 +1,15 @@
 .yearblock {
-display: block!important;
-    white-space: normal!important;
-  font-size: 12px;
-  margin-top: -7px;
+  display: block!important;
+  white-space: normal!important;
+  margin-top: 10px;
+  margin-left: -15px;
+}
+
+.monthblock {
+  margin-top: -5px;
+  display: block!important;
+  white-space: normal!important;
+  margin-left: -12px;
 }
 
 .selector-optgroup {
