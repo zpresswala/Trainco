@@ -10,6 +10,13 @@
     vm.kwFilter = {};
     vm.mileRange = {};
     vm.locSearchFilter = {};
+    vm.categories = {
+        hvac: false,
+        electrical: false,
+        mechanical: false,
+        management: false,
+        all: false
+      }
     vm.locSearchFilter.locationAll = false;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
 
@@ -51,26 +58,25 @@
      * @method activate
      */
     function activate() {
-      if (vm.$storage.SearchLocation) {
-        var keywordParam = '';
-        vm.initialDirections = true;
-        vm.locSearchFilter.location = vm.$storage.SearchLocation;
+      var keywordParam = '';
+      vm.initialDirections = true;
+      vm.locSearchFilter.location = vm.$storage.SearchLocation;
+      vm.categories.hvac = !!vm.$storage.SearchTopic1;
+      vm.categories.electrical = !!vm.$storage.SearchTopic2;
+      vm.categories.mechanical = !!vm.$storage.SearchTopic3;
+      vm.categories.management = !!vm.$storage.SearchTopic4;
+      vm.categories.all = !!vm.$storage.SearchTopic5;
 
-        var searchObj = {
-          keywordParam: null,
-          locParam: vm.$storage.SearchLocation,
-          topicParam1: vm.$storage.SearchTopic1,
-          topicParam2: vm.$storage.SearchTopic2,
-          topicParam3: vm.$storage.SearchTopic3,
-          topicParam4: vm.$storage.SearchTopic4,
-          defStart: vm.$storage.SearchDRmin,
-          defEnd: vm.$storage.SearchDRmax
-        }
-
-        doParamSearch(searchObj);
-      } else {
+      if (!vm.$storage.SearchLocation) {
         // showDirections displays the default blank state message
         vm.showDirections = true;
+      } else {
+        vm.topicParam1 = vm.$storage.SearchTopic1;
+        vm.topicParam2 = vm.$storage.SearchTopic2;
+        vm.topicParam3 = vm.$storage.SearchTopic3;
+        vm.topicParam4 = vm.$storage.SearchTopic4;
+
+        doParamSearch();
       }
 
       vm.cartItemList = cartService.getCartItems() || [];
@@ -191,28 +197,22 @@
         }
       }
     }
-
-    vm.categories = {
-        hvac: false,
-        electrical: false,
-        mechanical: false,
-        management: false,
-        all: false
-      }
       /**
        * Watches the locationAll checkbox and runs on checked.
        * @method function
        * @return {array} returns the array seminarsData containing all locations.
        */
     vm.stateChanged = function() {
+      $log.debug(vm.categories)
       $rootScope.$broadcast('topic', vm.categories);
     }
-
-    vm.$storage.SearchTopic5 = true;
-
+    // if (vm.$storage.SearchLocation) {
+    // vm.$storage.SearchTopic5 = true;
+    // }
     // Listens for a broadcast saying topic and then
     // runs a search with the updated topics.
     $scope.$on('topic', function(event, data) {
+      $log.debug('i listened')
       var labelsArray = ['hvac', 'electrical', 'mechanical', 'management', 'all'];
       var previouslyAll = vm.$storage.SearchTopic5;
 
@@ -288,7 +288,7 @@
         }
     }
 
-    function doParamSearch(searchObj) {
+    function doParamSearch() {
       $loading.start('courses');
       var today = new Date();
       var thisMonth = today.getMonth();
@@ -305,6 +305,8 @@
         defEnd: vm.dateRange.end || (today.getMonth() + 3),
         endYear: checkYear('end')
       }
+
+      $log.debug(searchObj, vm.topicParam2)
 
       Search.performSearch(searchObj).then(function(data) {
         /**

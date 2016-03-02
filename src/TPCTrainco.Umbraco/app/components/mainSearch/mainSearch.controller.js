@@ -7,7 +7,7 @@
 
   /** @ngInject */
   /** @ngInject */
-  function MainSearchController($location, $log, Cities, MonthSvc, $localStorage, $timeout, $rootScope, $scope, _) {
+  function MainSearchController($location, $log, Cities, MonthSvc, UtilitySvc, $localStorage, $timeout, $rootScope, $scope, _) {
     var vm = this;
     vm.$storage = $localStorage;
 
@@ -22,6 +22,25 @@
     };
 
     vm.classTopics = {};
+    var courseObjs = {
+      hvac: vm.classTopics.hvac,
+      electrical: vm.classTopics.electrical,
+      management: vm.classTopics.management,
+      mechanical:vm.classTopics.mechanical
+    }
+
+    var topic5all;
+
+    if (vm.classTopics.all && UtilitySvc.anyAreTrue(courseObjs)) {
+      topic5all = false;
+    } else if (vm.classTopics.all) {
+      vm.classTopics.hvac = false;
+      vm.classTopics.electrical = false;
+      vm.classTopics.management = false;
+      vm.classTopics.mechanical = false;
+
+      topic5all = true;
+    }
     var today = new Date();
     var thisMonth = today.getMonth();
     var monthNames = MonthSvc.getAbrvMonths() || [];
@@ -86,10 +105,11 @@
         vm.topicParam4 = 'management'
       }
       if (vm.classTopics.all === true) {
-        vm.topicParam1 = 'hvac'
-        vm.topicParam2 = 'electrical'
-        vm.topicParam3 = 'mechanical'
-        vm.topicParam4 = 'management'
+        // vm.topicParam1 = 'hvac'
+        // vm.topicParam2 = 'electrical'
+        // vm.topicParam3 = 'mechanical'
+        // vm.topicParam4 = 'management'
+        vm.topicParam5 = true;
       }
       var defStart = vm.sliderValues.minValue;
       var defEnd = vm.sliderValues.maxValue
@@ -107,10 +127,12 @@
           }
       }
 
+
       vm.$storage.SearchTopic1 = vm.topicParam1;
       vm.$storage.SearchTopic2 = vm.topicParam2;
       vm.$storage.SearchTopic3 = vm.topicParam3;
       vm.$storage.SearchTopic4 = vm.topicParam4;
+      vm.$storage.SearchTopic5 = topic5all;
       vm.$storage.SearchDRmin = combinedMonthValues[defStart];
       vm.$storage.SearchDRmax = combinedMonthValues[defEnd];
       vm.$storage.SearchDRyear = checkYear('max');

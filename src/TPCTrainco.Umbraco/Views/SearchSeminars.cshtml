@@ -28,15 +28,15 @@
         <label class="sidebar-label">Seminar Topic</label>
         <div class="input-group">
           <label class="sidebar-label">
-            <input type="checkbox" ng-model="ctrl.courseTopics.categories.electrical" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Electrical</label>
+            <input type="checkbox" ng-model="ctrl.categories.electrical"ng-change="ctrl.stateChanged(ctrl.categories[category])">Electrical</label>
           <label class="sidebar-label">
-            <input type="checkbox" ng-model="ctrl.courseTopics.categories.hvac" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">HVAC</label>
+            <input type="checkbox" ng-model="ctrl.categories.hvac" ng-change="ctrl.stateChanged(ctrl.categories[category])">HVAC</label>
           <label class="sidebar-label">
-            <input type="checkbox" ng-model="ctrl.courseTopics.categories.management" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Plant Management</label>
+            <input type="checkbox" ng-model="ctrl.categories.management" ng-change="ctrl.stateChanged(ctrl.categories[category])">Plant Management</label>
           <label class="sidebar-label">
-            <input type="checkbox" ng-model="ctrl.courseTopics.categories.mechanical" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">Mechanical &amp; Industrial</label>
+            <input type="checkbox" ng-model="ctrl.categories.mechanical"  ng-change="ctrl.stateChanged(ctrl.categories[category])">Mechanical &amp; Industrial</label>
           <label class="sidebar-label">
-            <input type="checkbox" ng-model="ctrl.courseTopics.categories.all" ng-change="ctrl.stateChanged(ctrl.courseTopics.categories[category])">All Seminar Topics</label>
+            <input type="checkbox" ng-model="ctrl.categories.all" ng-change="ctrl.stateChanged(ctrl.categories[category])">All Seminar Topics</label>
         </div>
       </div>
       <hr class="divider" />
@@ -78,13 +78,13 @@
           <label class="sidebar-label">Seminar Topic</label>
           <div class="input-group">
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.categories.electrical" ng-checked="ctrl.$storage.SearchTopic2" ng-change="ctrl.stateChanged(ctrl.categories[category])">Electrical</label>
+              <input type="checkbox" ng-model="ctrl.categories.electrical" ng-change="ctrl.stateChanged(ctrl.categories[category])">Electrical</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.categories.hvac" ng-checked="ctrl.$storage.SearchTopic1" ng-change="ctrl.stateChanged(ctrl.categories[category])">HVAC</label>
+              <input type="checkbox" ng-model="ctrl.categories.hvac"  ng-change="ctrl.stateChanged(ctrl.categories[category])">HVAC</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.categories.management" ng-checked="ctrl.$storage.SearchTopic4" ng-change="ctrl.stateChanged(ctrl.categories[category])">Plant Management</label>
+              <input type="checkbox" ng-model="ctrl.categories.management"ng-change="ctrl.stateChanged(ctrl.categories[category])">Plant Management</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.categories.mechanical" ng-checked="ctrl.$storage.SearchTopic3" ng-change="ctrl.stateChanged(ctrl.categories[category])">Mechanical &amp; Industrial</label>
+              <input type="checkbox" ng-model="ctrl.categories.mechanical"ng-change="ctrl.stateChanged(ctrl.categories[category])">Mechanical &amp; Industrial</label>
             <label class="sidebar-label">
               <input type="checkbox" ng-model="ctrl.categories.all" ng-change="ctrl.stateChanged(ctrl.categories[category])">All Seminar Topics</label>
           </div>
