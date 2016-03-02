@@ -34,10 +34,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
                         seminarDetails.ImageUrl = "/images/default-seminar.gif";
                         seminarDetails.DetailsUrl = contentResponse.Url;
 
-                        IPublishedContent imageObject = UmbracoHelperObj.Content(contentResponse.Id);
-                        if (imageObject != null)
+                        if (contentResponse != null)
                         {
-                            seminarDetails.ImageUrl = imageObject.GetCropUrl("image", "Image");
+                            seminarDetails.ImageUrl = contentResponse.GetCropUrl("image", "Image");
                         }
 
                         if (true == contentResponse.HasValue("searchSummaryText"))
@@ -45,7 +44,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
                             seminarDetails.SubTitle = contentResponse.GetPropertyValue<string>("searchSummaryText");
                         }
 
-                        output = JsonConvert.SerializeObject(seminarDetails);
+                        //output = JsonConvert.SerializeObject(seminarDetails);
                     }
                 }
             }
@@ -54,7 +53,61 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
 
             }
 
-            return output;
+            return seminarDetails;
+        }
+
+
+        [HttpGet]
+        public object CourseList()
+        {
+            string output = "";
+            List<UmbracoCourseDetail> seminarCourseList = new List<UmbracoCourseDetail>();
+
+            try
+            {
+                UmbracoHelper UmbracoHelperObj = new UmbracoHelper(UmbracoContext.Current);
+
+                IEnumerable<IPublishedContent> seminarList = Helpers.Nodes.Instance.SeminarItems;
+
+                seminarList = Helpers.Nodes.SeminarItemList();
+
+                if (seminarList != null && seminarList.Count() > 0)
+                {
+                    foreach (IPublishedContent seminarItem in seminarList)
+                    {
+                        UmbracoCourseDetail courseDetail = new UmbracoCourseDetail();
+
+                        courseDetail.CourseId = 0;
+                        courseDetail.ImageUrl = "/images/default-seminar.gif";
+                        courseDetail.DetailsUrl = "#";
+
+                        if (seminarItem != null)
+                        {
+                            courseDetail.CourseId = seminarItem.GetPropertyValue<int>("courseLink");
+
+                            courseDetail.ImageUrl = seminarItem.GetCropUrl("image", "Image");
+                            courseDetail.DetailsUrl = seminarItem.Url;
+                            if (true == seminarItem.HasValue("searchSummaryText"))
+                            {
+                                courseDetail.SubTitle = seminarItem.GetPropertyValue<string>("searchSummaryText");
+                            }
+                        }
+
+                        seminarCourseList.Add(courseDetail);
+                    }
+                }
+
+                //if (seminarCourseList != null)
+                //{
+                //    output = JsonConvert.SerializeObject(seminarCourseList);
+                //}
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return seminarCourseList;
         }
 
 

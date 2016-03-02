@@ -9,7 +9,6 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using TPCTrainco.Cache.Models;
 using System.Text;
 using System.Diagnostics;
 using TPCTrainco.Umbraco.Extensions.Models;
@@ -18,46 +17,207 @@ using System.Runtime.Caching;
 using TPCTrainco.Umbraco.Extensions;
 using TPCTrainco.Umbraco.Extensions.Objects;
 using System.Linq;
+using Umbraco.Web;
+using Umbraco.Core.Models;
+using Newtonsoft.Json;
+using Umbraco.Core.Persistence;
+using Umbraco.Core;
 
 namespace TPCTrainco.Cache.Controllers
 {
-    [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    [RoutePrefix("api/cache")]
+    public class CacheController : ApiController
     {
         public StringBuilder DebugStr = new StringBuilder();
+        public CacheMessage CacheMessage = new CacheMessage();
+        
 
-        public AccountController()
-        {
-        }
-
-        // GET api/Account/
+        // GET api/cache/update
         [HttpGet]
-        public string Index()
+        public CacheMessage Index()
         {
-            
+            DebugApp("-= CACHE PROCESS START =-", ref DebugStr);
+            DebugApp("", ref DebugStr);
 
-            DebugApp("Starting Cache Process...", ref DebugStr);
+            CacheMessage.Success = false;
+
+            try
+            {
+                ProcessCourses();
+
+                ProcessSeminars();
+
+                DebugApp("", ref DebugStr);
+                DebugApp("-= ALL DONE! =-", ref DebugStr);
+
+                CacheMessage.Success = true;
+                CacheMessage.Message = DebugStr.ToString();
 
 
+            }
+            catch (Exception ex)
+            {
+                CacheMessage.Message = DebugStr.ToString() + "\r\n\r\n" + ex.ToString();
+            }
 
-
-            return "hi";
+            return CacheMessage;
         }
 
 
-        public List<CourseDetail> GetCourseDetailList()
+        private void ProcessCourses()
         {
-            string cacheKey = "CourseDetailList";
-            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:Courses"));
-            ObjectCache cache = MemoryCache.Default;
+            var db = new Database("umbracoDbDSN");
 
-            List<CourseDetail> courseDetailList = cache.Get(cacheKey) as List<CourseDetail>;
+            List<CourseDetail> courseDetailListCurrent = null;
+
+            // Get Cache from DB
+            DebugApp("GETTING CURRENT COURSES...", ref DebugStr);
+            courseDetailListCurrent = db.Query<CourseDetail>("SELECT * FROM CacheCourseDetail").ToList();
+            DebugApp("CURRENT COURSES - Done: " + (courseDetailListCurrent != null ? courseDetailListCurrent.Count.ToString() : "null"), ref DebugStr);
+
+            DebugApp("", ref DebugStr);
+
+            // Get Updated Records
+            DebugApp("GETTING UPDATED COURSES...", ref DebugStr);
+            List<CourseDetail> courseDetailList = GetCourseDetailList();
+            DebugApp("UPDATED COURSES - Done: " + (courseDetailList != null ? courseDetailList.Count.ToString() : "null"), ref DebugStr);
+
+            DebugApp("", ref DebugStr);
+            DebugApp("", ref DebugStr);
+
+            DebugApp("PROCESSING COURSES...", ref DebugStr);
+
+            if (courseDetailList != null && courseDetailList.Count > 0)
+            {
+                foreach (CourseDetail course in courseDetailList)
+                {
+                    DebugApp(" - Course Id: " + course.Id, ref DebugStr);
+
+                    CourseDetail checkCurrentCourse = courseDetailListCurrent.Where(p => p.Id == course.Id).FirstOrDefault();
+
+                    if (checkCurrentCourse != null)
+                    {
+                        DebugApp(" - Updated Course: " + course.Id, ref DebugStr);
+
+                        using (var db2 = new Database("umbracoDbDSN"))
+                        {
+                            db2.Update(course);
+
+                            courseDetailListCurrent.Remove(checkCurrentCourse);
+                        }
+                    }
+                    else
+                    {
+                        DebugApp(" - Adding Course: " + course.Id, ref DebugStr);
+
+                        using (var db2 = new Database("umbracoDbDSN"))
+                        {
+                            db2.Insert(course);
+                        }
+                    }
+                }
+            }
+
+            DebugApp("DELETING OLD COURSES... ", ref DebugStr);
+            if (courseDetailListCurrent != null && courseDetailListCurrent.Count > 0)
+            {
+                foreach (CourseDetail oldCourse in courseDetailListCurrent)
+                {
+                    DebugApp(" - Delete Old Course: " + oldCourse.Id, ref DebugStr);
+                    using (var db2 = new Database("umbracoDbDSN"))
+                    {
+                        db2.Delete(oldCourse);
+                    }
+                }
+            }
+
+            DebugApp("DELETING OLD COURSES - DONE", ref DebugStr);
+        }
+
+
+        private void ProcessSeminars()
+        {
+            var db = new Database("umbracoDbDSN");
+
+            List<LocationScheduleDetail> locationScheduleDetailListCurrent = null;
+
+            DebugApp("GETTING CURRENT SEMINARS...", ref DebugStr);
+            locationScheduleDetailListCurrent = db.Query<LocationScheduleDetail>("SELECT * FROM CacheLocationScheduleDetail").ToList();
+            DebugApp("CURRENT SEMINARS - Done: " + (locationScheduleDetailListCurrent != null ? locationScheduleDetailListCurrent.Count.ToString() : "null"), ref DebugStr);
+
+            DebugApp("", ref DebugStr);
+
+            DebugApp("GETTING UPDATED SEMINARS...", ref DebugStr);
+            List<LocationScheduleDetail> locationScheduleDetailList = GetLocationScheduleDetailList();
+            DebugApp("UPDATED SEMINARS - Done: " + (locationScheduleDetailList != null ? locationScheduleDetailList.Count.ToString() : "null"), ref DebugStr);
+
+            DebugApp("", ref DebugStr);
+            DebugApp("", ref DebugStr);
+
+            DebugApp("PROCESSING COURSES...", ref DebugStr);
+
+            if (locationScheduleDetailList != null && locationScheduleDetailList.Count > 0)
+            {
+                foreach (LocationScheduleDetail seminar in locationScheduleDetailList)
+                {
+                    DebugApp(" - Seminar Id: " + seminar.Id, ref DebugStr);
+
+                    LocationScheduleDetail checkCurrentSeminar = locationScheduleDetailListCurrent.Where(p => p.Id == seminar.Id).FirstOrDefault();
+
+                    if (checkCurrentSeminar != null)
+                    {
+                        DebugApp(" - Updated Seminar: " + seminar.Id, ref DebugStr);
+
+                        using (var db2 = new Database("umbracoDbDSN"))
+                        {
+                            db2.Update(seminar);
+
+                            locationScheduleDetailListCurrent.Remove(checkCurrentSeminar);
+                        }
+                    }
+                    else
+                    {
+                        DebugApp(" - Adding Seminar: " + seminar.Id, ref DebugStr);
+
+                        using (var db2 = new Database("umbracoDbDSN"))
+                        {
+                            db2.Insert(seminar);
+                        }
+                    }
+                }
+            }
+
+            DebugApp("DELETING OLD SEMINARS... ", ref DebugStr);
+            if (locationScheduleDetailListCurrent != null && locationScheduleDetailListCurrent.Count > 0)
+            {
+                foreach (LocationScheduleDetail oldSeminar in locationScheduleDetailListCurrent)
+                {
+                    DebugApp(" - Delete Old Seminar: " + oldSeminar.Id, ref DebugStr);
+                    using (var db2 = new Database("umbracoDbDSN"))
+                    {
+                        db2.Delete(oldSeminar);
+                    }
+                }
+            }
+
+            DebugApp("DELETING OLD SEMINARS - DONE", ref DebugStr);
+        }
+
+
+        private List<CourseDetail> GetCourseDetailList()
+        {
+            List<CourseDetail> courseDetailList = null;
 
             if (courseDetailList == null)
             {
                 DebugApp("Course Detail List to Cache...", ref DebugStr);
 
                 List<COURS> courseList = CacheObjects.GetCourseList();
+
+
+                DebugApp("Umbraco Course Detail List...", ref DebugStr);
+                List<UmbracoCourseDetail> umbracoCourseDetailList = GetUmbracoCourseDetailList();
+
 
                 courseList = courseList.Where(p => p.CourseTier > 0).ToList();
 
@@ -73,29 +233,26 @@ namespace TPCTrainco.Cache.Controllers
                     {
                         CourseDetail courseDetail = new CourseDetail();
 
-                        UmbracoHelper UmbracoHelperObj = new UmbracoHelper(UmbracoContext.Current);
-
                         courseDetail.Id = courseItem.CourseID;
                         courseDetail.TopicId = courseItem.CourseTopicID;
                         courseDetail.CourseTier = courseItem.CourseTier ?? 0;
                         courseDetail.Title = courseItem.TitlePlain;
                         courseDetail.SubTitle = courseItem.WebToolTip;
 
-                        IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").Value != null && p.GetProperty("courseLink").Value.ToString() == courseItem.CourseID.ToString()).FirstOrDefault();
+                        UmbracoCourseDetail umbracoCourseDetail = umbracoCourseDetailList.Where(p => p.CourseId == courseItem.CourseID).FirstOrDefault();
 
                         courseDetail.ImageUrl = "/images/default-seminar.gif";
                         courseDetail.DetailsUrl = "#";
                         courseDetail.Price = Convert.ToDouble(courseItem.CourseFee);
 
-                        if (seminarNode != null)
+                        if (umbracoCourseDetail != null)
                         {
-                            IPublishedContent imageObject = UmbracoHelperObj.Content(seminarNode.Id);
-                            courseDetail.ImageUrl = imageObject.GetCropUrl("image", "Image");
-                            courseDetail.DetailsUrl = seminarNode.Url;
+                            courseDetail.ImageUrl = umbracoCourseDetail.ImageUrl;
+                            courseDetail.DetailsUrl = umbracoCourseDetail.DetailsUrl;
 
-                            if (true == seminarNode.HasValue("searchSummaryText"))
+                            if (false == string.IsNullOrEmpty(umbracoCourseDetail.SubTitle))
                             {
-                                courseDetail.SubTitle = seminarNode.GetPropertyValue<string>("searchSummaryText");
+                                courseDetail.SubTitle = umbracoCourseDetail.SubTitle;
                             }
                         }
 
@@ -105,11 +262,7 @@ namespace TPCTrainco.Cache.Controllers
                     courseDetailList = courseDetailList.Where(p => p.DetailsUrl != "#").ToList();
                 }
 
-
-                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
-                cache.Add(cacheKey, courseDetailList, policy);
-
-                DebugApp(" - Course Detail List Cache Updated", ref DebugStr);
+                DebugApp(" - Course Detail List Updated", ref DebugStr);
                 DebugApp("", ref DebugStr);
             }
 
@@ -117,16 +270,13 @@ namespace TPCTrainco.Cache.Controllers
         }
 
 
-        public List<LocationScheduleDetail> GetLocationScheduleDetailList()
+        private List<LocationScheduleDetail> GetLocationScheduleDetailList()
         {
-            string cacheKey = "LocationScheduleDetailList";
-            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleList"));
-            ObjectCache cache = MemoryCache.Default;
             int inc = 0;
 
-            string defaultSearchLocationText = Nodes.Instance.SeminarSearch.GetPropertyValue<string>("locationMessage");
+            string defaultSearchLocationText = GetUmbracoSummaryText();
 
-            List<LocationScheduleDetail> locationScheduleDetailList = cache.Get(cacheKey) as List<LocationScheduleDetail>;
+            List<LocationScheduleDetail> locationScheduleDetailList = null;
 
             if (locationScheduleDetailList == null)
             {
@@ -184,10 +334,13 @@ namespace TPCTrainco.Cache.Controllers
                                         locationScheduleDetail.LocationDetails = defaultSearchLocationText;
                                     }
 
-                                    locationScheduleDetail.Coordinates = legacyCity.Coordinates;
+                                    locationScheduleDetail.CoordinatesObj = legacyCity.Coordinates;
                                     locationScheduleDetail.DateFilter = legacySchedule.ScheduleDate;
                                     locationScheduleDetail.DateMonthYear = locationScheduleDetail.DateFilter.ToString("M-yyyy");
                                     locationScheduleDetail.Distance = 0;
+
+                                    locationScheduleDetail.SeminarId = scheduleCourse.CourseID;
+                                    locationScheduleDetail.SeminarTitle = legacyCourse.TitlePlain;
                                 }
 
                                 locationScheduleDetailList.Add(locationScheduleDetail);
@@ -199,11 +352,7 @@ namespace TPCTrainco.Cache.Controllers
                     }
                 }
 
-
-                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
-                cache.Add(cacheKey, locationScheduleDetailList, policy);
-
-                DebugApp(" - Location Schedule Detail List Cache Updated", ref DebugStr);
+                DebugApp(" - Location Schedule Detail List Updated", ref DebugStr);
                 DebugApp("", ref DebugStr);
             }
 
@@ -211,11 +360,55 @@ namespace TPCTrainco.Cache.Controllers
         }
 
 
+        private List<UmbracoCourseDetail> GetUmbracoCourseDetailList()
+        {
+            string json = null;
+            HttpClient client = new HttpClient();
+            string apiDomain = ConfigurationManager.AppSettings.Get("Cache:UmbracoCourseApiDomain");
+
+            HttpResponseMessage response = client.GetAsync(apiDomain + "/api/contents/CourseList").Result;
+            response.EnsureSuccessStatusCode();
+            json = response.Content.ReadAsStringAsync().Result;
+
+            return JsonConvert.DeserializeObject<List<UmbracoCourseDetail>>(json);
+        }
+
+
+        private string GetUmbracoSummaryText()
+        {
+            string output = null;
+
+            HttpClient client = new HttpClient();
+            string apiDomain = ConfigurationManager.AppSettings.Get("Cache:UmbracoCourseApiDomain");
+
+            try
+            {
+                HttpResponseMessage response = client.GetAsync(apiDomain + "/api/contents/SummaryText").Result;
+                response.EnsureSuccessStatusCode();
+
+                output = response.Content.ReadAsStringAsync().Result;
+
+                output = output.Trim("\"");
+            }
+            catch (Exception ex)
+            {
+                output = "Specific location will be provided via email approximately 4 weeks prior to seminar date.";
+            }
+
+            return output;
+        }
+
 
         private void DebugApp(string line, ref StringBuilder debug)
         {
             Debug.WriteLine(line);
             debug.AppendLine(line);
         }
+    }
+
+    public class CacheMessage
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; }
     }
 }

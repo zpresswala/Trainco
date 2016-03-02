@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Spatial;
 using Umbraco.Core.Persistence;
 using Umbraco.Core.Persistence.DatabaseAnnotations;
 
@@ -25,8 +26,16 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [NullSetting(NullSetting = NullSettings.Null)]
         public string LocationDetails { get; set; }
 
+        [ResultColumn]
+        public DbGeography CoordinatesObj
+        {
+            get { return DbGeography.FromText(Coordinates); }
+            set { Coordinates = value.AsText(); }
+        }
+
         [NullSetting(NullSetting = NullSettings.Null)]
-        public System.Data.Entity.Spatial.DbGeography Coordinates { get; set; }
+        public string Coordinates { get; set; }
+
 
         [NullSetting(NullSetting = NullSettings.Null)]
         public DateTime DateFilter { get; set; }
