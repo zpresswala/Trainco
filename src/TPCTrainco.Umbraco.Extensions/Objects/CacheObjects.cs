@@ -12,6 +12,7 @@ using Umbraco.Web;
 using Umbraco.Core.Models;
 using TPCTrainco.Umbraco.Extensions.Helpers;
 using System.Text.RegularExpressions;
+using Umbraco.Core.Persistence;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -336,7 +337,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public static List<CourseDetail> GetCourseDetailList()
         {
             string cacheKey = "CourseDetailList";
-            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:Courses"));
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CourseDetailList"));
             ObjectCache cache = MemoryCache.Default;
 
             List<CourseDetail> courseDetailList = cache.Get(cacheKey) as List<CourseDetail>;
@@ -345,54 +346,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Course Detail List to Cache...");
 
-                List<COURS> courseList = CacheObjects.GetCourseList();
-
-                courseList = courseList.Where(p => p.CourseTier > 0).ToList();
-
-                if (courseList != null && courseList.Count > 0)
+                using (var db = new Database("umbracoDbDSN"))
                 {
-                    Debug.WriteLine(" - Count: " + courseList.Count);
-
-                    courseList = courseList.OrderBy(p => p.CourseTier).ThenBy(t => t.CourseTopicID).ToList();
-
-                    courseDetailList = new List<CourseDetail>();
-
-                    foreach (COURS courseItem in courseList)
-                    {
-                        CourseDetail courseDetail = new CourseDetail();
-
-                        UmbracoHelper UmbracoHelperObj = new UmbracoHelper(UmbracoContext.Current);
-
-                        courseDetail.Id = courseItem.CourseID;
-                        courseDetail.TopicId = courseItem.CourseTopicID;
-                        courseDetail.CourseTier = courseItem.CourseTier ?? 0;
-                        courseDetail.Title = courseItem.TitlePlain;
-                        courseDetail.SubTitle = courseItem.WebToolTip;
-
-                        IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").Value != null && p.GetProperty("courseLink").Value.ToString() == courseItem.CourseID.ToString()).FirstOrDefault();
-
-                        courseDetail.ImageUrl = "/images/default-seminar.gif";
-                        courseDetail.DetailsUrl = "#";
-                        courseDetail.Price = Convert.ToDouble(courseItem.CourseFee);
-
-                        if (seminarNode != null)
-                        {
-                            IPublishedContent imageObject = UmbracoHelperObj.Content(seminarNode.Id);
-                            courseDetail.ImageUrl = imageObject.GetCropUrl("image", "Image");
-                            courseDetail.DetailsUrl = seminarNode.Url;
-
-                            if (true == seminarNode.HasValue("searchSummaryText"))
-                            {
-                                courseDetail.SubTitle = seminarNode.GetPropertyValue<string>("searchSummaryText");
-                            }
-                        }
-
-                        courseDetailList.Add(courseDetail);
-                    }
-
-                    courseDetailList = courseDetailList.Where(p => p.DetailsUrl != "#").ToList();
+                    courseDetailList = db.Query<CourseDetail>("SELECT * FROM CacheCourseDetail").ToList();
                 }
-
 
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, courseDetailList, policy);
@@ -408,11 +365,9 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public static List<LocationScheduleDetail> GetLocationScheduleDetailList()
         {
             string cacheKey = "LocationScheduleDetailList";
-            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleList"));
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:LocationScheduleDetailList"));
             ObjectCache cache = MemoryCache.Default;
             int inc = 0;
-
-            string defaultSearchLocationText = Nodes.Instance.SeminarSearch.GetPropertyValue<string>("locationMessage");
 
             List<LocationScheduleDetail> locationScheduleDetailList = cache.Get(cacheKey) as List<LocationScheduleDetail>;
 
@@ -420,73 +375,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 Debug.WriteLine("Location Schedule Detail List to Cache...");
 
-                List<SCHEDULE> seminarList = GetScheduleList();
-
-                if (seminarList != null && seminarList.Count > 0)
+                using (var db = new Database("umbracoDbDSN"))
                 {
-                    Debug.WriteLine(" - Count: " + seminarList.Count);
-
-                    locationScheduleDetailList = new List<LocationScheduleDetail>();
-
-                    foreach (SCHEDULE legacySchedule in seminarList)
-                    {
-                        LocationScheduleDetail locationScheduleDetail = new LocationScheduleDetail();
-
-                        ScheduleCourseInstructor scheduleCourse = GetScheduleCourseList().Where(p => p.ScheduleID == legacySchedule.ScheduleID).FirstOrDefault();
-                        COURS legacyCourse = GetCourseList().Where(p => p.CourseID == scheduleCourse.CourseID).FirstOrDefault();
-                        State legacyState = GetStateList().Where(p => p.StateID == legacySchedule.StateID).FirstOrDefault();
-                        City legacyCity = GetCityAllList().Where(p => p.CityID == legacySchedule.CityID).FirstOrDefault();
-
-                        if (true)
-                        {
-                            if (scheduleCourse != null && legacyCourse != null && legacyState != null && legacyCity != null)
-                            {
-                                COURS course = GetCourseList().Where(p => p.CourseID == scheduleCourse.CourseID).FirstOrDefault();
-
-                                if (course != null)
-                                {
-                                    locationScheduleDetail.Id = legacySchedule.ScheduleID;
-                                    locationScheduleDetail.ParentId = legacySchedule.ScheduleParentID ?? 0;
-                                    locationScheduleDetail.ScheduleSeminarNumber = legacySchedule.ScheduleSeminarNumber;
-                                    locationScheduleDetail.TopicId = legacyCourse.CourseTopicID;
-                                    locationScheduleDetail.CourseId = scheduleCourse.CourseID;
-                                    locationScheduleDetail.DaysTitle = GetDaysTitle(course.CourseFormatID);
-                                    locationScheduleDetail.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");
-                                    locationScheduleDetail.Date = legacySchedule.ScheduleDateDescription;
-                                    locationScheduleDetail.Price = Convert.ToDouble(course.CourseFee);
-                                    locationScheduleDetail.Description = course.GoogleDesc ?? course.TitlePlain;
-
-                                    locationScheduleDetail.City = legacyCity.CityName;
-                                    locationScheduleDetail.StateCode = legacyState.StateAbbreviation;
-                                    locationScheduleDetail.State = legacyState.StateName;
-
-                                    // get exact location
-                                    Location locationDetail = GetLocationList().Where(p => p.LocationID == legacySchedule.LocationID).FirstOrDefault();
-
-                                    if (locationDetail != null)
-                                    {
-                                        locationScheduleDetail.LocationDetails = GetLocationDetails(locationDetail, locationScheduleDetail);
-                                    }
-                                    else
-                                    {
-                                        locationScheduleDetail.LocationDetails = defaultSearchLocationText;
-                                    }
-
-                                    locationScheduleDetail.Coordinates = legacyCity.Coordinates;
-                                    locationScheduleDetail.DateFilter = legacySchedule.ScheduleDate;
-                                    locationScheduleDetail.DateMonthYear = locationScheduleDetail.DateFilter.ToString("M-yyyy");
-                                    locationScheduleDetail.Distance = 0;
-                                }
-
-                                locationScheduleDetailList.Add(locationScheduleDetail);
-                            }
-                        }
-
-                        inc++;
-                        Debug.WriteLine(" - Adding... " + inc);
-                    }
+                    locationScheduleDetailList = db.Query<LocationScheduleDetail>("SELECT * FROM CacheLocationScheduleDetail").ToList();
                 }
-
 
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, locationScheduleDetailList, policy);
@@ -504,7 +396,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         /// </summary>
         /// <param name="courseFormatId"></param>
         /// <returns></returns>
-        protected static string GetDaysTitle(int courseFormatId)
+        public static string GetDaysTitle(int courseFormatId)
         {
             string daysTitle = "";
 
@@ -519,7 +411,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        protected static string GetLocationDetails(Location locationDetail, LocationScheduleDetail locationScheduleDetail)
+        public static string GetLocationDetails(Location locationDetail, LocationScheduleDetail locationScheduleDetail)
         {
             string output = "";
 

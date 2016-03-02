@@ -28,7 +28,6 @@ tmp
 *.bak
 *.backup
 *.build.csdef
-*.cache
 *.ilk
 *.lib
 *.log

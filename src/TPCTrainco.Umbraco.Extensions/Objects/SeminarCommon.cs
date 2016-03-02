@@ -164,12 +164,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 GeoCoordinates.UpdateCityCoordinates();
             }
 
-            tempSearch = locationScheduleDetailSearch.Where(x => x.Coordinates != null && x.Coordinates.Distance(coordinateDetails.DbGeography) * 0.00062 <= radiusInMiles)
-                    .OrderBy(p => p.Coordinates.Distance(coordinateDetails.DbGeography)).ToList();
+            tempSearch = locationScheduleDetailSearch.Where(x => x.CoordinatesObj != null && x.CoordinatesObj.Distance(coordinateDetails.DbGeography) * 0.00062 <= radiusInMiles)
+                    .OrderBy(p => p.CoordinatesObj.Distance(coordinateDetails.DbGeography)).ToList();
 
             foreach (LocationScheduleDetail updateCoordinates in tempSearch)
             {
-                updateCoordinates.Distance = updateCoordinates.Coordinates.Distance(coordinateDetails.DbGeography);
+                updateCoordinates.Distance = updateCoordinates.CoordinatesObj.Distance(coordinateDetails.DbGeography);
             }
 
             return tempSearch;
