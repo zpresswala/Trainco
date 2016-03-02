@@ -34,12 +34,18 @@ namespace TPCTrainco.Cache.Controllers
 
         // GET api/cache/update
         [HttpGet]
-        public CacheMessage Index()
+        public CacheMessage Index(string key)
         {
             DebugApp("-= CACHE PROCESS START =-", ref DebugStr);
             DebugApp("", ref DebugStr);
 
             CacheMessage.Success = false;
+
+            if (key.ToLower() != ConfigurationManager.AppSettings.Get("Cache:ApiKey").ToLower())
+            {
+                CacheMessage.Message = "Invalid Key";
+                return CacheMessage;
+            }
 
             try
             {
@@ -212,7 +218,7 @@ namespace TPCTrainco.Cache.Controllers
             {
                 DebugApp("Course Detail List to Cache...", ref DebugStr);
 
-                List<COURS> courseList = CacheObjects.GetCourseList();
+                List<COURS> courseList = CacheObjects.GetCourseList(true);
 
 
                 DebugApp("Umbraco Course Detail List...", ref DebugStr);
@@ -276,13 +282,15 @@ namespace TPCTrainco.Cache.Controllers
 
             string defaultSearchLocationText = GetUmbracoSummaryText();
 
+            List<ScheduleCourseInstructor> scheduleCourseInstructorList = CacheObjects.GetScheduleCourseList(true);
+
             List<LocationScheduleDetail> locationScheduleDetailList = null;
 
             if (locationScheduleDetailList == null)
             {
                 DebugApp("Location Schedule Detail List to Cache...", ref DebugStr);
 
-                List<SCHEDULE> seminarList = CacheObjects.GetScheduleList();
+                List<SCHEDULE> seminarList = CacheObjects.GetScheduleList(true);
 
                 if (seminarList != null && seminarList.Count > 0)
                 {
@@ -294,7 +302,7 @@ namespace TPCTrainco.Cache.Controllers
                     {
                         LocationScheduleDetail locationScheduleDetail = new LocationScheduleDetail();
 
-                        ScheduleCourseInstructor scheduleCourse = CacheObjects.GetScheduleCourseList().Where(p => p.ScheduleID == legacySchedule.ScheduleID).FirstOrDefault();
+                        ScheduleCourseInstructor scheduleCourse = scheduleCourseInstructorList.Where(p => p.ScheduleID == legacySchedule.ScheduleID).FirstOrDefault();
                         COURS legacyCourse = CacheObjects.GetCourseList().Where(p => p.CourseID == scheduleCourse.CourseID).FirstOrDefault();
                         State legacyState = CacheObjects.GetStateList().Where(p => p.StateID == legacySchedule.StateID).FirstOrDefault();
                         City legacyCity = CacheObjects.GetCityAllList().Where(p => p.CityID == legacySchedule.CityID).FirstOrDefault();

@@ -21,7 +21,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public static DateTime dateStart = DateTime.Now.AddDays(-7);
         public static DateTime dateEnd = DateTime.Now.AddMonths(18);
 
-        public static List<Seminar_Catalog> GetSeminarList()
+        public static List<Seminar_Catalog> GetSeminarList(bool forceCacheRefresh = false)
         {
             string cacheKey = "SeminarList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:SeminarList"));
@@ -29,7 +29,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<Seminar_Catalog> seminarList = cache.Get(cacheKey) as List<Seminar_Catalog>;
 
-            if (seminarList == null)
+            if (true == forceCacheRefresh || seminarList == null)
             {
                 Debug.WriteLine("Adding Seminar List to Cache...");
 
@@ -49,7 +49,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<SCHEDULE> GetScheduleList()
+        public static List<SCHEDULE> GetScheduleList(bool forceCacheRefresh = false)
         {
             string cacheKey = "ScheduleList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleList"));
@@ -57,7 +57,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<SCHEDULE> scheduleList = cache.Get(cacheKey) as List<SCHEDULE>;
 
-            if (scheduleList == null)
+            if (true == forceCacheRefresh || scheduleList == null)
             {
                 Debug.WriteLine("Adding Schedule List to Cache...");
 
@@ -80,7 +80,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<COURS> GetCourseList()
+        public static List<COURS> GetCourseList(bool forceCacheRefresh = false)
         {
             string cacheKey = "CourseList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:Courses"));
@@ -88,7 +88,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<COURS> courseList = cache.Get(cacheKey) as List<COURS>;
 
-            if (courseList == null)
+            if (true == forceCacheRefresh || courseList == null)
             {
                 Debug.WriteLine("Adding Course List to Cache");
 
@@ -136,7 +136,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<ScheduleCourseInstructor> GetScheduleCourseList()
+        public static List<ScheduleCourseInstructor> GetScheduleCourseList(bool forceCacheRefresh = false)
         {
             string cacheKey = "ScheduleCourseList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleCourses"));
@@ -144,7 +144,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<ScheduleCourseInstructor> scheduleCourseList = cache.Get(cacheKey) as List<ScheduleCourseInstructor>;
 
-            if (scheduleCourseList == null)
+            if (true == forceCacheRefresh || scheduleCourseList == null)
             {
                 Debug.WriteLine("Adding ScheduleCourse List to Cache...");
 
@@ -421,16 +421,57 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (false == string.IsNullOrWhiteSpace(locationDetails))
                 {
-                    var startTag = "<b>LOCATION";
-                    int startIndex = locationDetails.IndexOf(startTag) + startTag.Length;
-                    int endIndex = locationDetails.IndexOf("<b>", startIndex);
-                    output = locationDetails.Substring(startIndex, endIndex - startIndex);
+                    string location = "";
 
-                    output = output.Replace("<b>LOCATION", "");
-                    output = Regex.Replace(output, "<b>", "");
-                    output = Regex.Replace(output, "</b>", "");
-                    output = output.Trim();
-                    output = output.Replace("\r", "<br />" + Environment.NewLine);
+                    List<string> locationArray = locationDetails.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+
+                    if (locationArray == null || locationArray.Count <= 1)
+                    {
+                        locationArray = locationDetails.Split(new string[] { "\r" }, StringSplitOptions.None).ToList();
+                    }
+
+                    if (locationArray != null && locationArray.Count > 0)
+                    {
+                        //location = Regex.Match(locationDetails, String.Format(@"{0}\s(?<words>[\w\s]+)\s{1}", leftWord, rightWord)).Groups["words"].Value;
+
+                        bool foundLocation = false;
+
+                        foreach (string line in locationArray)
+                        {
+                            if (line == "")
+                            {
+                                foundLocation = false;
+                            }
+
+                            if (true == foundLocation)
+                            {
+                                location += line + ", " + Environment.NewLine;
+                            }
+
+
+                            if (line.IndexOf("LOCATION") >= 0)
+                            {
+                                foundLocation = true;
+                            }
+                        }
+                    }
+
+                    location = location.TrimEnd(new char[] { '\r', '\n', ' ', ',' });
+                    location = location.TrimEnd(' ');
+                    location = location.TrimEnd(',');
+                    location = location.Trim();
+                    output = location;
+
+                    //var startTag = "<b>LOCATION";
+                    //int startIndex = locationDetails.IndexOf(startTag) + startTag.Length;
+                    //int endIndex = locationDetails.IndexOf("<b>", startIndex);
+                    //output = locationDetails.Substring(startIndex, endIndex - startIndex);
+
+                    //output = output.Replace("<b>LOCATION", "");
+                    //output = Regex.Replace(output, "<b>", "");
+                    //output = Regex.Replace(output, "</b>", "");
+                    //output = output.Trim();
+                    //output = output.Replace("\r", "<br />" + Environment.NewLine);
                 }
             }
             if (true == string.IsNullOrWhiteSpace(output))
