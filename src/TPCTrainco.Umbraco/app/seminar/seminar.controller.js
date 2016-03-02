@@ -5,19 +5,12 @@
     .module('train.seminar')
     .controller('SeminarController', SeminarController);
   /** @ngInject */
-  function SeminarController($log, courseSearch, cartService, $timeout, $document, $window, $rootScope, $scope, MonthSvc, _) {
+  function SeminarController($log, courseSearch, cartService, UtilitySvc, $timeout, $document, $window, $rootScope, $scope, MonthSvc, _) {
     var vm = this;
 
     vm.courseId = {};
 
     requestSeminarData(courseSearch);
-
-  function calculateTotalPrice(itemList) {
-    var totalPrice = itemList ? itemList.reduce(function (acc, item) {
-      return acc + item.quantity * parseFloat(item.price);
-    }, 0) : 0;
-    return parseFloat(totalPrice.toFixed(2));
-  }
 
     vm.detailPop = {
       templateUrl: '/app/seminar/seminarPop.html'
@@ -48,7 +41,7 @@
       cartService.addItem(item, qty)
 
       vm.cartItemList = cartService.getCartItems() || [];
-      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      vm.cartTotalPrice = UtilitySvc.calculateTotalPrice(vm.cartItemList);
 
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
       // dirty, but gets the job done. Changes the button text to
@@ -85,11 +78,11 @@
     var combinedMonthNames = _.map(combinedMonthsArray, _.property('name'));
     var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
     vm.monthsSlider = {
-      minValue: parseInt(combinedMonthValues[0]-2),
-      maxValue:  parseInt(combinedMonthValues[3]),
+      minValue: 0,
+      maxValue: 5,
       options: {
-        floor: parseInt(combinedMonthValues[0]-2),
-        ceil: parseInt(combinedMonthValues[11]),
+        floor: 0,
+        ceil: 11,
         showTicks: true,
         showSelectionBarEnd: true,
         showTicksValues: true,
@@ -101,16 +94,17 @@
     };
     $timeout(function() {
       $scope.$broadcast('rzSliderForceRender');
-      $('.tick > span').each(function (index, item) {
+      $('.tick > span').each(function(index, item) {
         var $item = $(item);
         var html = $item.html();
         var numTest = /^([^\d]+)(\d+)$/;
         var hasYear = numTest.test(html);
 
         if (hasYear) {
-          $item.html(html.replace(numTest, '$1<span class="yearblock">$2</span>'));
+          $item.html(html.replace(numTest, '<span class="monthblock">$1</span><span class="yearblock">$2</span>'));
         }
-      }) }, 300);
+      })
+    }, 300);
     function watchHandles() {
       var mapNum = parseInt(combinedMonthValues[0]);
       var thisYear = (new Date()).getFullYear();
@@ -125,47 +119,46 @@
       vm.filterMax = maxValue + '-' + thisYear;
 
 
-    function fixFormat(badDate) {
-      var x = badDate.replace(/^(\d+\-)/, '$11-').replace(/\-/g, '/');
-      return x;
-    }
+      function fixFormat(badDate) {
+        var x = badDate.replace(/^(\d+\-)/, '$11-').replace(/\-/g, '/');
+        return x;
+      }
 
-    vm.isBetween = function(testDate) {
-      return function(item) {
+      vm.isBetween = function(testDate) {
+        return function(item) {
 
-      var testDate = item.dateMonthYear;
-      var beginDate = vm.filterMin;
-      var endDate = vm.filterMax;
+          var testDate = item.dateMonthYear;
+          var beginDate = vm.filterMin;
+          var endDate = vm.filterMax;
 
+          var fixTest = new Date(fixFormat(testDate));
+          var fixBegin = new Date(fixFormat(beginDate));
+          var fixEnd = new Date(fixFormat(endDate));
+          var testMonth = fixTest.getMonth();
+          var beginMonth = fixBegin.getMonth();
+          var endMonth = fixEnd.getMonth();
+          var testYear = fixTest.getFullYear();
+          var beginYear = fixBegin.getFullYear();
+          var endYear = fixEnd.getFullYear();
+          // only chrome makes it past
+          if (testYear >= beginYear && testYear <= endYear) {
+            if (testYear < endYear) {
+              if (testMonth >= beginMonth) {
 
-      var fixTest = new Date(fixFormat(testDate));
-      var fixBegin = new Date(fixFormat(beginDate));
-      var fixEnd = new Date(fixFormat(endDate));
-      var testMonth = fixTest.getMonth();
-      var beginMonth = fixBegin.getMonth();
-      var endMonth = fixEnd.getMonth();
-      var testYear = fixTest.getFullYear();
-      var beginYear = fixBegin.getFullYear();
-      var endYear = fixEnd.getFullYear();
-      // only chrome makes it past
-      if (testYear >= beginYear && testYear <= endYear) {
-        if (testYear < endYear) {
-          if (testMonth >= beginMonth) {
+                return true;
+              }
+            } else {
+              if (testMonth >= beginMonth && testMonth <= endMonth) {
 
-            return true;
+                return true;
+              }
+            }
           }
-        } else {
-          if (testMonth >= beginMonth && testMonth <= endMonth) {
-
-            return true;
-          }
+          return false;
         }
       }
-      return false;
     }
-  }
-}
-watchHandles()
+    watchHandles()
     function activate() {
       var classId = localStorage.getItem('classId');
     }

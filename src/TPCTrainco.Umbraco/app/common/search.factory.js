@@ -9,8 +9,6 @@
   function Search($log, $http) {
     var apiHost = 'http://trainco.axial-client.com/api/seminars2/search/';
     var today = new Date();
-    var thisYear = today.getFullYear();
-
 
     var service = {
       apiHost: apiHost,
@@ -27,7 +25,7 @@
           '&location=' + searchObj.locParam +
           '&radius=' + searchObj.radiusParam +
           '&topics=' + theTopics +
-          '&date-start=' + searchObj.defStart + '-01-' + thisYear +
+          '&date-start=' + searchObj.defStart + '-01-' + searchObj.startYear +
           '&date-end=' + searchObj.defEnd + '-01-' + searchObj.endYear, {
             cache: true
           })

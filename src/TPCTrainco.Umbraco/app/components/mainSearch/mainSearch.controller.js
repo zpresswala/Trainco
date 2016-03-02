@@ -7,7 +7,7 @@
 
   /** @ngInject */
   /** @ngInject */
-  function MainSearchController($location, $log, Cities, MonthSvc, $localStorage, $timeout, $scope, _) {
+  function MainSearchController($location, $log, Cities, MonthSvc, $localStorage, $timeout, $rootScope, $scope, _) {
     var vm = this;
     vm.$storage = $localStorage;
 
@@ -45,13 +45,13 @@
 
     var combinedMonthNames = _.map(combinedMonthsArray, _.property('name'));
     var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
-    $log.debug(combinedMonthNames)
+
     vm.sliderValues = {
-      minValue: parseInt(combinedMonthValues[0] - 3),
-      maxValue: parseInt(combinedMonthValues[3]),
+      minValue: 0,
+      maxValue: 5,
       options: {
-        floor: parseInt(combinedMonthValues[0] - 2),
-        ceil: parseInt(combinedMonthValues[11]),
+        floor: 0,
+        ceil: 11,
         showTicks: true,
         showSelectionBarEnd: true,
         showTicksValues: true,
@@ -96,13 +96,15 @@
       var theloc = vm.courseSearch.location.trim();
       vm.$storage.SearchLocation = theloc || ' ';
 
-      function checkYear() {
+      function checkYear(bound) {
         var today = new Date();
-        if (combinedMonthValues[defStart] >= combinedMonthValues[defEnd]) {
-          return today.getFullYear() + 1;
-        } else {
-          return today.getFullYear();
-        }
+        var curMonth = today.getMonth();
+        var toCheck = parseInt(vm.sliderValues[bound]) - 1;
+          if (toCheck < curMonth) {
+            return today.getFullYear() + 1;
+          } else {
+            return today.getFullYear();
+          }
       }
 
       vm.$storage.SearchTopic1 = vm.topicParam1;
@@ -111,7 +113,8 @@
       vm.$storage.SearchTopic4 = vm.topicParam4;
       vm.$storage.SearchDRmin = combinedMonthValues[defStart];
       vm.$storage.SearchDRmax = combinedMonthValues[defEnd];
-      vm.$storage.SearchDRyear = checkYear();
+      vm.$storage.SearchDRyear = checkYear('max');
+      vm.$storage.SearchDRstartyear = checkYear('min');
 
       window.location.href = '/search-seminars';
     }

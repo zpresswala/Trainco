@@ -24,14 +24,14 @@
 <div id="register-seminars" class="row ng-cloak" ng-controller="SeminarController as seminar" data-classid="@CurrentPage.courseLink">
   <div class="container">
     <p class="slider-instructions">
-      Adjust the date range to expand or narrow the seminar list below.
+      Upcoming Dates and Locations.
     </p>
   <div class="slider-wrap">
       <rzslider rz-slider-model="seminar.monthsSlider.minValue" ng-model="seminar.monthsSlider"  rz-slider-high="seminar.monthsSlider.maxValue" rz-slider-options="seminar.monthsSlider.options"></rzslider>
     </div>
         <div class="row">
           <div class="col-sm-12 col-md-6 course-col-header">
-            <span class="left-course-head seminar-register">Choose a location and date below to register.</span>
+            <span class="left-course-head seminar-register">Choose your date range, then select a date/location from the list below.</span>
           </div>
           <div class="col-sm-12 col-md-6 course-col-header">
             <a class="register-link seminar-training" href="/on-site-training/">Want this training at your facility instead?</a>

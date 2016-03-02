@@ -46,7 +46,7 @@
         <h5>- or -</h5>
         <div class="input-group">
           <span class="input-group-addon">
-            <input ng-model="ctrl.locSearchFilter.locationAll" ng-init="ctrl.locSearchFilter.locationAll=true" ng-change="ctrl.locSearchFilter.location = ''" type="checkbox">All Locations
+            <input ng-model="ctrl.locSearchFilter.locationAll" ng-change="ctrl.locWatcher()"  type="checkbox">All Locations
           </span>
         </div>
       </div>
@@ -78,13 +78,13 @@
           <label class="sidebar-label">Seminar Topic</label>
           <div class="input-group">
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.categories.electrical" ng-change="ctrl.stateChanged(ctrl.categories[category])">Electrical</label>
+              <input type="checkbox" ng-model="ctrl.categories.electrical" ng-checked="ctrl.$storage.SearchTopic2" ng-change="ctrl.stateChanged(ctrl.categories[category])">Electrical</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.categories.hvac" ng-change="ctrl.stateChanged(ctrl.categories[category])">HVAC</label>
+              <input type="checkbox" ng-model="ctrl.categories.hvac" ng-checked="ctrl.$storage.SearchTopic1" ng-change="ctrl.stateChanged(ctrl.categories[category])">HVAC</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.categories.management" ng-change="ctrl.stateChanged(ctrl.categories[category])">Plant Management</label>
+              <input type="checkbox" ng-model="ctrl.categories.management" ng-checked="ctrl.$storage.SearchTopic4" ng-change="ctrl.stateChanged(ctrl.categories[category])">Plant Management</label>
             <label class="sidebar-label">
-              <input type="checkbox" ng-model="ctrl.categories.mechanical" ng-change="ctrl.stateChanged(ctrl.categories[category])">Mechanical &amp; Industrial</label>
+              <input type="checkbox" ng-model="ctrl.categories.mechanical" ng-checked="ctrl.$storage.SearchTopic3" ng-change="ctrl.stateChanged(ctrl.categories[category])">Mechanical &amp; Industrial</label>
             <label class="sidebar-label">
               <input type="checkbox" ng-model="ctrl.categories.all" ng-change="ctrl.stateChanged(ctrl.categories[category])">All Seminar Topics</label>
           </div>
@@ -96,7 +96,7 @@
           <h5>- or -</h5>
           <div class="input-group">
             <span class="input-group-addon">
-              <input ng-model="ctrl.locSearchFilter.locationAll" ng-init="ctrl.locSearchFilter.locationAll=true" ng-change="ctrl.locWatcher()" type="checkbox">All Locations
+              <input ng-model="ctrl.locSearchFilter.locationAll" ng-change="ctrl.locWatcher()" type="checkbox">All Locations
             </span>
           </div>
         </div>
@@ -106,7 +106,6 @@
         <hr class="divider" />
         <label>Date Range</label>
         <h5>From</h5>
-
         <select ng-model="ctrl.dateRange.start" ng-options="month.value as month.name for month in ctrl.startingMonthArray" ng-change="ctrl.fromDateWatcher()"></select>
         <h5>Through</h5>
         <select ng-model="ctrl.dateRange.end" ng-options="month.value as month.name for month in ctrl.yearOfMonths" ng-change="ctrl.dateWatcher()"></select>

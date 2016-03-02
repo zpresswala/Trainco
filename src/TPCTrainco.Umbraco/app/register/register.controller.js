@@ -5,41 +5,20 @@
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
-  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, MonthSvc, $loading, $timeout, $document, $window) {
+  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, MonthSvc, $loading, $timeout, $document, $window) {
     var vm = this;
     vm.kwFilter = {};
     vm.mileRange = {};
     vm.locSearchFilter = {};
+    vm.locSearchFilter.locationAll = false;
     var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-    var searchObj = {
-      keywordParam: '',
-      locParam: '',
-      topicParam1: '',
-      topicParam2: '',
-      topicParam3: '',
-      topicParam4: '',
-      defStart: '',
-      defEnd: ''
-    }
+
     vm.dateRange = {};
     vm.$storage = $localStorage;
     vm.searchFired = false; // determines whether or not we will show an error message.
     vm.sbIsCollapsed = true; // mobile sidebar converted into menu.
 
     activate();
-
-    /**
-     * calculates the price for all the items in the shopping cart.
-     * @method calculateTotalPrice
-     * @param  {array}            itemList the items in the cart
-     * @return {int}                     the price.
-     */
-    function calculateTotalPrice(itemList) {
-      var totalPrice = itemList ? itemList.reduce(function(acc, item) {
-        return acc + item.quantity * parseFloat(item.price);
-      }, 0) : 0;
-      return parseFloat(totalPrice.toFixed(2));
-    }
 
     function receiveSeminarData(seminarsData) {
       vm.initialDirections = false;
@@ -62,6 +41,8 @@
       delete vm.$storage.SearchTopic4;
       delete vm.$storage.SearchDRmin;
       delete vm.$storage.SearchDRmax;
+      delete vm.$storage.SearchDRyear;
+      delete vm.$storage.SearchDRstartyear;
     }
 
     /**
@@ -73,6 +54,8 @@
       if (vm.$storage.SearchLocation) {
         var keywordParam = '';
         vm.initialDirections = true;
+        vm.locSearchFilter.location = vm.$storage.SearchLocation;
+
         var searchObj = {
           keywordParam: null,
           locParam: vm.$storage.SearchLocation,
@@ -83,17 +66,15 @@
           defStart: vm.$storage.SearchDRmin,
           defEnd: vm.$storage.SearchDRmax
         }
-        vm.$storage.searchObj = searchObj;
-        doParamSearch();
 
-        localStorage.removeItem('ngStorage-SearchDRmin');
-        localStorage.removeItem('ngStorage-SearchDRmax');
+        doParamSearch(searchObj);
       } else {
         // showDirections displays the default blank state message
         vm.showDirections = true;
       }
+
       vm.cartItemList = cartService.getCartItems() || [];
-      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
+      vm.cartTotalPrice = UtilitySvc.calculateTotalPrice(vm.cartItemList);
     }
 
     /**
@@ -110,12 +91,11 @@
      *
      */
     vm.addItemToCart = function(item, qty, $event) {
-      $log.debug(item, qty, $event)
       cartService.addItem(item, qty)
 
-      vm.cartItemList = cartService.getCartItems() || [];
-      vm.cartTotalPrice = calculateTotalPrice(vm.cartItemList);
-      $log.debug(vm.cartItemList)
+      vm.cartItemList = cartService.getCartItems();
+      vm.cartTotalPrice = UtilitySvc.calculateTotalPrice(vm.cartItemList);
+
       $rootScope.$broadcast('cartUpdated', vm.cartItemList);
       // dirty, but gets the job done. Changes the button text to
       // display added on click.
@@ -228,19 +208,6 @@
       $rootScope.$broadcast('topic', vm.categories);
     }
 
-    function anyAreTrue(obj) {
-      var labels = ['hvac', 'electrical', 'mechanical', 'management'];
-      var output = false;
-      labels.every(function (label) {
-        if (obj[label]) {
-          output = true;
-          return false;
-        }
-        return true;
-      });
-      return output;
-    }
-
     vm.$storage.SearchTopic5 = true;
 
     // Listens for a broadcast saying topic and then
@@ -249,7 +216,6 @@
       var labelsArray = ['hvac', 'electrical', 'mechanical', 'management', 'all'];
       var previouslyAll = vm.$storage.SearchTopic5;
 
-      $log.debug(previouslyAll, anyAreTrue(data));
       // if all was previously false but now it's true, set the others
       // to false and end.
       if (!previouslyAll && data.all === true) {
@@ -260,20 +226,16 @@
          vm.categories.all = true;
       // if all was previously true and any are true now,
       // set all to false and end.
-      } else if (previouslyAll && anyAreTrue(data)) {
+    } else if (previouslyAll && UtilitySvc.anyAreTrue(data)) {
         vm.categories.all = false;
       }
 
-      vm.$storage.SearchTopic1 = data.hvac ? 'hvac' : undefined;
-      vm.$storage.SearchTopic2 = data.electrical ? 'electrical' : undefined;
-      vm.$storage.SearchTopic3 = data.mechanical ? 'mechanical' : undefined;
-      vm.$storage.SearchTopic4 = data.management ? 'management' : undefined;
       vm.$storage.SearchTopic5 = vm.categories.all;
 
-      vm.topicParam1 = vm.$storage.SearchTopic1;
-      vm.topicParam2 = vm.$storage.SearchTopic2;
-      vm.topicParam3 = vm.$storage.SearchTopic3;
-      vm.topicParam4 = vm.$storage.SearchTopic4;
+      vm.topicParam1 = data.hvac ? 'hvac' : undefined;
+      vm.topicParam2 = data.electrical ? 'electrical' : undefined;
+      vm.topicParam3 = data.mechanical ? 'mechanical' : undefined;
+      vm.topicParam4 = data.management ? 'management' : undefined;
 
       doParamSearch();
     });
@@ -283,58 +245,65 @@
     var thisMonth = today.getMonth();
     var thisYear = today.getFullYear();
     var monthNames = MonthSvc.getMonths();
-    var curMonthArrayVal = monthNames.slice(thisMonth);
+
+    var curYearArray = monthNames.slice(thisMonth).map(function addYear(month) {
+      return {
+        name: month.name + ' ' + (thisYear),
+        value: month.value
+      }
+    });
+
     vm.startingMonthArray =
-      monthNames.slice(thisMonth)
-        .map(function addYear(month) {
+      curYearArray.concat(monthNames.slice(0, thisMonth).map(
+        function addYear(month) {
           if (parseInt(month.value) <= 12) {
             return {
-              name: month.name + ' ' + (thisYear),
+              name: month.name + ' ' + (thisYear + 1),
               value: month.value
             }
           } else {
             return month
           }
-        });
-    vm.yearOfMonths = vm.startingMonthArray
-    .concat(monthNames
-    .slice(0, thisMonth)
-    .map(function addYear(month) {
-      if (parseInt(month.value) <= 12) {
-        return {
-          name: month.name + ' ' + (thisYear + 1),
-          value: month.value
+      }));
+    vm.yearOfMonths =
+      curYearArray.concat(monthNames.slice(0, thisMonth).map(function addYear(month) {
+        if (parseInt(month.value) <= 12) {
+          return {
+            name: month.name + ' ' + (thisYear + 1),
+            value: month.value
+          }
+        } else {
+          return month
         }
-      } else {
-        return month
-      }
-    }));
-    var defaultStart = vm.startingMonthArray[0].value;
-    var defaultEnd = vm.startingMonthArray[3].value;
+      }));
 
-    function checkYear() {
+    function checkYear(bound) {
       var today = new Date();
-      if (vm.dateRange.start >= vm.dateRange.end) {
-        return today.getFullYear() + 1;
-      } else {
-        return today.getFullYear();
-      }
+      var curMonth = today.getMonth();
+      var toCheck = parseInt(vm.dateRange[bound]) - 1;
+        if (toCheck < curMonth) {
+          return today.getFullYear() + 1;
+        } else {
+          return today.getFullYear();
+        }
     }
 
-    function doParamSearch() {
+    function doParamSearch(searchObj) {
       $loading.start('courses');
-
+      var today = new Date();
+      var thisMonth = today.getMonth();
       var searchObj = {
-        keywordParam: vm.kwFilter.word || vm.$storage.kword,
-        locParam: vm.locSearchFilter.location || vm.$storage.SearchLocation,
-        radiusParam: vm.mileRange.value || '250',
-        topicParam1: vm.topicParam1 || vm.$storage.SearchTopic1,
-        topicParam2: vm.topicParam2 || vm.$storage.SearchTopic2,
-        topicParam3: vm.topicParam3 || vm.$storage.SearchTopic3,
-        topicParam4: vm.topicParam4 || vm.$storage.SearchTopic4,
-        defStart: vm.dateRange.start ||vm.$storage.SearchDRmin || defaultStart,
-        defEnd: vm.dateRange.end || vm.$storage.SearchDRmax || defaultEnd,
-        endYear: vm.$storage.SearchDRyear || checkYear()
+        keywordParam: vm.kwFilter.word,
+        locParam: vm.locSearchFilter.location,
+        radiusParam: vm.mileRange.value || '500',
+        topicParam1: vm.topicParam1,
+        topicParam2: vm.topicParam2,
+        topicParam3: vm.topicParam3,
+        topicParam4: vm.topicParam4,
+        defStart: vm.dateRange.start || today.getMonth(),
+        startYear: checkYear('start'),
+        defEnd: vm.dateRange.end || (today.getMonth() + 3),
+        endYear: checkYear('end')
       }
 
       Search.performSearch(searchObj).then(function(data) {
@@ -348,7 +317,7 @@
           // Set showDirections to false because a search has now been executed
           // and that search returns results.
           vm.showDirections = false;
-          delete vm.$storage.SearchDRyear;
+        //  delete vm.$storage.SearchDRyear;
         } else {
           // Set showDirections to true if a search was made, but doesnt have results because
           // we will be displaying and setting searchFired to true in order to display
@@ -375,6 +344,7 @@
       vm.categories.management = false;
       vm.categories.mechanical = false;
       vm.categories.all = false;
+      vm.locSearchFilter.locationAll = false;
     }
 
     vm.clearFilters = function() {
