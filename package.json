@@ -65,7 +65,8 @@
   "directories": {
     "src": "./client",
     "dist": "./dist",
-    "test": "./test"
+    "test": "./test",
+    "umb": "./src/TPCTrainco.Umbraco"
   },
   "config": {
     "verbose": false,

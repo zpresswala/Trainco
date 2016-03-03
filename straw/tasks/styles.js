@@ -40,7 +40,7 @@ let sassOpts = {
   sourcemap: true,
   outputStyle: 'nested',
   errLogToConsole: true
-}
+};
 
 gulp.task('styles', function() {
   return gulp.src(`${config.src}/sass/main.scss`)
@@ -52,7 +52,7 @@ gulp.task('styles', function() {
     .pipe(envDev ? gutil.noop() : rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest(`${config.dist}/css`))
+    .pipe(gulp.dest(`${config.umb}/css`))
     .pipe(filter('**/*.css'))
     .pipe(browserSync.stream());
 
