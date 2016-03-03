@@ -6,8 +6,8 @@
     .factory('Search', Search);
 
   /** @ngInject */
-  function Search($log, $http) {
-    var apiHost = 'http://trainco.axial-client.com/api/seminars2/search/';
+  function Search($log, $http, CONSTANTS) {
+    var apiHost = CONSTANTS.API_URL;
     var today = new Date();
 
     var service = {

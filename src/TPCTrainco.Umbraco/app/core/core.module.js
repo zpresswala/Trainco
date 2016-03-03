@@ -17,6 +17,7 @@
     'ngStorage',
     'angular.filter',
     'darthwade.loading'
-  ]);
+  ]).constant('CONSTANTS', {
+    'API_URL': 'https://api.flayk.com/v1'});
 
 }());

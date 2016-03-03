@@ -1,12 +1,11 @@
 (function() {
   'use strict';
+  /** @ngInject */
   angular
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
-  RegisterController.$inject = ['$rootScope', '$scope', '$log', 'Search', '$localStorage', 'cartService', 'UtilitySvc', 'MonthSvc', '$loading', '$timeout', '$document', '$window'];
-  /** @ngInject */
-  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, MonthSvc, $loading, $timeout, $document, $window) {
+  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, MonthSvc, $loading, $timeout, $document, $window, CONSTANTS) {
     var vm = this;
     vm.kwFilter = {};
     vm.mileRange = {};
@@ -19,7 +18,7 @@
         all: false
       }
     vm.locSearchFilter.locationAll = false;
-    var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+    var searchAPI = CONSTANTS.API_URL;
 
     vm.dateRange = {};
     vm.$storage = $localStorage;
@@ -290,6 +289,8 @@
     }
 
     function doParamSearch() {
+      $log.debug('the mid one', vm.topicParam2)
+
       $loading.start('courses');
       var today = new Date();
       var thisMonth = today.getMonth();
