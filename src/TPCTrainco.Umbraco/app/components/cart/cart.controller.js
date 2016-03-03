@@ -8,7 +8,7 @@
   /** @ngInject */
   function CartController(cartService, $log, $scope, $http, $window, $document, $timeout, CONSTANTS) {
     var vm = this;
-    var purchaseAPI = CONSTANTS.API_URL + 'carts/save';
+    var purchaseAPI = CONSTANTS.CART_API_URL;
     vm.cartItem = {};
     vm.isCartOpened = false;
     vm.cartIsOpen = function() {
