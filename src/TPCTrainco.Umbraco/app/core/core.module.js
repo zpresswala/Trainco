@@ -18,7 +18,7 @@
     'angular.filter',
     'darthwade.loading'
   ]).constant('CONSTANTS', {
-    'API_URL': 'http://new.tpctrainco.com/api/seminars/search/',
+    'API_URL': 'http://new.tpctrainco.com/api/seminars2/search/',
     'CART_API_URL': 'http://new.tpctrainco.com/api/carts/save'});
 
 }());
