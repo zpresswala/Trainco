@@ -18,6 +18,7 @@
     'angular.filter',
     'darthwade.loading'
   ]).constant('CONSTANTS', {
-    'API_URL': 'https://api.flayk.com/v1'});
+    'API_URL': 'http://new.tpctrainco.com/api/seminars/search/',
+    'CART_API_URL': 'http://new.tpctrainco.com/api/carts/save'});
 
 }());
