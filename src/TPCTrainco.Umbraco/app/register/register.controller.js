@@ -1,10 +1,11 @@
 (function() {
   'use strict';
-  /** @ngInject */
   angular
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
+  RegisterController.$inject = ['$rootScope', '$scope', '$log', 'Search', '$localStorage', 'cartService', 'UtilitySvc', 'MonthSvc', '$loading', '$timeout', '$document', '$window'];
+  /** @ngInject */
   function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, MonthSvc, $loading, $timeout, $document, $window) {
     var vm = this;
     vm.kwFilter = {};

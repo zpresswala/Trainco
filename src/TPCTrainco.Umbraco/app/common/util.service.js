@@ -5,6 +5,7 @@
     .module('train.common')
     .service('UtilitySvc', UtilitySvc);
 
+  UtilitySvc.$inject = ['$log'];
   /** @ngInject */
   function UtilitySvc($log) {
 
@@ -42,6 +43,6 @@
       });
       return output;
     }
-    
+
   }
 })();

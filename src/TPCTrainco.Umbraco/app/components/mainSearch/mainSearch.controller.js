@@ -5,7 +5,7 @@
     .module('train.components')
     .controller('MainSearchController', MainSearchController);
 
-  /** @ngInject */
+  MainSearchController.$inject = ['$location', '$log', 'Cities', 'MonthSvc', 'UtilitySvc', '$localStorage', '$timeout', '$rootScope', '$scope', '_']
   /** @ngInject */
   function MainSearchController($location, $log, Cities, MonthSvc, UtilitySvc, $localStorage, $timeout, $rootScope, $scope, _) {
     var vm = this;
@@ -105,10 +105,6 @@
         vm.topicParam4 = 'management'
       }
       if (vm.classTopics.all === true) {
-        // vm.topicParam1 = 'hvac'
-        // vm.topicParam2 = 'electrical'
-        // vm.topicParam3 = 'mechanical'
-        // vm.topicParam4 = 'management'
         vm.topicParam5 = true;
       }
       var defStart = vm.sliderValues.minValue;

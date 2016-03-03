@@ -4,7 +4,7 @@
   angular
     .module('train.components')
     .controller('CartController', CartController);
-
+  CartController.$inject = ['cartService', '$log', '$scope', '$http', '$window', '$document', '$timeout'];
   /** @ngInject */
   function CartController(cartService, $log, $scope, $http, $window, $document, $timeout) {
     var vm = this;
