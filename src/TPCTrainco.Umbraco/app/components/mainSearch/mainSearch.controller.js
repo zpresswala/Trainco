@@ -101,7 +101,7 @@
       if (vm.classTopics.mechanical === true) {
         vm.topicParam3 = 'mechanical'
       }
-      if (vm.classTopics.plant === true) {
+      if (vm.classTopics.management === true) {
         vm.topicParam4 = 'management'
       }
       if (vm.classTopics.all === true) {
