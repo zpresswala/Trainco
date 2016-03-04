@@ -246,6 +246,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.module.js" />
+    <Content Include="app\common\cities.factory.js" />
+    <Content Include="app\common\common.module.js" />
+    <Content Include="app\common\dropIn.animation.js" />
+    <Content Include="app\common\months.factory.js" />
+    <Content Include="app\common\search.factory.js" />
+    <Content Include="app\common\slideToggle.animation.js" />
+    <Content Include="app\common\startFrom.filter.js" />
+    <Content Include="app\common\stringToNumber.directive.js" />
+    <Content Include="app\common\util.service.js" />
+    <Content Include="app\components\cart\cart.controller.js" />
+    <Content Include="app\components\cart\cart.directive.js" />
+    <Content Include="app\components\cart\cart.html" />
+    <Content Include="app\components\cart\cart.service.js" />
+    <Content Include="app\components\components.module.js" />
+    <Content Include="app\components\mainSearch\mainSearch.controller.js" />
+    <Content Include="app\components\mainSearch\mainSearch.directive.js" />
+    <Content Include="app\components\mainSearch\mainSearch.html" />
+    <Content Include="app\core\core.config.js" />
+    <Content Include="app\core\core.module.js" />
+    <Content Include="app\core\lodash.factory.js" />
+    <Content Include="app\lib\angular-loading.js" />
+    <Content Include="app\lib\angular-selector.js" />
+    <Content Include="app\main.css" />
+    <Content Include="app\register\register.controller.js" />
+    <Content Include="app\register\register.module.js" />
+    <Content Include="app\seminar\courseSearch.service.js" />
+    <Content Include="app\seminar\seminar.controller.js" />
+    <Content Include="app\seminar\seminar.html" />
+    <Content Include="app\seminar\seminar.module.js" />
+    <Content Include="app\seminar\seminarPop.html" />
     <Content Include="App_Data\0b0101f7-9394-48f3-a581-dd3f18480265\package.xml" />
     <Content Include="App_Data\cache\4\5\9\f\2\7\459f27ccb58ec959f22bbb3d7d45eff08c7594bb.png" />
     <Content Include="App_Data\Logs\UmbracoTraceLog.txt" />
@@ -495,6 +526,7 @@
     <Content Include="assets\scss\_sitemap.scss" />
     <Content Include="assets\scss\_success.scss" />
     <Content Include="assets\scss\_universal.scss" />
+    <Content Include="app\main.css.map" />
     <None Include="assets\stylesheets\application.sass" />
     <Content Include="assets\js\custom\cartApp\collections\cartCollection.js" />
     <Content Include="assets\js\custom\cartApp\collections\classCollection.js" />
