@@ -12,11 +12,11 @@ function isOnlyChange(event) {
 
 gulp.task('watch', ['inject'], function () {
 
-  gulp.watch([path.join(conf.paths.src, '/*.html')], ['inject-reload'])
+
 
   gulp.watch([
     path.join(conf.paths.src, '/app/**/*.css'),
-    path.join(conf.paths.src, '/**/*.scss')
+    path.join(conf.paths.src, '/sass/**/*.scss')
   ], function(event) {
     if(isOnlyChange(event)) {
       gulp.start('styles-reload');
@@ -33,7 +33,7 @@ gulp.task('watch', ['inject'], function () {
     }
   });
 
-  gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
+  gulp.watch(path.join(conf.paths.src, '/static/**/*.html'), function(event) {
     browserSync.reload(event.path);
   });
 });
