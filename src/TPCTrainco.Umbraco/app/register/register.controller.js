@@ -75,7 +75,8 @@
         vm.topicParam2 = vm.$storage.SearchTopic2;
         vm.topicParam3 = vm.$storage.SearchTopic3;
         vm.topicParam4 = vm.$storage.SearchTopic4;
-
+        vm.dateRange.end = vm.$storage.SearchDRmax;
+        vm.dateRange.start = vm.$storage.SearchDRmin;
         doParamSearch();
       }
 
