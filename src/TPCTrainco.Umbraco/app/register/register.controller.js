@@ -304,7 +304,7 @@
         topicParam4: vm.topicParam4,
         defStart: vm.dateRange.start || today.getMonth(),
         startYear: checkYear('start'),
-        defEnd: vm.dateRange.end || (today.getMonth() + 3),
+        defEnd: (vm.dateRange.end + 30) || (today.getMonth() + 3),
         endYear: checkYear('end')
       }
 
