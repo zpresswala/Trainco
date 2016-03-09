@@ -39,6 +39,11 @@
             alertMessage = "<strong>Session has Expired</strong><br />\r\n";
             alertMessage += "Your session has expired and your registration is no longer available.<br />Please select a seminar and try again. Error ("+ error + ")";
         }
+        else if (error == "95")
+        {
+            alertMessage = "<strong>Registration Error</strong><br />\r\n";
+            alertMessage += "There was a problem saving your registration information. Please contact us with the temporary registration ID: " + regId + " to verify your registration was completed.";
+        }
         else if (error == "cc")
         {
             alertMessage = "<strong>Credit Card Error</strong><br />\r\n";

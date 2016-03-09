@@ -34,16 +34,18 @@
                     }
                 }
             </ul>
-            <ul class="social">
-                @foreach (IPublishedContent social in socialLinks)
-                {
-                    <li>
-                        <a href="@(social.GetPropertyValue<string>("socialLink"))" class="regular-link" target="_blank">
-                            @(Html.Raw(social.GetPropertyValue<string>("svgHtml")))
-                        </a>
-                    </li>
-                }
-            </ul>
+        </li>
+        <li>
+        <ul class="social">
+            @foreach (IPublishedContent social in socialLinks)
+            {
+                <li>
+                    <a href="@(social.GetPropertyValue<string>("socialLink"))" class="regular-link" target="_blank">
+                        @(Html.Raw(social.GetPropertyValue<string>("svgHtml")))
+                    </a>
+                </li>
+            }
+        </ul>
         </li>
     </ul>
 </footer>

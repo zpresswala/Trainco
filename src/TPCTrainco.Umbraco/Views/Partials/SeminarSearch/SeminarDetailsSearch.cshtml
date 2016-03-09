@@ -1,4 +1,4 @@
-﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions
 @using TPCTrainco.Umbraco.Extensions.Helpers
 @using TPCTrainco.Umbraco.Extensions.Objects
 @using TPCTrainco.Umbraco.Extensions.ViewModels
@@ -21,57 +21,68 @@
     }
 }
 
-<div id="register-seminars" class="container secondary-search" data-classid="@CurrentPage.courseLink">
-    <div class="row">
-        <div class="col-xs-12 col-md-10 col-md-offset-1">
-
-            @if (!String.IsNullOrEmpty(CurrentPage.pageTitle))
-            {
-                <h2>Search upcoming dates and locations for @CurrentPage.pageTitle</h2>
-            }
-            else
-            {
-                <h2>Search for courses on @CurrentPage.name by location and date.</h2>
-            }
-
-            <!-- location select -->
-            <div class="location-select-wrap">
-                <select multiple id="main-search" style="width:100%" data-placeholder='Choose a City, Enter a Zip Code, or Select "All Locations"' class="populate" data-location="">
-                    @if (false == string.IsNullOrEmpty(currentCityState))
-                    {
-                        <option value="@(currentCityState)">@currentCityState</option>
-                    }
-
-                    <option value="all">All Locations</option>
-                    <optgroup label="Or, search a specific city" class="search-label" id="search-label" data-label="search-label">Or, search a specific city</optgroup>
-                    
-                    @foreach (State state in stateList)
-                    {
-                        List<City> cityListByState = cityList.Where(p => p.StateID == state.StateID).OrderBy(s => s.CityName).ToList();
-
-                        if (cityListByState.Count > 0)
-                        {
-                            <optgroup label="@state.StateName">
-
-                                @foreach (City city in cityListByState)
-                                {
-                                    <option value="@(city.CityName +", " + state.StateAbbreviation)">@city.CityName</option>
-                                }
-                            </optgroup>
-                        }
-                    }
-                </select>
-            </div>
-
-            <!-- datepicker -->
-            <h4 class="select-date-text">Select a date range</h4>
-            <div id="date-range-slider"></div>
-
-
-            <a href="javascript:void(0);" id="search-btn" class="btn-reg" role="button">Search</a>
-            <p class="empty-location-msg">Please enter a location</p>
-        </div>
+<div id="register-seminars" class="row ng-cloak" ng-controller="SeminarController as seminar" data-classid="@CurrentPage.courseLink">
+  <div class="container">
+    <p class="slider-instructions">
+      <h2 style="text-align: center;">Upcoming Dates and Locations</h2>
+    </p>
+  <div class="slider-wrap">
+      <rzslider rz-slider-model="seminar.monthsSlider.minValue" ng-model="seminar.monthsSlider"  rz-slider-high="seminar.monthsSlider.maxValue" rz-slider-options="seminar.monthsSlider.options"></rzslider>
     </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-6 course-col-header">
+            <span class="left-course-head seminar-register">Choose your date range, then select a date/location from the list below.</span>
+          </div>
+          <div class="col-sm-12 col-md-6 course-col-header">
+            <a class="register-link seminar-training" href="/on-site-training/">Want this training at your facility instead?</a>
+          </div>
+        </div>
+      <div class="empty-results" ng-if="!seminar.seminarLocations.length">
+        <div class="no-results">
+          <h2>Sorry, no results were found.</h2>
+          <p>
+          Browse the catalog using the dates below.
+          </p>
+        </div>
+        <ul class="empty-results-tags">
+            <li><a href="/public-seminars/electrical-training/">Electrical</a></li>
+            <li><a href="/public-seminars/hvac-training/">HVAC</a></li>
+            <li><a href="/public-seminars/plant-management/">Plant Management</a></li>
+            <li><a href="/public-seminars/mechanical-and-industrial-training/">Mechanical &amp; Industrial</a></li>
+        </ul>
+
+      </div>
+
+    <ul>
+      <li class="seminar-loc--block" ng-repeat="location in seminar.seminarLocations | filter: seminar.isBetween(location.dateMonthYear) | groupBy:'state'">
+        <h3 class="state-name"><strong>{{ location[0].state }}</strong></h3>
+        <div class="location-row">
+          <ul class="seminar-loc--row" ng-repeat="event in location ">
+            <div class="result-table-body ">
+              <li class="faux-head--city col-xs-4 col-md-4">
+                <span class="city-name">{{ event.city }}</span>
+              </li>
+              <li class="faux-head--date col-xs-5 col-md-4">
+                <span class="event-date">{{ event.date}}</span>
+              </li>
+              <li class="faux-head--register col-xs-3 col-md-4">
+                <a uib-popover-template="seminar.detailPop.templateUrl" popover-trigger="outsideClick"  popover-placement="top" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i> </a>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <div class="container">
+      <div class="row">
+        <div class="semdetail-text-center">
+          <h3>To find other courses by topic, location, and date, search our full catalog.</h3>
+          <a href="/public-seminars/course-catalog/" target="_self" class="btn-reg" role="button">Search our catalog</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 @Html.Partial("SeminarSearch/JavascriptTemplates")

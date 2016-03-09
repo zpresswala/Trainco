@@ -1,0 +1,169 @@
+.catalog-top {
+	margin-top: 40px;
+	margin-bottom: 40px;
+
+	h4 {
+		text-align: center;
+	}
+
+	p {
+		margin-bottom: 25px;
+		line-height: 1.75;
+		font-size: 16px;
+		text-align: center;
+	}
+
+	li {
+		@include med-desktop-and-up {
+			text-align: left;
+		}
+
+		&:last-child {
+			@include med-desktop-and-up {
+				text-align: right;
+			}
+		}
+		&:nth-child(3) {
+			@include med-desktop-and-up {
+				text-align: center;
+			}
+		}
+	}
+}
+
+.flag-icon {
+	width: 40px;
+	height: 22px;
+}
+
+.country-toggle {
+	margin-bottom: 28px;
+
+	img {
+		vertical-align: top;
+		margin-right: 6px;
+	}
+}
+
+// hide canadian seminars by default
+[data-country="ca"] {
+	display: none;
+}
+
+.catalog-top, .sort {
+	.regular-link {
+		font-weight: 400;
+		&:hover {
+			color: $blue;
+
+			&:before {
+				right: 0;
+			}
+		}
+
+		&:before {
+			background: $blue;
+			bottom: -10px;
+			left: 0;
+		}
+	}
+	ul {
+		padding-left: 0;
+		text-align: center;
+	}
+	li {
+		padding: 0;
+		margin: 10px 0 20px 0;
+	}
+}
+
+.sort {
+
+	li {
+		text-align: left;	
+	}
+	.regular-link {
+		color: $red-button;
+		&:hover {
+			color: $red-button-hover;
+		}
+
+		&:before {
+			background: $red-button-hover;
+			z-index: 2;
+		}
+	}
+}
+
+.course-section {
+	border: 1px solid $cart-border;
+	background-color: $white;
+	border-radius: 8px;
+	margin: 0 auto 40px;
+	padding-top: 35px;
+
+	.offset {
+		margin-left: 5.333%;
+	}
+
+	ul {
+		padding: 0;
+	}
+
+	.seminar-topic {
+		margin: 10px 0px;
+		vertical-align: top;
+		height: 240px;
+
+		a:hover > p {
+			color: $blue;
+		}
+
+		p {
+			color: $body-copy;
+			text-align: center;
+			margin: 10px auto 0;
+			width: 90%;
+			@include med-desktop-and-up {
+				width: 70%;
+			}
+		}
+	}
+
+	.overlay-contain {
+		display: block;
+		text-align: center;
+
+		img {
+			width: 100%;
+			max-width: 125px;
+		}
+
+		.overlay {
+			left: 50%;
+			max-width: 125px;
+			max-height: 125px;
+			@include transform(translateX(-50%));
+		}
+	}
+}
+
+.elec-description {
+	@include med-desktop-and-up {
+		width: 90%;
+		float: left;
+	}
+}
+.current {
+	a {
+		color: $red-button-hover !important;
+
+		&:before {
+			right: 0;
+			background: $red-button-hover;
+		}
+		@include below-tablet-portrait {
+			color: darken($red-button-hover, 15%);
+		}
+	}
+}

@@ -1,0 +1,89 @@
+@mixin font-headline($size, $color) {
+  font-size: $size;
+  color: $color;
+}
+
+@mixin font-italic($size, $color) {
+  font-weight: 700;
+  font-size: $size;
+  font-style: italic;
+  color: $color;
+}
+
+@mixin transform($var...){
+    -webkit-transform: $var;
+    -moz-transform: $var;
+    -ms-transform: $var;
+    -o-transform: $var;
+    transform: $var;
+}
+
+@mixin vendor($prop, $vals) {
+  -webkit-#{$prop}: $vals;
+  -moz-#{$prop}: $vals;
+  #{$prop}: $vals;
+}
+
+@mixin corners($radius) {
+  @include vendor('border-radius', $radius);
+}
+
+@mixin rightCorners($radius) {
+  @include vendor('border-top-right-radius', $radius);
+  @include vendor('border-bottom-right-radius', $radius);
+}
+
+@mixin leftCorners($radius) {
+  @include vendor('border-top-left-radius', $radius);
+  @include vendor('border-bottom-left-radius', $radius);
+}
+
+@mixin size($w: auto, $h: auto) {
+  width  : $w;
+  height : $h;
+}
+@mixin transparency($pct) {
+ $opaque    : 1 - $pct;
+ $ie-opaque : $opaque * 100;
+ opacity    : $opaque;
+ filter     : alpha(opacity=$ie-opaque)
+}
+/// Media Queries
+///
+/// Allows you to use inline media queries. Includes options for `$fix-mqs`.
+///
+/// $breakpoint - Desired breakpoint. Can be variable or unit.
+/// $query - Defaults to `min-width`.
+/// $type - Defaults to `screen`.
+
+@mixin mq($breakpoint, $query: 'min-width', $type: 'screen') {
+
+    @media #{$type} and (#{$query}: #{$breakpoint}) { @content; }
+}
+
+@mixin placeholder($color: #FFFFFF, $opacity: .75, $weight: normal, $style: normal) {
+  &::-webkit-input-placeholder {
+    @include transparency(1 - $opacity);
+    color       : $color;
+    font-weight : $weight;
+    font-style  : $style;
+  }
+  &:-moz-placeholder { /* older Firefox*/
+    @include transparency(1 - $opacity);
+    color       : $color;
+    font-weight : $weight;
+    font-style  : $style;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    @include transparency(1 - $opacity);
+    color       : $color;
+    font-weight : $weight;
+    font-style  : $style;
+  }
+  &:-ms-input-placeholder {
+    @include transparency(1 - $opacity);
+    color       : $color;
+    font-weight : $weight;
+    font-style  : $style;
+  }
+}

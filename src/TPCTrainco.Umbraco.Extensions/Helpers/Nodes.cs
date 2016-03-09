@@ -117,6 +117,23 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         }
 
 
+        public static IEnumerable<IPublishedContent> SeminarItemList()
+        {
+            IEnumerable<IPublishedContent> seminarItemList = null;
+
+            var umbHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            IPublishedContent homepageNode = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("HomePage"));
+
+            if (homepageNode != null)
+            {
+                seminarItemList = homepageNode.Descendants().Where(n => n.IsDocumentType("SeminarItem"));
+            }
+
+            return seminarItemList;
+        }
+
+
         public static IPublishedContent RedirectFolder()
         {
             IPublishedContent redirectFolder = null;

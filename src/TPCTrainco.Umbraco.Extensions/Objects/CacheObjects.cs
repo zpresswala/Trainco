@@ -7,6 +7,12 @@ using System.Runtime.Caching;
 using System.Configuration;
 using MoreLinq;
 using System.Diagnostics;
+using TPCTrainco.Umbraco.Extensions.Models;
+using Umbraco.Web;
+using Umbraco.Core.Models;
+using TPCTrainco.Umbraco.Extensions.Helpers;
+using System.Text.RegularExpressions;
+using Umbraco.Core.Persistence;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -15,7 +21,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public static DateTime dateStart = DateTime.Now.AddDays(-7);
         public static DateTime dateEnd = DateTime.Now.AddMonths(18);
 
-        public static List<Seminar_Catalog> GetSeminarList()
+        public static List<Seminar_Catalog> GetSeminarList(bool forceCacheRefresh = false)
         {
             string cacheKey = "SeminarList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:SeminarList"));
@@ -23,26 +29,27 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<Seminar_Catalog> seminarList = cache.Get(cacheKey) as List<Seminar_Catalog>;
 
-            if (seminarList == null)
+            if (true == forceCacheRefresh || seminarList == null)
             {
-                Debug.WriteLine("Adding Seminar List to Cache");
+                Debug.WriteLine("Adding Seminar List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
-                    seminarList = db.Seminar_Catalog.Where(p => p.WeekOf >= dateStart && p.WeekOf < dateEnd).ToList();
+                    seminarList = db.Seminar_Catalog.Where(p => p.WeekOf >= dateStart && p.WeekOf < dateEnd && p.CourseTier > 0).ToList();
                 }
 
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, seminarList, policy);
 
-                Debug.WriteLine("Seminar List Cache Updated");
+                Debug.WriteLine(" - Seminar List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return seminarList;
         }
 
 
-        public static List<SCHEDULE> GetScheduleList()
+        public static List<SCHEDULE> GetScheduleList(bool forceCacheRefresh = false)
         {
             string cacheKey = "ScheduleList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleList"));
@@ -50,9 +57,9 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<SCHEDULE> scheduleList = cache.Get(cacheKey) as List<SCHEDULE>;
 
-            if (scheduleList == null)
+            if (true == forceCacheRefresh || scheduleList == null)
             {
-                Debug.WriteLine("Adding Schedule List to Cache");
+                Debug.WriteLine("Adding Schedule List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
@@ -65,14 +72,15 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, scheduleList, policy);
 
-                Debug.WriteLine("Schedule List Cache Updated");
+                Debug.WriteLine(" - Schedule List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return scheduleList;
         }
 
 
-        public static List<COURS> GetCourseList()
+        public static List<COURS> GetCourseList(bool forceCacheRefresh = false)
         {
             string cacheKey = "CourseList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:Courses"));
@@ -80,7 +88,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<COURS> courseList = cache.Get(cacheKey) as List<COURS>;
 
-            if (courseList == null)
+            if (true == forceCacheRefresh || courseList == null)
             {
                 Debug.WriteLine("Adding Course List to Cache");
 
@@ -92,7 +100,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, courseList, policy);
 
-                Debug.WriteLine("Course List Cache Updated");
+                Debug.WriteLine(" - Course List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return courseList;
@@ -109,7 +118,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (locationList == null)
             {
-                Debug.WriteLine("Adding Location List to Cache");
+                Debug.WriteLine("Adding Location List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
@@ -119,14 +128,15 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, locationList, policy);
 
-                Debug.WriteLine("Location List Cache Updated");
+                Debug.WriteLine(" - Location List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return locationList;
         }
 
 
-        public static List<ScheduleCourseInstructor> GetScheduleCourseList()
+        public static List<ScheduleCourseInstructor> GetScheduleCourseList(bool forceCacheRefresh = false)
         {
             string cacheKey = "ScheduleCourseList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleCourses"));
@@ -134,9 +144,9 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<ScheduleCourseInstructor> scheduleCourseList = cache.Get(cacheKey) as List<ScheduleCourseInstructor>;
 
-            if (scheduleCourseList == null)
+            if (true == forceCacheRefresh || scheduleCourseList == null)
             {
-                Debug.WriteLine("Adding ScheduleCourse List to Cache");
+                Debug.WriteLine("Adding ScheduleCourse List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
@@ -146,7 +156,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, scheduleCourseList, policy);
 
-                Debug.WriteLine("ScheduleCourse List Cache Updated");
+                Debug.WriteLine(" - ScheduleCourse List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return scheduleCourseList;
@@ -163,7 +174,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (courseFormatList == null)
             {
-                Debug.WriteLine("Adding CourseFormat List to Cache");
+                Debug.WriteLine("Adding CourseFormat List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
@@ -173,7 +184,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, courseFormatList, policy);
 
-                Debug.WriteLine("CourseFormat List Cache Updated");
+                Debug.WriteLine(" - CourseFormat List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return courseFormatList;
@@ -189,7 +201,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (courseTopicList == null)
             {
-                Debug.WriteLine("Adding CourseTopic List to Cache");
+                Debug.WriteLine("Adding CourseTopic List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
@@ -201,7 +213,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, courseTopicList, policy);
 
-                Debug.WriteLine("CourseTopic List Cache Updated");
+                Debug.WriteLine(" - CourseTopic List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return courseTopicList;
@@ -218,7 +231,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (cityList == null)
             {
-                Debug.WriteLine("Adding City List to Cache");
+                Debug.WriteLine("Adding City List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
@@ -228,7 +241,36 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, cityList, policy);
 
-                Debug.WriteLine("City List Cache Updated");
+                Debug.WriteLine(" - City List Cache Updated");
+                Debug.WriteLine("");
+            }
+
+            return cityList;
+        }
+
+
+        public static List<City> GetCityAllList()
+        {
+            string cacheKey = "CityAllList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CityList"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<City> cityList = cache.Get(cacheKey) as List<City>;
+
+            if (cityList == null)
+            {
+                Debug.WriteLine("Adding All Cities List to Cache...");
+
+                using (var db = new americantraincoEntities())
+                {
+                    cityList = db.Cities.Where(p => p.Active == 1).ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, cityList, policy);
+
+                Debug.WriteLine(" - All Cities List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return cityList;
@@ -245,7 +287,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (stateList == null)
             {
-                Debug.WriteLine("Adding State List to Cache");
+                Debug.WriteLine("Adding State List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
@@ -255,7 +297,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, stateList, policy);
 
-                Debug.WriteLine("State List Cache Updated");
+                Debug.WriteLine(" - State List Cache Updated");
             }
 
             return stateList;
@@ -272,7 +314,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             if (countryList == null)
             {
-                Debug.WriteLine("Adding Country List to Cache");
+                Debug.WriteLine("Adding Country List to Cache...");
 
                 using (var db = new americantraincoEntities())
                 {
@@ -282,10 +324,180 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
                 cache.Add(cacheKey, countryList, policy);
 
-                Debug.WriteLine("Country List Cache Updated");
+                Debug.WriteLine(" - Country List Cache Updated");
+                Debug.WriteLine("");
             }
 
             return countryList;
+        }
+
+
+
+
+        public static List<CourseDetail> GetCourseDetailList()
+        {
+            string cacheKey = "CourseDetailList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CourseDetailList"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<CourseDetail> courseDetailList = cache.Get(cacheKey) as List<CourseDetail>;
+
+            if (courseDetailList == null)
+            {
+                Debug.WriteLine("Course Detail List to Cache...");
+
+                using (var db = new Database("umbracoDbDSN"))
+                {
+                    courseDetailList = db.Query<CourseDetail>("SELECT * FROM CacheCourseDetail").ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, courseDetailList, policy);
+
+                Debug.WriteLine(" - Course Detail List Cache Updated");
+                Debug.WriteLine("");
+            }
+
+            return courseDetailList;
+        }
+
+
+        public static List<LocationScheduleDetail> GetLocationScheduleDetailList()
+        {
+            string cacheKey = "LocationScheduleDetailList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:LocationScheduleDetailList"));
+            ObjectCache cache = MemoryCache.Default;
+            int inc = 0;
+
+            List<LocationScheduleDetail> locationScheduleDetailList = cache.Get(cacheKey) as List<LocationScheduleDetail>;
+
+            if (locationScheduleDetailList == null)
+            {
+                Debug.WriteLine("Location Schedule Detail List to Cache...");
+
+                using (var db = new Database("umbracoDbDSN"))
+                {
+                    locationScheduleDetailList = db.Query<LocationScheduleDetail>("SELECT * FROM CacheLocationScheduleDetail").ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, locationScheduleDetailList, policy);
+
+                Debug.WriteLine(" - Location Schedule Detail List Cache Updated");
+                Debug.WriteLine("");
+            }
+
+            return locationScheduleDetailList;
+        }
+
+
+        /// <summary>
+        /// Get the schedule's days title (Day 1, Day 2, Both Days, etc)
+        /// </summary>
+        /// <param name="courseFormatId"></param>
+        /// <returns></returns>
+        public static string GetDaysTitle(int courseFormatId)
+        {
+            string daysTitle = "";
+
+            CourseFormat courseFormat = GetCourseFormatList().Where(p => p.CourseFormatID == courseFormatId).FirstOrDefault();
+
+            if (courseFormat != null)
+            {
+                daysTitle = courseFormat.CourseFormatName;
+            }
+
+            return daysTitle;
+        }
+
+
+        public static string GetLocationDetails(Location locationDetail, LocationScheduleDetail locationScheduleDetail)
+        {
+            string output = "";
+
+            if (locationDetail.LocationNotes != null && locationDetail.LocationNotes.IndexOf("<b>LOCATION</b>") >= 0)
+            {
+                string locationDetails = locationDetail.LocationNotes;
+
+                if (false == string.IsNullOrWhiteSpace(locationDetails))
+                {
+                    string location = "";
+
+                    List<string> locationArray = locationDetails.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+
+                    if (locationArray == null || locationArray.Count <= 1)
+                    {
+                        locationArray = locationDetails.Split(new string[] { "\r" }, StringSplitOptions.None).ToList();
+                    }
+
+                    if (locationArray != null && locationArray.Count > 0)
+                    {
+                        //location = Regex.Match(locationDetails, String.Format(@"{0}\s(?<words>[\w\s]+)\s{1}", leftWord, rightWord)).Groups["words"].Value;
+
+                        bool foundLocation = false;
+
+                        foreach (string line in locationArray)
+                        {
+                            if (line == "")
+                            {
+                                foundLocation = false;
+                            }
+
+                            if (true == foundLocation)
+                            {
+                                location += line + ", " + Environment.NewLine;
+                            }
+
+
+                            if (line.IndexOf("LOCATION") >= 0)
+                            {
+                                foundLocation = true;
+                            }
+                        }
+                    }
+
+                    location = location.TrimEnd(new char[] { '\r', '\n', ' ', ',' });
+                    location = location.TrimEnd(' ');
+                    location = location.TrimEnd(',');
+                    location = location.Trim();
+                    output = location;
+
+                    //var startTag = "<b>LOCATION";
+                    //int startIndex = locationDetails.IndexOf(startTag) + startTag.Length;
+                    //int endIndex = locationDetails.IndexOf("<b>", startIndex);
+                    //output = locationDetails.Substring(startIndex, endIndex - startIndex);
+
+                    //output = output.Replace("<b>LOCATION", "");
+                    //output = Regex.Replace(output, "<b>", "");
+                    //output = Regex.Replace(output, "</b>", "");
+                    //output = output.Trim();
+                    //output = output.Replace("\r", "<br />" + Environment.NewLine);
+                }
+            }
+            if (true == string.IsNullOrWhiteSpace(output))
+            {
+                output = locationDetail.LocationName + ", " + locationScheduleDetail.City + ", " + locationScheduleDetail.StateCode + " (Street address and directions will be provided via email.)";
+            }
+
+
+            //<b>CNTOROTH3</b>
+
+            //<b>LOCATION</b>
+            //Toronto Airport West Hotel
+            //5444 Dixie Rd
+            //Mississauga, ON L4W 2L2
+
+            //<b>PHONE</b>
+            //905-624-1144
+
+            //<b>DIRECTIONS</b>
+            //From Airport: Take 427 South to 401 West, exit Dixie Road South and proceed two lights South on Dixie Road and turn right on Aerowood Drive and left into the Hotel driveway.
+
+            //<b>HOTEL INFORMATION</b>
+            //Please feel free to contact the hotel directly to make room reservations and to inquire of any discounts that may apply for American Trainco attendees. 
+
+
+            return output;
         }
     }
 }

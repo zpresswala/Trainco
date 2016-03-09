@@ -1,0 +1,93 @@
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.ViewModels
+@using Umbraco.Web
+@using Umbraco.Core.Models
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
+@{
+
+    var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
+    IPublishedContent homePage = umbracoHelper.TypedContentAtRoot().FirstOrDefault();
+    IPublishedContent searchSeminarNode = Nodes.Instance.SeminarSearch;
+
+    IPublishedContent seminarMainOverview = homePage.Children.FirstOrDefault(n => n.IsDocumentType("SeminarMainOverview"));
+    IEnumerable<IPublishedContent> seminarCategoryList = seminarMainOverview.Children.Where(n => n.IsDocumentType("SeminarCategory"));
+
+    IPublishedContent seminarCatalog = homePage.Descendants("SeminarCatalog").FirstOrDefault();
+
+    string allIconUrl = "";
+    string allTotalSeminars = "";
+
+    if (seminarCatalog != null)
+    {
+        allIconUrl = seminarCatalog.GetCropUrl("searchIcon", "Image");
+
+        if (true == seminarCatalog.HasValue("totalSeminars"))
+        {
+            allTotalSeminars = "<p class=\"num-seminars\">" + string.Format("{0:N0}", seminarCatalog.GetPropertyValue<decimal>("totalSeminars")) + " Total Seminars</p>";
+        }
+
+    }
+}
+<script type="text/ng-template" id="./mainSearch.html">
+
+
+        <div class="row">
+            <div class="col-md-11 topic-circles">
+                <h3>Select one or more topics and choose your location</h3>
+                <ul>
+                    <li class="seminar-topic" id="selectAllWrap">
+
+                        <input id="selectAllCheck" type="checkbox" name="selectAllCheck" ng-model="vm.classTopics.all">
+                        <label class="checkbox-inline" for="selectAllCheck"></label>
+
+                        <p>All Seminar Topics</p> @Html.Raw(allTotalSeminars)
+
+                    </li>
+
+                    @foreach (IPublishedContent category in seminarCategoryList)
+                    {
+                        string shortName = category.GetPropertyValue<string>("shortName");
+                        string iconUrl = category.GetCropUrl("searchIcon", "Image");
+                        string dataTopic = shortName.ToLower();
+                        string totalSeminars = "";
+
+                        if (true == category.HasValue("totalSeminars"))
+                        {
+                            totalSeminars = "<p class=\"num-seminars\">" + string.Format("{0:N0}", category.GetPropertyValue<decimal>("totalSeminars")) + " Seminars</p>";
+                        }
+
+                        if (dataTopic == "plant management")
+                        {
+                            dataTopic = "plant";
+                        }
+                        else if (dataTopic == "mechanical and industrial")
+                        {
+                            dataTopic = "mechanical";
+                        }
+                        <li class="seminar-topic" id="@(dataTopic)Wrap">
+
+                            <input id="@(dataTopic)Check" type="checkbox" name="@(dataTopic)Check" ng-model="vm.classTopics.@(dataTopic)">
+                            <label class="checkbox-inline" for="@(dataTopic)Check"></label>
+
+                            <p>@(shortName)</p> @Html.Raw(totalSeminars)
+
+                        </li>
+                    }
+                </ul>
+                <select selector
+                class="home-selector"
+                        model="vm.courseSearch.location"
+                        multi="false"
+                        options="vm.cities"
+                        value-attr="label"
+                        placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations'"
+                        create="vm.createFunction(input)"></select>
+                        <h4 class="select-date-text">Select a date range</h4>
+                <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
+                <a class="btn-reg btn-white" type="submit" ng-click="vm.doParamSearch(vm.course.classTopics)" id="search-btn" role="button">Search</a>
+            </div>
+
+    </div>
+</script>
