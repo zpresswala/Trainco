@@ -17,7 +17,7 @@
     };
 
     return service;
-
+    
     function performSearch(searchObj) {
       var theTopics = [searchObj.topicParam1, searchObj.topicParam2, searchObj.topicParam3, searchObj.topicParam4];
       return $http.get(apiHost + '?' +

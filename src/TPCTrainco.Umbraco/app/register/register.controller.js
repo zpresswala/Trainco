@@ -5,8 +5,9 @@
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
-  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, MonthSvc, $loading, $timeout, $document, $window, CONSTANTS) {
+  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, courseSearch, MonthSvc, $loading, $timeout, $document, $window, SeminarsSvc, CONSTANTS) {
     var vm = this;
+
     vm.kwFilter = {};
     vm.mileRange = {};
     vm.locSearchFilter = {};
@@ -19,11 +20,42 @@
       }
     vm.locSearchFilter.locationAll = false;
     var searchAPI = CONSTANTS.API_URL;
-
     vm.dateRange = {};
     vm.$storage = $localStorage;
     vm.searchFired = false; // determines whether or not we will show an error message.
     vm.sbIsCollapsed = true; // mobile sidebar converted into menu.
+
+    // For the course title dropdown
+    vm.seminarListingData = SeminarsSvc.getSeminarList().success(function(res) {
+      vm.listingData = res.seminars;
+    });
+    vm.selectedSeminar = {};
+
+    vm.seminarDropDownWatcher = function() {
+      var classId = vm.selectedSeminar.id;
+      requestSeminarData(classId);
+      emptyLocalStorage();
+      resetFields();
+      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+      vm.showDirections = false;
+      vm.searchFired = true;
+    }
+    function requestSeminarData(classId) {
+      var classId = vm.selectedSeminar.id;
+
+      return courseSearch.getSeminars(classId).then(function(data) {
+        var seminarsData = data.seminars;
+        receiveSeminarData(seminarsData)
+      });
+    }
+
+    vm.additionalClick = function () {
+      vm.numLimit = 50;
+    }
+
+    vm.lessClick = function () {
+      vm.numLimit = 10;
+    }
 
     activate();
 
@@ -66,6 +98,7 @@
       vm.categories.mechanical = !!vm.$storage.SearchTopic3;
       vm.categories.management = !!vm.$storage.SearchTopic4;
       vm.categories.all = !!vm.$storage.SearchTopic5;
+
 
       if (!vm.$storage.SearchLocation) {
         // showDirections displays the default blank state message
@@ -204,7 +237,6 @@
        * @return {array} returns the array seminarsData containing all locations.
        */
     vm.stateChanged = function() {
-      $log.debug(vm.categories)
       $rootScope.$broadcast('topic', vm.categories);
     }
     // if (vm.$storage.SearchLocation) {
@@ -213,7 +245,6 @@
     // Listens for a broadcast saying topic and then
     // runs a search with the updated topics.
     $scope.$on('topic', function(event, data) {
-      $log.debug('i listened')
       var labelsArray = ['hvac', 'electrical', 'mechanical', 'management', 'all'];
       var previouslyAll = vm.$storage.SearchTopic5;
 
