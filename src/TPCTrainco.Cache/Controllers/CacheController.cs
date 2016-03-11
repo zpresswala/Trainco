@@ -255,6 +255,7 @@ namespace TPCTrainco.Cache.Controllers
                         {
                             courseDetail.ImageUrl = umbracoCourseDetail.ImageUrl;
                             courseDetail.DetailsUrl = umbracoCourseDetail.DetailsUrl;
+                            courseDetail.NodeId = umbracoCourseDetail.NodeId;
 
                             if (false == string.IsNullOrEmpty(umbracoCourseDetail.SubTitle))
                             {

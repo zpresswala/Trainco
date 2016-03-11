@@ -69,6 +69,21 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return reg;
         }
 
+        public static List<RegistrationAttendee> GetRegistrationAttendeesByEmail(string email)
+        {
+            List<RegistrationAttendee> attendeeList = null;
+
+            if (!String.IsNullOrEmpty(email))
+            {
+                using (var db = new americantraincoEntities())
+                {
+                    attendeeList = db.RegistrationAttendees.Where(p => p.RegAttendeeEmail == email).ToList();
+                }
+            }
+
+            return attendeeList;
+        }
+
 
         public static List<RegistrationAttendee> GetRegistrationAttendees(int regId)
         {
