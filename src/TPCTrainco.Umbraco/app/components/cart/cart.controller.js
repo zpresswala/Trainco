@@ -4,11 +4,11 @@
   angular
     .module('train.components')
     .controller('CartController', CartController);
-
+  CartController.$inject = ['cartService', '$log', '$scope', '$http', '$window', '$document', '$timeout', 'CONSTANTS'];
   /** @ngInject */
-  function CartController(cartService, $log, $scope, $http, $window, $document, $timeout) {
+  function CartController(cartService, $log, $scope, $http, $window, $document, $timeout, CONSTANTS) {
     var vm = this;
-    var purchaseAPI = 'http://trainco.axial-client.com/api/carts/save';
+    var purchaseAPI = CONSTANTS.CART_API_URL;
     vm.cartItem = {};
     vm.isCartOpened = false;
     vm.cartIsOpen = function() {

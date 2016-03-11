@@ -6,8 +6,8 @@
     .factory('Search', Search);
 
   /** @ngInject */
-  function Search($log, $http) {
-    var apiHost = 'http://trainco.axial-client.com/api/seminars2/search/';
+  function Search($log, $http, CONSTANTS) {
+    var apiHost = CONSTANTS.API_URL;
     var today = new Date();
 
     var service = {
@@ -17,7 +17,7 @@
     };
 
     return service;
-
+    
     function performSearch(searchObj) {
       var theTopics = [searchObj.topicParam1, searchObj.topicParam2, searchObj.topicParam3, searchObj.topicParam4];
       return $http.get(apiHost + '?' +
@@ -26,9 +26,7 @@
           '&radius=' + searchObj.radiusParam +
           '&topics=' + theTopics +
           '&date-start=' + searchObj.defStart + '-01-' + searchObj.startYear +
-          '&date-end=' + searchObj.defEnd + '-01-' + searchObj.endYear, {
-            cache: true
-          })
+          '&date-end=' + searchObj.defEnd + '-30-' + searchObj.endYear)
         .then(getSearchComplete)
         .catch(getSearchFailed);
 

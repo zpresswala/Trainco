@@ -62,6 +62,7 @@
 	border-radius: 50%;
 	position: relative;
 	cursor: pointer;
+  overflow: hidden;
 	@include transition(all 0.25s ease-in-out);
 
 	&:hover > .overlay, &.chosen > .overlay {

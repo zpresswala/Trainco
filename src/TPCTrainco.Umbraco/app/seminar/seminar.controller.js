@@ -4,6 +4,8 @@
   angular
     .module('train.seminar')
     .controller('SeminarController', SeminarController);
+
+  SeminarController.$inject = ['$log', 'courseSearch', 'cartService', 'UtilitySvc', '$timeout', '$document', '$window', '$rootScope', '$scope', 'MonthSvc', '_'];
   /** @ngInject */
   function SeminarController($log, courseSearch, cartService, UtilitySvc, $timeout, $document, $window, $rootScope, $scope, MonthSvc, _) {
     var vm = this;

@@ -5,18 +5,57 @@
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
-  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, MonthSvc, $loading, $timeout, $document, $window) {
+  function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, courseSearch, MonthSvc, $loading, $timeout, $document, $window, SeminarsSvc, CONSTANTS) {
     var vm = this;
+
     vm.kwFilter = {};
     vm.mileRange = {};
     vm.locSearchFilter = {};
+    vm.categories = {
+        hvac: false,
+        electrical: false,
+        mechanical: false,
+        management: false,
+        all: false
+      }
     vm.locSearchFilter.locationAll = false;
-    var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
-
+    var searchAPI = CONSTANTS.API_URL;
     vm.dateRange = {};
     vm.$storage = $localStorage;
     vm.searchFired = false; // determines whether or not we will show an error message.
     vm.sbIsCollapsed = true; // mobile sidebar converted into menu.
+
+    // For the course title dropdown
+    vm.seminarListingData = SeminarsSvc.getSeminarList().success(function(res) {
+      vm.listingData = res.seminars;
+    });
+    vm.selectedSeminar = {};
+
+    vm.seminarDropDownWatcher = function() {
+      var classId = vm.selectedSeminar.id;
+      requestSeminarData(classId);
+      emptyLocalStorage();
+      resetFields();
+      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+      vm.showDirections = false;
+      vm.searchFired = true;
+    }
+    function requestSeminarData(classId) {
+      var classId = vm.selectedSeminar.id;
+
+      return courseSearch.getSeminars(classId).then(function(data) {
+        var seminarsData = data.seminars;
+        receiveSeminarData(seminarsData)
+      });
+    }
+
+    vm.additionalClick = function () {
+      vm.numLimit = 50;
+    }
+
+    vm.lessClick = function () {
+      vm.numLimit = 10;
+    }
 
     activate();
 
@@ -51,26 +90,27 @@
      * @method activate
      */
     function activate() {
-      if (vm.$storage.SearchLocation) {
-        var keywordParam = '';
-        vm.initialDirections = true;
-        vm.locSearchFilter.location = vm.$storage.SearchLocation;
+      var keywordParam = '';
+      vm.initialDirections = true;
+      vm.locSearchFilter.location = vm.$storage.SearchLocation;
+      vm.categories.hvac = !!vm.$storage.SearchTopic1;
+      vm.categories.electrical = !!vm.$storage.SearchTopic2;
+      vm.categories.mechanical = !!vm.$storage.SearchTopic3;
+      vm.categories.management = !!vm.$storage.SearchTopic4;
+      vm.categories.all = !!vm.$storage.SearchTopic5;
 
-        var searchObj = {
-          keywordParam: null,
-          locParam: vm.$storage.SearchLocation,
-          topicParam1: vm.$storage.SearchTopic1,
-          topicParam2: vm.$storage.SearchTopic2,
-          topicParam3: vm.$storage.SearchTopic3,
-          topicParam4: vm.$storage.SearchTopic4,
-          defStart: vm.$storage.SearchDRmin,
-          defEnd: vm.$storage.SearchDRmax
-        }
 
-        doParamSearch(searchObj);
-      } else {
+      if (!vm.$storage.SearchLocation) {
         // showDirections displays the default blank state message
         vm.showDirections = true;
+      } else {
+        vm.topicParam1 = vm.$storage.SearchTopic1;
+        vm.topicParam2 = vm.$storage.SearchTopic2;
+        vm.topicParam3 = vm.$storage.SearchTopic3;
+        vm.topicParam4 = vm.$storage.SearchTopic4;
+        vm.dateRange.end = vm.$storage.SearchDRmax;
+        vm.dateRange.start = vm.$storage.SearchDRmin;
+        doParamSearch();
       }
 
       vm.cartItemList = cartService.getCartItems() || [];
@@ -191,14 +231,6 @@
         }
       }
     }
-
-    vm.categories = {
-        hvac: false,
-        electrical: false,
-        mechanical: false,
-        management: false,
-        all: false
-      }
       /**
        * Watches the locationAll checkbox and runs on checked.
        * @method function
@@ -207,9 +239,9 @@
     vm.stateChanged = function() {
       $rootScope.$broadcast('topic', vm.categories);
     }
-
-    vm.$storage.SearchTopic5 = true;
-
+    // if (vm.$storage.SearchLocation) {
+    // vm.$storage.SearchTopic5 = true;
+    // }
     // Listens for a broadcast saying topic and then
     // runs a search with the updated topics.
     $scope.$on('topic', function(event, data) {
@@ -288,7 +320,9 @@
         }
     }
 
-    function doParamSearch(searchObj) {
+    function doParamSearch() {
+      $log.debug('the mid one', vm.topicParam2)
+
       $loading.start('courses');
       var today = new Date();
       var thisMonth = today.getMonth();
@@ -305,6 +339,8 @@
         defEnd: vm.dateRange.end || (today.getMonth() + 3),
         endYear: checkYear('end')
       }
+
+      $log.debug(searchObj, vm.topicParam2)
 
       Search.performSearch(searchObj).then(function(data) {
         /**

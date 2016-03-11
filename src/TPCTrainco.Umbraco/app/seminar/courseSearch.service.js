@@ -6,10 +6,9 @@
     .factory('courseSearch', courseSearch);
 
   /** @ngInject */
-  function courseSearch($log, $http) {
-    var apiHost = 'http://trainco.axial-client.com/api/seminars2/search';
-    var apiSemDetails = 'http://trainco.axial-client.com/api/schedules2/details';
-    var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+  function courseSearch($log, $http, CONSTANTS) {
+    var apiHost = CONSTANTS.API_URL;
+    var apiSemDetails =CONSTANTS.API_URL + 'schedules2/details';
 
     var service = {
       getSeminars: getSeminars,
@@ -39,7 +38,7 @@
     }
 
     function getSeminarsBox() {
-      var searchAPI = 'http://trainco.axial-client.com/api/seminars2/search/?';
+
       var location = localStorage.getItem('location');
       var topicParam1 = localStorage.getItem('topicParam1');
       var topicParam2 = localStorage.getItem('topicParam2');
@@ -47,7 +46,7 @@
       var topicParam4 = localStorage.getItem('topicParam4');
       var minDateRange = localStorage.getItem('minDateRange');
       var maxDateRange = localStorage.getItem('maxDateRange');
-      return $http.get(searchAPI + 'location=' + location +
+      return $http.get(CONSTANTS.API_URL + '?location=' + location +
           '&topics=' + topicParam1 + ',' + topicParam2 + ',' + topicParam3 + ',' + topicParam4 +
           '&date-start=' + minDateRange + '-01-2016' +
           '&date-end=' + maxDateRange + '-01-2016')

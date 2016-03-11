@@ -12,7 +12,9 @@ var _ = require('lodash');
 
 gulp.task('styles-reload', ['styles'], function() {
   return buildStyles()
-    .pipe(browserSync.stream());
+    .pipe(browserSync.reload({
+      stream: true
+    }))
 });
 
 gulp.task('styles', function() {
@@ -39,5 +41,8 @@ var buildStyles = function() {
     .pipe($.postcss(processors))
     .pipe($.cssnano())
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/')));
+    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/')))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 };

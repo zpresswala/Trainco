@@ -18,37 +18,35 @@
   text-align: left;
 }
 
-#selectAllWrap {
+#courseTopicsWrap {
   input[type=checkbox] {
     display: none;
   }
 
   input[type=checkbox] + label {
-    background: url('/assets/images/selectall-icon.jpg') no-repeat;
     background-size: 100%;
-    height: 105px;
+    height: 100%;
     display: inline-block;
     padding: 0;
-    width: 105px;
+    width: 100%;
     border-radius: 50%;
-    border: 5px solid #fff;
+    position: absolute;
+    z-index: 50;
 
     &:hover {
-      background: url('/assets/images/selectAllHover.png') no-repeat;
-      -webkit-transition: all .3s ease-in-out;
       transition: all .1s ease-in-out;
     }
   }
 
   input[type=checkbox]:checked + label {
-    background: url('/assets/images/selectAllSelected.png') no-repeat;
     background-size: 100%;
-    height: 105px;
+    background-color: rgba(0, 144, 197, .8);
+    height: 100%;
     display: inline-block;
     padding: 0;
-    width: 105px;
+    width: 100%;
     border-radius: 50%;
-    border: 5px solid #fff;
+    position: absolute;
   }
 }
 
@@ -205,7 +203,7 @@ rzslider {
   display: inline-block;
   width: 100%;
   height: 40px;
-  margin: 5px 0 15px;
+  margin: 25px 0 15px;
   user-select: none;
   vertical-align: middle;
   padding-left: 15px;

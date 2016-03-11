@@ -54,6 +54,70 @@
     }
 }
 <script>
-	window.currentCityValue = '@currentCityState';
+    window.currentCityValue = '@currentCityState';
 </script>
-    <div ng-controller="MainSearchController as vm" ng-include src="'./mainSearch.html'"></div>
+<div ng-controller="MainSearchController as vm">
+    <div class="row">
+        <div class="col-md-11 topic-circles">
+            <h3>Select one or more topics and choose your location</h3>
+            <ul>
+
+                <li id="courseTopicsWrap" class="seminar-topic">
+                    <div class="overlay-contain" ng-class="{'chosen': vm.classTopics.all}" data-topic="all">
+                        <input id="all" type="checkbox" name="all" ng-model="vm.classTopics.all">
+                        <label class="checkbox-inline" for="all"></label>
+                        <div class="overlay"></div>
+                        <img src="@Html.Raw(allIconUrl)" alt="All Seminar Topics" />
+                    </div>
+                    <p class="seminar-title">All Seminar Topics</p>
+
+                    @Html.Raw(allTotalSeminars)
+                </li>
+                @foreach (IPublishedContent category in seminarCategoryList)
+            {
+                string shortName = category.GetPropertyValue<string>("shortName");
+                string iconUrl = category.GetCropUrl("searchIcon", "Image");
+                string dataTopic = shortName.ToLower();
+                string totalSeminars = "";
+
+                if (true == category.HasValue("totalSeminars"))
+                {
+                    totalSeminars = "<p class=\"num-seminars\">" + string.Format("{0:N0}", category.GetPropertyValue<decimal>("totalSeminars")) + " Seminars</p>";
+                }
+
+                if (dataTopic == "plant management")
+                {
+                    dataTopic = "management";
+                }
+                else if (dataTopic == "mechanical and industrial")
+                {
+                    dataTopic = "mechanical";
+                }
+
+                <li id="courseTopicsWrap" class="seminar-topic">
+                    <div class="overlay-contain" ng-class="{'chosen': vm.classTopics.@dataTopic}" data-topic="@dataTopic">
+
+                        <input id="@dataTopic" type="checkbox" name="@dataTopic" ng-model="vm.classTopics.@dataTopic">
+                        <label class="checkbox-inline" for="@dataTopic"></label>
+                        <div class="overlay"></div>
+                        <img src="@iconUrl" alt="@category.Name" />
+                    </div>
+                    <p class="seminar-title">@shortName</p>
+
+                    @Html.Raw(totalSeminars)
+                </li>
+                }
+            </ul>
+            <select selector
+                    model="vm.courseSearch.location"
+                    multi="false"
+                    options="vm.cities"
+                    value-attr="label"
+                    placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations'"
+                    create="vm.createFunction(input)"
+                    required></select>
+            <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
+            <a class="btn-reg btn-white" type="submit" ng-click="vm.doParamSearch(vm.course.classTopics)" id="search-btn" role="button">Search</a>
+        </div>
+    </div>
+</div>

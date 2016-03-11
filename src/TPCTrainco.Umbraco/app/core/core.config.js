@@ -21,8 +21,8 @@
      * @description
      * main configuration for trainco app.
      */
-    $logProvider.debugEnabled(true);
-    $compileProvider.debugInfoEnabled(true);
+    $logProvider.debugEnabled(false);
+    $compileProvider.debugInfoEnabled(false);
     $localStorageProvider.setKeyPrefix('tpc');
     // Expose XHR requests to server
     $httpProvider.defaults.useXDomain = true;

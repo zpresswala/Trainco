@@ -19,7 +19,7 @@ function browserSyncInit(baseDir, browser) {
   }
 
   var server = {
-    baseDir: baseDir,
+    baseDir: [conf.paths.src + '/static', conf.paths.src + '/TPCTrainCo.Umbraco'],
     routes: routes
   };
 
