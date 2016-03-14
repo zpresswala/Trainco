@@ -342,11 +342,13 @@
     <Compile Include="LocationType.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\BillingModel.cs" />
     <Compile Include="Models\Account\CompanyModel.cs" />
     <Compile Include="Models\Account\CourseModel.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\UserModel.cs" />
     <Compile Include="Models\API\Request\CreateCompanyRequestModel.cs" />
+    <Compile Include="Models\API\Request\UpdateBillingRequestModel.cs" />
     <Compile Include="Models\API\Request\UpdateSaveForLaterRequestModel.cs" />
     <Compile Include="Models\API\Request\ResetPasswordRequestModel.cs" />
     <Compile Include="Models\API\Request\UpdateUserRequestModel.cs" />
@@ -362,8 +364,10 @@
     <Compile Include="Models\API\Request\ShareCourseRequestModel.cs" />
     <Compile Include="Models\API\Request\UpdateCompanyRequestModel.cs" />
     <Compile Include="Models\API\Request\UserExistsRequestModel.cs" />
+    <Compile Include="Models\API\Response\GetBillingResponseModel.cs" />
     <Compile Include="Models\API\Response\GetUserResponseModel.cs" />
     <Compile Include="Models\API\Response\ResetPasswordResponseModel.cs" />
+    <Compile Include="Models\API\Response\UpdateBillingResponseModel.cs" />
     <Compile Include="Models\API\Response\UpdateUserResponseModel.cs" />
     <Compile Include="Models\API\Response\CreateUserResponseModel.cs" />
     <Compile Include="Models\API\Response\DeleteSaveForLaterResponseModel.cs" />

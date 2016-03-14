@@ -13,12 +13,11 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
         public string LastName { get; set; }
         public string Title { get; set; }
         public string Phone { get; set; }
-        public string PhoneExtention { get; set; }
+        public string PhoneExtension { get; set; }
         public string Password { get; set; }
+        public string FavoritedCourses { get; set; }
 
-        public bool HasMadePreviousPurchase { get; set; }
-        public string Role { get; set; }
-        public string TrainingTopics { get; set; }
         public string ValidationCode { get; set; }
+
     }
 }

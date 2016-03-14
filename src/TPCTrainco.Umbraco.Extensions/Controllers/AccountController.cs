@@ -200,6 +200,10 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
         }
 
+        /// <summary>
+        /// Get user profile info
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [TokenAuthorization]
         public HttpResponseMessage GetUser()
@@ -235,6 +239,28 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
                 Status = System.Net.HttpStatusCode.OK.ToString(),
                 StatusCode = (int)System.Net.HttpStatusCode.OK,
                 Result = company
+            };
+
+            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+        }
+
+        /// <summary>
+        /// Get the memebers billing information
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [TokenAuthorization]
+        public HttpResponseMessage GetBilling()
+        {
+            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+
+            var billing = AccountHelper.GetBilling(email);
+
+            var responseModel = new GetBillingResponseModel()
+            {
+                Status = System.Net.HttpStatusCode.OK.ToString(),
+                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                Result = billing
             };
 
             return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
@@ -292,7 +318,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         /// <returns></returns>
         [HttpGet]
         [TokenAuthorization]
-        public HttpResponseMessage GetPastCourses([FromUri] GetPastEventsRequestModel request)
+        public HttpResponseMessage GetPastCourses()
         {
             var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
 
@@ -352,6 +378,24 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var success = AccountHelper.UpdateCompany(email, request.Company);
 
             var responseModel = new UpdateCompanyResponseModel() {
+                Status = System.Net.HttpStatusCode.Accepted.ToString(),
+                StatusCode = (int)System.Net.HttpStatusCode.Accepted,
+                Result = success
+            };
+
+            return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
+        }
+
+        [HttpPut]
+        [TokenAuthorization]
+        public HttpResponseMessage UpdateBilliong(UpdateBillingRequestModel request)
+        {
+            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+
+            var success = AccountHelper.UpdateBilling(email, request.Billing);
+
+            var responseModel = new UpdateBillingResponseModel()
+            {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
                 StatusCode = (int)System.Net.HttpStatusCode.Accepted,
                 Result = success

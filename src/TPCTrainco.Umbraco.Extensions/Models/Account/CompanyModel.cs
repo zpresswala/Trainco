@@ -17,8 +17,15 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
         public string State { get; set; }
         public string PostalCode { get; set; }
 
+        public string HowDidYouAboutUs { get; set; }
+        public string PromCode { get; set; }
         public string Industry { get; set; }
+        public string Role { get; set; }
+        public string ExternalTrainingUsageAmount { get; set; }
         public string NumberOfEmployees { get; set; }
-        public string ExtentalTrianingUsageAmount { get; set; }
+        public string TrainingTopics { get; set; }
+
+
+        
     }
 }

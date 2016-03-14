@@ -126,10 +126,6 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     var validationCode = Guid.NewGuid().ToString();
                     member.SetValue("validationCode", validationCode);
 
-                    member.SetValue("hasMadePreviousPurchase", user.HasMadePreviousPurchase);
-                    member.SetValue("role", user.Role);
-                    member.SetValue("trainingTopics", user.TrainingTopics);
-
                     member.SetValue("umbracoMemberApproved", false);
 
                     member.Name = String.Format("{0} {1}", user.FirstName, user.LastName);
@@ -179,7 +175,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             if (member != null)
             {
-                try {
+                try
+                {
                     var validationCode = Guid.NewGuid().ToString();
                     member.SetValue("validationCode", validationCode);
 
@@ -318,19 +315,17 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
 
-            if(member != null)
+            if (member != null)
             {
-                user = new UserModel() {
+                user = new UserModel()
+                {
                     Email = member.Email,
                     FirstName = member.GetValue<string>("firstName"),
                     LastName = member.GetValue<string>("lastName"),
                     Title = member.GetValue<string>("title"),
                     Phone = member.GetValue<string>("phone"),
-                    PhoneExtention = member.GetValue<string>("phoneExtention"),
-
-                    HasMadePreviousPurchase = member.GetValue<bool>("hasMadePreviousPurchase"),
-                    Role = member.GetValue<string>("role"),
-                    TrainingTopics = member.GetValue<string>("trainingTopics"),
+                    PhoneExtension = member.GetValue<string>("phoneExtension"),
+                    FavoritedCourses = member.GetValue<string>("favoritedCourses"),
                     ValidationCode = member.GetValue<string>("validationCode")
                 };
             }
@@ -357,11 +352,34 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     PostalCode = member.GetValue<string>("postalCode"),
                     Industry = member.GetValue<string>("industry"),
                     NumberOfEmployees = member.GetValue<string>("numberOfEmployees"),
-                    ExtentalTrianingUsageAmount = member.GetValue<string>("extentalTrianingUsageAmount")
+                    ExternalTrainingUsageAmount = member.GetValue<string>("extentalTrianingUsageAmount")
                 };
             }
 
             return company;
+        }
+
+        public static BillingModel GetBilling(string email)
+        {
+            BillingModel billing = null;
+
+            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+
+            if (member != null)
+            {
+                billing = new BillingModel()
+                {
+                    Name = member.GetValue<string>("billingCompanyName"),
+                    Address1 = member.GetValue<string>("billingAddress1"),
+                    Address2 = member.GetValue<string>("billingAddress2"),
+                    Country = member.GetValue<string>("billingCountry"),
+                    City = member.GetValue<string>("billingCity"),
+                    State = member.GetValue<string>("billingState"),
+                    PostalCode = member.GetValue<string>("billingPostalCode")
+                };
+            }
+
+            return billing;
         }
 
         public static IEnumerable<CourseModel> GetSaveForLater(string email)
@@ -398,7 +416,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
 
             if (member != null)
-            {
+            {                
                 member.SetValue("companyName", company.Name);
                 member.SetValue("address1", company.Address1);
                 member.SetValue("address2", company.Address2);
@@ -406,9 +424,47 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 member.SetValue("city", company.City);
                 member.SetValue("state", company.State);
                 member.SetValue("postalCode", company.PostalCode);
+
+                member.SetValue("howDidYouAboutUs", company.HowDidYouAboutUs);
+                member.SetValue("promoCode", company.PromCode);
                 member.SetValue("industry", company.Industry);
+                member.SetValue("role", company.Role);                
+                member.SetValue("extentalTrianingUsageAmount", company.ExternalTrainingUsageAmount);
                 member.SetValue("numberOfEmployees", company.NumberOfEmployees);
-                member.SetValue("extentalTrianingUsageAmount", company.ExtentalTrianingUsageAmount);
+                member.SetValue("trainingTopics", company.TrainingTopics);
+
+                try
+                {
+                    ApplicationContext.Current.Services.MemberService.Save(member);
+                }
+                catch
+                {
+                    success = false;
+                }
+            }
+            else
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
+        public static bool UpdateBilling(string email, BillingModel billing)
+        {
+            var success = true;
+
+            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+
+            if (member != null)
+            {
+                member.SetValue("billingCompanyName", billing.Name);
+                member.SetValue("billingAddress1", billing.Address1);
+                member.SetValue("billingAddress2", billing.Address2);
+                member.SetValue("billingCountry", billing.Country);
+                member.SetValue("billingCity", billing.City);
+                member.SetValue("billingState", billing.State);
+                member.SetValue("billingPostalCode", billing.PostalCode);
 
                 try
                 {
@@ -434,15 +490,15 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
 
             if (member != null)
-            {
-                member.SetValue("hasMadePreviousPurchase", user.HasMadePreviousPurchase);
-                member.SetValue("phone", user.Phone);
-                member.SetValue("role", user.Role);
-                member.SetValue("trainingTopics", user.TrainingTopics);
+            {                
                 member.SetValue("firstName", user.FirstName);
                 member.SetValue("lastName", user.LastName);
                 member.SetValue("title", user.Title);
-                member.SetValue("phoneExtention", user.PhoneExtention);
+                member.SetValue("phone", user.Phone);
+                member.SetValue("phoneExtension", user.PhoneExtension);
+
+                member.Username = email;
+                member.Email = email;
 
                 try
                 {
@@ -503,7 +559,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             if (member != null && member.GetValue<string>("validationCode").Equals(validationCode))
             {
-                try {
+                try
+                {
                     ApplicationContext.Current.Services.MemberService.SavePassword(member, password);
                 }
                 catch
@@ -583,7 +640,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                             var scheduleCourseInstructor = CacheObjects.GetScheduleCourseList().FirstOrDefault(i => i.ScheduleID == registrationAttendeesSchedule.ScheduleID);
                             if (scheduleCourseInstructor != null)
                             {
-                                courseSchedules.Add(new CourseScheduleRegistration() {
+                                courseSchedules.Add(new CourseScheduleRegistration()
+                                {
                                     CourseId = scheduleCourseInstructor.CourseID,
                                     ScheduleId = scheduleCourseInstructor.ScheduleID,
                                     RegistrationId = attendeeRegistration.RegistrationID
@@ -611,10 +669,10 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                 var materialIdsRaw = content.GetValue<string>("materials");
 
-                if(!String.IsNullOrEmpty(materialIdsRaw))
+                if (!String.IsNullOrEmpty(materialIdsRaw))
                 {
                     var materialIds = materialIdsRaw.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
-                    foreach(var materialId in materialIds)
+                    foreach (var materialId in materialIds)
                     {
                         var media = ApplicationContext.Current.Services.MediaService.GetById(materialId);
                         if (media != null)
@@ -631,9 +689,10 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                 var registrationAttendees = Registrations.GetRegistrationAttendees(registrationId);
 
-                foreach(var registrationAttendee in registrationAttendees)
+                foreach (var registrationAttendee in registrationAttendees)
                 {
-                    attendees.Add(new AttendeeModel() {
+                    attendees.Add(new AttendeeModel()
+                    {
                         Email = registrationAttendee.RegAttendeeEmail,
                         FirstName = registrationAttendee.RegAttendeeFirstName,
                         LastName = registrationAttendee.RegAttendeeLastName,
