@@ -46,7 +46,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return reg;
         }
 
-
         public static REGISTRATION AddRegistrationByTempCart(int regId)
         {
             REGISTRATION reg = null;
@@ -69,9 +68,24 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return reg;
         }
 
+        public static List<REGISTRATION> GetRegistrationsByEmail(string email)
+        {
+            List<REGISTRATION> registrations = new List<REGISTRATION>();
+
+            if (!String.IsNullOrEmpty(email))
+            {
+                using (var db = new americantraincoEntities())
+                {
+                    registrations = db.REGISTRATIONS.Where(p => p.RegAuthEmail == email).ToList();
+                }
+            }
+
+            return registrations;
+        }
+
         public static List<RegistrationAttendee> GetRegistrationAttendeesByEmail(string email)
         {
-            List<RegistrationAttendee> attendeeList = null;
+            List<RegistrationAttendee> attendeeList = new List<RegistrationAttendee>();
 
             if (!String.IsNullOrEmpty(email))
             {
@@ -100,6 +114,20 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return attendeeList;
         }
 
+        public static List<RegistrationAttendee> GetRegistrationAttendees(IEnumerable<int> regIds)
+        {
+            List<RegistrationAttendee> attendeeList = null;
+
+            if (regIds != null && regIds.Count() > 0)
+            {
+                using (var db = new americantraincoEntities())
+                {
+                    attendeeList = db.RegistrationAttendees.Where(p => regIds.Contains(p.RegistrationID)).ToList();
+                }
+            }
+
+            return attendeeList;
+        }
 
         public static List<RegistrationAttendeeSchedule> GetRegistrationAttendeesSchedules(int regId)
         {
@@ -114,6 +142,21 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     List<int> attendeeIdArray = attendeeList.Select(p => p.RegistrationAttendeeID).ToList();
 
                     attendeesScheduleList = db.RegistrationAttendeeSchedules.Where(p => attendeeIdArray.Contains(p.RegistrationAttendeeID)).ToList();
+                }
+            }
+
+            return attendeesScheduleList;
+        }
+
+        public static List<RegistrationAttendeeSchedule> GetRegistrationAttendeesSchedulesByRegistrationAttendeeIds(IEnumerable<int> registrationAttendeeIds)
+        {
+            List<RegistrationAttendeeSchedule> attendeesScheduleList = new List<RegistrationAttendeeSchedule>();
+
+            if (registrationAttendeeIds != null && registrationAttendeeIds.Count() > 0)
+            {
+                using (var db = new americantraincoEntities())
+                {
+                    attendeesScheduleList = db.RegistrationAttendeeSchedules.Where(r => registrationAttendeeIds.Contains(r.RegistrationAttendeeID)).ToList();
                 }
             }
 

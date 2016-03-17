@@ -13,6 +13,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
         public IEnumerable<MaterialModel> Materials { get; set; }
         public IEnumerable<AttendeeModel> Attendees { get; set; }
 
+        public int ScheduleId { get; set; }
         public string ScheduleDateDescription { get; set; }
         public DateTime ScheduleDate { get; set; }
     }
@@ -24,6 +25,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
 
     public class AttendeeModel
     {
+        public int RegistrationAttendeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

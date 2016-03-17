@@ -35,11 +35,13 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             if (request != null && request.Username != null && request.Password != null && Membership.ValidateUser(request.Username, request.Password))
             {
+                var member = ApplicationContext.Current.Services.MemberService.GetByUsername(request.Username);
+
                 var host = Request.RequestUri.Host;
 
                 var expiration = request.PersistantLogin ? DateTime.UtcNow.AddYears(100).Ticks : DateTime.UtcNow.Ticks;
 
-                authToken = AccountHelper.GenerateToken(request.Username, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), expiration);
+                authToken = AccountHelper.GenerateToken(member.Key.ToString(), member.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), expiration);
             }
 
             var responseModel = new LoginResponseModel() {
@@ -102,9 +104,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         {
             var authToken = String.Empty;
 
-            if (AccountHelper.EmailVerification(request.Email, request.ValidationCode))
+            IMember member = null;
+
+            if (AccountHelper.EmailVerification(request.Email, request.ValidationCode, out member))
             {
-                authToken = AccountHelper.GenerateToken(request.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
+                authToken = AccountHelper.GenerateToken(member.Key.ToString(), member.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
             }
 
             var responseModel = new LoginResponseModel()
@@ -127,9 +131,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage ShareCourse(ShareCourseRequestModel request)
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            AccountHelper.ShareCourse(email, request.Email, request.CourseId, Request.RequestUri);
+            AccountHelper.ShareCourse(memberKey, request.Email, request.CourseId, Request.RequestUri);
 
             return Request.CreateResponse(System.Net.HttpStatusCode.OK);
         }
@@ -208,9 +212,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage GetUser()
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var user = AccountHelper.GetUser(email);
+            var user = AccountHelper.GetUser(memberKey);
 
             var responseModel = new GetUserResponseModel()
             {
@@ -230,9 +234,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage GetCompany()
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);            
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var company = AccountHelper.GetCompany(email);      
+            var company = AccountHelper.GetCompany(memberKey);      
 
             var responseModel = new GetCompanyResponseModel()
             {
@@ -252,9 +256,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage GetBilling()
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var billing = AccountHelper.GetBilling(email);
+            var billing = AccountHelper.GetBilling(memberKey);
 
             var responseModel = new GetBillingResponseModel()
             {
@@ -275,9 +279,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage GetSaveForLater()
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var courses = AccountHelper.GetSaveForLater(email);
+            var courses = AccountHelper.GetSaveForLater(memberKey);
 
             var responseModel = new GetSaveForLaterResponseModel() {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
@@ -296,9 +300,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage GetUpcomingCourses()
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var courses = AccountHelper.GetUpcomingCourses(email);
+            var courses = AccountHelper.GetUpcomingCourses(memberKey);
 
             var responseModel = new GetUpcomingEventsResponseModel()
             {
@@ -320,9 +324,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage GetPastCourses()
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var courses = AccountHelper.GetPastCourses(email);
+            var courses = AccountHelper.GetPastCourses(memberKey);
 
             var responseModel = new GetPastEventsResponseModel()
             {
@@ -349,9 +353,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         {
             var authToken = String.Empty;
 
-            if (AccountHelper.UpdatePassword(request.Email, request.Password, request.ValidationCode))
+            IMember member = null;
+
+            if (AccountHelper.UpdatePassword(request.Email, request.Password, request.ValidationCode, out member))
             {
-                authToken = AccountHelper.GenerateToken(request.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
+                authToken = AccountHelper.GenerateToken(member.Key.ToString(), member.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
             }
 
             var responseModel = new ResetPasswordResponseModel()
@@ -373,9 +379,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage UpdateCompany(UpdateCompanyRequestModel request)
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var success = AccountHelper.UpdateCompany(email, request.Company);
+            var success = AccountHelper.UpdateCompany(memberKey, request.Company);
 
             var responseModel = new UpdateCompanyResponseModel() {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
@@ -386,13 +392,18 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
         }
 
+        /// <summary>
+        /// Update the users billing info
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut]
         [TokenAuthorization]
         public HttpResponseMessage UpdateBilliong(UpdateBillingRequestModel request)
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var success = AccountHelper.UpdateBilling(email, request.Billing);
+            var success = AccountHelper.UpdateBilling(memberKey, request.Billing);
 
             var responseModel = new UpdateBillingResponseModel()
             {
@@ -413,13 +424,15 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage UpdateUser(UpdateUserRequestModel request)
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
             var authToken = String.Empty;
 
-            if (AccountHelper.UpdateUser(email, request.User))
+            IMember member = null;
+
+            if (AccountHelper.UpdateUser(memberKey, request.User, out member))
             {
-                authToken = AccountHelper.GenerateToken(request.User.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
+                authToken = AccountHelper.GenerateToken(member.Key.ToString(), member.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
             }
 
             var responseModel = new UpdateUserResponseModel()
@@ -441,9 +454,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage UpdateSaveForLater(UpdateSaveForLaterRequestModel request)
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var success = AccountHelper.UpdateSaveForLater(email, request.CourseId);
+            var success = AccountHelper.UpdateSaveForLater(memberKey, request.CourseId);
 
             return Request.CreateResponse(success ? System.Net.HttpStatusCode.Accepted : System.Net.HttpStatusCode.NotModified);
         }
@@ -462,9 +475,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [TokenAuthorization]
         public HttpResponseMessage DeleteSaveForLater(DeleteSaveForLaterRequestModel request)
         {
-            var email = AccountHelper.GetUsernameFromToken(Request.Headers.Authorization.Parameter);
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var success = AccountHelper.DeleteSaveForLater(email, request.CourseId);
+            var success = AccountHelper.DeleteSaveForLater(memberKey, request.CourseId);
 
             var responseModel = new DeleteSaveForLaterResponseModel()
             {

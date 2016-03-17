@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using TPCTrainco.Umbraco.Extensions.Models.Account;
 using TPCTrainco.Umbraco.Extensions.Objects;
-using TPCTrainco.Umbraco.Extensions.ViewModels;
 using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
@@ -19,9 +17,9 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         private const string _salt = "roduMbjVKvk5UNTuvkXUf"; // Generated at https://www.random.org/strings
         private const int _expirationMinutes = 360;
 
-        public static string GenerateToken(string username, string host, string ip, string userAgent, long ticks)
+        public static string GenerateToken(string memberKey, string email, string host, string ip, string userAgent, long ticks)
         {
-            string hash = string.Join(":", new string[] { username, ip, userAgent, ticks.ToString() });
+            string hash = string.Join(":", new string[] { memberKey.ToString(), email, ip, userAgent, ticks.ToString() });
             string hashLeft = "";
             string hashRight = "";
 
@@ -31,7 +29,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 hmac.ComputeHash(Encoding.UTF8.GetBytes(hash));
 
                 hashLeft = Convert.ToBase64String(hmac.Hash);
-                hashRight = string.Join(":", new string[] { username, ticks.ToString() });
+                hashRight = string.Join(":", new string[] { memberKey.ToString(), email, ticks.ToString() });
             }
 
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Join(":", hashLeft, hashRight)));
@@ -62,19 +60,20 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                 // Split the parts.
                 string[] parts = key.Split(new char[] { ':' });
-                if (parts.Length == 3)
+                if (parts.Length == 4)
                 {
                     // Get the hash message, username, and timestamp.
                     string hash = parts[0];
-                    string username = parts[1];
-                    long ticks = long.Parse(parts[2]);
+                    string memberKey = parts[1];
+                    string email = parts[2];
+                    long ticks = long.Parse(parts[3]);
                     DateTime timeStamp = new DateTime(ticks);
 
                     bool expired = (DateTime.UtcNow - timeStamp).TotalMinutes > _expirationMinutes;
                     if (!expired)
                     {
                         // Hash the message with the key to generate a token.
-                        string computedToken = GenerateToken(username, host, ip, userAgent, ticks);
+                        string computedToken = GenerateToken(memberKey, email, host, ip, userAgent, ticks);
 
                         // Compare the computed token with the one supplied and ensure they match.
                         result = (token == computedToken);
@@ -88,9 +87,9 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return result;
         }
 
-        public static string GetUsernameFromToken(string token)
+        public static string GetEamilFromToken(string token)
         {
-            var username = String.Empty;
+            var email = String.Empty;
             try
             {
                 // Base64 decode the string, obtaining the token:username:timeStamp.
@@ -98,16 +97,38 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                 // Split the parts.
                 string[] parts = key.Split(new char[] { ':' });
-                if (parts.Length == 3)
+                if (parts.Length == 4)
                 {
-                    username = parts[1];
+                    email = parts[2];
                 }
             }
             catch
             {
             }
 
-            return username;
+            return email;
+        }
+
+        public static string GetMemberKeyFromToken(string token)
+        {
+            var memberKey = String.Empty;
+            try
+            {
+                // Base64 decode the string, obtaining the token:username:timeStamp.
+                string key = Encoding.UTF8.GetString(Convert.FromBase64String(token));
+
+                // Split the parts.
+                string[] parts = key.Split(new char[] { ':' });
+                if (parts.Length == 4)
+                {
+                    memberKey = parts[1];
+                }
+            }
+            catch
+            {
+            }
+
+            return memberKey;
         }
 
         public static UserModel CreateUser(UserModel user, Uri uri)
@@ -216,11 +237,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return success;
         }
 
-        public static bool UpdateSaveForLater(string email, string courseId)
+        public static bool UpdateSaveForLater(string memberKey, string courseId)
         {
             var success = true;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null && !String.IsNullOrEmpty(courseId))
             {
@@ -250,11 +271,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return success;
         }
 
-        public static bool EmailVerification(string email, string validationCode)
+        public static bool EmailVerification(string email, string validationCode, out IMember member)
         {
             var success = true;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByUsername(email);
+            member = ApplicationContext.Current.Services.MemberService.GetByUsername(email);
 
             if (member != null && member.GetValue<string>("ValidationCode").Equals(validationCode))
             {
@@ -276,7 +297,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return success;
         }
 
-        public static void ShareCourse(string fromEmail, string toEmail, int courseId, Uri uri)
+        public static void ShareCourse(string memberKey, string toEmail, int courseId, Uri uri)
         {
             var emailTemplete = GetEmailTemplate("Share Course");
 
@@ -294,11 +315,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 {
                     string couresUrl = String.Format("{0}://{1}{2}", uri.Scheme, uri.Host, course.DetailsUrl);
 
-                    var member = ApplicationContext.Current.Services.MemberService.GetByEmail(fromEmail);
+                    var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
                     var memberName = String.Format("{0} {1}", member.GetValue<string>("firatName"), member.GetValue<string>("lastName"));
 
                     var smtp = new Email();
-                    smtp.EmailFrom = fromEmail; // TODO: Should this be from the system or the user?
+                    smtp.EmailFrom = member.Email; // TODO: Should this be from the system or the user?
                     smtp.EmailToList = new List<string>() { toEmail };
                     smtp.EmailBccList = bcc.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                     smtp.IsBodyHtml = true;
@@ -309,11 +330,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             }
         }
 
-        public static UserModel GetUser(string email)
+        public static UserModel GetUser(string memberKey)
         {
             UserModel user = null;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
             {
@@ -333,16 +354,18 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return user;
         }
 
-        public static CompanyModel GetCompany(string email)
+        public static CompanyModel GetCompany(string memberKey)
         {
             CompanyModel company = null;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
             {
                 company = new CompanyModel()
                 {
+                    HowDidYouAboutUs = member.GetValue<string>("howDidYouAboutUs"),
+                    PromCode = member.GetValue<string>("promoCode"),
                     Name = member.GetValue<string>("companyName"),
                     Address1 = member.GetValue<string>("address1"),
                     Address2 = member.GetValue<string>("address2"),
@@ -351,19 +374,21 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     State = member.GetValue<string>("state"),
                     PostalCode = member.GetValue<string>("postalCode"),
                     Industry = member.GetValue<string>("industry"),
+                    Role = member.GetValue<string>("role"),                    
+                    ExternalTrainingUsageAmount = member.GetValue<string>("extentalTrianingUsageAmount"),
                     NumberOfEmployees = member.GetValue<string>("numberOfEmployees"),
-                    ExternalTrainingUsageAmount = member.GetValue<string>("extentalTrianingUsageAmount")
+                    TrainingTopics = member.GetValue<string>("trainingTopics")
                 };
             }
 
             return company;
         }
 
-        public static BillingModel GetBilling(string email)
+        public static BillingModel GetBilling(string memberKey)
         {
             BillingModel billing = null;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
             {
@@ -382,11 +407,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return billing;
         }
 
-        public static IEnumerable<CourseModel> GetSaveForLater(string email)
+        public static IEnumerable<CourseModel> GetSaveForLater(string memberKey)
         {
             var courses = new List<CourseModel>();
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
             {
@@ -409,11 +434,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return courses;
         }
 
-        public static bool UpdateCompany(string email, CompanyModel company)
+        public static bool UpdateCompany(string memberKey, CompanyModel company)
         {
             var success = true;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
             {                
@@ -450,11 +475,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return success;
         }
 
-        public static bool UpdateBilling(string email, BillingModel billing)
+        public static bool UpdateBilling(string memberKey, BillingModel billing)
         {
             var success = true;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
             {
@@ -483,11 +508,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return success;
         }
 
-        public static bool UpdateUser(string email, UserModel user)
+        public static bool UpdateUser(string memberKey, UserModel user, out IMember member)
         {
             var success = true;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+             member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
             {                
@@ -497,8 +522,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 member.SetValue("phone", user.Phone);
                 member.SetValue("phoneExtension", user.PhoneExtension);
 
-                member.Username = email;
-                member.Email = email;
+                member.Username = user.Email;
+                member.Email = user.Email;
 
                 try
                 {
@@ -517,11 +542,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return success;
         }
 
-        public static bool DeleteSaveForLater(string email, string courseId)
+        public static bool DeleteSaveForLater(string memberKey, string courseId)
         {
             var success = true;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null && !String.IsNullOrEmpty(courseId))
             {
@@ -551,11 +576,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return success;
         }
 
-        public static bool UpdatePassword(string email, string password, string validationCode)
+        public static bool UpdatePassword(string email, string password, string validationCode, out IMember member)
         {
             var success = true;
 
-            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
+            member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
 
             if (member != null && member.GetValue<string>("validationCode").Equals(validationCode))
             {
@@ -609,115 +634,117 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return supervisorsEmail;
         }
 
-        public static IEnumerable<CourseModel> GetUpcomingCourses(string email)
+        public static IEnumerable<CourseModel> GetUpcomingCourses(string memberKey)
         {
-            return GetCourses(email).Where(c => c.ScheduleDate < DateTime.Now);
+            return GetCourses(memberKey).Where(c => c.ScheduleDate < DateTime.Now);
         }
 
-        public static IEnumerable<CourseModel> GetPastCourses(string email)
+        public static IEnumerable<CourseModel> GetPastCourses(string memberKey)
         {
-            return GetCourses(email).Where(c => c.ScheduleDate >= DateTime.Now);
+            return GetCourses(memberKey).Where(c => c.ScheduleDate >= DateTime.Now);
         }
 
-        private static List<CourseModel> GetCourses(string email)
+        private static List<CourseModel> GetCourses(string memberKey)
         {
             var courses = new List<CourseModel>();
 
-            List<CourseScheduleRegistration> courseSchedules = new List<CourseScheduleRegistration>();
+            // get the member so we can get their email address
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
-            var attendeeRegistrations = Registrations.GetRegistrationAttendeesByEmail(email);
-
-            if (attendeeRegistrations != null)
+            if (member != null)
             {
-                foreach (var attendeeRegistration in attendeeRegistrations)
-                {
-                    var registrationAttendeesSchedules = Registrations.GetRegistrationAttendeesSchedules(attendeeRegistration.RegistrationID);
+                List<RegistrationAttendee> attendees = new List<RegistrationAttendee>();
 
-                    if (registrationAttendeesSchedules != null && registrationAttendeesSchedules.Count() > 0)
+                var registrationIds = Registrations.GetRegistrationsByEmail(member.Email).Select(r => r.RegistrationID);
+
+                // This adds all the attendees purchased by the member.
+                attendees.AddRange(Registrations.GetRegistrationAttendees(registrationIds));
+
+                // This adds all the attendee records that are the member but where purchased by someone else. It compares id's and only add records that are not already in the collection.
+                attendees.AddRange(Registrations.GetRegistrationAttendeesByEmail(member.Email).Where(r => attendees.Select(a => a.RegistrationAttendeeID).Contains(r.RegistrationAttendeeID) == false));
+
+                // Grab all the RegistrationAttendeeSchedule records to reduce trips to the database.
+                var registrationAttendeeSchedules = Registrations.GetRegistrationAttendeesSchedulesByRegistrationAttendeeIds(attendees.Select(a => a.RegistrationAttendeeID));
+
+                foreach (var attendee in attendees)
+                {
+                    var registrationAttendeeSchedule = registrationAttendeeSchedules.Where(r => r.RegistrationAttendeeID == attendee.RegistrationAttendeeID);
+
+                    var scheduleId = registrationAttendeeSchedule.First().ScheduleID;
+
+                    var course = courses.FirstOrDefault(c => c.ScheduleId == scheduleId);
+
+                    if (course == null)
                     {
-                        foreach (var registrationAttendeesSchedule in registrationAttendeesSchedules)
+                        var scheduleCourseInstructor = CacheObjects.GetScheduleCourseList().Where(i => i.ScheduleID == scheduleId);
+
+                        if (scheduleCourseInstructor != null && scheduleCourseInstructor.Count() > 0)
                         {
-                            var scheduleCourseInstructor = CacheObjects.GetScheduleCourseList().FirstOrDefault(i => i.ScheduleID == registrationAttendeesSchedule.ScheduleID);
-                            if (scheduleCourseInstructor != null)
+                            var courseId = scheduleCourseInstructor.First().CourseID;
+
+                            var courseDetail = CacheObjects.GetCourseDetailList().FirstOrDefault(c => c.Id == courseId);
+                            var scheduleDetail = CacheObjects.GetScheduleList().FirstOrDefault(c => c.ScheduleID == scheduleId);
+
+                            var content = ApplicationContext.Current.Services.ContentService.GetById(courseDetail.NodeId);
+
+                            var materials = new List<MaterialModel>();
+
+                            var materialIdsRaw = content.GetValue<string>("materials");
+
+                            if (!String.IsNullOrEmpty(materialIdsRaw))
                             {
-                                courseSchedules.Add(new CourseScheduleRegistration()
+                                var materialIds = materialIdsRaw.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
+                                foreach (var materialId in materialIds)
                                 {
-                                    CourseId = scheduleCourseInstructor.CourseID,
-                                    ScheduleId = scheduleCourseInstructor.ScheduleID,
-                                    RegistrationId = attendeeRegistration.RegistrationID
-                                });
+                                    var media = ApplicationContext.Current.Services.MediaService.GetById(materialId);
+                                    if (media != null)
+                                    {
+                                        materials.Add(new MaterialModel()
+                                        {
+                                            Url = media.GetValue<string>("umbracoFile")
+                                        });
+                                    }
+                                }
                             }
-                        }
-                    }
-                }
-            }
 
-            Seminars seminars = new Seminars();
-
-            foreach (var courseSchedule in courseSchedules)
-            {
-                var courseId = courseSchedule.CourseId;
-                var scheduleId = courseSchedule.ScheduleId;
-                var registrationId = courseSchedule.RegistrationId;
-
-                var courseDetail = CacheObjects.GetCourseDetailList().FirstOrDefault(c => c.Id == courseId);
-                var scheduleDetail = CacheObjects.GetScheduleList().FirstOrDefault(c => c.ScheduleID == scheduleId);
-
-                var content = ApplicationContext.Current.Services.ContentService.GetById(courseDetail.NodeId);
-
-                var materials = new List<MaterialModel>();
-
-                var materialIdsRaw = content.GetValue<string>("materials");
-
-                if (!String.IsNullOrEmpty(materialIdsRaw))
-                {
-                    var materialIds = materialIdsRaw.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
-                    foreach (var materialId in materialIds)
-                    {
-                        var media = ApplicationContext.Current.Services.MediaService.GetById(materialId);
-                        if (media != null)
-                        {
-                            materials.Add(new MaterialModel()
+                            var attendeeList = new List<AttendeeModel>();
+                            attendeeList.Add(new AttendeeModel()
                             {
-                                Url = media.GetValue<string>("umbracoFile")
+                                Email = attendee.RegAttendeeEmail,
+                                FirstName = attendee.RegAttendeeFirstName,
+                                LastName = attendee.RegAttendeeLastName,
+                                Title = attendee.RegAttendeeTitle
+                            });
+
+                            courses.Add(new CourseModel()
+                            {
+                                CourseDetail = courseDetail,
+                                ScheduleId = scheduleDetail.ScheduleID,
+                                ScheduleDate = scheduleDetail.ScheduleDate,
+                                ScheduleDateDescription = scheduleDetail.ScheduleDateDescription,
+                                Materials = materials,
+                                Attendees = attendeeList
                             });
                         }
                     }
-                }
-
-                var attendees = new List<AttendeeModel>();
-
-                var registrationAttendees = Registrations.GetRegistrationAttendees(registrationId);
-
-                foreach (var registrationAttendee in registrationAttendees)
-                {
-                    attendees.Add(new AttendeeModel()
+                    else if (!course.Attendees.Any(a => a.RegistrationAttendeeId == attendee.RegistrationAttendeeID))
                     {
-                        Email = registrationAttendee.RegAttendeeEmail,
-                        FirstName = registrationAttendee.RegAttendeeFirstName,
-                        LastName = registrationAttendee.RegAttendeeLastName,
-                        Title = registrationAttendee.RegAttendeeTitle
-                    });
-                }
+                        var courseAttendees = course.Attendees.ToList();
+                        courseAttendees.Add(new AttendeeModel() {
+                            RegistrationAttendeeId = attendee.RegistrationAttendeeID,
+                            FirstName = attendee.RegAttendeeFirstName,
+                            LastName = attendee.RegAttendeeLastName,
+                            Email = attendee.RegAttendeeEmail,
+                            Title = attendee.RegAttendeeTitle
+                        });
 
-                courses.Add(new CourseModel()
-                {
-                    CourseDetail = courseDetail,
-                    ScheduleDate = scheduleDetail.ScheduleDate,
-                    ScheduleDateDescription = scheduleDetail.ScheduleDateDescription,
-                    Materials = materials,
-                    Attendees = attendees
-                });
+                        course.Attendees = courseAttendees;
+                    }
+                }
             }
 
             return courses;
         }
-    }
 
-    internal class CourseScheduleRegistration
-    {
-        public int CourseId { get; set; }
-        public int ScheduleId { get; set; }
-        public int RegistrationId { get; set; }
     }
 }
