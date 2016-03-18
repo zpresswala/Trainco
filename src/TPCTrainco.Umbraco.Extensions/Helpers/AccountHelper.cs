@@ -16,6 +16,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         private const string _alg = "HmacSHA256";
         private const string _salt = "roduMbjVKvk5UNTuvkXUf"; // Generated at https://www.random.org/strings
         private const int _expirationMinutes = 360;
+        private const int _validationExpirationMinutes = 360;
 
         public static string GenerateToken(string memberKey, string email, string host, string ip, string userAgent, long ticks)
         {
@@ -145,7 +146,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     );
 
                     var validationCode = Guid.NewGuid().ToString();
-                    member.SetValue("validationCode", validationCode);
+                    member.SetValue("validationCode", String.Join(":", validationCode, DateTime.UtcNow.Ticks));
 
                     member.SetValue("umbracoMemberApproved", false);
 
@@ -199,7 +200,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 try
                 {
                     var validationCode = Guid.NewGuid().ToString();
-                    member.SetValue("validationCode", validationCode);
+                    member.SetValue("validationCode", String.Join(":", validationCode, DateTime.UtcNow.Ticks));
 
                     ApplicationContext.Current.Services.MemberService.Save(member);
 
@@ -582,15 +583,36 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
 
-            if (member != null && member.GetValue<string>("validationCode").Equals(validationCode))
+            if (member != null)
             {
-                try
+                var memberValidationCode = member.GetValue<string>("validationCode");
+                if (!String.IsNullOrEmpty(memberValidationCode) && memberValidationCode.Contains(":"))
                 {
-                    ApplicationContext.Current.Services.MemberService.SavePassword(member, password);
-                }
-                catch
-                {
-                    success = false;
+                    var validationCodeAndTime = memberValidationCode.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (validationCodeAndTime.Length == 2)
+                    {
+                        var matches = validationCodeAndTime[0].Equals(validationCode);
+
+                        long ticks = long.Parse(validationCodeAndTime[1]);
+                        DateTime timeStamp = new DateTime(ticks);
+                        bool expired = (DateTime.UtcNow - timeStamp).TotalMinutes > _expirationMinutes;
+
+                        if (!expired && matches)
+                        {
+                            try
+                            {
+                                ApplicationContext.Current.Services.MemberService.SavePassword(member, password);
+
+                                member.SetValue("validationCode", String.Empty);
+                                ApplicationContext.Current.Services.MemberService.Save(member);
+                            }
+                            catch
+                            {
+                                success = false;
+                            }
+                        }
+                    }
                 }
             }
             else
