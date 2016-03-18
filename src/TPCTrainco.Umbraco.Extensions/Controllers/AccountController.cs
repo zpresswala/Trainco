@@ -461,6 +461,17 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             return Request.CreateResponse(success ? System.Net.HttpStatusCode.Accepted : System.Net.HttpStatusCode.NotModified);
         }
 
+        [HttpPut]
+        [TokenAuthorization]
+        public HttpResponseMessage DisableAccount()
+        {
+            var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
+
+            var success = AccountHelper.DisableUser(memberKey);
+
+            return Request.CreateResponse(success ? System.Net.HttpStatusCode.Accepted : System.Net.HttpStatusCode.NotModified);
+        }
+
         #endregion
 
 

@@ -375,7 +375,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     State = member.GetValue<string>("state"),
                     PostalCode = member.GetValue<string>("postalCode"),
                     Industry = member.GetValue<string>("industry"),
-                    Role = member.GetValue<string>("role"),                    
+                    Role = member.GetValue<string>("role"),
                     ExternalTrainingUsageAmount = member.GetValue<string>("extentalTrianingUsageAmount"),
                     NumberOfEmployees = member.GetValue<string>("numberOfEmployees"),
                     TrainingTopics = member.GetValue<string>("trainingTopics")
@@ -442,7 +442,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
-            {                
+            {
                 member.SetValue("companyName", company.Name);
                 member.SetValue("address1", company.Address1);
                 member.SetValue("address2", company.Address2);
@@ -454,7 +454,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 member.SetValue("howDidYouAboutUs", company.HowDidYouAboutUs);
                 member.SetValue("promoCode", company.PromCode);
                 member.SetValue("industry", company.Industry);
-                member.SetValue("role", company.Role);                
+                member.SetValue("role", company.Role);
                 member.SetValue("extentalTrianingUsageAmount", company.ExternalTrainingUsageAmount);
                 member.SetValue("numberOfEmployees", company.NumberOfEmployees);
                 member.SetValue("trainingTopics", company.TrainingTopics);
@@ -513,10 +513,10 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         {
             var success = true;
 
-             member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
+            member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
 
             if (member != null)
-            {                
+            {
                 member.SetValue("firstName", user.FirstName);
                 member.SetValue("lastName", user.LastName);
                 member.SetValue("title", user.Title);
@@ -752,7 +752,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     else if (!course.Attendees.Any(a => a.RegistrationAttendeeId == attendee.RegistrationAttendeeID))
                     {
                         var courseAttendees = course.Attendees.ToList();
-                        courseAttendees.Add(new AttendeeModel() {
+                        courseAttendees.Add(new AttendeeModel()
+                        {
                             RegistrationAttendeeId = attendee.RegistrationAttendeeID,
                             FirstName = attendee.RegAttendeeFirstName,
                             LastName = attendee.RegAttendeeLastName,
@@ -768,5 +769,31 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return courses;
         }
 
+        public static bool DisableUser(string memberKey)
+        {
+            var success = true;
+
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
+
+            if (member != null)
+            {
+                member.SetValue("umbracoMemberApproved", false);
+                try
+                {
+                    ApplicationContext.Current.Services.MemberService.Save(member);
+                }
+                catch
+                {
+                    success = false;
+                }
+            }
+            else
+            {
+                success = false;
+            }
+
+            return success;
+
+        }
     }
 }
