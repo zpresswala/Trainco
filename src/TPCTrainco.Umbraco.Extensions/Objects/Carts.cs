@@ -243,6 +243,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                 if (checkoutItemList != null && checkoutItemList.Count > 0)
                                 {
+                                    DeleteTempAtt(tempReg.reg_ID);
+
                                     foreach (CheckoutItem checkoutItem in checkoutItemList)
                                     {
                                         temp_Att tempAtt = new temp_Att();
