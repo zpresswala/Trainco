@@ -18,8 +18,8 @@
     'angular.filter',
     'darthwade.loading'
   ]).constant('CONSTANTS', {
-    'API_URL': 'http://trainco.axial-client.com/api/seminars2/search/',
-    'API_LIST': 'http://trainco.axial-client.com/api/seminars2/list',
-    'CART_API_URL': 'http://trainco.axial-client.com/api/carts/save'});
+    'API_URL': 'http://trainco-phase1.axial-client.com/api/seminars2/search/',
+    'API_LIST': 'http://trainco-phase1.axial-client.com/api/seminars2/list',
+    'CART_API_URL': 'http://trainco-phase1.axial-client.com/api/carts/save'});
 
 }());

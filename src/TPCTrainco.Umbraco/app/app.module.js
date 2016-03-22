@@ -13,7 +13,8 @@
     'train.common',
     'train.components',
     'train.register',
-    'train.seminar'
+    'train.seminar',
+    'train.auth'
   ]);
 
 }());

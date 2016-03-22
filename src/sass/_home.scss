@@ -153,7 +153,7 @@
 // blurred image section
 .intro-section {
 	background-color: rgba(0, 0, 0, 0.75);
-	background-image: url('https://www.tpctrainco.com/images/bg-small.jpg');
+	background-image: url('/assets/images/bg-small.jpg');
 	background-position: center top;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -161,7 +161,7 @@
 	position: relative;
 	z-index: 2;
 	@include tablet-portrait-and-up {
-		background-image: url('https://www.tpctrainco.com/images/bg-large.jpg');
+		background-image: url('/assets/images/bg-large.jpg');
 	}
 
 	.jumbotron {
@@ -194,7 +194,7 @@
 
 // overriding bootstrap's carousel styles. override here, do not modify.
 .carousel {
-	background-image: url("https://www.tpctrainco.com/images/carousel-mobile-bg.jpg");
+	background-image: url("/assets/images/carousel-mobile-bg.jpg");
 	background-position: center top;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -203,7 +203,7 @@
 	max-height: 400px;
 
 	@include tablet-portrait-and-up {
-		background-image: url("https://www.tpctrainco.com/images/carousel-bg.jpg");
+		background-image: url("/assets/images/carousel-bg.jpg");
 	}
 
 	.item {
@@ -230,7 +230,7 @@
 				position: absolute;
 				left: 0;
 				bottom: -35px;
-				background: url("/images/line.png") center bottom / cover no-repeat;
+				background: url("/assets/images/line.png") center bottom / cover no-repeat;
 				height: 16px;
 				width: 100%;
 			}
