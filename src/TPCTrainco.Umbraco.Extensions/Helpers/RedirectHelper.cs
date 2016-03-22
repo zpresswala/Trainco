@@ -66,6 +66,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             var context = HttpContext.Current;
 
             context.Response.StatusCode = statusCode;
+
+            if (statusCode == 404)
+            {
+                context.Response.StatusDescription = "404 Page Not Found";
+            }
         }
 
         public static string GetCurrentPath()

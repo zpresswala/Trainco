@@ -14,6 +14,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models
     {
         public int RegId { get; set; }
 
+        public string CartGuid { get; set; }
+
         [Required]
         [StringLength(255)]
         [DisplayName("First Name")]
