@@ -25,6 +25,8 @@ namespace TPCTrainco.Umbraco.Controllers
 
             if (false == string.IsNullOrWhiteSpace(cartGuid))
             {
+                
+
                 Carts cartsObj = new Carts();
 
                 tempRegList = cartsObj.GetCart(cartGuid);
@@ -43,6 +45,8 @@ namespace TPCTrainco.Umbraco.Controllers
                     {
                         int regId = tempRegList[0].reg_ID;
 
+                        checkoutDetails.RegId = regId;
+
                         tempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
                         tempAttList = db.temp_Att.Where(p => p.reg_ID == regId).ToList();
 
@@ -52,6 +56,8 @@ namespace TPCTrainco.Umbraco.Controllers
                             checkoutDetails.tempAttList = tempAttList;
                             checkoutDetails.tempCust = tempCust;
                         }
+
+                        checkoutDetails.CartGuid = CartCookies.EncryptCartGuid(cartGuid + "|" + regId + "|" + Request.UserHostAddress);
                     }
 
                     return PartialView("CheckoutSummary", checkoutDetails);
@@ -89,9 +95,25 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 cartGuid = Carts.GetCartGuid(Session);
 
+                if (true == string.IsNullOrWhiteSpace(cartGuid))
+                {
+                    string cartGuidStr = CartCookies.DecryptCartGuid(model.CartGuid);
+
+                    if (cartGuidStr.IndexOf("|") >= 0)
+                    {
+                        string[] cartGuidArray = cartGuidStr.Split('|');
+
+                        if (cartGuidArray[2] == Request.UserHostAddress)
+                        {
+                            cartGuid = cartGuidArray[0];
+                            model.RegId = Convert.ToInt32(cartGuidArray[1]);
+                        }
+                    }
+                }
+
                 if (false == string.IsNullOrWhiteSpace(cartGuid))
                 {
-                    tempRegList = cartsObj.GetCart(cartGuid);
+                    tempRegList = cartsObj.GetCart(cartGuid, model.RegId);
 
                     if (tempRegList == null)
                     {

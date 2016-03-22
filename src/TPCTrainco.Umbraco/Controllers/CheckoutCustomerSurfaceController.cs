@@ -30,7 +30,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (cartList == null)
                 {
-                    return PartialView("CheckoutCustomer", checkoutCustomer);
+                    return Redirect("/register/?cart=" + Server.UrlEncode(cartGuid));
                 }
                 else
                 {
@@ -41,6 +41,7 @@ namespace TPCTrainco.Umbraco.Controllers
                     using (var db = new americantraincoEntities())
                     {
                         int regId = cartList[0].reg_ID;
+                        checkoutCustomer.RegId = regId;
 
                         tempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
 
@@ -51,12 +52,14 @@ namespace TPCTrainco.Umbraco.Controllers
                         }
                     }
 
+                    checkoutCustomer.CartGuid = CartCookies.EncryptCartGuid(cartGuid + "|" + checkoutCustomer.RegId + "|" + Request.UserHostAddress);
+
                     return PartialView("CheckoutCustomer", checkoutCustomer);
                 }
             }
             else
             {
-                return PartialView("CheckoutCustomer", checkoutCustomer);
+                return Redirect("/");
             }
         }
 
@@ -85,9 +88,25 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 cartGuid = Carts.GetCartGuid(Session);
 
+                if (true == string.IsNullOrWhiteSpace(cartGuid) || model.RegId <= 0)
+                {
+                    string cartGuidStr = CartCookies.DecryptCartGuid(model.CartGuid);
+
+                    if (cartGuidStr.IndexOf("|") >= 0)
+                    {
+                        string[] cartGuidArray = cartGuidStr.Split('|');
+
+                        if (cartGuidArray[2] == Request.UserHostAddress)
+                        {
+                            cartGuid = cartGuidArray[0];
+                            model.RegId = Convert.ToInt32(cartGuidArray[1]);
+                        }
+                    }
+                }
+
                 if (false == string.IsNullOrWhiteSpace(cartGuid))
                 {
-                    cartList = cartsObj.GetCart(cartGuid);
+                    cartList = cartsObj.GetCart(cartGuid, model.RegId);
 
                     if (cartList == null)
                     {

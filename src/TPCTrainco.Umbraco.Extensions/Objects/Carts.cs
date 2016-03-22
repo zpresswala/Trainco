@@ -804,13 +804,19 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public List<temp_Reg> GetCart(string cartGuid)
+        public List<temp_Reg> GetCart(string cartGuid, int regIdRefresh = 0)
         {
             List<temp_Reg> cart = null;
 
             if (false == string.IsNullOrEmpty(cartGuid))
             {
                 int regId = GetCartCache(cartGuid);
+
+                if (regId <= 0)
+                {
+                    regId = regIdRefresh;
+                    RefreshCartCache(cartGuid, regId);
+                }
 
                 if (regId > 0)
                 {
@@ -869,6 +875,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             if (false == string.IsNullOrEmpty(regIdStr))
             {
                 regId = Convert.ToInt32(regIdStr);
+
+                RefreshCartCache(cartGuid, regId);
             }
 
             return regId;
