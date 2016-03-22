@@ -1,4 +1,4 @@
-@using TPCTrainco.Umbraco.Extensions.Helpers
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
 @using TPCTrainco.Umbraco.Extensions.Models
 @using TPCTrainco.Umbraco.Extensions.Objects
 @using Umbraco.Core.Models
@@ -7,7 +7,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.19";
+    string cacheVer = "1.26";
     string htmlArgs = "";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
@@ -212,7 +212,8 @@
     }
     else
     {
-      <link rel="stylesheet" href="/app/main.css?@cacheVer">
+        <link rel="stylesheet" type="text/css" href="/css/main.css?@cacheVer">
+        <link rel="stylesheet" type="text/css" href="/css/vendor.css?@cacheVer">
     }
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="//fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic" rel="stylesheet" type="text/css">
@@ -289,11 +290,11 @@
   <script src="/app/core/core.module.js"></script>
   <script src="/app/common/common.module.js"></script>
   <script src="/app/components/components.module.js"></script>
-  <script src="/app/register/register.module.js"></script>
+  <script src="/app/register/register.module.js?v1.43"></script>
   <script src="/app/seminar/seminar.module.js"></script>
   <script src="/app/app.module.js"></script>
   <script src="/app/common/util.service.js"></script>
-  <script src="/app/common/search.factory.js"></script>
+  <script src="/app/common/search.factory.js?v1.43"></script>
   <script src="/app/common/startFrom.filter.js"></script>
   <script src="/app/common/months.factory.js"></script>
   <script src="/app/common/cities.factory.js"></script>
@@ -303,7 +304,7 @@
   <script src="/app/common/stringToNumber.directive.js"></script>
   <script src="/app/seminar/seminar.controller.js"></script>
   <script src="/app/seminar/courseSearch.service.js"></script>
-  <script src="/app/register/register.controller.js"></script>
+  <script src="/app/register/register.controller.js?v1.43"></script>
   <script src="/app/core/lodash.factory.js"></script>
   <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
   <script src="/app/components/mainSearch/mainSearch.controller.js"></script>

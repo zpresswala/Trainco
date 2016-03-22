@@ -17,7 +17,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             HttpCookie cookie = HttpContext.Current.Request.Cookies[CookieName] ?? new HttpCookie(CookieName);
 
-            cookie.Values[CookieValue] = EncryptString.Encrypt(cartGuid, EncryptKey);
+            cookie.Values[CookieValue] = EncryptCartGuid(cartGuid);
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
@@ -35,7 +35,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                     if (false == string.IsNullOrWhiteSpace(cookieValue))
                     {
-                        output = EncryptString.Decrypt(cookieValue, EncryptKey);
+                        output = DecryptCartGuid(cookieValue);
                     }
                 }
             }
@@ -45,6 +45,18 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             }
 
             return output;
+        }
+
+
+        public static string EncryptCartGuid(string cartGuid)
+        {
+            return EncryptString.Encrypt(cartGuid, EncryptKey);
+        }
+
+
+        public static string DecryptCartGuid(string cartGuidEncrypted)
+        {
+            return EncryptString.Decrypt(cartGuidEncrypted, EncryptKey);
         }
 
 
