@@ -1,8 +1,8 @@
-﻿'use strict';
+'use strict';
 
 function Checkout() {
 
-	
+
 }
 
 
@@ -54,7 +54,7 @@ function CheckoutPost(checkoutData) {
 	$('input').next('span').remove().css('border-color', '#d7d7d7');
 
 	$.ajax({
-		url: ApiDomain + '/api/checkout/submit',
+		url: 'http://trainco-phase1.axial-client.com/api/checkout/submit',
 		data: JSON.stringify(checkoutData),
 		type: "POST",
 		contentType: "application/json"

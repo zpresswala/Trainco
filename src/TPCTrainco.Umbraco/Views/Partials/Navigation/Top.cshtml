@@ -1,4 +1,4 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits UmbracoTemplatePage
 @{
     // Model.Content is the current page that we're on
@@ -9,12 +9,17 @@
     var homePage = CurrentPage.AncestorsOrSelf(1).First();
 
     IPublishedContent searchSeminarNode = Nodes.Instance.SeminarSearch;
-    
+
     // The menu items we want are all of the children of the homepage
     // We also check if "Hide in navigation" is on in the menu, we shouldn't show hidden items
     var menuItems = homePage.Children.Where("navigationTop == true");
 }
-
+<div id="authbar" ng-controller="AuthbarController as vm">
+<div class="container">
+  <div ng-if="vm.isLoggedIn"><a href="/dashboard">My Account</a> | <a href="javascript:void(0)" ng-click="vm.logout()">Logout</a></div>
+  <div ng-if="!vm.isLoggedIn"><a href="/dashboard">Login</a></div>
+  </div>
+</div>
 <nav class="navbar navbar-default">
     <div class="container-fluid contain">
         <div class="navbar-header">

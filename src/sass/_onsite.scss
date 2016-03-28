@@ -8,7 +8,7 @@
 }
 
 .caro-form-container {
-  background-image: url('/images/carousel-mobile-bg.jpg');
+  background-image: url('/assets/images/carousel-mobile-bg.jpg');
   background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;
@@ -31,7 +31,7 @@
     color: #fff;
   }
   @include tablet-portrait-and-up {
-    background-image: url('/images/carousel-bg.jpg');
+    background-image: url('/assets/images/carousel-bg.jpg');
   }
 
   > .container {

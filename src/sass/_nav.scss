@@ -1,10 +1,18 @@
+#authbar {
+  height: 35px;
+  position: fixed;
+  z-index: 1250;
+  background-color: #F2F2F2;
+  text-align: right;
+  width: 100%;
+}
 .navbar-default {
   background-color: #1F1F24;
   background-color: rgba(58,58,58,0.95);
   border: none;
   margin-bottom: 0;
   position: fixed;
-  top: 0;
+  top: 35px;
   width: 100%;
   z-index: 1400;
   height: 50px;

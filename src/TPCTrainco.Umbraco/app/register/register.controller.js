@@ -178,7 +178,7 @@
         }
 
         vm.typingTimeout = $timeout(function(e) {
-          $log.debug('typingTextBoxHandler running');
+          // $log.debug('typingTextBoxHandler running');
           doParamSearch();
         }, 1000)
       }
@@ -321,7 +321,7 @@
     }
 
     function doParamSearch() {
-      $log.debug('the mid one', vm.topicParam2)
+      // $log.debug('the mid one', vm.topicParam2)
 
       $loading.start('courses');
       var today = new Date();
@@ -340,7 +340,7 @@
         endYear: checkYear('end')
       }
 
-      $log.debug(searchObj, vm.topicParam2)
+      // $log.debug(searchObj, vm.topicParam2)
 
       Search.performSearch(searchObj).then(function(data) {
         /**
