@@ -355,6 +355,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             IMember member = null;
 
+            if(String.IsNullOrEmpty(request.ValidationCode) && AccountHelper.IsTokenValid(Request.Headers.Authorization.Parameter, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString()))
+            {
+                request.ValidationCode = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
+            }
+
             if (AccountHelper.UpdatePassword(request.Email, request.Password, request.ValidationCode, out member))
             {
                 authToken = AccountHelper.GenerateToken(member.Key.ToString(), member.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
@@ -386,7 +391,8 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new UpdateCompanyResponseModel() {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
                 StatusCode = (int)System.Net.HttpStatusCode.Accepted,
-                Result = success
+                Success = success,
+                Result = request.Company
             };
 
             return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
@@ -409,7 +415,8 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
                 StatusCode = (int)System.Net.HttpStatusCode.Accepted,
-                Result = success
+                Result = request.Billing,
+                Success = success
             };
 
             return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
@@ -439,7 +446,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
                 StatusCode = (int)System.Net.HttpStatusCode.Accepted,
-                Result = authToken
+                Success = String.IsNullOrEmpty(authToken),
+                AuthToken = authToken,
+                Result = request.User
             };
 
             return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);

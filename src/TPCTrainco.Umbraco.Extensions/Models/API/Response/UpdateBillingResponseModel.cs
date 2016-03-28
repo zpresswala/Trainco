@@ -9,6 +9,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models.API.Response
 {
     public class UpdateBillingResponseModel : ResponseBaseModel
     {
-        public bool Result { get; set; }
+        public BillingModel Result { get; set; }
+        public bool Success { get; set; }
     }
 }

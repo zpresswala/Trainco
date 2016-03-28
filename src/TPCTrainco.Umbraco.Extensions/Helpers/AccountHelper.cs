@@ -600,19 +600,18 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                         if (!expired && matches)
                         {
-                            try
-                            {
-                                ApplicationContext.Current.Services.MemberService.SavePassword(member, password);
-
-                                member.SetValue("validationCode", String.Empty);
-                                ApplicationContext.Current.Services.MemberService.Save(member);
-                            }
-                            catch
-                            {
-                                success = false;
-                            }
+                            success = ResetPassword(member, password);                            
+                        } 
+                        else if(expired)
+                        {
+                            member.SetValue("validationCode", String.Empty);
+                            ApplicationContext.Current.Services.MemberService.Save(member);
                         }
                     }
+                }
+                else if (String.IsNullOrEmpty(memberValidationCode) && validationCode.Equals(member.Key.ToString()))
+                {
+                    success = ResetPassword(member, password);
                 }
             }
             else
@@ -620,6 +619,23 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 success = false;
             }
 
+            return success;
+        }
+
+        private static bool ResetPassword(IMember member, string password)
+        {
+            var success = true;
+            try
+            {
+                ApplicationContext.Current.Services.MemberService.SavePassword(member, password);
+
+                member.SetValue("validationCode", String.Empty);
+                ApplicationContext.Current.Services.MemberService.Save(member);
+            }
+            catch
+            {
+                success = false;
+            }
             return success;
         }
 
@@ -658,12 +674,14 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
         public static IEnumerable<CourseModel> GetUpcomingCourses(string memberKey)
         {
-            return GetCourses(memberKey).Where(c => c.ScheduleDate < DateTime.Now);
+            var courses = GetCourses(memberKey);
+            return courses.Where(c => c.ScheduleDate > DateTime.Now);
         }
 
         public static IEnumerable<CourseModel> GetPastCourses(string memberKey)
         {
-            return GetCourses(memberKey).Where(c => c.ScheduleDate >= DateTime.Now);
+            var courses = GetCourses(memberKey);
+            return courses.Where(c => c.ScheduleDate <= DateTime.Now);
         }
 
         private static List<CourseModel> GetCourses(string memberKey)
@@ -707,46 +725,49 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                             var courseDetail = CacheObjects.GetCourseDetailList().FirstOrDefault(c => c.Id == courseId);
                             var scheduleDetail = CacheObjects.GetScheduleList().FirstOrDefault(c => c.ScheduleID == scheduleId);
 
-                            var content = ApplicationContext.Current.Services.ContentService.GetById(courseDetail.NodeId);
-
-                            var materials = new List<MaterialModel>();
-
-                            var materialIdsRaw = content.GetValue<string>("materials");
-
-                            if (!String.IsNullOrEmpty(materialIdsRaw))
+                            if (courseDetail != null && scheduleDetail != null)
                             {
-                                var materialIds = materialIdsRaw.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
-                                foreach (var materialId in materialIds)
+                                var content = ApplicationContext.Current.Services.ContentService.GetById(courseDetail.NodeId);
+
+                                var materials = new List<MaterialModel>();
+
+                                var materialIdsRaw = content.GetValue<string>("materials");
+
+                                if (!String.IsNullOrEmpty(materialIdsRaw))
                                 {
-                                    var media = ApplicationContext.Current.Services.MediaService.GetById(materialId);
-                                    if (media != null)
+                                    var materialIds = materialIdsRaw.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
+                                    foreach (var materialId in materialIds)
                                     {
-                                        materials.Add(new MaterialModel()
+                                        var media = ApplicationContext.Current.Services.MediaService.GetById(materialId);
+                                        if (media != null)
                                         {
-                                            Url = media.GetValue<string>("umbracoFile")
-                                        });
+                                            materials.Add(new MaterialModel()
+                                            {
+                                                Url = media.GetValue<string>("umbracoFile")
+                                            });
+                                        }
                                     }
                                 }
+
+                                var attendeeList = new List<AttendeeModel>();
+                                attendeeList.Add(new AttendeeModel()
+                                {
+                                    Email = attendee.RegAttendeeEmail,
+                                    FirstName = attendee.RegAttendeeFirstName,
+                                    LastName = attendee.RegAttendeeLastName,
+                                    Title = attendee.RegAttendeeTitle
+                                });
+
+                                courses.Add(new CourseModel()
+                                {
+                                    CourseDetail = courseDetail,
+                                    ScheduleId = scheduleDetail.ScheduleID,
+                                    ScheduleDate = scheduleDetail.ScheduleDate,
+                                    ScheduleDateDescription = scheduleDetail.ScheduleDateDescription,
+                                    Materials = materials,
+                                    Attendees = attendeeList
+                                });
                             }
-
-                            var attendeeList = new List<AttendeeModel>();
-                            attendeeList.Add(new AttendeeModel()
-                            {
-                                Email = attendee.RegAttendeeEmail,
-                                FirstName = attendee.RegAttendeeFirstName,
-                                LastName = attendee.RegAttendeeLastName,
-                                Title = attendee.RegAttendeeTitle
-                            });
-
-                            courses.Add(new CourseModel()
-                            {
-                                CourseDetail = courseDetail,
-                                ScheduleId = scheduleDetail.ScheduleID,
-                                ScheduleDate = scheduleDetail.ScheduleDate,
-                                ScheduleDateDescription = scheduleDetail.ScheduleDateDescription,
-                                Materials = materials,
-                                Attendees = attendeeList
-                            });
                         }
                     }
                     else if (!course.Attendees.Any(a => a.RegistrationAttendeeId == attendee.RegistrationAttendeeID))

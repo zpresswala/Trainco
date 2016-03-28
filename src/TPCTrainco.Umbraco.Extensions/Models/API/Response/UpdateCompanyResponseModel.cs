@@ -9,6 +9,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models.API.Response
 {
     public class UpdateCompanyResponseModel : ResponseBaseModel
     {
-        public bool Result { get; set; }
+        public CompanyModel Result { get; set; }
+        public bool Success { get; set; }
     }
 }

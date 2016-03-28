@@ -9,6 +9,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models.API.Response
 {
     public class UpdateUserResponseModel : ResponseBaseModel
     {
-        public string Result { get; set; }
+        public UserModel Result { get; set; }
+        public bool Success { get; set; }
+        public string AuthToken { get; set; }
     }
 }
