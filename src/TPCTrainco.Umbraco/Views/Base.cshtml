@@ -7,7 +7,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.26";
+    string cacheVer = "1.28";
     string htmlArgs = "";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
@@ -171,6 +171,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    @if (true == currentPage.HasValue("hideSearch"))
+    {
+        if (true == currentPage.GetPropertyValue<bool>("hideSearch"))
+        {
+            <meta name="robots" content="noindex">
+        }
+    }
     <title>@htmlTitle | @siteName</title>
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
