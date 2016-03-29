@@ -171,18 +171,23 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [HttpGet]
         public HttpResponseMessage HasTakenCourse([FromUri] HasTakenCourseRequestModel request)
         {
-            var supervisorEmail = AccountHelper.GetSupervisorEmail(request.Email);
+            var supervisorMemberKey = AccountHelper.GetSupervisorMemberKey(request.Email);
 
-            var company = AccountHelper.GetCompany(supervisorEmail);
+            CompanyModel company = null;
+
+            if (!String.IsNullOrEmpty(supervisorMemberKey))
+            {
+                company = AccountHelper.GetCompany(supervisorMemberKey);
+            }
 
             var responseModel = new HasTakenCourseResponseModel()
             {
-                Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                Status = company == null ? System.Net.HttpStatusCode.BadRequest.ToString() : System.Net.HttpStatusCode.OK.ToString(),
+                StatusCode = company == null ? (int)System.Net.HttpStatusCode.BadRequest : (int)System.Net.HttpStatusCode.OK,
                 Result = company
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(company == null ? System.Net.HttpStatusCode.BadRequest : System.Net.HttpStatusCode.OK, responseModel);
         }
 
         /// <summary>

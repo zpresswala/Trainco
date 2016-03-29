@@ -672,6 +672,32 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return supervisorsEmail;
         }
 
+        public static string GetSupervisorMemberKey(string email)
+        {
+            var supervisorsMemberKey = String.Empty;
+            var supervisorsEmail = String.Empty;
+
+            var attendee = Registrations.GetRegistrationAttendeesByEmail(email).OrderByDescending(a => a.RegistrationAttendeeID).FirstOrDefault();
+
+            if (attendee != null)
+            {
+                var registration = Registrations.GetRegistrationById(attendee.RegistrationID);
+
+                if (registration != null)
+                {
+                    supervisorsEmail = registration.RegAuthEmail;
+                }
+            }
+
+            var member = ApplicationContext.Current.Services.MemberService.GetByEmail(supervisorsEmail);
+            if (member != null)
+            {
+                supervisorsMemberKey = member.Key.ToString();
+            }
+
+            return supervisorsMemberKey;
+        }
+
         public static IEnumerable<CourseModel> GetUpcomingCourses(string memberKey)
         {
             var courses = GetCourses(memberKey);
