@@ -14,7 +14,7 @@ namespace TPCTrainco.Umbraco.Extensions.Events
         protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             // Implemeting a Dashboard finder.
-            ContentFinderResolver.Current.InsertTypeBefore<ContentFinderByNiceUrl, DashbaordContentFinder>();
+            ContentFinderResolver.Current.InsertTypeBefore<ContentFinderByNiceUrl, ReactContentFinder>();
 
             base.ApplicationStarting(umbracoApplication, applicationContext);
         }

@@ -145,6 +145,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                         memberTypeAlias: "Member"
                     );
 
+                    user.Key = member.Key.ToString();
+
                     var validationCode = Guid.NewGuid().ToString();
                     member.SetValue("validationCode", String.Join(":", validationCode, DateTime.UtcNow.Ticks));
 
@@ -341,6 +343,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             {
                 user = new UserModel()
                 {
+                    Key = member.Key.ToString(),
                     Email = member.Email,
                     FirstName = member.GetValue<string>("firstName"),
                     LastName = member.GetValue<string>("lastName"),

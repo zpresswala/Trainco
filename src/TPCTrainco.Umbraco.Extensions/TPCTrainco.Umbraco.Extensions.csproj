@@ -415,7 +415,7 @@
     <Compile Include="Objects\SeminarDetails.cs" />
     <Compile Include="Objects\Seminars.cs" />
     <Compile Include="Objects\Topics.cs" />
-    <Compile Include="Pipeline\DashbaordContentFinder.cs" />
+    <Compile Include="Pipeline\ReactContentFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REGISTRATION.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>

@@ -46,11 +46,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var responseModel = new LoginResponseModel() {
                 Status = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized.ToString() : System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = String.IsNullOrEmpty(authToken) ? (int)System.Net.HttpStatusCode.Unauthorized : (int)System.Net.HttpStatusCode.OK,
+                StatusCode = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized : System.Net.HttpStatusCode.OK,
                 Result = authToken
             };
 
-            return Request.CreateResponse(String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized : System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var success = AccountHelper.ForgottenPassword(request.Email, Request.RequestUri);
 
             return Request.CreateResponse(success ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.BadRequest);
-        }        
+        }
 
         /// <summary>
         /// Create a new user account
@@ -76,21 +76,24 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         {
             var user = AccountHelper.CreateUser(request.User, Request.RequestUri);
 
-            if(!String.IsNullOrEmpty(request.Company.Username) && !request.Company.Username.Equals(request.User.Email))
+            if (!String.IsNullOrEmpty(user.Key))
             {
-                request.Company = AccountHelper.GetCompany(request.Company.Username);
-            }
+                if (!String.IsNullOrEmpty(request.Company.Username) && !request.Company.Username.Equals(request.User.Email))
+                {
+                    request.Company = AccountHelper.GetCompany(request.Company.Username);
+                }
 
-            var success = AccountHelper.UpdateCompany(user.Email, request.Company);
+                var success = AccountHelper.UpdateCompany(user.Key, request.Company);
+            }
 
             var responseModel = new CreateUserResponseModel()
             {
                 Status = String.IsNullOrEmpty(user.ValidationCode) ? System.Net.HttpStatusCode.NotModified.ToString() : System.Net.HttpStatusCode.Created.ToString(),
-                StatusCode = String.IsNullOrEmpty(user.ValidationCode) ? (int)System.Net.HttpStatusCode.NotModified : (int)System.Net.HttpStatusCode.Created,
+                StatusCode = String.IsNullOrEmpty(user.ValidationCode) ? System.Net.HttpStatusCode.NotModified : System.Net.HttpStatusCode.Created,
                 Result = user != null
             };
 
-            return Request.CreateResponse(String.IsNullOrEmpty(user.ValidationCode) ? System.Net.HttpStatusCode.NotModified : System.Net.HttpStatusCode.Created, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
 
@@ -113,12 +116,12 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var responseModel = new LoginResponseModel()
             {
-                Status = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized.ToString() : System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = String.IsNullOrEmpty(authToken) ? (int)System.Net.HttpStatusCode.Unauthorized : (int)System.Net.HttpStatusCode.OK,
+                Status = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized.ToString() : System.Net.HttpStatusCode.Accepted.ToString(),
+                StatusCode = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized : System.Net.HttpStatusCode.Accepted,
                 Result = authToken
             };
 
-            return Request.CreateResponse(String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized : System.Net.HttpStatusCode.Accepted, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
 
@@ -156,11 +159,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new UserExistsResponseModel()
             {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                StatusCode = System.Net.HttpStatusCode.OK,
                 Result = exists
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -183,11 +186,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new HasTakenCourseResponseModel()
             {
                 Status = company == null ? System.Net.HttpStatusCode.BadRequest.ToString() : System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = company == null ? (int)System.Net.HttpStatusCode.BadRequest : (int)System.Net.HttpStatusCode.OK,
+                StatusCode = company == null ? System.Net.HttpStatusCode.BadRequest : System.Net.HttpStatusCode.OK,
                 Result = company
             };
 
-            return Request.CreateResponse(company == null ? System.Net.HttpStatusCode.BadRequest : System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -202,11 +205,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new GetClientIpAddressResponseModel()
             {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.Accepted,
+                StatusCode = System.Net.HttpStatusCode.Accepted,
                 Result = ip
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -224,11 +227,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new GetUserResponseModel()
             {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                StatusCode = System.Net.HttpStatusCode.OK,
                 Result = user
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -246,11 +249,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new GetCompanyResponseModel()
             {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                StatusCode = System.Net.HttpStatusCode.OK,
                 Result = company
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -268,11 +271,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new GetBillingResponseModel()
             {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                StatusCode = System.Net.HttpStatusCode.OK,
                 Result = billing
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -290,11 +293,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var responseModel = new GetSaveForLaterResponseModel() {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                StatusCode = System.Net.HttpStatusCode.OK,
                 Result = courses
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -312,11 +315,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new GetUpcomingEventsResponseModel()
             {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                StatusCode = System.Net.HttpStatusCode.OK,
                 Result = courses
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
 
@@ -336,11 +339,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new GetPastEventsResponseModel()
             {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                StatusCode = System.Net.HttpStatusCode.OK,
                 Result = courses
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         #endregion
@@ -372,12 +375,12 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var responseModel = new ResetPasswordResponseModel()
             {
-                Status = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized.ToString() : System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = String.IsNullOrEmpty(authToken) ? (int)System.Net.HttpStatusCode.Unauthorized : (int)System.Net.HttpStatusCode.OK,
+                Status = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized.ToString() : System.Net.HttpStatusCode.Accepted.ToString(),
+                StatusCode = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized : System.Net.HttpStatusCode.Accepted,
                 Result = authToken
             };
 
-            return Request.CreateResponse(String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized : System.Net.HttpStatusCode.Accepted, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -395,12 +398,12 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var responseModel = new UpdateCompanyResponseModel() {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.Accepted,
+                StatusCode = System.Net.HttpStatusCode.Accepted,
                 Success = success,
                 Result = request.Company
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -419,12 +422,12 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new UpdateBillingResponseModel()
             {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.Accepted,
+                StatusCode = System.Net.HttpStatusCode.Accepted,
                 Result = request.Billing,
                 Success = success
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         /// <summary>
@@ -450,13 +453,13 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new UpdateUserResponseModel()
             {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.Accepted,
+                StatusCode = System.Net.HttpStatusCode.Accepted,
                 Success = String.IsNullOrEmpty(authToken),
                 AuthToken = authToken,
                 Result = request.User
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
         
         /// <summary>
@@ -507,11 +510,11 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             var responseModel = new DeleteSaveForLaterResponseModel()
             {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
-                StatusCode = (int)System.Net.HttpStatusCode.Accepted,
+                StatusCode = System.Net.HttpStatusCode.Accepted,
                 Result = success
             };
 
-            return Request.CreateResponse(System.Net.HttpStatusCode.Accepted, responseModel);
+            return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
 
         #endregion
