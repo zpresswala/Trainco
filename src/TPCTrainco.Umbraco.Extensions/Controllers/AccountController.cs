@@ -145,7 +145,55 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
 
         #region HttpGet
-        
+
+        [HttpGet]
+        public HttpResponseMessage GetNavigation()
+        {
+            List<NavigationItem> navigation = new List<NavigationItem>();
+
+            var homePage = UmbracoContext.Current.ContentCache.GetAtRoot().FirstOrDefault(r => r.DocumentTypeAlias == "HomePage");
+
+            if (homePage != null)
+            {
+                var menuItems = homePage.Children.Where("navigationTop == true");
+                foreach (IPublishedContent item in homePage.Children.Where("navigationTop == true").OrderBy("SortOrder"))
+                {
+                    if (item.DocumentTypeAlias == "SeminarMainOverview")
+                    {
+                        string navName = item.GetPropertyValue<string>("navigationTitle", item.Name);
+
+                        var navItem = new NavigationItem()
+                        {
+                            Name = item.GetPropertyValue<string>("navigationTitle", item.Name),
+                            Url = item.Url,
+                            Children = new List<NavigationItem>()
+                        };
+
+                        foreach (IPublishedContent subItem in item.Children)
+                        {
+                            navItem.Children.Add(new NavigationItem()
+                            {
+                                Name = subItem.GetPropertyValue<string>("navigationTitle", subItem.Name),
+                                Url = subItem.Url,
+                                Children = new List<NavigationItem>()
+                            });
+                        }
+                        navigation.Add(navItem);
+                    }
+                    else
+                    {
+                        navigation.Add(new NavigationItem() {
+                            Name = item.GetPropertyValue<string>("navigationTitle", item.Name),
+                            Url = item.Url,
+                            Children = new List<NavigationItem>()
+                        });
+                    }
+                }
+            }
+
+            return Request.CreateResponse(System.Net.HttpStatusCode.OK, navigation);
+        }
+
         /// <summary>
         /// Check if the user has already registered.
         /// </summary>

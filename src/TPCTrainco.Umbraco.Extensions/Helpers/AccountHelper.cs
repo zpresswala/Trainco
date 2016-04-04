@@ -752,7 +752,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                             var courseId = scheduleCourseInstructor.First().CourseID;
 
                             var courseDetail = CacheObjects.GetCourseDetailList().FirstOrDefault(c => c.Id == courseId);
-                            var scheduleDetail = CacheObjects.GetScheduleList().FirstOrDefault(c => c.ScheduleID == scheduleId);
+                            var scheduleDetail = CacheObjects.GetScheduleListAll().FirstOrDefault(c => c.ScheduleID == scheduleId);
 
                             if (courseDetail != null && scheduleDetail != null)
                             {

@@ -347,6 +347,7 @@
     <Compile Include="Models\Account\CompanyModel.cs" />
     <Compile Include="Models\Account\CourseModel.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
+    <Compile Include="Models\Account\NavigationItem.cs" />
     <Compile Include="Models\Account\UserModel.cs" />
     <Compile Include="Models\API\Request\CreateCompanyRequestModel.cs" />
     <Compile Include="Models\API\Request\UpdateBillingRequestModel.cs" />
