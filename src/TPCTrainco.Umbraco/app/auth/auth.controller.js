@@ -5,9 +5,9 @@
     .module('train.auth')
     .controller('AuthbarController', AuthbarController);
 
-  AuthbarController.$inject = ['$log'];
+  AuthbarController.$inject = ['$log', '$uibModal'];
   /** @ngInject */
-  function AuthbarController($log) {
+  function AuthbarController($log, $uibModal) {
     var vm = this;
 
     var authToken = JSON.parse(localStorage.getItem('tcJWT'));
@@ -25,5 +25,21 @@
       localStorage.removeItem('tcJWT');
       vm.isLoggedIn = false;
     }
+    vm.open = function (size) {
+
+    var modalInstance = $uibModal.open({
+      animation: vm.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'LoginModalController',
+      size: size
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      vm.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
   }
 })();

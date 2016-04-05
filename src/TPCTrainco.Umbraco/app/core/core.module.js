@@ -15,6 +15,7 @@
     'selector',
     'rzModule',
     'ngStorage',
+    'ngDialog',
     'angular.filter',
     'darthwade.loading'
   ]).constant('CONSTANTS', {

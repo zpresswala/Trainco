@@ -434,3 +434,28 @@ ul.pagination-btn-wrapper li {
 //
 // .btn-pagination-right {
 // }
+$pacific: #008fc7;
+.btn-reg {
+  background-color: transparent;
+  color: $white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  position: relative;
+  transition: background-color .25s;
+  border: 0;
+  cursor: pointer;
+}
+
+.btn-blue-hollow {
+    background-color: transparent;
+    padding: 10px 37px;
+    border: 3px solid $pacific;
+    color: $pacific;
+
+    &:hover {
+    color: $white;
+    text-decoration: none;
+    background-color: $pacific;
+  }
+}
