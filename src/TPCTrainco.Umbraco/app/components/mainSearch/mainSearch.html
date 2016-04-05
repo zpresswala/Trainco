@@ -47,6 +47,7 @@
 		<select selector
 			model="vm.courseSearch.location"
 			multi="false"
+      onBlur="vm.createFunction(input)"
 			options="vm.cities"
 			value-attr="label"
 			placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations'"

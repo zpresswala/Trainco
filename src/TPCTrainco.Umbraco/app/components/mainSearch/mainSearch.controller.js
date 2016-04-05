@@ -12,15 +12,15 @@
     vm.$storage = $localStorage;
 
     vm.cities = Cities.getCities();
-
+    console.log(vm.cities.length)
     vm.createFunction = function(input) {
       // format the option and return it
       return {
         value: vm.cities.length,
         label: input
       };
-    };
 
+    };
     vm.classTopics = {};
     var courseObjs = {
       hvac: vm.classTopics.hvac,
