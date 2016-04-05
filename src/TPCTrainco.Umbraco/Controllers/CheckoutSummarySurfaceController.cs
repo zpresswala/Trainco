@@ -25,8 +25,6 @@ namespace TPCTrainco.Umbraco.Controllers
 
             if (false == string.IsNullOrWhiteSpace(cartGuid))
             {
-                
-
                 Carts cartsObj = new Carts();
 
                 tempRegList = cartsObj.GetCart(cartGuid);
@@ -37,6 +35,11 @@ namespace TPCTrainco.Umbraco.Controllers
                 }
                 else
                 {
+                    if (false == cartsObj.IsValidCart(tempRegList[0].reg_ID, "/register/summary/"))
+                    {
+                        return Redirect("/register/?cart=" + cartGuid);
+                    }
+
                     Session["CartId"] = cartGuid;
 
                     temp_Cust tempCust = null;
@@ -67,8 +70,6 @@ namespace TPCTrainco.Umbraco.Controllers
             {
                 return PartialView("CheckoutSummary", checkoutDetails);
             }
-
-
         }
 
 
@@ -131,6 +132,11 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (tempRegList != null)
                 {
+                    if (false == cartsObj.IsValidCart(tempRegList[0].reg_ID, "/register/summary/ (POST)"))
+                    {
+                        return Redirect("/register/?cart=" + cartGuid);
+                    }
+
                     debug.AppendLine("Begin processing cart.");
 
                     try

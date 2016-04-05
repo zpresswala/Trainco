@@ -54,7 +54,14 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     checkoutCustomer.CartGuid = CartCookies.EncryptCartGuid(cartGuid + "|" + checkoutCustomer.RegId + "|" + Request.UserHostAddress);
 
-                    return PartialView("CheckoutCustomer", checkoutCustomer);
+                    if (false == cartsObj.IsValidCart(checkoutCustomer.RegId, "/register/info/"))
+                    {
+                        return Redirect("/register/?cart=" + cartGuid);
+                    }
+                    else
+                    {
+                        return PartialView("CheckoutCustomer", checkoutCustomer);
+                    }
                 }
             }
             else
@@ -122,8 +129,10 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (cartList != null)
                 {
-                    // delete old temp_Cust
-                    cartsObj.DeleteTempCust(cartList[0].reg_ID);
+                    if (false == cartsObj.IsValidCart(cartList[0].reg_ID, "/register/info/ (POST)"))
+                    {
+                        return Redirect("/register/?cart=" + cartGuid);
+                    }
 
                     checkoutBilling.RegId = cartList[0].reg_ID;
 
