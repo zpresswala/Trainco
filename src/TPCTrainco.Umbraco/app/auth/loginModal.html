@@ -1,4 +1,4 @@
-<script type="text/ng-template" id="myModalContent.html">
+<script type="text/ng-template" id="loginModal.html">
 <div class="modal-header">
 <i style="float:right;" class="fa fa-close" ng-click="cancel()"></i>
 <h1 class="modal-title">Log in to save this seminar</h1>
@@ -14,7 +14,7 @@
 <input class="form-control" ng-model="password" type="password">
 </div>
 <div class="row">
-<button class"btn-blue-modal" type="submit">Login</button>
+<button class="btn-blue-modal" type="submit">Login</button>
 <a href="/dashboard/forgot-password" class="forgotPW">Forgot Password?</a>
 </div>
 </div>
@@ -25,7 +25,7 @@
 </p>
 </div>
 <div class="row">
-  <button class"btn-blue-modal" type="submit">Create an Account</button>
+  <button class="btn-blue-modal" type="button"><a href="/dashboard/signup">Create an Account</a></button>
 </div>
 </div>
 
