@@ -17,10 +17,24 @@
 <div id="authbar" ng-controller="AuthbarController as vm">
 <div class="container">
   <div ng-if="vm.isLoggedIn">
-    <a href="/dashboard">My Account</a> <a class="authbar-link" href="javascript:void(0)" ng-click="vm.logout()">Logout</a>
+    <ul class="inline-list">
+      <li>
+        <a href="/dashboard">My Account</a>
+      </li>
+      <li>
+        <a class="authbar-link" href="javascript:void(0)" ng-click="vm.logout()">Logout</a>
+      </li>
+    </ul>
   </div>
   <div ng-if="!vm.isLoggedIn">
-    <a class="authbar-link" href="/dashboard/login">Login</a> <a class="authbar-link" href="/dashboard/signup">Create an Account</a>
+    <ul class="inline-list">
+    <li>
+      <a class="authbar-link" href="/dashboard/signup">Create an Account</a>
+    </li>
+    <li>
+      <a class="authbar-link" href="/dashboard/login">Log in</a>
+    </li>
+  </ul>
   </div>
   </div>
 </div>

@@ -108,8 +108,9 @@
                 @CurrentPage.seminarOverview
               </div>
               <div class="col-md-2">
-                <button class="btn-reg btn-blue-solid" ng-click="vm.saveCourseToUser()">Save</button>
-        
+                <button class="btn-reg btn-blue-solid" ng-model="vm.savedBtn"
+                  ng-click="vm.saveCourseToUser()" ng-show="vm.saveBtn">Save</button>
+                <a ng-show="!vm.saveBtn" href="#">My seminars dashboard page</a>
               </div>
             </div>
             @if (course != null && courseFormat != null)
