@@ -12,7 +12,7 @@
     vm.$storage = $localStorage;
 
     vm.cities = Cities.getCities();
-    console.log(vm.cities.length)
+
     vm.createFunction = function(input) {
       // format the option and return it
       return {
