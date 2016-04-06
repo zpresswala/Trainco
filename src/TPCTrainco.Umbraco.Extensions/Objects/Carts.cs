@@ -233,6 +233,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (cart != null && cart.Count > 0)
                 {
+                    DeleteTempAtt(cart[0].reg_ID);
+
                     if (checkoutCart != null && checkoutCart.CheckoutItems != null && checkoutCart.CheckoutItems.Count > 0)
                     {
                         using (var db = new americantraincoEntities())
@@ -243,8 +245,6 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                                 if (checkoutItemList != null && checkoutItemList.Count > 0)
                                 {
-                                    DeleteTempAtt(tempReg.reg_ID);
-
                                     foreach (CheckoutItem checkoutItem in checkoutItemList)
                                     {
                                         temp_Att tempAtt = new temp_Att();
@@ -735,6 +735,14 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 body += "Last Name: " + tempCust.authLName + Environment.NewLine;
                 body += "CC Error Code: " + result.ErrorCode + Environment.NewLine;
                 body += "CC Error Text: " + result.ErrorText + Environment.NewLine;
+
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.Url.AbsoluteUri;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserHostAddress;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserAgent;
+                body += "\r\n\r\n";
 
                 email.Body = body;
 
