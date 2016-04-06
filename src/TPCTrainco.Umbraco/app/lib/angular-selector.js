@@ -18,25 +18,28 @@
 			this.replace    = true;
 			this.transclude = true;
 			this.scope      = {
-				name:                  '@?',
-				value:                 '=model',
-				disabled:              '=?disable',
-				multiple:              '=?multi',
-				placeholder:           '@?',
-				valueAttr:             '@',
-				labelAttr:             '@?',
-				groupAttr:             '@?',
-				options:               '=?',
-				create:                '&?',
-				rtl:                   '=?',
-				api:                   '=?',
-				change:                '&?',
-				remote:                '=?',
-				remoteParam:           '@?',
-				removeButton:          '=?',
-				viewItemTemplate:      '=?',
-				dropdownItemTemplate:  '=?',
-				dropdownGroupTemplate: '=?'
+				name:                   '@?',
+				value:                  '=model',
+				disabled:               '=?disable',
+				required:               '=?require',
+				multiple:               '=?multi',
+				placeholder:            '@?',
+				valueAttr:              '@',
+				labelAttr:              '@?',
+				groupAttr:              '@?',
+				options:                '=?',
+				create:                 '&?',
+				rtl:                    '=?',
+				api:                    '=?',
+				change:                 '&?',
+				remote:                 '&?',
+				remoteParam:            '@?',
+				removeButton:           '=?',
+				softDelete:             '=?',
+				viewItemTemplate:       '=?',
+				dropdownItemTemplate:   '=?',
+				dropdownCreateTemplate: '=?',
+				dropdownGroupTemplate:  '=?'
 			};
 			this.templateUrl = 'selector/selector.html';
 			$filter  = filter;
@@ -52,18 +55,20 @@
 					dropdown     = angular.element(element[0].querySelector('.selector-dropdown')),
 					initDeferred = $q.defer(),
 					defaults     = {
-						api:                   {},
-						selectedValues:        [],
-						highlighted:           0,
-						valueAttr:             null,
-						labelAttr:             'label',
-						groupAttr:             'group',
-						options:               [],
-						remoteParam:           'q',
-						removeButton:          true,
-						viewItemTemplate:      'selector/item-default.html',
-						dropdownItemTemplate:  'selector/item-default.html',
-						dropdownGroupTemplate: 'selector/group-default.html'
+						api:                    {},
+						search:                 '',
+						selectedValues:         [],
+						highlighted:            0,
+						valueAttr:              null,
+						labelAttr:              'label',
+						groupAttr:              'group',
+						options:                [],
+						remoteParam:            'q',
+						removeButton:           true,
+						viewItemTemplate:       'selector/item-default.html',
+						dropdownItemTemplate:   'selector/item-default.html',
+						dropdownCreateTemplate: 'selector/item-create.html',
+						dropdownGroupTemplate:  'selector/group-default.html'
 					};
 
 				// Default attributes
@@ -95,27 +100,34 @@
 
 				// Remote fetching
 				scope.fetch = function () {
-					var settings = { method: 'GET', cache: true, params: {} };
-					if (!angular.isDefined(scope.remote) || !angular.isObject(scope.remote))
-						throw 'Remote attribute is not an object';
-					angular.extend(settings, scope.remote);
-					angular.extend(settings.params, scope.remote.params);
-					settings.params[scope.remoteParam] = scope.search || '';
+					var promise, search = scope.search || '';
+					if (scope.disabled) return;
+
+					if (!angular.isDefined(scope.remote))
+						throw 'Remote attribute is not defined';
 					scope.loading = true;
 					scope.options = [];
-					$http(settings)
+					promise = scope.remote({ search: search });
+					if (typeof promise.then !== 'function') {
+						var settings = { method: 'GET', cache: true, params: {} };
+						angular.extend(settings, scope.remote());
+						angular.extend(settings.params, scope.remote().params);
+						settings.params[scope.remoteParam] = search;
+						promise = $http(settings);
+					}
+					promise
 						.then(function (data) {
-							scope.options = data.data;
-							scope.filterSelected();
+							scope.options = data.data || data;
+							scope.filterOptions();
 							scope.loading = false;
 							initDeferred.resolve();
-						}, function () {
+						}, function (error) {
 							scope.loading = false;
 							initDeferred.reject();
-							throw 'Error while fetching data';
+							throw 'Error while fetching data: ' + (error.message || error);
 						});
 				};
-				if (!angular.isDefined(scope.remote) || !angular.isObject(scope.remote)) {
+				if (!angular.isDefined(scope.remote)) {
 					scope.remote = false;
 					initDeferred.resolve();
 				}
@@ -172,7 +184,7 @@
 							if (!angular.isArray(scope.value)) scope.value = [scope.value];
 						}
 						scope.updateSelected();
-						scope.filterSelected();
+						scope.filterOptions();
 						scope.updateValue();
 					}
 				};
@@ -186,8 +198,7 @@
 					var label       = input.parent()[0],
 						styles      = getStyles(label),
 						marginTop   = parseFloat(styles.marginTop || 0),
-						marginLeft  = parseFloat(styles.marginLeft || 0),
-						marginRight = parseFloat(styles.marginRight || 0);
+						marginLeft  = parseFloat(styles.marginLeft || 0);
 
 					dropdown.css({
 						top:   (label.offsetTop + label.offsetHeight + marginTop) + 'px',
@@ -212,8 +223,11 @@
 					scope.scrollToHighlighted();
 				};
 				scope.highlight = function (index) {
-					if (scope.filteredOptions.length)
-						scope.highlighted = (scope.filteredOptions.length + index) % scope.filteredOptions.length;
+					if (attrs.create && scope.search && index == -1)
+						scope.highlighted = -1;
+					else
+						if (scope.filteredOptions.length)
+							scope.highlighted = (scope.filteredOptions.length + index) % scope.filteredOptions.length;
 				};
 				scope.scrollToHighlighted = function () {
 					var dd           = dropdown[0],
@@ -233,6 +247,17 @@
 						$timeout(function () {
 							dd.scrollTop = option.offsetTop - marginTop;
 						});
+				};
+				scope.createOption = function (value) {
+					var option = {};
+					if (angular.isFunction(scope.create)) {
+						option = scope.create({ input: value });
+					} else {
+						option[scope.labelAttr] = value;
+						option[scope.valueAttr || 'value'] = value;
+					}
+					scope.options.push(option);
+					scope.set(option);
 				};
 				scope.set = function (option) {
 					if (!angular.isDefined(option))
@@ -269,26 +294,23 @@
 							break;
 						case KEYS.enter:
 							if (scope.isOpen) {
-								if (scope.filteredOptions.length) {
-									scope.set();
-								} else if (attrs.create) {
-									var option = {};
-									if (angular.isFunction(scope.create)) {
-										option = scope.create({ input: e.target.value });
-									} else {
-										option[scope.labelAttr] = e.target.value;
-										option[scope.valueAttr || 'value'] = e.target.value;
-									}
-									scope.options.push(option);
-									scope.set(option);
-								}
+								if (attrs.create && scope.search && scope.highlighted == -1)
+									scope.createOption(e.target.value);
+								else
+									if (scope.filteredOptions.length)
+										scope.set();
 								e.preventDefault();
 							}
 							break;
 						case KEYS.backspace:
 							if (!input.val()) {
+								var search = (scope.selectedValues.slice(-1)[0] || {})[scope.labelAttr] || '';
 								scope.unset();
 								scope.open();
+								if (scope.softDelete) {
+									scope.search = search;
+									if (scope.multiple) e.preventDefault();
+								}
 							}
 							break;
 						case KEYS.left:
@@ -321,7 +343,7 @@
 					else
 						return options.indexOf(value) >= 0;
 				};
-				scope.filterSelected = function () {
+				scope.filterOptions = function () {
 					scope.filteredOptions = $filter('filter')(scope.options || [], scope.search);
 					if (scope.multiple)
 						scope.filteredOptions = scope.filteredOptions.filter(function (option) {
@@ -357,11 +379,14 @@
 				};
 
 				scope.$watch('[search, options, value]', function () {
-					scope.setInputWidth();
 					// Remove selected items
-					scope.filterSelected();
-					// Repositionate dropdown
-					if (scope.isOpen) $timeout(scope.dropdownPosition);
+					scope.filterOptions();
+					$timeout(function () {
+						// set width
+						scope.setInputWidth();
+						// Repositionate dropdown
+						if (scope.isOpen) scope.dropdownPosition();
+					});
 				}, true);
 
 				// Update value
@@ -377,7 +402,7 @@
 							? { newValue: newValue, oldValue: oldValue }
 							: { newValue: newValue[0], oldValue: oldValue[0] });
 				}, true);
-				scope.$watch('options', function (newValue, oldValue) {
+				scope.$watchCollection('options', function (newValue, oldValue) {
 					if (angular.equals(newValue, oldValue) || scope.remote) return;
 					scope.updateSelected();
 				});
@@ -393,18 +418,21 @@
 						}).filter(function (value) { return angular.isDefined(value); });
 				};
 				scope.$watch('value', function (newValue, oldValue) {
-					if (angular.equals(newValue, oldValue) || scope.remote) return;
-					scope.updateSelected();
+					if (angular.equals(newValue, oldValue)) return;
+					if (!scope.remote || scope.options.length > 0) scope.updateSelected();
+					scope.filterOptions();
+					scope.updateValue();
 				}, true);
 
 				// DOM event listeners
-				input
+				input = angular.element(element[0].querySelector('.selector-input input'))
 					.on('focus', function () {
 						$timeout(function () {
 							scope.$apply(scope.open);
 						});
 					})
-					.on('blur', function () {
+					.on('blur', function (e) {
+            scope.createOption(e.target.value);
 						scope.$apply(scope.close);
 					})
 					.on('keydown', function (e) {
@@ -439,7 +467,7 @@
 					});
 				};
 				scope.api.unset = function (value) {
-					var values  = !value ? scope.selectedValues : (scope.selectedValues || []).filter(function (option) { return scope.optionEquals(option, value); });
+					var values  = !value ? scope.selectedValues : (scope.selectedValues || []).filter(function (option) { return scope.optionEquals(option, value); }),
 						indexes =
 							scope.selectedValues.map(function (option, index) {
 								return scope.inOptions(values, option) ? index : -1;
@@ -473,15 +501,14 @@
 								'</div>' +
 							'</li>' +
 						'</ul>' +
-						'<input ng-model="search" placeholder="{{!hasValue() ? placeholder : \'\'}}" ng-disabled="disabled">' +
+						'<input id="selectorSearch" ng-model="search" placeholder="{{!hasValue() ? placeholder : \'\'}}" ng-disabled="disabled" ng-required="required && !hasValue()">' +
 						'<div ng-if="!multiple || loading" class="selector-helper selector-global-helper" ng-click="!disabled && removeButton && unset()">' +
 							'<span class="selector-icon"></span>' +
 						'</div>' +
 					'</label>' +
 					'<ul class="selector-dropdown" ng-show="filteredOptions.length > 0 || (create && search)">' +
-						'<li class="selector-option active" ng-if="filteredOptions.length == 0">' +
-							'Add <i ng-bind="search"></i>' +
-						'</li>' +
+						'<li class="selector-option create" ng-class="{active: highlighted == -1}" ng-if="create && search" ' +
+							'ng-include="dropdownCreateTemplate" ng-mouseover="highlight(-1)" ng-click="createOption(search)"></li>' +
 						'<li ng-repeat-start="(index, option) in filteredOptions track by index" class="selector-optgroup" ' +
 							'ng-include="dropdownGroupTemplate" ng-show="option[groupAttr] && index == 0 || filteredOptions[index-1][groupAttr] != option[groupAttr]"></li>' +
 						'<li ng-repeat-end ng-class="{active: highlighted == index, grouped: option[groupAttr]}" class="selector-option" ' +
@@ -489,6 +516,7 @@
 					'</ul>' +
 				'</div>'
 			);
+			$templateCache.put('selector/item-create.html', 'Add <i ng-bind="search"></i>');
 			$templateCache.put('selector/item-default.html', '<span ng-bind="option[labelAttr] || option"></span>');
 			$templateCache.put('selector/group-default.html', '<span ng-bind="option[groupAttr]"></span>');
 		}])
