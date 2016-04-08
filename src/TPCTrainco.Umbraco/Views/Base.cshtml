@@ -61,6 +61,10 @@
         searchPage = true;
         htmlArgs = " ng-app=\"train\"";
     }
+    else if (currentPage.DocumentTypeAlias == "OnSiteTraining")
+    {
+        htmlArgs = " ng-app=\"train\"";
+    }
     else if (currentPage.DocumentTypeAlias == "SeminarItem")
     {
         cartPage = true;
@@ -70,18 +74,22 @@
     else if (currentPage.DocumentTypeAlias == "RegisterContainer")
     {
         checkoutPage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterInfo")
     {
         checkoutPage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterSummary")
     {
         checkoutPage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterSuccess")
     {
         cartPage = true;
+        htmlArgs = " ng-app=\"train\"";
     }
 
     if (searchPage || homePage || seminarDetailPage)
@@ -243,11 +251,7 @@
     <!--[if IE 9]>
         <body class="ie9">
     <![endif]-->
-
-    @if (false == searchPage && false == homePage && false == seminarDetailPage)
-    {
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     @Html.Raw(pageHeaderScript)
 </head>
@@ -284,37 +288,34 @@
         <script src="/app/lib/angular-loading.js"></script>
         <script src="/app/lib/angular-selector.js"></script>
 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-
-  <script src="/app/core/core.module.js"></script>
-  <script src="/app/common/common.module.js"></script>
-  <script src="/app/components/components.module.js"></script>
-  <script src="/app/register/register.module.js"></script>
-  <script src="/app/seminar/seminar.module.js"></script>
-  <script src="/app/auth/auth.module.js"></script>
-  <script src="/app/app.module.js"></script>
-  <script src="/app/common/util.service.js"></script>
-  <script src="/app/common/search.factory.js"></script>
-  <script src="/app/common/seminars.factory.js"></script>
-  <script src="/app/common/startFrom.filter.js"></script>
-  <script src="/app/common/months.factory.js"></script>
-  <script src="/app/common/cities.factory.js"></script>
-  <script src="/app/common/dropIn.animation.js"></script>
-  <script src="/app/common/slideToggle.animation.js"></script>
-  <script src="/app/components/cart/cart.directive.js"></script>
-  <script src="/app/common/stringToNumber.directive.js"></script>
-  <script src="/app/seminar/seminar.controller.js"></script>
-  <script src="/app/seminar/seminarItem.controller.js"></script>
-  <script src="/app/seminar/courseSearch.service.js"></script>
-  <script src="/app/auth/auth.controller.js"></script>
-  <script src="/app/auth/loginModal.controller.js"></script>
-  <script src="/app/register/register.controller.js"></script>
-  <script src="/app/core/lodash.factory.js"></script>
-  <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
-  <script src="/app/components/mainSearch/mainSearch.controller.js"></script>
-  <script src="/app/components/cart/cart.service.js"></script>
-  <script src="/app/components/cart/cart.controller.js"></script>
+        <script src="/app/core/core.module.js"></script>
+        <script src="/app/common/common.module.js"></script>
+        <script src="/app/components/components.module.js"></script>
+        <script src="/app/register/register.module.js"></script>
+        <script src="/app/seminar/seminar.module.js"></script>
+        <script src="/app/auth/auth.module.js"></script>
+        <script src="/app/app.module.js"></script>
+        <script src="/app/common/util.service.js"></script>
+        <script src="/app/common/search.factory.js"></script>
+        <script src="/app/common/seminars.factory.js"></script>
+        <script src="/app/common/startFrom.filter.js"></script>
+        <script src="/app/common/months.factory.js"></script>
+        <script src="/app/common/cities.factory.js"></script>
+        <script src="/app/common/dropIn.animation.js"></script>
+        <script src="/app/common/slideToggle.animation.js"></script>
+        <script src="/app/components/cart/cart.directive.js"></script>
+        <script src="/app/common/stringToNumber.directive.js"></script>
+        <script src="/app/seminar/seminar.controller.js"></script>
+        <script src="/app/seminar/seminarItem.controller.js"></script>
+        <script src="/app/seminar/courseSearch.service.js"></script>
+        <script src="/app/auth/auth.controller.js"></script>
+        <script src="/app/auth/loginModal.controller.js"></script>
+        <script src="/app/register/register.controller.js"></script>
+        <script src="/app/core/lodash.factory.js"></script>
+        <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
+        <script src="/app/components/mainSearch/mainSearch.controller.js"></script>
+        <script src="/app/components/cart/cart.service.js"></script>
+        <script src="/app/components/cart/cart.controller.js"></script>
 
   if (seminarDetailPage)
         {
@@ -329,19 +330,7 @@
         }
 
     }
-    else if (cartPage)
-    {
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
-        <script type="text/javascript" src="/js/cart.js?@cacheVer"></script>
-    }
-    else if (checkoutPage)
-    {
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
-    }
+
     @if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
         <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>

@@ -19,7 +19,7 @@
   <div ng-if="vm.isLoggedIn">
     <ul class="inline-list">
       <li>
-        <a href="/dashboard">My Account</a>
+        <a class="authbar-link" href="/dashboard">My account</a>
       </li>
       <li>
         <a class="authbar-link" href="javascript:void(0)" ng-click="vm.logout()">Logout</a>
@@ -29,7 +29,7 @@
   <div ng-if="!vm.isLoggedIn">
     <ul class="inline-list">
     <li>
-      <a class="authbar-link" href="/dashboard/signup">Create an Account</a>
+      <a class="authbar-link" href="/dashboard/signup">Create an account</a>
     </li>
     <li>
       <a class="authbar-link" href="/dashboard/login">Log in</a>
