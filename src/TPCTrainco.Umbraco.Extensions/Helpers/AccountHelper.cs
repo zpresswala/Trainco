@@ -145,7 +145,12 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                         memberTypeAlias: "Member"
                     );
 
-                    user.Key = member.Key.ToString();
+                    member.SetValue("firstName", user.FirstName);
+                    member.SetValue("lastName", user.LastName);
+                    member.SetValue("title", user.Title);
+                    member.SetValue("phone", user.Phone);
+                    member.SetValue("phoneExtension", user.PhoneExtension);
+                    member.SetValue("favoritedCourses", user.FavoritedCourses);                   
 
                     var validationCode = Guid.NewGuid().ToString();
                     member.SetValue("validationCode", String.Join(":", validationCode, DateTime.UtcNow.Ticks));
@@ -160,6 +165,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                     ApplicationContext.Current.Services.MemberService.SavePassword(member, user.Password);
 
+                    user.Key = member.Key.ToString();
                     user.ValidationCode = validationCode;
 
                     var emailTemplete = GetEmailTemplate("New Account Verificaton");
@@ -319,7 +325,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     string couresUrl = String.Format("{0}://{1}{2}", uri.Scheme, uri.Host, course.DetailsUrl);
 
                     var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
-                    var memberName = String.Format("{0} {1}", member.GetValue<string>("firatName"), member.GetValue<string>("lastName"));
+                    var memberName = String.Format("{0} {1}", member.GetValue<string>("firstName"), member.GetValue<string>("lastName"));
 
                     var smtp = new Email();
                     smtp.EmailFrom = member.Email; // TODO: Should this be from the system or the user?
