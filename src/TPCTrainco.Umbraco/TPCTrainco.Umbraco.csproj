@@ -678,6 +678,9 @@
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="js\cart.js" />
+    <Content Include="js\main.js" />
+    <Content Include="js\vendor.js" />
     <Content Include="media\1001\bear.png" />
     <Content Include="media\1002\electrical.jpg" />
     <Content Include="media\1003\plantmgmt-icon.jpg" />
@@ -3424,7 +3427,6 @@
     <Folder Include="assets\js\custom\checkoutApp\" />
     <Folder Include="css\" />
     <Folder Include="img\" />
-    <Folder Include="js\" />
     <Folder Include="usercontrols\" />
     <Folder Include="xslt\" />
   </ItemGroup>
