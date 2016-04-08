@@ -82,8 +82,10 @@
         data: JSON.stringify(cartDataArr),
         contentType: 'application/json'
       }).success(function(data) {
+        localStorage.setItem('guid', data.cartGuid);
         vm.redirectGuid = data.cartGuid;
         $window.location.href = '/register/?cart=' + data.cartGuid;
+        $window.location.href = '/dashboard/checkout/' + data.cartGuid;
       });
     }
   }

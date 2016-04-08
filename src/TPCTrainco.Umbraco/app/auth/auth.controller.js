@@ -10,7 +10,7 @@
   function AuthbarController($log) {
     var vm = this;
 
-    var authToken = JSON.parse(localStorage.getItem('token'));
+    var authToken = JSON.parse(localStorage.getItem('tcJWT'));
     checkForLogin(authToken);
 
     function checkForLogin(authToken) {
@@ -22,7 +22,7 @@
     }
 
     vm.logout = function() {
-      localStorage.removeItem('token');
+      localStorage.removeItem('tcJWT');
       vm.isLoggedIn = false;
     }
   }

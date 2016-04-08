@@ -1,91 +1,88 @@
-'use strict';
+(function() {
+  'use strict';
 
-function Checkout() {
+  function CreateFormPostString() {
+  	var $cart = $('.form-container');
+  	var cartGuid = $cart.data('cart');
 
+  	var attendeeList = [];
+  	$('.form-item-wrapper').each(function () {
+  		var seminarId = $(this).data('seminar');
+  		$(this).find('.reg-form').each(function () {
+  			var attendeeNum = $(this).find('input[name="attendee"]').val();
+  			var attendeeInc = $(this).find('input[name="attendeeInc"]').val();
+  			var firstName = $(this).find('input[name="firstname"]').val();
+  			var lastName = $(this).find('input[name="lastname"]').val();
+  			var title = $(this).find('input[name="title"]').val();
+  			var email = $(this).find('input[name="email"]').val();
 
-}
+  			var attendeeItem = {
+  				seminarId: seminarId,
+  				attendeeNum: attendeeNum,
+  				attendeeInc: attendeeInc,
+  				firstName: firstName,
+  				lastName: lastName,
+  				title: title,
+  				email: email
+  			};
 
+  			attendeeList.push(attendeeItem);
+  		})
+  	});
 
-function CreateFormPostString() {
-	var $cart = $('.form-container');
-	var cartGuid = $cart.data('cart');
+  	var postData = {
+  		cartGuid: cartGuid,
+  		checkoutItems: attendeeList
+  	}
 
-	var attendeeList = [];
-	$('.form-item-wrapper').each(function () {
-		var seminarId = $(this).data('seminar');
-		$(this).find('.reg-form').each(function () {
-			var attendeeNum = $(this).find('input[name="attendee"]').val();
-			var attendeeInc = $(this).find('input[name="attendeeInc"]').val();
-			var firstName = $(this).find('input[name="firstname"]').val();
-			var lastName = $(this).find('input[name="lastname"]').val();
-			var title = $(this).find('input[name="title"]').val();
-			var email = $(this).find('input[name="email"]').val();
+  	return postData;
+  };
 
-			var attendeeItem = {
-				seminarId: seminarId,
-				attendeeNum: attendeeNum,
-				attendeeInc: attendeeInc,
-				firstName: firstName,
-				lastName: lastName,
-				title: title,
-				email: email
-			};
+  function CheckoutPost(checkoutData) {
+  	var $checkoutErrMsg = $('.checkout-err-msg'),
+  		$loader = $('.checkout-loader'),
+  		$regSubmit = $('#reg-submit');
 
-			attendeeList.push(attendeeItem);
-		})
-	});
+  	$regSubmit.css('opacity', 0);
+  	$loader.show();
 
-	var postData = {
-		cartGuid: cartGuid,
-		checkoutItems: attendeeList
-	}
+  	$('input').next('span').remove().css('border-color', '#d7d7d7');
 
-	return postData;
-};
+  	$.ajax({
+  		url: 'http://trainco-phase1.axial-client.com/api/checkout/submit',
+  		data: JSON.stringify(checkoutData),
+  		type: "POST",
+  		contentType: "application/json"
+  	}).done(function (successObj) {
 
-function CheckoutPost(checkoutData) {
-	var $checkoutErrMsg = $('.checkout-err-msg'),
-		$loader = $('.checkout-loader'),
-		$regSubmit = $('#reg-submit');
+  		var success = successObj.success;
+  		var message = successObj.message;
 
-	$regSubmit.css('opacity', 0);
-	$loader.show();
+  		if (success) {
+  			window.location.href = '/register/info/';
+  		}
+  		else {
+  			// There was a problem with the form.
+  			$checkoutErrMsg.html(message).show();
+  			$regSubmit.css('opacity', 1);
+  			$loader.hide();
 
-	$('input').next('span').remove().css('border-color', '#d7d7d7');
+  			if (successObj.invalidItems.length > 0) {
+  				var formElArray = successObj.invalidItems;
 
-	$.ajax({
-		url: 'http://trainco-phase1.axial-client.com/api/checkout/submit',
-		data: JSON.stringify(checkoutData),
-		type: "POST",
-		contentType: "application/json"
-	}).done(function (successObj) {
+  				for (var i = 0, l = formElArray.length; i < l; i++) {
+  					var formEl = formElArray[i];
 
-		var success = successObj.success;
-		var message = successObj.message;
+  					$('#' + formEl.elementId).after('<span>' + formEl.message + '</span>');
+  					$('#' + formEl.elementId).css('border-color', 'red');
+  				}
+  			}
 
-		if (success) {
-			window.location.href = '/register/info/';
-		}
-		else {
-			// There was a problem with the form.
-			$checkoutErrMsg.html(message).show();
-			$regSubmit.css('opacity', 1);
-			$loader.hide();
+  		}
+  	}).fail(function (error) {
+  		$regSubmit.css('opacity', 1).prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+  		$loader.hide();
+  	});
+  };
 
-			if (successObj.invalidItems.length > 0) {
-				var formElArray = successObj.invalidItems;
-
-				for (var i = 0, l = formElArray.length; i < l; i++) {
-					var formEl = formElArray[i];
-
-					$('#' + formEl.elementId).after('<span>' + formEl.message + '</span>');
-					$('#' + formEl.elementId).css('border-color', 'red');
-				}
-			}
-
-		}
-	}).fail(function (error) {
-		$regSubmit.css('opacity', 1).prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
-		$loader.hide();
-	});
-};
+})

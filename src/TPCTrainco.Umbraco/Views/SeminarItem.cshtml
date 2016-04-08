@@ -102,9 +102,16 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2 text-wrap" id="overview">
 
-            <div class="row">
+            <div class="row" ng-controller="SeminarItemController as vm">
+              <div class="col-md-10">
                 <h2>Seminar Overview</h2>
                 @CurrentPage.seminarOverview
+              </div>
+              <div class="col-md-2">
+                <button class="btn-reg btn-blue-solid" ng-model="vm.savedBtn"
+                  ng-click="vm.saveCourseToUser()" ng-show="vm.saveBtn">Save</button>
+                <a ng-show="!vm.saveBtn" href="/dashboard/saved">Saved! View My Saved Seminars</a>
+              </div>
             </div>
             @if (course != null && courseFormat != null)
             {

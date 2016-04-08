@@ -163,7 +163,7 @@ button {
 }
 
 .btn-blue-solid {
-  background-color: $blue;
+  background-color: $blue!important;
   padding: 6px 24px;
 
   &:hover {
@@ -428,9 +428,3 @@ ul.pagination-btn-wrapper li {
   padding-left: 15px;
   color: $blue;
 }
-
-// .btn-pagination-left {
-// }
-//
-// .btn-pagination-right {
-// }

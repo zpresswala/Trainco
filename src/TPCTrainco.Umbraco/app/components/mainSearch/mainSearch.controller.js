@@ -19,8 +19,8 @@
         value: vm.cities.length,
         label: input
       };
-    };
 
+    };
     vm.classTopics = {};
     var courseObjs = {
       hvac: vm.classTopics.hvac,

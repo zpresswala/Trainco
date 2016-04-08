@@ -19,11 +19,17 @@ gulp.task('scripts', function() {
 });
 
 function buildScripts() {
-  return gulp.src(path.join(conf.paths.src, '/app/**/*.js'))
+  return gulp.src(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/**/*.js'))
     .pipe($.preprocess({ context: { NODE_ENV: 'development' }}))
     .pipe($.eslint())
     .pipe($.eslint.format())
+    .pipe($.sourcemaps.init())
+    .pipe($.concat('ngapp.js'))
+    .pipe($.ngAnnotate({}))
+    .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
+    .pipe($.sourcemaps.write('maps'))
     .pipe($.size())
+    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app')));
 };
 
 gulp.task('vendor', function() {
