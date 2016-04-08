@@ -54,7 +54,12 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 else
                 {
                     LogHelper.Info<Redirect>(string.Format("No Redirect found '{0}'", badUrl));
+                    SetHttpStatus(404);
                 }
+            }
+            else
+            {
+                SetHttpStatus(404);
             }
         }
 

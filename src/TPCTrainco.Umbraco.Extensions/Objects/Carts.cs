@@ -470,6 +470,13 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             using (var db = new americantraincoEntities())
             {
+                temp_Cust findTempCust = db.temp_Cust.Where(p => p.reg_ID == tempCust.reg_ID).FirstOrDefault();
+
+                if (findTempCust != null)
+                {
+                    DeleteTempCust(tempCust.reg_ID ?? 0);
+                }
+
                 db.temp_Cust.Add(tempCust);
                 db.SaveChanges();
 
