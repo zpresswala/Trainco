@@ -332,6 +332,7 @@
     <Compile Include="Models\CheckoutDetails.cs" />
     <Compile Include="Models\CheckoutItem.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\LocationLookup.cs" />
     <Compile Include="Models\RegistrationTrackItem.cs" />
     <Compile Include="Models\CoordinateDetails.cs" />
     <Compile Include="Models\CourseDetail.cs" />
@@ -343,6 +344,7 @@
     <Compile Include="Models\SearchRequest\SchedulesSearchRequest.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest2.cs" />
     <Compile Include="Models\SearchRequest\SeminarsSearchRequest.cs" />
+    <Compile Include="Models\StateLookup.cs" />
     <Compile Include="Models\UmbracoCourseDetail.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
     <Compile Include="Objects\CartCookies.cs" />
