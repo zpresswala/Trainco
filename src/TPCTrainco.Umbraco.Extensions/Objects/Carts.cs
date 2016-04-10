@@ -233,6 +233,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (cart != null && cart.Count > 0)
                 {
+                    DeleteTempAtt(cart[0].reg_ID);
+
                     if (checkoutCart != null && checkoutCart.CheckoutItems != null && checkoutCart.CheckoutItems.Count > 0)
                     {
                         using (var db = new americantraincoEntities())
@@ -468,6 +470,13 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             using (var db = new americantraincoEntities())
             {
+                temp_Cust findTempCust = db.temp_Cust.Where(p => p.reg_ID == tempCust.reg_ID).FirstOrDefault();
+
+                if (findTempCust != null)
+                {
+                    DeleteTempCust(tempCust.reg_ID ?? 0);
+                }
+
                 db.temp_Cust.Add(tempCust);
                 db.SaveChanges();
 
@@ -549,7 +558,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 postData += "&ssl_test_mode=" + ccTest;
 
                 postData += "&ssl_amount=" + orderTotalStr;
-                postData += "&ssl_card_number=" + billing.CCNumber.Replace(" ","").Replace("-","");
+                postData += "&ssl_card_number=" + billing.CCNumber.Replace(" ", "").Replace("-", "");
                 postData += "&ssl_exp_date=" + dtExpire.ToString("MMyy");
                 postData += "&ssl_cvv2cvc2_indicator=1";
                 postData += "&ssl_cvv2cvc2=" + checkout.tempCust.ccCVC;
@@ -702,7 +711,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 email.EmailToList = emailToList;
                 email.Subject = "TPCTrainco.com Cart Error";
                 email.IsBodyHtml = false;
-                
+
                 email.Body = body;
 
                 email.SendEmail();
@@ -734,6 +743,14 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 body += "CC Error Code: " + result.ErrorCode + Environment.NewLine;
                 body += "CC Error Text: " + result.ErrorText + Environment.NewLine;
 
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.Url.AbsoluteUri;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserHostAddress;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserAgent;
+                body += "\r\n\r\n";
+
                 email.Body = body;
 
                 email.SendEmail();
@@ -741,7 +758,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public void SendCheckoutErrorEmail(string emailBody)
+        public void SendCheckoutErrorEmail(string emailBody, string page = "", string subject = "")
         {
             List<string> emailToList = null;
 
@@ -755,15 +772,113 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 email.EmailFrom = "website@tpctrainco.com";
                 email.EmailToList = emailToList;
-                email.Subject = "TPCTrainco.com Registration Error";
+                if (false == string.IsNullOrEmpty(subject))
+                {
+                    email.Subject = subject;
+                }
+                else
+                {
+                    email.Subject = "TPCTrainco.com Registration Error";
+                }
                 email.IsBodyHtml = false;
 
                 string body = emailBody;
+
+                body += "\r\n\r\n";
+                if (false == string.IsNullOrEmpty(page))
+                {
+                    body += page;
+                }
+                else
+                {
+                    body += HttpContext.Current.Request.Url.AbsoluteUri;
+                }
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserHostAddress;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserAgent;
+                body += "\r\n\r\n";
 
                 email.Body = body;
 
                 email.SendEmail();
             }
+        }
+
+
+        public bool IsValidCart(int regId, string page)
+        {
+            bool isValid = false;
+            string debug = "";
+
+            List<temp_Reg> cart = null;
+            List<temp_Att> attendees = null;
+
+            using (var db = new americantraincoEntities())
+            {
+                cart = db.temp_Reg.Where(p => p.reg_ID == regId).ToList();
+            }
+            using (var db = new americantraincoEntities())
+            {
+                attendees = db.temp_Att.Where(p => p.reg_ID == regId).ToList();
+            }
+            if (cart != null && cart.Any())
+            {
+                debug += "Cart Regs: " + cart.Sum(p => p.sem_Qty) + "\r\n";
+
+                foreach (temp_Reg reg in cart)
+                {
+                    debug += " - " + reg.sem_Title + "\r\n";
+                }
+
+                debug += "\r\n";
+            }
+            else
+            {
+                debug += " - CART REGS NULL OR EMPTY\r\n";
+            }
+            if (attendees != null && attendees.Any())
+            {
+                debug += "Attendees: " + attendees.Count + "\r\n";
+
+                foreach (temp_Att att in attendees)
+                {
+                    debug += " - " + att.att_FName + " " + att.att_LName + " <" + att.att_Email + ">\r\n";
+                }
+
+                debug += "\r\n";
+            }
+            else
+            {
+                debug += " - CART REGS NULL OR EMPTY\r\n";
+            }
+
+            debug += "\r\n";
+
+            if (cart != null && cart.Any() && attendees != null && attendees.Any())
+            {
+                debug += "cart and attendees not NULL\r\n";
+                if (cart.Count > 0 && attendees.Count > 0)
+                {
+                    if (cart.Count == attendees.Count)
+                    {
+                        isValid = true;
+                    }
+                }
+                else
+                {
+                    debug += "Not valid: cart.Count: "+ cart.Count + " attendees.Count: "+ attendees.Count + " \r\n";
+                }
+            }
+            else
+            {
+                debug += "cart and/or attendees NULL!!\r\n";
+            }
+
+            SendCheckoutErrorEmail(debug, page, "TPCTrainco.com Registration Debug");
+
+
+            return true;
         }
 
 
@@ -804,13 +919,19 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public List<temp_Reg> GetCart(string cartGuid)
+        public List<temp_Reg> GetCart(string cartGuid, int regIdRefresh = 0)
         {
             List<temp_Reg> cart = null;
 
             if (false == string.IsNullOrEmpty(cartGuid))
             {
                 int regId = GetCartCache(cartGuid);
+
+                if (regId <= 0)
+                {
+                    regId = regIdRefresh;
+                    RefreshCartCache(cartGuid, regId);
+                }
 
                 if (regId > 0)
                 {
@@ -847,7 +968,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             List<RegistrationTrackItem> itemsList = new List<RegistrationTrackItem>();
 
-            
+
 
 
             return itemsList;
@@ -869,6 +990,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             if (false == string.IsNullOrEmpty(regIdStr))
             {
                 regId = Convert.ToInt32(regIdStr);
+
+                RefreshCartCache(cartGuid, regId);
             }
 
             return regId;

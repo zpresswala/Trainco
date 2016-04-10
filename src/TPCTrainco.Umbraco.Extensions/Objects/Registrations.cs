@@ -563,7 +563,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 if (checkout.tempCust.payMethod == "Credit Card")
                 {
                     paymentText.AppendLine("CC Type: " + checkout.tempCust.ccType + "<br />");
-                    paymentText.AppendLine("CC Number: ****-****-****-" + checkout.tempCust.ccNumber + "<br />");
+                    paymentText.AppendLine("CC Number: ****-****-****-" + StringUtilities.GetLast(checkout.tempCust.ccNumber, 4) + "<br />");
                     paymentText.AppendLine("CC Expire: **/**<br />");
                 }
                 else

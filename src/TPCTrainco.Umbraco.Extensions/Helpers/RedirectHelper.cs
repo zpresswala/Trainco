@@ -54,7 +54,12 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 else
                 {
                     LogHelper.Info<Redirect>(string.Format("No Redirect found '{0}'", badUrl));
+                    SetHttpStatus(404);
                 }
+            }
+            else
+            {
+                SetHttpStatus(404);
             }
         }
 
@@ -66,6 +71,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             var context = HttpContext.Current;
 
             context.Response.StatusCode = statusCode;
+
+            if (statusCode == 404)
+            {
+                context.Response.StatusDescription = "404 Page Not Found";
+            }
         }
 
         public static string GetCurrentPath()

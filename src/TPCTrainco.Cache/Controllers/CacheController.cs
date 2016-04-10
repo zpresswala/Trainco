@@ -30,7 +30,7 @@ namespace TPCTrainco.Cache.Controllers
     {
         public StringBuilder DebugStr = new StringBuilder();
         public CacheMessage CacheMessage = new CacheMessage();
-        
+
 
         // GET api/cache/update
         [HttpGet]
@@ -58,6 +58,118 @@ namespace TPCTrainco.Cache.Controllers
 
                 CacheMessage.Success = true;
                 CacheMessage.Message = DebugStr.ToString();
+
+
+            }
+            catch (Exception ex)
+            {
+                CacheMessage.Message = DebugStr.ToString() + "\r\n\r\n" + ex.ToString();
+            }
+
+            return CacheMessage;
+        }
+
+
+        [HttpGet]
+        public CacheMessage LocationLookup(string key2)
+        {
+            DebugApp("-= CACHE PROCESS START =-", ref DebugStr);
+            DebugApp("", ref DebugStr);
+
+            CacheMessage.Success = false;
+
+            if (key2.ToLower() != ConfigurationManager.AppSettings.Get("Cache:ApiKey").ToLower())
+            {
+                CacheMessage.Message = "Invalid Key";
+                return CacheMessage;
+            }
+
+            try
+            {
+                List<StateLookup> stateLookupList = new List<StateLookup>();
+                string line = null;
+
+                System.IO.StreamReader fileState = new System.IO.StreamReader("C:\\_Repo\\TPCTrainco\\src\\TPCTrainco.Umbraco\\state_table.csv");
+                while ((line = fileState.ReadLine()) != null)
+                {
+                    List<string> lineArray = line.Split(',').ToList();
+
+                    if (lineArray != null && lineArray.Count == 5)
+                    {
+                        int regionCode = 0;
+
+                        if (false == string.IsNullOrWhiteSpace(lineArray[4]))
+                        {
+                            regionCode = Convert.ToInt32(lineArray[4]);
+                        }
+
+                        stateLookupList.Add(new StateLookup { Id = lineArray[0], Name = lineArray[1], Abbreviation = lineArray[2], Country = lineArray[3], RegionCode = regionCode });
+                    }
+                }
+                fileState.Close();
+
+
+
+
+                // Read the file and display it line by line.
+                System.IO.StreamReader file = new System.IO.StreamReader("C:\\_Repo\\TPCTrainco\\src\\TPCTrainco.Umbraco\\worldcitiespop.txt");
+                while ((line = file.ReadLine()) != null)
+                {
+                    List<string> lineArray = line.Split(',').ToList();
+
+                    if (lineArray != null && lineArray.Count == 7)
+                    {
+                        LocationLookup locationLookup = new Umbraco.Extensions.Models.LocationLookup();
+
+                        locationLookup.City = lineArray[2];
+                        locationLookup.StateCode = lineArray[3];
+                        locationLookup.Latitude = Convert.ToDouble(lineArray[5]);
+                        locationLookup.Longitude = Convert.ToDouble(lineArray[6]);
+                        StateLookup findState = stateLookupList.Where(p => p.Abbreviation == locationLookup.StateCode).FirstOrDefault();
+
+                        if (findState != null)
+                        {
+                            locationLookup.State = findState.Name;
+                        }
+                        else
+                        {
+                            if (locationLookup.StateCode == "DC")
+                            {
+                                locationLookup.State = "Washington";
+                            }
+                            else
+                            {
+                                int regionId = 0;
+
+                                if (int.TryParse(locationLookup.StateCode, out regionId))
+                                {
+                                    StateLookup findRegion = stateLookupList.Where(p => p.RegionCode == regionId).FirstOrDefault();
+
+                                    if (findRegion != null)
+                                    {
+                                        locationLookup.StateCode = findRegion.Abbreviation;
+                                        locationLookup.State = findRegion.Name;
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("BAD STATE");
+                                    }
+                                }
+                            }
+                        }
+
+                        if (false == string.IsNullOrEmpty(locationLookup.State))
+                        {
+                            using (var db2 = new Database("umbracoDbDSN"))
+                            {
+                                db2.Insert(locationLookup);
+                            }
+                        }
+                    }
+                }
+
+                file.Close();
+
 
 
             }

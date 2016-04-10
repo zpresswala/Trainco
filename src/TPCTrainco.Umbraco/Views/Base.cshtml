@@ -1,4 +1,4 @@
-@using TPCTrainco.Umbraco.Extensions.Helpers
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
 @using TPCTrainco.Umbraco.Extensions.Models
 @using TPCTrainco.Umbraco.Extensions.Objects
 @using Umbraco.Core.Models
@@ -7,7 +7,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.19";
+    string cacheVer = "1.28";
     string htmlArgs = "";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
@@ -179,6 +179,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    @if (true == currentPage.HasValue("hideSearch"))
+    {
+        if (true == currentPage.GetPropertyValue<bool>("hideSearch"))
+        {
+            <meta name="robots" content="noindex">
+        }
+    }
     <title>@htmlTitle | @siteName</title>
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
@@ -291,12 +298,12 @@
         <script src="/app/core/core.module.js"></script>
         <script src="/app/common/common.module.js"></script>
         <script src="/app/components/components.module.js"></script>
-        <script src="/app/register/register.module.js"></script>
+  <script src="/app/register/register.module.js?v1.43"></script>
         <script src="/app/seminar/seminar.module.js"></script>
         <script src="/app/auth/auth.module.js"></script>
         <script src="/app/app.module.js"></script>
         <script src="/app/common/util.service.js"></script>
-        <script src="/app/common/search.factory.js"></script>
+  <script src="/app/common/search.factory.js?v1.43"></script>
         <script src="/app/common/seminars.factory.js"></script>
         <script src="/app/common/startFrom.filter.js"></script>
         <script src="/app/common/months.factory.js"></script>

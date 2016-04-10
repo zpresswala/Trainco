@@ -19,26 +19,28 @@
     }
 }
 
-<div class="container-fluid register-top register-two-top">
-    <div class="container">
-        <div class="jumbotron">
-            @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
-            {
-                <h1>@CurrentPage.pageHeadline</h1>
-            }
-            else
-            {
-                <h1>@CurrentPage.name</h1>
-            }
-            <ul class="indicator">
+@if (false == string.IsNullOrWhiteSpace(cartGuid))
+{
+    <div class="container-fluid register-top register-two-top">
+        <div class="container">
+            <div class="jumbotron">
+                @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
+                {
+                    <h1>@CurrentPage.pageHeadline</h1>
+                }
+                else
+                {
+                    <h1>@CurrentPage.name</h1>
+                }
+                <ul class="indicator">
                 <li class="step Registration"></li>
-                <li class="line line1"></li>
+                    <li class="line line1"></li>
                 <li class="step Payment"></li>
-                <li class="line line2"></li>
+                    <li class="line line2"></li>
                 <li class="step Review Order"></li>
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 
-@Html.Action("Index", "CheckoutCustomerSurface")
+    @Html.Action("Index", "CheckoutCustomerSurface")
