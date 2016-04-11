@@ -53,6 +53,8 @@
                 <h2 class="total-price">Total: $<span>@(String.Format("{0:N0}", tempCust.reg_Cost ?? 0))</span></h2>
             </div>
 
+            @Html.HiddenFor(p => p.CartGuid)
+
             <button type="submit" class="btn btn-reg btn-blue-solid summary-submit-btn">Submit</button>
         }
     </div>

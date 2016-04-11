@@ -5,18 +5,14 @@
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
     IPublishedContent currentPage = Model.Content;
-	
-	IPublishedContent redirects = null;
+
+    IPublishedContent redirects = null;
 
     redirects = TPCTrainco.Umbraco.Extensions.Helpers.Nodes.RedirectFolder();
 
     if (redirects != null)
     {
         TPCTrainco.Umbraco.Extensions.Helpers.RedirectHelper.TryRedirect(redirects);
-    }
-    else
-    {
-        TPCTrainco.Umbraco.Extensions.Helpers.RedirectHelper.SetHttpStatus(404);
     }
 }
 

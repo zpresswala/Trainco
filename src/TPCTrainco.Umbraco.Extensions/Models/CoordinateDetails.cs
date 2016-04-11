@@ -15,5 +15,6 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string City { get; set; }
         public string State { get; set; }
         public string StateCode { get; set; }
+        public string Debug { get; set; }
     }
 }
