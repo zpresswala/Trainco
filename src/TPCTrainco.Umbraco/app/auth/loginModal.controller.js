@@ -16,7 +16,7 @@
           username: $scope.username,
           password: $scope.password
         };
-      $http.post('http://trainco-phase1.axial-client.com/api/account/login', $scope.formData)
+      $http.post('http://trainco-phase1.axial-client.local/api/account/login', $scope.formData)
       .then(function(response) {
         console.log(response)
         var token = JSON.stringify(response.data.result)
