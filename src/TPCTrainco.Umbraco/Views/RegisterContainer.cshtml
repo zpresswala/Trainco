@@ -6,6 +6,7 @@
 
     List<temp_Reg> cartList = null;
     string cartGuid = null;
+    string tokenKey = null;
     int attendeeInc = 0;
 
     if (Request.QueryString["cart"] != null && Request.QueryString.Get("cart").Length > 0)
@@ -15,6 +16,15 @@
     else
     {
         cartGuid = Carts.GetCartGuid(Session);
+    }
+
+    if (Request.QueryString["tkn"] != null && Request.QueryString.Get("tkn").Length > 0)
+    {
+        tokenKey = Request.QueryString.Get("tkn").ToLower();
+    }
+    else
+    {
+        tokenKey = Users.GetToken(Session);
     }
 
 
@@ -64,11 +74,11 @@
                 <h1>@CurrentPage.name</h1>
             }
             <ul class="indicator">
-                <li class="step step1"></li>
+                <li class="step Registration"></li>
                 <li class="line line1"></li>
-                <li class="step step2"></li>
+                <li class="step Payment"></li>
                 <li class="line line2"></li>
-                <li class="step step3"></li>
+                <li class="step Review Order"></li>
             </ul>
         </div>
     </div>

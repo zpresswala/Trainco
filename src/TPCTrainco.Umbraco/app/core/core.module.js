@@ -18,9 +18,9 @@
     'angular.filter',
     'darthwade.loading'
   ]).constant('CONSTANTS', {
-    'API_URL': 'http://trainco-phase1.axial-client.com/api/seminars2/search/',
-    'API_LIST': 'http://trainco-phase1.axial-client.com/api/seminars2/list',
-    'API_SAVE': 'http://trainco-phase1.axial-client.com/api/account/UpdateSaveForLater',
-    'CART_API_URL': 'http://trainco-phase1.axial-client.com/api/carts/save'});
+    'API_URL': 'http://trainco-phase1.axial-client.local/api/seminars2/search/',
+    'API_LIST': 'http://trainco-phase1.axial-client.local/api/seminars2/list',
+    'API_SAVE': 'http://trainco-phase1.axial-client.local/api/account/UpdateSaveForLater',
+    'CART_API_URL': 'http://trainco-phase1.axial-client.local/api/carts/save'});
 
 }());
