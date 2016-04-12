@@ -41,7 +41,7 @@ var buildStyles = function() {
     .pipe($.postcss(processors))
     .pipe($.cssnano())
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/')))
+    .pipe(gulp.dest(path.join(conf.paths.umb, 'assets/css')))
     .pipe(browserSync.reload({
       stream: true
     }));
