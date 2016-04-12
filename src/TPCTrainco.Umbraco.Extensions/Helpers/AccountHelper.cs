@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -286,7 +287,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             member = ApplicationContext.Current.Services.MemberService.GetByUsername(email);
 
-            if (member != null && member.GetValue<string>("ValidationCode").Equals(validationCode))
+            if (member != null && member.GetValue<string>("ValidationCode").StartsWith(validationCode))
             {
                 member.SetValue("umbracoMemberApproved", true);
                 try

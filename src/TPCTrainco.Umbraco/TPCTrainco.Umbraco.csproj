@@ -335,8 +335,9 @@
     <Content Include="assets\images\default-seminar.gif" />
     <Content Include="assets\images\electrical-hvac.jpg" />
     <Content Include="assets\images\electrical.jpg" />
+    <Content Include="assets\images\electricalHover.png" />
+    <Content Include="assets\images\electricalSelected.png" />
     <Content Include="assets\images\email\logo-trainco-1x.png" />
-    <Content Include="assets\images\email\logo-trainco-dark.png" />
     <Content Include="assets\images\favicon-16x16.png" />
     <Content Include="assets\images\favicon-32x32.png" />
     <Content Include="assets\images\favicon-96x96.png" />
@@ -379,12 +380,6 @@
     <Content Include="assets\images\plantmgmt.jpg" />
     <Content Include="assets\images\right-arrow.png" />
     <Content Include="assets\images\selectall-icon.jpg" />
-    <Content Include="assets\images\svg\checkmark.svg" />
-    <Content Include="assets\images\svg\dropdown-arrow.svg" />
-    <Content Include="assets\images\svg\icon-facebook-icon.svg" />
-    <Content Include="assets\images\svg\icon-linkedin.svg" />
-    <Content Include="assets\images\svg\icon-twitter.svg" />
-    <Content Include="assets\images\svg\icon-youtube.svg" />
     <Content Include="assets\images\tcptraincologo.png" />
     <Content Include="assets\js\custom\cartApp\collections\cartCollection.js" />
     <Content Include="assets\js\custom\cartApp\collections\classCollection.js" />
@@ -3161,6 +3156,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\images\svg\" />
     <Folder Include="assets\javascript\" />
     <Folder Include="assets\js\custom\checkoutApp\" />
     <Folder Include="assets\scss\mixins\" />
