@@ -35,6 +35,17 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public static void SetToken(HttpSessionStateBase session, string token)
+        {
+            session["TokenId"] = token;
+
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[CookieName] ?? new HttpCookie(CookieName);
+
+            cookie.Values[CookieValue] = EncryptToken(token);
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+
+
         public static string GetCookie()
         {
             string output = null;

@@ -6,7 +6,9 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Mvc;
 using TPCTrainco.Umbraco.Extensions;
+using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
+using TPCTrainco.Umbraco.Extensions.Models.Account;
 using TPCTrainco.Umbraco.Extensions.Objects;
 using Umbraco.Web.Mvc;
 
@@ -23,6 +25,19 @@ namespace TPCTrainco.Umbraco.Controllers
 
             cartGuid = Carts.GetCartGuid(Session);
             tokenKey = Users.GetToken(Session);
+
+            if (false == string.IsNullOrEmpty(tokenKey))
+            {
+                string memberKey = AccountHelper.GetMemberKeyFromToken(tokenKey);
+
+                UserModel user = AccountHelper.GetUser(memberKey);
+
+                if (user != null)
+                {
+                    Response.Redirect("/register/info-portal/");
+                }
+            }
+
 
             if (false == string.IsNullOrWhiteSpace(cartGuid))
             {

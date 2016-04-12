@@ -18,13 +18,18 @@
         cartGuid = Carts.GetCartGuid(Session);
     }
 
-    if (Request.QueryString["tkn"] != null && Request.QueryString.Get("tkn").Length > 0)
+    if (Request.QueryString["token"] != null && Request.QueryString.Get("token").Length > 0)
     {
-        tokenKey = Request.QueryString.Get("tkn").ToLower();
+        tokenKey = Request.QueryString.Get("token");
     }
     else
     {
         tokenKey = Users.GetToken(Session);
+    }
+
+    if (false == string.IsNullOrEmpty(tokenKey))
+    {
+        Users.SetToken(Session, tokenKey);
     }
 
 

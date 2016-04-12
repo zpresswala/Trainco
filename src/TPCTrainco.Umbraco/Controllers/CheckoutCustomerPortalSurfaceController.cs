@@ -22,12 +22,22 @@ namespace TPCTrainco.Umbraco.Controllers
             List<temp_Reg> cartList = null;
             string cartGuid = null;
             string tokenKey = null;
+            UserModel user = null;
 
             cartGuid = Carts.GetCartGuid(Session);
             tokenKey = Users.GetToken(Session);
 
-            string memberKey = AccountHelper.GetMemberKeyFromToken(tokenKey);
-            UserModel user = AccountHelper.GetUser(memberKey);
+            if (false == string.IsNullOrEmpty(tokenKey))
+            {
+                string memberKey = AccountHelper.GetMemberKeyFromToken(tokenKey);
+
+                user = AccountHelper.GetUser(memberKey);
+
+                if (user == null)
+                {
+                    Response.Redirect("/dashboard/checkout/" + cartGuid);
+                }
+            }
 
             if (user != null)
             {
