@@ -88,5 +88,28 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
 
             return searchResponse;
         }
+
+        [HttpGet]
+        public object List()
+        {
+            SeminarListResponse listResponse = new SeminarListResponse();
+
+            listResponse.Success = true;
+            listResponse.ErrorMessage = "";
+
+            try
+            {
+                SeminarSearch seminarsObj = new SeminarSearch();
+
+                listResponse.Seminars = seminarsObj.ListSeminars();
+            }
+            catch (Exception ex)
+            {
+                listResponse.Success = false;
+                listResponse.ErrorMessage = ex.ToString();
+            }
+
+            return listResponse;
+        }
     }
 }
