@@ -9,7 +9,7 @@
   function mainSearch() {
     var directive = {
       restrict: 'E',
-      templateUrl: '/app/components/mainSearch/mainSearch.html',
+      templateUrl: '/assets/js/ngapp/components/mainSearch/mainSearch.html',
       scope: {},
       controller: 'MainSearchController',
       controllerAs: 'vm',

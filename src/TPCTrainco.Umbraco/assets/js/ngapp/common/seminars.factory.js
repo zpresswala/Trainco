@@ -5,6 +5,7 @@
     .module('train.common')
     .factory('SeminarsSvc', SeminarsSvc);
 
+  SeminarsSvc.$inject = ['$log', '$http', 'CONSTANTS'];
   /** @ngInject */
   function SeminarsSvc($log, $http, CONSTANTS) {
     var semAPI = CONSTANTS.API_LIST;

@@ -9,7 +9,7 @@
   'use strict';
 
   angular
-    .module('train.common')
+    .module('train.common') /* @ngInject */
     .animation('.drop-in', function($timeout) {
       var heightAndTopMargin = function(element) {
         return parseInt(element.clientHeight) + parseInt(getComputedStyle(element).marginTop);

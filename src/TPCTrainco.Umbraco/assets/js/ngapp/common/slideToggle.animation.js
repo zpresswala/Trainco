@@ -9,7 +9,7 @@
   'use strict';
 
   angular
-    .module('train.common')
+    .module('train.common') /* @ngInject */
     .animation('.slide-toggle', ['$animateCss', function($animateCss) {
       var lastId = 0;
       var _cache = {};
