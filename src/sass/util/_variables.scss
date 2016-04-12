@@ -1,5 +1,5 @@
 /// Responsive Breakpoints
-$breakpoints: ( 'small' : 33.125rem, 'medium' : 48rem, 'normal' : 61.25rem, 'large' : 75rem, 'huge' : 87.5rem, 'massive' : 100rem );
+$breakpoints: ( 'small': 33.125rem, 'medium': 48rem, 'normal': 61.25rem, 'large': 70rem, 'huge': 87.5rem, 'massive': 100rem );
 // ( rem => px
 //     'small'        : 530px,
 //     'medium'       : 768px,
@@ -9,6 +9,7 @@ $breakpoints: ( 'small' : 33.125rem, 'medium' : 48rem, 'normal' : 61.25rem, 'lar
 //     'massive'      : 1600px
 // )
 $tweakpoints: ();
+$base-font-size: 16px;
 /// Colors
 $white: #fff;
 $snow: #f1f1f1;
@@ -26,6 +27,7 @@ $soapstone: #ededed;
 $flamingo: #f04b49;
 $thunderbird: #c6211f;
 $crimson: #d81d1c;
+$black75: rgba(0, 0, 0, .75);
 $dashboardText: $charcoal;
 $cart-copy: $metal;
 $cart-border: $alto;

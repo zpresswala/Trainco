@@ -1,5 +1,8 @@
-// universal styles shared across the site.
-// sticky footer style
+html,
+* {
+  outline: none;
+}
+
 html {
   overflow-x: hidden;
 
@@ -360,14 +363,13 @@ button {
 
 .alert {
   padding: 8px 35px 8px 14px;
-  margin: 18px;
+  margin-top: 180px;
+  z-index: 1100;
   color: #c09853;
   text-align: center;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
 }
 
@@ -388,22 +390,15 @@ button {
   border-color: #eed3d7;
 }
 
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak {
-  display: none !important;
-}
 ul.pagination-btn-wrapper li {
   display: inline-block;
-  margin-left: 125px;
-    @media (max-width: 900) {
+  margin-left: 0;
+
+  @include respond-to(medium) {
     margin-left: 110px;
   }
-    @media (max-width: 500) {
-    margin-left: 0!important;;
+  @include respond-to(normal) {
+    margin-left: 125px;
   }
 }
 
@@ -427,4 +422,32 @@ ul.pagination-btn-wrapper li {
   padding-bottom: 15px;
   padding-left: 15px;
   color: $blue;
+}
+
+.result-attendee-wrapper {
+  .ng-hide-add {
+    opacity: 1;
+    transition: opacity 1.5s ease;
+
+    &.ng-hide-add-active {
+      opacity: 0;
+    }
+  }
+
+  .ng-hide-remove {
+    opacity: 0;
+
+    &.ng-hide-remove-active {
+      opacity: 1;
+    }
+  }
+}
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
 }

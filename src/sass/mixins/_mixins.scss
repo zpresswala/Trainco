@@ -146,3 +146,37 @@
     }
   }
 }
+/// Outputs a rem and px fallback value for the given property.
+/// @param {String} $property - the CSS property
+/// @param {List|Number|String} $values
+/// @example
+///   @include rem(font-size, 12px);
+///   /// font-size: 12px;
+///   /// font-size: 0.75rem;
+///
+///   @include rem(padding, 16px 12px);
+///   /// padding: 16px 12px;
+///   /// padding: 1rem 0.75rem;
+@mixin rem($property, $values) {
+  $px: ();
+  $rem: ();
+
+  @each $value in $values {
+    @if $value == 0 or $value == auto {
+      $px: append($px, $value);
+      $rem: append($rem, $value);
+    }
+
+    @else {
+      $px: append($px, $value);
+      $rem: append($rem, rem(strip-unit($value)));
+    }
+  }
+  #{$property}: $px;
+  #{$property}: $rem;
+}
+/// Outputs a `font-size: [x]rem;` declaration for the given px value.
+/// @param {Number} $font-size - the px value to convert
+@mixin rem-font-size($font-size) {
+  @include rem(font-size, $font-size);
+}
