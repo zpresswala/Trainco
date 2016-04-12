@@ -1,0 +1,756 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Form",
+				"FormGroup"
+			],
+			[
+				"prop",
+				"PropTypes"
+			],
+			[
+				"head",
+				"Headline"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"screen",
+				"screen-sm-max"
+			],
+			[
+				"table",
+				"table-row"
+			],
+			[
+				"TPCHeader",
+				"TPCHeaderDropdown"
+			],
+			[
+				"Loadin",
+				"LoadingIndicator"
+			],
+			[
+				"classN",
+				"classNames"
+			],
+			[
+				"strin",
+				"stringify"
+			],
+			[
+				"email",
+				"emailAddress"
+			],
+			[
+				"action",
+				"actionCreators"
+			],
+			[
+				"Upcomin",
+				"UpcomingSeminarContainer"
+			],
+			[
+				"up",
+				"upcomingCourses"
+			],
+			[
+				"Prop",
+				"PropTypes"
+			],
+			[
+				"with",
+				"withViewport"
+			],
+			[
+				"const",
+				"constants"
+			],
+			[
+				"handle",
+				"handleSubmit"
+			],
+			[
+				"lo",
+				"localStorage"
+			],
+			[
+				"dis",
+				"dispatch"
+			],
+			[
+				"field",
+				"fieldDefinition"
+			],
+			[
+				"render",
+				"renderAltButton"
+			],
+			[
+				"cofn",
+				"confirmpassword"
+			],
+			[
+				"met",
+				"method-override"
+			],
+			[
+				"body",
+				"body-parser"
+			],
+			[
+				"post",
+				"postalCode"
+			],
+			[
+				"att",
+				"attemptLoginFromToken"
+			],
+			[
+				"Ch",
+				"CheckboxGroup"
+			],
+			[
+				"map",
+				"mapStateToProps"
+			],
+			[
+				"update",
+				"updateUserInfo"
+			],
+			[
+				"SAVE_",
+				"SAVE_USER_REQUEST"
+			],
+			[
+				"training",
+				"trainingTopics"
+			],
+			[
+				"ind",
+				"industry"
+			],
+			[
+				"bind",
+				"bindActionCreators"
+			],
+			[
+				"Lo",
+				"LoginContainer"
+			],
+			[
+				"Pass",
+				"PasswordForm"
+			],
+			[
+				"Contact",
+				"ContactInfoForm"
+			],
+			[
+				"list-st",
+				"list-style-type"
+			],
+			[
+				"key",
+				"keyword-input"
+			],
+			[
+				"mar-",
+				"margin-bottom"
+			],
+			[
+				"paymentM",
+				"paymentMethodNonce"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "inst",
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"synx css",
+				"Set Syntax: CSS3"
+			],
+			[
+				"form",
+				"Format Code"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"fo",
+				"Format Code"
+			],
+			[
+				"format",
+				"Format Code"
+			],
+			[
+				"for",
+				"Format Code"
+			],
+			[
+				"quo",
+				"ChangeQuotes"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"quot",
+				"ChangeQuotes"
+			],
+			[
+				"quote",
+				"ChangeQuotes"
+			],
+			[
+				"log",
+				"LogMagic Statement (down)"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"themr",
+				"Themr: List themes"
+			],
+			[
+				"doc",
+				"DocBlockr: Decorate line comment"
+			],
+			[
+				"instl",
+				"Package Control: Install Local Dependency"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"babe",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"javasc",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"razor",
+				"Set Syntax: Razor"
+			],
+			[
+				"preview",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"esf",
+				"Set Syntax: Font"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"tidy",
+				"Tidy CSS"
+			]
+		],
+		"width": 601.0
+	},
+	"console":
+	{
+		"height": 151.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/StevenTruesdell/Projects/TPCTrainco",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/assets"
+	],
+	"file_history":
+	[
+		"/Users/StevenTruesdell/Projects/TPCTrainco/.gitignore",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/trainco.sublime-project",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulp/styles.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulp/scripts.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/package.json",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/index.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/tasks/build.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/tasks/browsersync.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/index.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/tasks/watch.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/tasks/inject.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/tasks/fonts.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/tasks/styles.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/tasks/deploy.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/tasks/scripts.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/assets/js/ngapp/components/mainSearch/mainSearch.directive.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/config.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/assets/js/ngapp/components/cart/cart.directive.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js/util.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulpfile.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/assets/js/ngapp/common/stringToNumber.directive.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/assets/js/ngapp/common/slideToggle.animation.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/assets/js/ngapp/common/seminars.factory.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/assets/js/ngapp/common/search.factory.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/assets/js/ngapp/common/dropIn.animation.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/gulp/conf.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/seminar/seminarItem.controller.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/core/core.module.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/seminar/seminar.controller.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/css/common/layout.css",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/css/main.css",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/css/settings.css",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/webpack/webpack.config.dev-client.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/css/components/vote.css",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/css/common/typography.css",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/Home/Home.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/Navigation/Navigation.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/About.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/App/App.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/Projects/Projects.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/webpack/webpack.config.dev-server.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/public/assets/server.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/styles/main.scss",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/css/style.scss",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/Vote.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/Message.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/routes.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/Dashboard.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/LoginOrRegister.jsx",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/_universal.scss",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/_content.scss",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/_onsite.scss",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/_register.scss",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/.stylelintrc",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/.stylelintrc",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/auth/loginModal.controller.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/seminar/courseSearch.service.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/register/register.controller.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/seminar/seminarPop.html",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/seminar/seminar.html",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/app/app.module.js",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco/Views/Base.cshtml",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/main.scss",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/components/_form.scss",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/checkout-static/checkout-attendees.html",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/checkout-static/checkout-review-submit.html",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/util/_variables.scss",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/mixins/_mixins.scss",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass/mixins/_functions.scss",
+		"/Users/StevenTruesdell/Projects/TPCTrainco/src/static/checkout-static/sass/base/_form.scss",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/static-files/checkout-register.html",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/static-files/checkout-login-options.html",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/package.json",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/client.jsx",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/reducers/project.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/reducers/index.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/actions/projects.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/constants/index.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/Projects/index.js",
+		"/Users/StevenTruesdell/Projects/steventruesdelll/app/containers/theme.js",
+		"/Users/StevenTruesdell/Projects/Axial/eslint/package.json",
+		"/Users/StevenTruesdell/Projects/Axial/eslint/.gitignore",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Login/Login.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/app.js",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/store/configureStore.js",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/actions/seminar.js",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/ForgotPassword/ForgotPassword.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/ResetPassword/resetPassword.container.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/ForgotPassword/forgotPassword.container.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/AuthBar/AuthBar.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/ResetPassword/ResetPassword.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Login/login.container.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Checkout/CheckoutComponent.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/Headline/Headline.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Signup/Signup.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Signup/signup.container.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/AppContainer.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/Sidebar/Sidebar.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/Form/FormError.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/forms/SignupUserForm/SignupUserForm.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/DashboardSubhead/DashboardSubhead.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/LoadingIndicator/LoadingIndicator.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/TPCHeader/TPCHeader.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Past/PastSeminar.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Purchased/PurchasedList.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/actions/user.js",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/actions/company.js",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/Notification/Notification.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Upcoming/upcomingSeminar.container.js",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Upcoming/UpcomingSeminar.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/dashboard.container.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Account/account-billing.form.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/forms/ForgotPasswordForm/ForgotPasswordForm.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/forms/ResetPasswordForm/ResetPasswordForm.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/forms/SignupCoForm/SignupCoForm.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/forms/SignupQuestionsForm/SignupQuestionsForm.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/components/Dropdown/Dropdown.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Upcoming/UpcomingSeminarList.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Saved/SavedSeminarList.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Purchased/purchased.container.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Past/PastSeminarList.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Company/company.container.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Account/account-password.form.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Account/account-contact.form.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Account/account.container.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Account/Account.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Company/Company.jsx",
+		"/Users/StevenTruesdell/Projects/TraincoLogin/src/views/Dashboard/Company/company.form.jsx"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+			"<open folders>",
+			"<current file>",
+			"/Users/StevenTruesdell/Projects/TraincoLogin/src/",
+			"/Users/StevenTruesdell/Projects/TPCTrainco/src/TPCTrainco.Umbraco",
+			"/Users/StevenTruesdell/Projects/TraincoLogin/src",
+			"<project>",
+			"<current file>",
+			"<open folders>",
+			"<current file>",
+			"<open folders>",
+			"<current file>",
+			"<open folders>",
+			"<current file>",
+			"<project>",
+			"<current file>",
+			"<open folders>",
+			"<current file>",
+			"/Users/StevenTruesdell/Projects/TPCTrainco/src/sass",
+			"<current file>",
+			"<project>",
+			"<current file>",
+			"<project>",
+			"<current file>",
+			"<project>",
+			"<current file>",
+			"<project>",
+			"<current file>",
+			"<project>",
+			"<current file>",
+			"<project>",
+			"<current file>",
+			"/Users/StevenTruesdell/Projects/Docker/WordPress/src/",
+			"/Users/StevenTruesdell/Projects/Docker/WordPress/src/themes/sharp"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"rev",
+			"courseSearch",
+			"API_SAVE",
+			"API_LIST",
+			"UtilitySvc",
+			"$scope",
+			"_",
+			"MonthSvc",
+			"window.navigator.userAgent",
+			"window.navigator",
+			"styles/main.scss",
+			"edit",
+			"axial",
+			"saveToken",
+			"clearToken",
+			"getToken",
+			"seq",
+			"tern",
+			"1",
+			"2",
+			"0",
+			"1",
+			"comma",
+			"comm",
+			"semi",
+			"class",
+			"vars",
+			"no-p",
+			"serv",
+			"app",
+			"API_HOST",
+			"API_ACCOUNT",
+			"'Authorization': 'Bearer ' + token",
+			"FETCH",
+			"ref",
+			"key",
+			"cx",
+			"ref=",
+			".ref",
+			"ref",
+			"loginModal.html",
+			"forgot",
+			"reset",
+			".nav>li",
+			"jquery",
+			"valid",
+			"z-inde",
+			"navbar",
+			"navb",
+			"79",
+			"exports.default",
+			".default",
+			"exports.default",
+			"default",
+			"AppContainer.jsx",
+			"default",
+			"history",
+			"lodash",
+			"fbjs",
+			"babe",
+			"node_",
+			"class",
+			"border",
+			"send",
+			"validateCreateAccount",
+			"checkIfNewUser",
+			"API_URL",
+			"no res",
+			"CheckboxListType",
+			"content-container",
+			"registerUserSuccess",
+			"EMAIL_HAS_HISTORY",
+			"CHECK_IF_EMAIL_REG",
+			"SeminarHeader",
+			"API_ACCOUNT",
+			"{\n",
+			"API_ACCOUNT",
+			"colle",
+			"constants.",
+			"CHECK_EMAIL_SUCCESS",
+			"req.isAuthenticated",
+			"fs",
+			"pass",
+			"COMPAN",
+			"semi",
+			".saved-seminar-panel",
+			"height",
+			"chec",
+			"post",
+			"RESET_PW_REQUEST",
+			"id",
+			"SET_USER_FROM_TOKEN",
+			"embedToken",
+			"SAVE_USER_REQUEST",
+			"style",
+			"empty",
+			"${ver}",
+			"]",
+			"[",
+			"getR",
+			"output",
+			"getRoutes",
+			"serveS",
+			"koaSe",
+			"field",
+			"UPDATE_PW_REQUEST",
+			"promise",
+			"GLOBAL",
+			"Globa",
+			"bindActionCreators",
+			"appActions",
+			"globalState",
+			"https://www.tpctrainco.com/images/",
+			"#authbar",
+			"authbar",
+			"top: 35px;",
+			"diff-highlight",
+			"diff-highlight | diff-so-fancy | less -r: diff-highlight",
+			"log",
+			"{...",
+			"<input",
+			"value",
+			"background: url",
+			"background-image: url",
+			"url:",
+			"\\.class([^_A-Za-z])",
+			"(^|\\s+)(class)\\:",
+			"\\s*(class)\\:"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"WARNING",
+			"ERROR",
+			"OFF",
+			" WARNING",
+			"'Authorization': `Bearer ${token}`",
+			"exports[\"default\"]",
+			"className",
+			"API_URL",
+			"actions.",
+			"val",
+			"trusty",
+			"}",
+			"{",
+			"/assets/images/",
+			"fieldDefinition={",
+			"<Input",
+			"[\"class\"]$1",
+			"$1\"$2\":",
+			" \"$1\":",
+			"{ \"$1\":",
+			"[\"$1\"]$2",
+			"[\"default\"]$1",
+			"[\"catch\"]$1",
+			"[\"default\"][",
+			"[\"default\"].",
+			"[\"default\"])",
+			"{ \"default\":",
+			"[\"default\"]",
+			"error",
+			"Notification",
+			"className=",
+			"reax",
+			"'",
+			"className",
+			"/app/",
+			"'",
+			"(min-width:",
+			"(minx-width:"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 39.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 274.0
+	},
+	"pinned_build_system": "",
+	"project": "trainco.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 291.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
