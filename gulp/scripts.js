@@ -19,7 +19,7 @@ gulp.task('scripts', function() {
 });
 
 function buildScripts() {
-  return gulp.src(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/**/*.js'))
+  return gulp.src(path.join(conf.paths.umb, 'assets/js/ngapp/**/*.js'))
     .pipe($.preprocess({ context: { NODE_ENV: 'development' }}))
     .pipe($.eslint())
     .pipe($.eslint.format())
@@ -29,7 +29,7 @@ function buildScripts() {
     .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
     .pipe($.sourcemaps.write('maps'))
     .pipe($.size())
-    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app')));
+    .pipe(gulp.dest(path.join(conf.paths.umb, 'assets/js/tmp')));
 };
 
 gulp.task('vendor', function() {
@@ -37,10 +37,10 @@ gulp.task('vendor', function() {
 });
 
 function buildVendor() {
-  return gulp.src(path.join(conf.paths.src, '/lib/**/*.js'))
+  return gulp.src(path.join(conf.paths.umb, 'assets/js/ngapp/lib/**/*.js'))
     .pipe($.ngAnnotate())
     .pipe($.concat('vendor.js'))
     .pipe($.uglify())
     .pipe($.size())
-    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/lib')));
+    .pipe(gulp.dest(path.join(conf.paths.umb, 'assets/js/ngapp/lib')));
 };

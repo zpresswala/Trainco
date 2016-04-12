@@ -5,6 +5,7 @@
     .module('train.common')
     .factory('Search', Search);
 
+  Search.$inject = ['$log', '$http', 'CONSTANTS'];
   /** @ngInject */
   function Search($log, $http, CONSTANTS) {
     var apiHost = CONSTANTS.API_URL;
@@ -17,7 +18,7 @@
     };
 
     return service;
-    
+
     function performSearch(searchObj) {
       var theTopics = [searchObj.topicParam1, searchObj.topicParam2, searchObj.topicParam3, searchObj.topicParam4];
       return $http.get(apiHost + '?' +
