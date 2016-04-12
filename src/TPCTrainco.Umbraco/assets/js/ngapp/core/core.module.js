@@ -21,7 +21,6 @@
     'API_BASE': BASEURL,
     'API_URL': BASEURL + '/seminars2/search/',
     'API_LIST': BASEURL + '/seminars2/list',
-    'API_SAVE': BASEURL + '/account/UpdateSaveForLater',
     'API_ACCOUNT': BASEURL + '/account',
     'CART_API_URL': BASEURL + '/carts/save'});
 }());
