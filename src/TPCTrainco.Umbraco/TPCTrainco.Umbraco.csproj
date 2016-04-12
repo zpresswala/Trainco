@@ -2915,7 +2915,7 @@
     <Content Include="App_Code\FormWorkflowTPC.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\Checkout2CustomerSurfaceController.cs" />
+    <Compile Include="Controllers\CheckoutCustomerPortalSurfaceController.cs" />
     <Compile Include="Controllers\CheckoutSummarySurfaceController.cs" />
     <Compile Include="Controllers\CheckoutCustomerSurfaceController.cs" />
     <Compile Include="Models\RegisterAttendeeViewModel.cs" />
@@ -3150,9 +3150,9 @@
     <Content Include="Views\Partials\SeminarSearch\JavascriptHomepage.cshtml" />
     <Content Include="assets\manifest.json" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
-    <Content Include="Views\Partials\Checkout2Customer.cshtml" />
     <Content Include="Views\Dashboard.cshtml" />
     <Content Include="Views\RegisterPayment.cshtml" />
+    <Content Include="Views\Partials\CheckoutCustomerPortal.cshtml" />
     <None Include="Web.Debug-Trainco.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

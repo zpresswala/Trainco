@@ -14,7 +14,7 @@ using Umbraco.Web.Mvc;
 
 namespace TPCTrainco.Umbraco.Controllers
 {
-    public class Checkout2CustomerSurfaceController : SurfaceController
+    public class CheckoutCustomerPortalSurfaceController : SurfaceController
     {
         public ActionResult Index()
         {
