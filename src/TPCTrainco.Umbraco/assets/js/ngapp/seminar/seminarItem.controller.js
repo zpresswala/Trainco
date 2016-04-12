@@ -9,7 +9,7 @@
   /** @ngInject */
   function SeminarItemController($log, $http, $uibModal, CONSTANTS) {
     var vm = this;
-    var apiSave = CONSTANTS.API_SAVE;
+    var apiSave = CONSTANTS.API_ACCOUNT;
     var classId = localStorage.getItem('classId');
     vm.buttonText = 'Save';
     vm.saveBtn = true;
@@ -45,7 +45,7 @@
       var data = {
         courseId: classId
       };
-      $http.put(apiSave, data, {
+      $http.put(apiSave + '/UpdateSaveForLater', data, {
         headers: {
           'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('tcJWT'))
         }
