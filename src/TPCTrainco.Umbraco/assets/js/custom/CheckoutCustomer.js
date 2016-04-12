@@ -133,7 +133,7 @@ CheckoutCustomer.prototype.cardProcessingMessage = function(submitBtn) {
 	});
 
 	setTimeout(function() {
-		$('.card-loader').fadeOut(2000, function() {
+		$('.card-loader').fadeOut(100, function() {
 			$('.processing-msg').text('There was an error processing your order. Please try again.');
 			submitBtn.fadeIn();
 		});

@@ -5,9 +5,9 @@
     .module('train.auth')
     .controller('LoginModalController', LoginModalController);
 
-  LoginModalController.$inject = ['$log', '$scope', '$uibModalInstance', '$http', '$window', 'CONSTANTS'];
+  LoginModalController.$inject = ['$log', '$scope', '$uibModalInstance', '$http', '$window'];
   /** @ngInject */
-  function LoginModalController($log, $scope, $uibModalInstance, $http, $window, CONSTANTS) {
+  function LoginModalController($log, $scope, $uibModalInstance, $http, $window) {
     $scope.formData = {};
 
 
@@ -16,7 +16,7 @@
           username: $scope.username,
           password: $scope.password
         };
-      $http.post(CONSTANTS.API_BASE + '/account/login', $scope.formData)
+      $http.post('http://trainco-phase1.axial-client.local/api/account/login', $scope.formData)
       .then(function(response) {
         console.log(response)
         var token = JSON.stringify(response.data.result)
