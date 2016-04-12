@@ -7,7 +7,7 @@
 (function(){
 
   'use strict';
-
+  var BASEURL = 'http://trainco-phase1.axial-client.com/api';
   angular.module('train.core', [
     'ngAnimate',
     'ngSanitize',
@@ -18,9 +18,9 @@
     'angular.filter',
     'darthwade.loading'
   ]).constant('CONSTANTS', {
-    'API_BASE': 'http://trainco-phase1.axial-client.com/api',
-    'API_URL': API_BASE + '/seminars2/search/',
-    'API_LIST': API_BASE + '/seminars2/list',
-    'API_SAVE': API_BASE + '/account/UpdateSaveForLater',
-    'CART_API_URL': API_BASE + '/carts/save'});
+    'API_BASE': BASEURL,
+    'API_URL': BASEURL + '/seminars2/search/',
+    'API_LIST': BASEURL + '/seminars2/list',
+    'API_SAVE': BASEURL + '/account/UpdateSaveForLater',
+    'CART_API_URL': BASEURL + '/carts/save'});
 }());
