@@ -164,6 +164,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                     ApplicationContext.Current.Services.MemberService.Save(member);
 
+                    if (String.IsNullOrWhiteSpace(user.Password))
+                    {
+                        user.Password = validationCode;
+                    }
+
                     ApplicationContext.Current.Services.MemberService.SavePassword(member, user.Password);
 
                     user.Key = member.Key.ToString();
