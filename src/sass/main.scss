@@ -1,5 +1,7 @@
 @import 'variables/variables';
+@import 'util/variables';
 @import 'vendor/vendor';
+@import 'util/functions';
 @import 'mixins/mediaqueries';
 @import 'mixins/mixins';
 @import 'universal';
@@ -10,6 +12,10 @@
 @import 'blogpost';
 @import 'datepicker';
 @import 'detail';
+@import 'components/form';
+@import 'components/register';
+@import 'components/registerToSubmit';
+@import 'components/thanksRegister';
 // @import 'quickCheckout';
 @import 'cart';
 @import 'onsite';
@@ -26,27 +32,6 @@
 @import 'footer';
 @import 'components/seminar-popover';
 
-html * {
-  outline: none!important;
-}
-.result-attendee-wrapper {
-  .ng-hide-add {
-    transition: opacity 1.5s ease;
-  }
 
-  .ng-hide-add {
-    opacity: 1;
 
-    &.ng-hide-add-active {
-      opacity: 0;
-    }
-  }
 
-  .ng-hide-remove {
-    opacity: 0;
-
-    &.ng-hide-remove-active {
-      opacity: 1;
-    }
-  }
-}

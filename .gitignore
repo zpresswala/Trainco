@@ -1,6 +1,8 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+.sublime-project
+.sublime-workspace
 Icon
 ._*
 .Spotlight-V100

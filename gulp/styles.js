@@ -10,17 +10,6 @@ var $ = require('gulp-load-plugins')();
 
 var _ = require('lodash');
 
-gulp.task('styles-reload', ['styles'], function() {
-  return buildStyles()
-    .pipe(browserSync.reload({
-      stream: true
-    }))
-});
-
-gulp.task('styles', function() {
-  return buildStyles();
-});
-
 var buildStyles = function() {
   var sassOptions = {
     style: 'expanded'
@@ -41,8 +30,16 @@ var buildStyles = function() {
     .pipe($.postcss(processors))
     .pipe($.cssnano())
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/')))
+    .pipe(gulp.dest(path.join(conf.paths.umb, 'assets/css')));
+};
+
+gulp.task('styles', function() {
+  return buildStyles();
+});
+
+gulp.task('styles-reload', ['styles'], function() {
+  return buildStyles()
     .pipe(browserSync.reload({
       stream: true
-    }));
-};
+    }))
+});

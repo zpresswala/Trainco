@@ -87,3 +87,96 @@
     font-style  : $style;
   }
 }
+
+@mixin default-button($fontColor, $bgColor, $bgColorHOV, $befBorCol) {
+  padding: 10px 37px;
+  color: $fontColor;
+  border-radius: 50px;
+  background-color: $bgColor;
+  position: relative;
+  font-weight: 600;
+  transition: .25s;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid $befBorCol;
+    z-index: 1;
+    border-radius: inherit;
+    opacity: 0;
+    transform: scale3d(.6, .6, 1);
+    transition: transform .25s,opacity .25s ease;
+  }
+
+  &:hover {
+    color: $bgColor;
+    background-color: $bgColorHOV;
+
+    &:before {
+      transform: scale3d(1.04, 1.15, 1);
+      opacity: 1;
+    }
+  }
+}
+
+@mixin respond-to($breakpoint) {
+  @if type-of($breakpoint) == 'string' {
+    @if map-has-key($tweakpoints, $breakpoint) {
+      $breakpoint: inspect(map-get($tweakpoints, $breakpoint));
+
+      @media only screen and (min-width: $breakpoint) {
+        @content;
+      }
+    } @else if map-has-key($breakpoints, $breakpoint) {
+      $breakpoint: inspect(map-get($breakpoints, $breakpoint));
+
+      @media only screen and (min-width: $breakpoint) {
+        @content;
+      }
+    } @else {
+      @error 'No value found for `#{$breakpoint}`. ';
+    }
+  } @else {
+    @media only screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+/// Outputs a rem and px fallback value for the given property.
+/// @param {String} $property - the CSS property
+/// @param {List|Number|String} $values
+/// @example
+///   @include rem(font-size, 12px);
+///   /// font-size: 12px;
+///   /// font-size: 0.75rem;
+///
+///   @include rem(padding, 16px 12px);
+///   /// padding: 16px 12px;
+///   /// padding: 1rem 0.75rem;
+@mixin rem($property, $values) {
+  $px: ();
+  $rem: ();
+
+  @each $value in $values {
+    @if $value == 0 or $value == auto {
+      $px: append($px, $value);
+      $rem: append($rem, $value);
+    }
+
+    @else {
+      $px: append($px, $value);
+      $rem: append($rem, rem(strip-unit($value)));
+    }
+  }
+  #{$property}: $px;
+  #{$property}: $rem;
+}
+/// Outputs a `font-size: [x]rem;` declaration for the given px value.
+/// @param {Number} $font-size - the px value to convert
+@mixin rem-font-size($font-size) {
+  @include rem(font-size, $font-size);
+}

@@ -18,12 +18,10 @@
   z-index: 1200;
   position: fixed;
   width: 100%;
-  top: 50px;
-  @include tablet-portrait-and-up() {
+  top: 85px;
+
+  @include respond-to(normal) {
     top: 115px;
-  }
-  @media screen and (max-width: 1024px) {
-    top: 50px;
   }
 }
 .attendee-input--cart {
