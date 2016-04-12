@@ -9,7 +9,7 @@
   function shoppingCart() {
     var directive = {
       restrict: 'E',
-      templateUrl: '/app/components/cart/cart.html',
+      templateUrl: '/assets/js/ngapp/components/cart/cart.html',
       scope: {},
       controller: 'CartController',
       controllerAs: 'vm',
