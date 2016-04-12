@@ -5,7 +5,8 @@
     .module('train.seminar')
     .factory('courseSearch', courseSearch);
 
-  /** @ngInject */
+  courseSearch.$inject = ['$log', '$http', 'CONSTANTS'];
+  /* @ngInject */
   function courseSearch($log, $http, CONSTANTS) {
     var apiHost = CONSTANTS.API_URL;
     var apiSemDetails =CONSTANTS.API_URL + 'schedules2/details';

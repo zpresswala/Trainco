@@ -277,7 +277,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             IPublishedContent seminarNode = Helpers.Nodes.Instance.SeminarItems.Where(p => p.GetProperty("courseLink").Value != null && p.GetProperty("courseLink").Value.ToString() == scheduleCourse.CourseID.ToString()).FirstOrDefault();
 
-            result.ImageUrl = "/images/default-seminar.gif";
+            result.ImageUrl = "/assets/images/default-seminar.gif";
             result.DetailsUrl = "#";
 
             if (scheduleCourse != null)
