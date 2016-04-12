@@ -5,6 +5,7 @@
     .module('train.register')
     .controller('RegisterController', RegisterController);
 
+  RegisterController.$inject = ['$rootScope', '$scope', '$log', 'Search', '$localStorage', 'cartService', 'UtilitySvc', 'courseSearch', 'MonthSvc', '$loading', '$timeout', '$document', '$window', 'SeminarsSvc', 'CONSTANTS'];
   function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, courseSearch, MonthSvc, $loading, $timeout, $document, $window, SeminarsSvc, CONSTANTS) {
     var vm = this;
 
