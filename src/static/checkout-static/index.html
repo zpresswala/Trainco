@@ -1,0 +1,254 @@
+
+<html class="no-js" lang="en_US" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <meta charset="utf-8">
+  <title>Index</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Latest compiled and minified CSS -->
+  <link href="//fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic" rel="stylesheet"
+        type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<!-- form for personal info -->
+<section class="signup-personal">
+  <div class="signup-personal-container modal-content-container">
+    <div class="form-container">
+      <h2 class="form-intent">Sign up with your company email address:</h2>
+      <form action="">
+        <div class="row-content-container">
+          <label class="form-label accessible-text">Company Email Address</label>
+          <input class="form-input" type="email" placeholder="Company Email Address" required>
+        </div>
+        <div class="row-content-container">
+          <div class="row-content">
+            <label class="form-label accessible-text">First Name</label>
+            <input class="form-input" type="text" placeholder="First Name">
+          </div>
+          <div class="row-content">
+            <label class="form-label accessible-text">Last Name</label>
+            <input class="form-input" type="text" placeholder="Last Name">
+          </div>
+        </div>
+        <div class="row-content-container">
+          <label class="form-label accessible-text">Title</label>
+          <input class="form-input" type="text" placeholder="Title">
+        </div>
+        <div class="row-content-container row-offset">
+          <div class="row-content">
+            <label class="form-label accessible-text">Phone Number</label>
+            <input class="form-input" type="tel" placeholder="Phone Number">
+          </div>
+          <div class="row-content">
+            <div class="inner-row-content-container">
+              <div class="inner-row-content"><label class="form-label label-ext"
+                                                    for="extension">Ext.</label></div>
+              <div class="inner-row-content"><input class="form-input input-ext" id="extension" type="text"
+                                                    placeholder="XXX"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="form-container">
+      <h2 class="form-intent">Create your password</h2>
+      <form action="">
+        <div class="row-content-container">
+          <input class="form-input" type="password" placeholder="Enter your new password">
+        </div>
+        <div class="row-content-container">
+          <input class="form-input" type="password" placeholder="Confirm your new password">
+        </div>
+      </form>
+    </div>
+    <div class="button-container">
+      <button class="base-button">Next</button>
+    </div>
+  </div>
+</section>
+<!-- form for company info -->
+<section class="signup-company">
+  <div class="signup-company-container modal-content-container">
+    <div class="form-container">
+      <h2 class="form-intent">Tell us about your company:</h2>
+      <form>
+        <div class="row-content-container">
+          <label for="companyName" class="form-label accessible-text">Company Name</label>
+          <input id="companyName" class="form-input" type="text" placeholder="Company Name">
+        </div>
+        <div class="row-content-container">
+          <label for="mailingAddress" class="form-label accessible-text">Mailing Address</label>
+          <input id="mailingAddress" class="form-input" type="text" placeholder="Mailing Address">
+        </div>
+        <div class="row-content-container">
+          <label for="office" class="form-label accessible-text">Office, building or facility name/number</label>
+          <input id="office" class="form-input" type="text" placeholder="Office, building or facility name/number">
+        </div>
+        <div class="row-content-container">
+          <label for="country" class="form-label accessible-text">Country</label>
+          <div class="select-arrows">
+            <select id="country" name="country" class="form-input" required>
+              <option value="" selected disabled>Country</option>
+              <option value="netherlands">Netherlands</option>
+              <option value="USA">USA</option>
+              <option value="Canada">Canada</option>
+            </select>
+          </div>
+        </div>
+        <div class="row-content-container">
+          <div class="row-content">
+            <label for="zipCode" class="form-label  accessible-text">ZIP Code</label>
+            <input id="zipCode" class="form-input" type="text" placeholder="ZIP Code">
+          </div>
+          <div class="row-content">
+            <label class="form-label  accessible-text" for="state">Choose your state</label>
+            <div class="select-arrows">
+              <select id="state" name="state" class="form-input" required>
+                <option value="" selected disabled>State</option>
+                <option value="New Jersey">New Jersey</option>
+                <option value="Colorado">Colorado</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row-content-container">
+          <label for="city" class="form-label  accessible-text">City</label>
+          <input id="city" class="form-input" type="text" placeholder="City">
+        </div>
+      </form>
+    </div>
+    <div class="button-container">
+      <button class="base-button">Next</button>
+    </div>
+  </div>
+</section>
+<!-- form for industry info -->
+<section class="signup-industry">
+  <div class="signup-industry-container modal-content-container">
+    <div class="form-container">
+      <h2 class="form-intent">Please tell us a bit more about your training needs so we can serve you better.</h2>
+      <form action="">
+        <div class="row-content-container">
+          <fieldset>
+            <legend>
+              Have you previously purchased or attended one or more of our courses?
+            </legend>
+            <div class="radio-container">
+              <label class="form-label" for="radio-yes">Yes
+                <input class="form-input" id="radio-yes" type="radio" name="attend" value="yes">
+              </label>
+              <label class="form-label" for="radio-no">No
+                <input class="form-input" id="radio-no" type="radio" name="attend" value="no">
+              </label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="row-content-container">
+          <label class="form-helper" for="industry">Your Industry</label>
+          <div class="select-arrows">
+            <select class="form-input" name="industry" id="industry" required>
+              <option value="Electronics" selected>Electronics</option>
+              <option value="Plumbing" selected>Plumbing</option>
+              <option value="Carpentry" selected>Carpentry</option>
+            </select>
+          </div>
+        </div>
+        <div class="row-content-container">
+          <label class="form-helper" for="role">Please choose the role that best describes your role at your company or
+            facility.</label>
+          <div class="select-arrows">
+            <select class="form-input" name="role" id="role">
+              <option value="maintenance" selected>I oversee maintenance</option>
+              <option value="maintenance">I oversee maintenance</option>
+              <option value="maintenance">I oversee maintenance</option>
+            </select>
+          </div>
+        </div>
+        <div class="row-content-container">
+          <label class="form-helper" for="frequency">How often do you use outside training, such as seminar courses, at
+            your
+            company/facility?</label>
+          <div class="select-arrows">
+            <select class="form-input" name="frequency" id="frequency">
+              <option value="Meh">Meh</option>
+              <option value="Regularly">Regularly</option>
+              <option value="Oh yea">Oh yea!</option>
+            </select>
+          </div>
+        </div>
+        <div class="row-content-container">
+          <label class="form-helper" for="employees">About how many employees in our facility need training each
+            year?</label>
+          <input class="form-input" type="text" id="employees">
+        </div>
+        <div class="row-content-container">
+          <label class="form-helper" for="topics">What training topics most interest you and/or your team?</label>
+          <div class="select-arrows">
+            <select class="form-input" name="topics" id="topics">
+              <option value="course" selected>course</option>
+              <option value="course">course</option>
+              <option value="course">course</option>
+            </select>
+          </div>
+        </div>
+        <div class="button-container">
+          <button class="base-button" type="submit">Create an account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- confirm information-->
+<section class="confirm-information">
+  <div class="confirmation-container modal-content-container">
+    <h2 class="form-intent">Is the information below accurate and complete?</h2>
+    <div class="returned-information">
+      <span class="company">Company One</span>
+      <span class="street-address">3624 Bridle Court</span>
+      <span class="town-state">A place, CO 34241</span>
+      <span class="phone">(303)-444-4444</span>
+    </div>
+    <div class="button-container">
+      <button class="base-button">Yes, create my account with this information</button>
+      <button class="base-button">No, let me input the information myself</button>
+    </div>
+  </div>
+</section>
+<!-- login -->
+<section class="login">
+  <div class="login-container modal-content-container">
+    <div class="form-container">
+      <h2 class="form-intent">Thanks! Your email has been verified. <br>Please log in.</h2>
+      <form action="">
+        <div class="row-content-container">
+          <label class="form-helper" for="login-email">Company Email Address</label>
+          <input type="text" class="form-input" id="login-email">
+        </div>
+        <div class="row-content-container">
+          <label class="form-helper" for="login-password">Password</label>
+          <input type="password" class="form-input" id="login-password">
+        </div>
+        <div class="row-content-container">
+          <div class="row-content">
+            <label class="form-label rememberMe-label" for="rememberMe">Remember me</label>
+            <input class="rememberMe-input" type="checkbox" id="rememberMe">
+          </div>
+          <div class="row-content forgot-password-container">
+            <a class="forgot-password" href="#">Forgot Password?</a>
+          </div>
+        </div>
+        <div class="button-container">
+          <button class="base-button">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="js/index.js"></script>
+</body>
+</html>

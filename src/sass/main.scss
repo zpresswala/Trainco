@@ -1,5 +1,7 @@
 @import 'variables/variables';
+@import 'util/variables';
 @import 'vendor/vendor';
+@import 'util/functions';
 @import 'mixins/mediaqueries';
 @import 'mixins/mixins';
 @import 'universal';
@@ -10,6 +12,10 @@
 @import 'blogpost';
 @import 'datepicker';
 @import 'detail';
+@import 'components/form';
+@import 'components/register';
+@import 'components/registerToSubmit';
+@import 'components/thanksRegister';
 // @import 'quickCheckout';
 @import 'cart';
 @import 'onsite';
