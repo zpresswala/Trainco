@@ -21,7 +21,10 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
         public static string GenerateToken(string memberKey, string email, string host, string ip, string userAgent, long ticks)
         {
-            string hash = string.Join(":", new string[] { memberKey.ToString(), email, ip, userAgent, ticks.ToString() });
+            var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
+            var rawPassword = member.RawPasswordValue;
+
+            string hash = string.Join(":", new string[] { rawPassword, memberKey.ToString(), email, ip, userAgent, ticks.ToString() });
             string hashLeft = "";
             string hashRight = "";
 
@@ -594,11 +597,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
         public static bool UpdatePassword(string email, string password, string validationCode, out IMember member)
         {
-            var success = true;
+            var success = false;
 
             member = ApplicationContext.Current.Services.MemberService.GetByEmail(email);
 
-            if (member != null)
+            if (member != null && !String.IsNullOrEmpty(validationCode))
             {
                 var memberValidationCode = member.GetValue<string>("validationCode");
                 if (!String.IsNullOrEmpty(memberValidationCode) && memberValidationCode.Contains(":"))
@@ -628,10 +631,6 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 {
                     success = ResetPassword(member, password);
                 }
-            }
-            else
-            {
-                success = false;
             }
 
             return success;
@@ -739,7 +738,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 var registrationIds = Registrations.GetRegistrationsByEmail(member.Email).Select(r => r.RegistrationID);
 
                 // This adds all the attendees purchased by the member.
-                attendees.AddRange(Registrations.GetRegistrationAttendees(registrationIds));
+                var registrationAttendees = Registrations.GetRegistrationAttendees(registrationIds);
+                if (registrationAttendees != null)
+                {
+                    attendees.AddRange(Registrations.GetRegistrationAttendees(registrationIds));
+                }
 
                 // This adds all the attendee records that are the member but where purchased by someone else. It compares id's and only add records that are not already in the collection.
                 attendees.AddRange(Registrations.GetRegistrationAttendeesByEmail(member.Email).Where(r => attendees.Select(a => a.RegistrationAttendeeID).Contains(r.RegistrationAttendeeID) == false));
