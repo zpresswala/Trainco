@@ -49,47 +49,50 @@
     bool searchPage = false;
     bool homePage = false;
     bool seminarDetailPage = false;
+    bool dashboard = false;
+
+    if (currentPage.DocumentTypeAlias != "Dashboard")
+    {
+        htmlArgs = " ng-app=\"train\"";
+    }
+    else
+    {
+        dashboard = true;
+    }
 
     if (currentPage.DocumentTypeAlias == "HomePage")
     {
         cartPage = true;
         homePage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "SearchSeminars")
     {
         searchPage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "OnSiteTraining")
     {
-        htmlArgs = " ng-app=\"train\"";
+
     }
     else if (currentPage.DocumentTypeAlias == "SeminarItem")
     {
         cartPage = true;
         seminarDetailPage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterContainer")
     {
         checkoutPage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterInfo")
     {
         checkoutPage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterSummary")
     {
         checkoutPage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterSuccess")
     {
         cartPage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
 
     if (searchPage || homePage || seminarDetailPage)
@@ -272,7 +275,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
     }
-    @if (searchPage || homePage || seminarDetailPage)
+    @if (false == dashboard)
     {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.4.0/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
