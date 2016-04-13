@@ -5,11 +5,11 @@
     .module('train.auth')
     .controller('AuthbarController', AuthbarController);
 
-  AuthbarController.$inject = ['$log'];
+  AuthbarController.$inject = ['$log', '$http', 'CONSTANTS'];
   /** @ngInject */
-  function AuthbarController($log) {
+  function AuthbarController($log, $http, CONSTANTS) {
     var vm = this;
-
+    vm.user = {};
     var authToken = JSON.parse(localStorage.getItem('tcJWT'));
     checkForLogin(authToken);
 
@@ -17,8 +17,25 @@
       if (!authToken) {
         vm.isLoggedIn = false;
       } else {
+        getUser(authToken);
         return vm.isLoggedIn = true;
       }
+    }
+
+    function getUser(authToken) {
+      var req = {
+       method: 'GET',
+       url: CONSTANTS.API_ACCOUNT + '/getuser',
+       headers: {
+         'authorization': 'Bearer ' + JSON.parse(localStorage.getItem('tcJWT'))
+       }
+      }
+      $http(req).then(function(response) {
+        vm.user.firstName = response.data.result.firstName;
+        vm.user.lastName = response.data.result.lastName;
+      }).catch(function(error) {
+        $log.debug(error);
+      })
     }
 
     vm.logout = function() {

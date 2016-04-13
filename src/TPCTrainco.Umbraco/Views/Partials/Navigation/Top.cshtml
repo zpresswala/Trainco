@@ -18,6 +18,9 @@
 <div class="container">
   <div ng-if="vm.isLoggedIn">
     <ul class="inline-list">
+        <li ng-cloak>
+            Welcome, <strong>{{vm.user.firstName}} {{vm.user.lastName}}</strong>
+        </li>
       <li>
         <a class="authbar-link" href="/dashboard">My account</a>
       </li>
