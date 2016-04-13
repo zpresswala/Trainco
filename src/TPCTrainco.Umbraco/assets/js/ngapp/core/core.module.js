@@ -7,7 +7,7 @@
 (function(){
 
   'use strict';
-  var BASEURL = 'http://trainco-phase1.axial-client.local/api';
+  var BASEURL = 'http://trainco-phase1.axial-client.com/api';
   angular.module('train.core', [
     'ngAnimate',
     'ngSanitize',
