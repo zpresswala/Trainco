@@ -2872,6 +2872,7 @@
     <Content Include="App_Code\FormWorkflowTPC.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CheckoutCustomerPortalSurfaceController.cs" />
     <Compile Include="Controllers\CheckoutSummarySurfaceController.cs" />
     <Compile Include="Controllers\CheckoutCustomerSurfaceController.cs" />
     <Compile Include="Models\RegisterAttendeeViewModel.cs" />
@@ -3036,6 +3037,8 @@
     <Content Include="umbraco_client\CodeMirror\Js\Mode\Sieve\LICENSE" />
     <Content Include="assets\manifest.json" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="Views\RegisterPayment.cshtml" />
+    <Content Include="Views\Partials\CheckoutCustomerPortal.cshtml" />
     <None Include="Web.Debug-Trainco.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

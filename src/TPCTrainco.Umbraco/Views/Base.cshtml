@@ -201,35 +201,27 @@
     <meta name="twitter:description" content="@(currentPage.GetPropertyValue<string>("pageDescription"))" />
     <meta name="twitter:title" content="TPC Trainco training" />
     <meta name="twitter:domain" content="TPC Trainco" />
-	<base href="/" />
-    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link href="/images/favicon.ico" rel="shortcut icon">
+    <base href="/" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+    <link href="/assets/images/favicon.ico" rel="shortcut icon">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="/assets/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    @if (searchPage || homePage || seminarDetailPage)
-    {
+    <link rel="stylesheet" href="/assets/css/main.css?@cacheVer">
 
-        <link rel="stylesheet" href="/app/main.css?@cacheVer">
-    }
-    else
-    {
-        <link rel="stylesheet" href="/app/main.css?@cacheVer">
-        <link rel="stylesheet" type="text/css" href="/css/vendor.css?@cacheVer">
-    }
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="//fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic" rel="stylesheet" type="text/css">
 
@@ -258,12 +250,12 @@
     <!--[if IE 9]>
         <body class="ie9">
     <![endif]-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     @Html.Raw(pageHeaderScript)
 </head>
 
-<body class="gradient-bg"@(bodyId)>
+<body class="gradient-bg" @(bodyId)>
 
     @Html.Partial("Navigation/Top")
 
@@ -292,48 +284,48 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
-        <script src="/app/lib/angular-loading.js"></script>
-        <script src="/app/lib/angular-selector.js"></script>
+        <script src="/assets/js/ngapp/lib/angular-loading.js"></script>
+        <script src="/assets/js/ngapp/lib/angular-selector.js"></script>
 
-        <script src="/app/core/core.module.js"></script>
-        <script src="/app/common/common.module.js"></script>
-        <script src="/app/components/components.module.js"></script>
-        <script src="/app/register/register.module.js?v1.43"></script>
-        <script src="/app/seminar/seminar.module.js"></script>
-        <script src="/app/auth/auth.module.js"></script>
-        <script src="/app/app.module.js"></script>
-        <script src="/app/common/util.service.js"></script>
-        <script src="/app/common/search.factory.js?v1.43"></script>
-        <script src="/app/common/seminars.factory.js"></script>
-        <script src="/app/common/startFrom.filter.js"></script>
-        <script src="/app/common/months.factory.js"></script>
-        <script src="/app/common/cities.factory.js"></script>
-        <script src="/app/common/dropIn.animation.js"></script>
-        <script src="/app/common/slideToggle.animation.js"></script>
-        <script src="/app/components/cart/cart.directive.js"></script>
-        <script src="/app/common/stringToNumber.directive.js"></script>
-        <script src="/app/seminar/seminar.controller.js"></script>
-        <script src="/app/seminar/seminarItem.controller.js"></script>
-        <script src="/app/seminar/courseSearch.service.js"></script>
-        <script src="/app/auth/auth.controller.js"></script>
-        <script src="/app/auth/loginModal.controller.js"></script>
-        <script src="/app/register/register.controller.js"></script>
-        <script src="/app/core/lodash.factory.js"></script>
-        <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
-        <script src="/app/components/mainSearch/mainSearch.controller.js"></script>
-        <script src="/app/components/cart/cart.service.js"></script>
-        <script src="/app/components/cart/cart.controller.js"></script>
+        <script src="/assets/js/ngapp/core/core.module.js"></script>
+        <script src="/assets/js/ngapp/common/common.module.js"></script>
+        <script src="/assets/js/ngapp/components/components.module.js"></script>
+        <script src="/assets/js/ngapp/register/register.module.js?v1.43"></script>
+        <script src="/assets/js/ngapp/seminar/seminar.module.js"></script>
+        <script src="/assets/js/ngapp/auth/auth.module.js"></script>
+        <script src="/assets/js/ngapp/app.module.js"></script>
+        <script src="/assets/js/ngapp/common/util.service.js"></script>
+        <script src="/assets/js/ngapp/common/search.factory.js?v1.43"></script>
+        <script src="/assets/js/ngapp/common/seminars.factory.js"></script>
+        <script src="/assets/js/ngapp/common/startFrom.filter.js"></script>
+        <script src="/assets/js/ngapp/common/months.factory.js"></script>
+        <script src="/assets/js/ngapp/common/cities.factory.js"></script>
+        <script src="/assets/js/ngapp/common/dropIn.animation.js"></script>
+        <script src="/assets/js/ngapp/common/slideToggle.animation.js"></script>
+        <script src="/assets/js/ngapp/components/cart/cart.directive.js"></script>
+        <script src="/assets/js/ngapp/common/stringToNumber.directive.js"></script>
+        <script src="/assets/js/ngapp/seminar/seminar.controller.js"></script>
+        <script src="/assets/js/ngapp/seminar/seminarItem.controller.js"></script>
+        <script src="/assets/js/ngapp/seminar/courseSearch.service.js"></script>
+        <script src="/assets/js/ngapp/auth/auth.controller.js"></script>
+        <script src="/assets/js/ngapp/auth/loginModal.controller.js"></script>
+        <script src="/assets/js/ngapp/register/register.controller.js"></script>
+        <script src="/assets/js/ngapp/core/lodash.factory.js"></script>
+        <script src="/assets/js/ngapp/components/mainSearch/mainSearch.directive.js"></script>
+        <script src="/assets/js/ngapp/components/mainSearch/mainSearch.controller.js"></script>
+        <script src="/assets/js/ngapp/components/cart/cart.service.js"></script>
+        <script src="/assets/js/ngapp/components/cart/cart.controller.js"></script>
 
-  if (seminarDetailPage)
+        if (seminarDetailPage)
         {
-                  <script type="text/javascript">
+            <script type="text/javascript">
 
-                                  $('a[href^="#"]').click(function(e) {
-                                      e.preventDefault();
-                                      var hash = $(this).attr('href');
-                                      $('html, body').stop(true).animate({scrollTop: $(hash).offset().top - 125}, 500);
-                                  });
-                      </script>
+                $('a[href^="#"]').click(function (e) {
+                    e.preventDefault();
+                    var hash = $(this).attr('href');
+                    $('html, body').stop(true).animate({ scrollTop: $(hash).offset().top - 125 }, 500);
+                });
+            </script>
         }
 
     }
@@ -343,11 +335,11 @@
         <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
         <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
         <script type="text/javascript">
-        $(window).load(function () {
-            tpcAppObj = new TPCApp();
-        });
+            $(window).load(function () {
+                tpcAppObj = new TPCApp();
+            });
         </script>
-     }
+    }
 
     @if (true == homePage)
     {

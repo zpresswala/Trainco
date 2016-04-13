@@ -385,6 +385,7 @@
     <Compile Include="Models\API\Response\UserExistsResponseModel.cs" />
     <Compile Include="Models\CheckoutBilling.cs" />
     <Compile Include="Models\CheckoutCart.cs" />
+    <Compile Include="Models\CheckoutCustomerPortal.cs" />
     <Compile Include="Models\CheckoutCustomer.cs" />
     <Compile Include="Models\CheckoutDetails.cs" />
     <Compile Include="Models\CheckoutItem.cs" />
@@ -418,6 +419,7 @@
     <Compile Include="Objects\SeminarDetails.cs" />
     <Compile Include="Objects\Seminars.cs" />
     <Compile Include="Objects\Topics.cs" />
+    <Compile Include="Objects\Users.cs" />
     <Compile Include="Pipeline\ReactContentFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REGISTRATION.cs">
@@ -490,7 +492,9 @@
     <Compile Include="ViewModels\Search\SearchScheduleResponse.cs" />
     <Compile Include="ViewModels\Search\SearchResponse.cs" />
     <Compile Include="ViewModels\Search\Seminar.cs" />
+    <Compile Include="ViewModels\Search\SeminarSimple.cs" />
     <Compile Include="ViewModels\Seminar.cs" />
+    <Compile Include="ViewModels\Search\SeminarListResponse.cs" />
     <Compile Include="WebSignup.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>

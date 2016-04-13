@@ -21,6 +21,28 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        public List<SeminarSimple> ListSeminars()
+        {
+            List<SeminarSimple> seminarList = null;
+
+            List<CourseDetail> courseDetailList = CourseDetailList;
+
+            if (courseDetailList != null)
+            {
+                seminarList = new List<SeminarSimple>();
+
+                foreach (CourseDetail course in courseDetailList)
+                {
+                    seminarList.Add(new SeminarSimple(course.Id, course.Title));
+                }
+
+                seminarList = seminarList.OrderBy(p => p.Title).ToList();
+            }
+
+            return seminarList;
+        }
+
+
         public List<Seminar> SearchSeminars(SeminarsSearchRequest2 request)
         {
             List<Seminar> finalSeminarList = null;

@@ -14,7 +14,7 @@ using Umbraco.Web.Mvc;
 
 namespace TPCTrainco.Umbraco.Controllers
 {
-    public class CheckoutCustomerSurfaceController : SurfaceController
+    public class CheckoutCustomerPortalSurfaceController : SurfaceController
     {
         public ActionResult Index()
         {
@@ -22,6 +22,7 @@ namespace TPCTrainco.Umbraco.Controllers
             List<temp_Reg> cartList = null;
             string cartGuid = null;
             string tokenKey = null;
+            UserModel user = null;
 
             cartGuid = Carts.GetCartGuid(Session);
             tokenKey = Users.GetToken(Session);
@@ -30,61 +31,69 @@ namespace TPCTrainco.Umbraco.Controllers
             {
                 string memberKey = AccountHelper.GetMemberKeyFromToken(tokenKey);
 
-                UserModel user = AccountHelper.GetUser(memberKey);
+                user = AccountHelper.GetUser(memberKey);
 
-                if (user != null)
+                if (user == null)
                 {
-                    Response.Redirect("/register/info-portal/");
+                    Response.Redirect("/dashboard/checkout/" + cartGuid);
                 }
             }
 
-
-            if (false == string.IsNullOrWhiteSpace(cartGuid))
+            if (user != null)
             {
-                Carts cartsObj = new Carts();
-
-                cartList = cartsObj.GetCart(cartGuid);
-
-                if (cartList == null)
+                if (false == string.IsNullOrWhiteSpace(cartGuid))
                 {
-                    return Redirect("/register/?cart=" + Server.UrlEncode(cartGuid));
-                }
-                else
-                {
-                    Session["CartId"] = cartGuid;
+                    Carts cartsObj = new Carts();
 
-                    temp_Cust tempCust = null;
+                    cartList = cartsObj.GetCart(cartGuid);
 
-                    using (var db = new americantraincoEntities())
+                    if (cartList == null)
                     {
-                        int regId = cartList[0].reg_ID;
-                        checkoutCustomer.RegId = regId;
-
-                        tempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
-
-                        if (tempCust != null)
-                        {
-                            checkoutCustomer = cartsObj.ConvertTempCustToCheckoutCustomer(tempCust);
-                            checkoutCustomer.BillingDifferent = true;
-                        }
-                    }
-
-                    checkoutCustomer.CartGuid = CartCookies.EncryptCartGuid(cartGuid + "|" + checkoutCustomer.RegId + "|" + Request.UserHostAddress);
-
-                    if (false == cartsObj.IsValidCart(checkoutCustomer.RegId, "/register/info/"))
-                    {
-                        return Redirect("/register/?cart=" + cartGuid);
+                        return Redirect("/register/?cart=" + Server.UrlEncode(cartGuid));
                     }
                     else
                     {
-                        return PartialView("CheckoutCustomer", checkoutCustomer);
+                        Session["CartId"] = cartGuid;
+
+                        temp_Cust tempCust = null;
+
+                        using (var db = new americantraincoEntities())
+                        {
+                            int regId = cartList[0].reg_ID;
+                            checkoutCustomer.RegId = regId;
+
+                            tempCust = db.temp_Cust.Where(p => p.reg_ID == regId).FirstOrDefault();
+
+                            if (tempCust != null)
+                            {
+                                checkoutCustomer = cartsObj.ConvertTempCustToCheckoutCustomer(tempCust);
+                                checkoutCustomer.BillingDifferent = true;
+                            }
+                        }
+
+                        checkoutCustomer.CartGuid = CartCookies.EncryptCartGuid(cartGuid + "|" + checkoutCustomer.RegId + "|" + Request.UserHostAddress);
+
+                        if (false == cartsObj.IsValidCart(checkoutCustomer.RegId, "/register/info/"))
+                        {
+                            return Redirect("/register/?cart=" + cartGuid);
+                        }
+                        else
+                        {
+                            return PartialView("CheckoutCustomer", checkoutCustomer);
+                        }
                     }
+                }
+                else
+                {
+                    return Redirect("/");
                 }
             }
             else
             {
-                return Redirect("/");
+                return Redirect("/dashboard/checkout/");
             }
+
+            
         }
 
 
