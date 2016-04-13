@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -163,6 +164,11 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                     ApplicationContext.Current.Services.MemberService.Save(member);
 
+                    if (String.IsNullOrWhiteSpace(user.Password))
+                    {
+                        user.Password = validationCode;
+                    }
+
                     ApplicationContext.Current.Services.MemberService.SavePassword(member, user.Password);
 
                     user.Key = member.Key.ToString();
@@ -286,7 +292,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             member = ApplicationContext.Current.Services.MemberService.GetByUsername(email);
 
-            if (member != null && member.GetValue<string>("ValidationCode").Equals(validationCode))
+            if (member != null && member.GetValue<string>("ValidationCode").StartsWith(validationCode))
             {
                 member.SetValue("umbracoMemberApproved", true);
                 try

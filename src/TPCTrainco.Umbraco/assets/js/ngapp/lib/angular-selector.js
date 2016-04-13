@@ -432,7 +432,10 @@
 						});
 					})
 					.on('blur', function (e) {
-            scope.createOption(e.target.value);
+            if (!scope.selectedValues.length) {
+              scope.createOption(e.target.value);
+            }
+
 						scope.$apply(scope.close);
 					})
 					.on('keydown', function (e) {

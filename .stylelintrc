@@ -3,6 +3,7 @@
   "color-no-invalid-hex": true,
   "declaration-colon-space-after": "always",
   "declaration-colon-space-before": "never",
+  "declaration-block-properties-order": "never",
   "function-comma-space-after": "always",
   "function-url-quotes": "single",
   "media-feature-colon-space-after": "always",
@@ -20,4 +21,5 @@
   "selector-no-id": true,
   "string-quotes": "single",
   "value-no-vendor-prefix": true
+
 }
