@@ -44,6 +44,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (user != null && company != null)
                 {
+                    checkoutCustomer.LoggedIn = true;
                     checkoutCustomer.UserToken = tokenKey;
 
                     checkoutCustomer.FirstName = user.FirstName;
@@ -61,6 +62,18 @@ namespace TPCTrainco.Umbraco.Controllers
                     checkoutCustomer.Address2 = company.Address2;
                     checkoutCustomer.City = company.City;
                     checkoutCustomer.State = company.State;
+
+                    if (false == string.IsNullOrEmpty(company.State) && company.State.Length > 2)
+                    {
+                        State stateCode = CacheObjects.GetStateList().Where(p => p.StateName.ToLower() == company.State.ToLower()).FirstOrDefault();
+
+                        if (stateCode != null)
+                        {
+                            checkoutCustomer.State = stateCode.StateAbbreviation;
+                        }
+
+                    }
+
                     checkoutCustomer.Zip = company.PostalCode;
                     checkoutCustomer.Country = company.Country;
 
@@ -70,6 +83,18 @@ namespace TPCTrainco.Umbraco.Controllers
                         checkoutCustomer.BillAddress2 = billing.Address2;
                         checkoutCustomer.BillCity = billing.City;
                         checkoutCustomer.BillState = billing.State;
+
+                        if (false == string.IsNullOrEmpty(billing.State) && billing.State.Length > 2)
+                        {
+                            State stateCode = CacheObjects.GetStateList().Where(p => p.StateName.ToLower() == billing.State.ToLower()).FirstOrDefault();
+
+                            if (stateCode != null)
+                            {
+                                checkoutCustomer.BillState = stateCode.StateAbbreviation;
+                            }
+
+                        }
+
                         checkoutCustomer.BillZip = billing.PostalCode;
                         checkoutCustomer.BillCountry = billing.Country;
                     }

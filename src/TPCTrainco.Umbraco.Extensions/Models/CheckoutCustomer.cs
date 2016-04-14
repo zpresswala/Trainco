@@ -18,6 +18,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string UserToken { get; set; }
         public string Redirect { get; set; }
 
+        public bool LoggedIn { get; set; }
+
         public bool UpdateCompanyProfile { get; set; }
         public bool UpdateCompanyBilling { get; set; }
 
@@ -66,7 +68,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
 
         public string PhoneExt { get; set; }
 
-        [Required]
+        [RequiredIfFalse("LoggedIn", ErrorMessage = "The Email Address is requied.")]
         [RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9][\-a-zA-Z0-9]{0,22}[a-zA-Z0-9]))$", ErrorMessage = "Email address is invalid.")]
         public string Email { get; set; }
 

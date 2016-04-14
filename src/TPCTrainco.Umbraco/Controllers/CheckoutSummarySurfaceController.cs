@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using TPCTrainco.Umbraco.Extensions;
 using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
+using TPCTrainco.Umbraco.Extensions.Models.Account;
 using TPCTrainco.Umbraco.Extensions.Objects;
 using Umbraco.Web.Mvc;
 
@@ -21,8 +22,28 @@ namespace TPCTrainco.Umbraco.Controllers
             List<temp_Reg> tempRegList = null;
             List<temp_Att> tempAttList = null;
             string cartGuid = null;
+            string tokenKey = null;
 
+            tokenKey = Users.GetToken(Session);
             cartGuid = Carts.GetCartGuid(Session);
+
+            if (false == string.IsNullOrEmpty(tokenKey))
+            {
+                string memberKey = AccountHelper.GetMemberKeyFromToken(tokenKey);
+
+                UserModel user = null;
+
+                if (false == string.IsNullOrEmpty(memberKey))
+                {
+                    user = AccountHelper.GetUser(memberKey);
+
+                    if (user != null)
+                    {
+                        checkoutDetails.UserToken = tokenKey;
+                    }
+                }
+            }
+
 
             if (false == string.IsNullOrWhiteSpace(cartGuid))
             {
@@ -290,7 +311,7 @@ namespace TPCTrainco.Umbraco.Controllers
                                                 model.User.Phone = reg.RegAuthPhone;
                                                 model.User.PhoneExtension = reg.RegAuthPhoneExt;
                                                 model.User.Title = reg.RegAuthTitle;
-                                                
+
                                                 if (model.Company == null)
                                                 {
                                                     model.Company = new Extensions.Models.Account.CompanyModel();
