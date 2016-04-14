@@ -268,7 +268,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 var favoritedCourses = String.IsNullOrEmpty(favoritedCoursesRaw) ? new List<string>() : favoritedCoursesRaw.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).ToList();
                 if (!favoritedCourses.Contains(courseId))
                 {
-                    favoritedCourses.Add(courseId);
+                    favoritedCourses.Add(courseId.Trim());
                     member.SetValue("favoritedCourses", String.Join(",", favoritedCourses));
 
                     try
@@ -413,7 +413,10 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             {
                 billing = new BillingModel()
                 {
-                    Name = member.GetValue<string>("billingCompanyName"),
+                    CompanyName = member.GetValue<string>("billingCompanyName"),
+                    FistName = member.GetValue<string>("billingFirstName"),
+                    LastName = member.GetValue<string>("billingLastName"),
+                    Email = member.GetValue<string>("billingEmail"),
                     Address1 = member.GetValue<string>("billingAddress1"),
                     Address2 = member.GetValue<string>("billingAddress2"),
                     Country = member.GetValue<string>("billingCountry"),
@@ -503,7 +506,10 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             if (member != null)
             {
-                member.SetValue("billingCompanyName", billing.Name);
+                member.SetValue("billingCompanyName", billing.CompanyName);
+                member.SetValue("billingFirstName", billing.FistName);
+                member.SetValue("billingLastName", billing.LastName);
+                member.SetValue("billingEmail", billing.Email);
                 member.SetValue("billingAddress1", billing.Address1);
                 member.SetValue("billingAddress2", billing.Address2);
                 member.SetValue("billingCountry", billing.Country);
