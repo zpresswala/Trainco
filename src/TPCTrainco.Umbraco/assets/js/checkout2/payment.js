@@ -49,6 +49,14 @@ function CheckoutCustomer() {
         this.$hearAboutOther.slideDown().addClass('showing');
     }
 
+
+    if ($('#SavedCompanyBilling').val().toLowerCase() == 'true') {
+        $('.hidden-different-check').show();
+        $('#supervisor-diff').prop('checked', true);
+        $('#BillingDifferent').val('true');
+    }
+
+
     $('#UpdateCompanyProfile').val('false');
 
     $('#link-edit-profile').on('click', function (e) {
@@ -110,7 +118,9 @@ CheckoutCustomer.prototype.showPromoField = function () {
         _this.$hearAboutOther.hide();
 
         if (selectedOption === 'Direct Mail' || selectedOption === 'Print Ad' || selectedOption === 'Email' || selectedOption === 'Web search') {
-            if (selectedOption == 'Print Ad') {
+            if (selectedOption == 'Direct Mail') {
+                _this.$promoCode.attr('placeholder', 'Promo Code on mailer');
+            }  else if (selectedOption == 'Print Ad') {
                 _this.$promoCode.attr('placeholder', 'Promo Code');
             } else if (selectedOption == 'Web search') {
                 _this.$promoCode.attr('placeholder', 'Search Term');

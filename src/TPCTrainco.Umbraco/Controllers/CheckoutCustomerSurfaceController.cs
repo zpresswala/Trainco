@@ -77,8 +77,10 @@ namespace TPCTrainco.Umbraco.Controllers
                     checkoutCustomer.Zip = company.PostalCode;
                     checkoutCustomer.Country = company.Country;
 
-                    if (billing != null && false == string.IsNullOrEmpty(billing.Name) && false == string.IsNullOrEmpty(billing.Address1))
+                    if (billing != null && false == string.IsNullOrEmpty(billing.CompanyName) && false == string.IsNullOrEmpty(billing.Address1))
                     {
+                        checkoutCustomer.SavedCompanyBilling = true;
+
                         checkoutCustomer.BillAddress = billing.Address1;
                         checkoutCustomer.BillAddress2 = billing.Address2;
                         checkoutCustomer.BillCity = billing.City;

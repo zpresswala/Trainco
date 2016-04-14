@@ -41,7 +41,7 @@
                             <h2 class="form-head">Registration Information</h2>
                         </div>
 
-                        <div class="col-xs-11 col-sm-4">
+                        <div class="col-xs-11 col-sm-5">
                             <div class="form-group">
                                 @Html.DropDownListFor(p => p.HearAbout, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.HearAboutList(), new { @class = "form-control" })
                                 @Html.ValidationMessageFor(p => p.HearAbout)
@@ -85,13 +85,13 @@
                         <div class="billing-opts-wrapper company-profile-wrap" @(Html.Raw(false == string.IsNullOrEmpty(Model.UserToken) ? " style=\"display: none;\"" : ""))>
                             <div class="col-xs-11 col-sm-5 col-md-5">
                                 <div class="form-group">
-                                    @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control", placeholder = "First Name (Authorizing Supervisor)" })
+                                    @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control", placeholder = "First Name" })
                                     @Html.ValidationMessageFor(p => p.FirstName)
                                 </div>
                             </div>
                             <div class="col-xs-11 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    @Html.TextBoxFor(p => p.LastName, new { @class = "form-control", placeholder = "Last Name (Authorizing Supervisor)" })
+                                    @Html.TextBoxFor(p => p.LastName, new { @class = "form-control", placeholder = "Last Name" })
                                     @Html.ValidationMessageFor(p => p.LastName)
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                             </div>
                             <div class="col-xs-11">
                                 <div class="form-group">
-                                    @Html.TextBoxFor(p => p.Address2, new { @class = "form-control", placeholder = "Mailing Address line 2" })
+                                    @Html.TextBoxFor(p => p.Address2, new { @class = "form-control", placeholder = "Mailing Address Line 2 (office, building or facility name/number)" })
                                     @Html.ValidationMessageFor(p => p.Address2)
                                 </div>
                             </div>
@@ -194,8 +194,9 @@
                         </div>
                         <div class="col-xs-11">
                             <input type="checkbox" name="supervisor-diff" id="supervisor-diff">
-                            <label for="supervisor-diff">Is your billing person different than your authorizing supervisor? If yes, check this box.</label>
+                            <label for="supervisor-diff">Is your billing person different? If yes, check this box.</label>
                             @Html.HiddenFor(p => p.BillingDifferent)
+                            @Html.HiddenFor(p => p.SavedCompanyBilling)
                         </div>
 
                         <!-- form fields that appear when checkbox is checked -->
@@ -355,7 +356,7 @@
 
                         @Html.HiddenFor(p => p.CartGuid)
                         @Html.HiddenFor(p => p.LoggedIn)
-                    </div>
+                        </div>
 
                     <div class="card-submit-wrap col-xs-11">
                         <button type="submit" id="button-submit" class="btn btn-reg btn-blue-solid next-btn">Next</button>

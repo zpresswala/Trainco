@@ -55,7 +55,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             IList<SelectListItem> items = new List<SelectListItem>();
 
-            items.Add(new SelectListItem { Text = "How did you hear about us?", Value = "" });
+            items.Add(new SelectListItem { Text = "How did you learn about the seminar(s) you’re purchasing?", Value = "" });
             items.Add(new SelectListItem { Text = "Direct Mail", Value = "Direct Mail" });
             items.Add(new SelectListItem { Text = "Email", Value = "Email" });
             items.Add(new SelectListItem { Text = "Web search", Value = "Web search" });

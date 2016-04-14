@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Security;
@@ -10,9 +11,9 @@ using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models.Account;
 using TPCTrainco.Umbraco.Extensions.Models.API.Request;
 using TPCTrainco.Umbraco.Extensions.Models.API.Response;
+using TPCTrainco.Umbraco.Extensions.Objects;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace TPCTrainco.Umbraco.Extensions.Controllers
@@ -51,7 +52,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             };
 
             return Request.CreateResponse(responseModel.StatusCode, responseModel);
-        }
+        }        
 
         /// <summary>
         /// Sends a password reset email to the user.
@@ -141,6 +142,17 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
             return Request.CreateResponse(System.Net.HttpStatusCode.OK);
         }
 
+        [HttpPost]
+        [TokenAuthorization]
+        public HttpResponseMessage Logout()
+        {
+            //var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
+
+            Users.Remove(HttpContext.Current.Session);
+
+            return Request.CreateResponse(System.Net.HttpStatusCode.OK);
+        }
+
         #endregion
 
 
@@ -206,8 +218,8 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var responseModel = new UserExistsResponseModel()
             {
-                Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = System.Net.HttpStatusCode.OK,
+                Status = exists ? System.Net.HttpStatusCode.BadRequest.ToString() : System.Net.HttpStatusCode.OK.ToString(),
+                StatusCode = exists ? System.Net.HttpStatusCode.BadRequest : System.Net.HttpStatusCode.OK,
                 Result = exists
             };
 
