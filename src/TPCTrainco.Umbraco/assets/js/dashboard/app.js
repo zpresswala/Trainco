@@ -578,7 +578,7 @@ webpackJsonp([1],[
 	function fetchUserInfo() {
 	  return function (dispatch) {
 	    dispatch(fetchUserRequest());
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    _axios2['default'].get(_index.API_URL + '/getuser', {
 	      headers: {
 	        Authorization: 'Bearer ' + token
@@ -625,7 +625,7 @@ webpackJsonp([1],[
 	  };
 	  return function (dispatch) {
 	    dispatch(saveUserRequest());
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    (0, _axios2['default'])({
 	      method: 'PUT',
 	      url: _index.API_URL + '/updateuser',
@@ -675,14 +675,15 @@ webpackJsonp([1],[
 	 * @param  {object} values the form object
 	 * @return {object}        the response with the new token
 	 */
-	function updatePassword(values) {
+	function updatePassword(values, props) {
+	  console.log(values, props); // eslint-disable-line
 	  var PW_MODEL = {
 	    password: values.password,
-	    email: localStorage.getItem('email')
+	    email: values.email
 	  };
 	  return function (dispatch) {
 	    dispatch(updatePWRequest());
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    (0, _axios2['default'])({
 	      method: 'PUT',
 	      url: _index.API_URL + '/updatepassword',
@@ -771,7 +772,7 @@ webpackJsonp([1],[
 	function disableAccount() {
 	  return function (dispatch) {
 	    dispatch(disableAccountRequest());
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    (0, _axios2['default'])({
 	      method: 'PUT',
 	      url: _index.API_URL + '/disableaccount',
@@ -996,8 +997,8 @@ webpackJsonp([1],[
 	      uri: 'login',
 	      data: data
 	    }).then(function (response) {
-	      var token = (0, _stringify2['default'])(response.data.result);
-	      localStorage.setItem(_index.AUTH_TOKEN, token);
+	      // const token = JSON.stringify(response.data.result);
+	      localStorage.setItem('tcJWT', response.data.result);
 	      dispatch(loginSuccess(response.data.result));
 	      dispatch((0, _reactRouterRedux.push)('/dashboard/seminars/upcoming'));
 	    })['catch'](function (error) {
@@ -1048,7 +1049,7 @@ webpackJsonp([1],[
 	function attemptLoginFromToken() {
 	  return function (dispatch) {
 	    dispatch(verifyTokenRequest());
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    return _axios2['default'].get(_index.API_URL + '/getuser', {
 	      headers: {
 	        Authorization: 'Bearer ' + token
@@ -2527,7 +2528,7 @@ webpackJsonp([1],[
 
 	function fetchUpcomingSeminars() {
 	  return function (dispatch) {
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    dispatch(upcomingSeminarsReq());
 	    _axios2['default'].get(_index.API_URL + '/getupcomingcourses', {
 	      responseType: 'json',
@@ -2563,7 +2564,7 @@ webpackJsonp([1],[
 
 	function fetchPastSeminars() {
 	  return function (dispatch) {
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    dispatch(pastSeminarsReq());
 	    _axios2['default'].get(_index.API_URL + '/getpastcourses', {
 	      responseType: 'json',
@@ -2603,7 +2604,7 @@ webpackJsonp([1],[
 
 	function fetchSavedSeminars() {
 	  return function (dispatch) {
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    dispatch(fetchSavedSeminarsReq());
 	    _axios2['default'].get(_index.API_URL + '/getsaveforlater', {
 	      responseType: 'json',
@@ -2643,7 +2644,7 @@ webpackJsonp([1],[
 
 	function saveSeminar(courseId) {
 	  return function (dispatch) {
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    dispatch(saveSeminarReq());
 	    (0, _axios2['default'])({
 	      method: 'PUT',
@@ -2724,7 +2725,7 @@ webpackJsonp([1],[
 	  return function (dispatch) {
 	    dispatch(shareSeminarReq());
 	    var courseId = JSON.parse(localStorage.getItem('courseId'));
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    var data = {
 	      courseId: courseId,
 	      email: values.email
@@ -4229,7 +4230,7 @@ webpackJsonp([1],[
 	function fetchCompanyInfo() {
 	  return function (dispatch) {
 	    dispatch(fetchCompanyInfoReq());
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    _axios2['default'].get(_index.API_URL + '/getcompany', {
 	      responseType: 'json',
 	      headers: {
@@ -4285,7 +4286,7 @@ webpackJsonp([1],[
 	  };
 	  return function (dispatch) {
 	    dispatch(updateCompanyInfoReq());
-	    var token = JSON.parse(localStorage.getItem(_index.AUTH_TOKEN));
+	    var token = localStorage.getItem('tcJWT');
 	    (0, _axios2['default'])({
 	      method: 'PUT',
 	      url: _index.API_URL + '/updatecompany',
@@ -9043,7 +9044,7 @@ webpackJsonp([1],[
 	var initialState = window.__INITIAL_STATE__;
 	var store = (0, _configureStore2['default'])(initialState, browserHistory);
 
-	var token = JSON.parse(localStorage.getItem('tcJWT'));
+	var token = localStorage.getItem('tcJWT');
 
 	_axios2['default'].defaults.headers.common['Authorization'] = 'Bearer ' + token; // eslint-disable-line
 
@@ -10594,7 +10595,7 @@ webpackJsonp([1],[
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var fields = exports.fields = ['email', 'password', 'confirmPassword', 'resetToken'];
+	var fields = exports.fields = ['email', 'password', 'confirmPassword', 'validationCode'];
 
 	var ResetPasswordForm = function (_Component) {
 	  (0, _inherits3['default'])(ResetPasswordForm, _Component);
@@ -10614,7 +10615,7 @@ webpackJsonp([1],[
 	    var email = _props$fields.email;
 	    var password = _props$fields.password;
 	    var confirmPassword = _props$fields.confirmPassword;
-	    var resetToken = _props$fields.resetToken;
+	    var validationCode = _props$fields.validationCode;
 	    var handleSubmit = _props.handleSubmit;
 	    var resetForm = _props.resetForm;
 	    var submitting = _props.submitting;
@@ -12926,7 +12927,7 @@ webpackJsonp([1],[
 
 	var _ref4 = _react2['default'].createElement(_reactRouter.Route, { path: '/dashboard/create-password/:validationCode', component: _createPasswordContainer2['default'] });
 
-	var _ref5 = _react2['default'].createElement(_reactRouter.Route, { path: '/dashboard/reset-password/:resetToken', component: _resetPasswordContainer2['default'] });
+	var _ref5 = _react2['default'].createElement(_reactRouter.Route, { path: '/dashboard/reset-password/:validationCode', component: _resetPasswordContainer2['default'] });
 
 	var _ref6 = _react2['default'].createElement(_reactRouter.Route, { path: '/dashboard/forgot-password', component: _forgotPasswordContainer2['default'] });
 
@@ -13644,6 +13645,7 @@ webpackJsonp([1],[
 	    };
 
 	    _this.toggleBillingForm = _this.toggleBillingForm.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    return _this;
 	  }
 
@@ -13659,6 +13661,10 @@ webpackJsonp([1],[
 	    } else {
 	      this.toggleBillingFormShow();
 	    }
+	  };
+
+	  Account.prototype.handleSubmit = function handleSubmit(props) {
+	    this.props.actionCreators.updatePassword(props);
 	  };
 
 	  Account.prototype.toggleBillingFormDismiss = function toggleBillingFormDismiss() {
@@ -13732,7 +13738,7 @@ webpackJsonp([1],[
 	              { type: 'h2', className: 'dashboard-form--title' },
 	              'Update Password'
 	            ),
-	            _react2['default'].createElement(_accountPasswordForm2['default'], { onSubmit: this.props.actionCreators.updatePassword }),
+	            _react2['default'].createElement(_accountPasswordForm2['default'], { onSubmit: this.handleSubmit }),
 	            _react2['default'].createElement(
 	              _Headline2['default'],
 	              { type: 'h2', className: 'dashboard-form--title' },
@@ -14407,9 +14413,9 @@ webpackJsonp([1],[
 	    return (0, _possibleConstructorReturn3['default'])(this, _Component.apply(this, arguments));
 	  }
 
-	  PasswordForm.prototype.onSubmit = function onSubmit(props) {
-	    this.props.updatePassword(props);
-	  };
+	  // handleSubmit(props) {
+	  //   this.props.updatePassword(props);
+	  // }
 
 	  PasswordForm.prototype.render = function render() {
 	    var _props = this.props;
@@ -14424,7 +14430,7 @@ webpackJsonp([1],[
 
 	    return _react2['default'].createElement(
 	      'form',
-	      { className: 'dashboard-form', onSubmit: handleSubmit(this.onSubmit.bind(this)) },
+	      { className: 'dashboard-form', onSubmit: handleSubmit },
 	      _react2['default'].createElement(
 	        'div',
 	        { className: 'row-content-container' },
@@ -14493,7 +14499,8 @@ webpackJsonp([1],[
 	        )
 	      )
 	    );
-	  };
+	  }; // eslint-disable-line
+
 
 	  return PasswordForm;
 	}(_react.Component);
@@ -17202,18 +17209,18 @@ webpackJsonp([1],[
 	  }
 
 	  ResetPassword.prototype.componentDidMount = function componentDidMount() {
-	    var resetToken = this.props.params.resetToken;
+	    var validationCode = this.props.params.validationCode;
 
-	    localStorage.setItem('resetToken', resetToken);
+	    localStorage.setItem('validationCode', validationCode);
 	  };
 
-	  ResetPassword.prototype.handleResetPW = function handleResetPW(email, resetToken, password) {
-	    this.props.dispatch((0, _user.resetPassword)(email, resetToken, password));
+	  ResetPassword.prototype.handleResetPW = function handleResetPW(email, validationCode, password) {
+	    this.props.dispatch((0, _user.resetPassword)(email, validationCode, password));
 	  };
 
 	  ResetPassword.prototype.render = function render() {
 	    var dispatch = this.props.dispatch;
-	    var resetToken = this.props.params.resetToken;
+	    var validationCode = this.props.params.validationCode;
 
 	    return _react2['default'].createElement(
 	      'div',
@@ -17251,7 +17258,7 @@ webpackJsonp([1],[
 	                ),
 	                _react2['default'].createElement(_ResetPasswordForm2['default'], (0, _extends3['default'])({}, this.state, {
 	                  dispatch: dispatch,
-	                  resetToken: resetToken,
+	                  validationCode: validationCode,
 	                  location: location,
 	                  btnText: "Reset Password",
 	                  onSubmit: this.handleResetPW
