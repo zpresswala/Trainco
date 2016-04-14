@@ -7,7 +7,7 @@
 
 @if (tempCust != null && Model.tempRegList != null)
 {
-    @using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutSummarySurfaceController>("HandleFormSubmit"))
+    using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutSummarySurfaceController>("HandleFormSubmit"))
                 {
         <div class="register-standalone">
             <div class="container-fluid register-top">
@@ -43,7 +43,7 @@
                 @foreach (temp_Reg tempReg in Model.tempRegList.OrderBy(p => p.reg_SEQ))
                 {
                     int regSeqId = tempReg.reg_SEQ;
-                    string[] semPlaceArray = tempReg.reg_place.Split('-');
+                    string[] semPlaceArray = tempReg.sem_Place.Split('-');
 
                     string semLocation = semPlaceArray[0].Trim();
                     string semDates = semPlaceArray.Length == 2 ? semPlaceArray[0].Trim() : "";
@@ -73,9 +73,9 @@
                                     <ul class="attendees-attendee">
                                         <li class="attendee">
                                             <div class="attendee-info-container"><span class="attendee-name">@(tempAtt.att_FName + " " + tempAtt.att_LName)</span></div>
-                                            <div class="attendee-info-container"><span class="attendee-email">>@(tempAtt.att_Email)</span></div>
-                                            <div class="attendee-info-container"><span class="attendee-title">>@(tempAtt.att_Title)</span></div>
-                                            <div class="attendee-info-container"><span class="attendee-cost">$@(String.Format("{0:N2}", tempReg.reg_FeeAmt ?? 0))</span></div>
+                                            <div class="attendee-info-container"><span class="attendee-email">@(tempAtt.att_Email)</span></div>
+                                            <div class="attendee-info-container"><span class="attendee-title">@(tempAtt.att_Title)</span></div>
+                                            <div class="attendee-info-container"><span class="attendee-cost">$@(String.Format("{0:N2}", tempReg.sem_FeeAmt ?? 0))</span></div>
                                         </li>
                                     </ul>
                                 }
@@ -101,7 +101,7 @@
                     <span>(@(tempCust.authPhone1)) @(tempCust.authPhone2)-@(tempCust.authPhone3)</span>
                 </div>
                 <div class="edit-information">
-                    <span><a href="/register/">Edit Information</a></span>
+                    <span><a href="/register/info/">Edit Information</a></span>
                 </div>
             </div>
             <div class="creditCard-information-container">
@@ -218,7 +218,7 @@
         <div class="totalSubmit-container">
             <div class="totalPrice-container">
                 <span>Order Total:</span>
-                <span>@(String.Format("{0:N2}", tempCust.reg_Cost ?? 0))</span>
+                <span>$@(String.Format("{0:N2}", tempCust.reg_Cost ?? 0))</span>
             </div>
             <div class="submitOrder-container">
                 <div class="button-container">
