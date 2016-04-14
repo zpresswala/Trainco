@@ -206,8 +206,8 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var responseModel = new UserExistsResponseModel()
             {
-                Status = System.Net.HttpStatusCode.OK.ToString(),
-                StatusCode = System.Net.HttpStatusCode.OK,
+                Status = exists ? System.Net.HttpStatusCode.BadRequest.ToString() : System.Net.HttpStatusCode.OK.ToString(),
+                StatusCode = exists ? System.Net.HttpStatusCode.BadRequest : System.Net.HttpStatusCode.OK,
                 Result = exists
             };
 
