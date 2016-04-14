@@ -84,8 +84,12 @@
       }).success(function(data) {
         localStorage.setItem('guid', data.cartGuid);
         vm.redirectGuid = data.cartGuid;
-        $window.location.href = '/register/?cart=' + data.cartGuid;
+        if (localStorage.getItem('tcJWT')) {
+          $window.location.href = '/register/?cart=' + data.cartGuid;
+        } else {
+        // $window.location.href = '/register/?cart=' + data.cartGuid;
         $window.location.href = '/dashboard/checkout/' + data.cartGuid;
+        }
       });
     }
   }

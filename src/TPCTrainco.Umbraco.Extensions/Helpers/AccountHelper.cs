@@ -92,7 +92,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return result;
         }
 
-        public static string GetEamilFromToken(string token)
+        public static string GetEmailFromToken(string token)
         {
             var email = String.Empty;
             try

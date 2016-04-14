@@ -461,7 +461,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         /// <returns></returns>
         [HttpPut]
         [TokenAuthorization]
-        public HttpResponseMessage UpdateBilliong(UpdateBillingRequestModel request)
+        public HttpResponseMessage UpdateBilling(UpdateBillingRequestModel request)
         {
             var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 

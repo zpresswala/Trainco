@@ -6,6 +6,7 @@
 
     List<temp_Reg> cartList = null;
     string cartGuid = null;
+    string tokenKey = null;
     int attendeeInc = 0;
 
     if (Request.QueryString["cart"] != null && Request.QueryString.Get("cart").Length > 0)
@@ -15,6 +16,22 @@
     else
     {
         cartGuid = Carts.GetCartGuid(Session);
+    }
+
+    if (Request.QueryString["token"] != null && Request.QueryString.Get("token").Length > 0)
+    {
+        tokenKey = Request.QueryString.Get("token");
+        tokenKey = tokenKey.Trim('"');
+        tokenKey = tokenKey.Trim();
+    }
+    else
+    {
+        tokenKey = Users.GetToken(Session);
+    }
+
+    if (false == string.IsNullOrEmpty(tokenKey))
+    {
+        Users.SetToken(Session, tokenKey);
     }
 
 
@@ -64,11 +81,11 @@
                 <h1>@CurrentPage.name</h1>
             }
             <ul class="indicator">
-                <li class="step step1"></li>
+                <li class="step Registration"></li>
                 <li class="line line1"></li>
-                <li class="step step2"></li>
+                <li class="step Payment"></li>
                 <li class="line line2"></li>
-                <li class="step step3"></li>
+                <li class="step Review Order"></li>
             </ul>
         </div>
     </div>
@@ -165,6 +182,6 @@
     <div class="row">
         <p class="checkout-err-msg" style="display: none; text-align:center;"></p>
     </div>
-    <a id="reg-submit" class="btn-reg btn-blue-solid next-btn" href="/search-seminars/?error=90" data-page="1">Next</a>
+    <a id="reg-submit" class="btn-reg btn-blue-solid next-btn" href="/search-seminars/?error=900" data-page="1">Next</a>
 </div>
 </div>
