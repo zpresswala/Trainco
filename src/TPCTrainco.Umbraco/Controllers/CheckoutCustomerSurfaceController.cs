@@ -30,11 +30,16 @@ namespace TPCTrainco.Umbraco.Controllers
             {
                 string memberKey = AccountHelper.GetMemberKeyFromToken(tokenKey);
 
-                UserModel user = AccountHelper.GetUser(memberKey);
+                UserModel user = null;
+
+                if (false == string.IsNullOrEmpty(memberKey))
+                {
+                    user = AccountHelper.GetUser(memberKey);
+                }
 
                 if (user != null)
                 {
-                    Response.Redirect("/register/info-portal/");
+                    checkoutCustomer.Redirect = "/register/info-portal/";
                 }
             }
 
@@ -47,7 +52,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 if (cartList == null)
                 {
-                    return Redirect("/register/?cart=" + Server.UrlEncode(cartGuid));
+                    checkoutCustomer.Redirect = "/register/?cart=" + Server.UrlEncode(cartGuid);
                 }
                 else
                 {
@@ -73,18 +78,16 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     if (false == cartsObj.IsValidCart(checkoutCustomer.RegId, "/register/info/"))
                     {
-                        return Redirect("/register/?cart=" + cartGuid);
-                    }
-                    else
-                    {
-                        return PartialView("CheckoutCustomer", checkoutCustomer);
+                        checkoutCustomer.Redirect = "/register/?cart=" + cartGuid;
                     }
                 }
             }
             else
             {
-                return Redirect("/");
+                checkoutCustomer.Redirect = "/";
             }
+
+            return PartialView("CheckoutCustomer", checkoutCustomer);
         }
 
 

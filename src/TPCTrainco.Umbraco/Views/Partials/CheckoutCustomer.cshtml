@@ -1,95 +1,144 @@
 ﻿@model TPCTrainco.Umbraco.Extensions.Models.CheckoutCustomer
 @{
     IPublishedContent currentNode = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
+
+    if (Model == null)
+    {
+        Response.Redirect("/");
+    }
+    else if (false == string.IsNullOrEmpty(Model.Redirect))
+    {
+        Response.Redirect(Model.Redirect);
+    }
+
 }
+
 
 @Html.Partial("Messages/MessagesTop", currentNode)
 
-
 <div class="register-standalone">
+    <div class="container-fluid register-top">
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Payment</h1>
+                <ul class="indicator">
+                    <li class="step Registration"></li>
+                    <li class="line line1"></li>
+                    <li class="step Payment"></li>
+                    <li class="line line2"></li>
+                    <li class="step Review Order"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="col-md-12">
             @using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutCustomerSurfaceController>("HandleFormSubmit"))
             {
                 <div class="form-container">
                     <div class="company-profile-container container">
-                        <div class="col-xs-12">
+                        <div class="col-xs-11">
+                            <h2 class="form-head">Registration Information</h2>
+                        </div>
+
+                        <div class="col-xs-11 col-sm-4">
+                            <div class="form-group">
+                                @Html.DropDownListFor(p => p.HearAbout, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.HearAboutList(), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(p => p.HearAbout)
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-4">
+                            <div class="form-group promo-wrap">
+                                @Html.TextBoxFor(p => p.PromoCode, new { @class = "form-control", placeholder = "Promo code or description of mailer" })
+                                @Html.ValidationMessageFor(p => p.PromoCode)
+                                @Html.TextBoxFor(p => p.HearAboutOther, new { @class = "form-control", placeholder = "Brief description" })
+                                @Html.ValidationMessageFor(p => p.HearAboutOther)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="company-profile-container container">
+                        <div class="col-xs-11">
                             <h2 class="form-head">Company Profile</h2>
                         </div>
 
-                        <div class="col-xs-12">
+                        <div class="col-xs-11 col-sm-5 col-md-5">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control", placeholder = "First Name (Authorizing Supervisor)" })
                                 @Html.ValidationMessageFor(p => p.FirstName)
                             </div>
                         </div>
-                        <div class="col-xs-12">
+                        <div class="col-xs-11 col-sm-6 col-md-6">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.LastName, new { @class = "form-control", placeholder = "Last Name (Authorizing Supervisor)" })
                                 @Html.ValidationMessageFor(p => p.LastName)
                             </div>
                         </div>
-                        <div class="col-xs-12">
+                        <div class="col-xs-11">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.Email, new { @class = "form-control", placeholder = "Email Address" })
                                 @Html.ValidationMessageFor(p => p.Email)
                             </div>
                         </div>
-                        <div class="col-xs-12">
+                        <div class="col-xs-11">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.Company, new { @class = "form-control", placeholder = "Company Name" })
                                 @Html.ValidationMessageFor(p => p.Company)
                             </div>
                         </div>
-                        <div class="col-xs-12">
+                        <div class="col-xs-11">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.Title, new { @class = "form-control", placeholder = "Title" })
                                 @Html.ValidationMessageFor(p => p.Title)
                             </div>
                         </div>
 
-                        <div class="col-xs-12">
+                        <div class="col-xs-11">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.Address, new { @class = "form-control", placeholder = "Mailing Address" })
                                 @Html.ValidationMessageFor(p => p.Address)
                             </div>
                         </div>
-                        <div class="col-xs-12">
+                        <div class="col-xs-11">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.Address2, new { @class = "form-control", placeholder = "Mailing Address line 2" })
                                 @Html.ValidationMessageFor(p => p.Address2)
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="col-xs-11 col-sm-6 col-md-3">
                             <div class="form-group">
                                 @Html.DropDownListFor(p => p.Country, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetCountryList(true), new { @class = "form-control" })
                                 @Html.ValidationMessageFor(p => p.Country)
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="col-xs-11 col-sm-6 col-md-3">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.City, new { @class = "form-control", placeholder = "City" })
                                 @Html.ValidationMessageFor(p => p.City)
                             </div>
                         </div>
                         <!-- 2 -->
-                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
-                            @Html.DropDownListFor(p => p.State, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetStateList(), new { @class = "form-control" })
-                            @Html.ValidationMessageFor(p => p.State)
+                        <div class="col-xs-11 col-sm-6 col-md-3">
+                            <div class="form-group">
+                                @Html.DropDownListFor(p => p.State, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetStateList(), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(p => p.State)
+                            </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-2">
+                        <div class="col-xs-11 col-sm-6 col-md-2">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.Zip, new { @class = "form-control", placeholder = "Postal Code" })
                                 @Html.ValidationMessageFor(p => p.Zip)
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-5">
+                        <div class="col-xs-11 col-sm-3 col-md-3">
                             <div class="form-group">
                                 @Html.TextBoxFor(p => p.Phone, new { @class = "form-control", placeholder = "Phone Number" })
                                 @Html.ValidationMessageFor(p => p.Phone)
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="col-xs-11 col-sm-3 col-md-3">
                             <div class="form-group">
                                 <div class="extension-container">
                                     <div class="extension-label-container"><label class="label-extension" for="PhoneExt">Ext.</label></div>
@@ -101,16 +150,7 @@
                             </div>
                         </div>
 
-                        <div class="promo-wrap col-xs-12 col-sm-6">
-                            <div class="form-group">
-                                @Html.TextBoxFor(p => p.PromoCode, new { @class = "form-control", placeholder = "Promo code or description of mailer" })
-                                @Html.ValidationMessageFor(p => p.PromoCode)
-                                @Html.TextBoxFor(p => p.HearAboutOther, new { @class = "form-control", placeholder = "Brief description" })
-                                @Html.ValidationMessageFor(p => p.HearAboutOther)
-                            </div>
-                        </div>
-
-                        @*<div class="col-xs-12">
+                        @*<div class="col-xs-11">
                                 <input type="checkbox" name="supervisor-diff" id="account-update">
                                 <label class="account-update" for="account-update">
                                     Save and update my dashboard with this company
@@ -120,12 +160,12 @@
                     </div>
                 </div>
 
-                <div class="row form-container">
+                <div class="form-container">
                     <div class="billing-opts-wrapper container">
-                        <div class="col-xs-12">
+                        <div class="col-xs-11">
                             <h2 class="form-head">Billing Information</h2>
                         </div>
-                        <div class="col-xs-12">
+                        <div class="col-xs-11">
                             <input type="checkbox" name="supervisor-diff" id="supervisor-diff">
                             <label for="supervisor-diff">Is your billing person different than your authorizing supervisor? If yes, check this box.</label>
                             @Html.HiddenFor(p => p.BillingDifferent)
@@ -133,54 +173,68 @@
 
                         <!-- form fields that appear when checkbox is checked -->
                         <div class="hidden-different-check">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="col-xs-11 col-sm-5 col-md-5">
                                 <div class="form-group">
                                     @Html.TextBoxFor(p => p.BillFirstName, new { @class = "form-control", placeholder = "First Name" })
                                     @Html.ValidationMessageFor(p => p.BillFirstName)
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="col-xs-11 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     @Html.TextBoxFor(p => p.BillLastName, new { @class = "form-control", placeholder = "Last Name" })
                                     @Html.ValidationMessageFor(p => p.BillLastName)
                                 </div>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-11">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.BillEmail, new { @class = "form-control", placeholder = "Email Address" })
+                                    @Html.ValidationMessageFor(p => p.BillEmail)
+                                </div>
+                            </div>
+                            <div class="col-xs-11">
                                 <div class="form-group">
                                     @Html.TextBoxFor(p => p.BillAddress, new { @class = "form-control", placeholder = "Mailing Address" })
                                     @Html.ValidationMessageFor(p => p.BillAddress)
                                 </div>
                             </div>
-                            <div class="form-group col-xs-12">
-                                @Html.TextBoxFor(p => p.BillAddress2, new { @class = "form-control", placeholder = "Mailing Address line 2" })
-                                @Html.ValidationMessageFor(p => p.BillAddress2)
+                            <div class="col-xs-11">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.BillAddress2, new { @class = "form-control", placeholder = "Mailing Address line 2" })
+                                    @Html.ValidationMessageFor(p => p.BillAddress2)
+                                </div>
                             </div>
-                            <!-- 4 -->
-                            <div class="form-group col-xs-12 col-sm-6 col-md-4">
-                                @Html.TextBoxFor(p => p.BillCity, new { @class = "form-control", placeholder = "City" })
-                                @Html.ValidationMessageFor(p => p.BillCity)
+                            <div class="col-xs-11 col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    @Html.DropDownListFor(p => p.BillCountry, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetCountryList(true), new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(p => p.BillCountry)
+                                </div>
+                            </div>
+                            <div class="col-xs-11 col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.BillCity, new { @class = "form-control", placeholder = "City" })
+                                    @Html.ValidationMessageFor(p => p.BillCity)
+                                </div>
                             </div>
                             <!-- 2 -->
-                            <div class="form-group col-xs-12 col-sm-6 col-md-2">
-                                @Html.DropDownListFor(p => p.BillState, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetStateList(), new { @class = "form-control" })
-                                @Html.ValidationMessageFor(p => p.BillState)
+                            <div class="col-xs-11 col-sm-6 col-md-3">
+                                <div class="form-group">
+                                    @Html.DropDownListFor(p => p.BillState, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetStateList(), new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(p => p.BillState)
+                                </div>
                             </div>
-                            <div class="form-group col-xs-12 col-sm-6 col-md-4">
-                                @Html.TextBoxFor(p => p.BillZip, new { @class = "form-control", placeholder = "Postal Code" })
-                                @Html.ValidationMessageFor(p => p.BillZip)
+                            <div class="col-xs-11 col-sm-6 col-md-2">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.BillZip, new { @class = "form-control", placeholder = "Postal Code" })
+                                    @Html.ValidationMessageFor(p => p.BillZip)
+                                </div>
                             </div>
-
-                            <div class="form-group col-xs-12 col-sm-6 col-md-2">
-                                @Html.DropDownListFor(p => p.BillCountry, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.GetCountryList(true), new { @class = "form-control" })
-                                @Html.ValidationMessageFor(p => p.BillCountry)
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-5">
+                            <div class="col-xs-11 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     @Html.TextBoxFor(p => p.BillPhone, new { @class = "form-control", placeholder = "Phone Number" })
                                     @Html.ValidationMessageFor(p => p.BillPhone)
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="col-xs-11 col-sm-3 col-md-3">
                                 <div class="form-group">
                                     <div class="extension-container">
                                         <div class="extension-label-container"><label class="label-extension" for="PhoneExt">Ext.</label></div>
@@ -191,21 +245,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-xs-12">
-                                @Html.TextBoxFor(p => p.BillEmail, new { @class = "form-control", placeholder = "Email Address" })
-                                @Html.ValidationMessageFor(p => p.BillEmail)
-                            </div>
+
                         </div>
                         <!-- end form fields that appear when checkbox is checked -->
 
                         <div class="billing-opts-container row">
                             <div class="container">
-                                <div class="col-xs-12 col-sm-4 col-md-3">
+                                <div class="col-xs-11 col-sm-4 col-md-3">
                                     <div class="vcenter">
                                         <label class="billing-opts-label" for="billing-opts">Choose your payment type</label>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-6 col-md-5">
+                                <div class="col-xs-11 col-sm-6 col-md-5">
                                     @Html.DropDownListFor(p => p.PaymentType, TPCTrainco.Umbraco.Extensions.Objects.FormUtilities.PaymentTypeList(), new { @class = "form-control" })
                                     @Html.ValidationMessageFor(p => p.PaymentType)
                                 </div>
@@ -213,31 +264,31 @@
                         </div>
                         <!-- start credit card info -->
                         <div class="cc-info">
-                            <div class="col-xs-12">
+                            <div class="col-xs-11">
                                 <div class="form-group">
                                     @Html.TextBoxFor(p => p.CCName, new { @class = "form-control", placeholder = "Name on card" })
                                     @Html.ValidationMessageFor(p => p.CCName)
                                 </div>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-11">
                                 <div class="form-group">
                                     @Html.TextBoxFor(p => p.CCNumber, new { @class = "form-control", placeholder = "Card number" })
                                     @Html.ValidationMessageFor(p => p.CCNumber)
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="col-xs-11 col-sm-6 col-md-3">
                                 <div class="form-group">
                                     @Html.TextBoxFor(p => p.CCExpiration, new { @class = "form-control", placeholder = "Expiration: MM/YY" })
                                     @Html.ValidationMessageFor(p => p.CCExpiration)
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="col-xs-11 col-sm-6 col-md-3">
                                 <div class="form-group">
                                     @Html.TextBoxFor(p => p.CVVCode, new { @class = "form-control", placeholder = "CVV" })
                                     @Html.ValidationMessageFor(p => p.CVVCode)
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div class="col-xs-11 col-sm-6 col-md-3">
                                 <div class="cvv-info form-group">
                                     <p class="cvv-text">
                                         What's this?
@@ -252,15 +303,17 @@
 
                         @if (true == currentNode.HasValue("invoice"))
                         {
-                            <div class="col-xs-12 invoice-info">
+                            <div class="col-xs-11 invoice-info">
                                 <p>@(currentNode.GetPropertyValue<string>("invoice"))</p>
                             </div>
                         }
 
                         <div class="invoice-info">
-                            <div class="form-group col-xs-12">
-                                @Html.TextBoxFor(p => p.PONumber, new { @class = "form-control", placeholder = "PO Number" })
-                                @Html.ValidationMessageFor(p => p.PONumber)
+                            <div class="col-xs-11">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(p => p.PONumber, new { @class = "form-control", placeholder = "PO Number" })
+                                    @Html.ValidationMessageFor(p => p.PONumber)
+                                </div>
                             </div>
                         </div>
 
@@ -268,7 +321,7 @@
 
                     </div>
 
-                    <div class="card-submit-wrap col-xs-12">
+                    <div class="card-submit-wrap col-xs-11">
                         <button type="submit" id="button-submit" class="btn btn-reg btn-blue-solid next-btn">Next</button>
                         <div class="spinner card-loader">
                             <div class="bounce1"></div>

@@ -15,6 +15,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public int RegId { get; set; }
 
         public string CartGuid { get; set; }
+        public string UserToken { get; set; }
+        public string Redirect { get; set; }
 
         [Required]
         [StringLength(255)]
