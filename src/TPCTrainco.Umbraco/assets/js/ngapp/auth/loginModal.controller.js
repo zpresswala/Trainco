@@ -19,7 +19,7 @@
       $http.post(CONSTANTS.API_ACCOUNT + '/login', $scope.formData)
       .then(function(response) {
         console.log(response)
-        var token = JSON.stringify(response.data.result)
+        var token = response.data.result;
         localStorage.setItem('tcJWT', token)
         $window.location.href = '/dashboard';
       })

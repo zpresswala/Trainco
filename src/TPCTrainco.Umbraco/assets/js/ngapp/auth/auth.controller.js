@@ -10,7 +10,7 @@
   function AuthbarController($log, $http, CONSTANTS) {
     var vm = this;
     vm.user = {};
-    var authToken = JSON.parse(localStorage.getItem('tcJWT'));
+    var authToken = localStorage.getItem('tcJWT');
     checkForLogin(authToken);
 
     function checkForLogin(authToken) {
@@ -27,7 +27,7 @@
        method: 'GET',
        url: CONSTANTS.API_ACCOUNT + '/getuser',
        headers: {
-         'authorization': 'Bearer ' + JSON.parse(localStorage.getItem('tcJWT'))
+         'authorization': 'Bearer ' + localStorage.getItem('tcJWT')
        }
       }
       $http(req).then(function(response) {

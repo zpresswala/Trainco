@@ -24,6 +24,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
         public string ExternalTrainingUsageAmount { get; set; }
         public string NumberOfEmployees { get; set; }
         public string TrainingTopics { get; set; }
+        public string HasMakePreviousPurchase { get; set; }
 
 
         
