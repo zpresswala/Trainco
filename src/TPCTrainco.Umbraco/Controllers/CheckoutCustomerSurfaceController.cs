@@ -79,6 +79,8 @@ namespace TPCTrainco.Umbraco.Controllers
 
                     if (billing != null && false == string.IsNullOrEmpty(billing.CompanyName) && false == string.IsNullOrEmpty(billing.Address1))
                     {
+                        checkoutCustomer.SavedCompanyBilling = true;
+
                         checkoutCustomer.BillAddress = billing.Address1;
                         checkoutCustomer.BillAddress2 = billing.Address2;
                         checkoutCustomer.BillCity = billing.City;

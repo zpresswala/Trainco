@@ -49,6 +49,14 @@ function CheckoutCustomer() {
         this.$hearAboutOther.slideDown().addClass('showing');
     }
 
+
+    if ($('#SavedCompanyBilling').val().toLowerCase() == 'true') {
+        $('.hidden-different-check').show();
+        $('#supervisor-diff').prop('checked', true);
+        $('#BillingDifferent').val('true');
+    }
+
+
     $('#UpdateCompanyProfile').val('false');
 
     $('#link-edit-profile').on('click', function (e) {

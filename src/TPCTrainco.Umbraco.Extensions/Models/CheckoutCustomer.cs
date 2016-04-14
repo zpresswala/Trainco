@@ -23,6 +23,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public bool UpdateCompanyProfile { get; set; }
         public bool UpdateCompanyBilling { get; set; }
 
+        public bool SavedCompanyBilling { get; set; }
+
         [Required]
         [StringLength(255)]
         [DisplayName("First Name")]
