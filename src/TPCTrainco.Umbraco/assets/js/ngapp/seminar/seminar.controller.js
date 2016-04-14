@@ -22,7 +22,7 @@
       '<input class="btn btn-blue-solid btn-reg"type=button ng-click="seminar.addItemToCart(event, qty, $event)"value="Add to Cart"></div></div>';
 
     vm.detailPop = {
-      template: POP_TPL
+      templateUrl: '/assets/js/ngapp/seminar/seminarPop.html'
     };
     vm.registerSem = function() {
       vm.popoverIsOpen = true;
