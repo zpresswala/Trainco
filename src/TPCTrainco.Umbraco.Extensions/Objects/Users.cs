@@ -84,12 +84,13 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static string Remove()
+        public static string Remove(HttpSessionStateBase session)
         {
             string output = null;
 
             try
             {
+                session["TokenId"] = null;
 
                 HttpCookie cookie = HttpContext.Current.Request.Cookies[CookieName];
                 if (cookie != null)
