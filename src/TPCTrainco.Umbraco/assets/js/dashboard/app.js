@@ -4465,8 +4465,8 @@ webpackJsonp([1],[
 	      headText
 	    ),
 	    _react2['default'].createElement(
-	      _reactRouter.Link,
-	      { to: buttonLink },
+	      'a',
+	      { href: buttonLink },
 	      _react2['default'].createElement(
 	        _Button2['default'],
 	        { className: 'btn-red' },
@@ -13240,7 +13240,7 @@ webpackJsonp([1],[
 	  };
 
 	  CheckoutComponent.prototype.continueGuest = function continueGuest() {
-	    window.location.href = '/register/?cart=' + localStorage.getItem('guid') + '&token=' + localStorage.getItem('tcJWT') + 'signup=1'; // eslint-disable-line
+	    window.location.href = '/register/?cart=' + localStorage.getItem('guid') + '&token=' + localStorage.getItem('tcJWT') + '&signup=1'; // eslint-disable-line
 	  };
 
 	  CheckoutComponent.prototype.handleLogin = function handleLogin(username, password, event) {

@@ -3,6 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var config = require('../gulp.config')();
 var autoprefixer = require('autoprefixer');
 var browserSync = require('browser-sync');
 
@@ -18,9 +19,7 @@ var buildStyles = function() {
     autoprefixer({browsers: ['> 1%', 'last 3 version']})
   ];
 
-  return gulp.src([
-    path.join(conf.paths.src, '/sass/main.scss')
-  ])
+  return gulp.src(config.sass + 'main.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass.sync({
       outputStyle: 'expanded',

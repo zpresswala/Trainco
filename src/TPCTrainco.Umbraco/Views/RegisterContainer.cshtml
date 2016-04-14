@@ -21,6 +21,8 @@
     if (Request.QueryString["token"] != null && Request.QueryString.Get("token").Length > 0)
     {
         tokenKey = Request.QueryString.Get("token");
+        tokenKey = tokenKey.Trim('"');
+        tokenKey = tokenKey.Trim();
     }
     else
     {
@@ -180,6 +182,6 @@
     <div class="row">
         <p class="checkout-err-msg" style="display: none; text-align:center;"></p>
     </div>
-    <a id="reg-submit" class="btn-reg btn-blue-solid next-btn" href="/search-seminars/?error=90" data-page="1">Next</a>
+    <a id="reg-submit" class="btn-reg btn-blue-solid next-btn" href="/search-seminars/?error=900" data-page="1">Next</a>
 </div>
 </div>

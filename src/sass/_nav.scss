@@ -1,7 +1,7 @@
 #authbar {
   height: 35px;
   position: fixed;
-  z-index: 1250;
+  z-index: 1000;
   background-color: #f2f2f2;
   text-align: right;
   width: 100%;
@@ -33,7 +33,7 @@
   position: fixed;
   top: 35px;
   width: 100%;
-  z-index: 1400;
+  z-index: 999;
   height: 50px;
   @include tablet-landscape-and-up {
     height: 80px;
@@ -236,7 +236,7 @@
   height: 50px;
   background-color: #5c5c5c;
   width: 100%;
-  z-index: 1250;
+  z-index: 800;
   margin-top: 114px;
 
   @media screen and (max-width: 1025px) {
