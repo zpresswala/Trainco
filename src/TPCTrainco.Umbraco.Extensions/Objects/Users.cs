@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.SessionState;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -84,7 +85,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static string Remove(HttpSessionStateBase session)
+        public static string Remove(HttpSessionState session)
         {
             string output = null;
 
