@@ -2903,7 +2903,6 @@
     <Content Include="umbraco_client\Ui\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="umbraco_client\Ui\ui-lightness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="umbraco_client\Ui\ui-lightness\jquery-ui.custom.css" />
-    <Content Include="Views\Partials\CheckoutCustomerPortal.cshtml" />
     <Content Include="Views\RegisterPayment.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2913,7 +2912,6 @@
     <Content Include="App_Code\FormWorkflowTPC.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CheckoutCustomerPortalSurfaceController.cs" />
     <Compile Include="Controllers\CheckoutSummarySurfaceController.cs" />
     <Compile Include="Controllers\CheckoutCustomerSurfaceController.cs" />
     <Compile Include="Models\RegisterAttendeeViewModel.cs" />

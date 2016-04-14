@@ -49,6 +49,34 @@ function CheckoutCustomer() {
         this.$hearAboutOther.slideDown().addClass('showing');
     }
 
+    $('#UpdateCompanyProfile').val('false');
+
+    $('#link-edit-profile').on('click', function (e) {
+        $('.company-profile-wrap').slideDown();
+        $('.immutable-account-info').slideUp();
+        e.preventDefault();
+    });
+
+
+    $('#field-account-update').on('change', function () {
+        if ($(this).is(':checked')) {
+            $('#UpdateCompanyProfile').val('true');
+
+        } else {
+            $('#UpdateCompanyProfile').val('false');
+        }
+    });
+
+    $('#field-billing-update').on('change', function () {
+        if ($(this).is(':checked')) {
+            $('#UpdateCompanyBilling').val('true');
+
+        } else {
+            $('#UpdateCompanyBilling').val('false');
+        }
+    });
+
+
     $('#button-submit').on('click', function () {
         _this.cardProcessingMessage($(this));
     });

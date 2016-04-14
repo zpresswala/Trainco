@@ -22,7 +22,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public bool CreateAccount { get; set; }
 
         public UserModel User { get; set; }
-        public CompanyModel CompanyModel { get; set; }
+        public CompanyModel Company { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Objects
 @model TPCTrainco.Umbraco.Extensions.Models.CheckoutDetails
 @{
     temp_Cust tempCust = Model.tempCust;
@@ -33,7 +34,13 @@
                 </div>
                 <div class="submitOrder-container">
                     <div class="button-container">
-                        <button type="submit">Submit your order</button>
+                        <button type="submit" id="button-submit" class="submit-button">Submit your order</button>
+                        <div class="spinner card-loader">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                        <p class="processing-msg"></p>
                     </div>
                 </div>
             </div>
@@ -123,7 +130,6 @@
                     <div class="speedCheckout-form">
                         <div class="form-container">
                             <h2 class="form-intent">Please tell us a bit more about your training needs so we can serve you better.</h2>
-                            <form action="">
                                 <div class="row-content-container">
                                     <fieldset>
                                         <legend class="form-helper">
@@ -140,73 +146,46 @@
                                             </label>
                                         </div>
                                     </fieldset>
+                                    
                                 </div>
                                 <div class="row-content-container">
                                     <label class="form-helper" for="industry">Your Industry</label>
                                     <div class="select-arrows">
-                                        <select class="form-input" name="industry" id="industry" required>
-                                            <option value="Electronics" selected>Electronics</option>
-                                            <option value="Plumbing" selected>Plumbing</option>
-                                            <option value="Carpentry" selected>Carpentry</option>
-                                        </select>
+                                        @Html.DropDownListFor(p => p.Company.Industry, FormUtilities.IndustryList(), new { @class = "form-input" })
+                                        @Html.ValidationMessageFor(p => p.Company.Industry)
                                     </div>
                                 </div>
                                 <div class="row-content-container">
                                     <label class="form-helper" for="role">
-                                        Please choose the role that best describes your role at your company
-                                        or
-                                        facility.*
+                                        How often do you use outside training, such as seminar courses, at your company/facility?*
                                     </label>
                                     <div class="select-arrows">
-                                        <select class="form-input" name="role" id="role">
-                                            <option value="maintenance" selected>I oversee maintenance</option>
-                                            <option value="maintenance">I oversee maintenance</option>
-                                            <option value="maintenance">I oversee maintenance</option>
-                                        </select>
+                                        @Html.DropDownListFor(p => p.Company.ExternalTrainingUsageAmount, FormUtilities.ExternalTrainingUsageAmountList(), new { @class = "form-input" })
+                                        @Html.ValidationMessageFor(p => p.Company.ExternalTrainingUsageAmount)
                                     </div>
                                 </div>
                                 <div class="row-content-container">
                                     <label class="form-helper" for="frequency">
-                                        How often do you use outside training, such as seminar courses,
-                                        at
-                                        your
-                                        company/facility?*
+                                        About how many employees in your facility need training each year?*
                                     </label>
                                     <div class="select-arrows">
-                                        <select class="form-input" name="frequency" id="frequency">
-                                            <option value="Meh">Meh</option>
-                                            <option value="Regularly">Regularly</option>
-                                            <option value="Oh yea">Oh yea!</option>
-                                        </select>
+                                        @Html.DropDownListFor(p => p.Company.NumberOfEmployees, FormUtilities.ExternalTrainingUsageAmountList(), new { @class = "form-input" })
+                                        @Html.ValidationMessageFor(p => p.Company.NumberOfEmployees)
                                     </div>
-                                </div>
-                                <div class="row-content-container">
-                                    <label class="form-helper" for="employees">
-                                        About how many employees in our facility need training each
-                                        year?*
-                                    </label>
-                                    <input class="form-input" type="text" id="employees">
                                 </div>
                                 <div class="row-content-container">
                                     <div class="form-helper">What training topics most interest you and/or your team?*</div>
-                                    <div class="industry-checkbox-container">
-                                        <input type="checkbox" id="Electrical">
-                                        <label for="Electrical">Electrical</label>
-                                    </div>
-                                    <div class="industry-checkbox-container">
-                                        <input type="checkbox" id="HVAC">
-                                        <label for="HVAC">HVAC</label>
-                                    </div>
-                                    <div class="industry-checkbox-container">
-                                        <input type="checkbox" id="PlantManagement">
-                                        <label for="PlantManagement">Plant Management</label>
-                                    </div>
-                                    <div class="industry-checkbox-container">
-                                        <input type="checkbox" id="MechanicalIndustrial">
-                                        <label for="MechanicalIndustrial">Mechanical & Industrial</label>
-                                    </div>
+
+                                    @foreach (SelectListItem industryItem in FormUtilities.TopicsMostInterestList())
+                                    {
+                                        <div class="industry-checkbox-container">
+                                            <input type="checkbox" class="interested-topics" id="Industry@(industryItem.Value)" value="@(industryItem.Text)">
+                                            <label for="Industry@(industryItem.Value)">@(industryItem.Text)</label>
+                                        </div>
+                                    }
+
+                                    @Html.HiddenFor(p => p.Company.TrainingTopics)
                                 </div>
-                            </form>
                             <div class="required-helper">
                                 <span>* Indicates Required Field</span>
                             </div>
@@ -222,12 +201,16 @@
             </div>
             <div class="submitOrder-container">
                 <div class="button-container">
-                    <button type="submit">Submit your order</button>
+                    @Html.ValidationSummary()
+                    <button type="submit" id="button-submit2" class="submit-button">Submit your order</button>
+                    <div class="spinner card-loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <p class="processing-msg"></p>
                 </div>
             </div>
         </div>
-
-
         }
-
 }

@@ -18,6 +18,9 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string UserToken { get; set; }
         public string Redirect { get; set; }
 
+        public bool UpdateCompanyProfile { get; set; }
+        public bool UpdateCompanyBilling { get; set; }
+
         [Required]
         [StringLength(255)]
         [DisplayName("First Name")]

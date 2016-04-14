@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Mvc;
 using TPCTrainco.Umbraco.Extensions;
+using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
 using TPCTrainco.Umbraco.Extensions.Objects;
 using Umbraco.Web.Mvc;
@@ -37,7 +38,9 @@ namespace TPCTrainco.Umbraco.Controllers
                 {
                     if (false == cartsObj.IsValidCart(tempRegList[0].reg_ID, "/register/summary/"))
                     {
-                        return Redirect("/register/?cart=" + cartGuid);
+                        checkoutDetails.Redirect = "/register/?cart=" + cartGuid;
+
+                        return PartialView("CheckoutSummary", checkoutDetails);
                     }
 
                     Session["CartId"] = cartGuid;
@@ -273,7 +276,58 @@ namespace TPCTrainco.Umbraco.Controllers
 
                                             debug.AppendLine("Redirecting to: /register/success/");
 
-                                            return Redirect("/register/success/");
+                                            // Create User?
+                                            if (true == model.CreateAccount)
+                                            {
+                                                if (model.User == null)
+                                                {
+                                                    model.User = new Extensions.Models.Account.UserModel();
+                                                }
+                                                model.User.Email = reg.RegAuthEmail;
+                                                model.User.FirstName = reg.RegAuthFirstName;
+                                                model.User.LastName = reg.RegAuthLastName;
+                                                model.User.Password = "";
+                                                model.User.Phone = reg.RegAuthPhone;
+                                                model.User.PhoneExtension = reg.RegAuthPhoneExt;
+                                                model.User.Title = reg.RegAuthTitle;
+                                                
+                                                if (model.Company == null)
+                                                {
+                                                    model.Company = new Extensions.Models.Account.CompanyModel();
+                                                }
+                                                model.Company.Address1 = reg.RegAuthAddress1;
+                                                model.Company.Address2 = reg.RegAuthAddress2;
+                                                model.Company.City = reg.RegAuthCity;
+                                                model.Company.Country = reg.RegAuthCountry;
+                                                model.Company.Name = reg.RegCompanyName;
+                                                model.Company.PostalCode = reg.RegAuthZipcode;
+                                                model.Company.State = tempCust.authState;
+                                                model.Company.Username = model.User.Email;
+
+                                                string userKey = CreateUser(model);
+
+                                                if (true == string.IsNullOrEmpty(userKey))
+                                                {
+                                                    return Redirect("/register/success/?u=-1"); // User account wasn't created
+                                                }
+                                                else if (userKey == "0")
+                                                {
+                                                    return Redirect("/register/success/?u=0"); // User account created but couldn't update the company
+                                                }
+                                                else
+                                                {
+                                                    return Redirect("/register/success/?u=1"); // User account created successfully
+                                                }
+
+                                            }
+                                            else if (false == string.IsNullOrEmpty(model.UserToken))
+                                            {
+                                                return Redirect("/register/success"); // user account already created
+                                            }
+                                            else
+                                            {
+                                                return Redirect("/register/success//?u=2"); // Suggest creating an account
+                                            }
                                         }
                                         else
                                         {
@@ -349,6 +403,35 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 return Redirect("/register/error/?error=93");
             }
+        }
+
+
+        private string CreateUser(CheckoutDetails model)
+        {
+            string userKey = "";
+
+            var user = AccountHelper.CreateUser(model.User, Request.Url);
+
+            if (!String.IsNullOrEmpty(user.Key))
+            {
+                if (!String.IsNullOrEmpty(model.Company.Username) && !model.Company.Username.Equals(model.User.Email))
+                {
+                    model.Company = AccountHelper.GetCompany(model.Company.Username);
+                }
+
+                var success = AccountHelper.UpdateCompany(user.Key, model.Company);
+
+                if (true == success)
+                {
+                    userKey = user.Key;
+                }
+                else
+                {
+                    userKey = "0";
+                }
+            }
+
+            return userKey;
         }
     }
 }
