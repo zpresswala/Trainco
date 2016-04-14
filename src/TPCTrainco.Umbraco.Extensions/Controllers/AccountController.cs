@@ -14,7 +14,6 @@ using TPCTrainco.Umbraco.Extensions.Models.API.Response;
 using TPCTrainco.Umbraco.Extensions.Objects;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 
 namespace TPCTrainco.Umbraco.Extensions.Controllers

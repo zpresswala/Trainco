@@ -3145,6 +3145,7 @@
     <Content Include="umbraco_client\CodeMirror\Js\Mode\Sieve\LICENSE" />
     <Content Include="assets\manifest.json" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="Views\Logout.cshtml" />
     <None Include="Web.Debug-Trainco.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

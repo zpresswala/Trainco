@@ -1,0 +1,8 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    TPCTrainco.Umbraco.Extensions.Objects.Users.Remove(HttpContext.Current.Session);
+
+    Response.Redirect("~/");
+}
