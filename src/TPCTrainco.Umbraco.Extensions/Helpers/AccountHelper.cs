@@ -154,7 +154,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     member.SetValue("title", user.Title);
                     member.SetValue("phone", user.Phone);
                     member.SetValue("phoneExtension", user.PhoneExtension);
-                    member.SetValue("favoritedCourses", user.FavoritedCourses);                   
+                    member.SetValue("favoritedCourses", user.FavoritedCourses);
 
                     var validationCode = Guid.NewGuid().ToString();
                     member.SetValue("validationCode", String.Join(":", validationCode, DateTime.UtcNow.Ticks));
@@ -193,7 +193,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                         smtp.EmailBccList = bcc.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                         smtp.IsBodyHtml = true;
                         smtp.Subject = subject;
-                        smtp.Body = body.Replace("{{VALIDATIONCODE}}", validationCode).Replace("{{SITEBASEURL}}", siteUrlBase);
+                        smtp.Body = body.Replace("{{FIRSTNAME}}", user.FirstName).Replace("{{LASTNAME}}", user.LastName).Replace("{{VALIDATIONCODE}}", validationCode).Replace("{{SITEBASEURL}}", siteUrlBase);
                         smtp.SendEmail();
                     }
                 }
@@ -237,7 +237,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                         smtp.EmailBccList = bcc.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                         smtp.IsBodyHtml = true;
                         smtp.Subject = subject;
-                        smtp.Body = body.Replace("{{VALIDATIONCODE}}", validationCode).Replace("{{SITEBASEURL}}", siteUrlBase);
+                        smtp.Body = body.Replace("{{FIRSTNAME}}", member.GetValue<string>("firstName")).Replace("{{LASTNAME}}", member.GetValue<string>("firstName")).Replace("{{VALIDATIONCODE}}", validationCode).Replace("{{SITEBASEURL}}", siteUrlBase);
                         success = smtp.SendEmail();
                     }
                 }
@@ -334,7 +334,6 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     string couresUrl = String.Format("{0}://{1}{2}", uri.Scheme, uri.Host, course.DetailsUrl);
 
                     var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
-                    var memberName = String.Format("{0} {1}", member.GetValue<string>("firstName"), member.GetValue<string>("lastName"));
 
                     var smtp = new Email();
                     smtp.EmailFrom = member.Email; // TODO: Should this be from the system or the user?
@@ -342,7 +341,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     smtp.EmailBccList = bcc.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                     smtp.IsBodyHtml = true;
                     smtp.Subject = subject;
-                    smtp.Body = body.Replace("{{COURSEURL}}", couresUrl).Replace("{{MEMBERNAME}}", memberName);
+                    smtp.Body = body.Replace("{{FIRSTNAME}}", member.GetValue<string>("firstName")).Replace("{{LASTNAME}}", member.GetValue<string>("firstName")).Replace("{{COURSEURL}}", couresUrl);
                     smtp.SendEmail();
                 }
             }
@@ -396,7 +395,8 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     Role = member.GetValue<string>("role"),
                     ExternalTrainingUsageAmount = member.GetValue<string>("extentalTrianingUsageAmount"),
                     NumberOfEmployees = member.GetValue<string>("numberOfEmployees"),
-                    TrainingTopics = member.GetValue<string>("trainingTopics")
+                    TrainingTopics = member.GetValue<string>("trainingTopics"),
+                    HasMakePreviousPurchase = member.GetValue<string>("hasMakePreviousPurchase")
                 };
             }
 
@@ -476,6 +476,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 member.SetValue("extentalTrianingUsageAmount", company.ExternalTrainingUsageAmount);
                 member.SetValue("numberOfEmployees", company.NumberOfEmployees);
                 member.SetValue("trainingTopics", company.TrainingTopics);
+                member.SetValue("hasMakePreviousPurchase", company.HasMakePreviousPurchase);
 
                 try
                 {
