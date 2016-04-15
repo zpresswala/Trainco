@@ -1,10 +1,12 @@
 .register-standalone {
+  margin-top: 115px;
+  margin-bottom: 100px;
+
   .form-control {
     border: 1px solid $cart-border;
   }
 
   .register-top {
-    background-color: #f1f1f1;
     padding-bottom: 20px;
 
     .jumbotron {
@@ -13,9 +15,7 @@
 
       h1 {
         color: $headline-black;
-
-        &:before,
-        &:after {
+        &:before, &:after {
           content: none;
         }
       }
@@ -35,12 +35,12 @@
       .line {
         width: 50%;
         height: 14px;
-        background-color: #d6d6d6;
+        background-color: #D6D6D6;
       }
 
       .step {
         position: absolute;
-        background-color: #d6d6d6;
+        background-color: #D6D6D6;
         width: 28px;
         height: 28px;
         border-radius: 50%;
@@ -49,14 +49,13 @@
 
         &:after {
           position: relative;
-          bottom: -10px;
+          bottom: -35px;
+          left: -50%;
           font-style: italic;
           color: $headline-black;
-          width: 60px;
-          left: -50%;
           font-weight: 400;
           display: inline-block;
-          bottom: -35px;
+          width: 60px;
         }
       }
 
@@ -69,7 +68,6 @@
       .step1 {
         left: -10px;
         background-color: $red-button;
-
         &:after {
           content: 'Step 1';
         }
@@ -78,7 +76,6 @@
       .step2 {
         left: 50%;
         margin-left: -14px;
-
         &:after {
           content: 'Step 2';
         }
@@ -86,13 +83,11 @@
 
       .step3 {
         right: -10px;
-
         &:after {
           content: 'Step 3';
         }
       }
     }
-
     .container {
       margin-bottom: 0;
     }
@@ -117,12 +112,12 @@
   .line {
     width: 50%;
     height: 14px;
-    background-color: #d6d6d6;
+    background-color: #D6D6D6;
   }
 
   .step {
     position: absolute;
-    background-color: #d6d6d6;
+    background-color: #D6D6D6;
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -131,7 +126,6 @@
 
     &:after {
       position: relative;
-      bottom: -10px;
       font-style: italic;
       color: $headline-black;
       width: 60px;
@@ -151,7 +145,6 @@
   .step1 {
     left: -10px;
     background-color: $red-button;
-
     &:after {
       content: 'Step 1';
     }
@@ -160,7 +153,6 @@
   .step2 {
     left: 50%;
     margin-left: -14px;
-
     &:after {
       content: 'Step 2';
     }
@@ -168,7 +160,6 @@
 
   .step3 {
     right: -10px;
-
     &:after {
       content: 'Step 3';
     }
@@ -184,9 +175,10 @@
   }
 
   .form-container {
-    background-color: #f1f1f1;
+    max-width: 1200px;
+    border-radius: 10px;
+    background-color: #fff;
     padding-top: 40px;
-
     .result .container {
       margin: 10px auto;
     }
@@ -195,12 +187,9 @@
   .form-item-wrapper {
     padding: 0;
     @include tablet-landscape-and-up {
-      padding-left: 15px;
-      padding-right: 15px;
     }
-
     .form-control {
-      background-color: #fcfcfc;
+      background-color: #FCFCFC;
     }
 
     .container {
@@ -210,6 +199,8 @@
       color: $cart-copy;
       margin-bottom: 30px;
       padding: 0 0 30px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
@@ -217,13 +208,12 @@
     padding-left: 15px;
     padding-right: 15px;
 
-    li,
-    p {
+    li, p {
       display: inline;
     }
 
     .date {
-      float: right;
+      margin-left: 25px;
       font-style: italic;
     }
 
@@ -258,9 +248,8 @@
   .register-two-top {
     margin-top: 80px;
 
-    .line1,
-    .step2 {
-      background-color: $red-button;
+    .line1, .step2 {
+      background-color: $red-button !important;
     }
   }
 
@@ -280,9 +269,7 @@
 
   .billing-opts-wrapper {
     display: inline-block;
-    margin-bottom: 40px;
     width: 100%;
-
     h2 {
       margin-bottom: 6px;
     }
@@ -309,8 +296,8 @@
     border: 1px solid $cart-border;
     position: absolute;
     left: 14px;
-    bottom: 25px;
-    margin-top: -10px;
+    //bottom: 50%;
+    //margin-top: -9px;
   }
 
   input[type=checkbox]:checked + label:before {
@@ -318,7 +305,12 @@
     color: $blue;
     text-align: center;
     line-height: 17px;
-    text-shadow: 0px 0px 3px #eee;
+    text-shadow: 0 0 3px #eee;
+  }
+
+  .account-update {
+    margin-top: 30px;
+    margin-bottom: 0;
   }
 
   .hidden {
@@ -334,7 +326,6 @@
     float: left;
     display: none;
   }
-
   .invoice-info {
     float: left;
     display: none;
@@ -346,22 +337,22 @@
     }
   }
 
+
   .cvv-text {
     position: relative;
     cursor: pointer;
-
     span {
       display: none;
       border-radius: 4px;
       border: 1px solid $cart-border;
       background-color: $white;
-      position: absolute;
+      position:absolute;
       top: -200px;
       left: 120%;
       z-index: 4;
-      width: auto;
-      max-width: 320px;
-      min-height: 128px;
+      width:auto;
+      max-width:320px;
+      min-height:128px;
       padding: 15px;
       @include transition(0.25s);
 
@@ -385,7 +376,6 @@
     font-style: italic;
     margin: 6px 0 10px;
   }
-
   .cvv-text {
     display: inline-block;
     margin-top: 0;
@@ -396,14 +386,12 @@
     @include med-desktop-and-up {
       margin-top: 80px;
     }
-
-    .step,
-    .line {
-      background-color: $red-button;
+    .step, .line {
+      background-color: $red-button !important;
     }
 
     .container {
-      margin: 50px auto 10px;
+      margin: 80px auto;
     }
 
     .jumbotron {
@@ -414,7 +402,6 @@
   .summary-main {
     position: relative;
     padding-bottom: 40px;
-
     .container {
       margin: 20px auto;
       padding: 0;
@@ -422,17 +409,15 @@
         padding: 0 15px;
       }
     }
-
     .edit-btn {
       float: right;
       margin-bottom: 20px;
     }
-
     ul {
       padding: 0;
     }
-
     h2 {
+
       margin-bottom: 5px;
       @include tablet-portrait-and-up {
         margin-top: 0;
@@ -446,15 +431,13 @@
         line-height: inherit;
         margin: 10px 0;
       }
-
       .summary-opts {
         font-style: italic;
       }
     }
   }
 
-  .name,
-  .email {
+  .name, .email {
     margin-bottom: 8px;
   }
 
@@ -506,7 +489,8 @@
   .card-submit-wrap {
     position: relative;
     height: 100px;
-    margin-bottom: 60px;
+    width: 100%;
+    margin-top: 50px;
   }
 
   .card-loader {
@@ -555,5 +539,66 @@
   #button-submit {
     margin: 0 auto 10px;
     display: block;
+  }
+
+  .company-profile-container {
+    margin-bottom: 40px;
+  }
+
+  .form-head {
+    font-size: 22px;
+  }
+
+  .immutable-account-info {
+    padding-bottom: 25px;
+    padding-top: 20px;
+
+    .account-data {
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+
+  .extension-container {
+    display: table;
+    width: 100%;
+
+    >div {
+      display: table-cell;
+    }
+  }
+
+  .extension-label-container {
+    width: 40px;
+
+    label {
+      bottom: 10px;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-left: 0;
+      font-size: 14px;
+      color: #9D9B93;
+    }
+  }
+
+  .billing-opts-container {
+    margin-bottom: 50px;
+  }
+
+  .vcenter {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .billing-opts-label {
+    margin-top: 0;
+    margin-right: 30px;
+    margin-bottom: 0;
+    padding-left: 0;
+    white-space: nowrap;
+
+    @media (max-width: 767px) {
+      margin-bottom: 20px;
+    }
   }
 }

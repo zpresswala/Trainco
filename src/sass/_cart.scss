@@ -278,7 +278,7 @@
     position: relative;
     top: -10px;
     left: 50%;
-    margin-left: -12px;
+    margin-left: -16px;
   }
 }
 
@@ -689,9 +689,9 @@
 }
 
 .read-only-cart {
-  margin-top: 50px;
-
-  @include tablet-landscape-and-up {
-    margin-top: 80px;
-  }
+  //margin-top: 50px;
+  //
+  //@include tablet-landscape-and-up {
+  //  margin-top: 80px;
+  //}
 }

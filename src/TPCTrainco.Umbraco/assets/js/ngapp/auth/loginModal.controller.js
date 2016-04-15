@@ -21,7 +21,7 @@
         console.log(response)
         var token = response.data.result;
         localStorage.setItem('tcJWT', token)
-        $window.location.href = '/dashboard';
+        $window.location.href = '/dashboard/saved';
       })
     }
     $scope.ok = function () {

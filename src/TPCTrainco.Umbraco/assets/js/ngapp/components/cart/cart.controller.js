@@ -85,7 +85,7 @@
         localStorage.setItem('guid', data.cartGuid);
         vm.redirectGuid = data.cartGuid;
         if (localStorage.getItem('tcJWT')) {
-          $window.location.href = '/register/?cart=' + data.cartGuid;
+          $window.location.href = '/register/?cart=' + data.cartGuid + '&token=' + localStorage.getItem('tcJWT');
         } else {
         // $window.location.href = '/register/?cart=' + data.cartGuid;
         $window.location.href = '/dashboard/checkout/' + data.cartGuid;

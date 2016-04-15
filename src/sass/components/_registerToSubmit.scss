@@ -5,9 +5,21 @@
   border-radius: 10px;
   max-width: 1000px;
   margin: 0 auto 20px;
+  background-color: #fff;
+}
+
+// Tim Wilt added 4/15/16
+.totalSubmit-container {
+  border: none;
+  background-color: transparent;
 }
 
 .seminar-information-container {
+
+  &.container {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
   .seminar-title.form-head {
     text-align: left;
@@ -194,7 +206,7 @@
     margin: 0 40px;
 
     .checkbox-container {
-      padding: 40px 0;
+      margin: 40px 0;
 
       border-bottom: 1px solid transparent;
 
@@ -206,7 +218,8 @@
     }
 
     .speedCheckout {
-      padding-left: 40px;
+      position: relative;
+      padding-left: 45px;
     }
   }
 
@@ -288,12 +301,26 @@
     }
   }
 
+  @media (max-width: 480px) {
+    display: block;
+
+    >div {
+      display: block;
+      margin-bottom: 30px;
+    }
+  }
+
   button {
     @include default-button(#fff, $blue, transparent, $blue);
   }
 
   .totalPrice-container {
     position: relative;
+
+    @media (max-width: 480px) {
+      text-align: center;
+    }
+
     >span {
       font-size: 22px;
       color: $charcoal;
@@ -301,6 +328,14 @@
       &:last-of-type {
         position: absolute;
         left: 180px;
+
+        @media (max-width: 480px) {
+          position: static;
+        }
+
+        @media (max-width: 767px) {
+          left: 130px;
+        }
       }
     }
   }
