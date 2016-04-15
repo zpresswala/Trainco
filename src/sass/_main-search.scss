@@ -1,14 +1,14 @@
 .yearblock {
-  display: block!important;
-  white-space: normal!important;
+  display: block !important;
+  white-space: normal !important;
   margin-top: 10px;
   margin-left: -15px;
 }
 
 .monthblock {
   margin-top: -5px;
-  display: block!important;
-  white-space: normal!important;
+  display: block !important;
+  white-space: normal !important;
   margin-left: -12px;
 }
 
@@ -208,7 +208,6 @@ rzslider {
   vertical-align: middle;
   padding-left: 15px;
   padding-right: 15px;
-
   @include below-tablet-portrait() {
     display: none;
   }

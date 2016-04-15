@@ -3,11 +3,16 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-
 var browserSync = require('browser-sync');
 
-var $ = require('gulp-load-plugins')();
-
+var utilities = require('./utilities');
+var config = require('../gulp.config')();
+var $ = require('gulp-load-plugins')({
+          pattern: ['gulp-*', 'del', 'fs-extra']
+        });
+var gIf = require('gulp-if');
+var yargs = require('yargs');
+var production = yargs.argv.prod ? true : false;
 
 gulp.task('scripts-reload', function() {
   return buildScripts()
@@ -19,11 +24,19 @@ gulp.task('scripts', function() {
 });
 
 function buildScripts() {
-  return gulp.src(path.join(conf.paths.src, '/app/**/*.js'))
+  return gulp.src(config.ngjs)
     .pipe($.preprocess({ context: { NODE_ENV: 'development' }}))
     .pipe($.eslint())
     .pipe($.eslint.format())
+    .pipe($.sourcemaps.init())
+    .pipe($.ngAnnotate({add: true}))
+    .pipe(gIf(production, $.concat('ngapp.js')))
+    .pipe(gIf(production, $.uglify({
+      preserveComments: $.uglifySaveLicense, mangle: false}))
+      .on('error', conf.errorHandler('Uglify')))
+    .pipe($.sourcemaps.write('maps'))
     .pipe($.size())
+    .pipe(gulp.dest(config.tmp));
 };
 
 gulp.task('vendor', function() {
@@ -31,10 +44,10 @@ gulp.task('vendor', function() {
 });
 
 function buildVendor() {
-  return gulp.src(path.join(conf.paths.src, '/lib/**/*.js'))
+  return gulp.src(path.join(conf.paths.umb, 'assets/js/ngapp/lib/**/*.js'))
     .pipe($.ngAnnotate())
     .pipe($.concat('vendor.js'))
     .pipe($.uglify())
     .pipe($.size())
-    .pipe(gulp.dest(path.join(conf.paths.umb, 'TPCTrainco.Umbraco/app/lib')));
+    .pipe(gulp.dest(path.join(conf.paths.umb, 'assets/js/ngapp/lib')));
 };

@@ -1,0 +1,16 @@
+{
+"folders":
+  [
+    {
+      "follow_symlinks": true,
+      "path": ".",
+      "file_exclude_patterns": [".exe", "*.Umbraco.sln"],
+      "folder_exclude_patterns": [
+        "tmp", "log", ".*", "license", "Old Source",
+        "TPCTrainco.Cache", "TPCTrainco.Umbraco.Bin",
+        "TPCTrainco.Umbraco/APP_", "TPCTrainco.Umbraco/Config", "TPCTrainco.Umbraco/umbraco",
+        "TPCTrainco.Umbraco/data", "TPCTrainco.Umbraco/Properties", "TPCTrainco.Umbraco/masterpages"
+      ]
+    }
+  ]
+}

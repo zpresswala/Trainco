@@ -19,6 +19,7 @@ CREATE TABLE [dbo].[CacheCourseDetail](
 	[SubTitle] [varchar](max) NULL,
 	[ImageUrl] [varchar](500) NULL,
 	[DetailsUrl] [varchar](500) NULL,
+	[NodeId] [int] NULL,
 	[Price] [float] NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 

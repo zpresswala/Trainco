@@ -23,7 +23,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
     {
         public List<CourseDetail> CourseDetailList = null;
         public List<LocationScheduleDetail> LocationScheduleDetailList = null;
-        public CoordinateDetails LocationCoordinates { get; set; }
+        public CoordinateDetails locationCoordinates { get; set; }
 
         public int SchedulesPerPage = 10;
 
@@ -63,6 +63,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
         protected void FilterByLocation(ref List<LocationScheduleDetail> locationScheduleDetailList, SeminarsSearchRequest2 request)
         {
+            string debug = "";
+
             if (request.Radius <= 0)
             {
                 request.Radius = 50;
@@ -73,18 +75,54 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 request.Location = "";
             }
 
+            debug += "request.Radius: " + request.Radius + "\r\n";
+            debug += "request.Location: " + request.Location + "\r\n";
+
             if (false == string.IsNullOrEmpty(request.Location))
             {
-                LocationCoordinates = GeoCoordinates.GetCoordinateDetailsFromCityState(request.Location);
+                locationCoordinates = GeoCoordinates.GetCoordinateDetailsFromCityState(request.Location);
 
-                if (LocationCoordinates != null)
+                if (locationCoordinates != null)
                 {
-                    locationScheduleDetailList = FindLocationSeminarCatalog(locationScheduleDetailList, LocationCoordinates, request);
+                    debug += "LocationCoordinates.City: " + locationCoordinates.City + "\r\n";
+                    debug += "LocationCoordinates.Latitude: " + locationCoordinates.Latitude + "\r\n";
+                    debug += "LocationCoordinates.Longitude: " + locationCoordinates.Longitude + "\r\n";
+
+                    locationScheduleDetailList = FindLocationSeminarCatalog(locationScheduleDetailList, locationCoordinates, request);
+                }
+                else
+                {
+                    debug += "LocationCoordinates IS NULL!\r\n";
+
+                    List<LocationScheduleDetail> locationSearch = CacheObjects.GetLocationScheduleDetailList();
+
+                    debug += "Trying lookup method...\r\n";
+
+                    if (locationSearch != null && locationSearch.Any())
+                    {
+                        LocationScheduleDetail findLocation = locationSearch.Where(p => request.Location.ToLower().IndexOf(p.City.ToLower()) >= 0).FirstOrDefault();
+
+                        if (findLocation != null)
+                        {
+                            debug += "FOUND!\r\n";
+
+                            locationCoordinates = new CoordinateDetails();
+
+                            locationCoordinates.City = findLocation.City;
+                            locationCoordinates.DbGeography = findLocation.CoordinatesObj;
+                            locationCoordinates.Latitude = locationCoordinates.DbGeography.Latitude ?? 0;
+                            locationCoordinates.Longitude = locationCoordinates.DbGeography.Longitude ?? 0;
+                            locationCoordinates.State = findLocation.State;
+                            locationCoordinates.StateCode = findLocation.StateCode;
+                        }
+                    }
                 }
             }
+
+            //SendDebugEmail(debug, "TPCTrainco.com Seminar Search Debug");
         }
 
-        
+
         protected void FilterByTopic(ref List<CourseDetail> courseDetailList, ref List<LocationScheduleDetail> locationScheduleDetailList, SeminarsSearchRequest2 request)
         {
             if (request.Topics != null && request.Topics.Length > 0)
@@ -119,7 +157,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 string keywordsSearch = request.Keywords.ToLower();
 
-                locationScheduleDetailList = locationScheduleDetailList.Where(p => p.Description.ToLower().Contains(keywordsSearch) || 
+                locationScheduleDetailList = locationScheduleDetailList.Where(p => p.Description.ToLower().Contains(keywordsSearch) ||
                     p.DaysDescription.ToLower().Contains(keywordsSearch) ||
                     p.LocationDetails.ToLower().Contains(keywordsSearch) ||
                     p.State.ToLower().Contains(keywordsSearch) ||
@@ -176,6 +214,44 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
+        private void SendDebugEmail(string emailBody, string subject = "")
+        {
+            List<string> emailToList = null;
 
+            if (ConfigurationManager.AppSettings["LogToEmail:CCError"] != null && ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Length > 0)
+            {
+                emailToList = new List<string>();
+
+                emailToList = ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Split(';').ToList();
+
+                Helpers.Email email = new Email();
+
+                email.EmailFrom = "website@tpctrainco.com";
+                email.EmailToList = emailToList;
+                if (false == string.IsNullOrEmpty(subject))
+                {
+                    email.Subject = subject;
+                }
+                else
+                {
+                    email.Subject = "TPCTrainco.com Registration Error";
+                }
+                email.IsBodyHtml = false;
+
+                string body = emailBody;
+
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.Url.AbsoluteUri;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserHostAddress;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserAgent;
+                body += "\r\n\r\n";
+
+                email.Body = body;
+
+                email.SendEmail();
+            }
+        }
     }
 }

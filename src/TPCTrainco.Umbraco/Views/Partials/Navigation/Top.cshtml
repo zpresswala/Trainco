@@ -1,4 +1,4 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits UmbracoTemplatePage
 @{
     // Model.Content is the current page that we're on
@@ -9,12 +9,38 @@
     var homePage = CurrentPage.AncestorsOrSelf(1).First();
 
     IPublishedContent searchSeminarNode = Nodes.Instance.SeminarSearch;
-    
+
     // The menu items we want are all of the children of the homepage
     // We also check if "Hide in navigation" is on in the menu, we shouldn't show hidden items
     var menuItems = homePage.Children.Where("navigationTop == true");
 }
-
+<div id="authbar" ng-controller="AuthbarController as vm">
+<div class="container">
+  <div ng-if="vm.isLoggedIn">
+    <ul class="inline-list">
+        <li ng-cloak>
+            Welcome, <strong>{{vm.user.firstName}} {{vm.user.lastName}}</strong>
+        </li>
+      <li>
+        <a class="authbar-link" href="/dashboard">My account</a>
+      </li>
+      <li>
+        <a class="authbar-link" href="/logout" ng-click="vm.logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+  <div ng-if="!vm.isLoggedIn">
+    <ul class="inline-list">
+    <li>
+      <a class="authbar-link" href="/dashboard/signup">Create an account</a>
+    </li>
+    <li>
+      <a class="authbar-link" href="/dashboard/login">Log in</a>
+    </li>
+  </ul>
+  </div>
+  </div>
+</div>
 <nav class="navbar navbar-default">
     <div class="container-fluid contain">
         <div class="navbar-header">
@@ -26,7 +52,7 @@
             </button>
             <div class="logo">
                 TCPTrainco
-                <a class="navbar-brand" href="/"><img src="/images/logo-trainco-1x.png" alt="TCPTrainco Logo" id="logo"/></a>
+                <a class="navbar-brand" href="/"><img src="/assets/images/logo-trainco-1x.png" alt="TCPTrainco Logo" id="logo"/></a>
             </div>
         </div>
 

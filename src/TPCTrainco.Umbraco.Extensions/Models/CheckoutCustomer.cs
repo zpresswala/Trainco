@@ -14,6 +14,17 @@ namespace TPCTrainco.Umbraco.Extensions.Models
     {
         public int RegId { get; set; }
 
+        public string CartGuid { get; set; }
+        public string UserToken { get; set; }
+        public string Redirect { get; set; }
+
+        public bool LoggedIn { get; set; }
+
+        public bool UpdateCompanyProfile { get; set; }
+        public bool UpdateCompanyBilling { get; set; }
+
+        public bool SavedCompanyBilling { get; set; }
+
         [Required]
         [StringLength(255)]
         [DisplayName("First Name")]
@@ -59,8 +70,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models
 
         public string PhoneExt { get; set; }
 
-        [Required]
-        [RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$", ErrorMessage = "Email address is invalid.")]
+        [RequiredIfFalse("LoggedIn", ErrorMessage = "The Email Address is requied.")]
+        [RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9][\-a-zA-Z0-9]{0,22}[a-zA-Z0-9]))$", ErrorMessage = "Email address is invalid.")]
         public string Email { get; set; }
 
         public string HearAbout { get; set; }

@@ -79,6 +79,36 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return scheduleList;
         }
 
+        public static List<SCHEDULE> GetScheduleListAll(bool forceCacheRefresh = false)
+        {
+            string cacheKey = "ScheduleList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ScheduleListAll"));
+            ObjectCache cache = MemoryCache.Default;
+
+            List<SCHEDULE> scheduleList = cache.Get(cacheKey) as List<SCHEDULE>;
+
+            if (true == forceCacheRefresh || scheduleList == null)
+            {
+                Debug.WriteLine("Adding All Schedule List to Cache...");
+
+                using (var db = new americantraincoEntities())
+                {
+                    DateTime dateStart = DateTime.Now.AddDays(-7);
+                    DateTime dateEnd = DateTime.Now.AddMonths(18);
+
+                    scheduleList = db.SCHEDULES.ToList();
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+                cache.Add(cacheKey, scheduleList, policy);
+
+                Debug.WriteLine(" - All Schedule List Cache Updated");
+                Debug.WriteLine("");
+            }
+
+            return scheduleList;
+        }
+
 
         public static List<COURS> GetCourseList(bool forceCacheRefresh = false)
         {

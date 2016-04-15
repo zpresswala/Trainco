@@ -7,7 +7,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.19";
+    string cacheVer = "1.28";
     string htmlArgs = "";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
@@ -45,43 +45,57 @@
     string bodyId = "";
 
     bool cartPage = false;
-    bool checkoutPage = true;
+    bool checkoutRegistration = false;
+    bool checkoutPayment = false;
+    bool checkoutSummary = false;
+    bool checkoutSuccess = false;
     bool searchPage = false;
     bool homePage = false;
     bool seminarDetailPage = false;
+    bool dashboard = false;
+
+    if (currentPage.DocumentTypeAlias != "Dashboard")
+    {
+        htmlArgs = " ng-app=\"train\"";
+    }
+    else
+    {
+        dashboard = true;
+    }
 
     if (currentPage.DocumentTypeAlias == "HomePage")
     {
         cartPage = true;
         homePage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "SearchSeminars")
     {
         searchPage = true;
-        htmlArgs = " ng-app=\"train\"";
+    }
+    else if (currentPage.DocumentTypeAlias == "OnSiteTraining")
+    {
+
     }
     else if (currentPage.DocumentTypeAlias == "SeminarItem")
     {
         cartPage = true;
         seminarDetailPage = true;
-        htmlArgs = " ng-app=\"train\"";
     }
     else if (currentPage.DocumentTypeAlias == "RegisterContainer")
     {
-        checkoutPage = true;
+        checkoutRegistration = true;
     }
     else if (currentPage.DocumentTypeAlias == "RegisterInfo")
     {
-        checkoutPage = true;
+        checkoutPayment = true;
     }
     else if (currentPage.DocumentTypeAlias == "RegisterSummary")
     {
-        checkoutPage = true;
+        checkoutSummary = true;
     }
     else if (currentPage.DocumentTypeAlias == "RegisterSuccess")
     {
-        cartPage = true;
+        checkoutSuccess = true;
     }
 
     if (searchPage || homePage || seminarDetailPage)
@@ -171,6 +185,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    @if (true == currentPage.HasValue("hideSearch"))
+    {
+        if (true == currentPage.GetPropertyValue<bool>("hideSearch"))
+        {
+            <meta name="robots" content="noindex">
+        }
+    }
     <title>@htmlTitle | @siteName</title>
     <meta name="description" content="@(currentPage.GetPropertyValue<string>("pageDescription", siteName))" />
     <meta name="keywords" content="@(currentPage.GetPropertyValue<string>("keywords"))" />
@@ -186,35 +207,27 @@
     <meta name="twitter:description" content="@(currentPage.GetPropertyValue<string>("pageDescription"))" />
     <meta name="twitter:title" content="TPC Trainco training" />
     <meta name="twitter:domain" content="TPC Trainco" />
-	<base href="/" />
-    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link href="/images/favicon.ico" rel="shortcut icon">
+    <base href="/" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+    <link href="/assets/images/favicon.ico" rel="shortcut icon">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="/assets/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    @if (searchPage || homePage || seminarDetailPage)
-    {
+    <link rel="stylesheet" href="/assets/css/main.css?@cacheVer">
 
-        <link rel="stylesheet" href="/app/main.css?@cacheVer">
-    }
-    else
-    {
-        <link rel="stylesheet" type="text/css" href="/css/main.css?@cacheVer">
-        <link rel="stylesheet" type="text/css" href="/css/vendor.css?@cacheVer">
-    }
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="//fonts.googleapis.com/css?family=Lato:100,300,400,700,100italic,400italic" rel="stylesheet" type="text/css">
 
@@ -243,16 +256,12 @@
     <!--[if IE 9]>
         <body class="ie9">
     <![endif]-->
-
-    @if (false == searchPage && false == homePage && false == seminarDetailPage)
-    {
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     @Html.Raw(pageHeaderScript)
 </head>
 
-<body class="gradient-bg"@(bodyId)>
+<body class="gradient-bg" @(bodyId)>
 
     @Html.Partial("Navigation/Top")
 
@@ -262,14 +271,14 @@
 
     @Html.Partial("Navigation/Bottom")
 
-    <script>var ApiDomain = 'http@(Request.IsSecureConnection ? "s" : "")://@(Request.Url.Authority)';</script>
+    @*<script>var ApiDomain = 'http@(Request.IsSecureConnection ? "s" : "")://@(Request.Url.Authority)';</script>*@
     @if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
     }
-    @if (searchPage || homePage || seminarDetailPage)
+    @if (true) // (false == dashboard)
     {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.4.0/lodash.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -281,74 +290,73 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.8.0/rzslider.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
-        <script src="/app/lib/angular-loading.js"></script>
-        <script src="/app/lib/angular-selector.js"></script>
+        <script src="/assets/js/ngapp/lib/angular-loading.js"></script>
+        <script src="/assets/js/ngapp/lib/angular-selector.js"></script>
 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-
-  <script src="/app/core/core.module.js"></script>
-  <script src="/app/common/common.module.js"></script>
-  <script src="/app/components/components.module.js"></script>
-  <script src="/app/register/register.module.js"></script>
-  <script src="/app/seminar/seminar.module.js"></script>
-  <script src="/app/app.module.js"></script>
-  <script src="/app/common/util.service.js"></script>
-  <script src="/app/common/search.factory.js"></script>
-  <script src="/app/common/startFrom.filter.js"></script>
-  <script src="/app/common/months.factory.js"></script>
-  <script src="/app/common/cities.factory.js"></script>
-  <script src="/app/common/dropIn.animation.js"></script>
-  <script src="/app/common/slideToggle.animation.js"></script>
-  <script src="/app/components/cart/cart.directive.js"></script>
-  <script src="/app/common/stringToNumber.directive.js"></script>
-  <script src="/app/seminar/seminar.controller.js"></script>
-  <script src="/app/seminar/courseSearch.service.js"></script>
-  <script src="/app/register/register.controller.js"></script>
-  <script src="/app/core/lodash.factory.js"></script>
-  <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
-  <script src="/app/components/mainSearch/mainSearch.controller.js"></script>
-  <script src="/app/components/cart/cart.service.js"></script>
-  <script src="/app/components/cart/cart.controller.js"></script>
-
-
+        <script src="/assets/js/ngapp/core/core.module.js"></script>
+        <script src="/assets/js/ngapp/common/common.module.js"></script>
+        <script src="/assets/js/ngapp/components/components.module.js"></script>
+        <script src="/assets/js/ngapp/register/register.module.js?v1.43"></script>
+        <script src="/assets/js/ngapp/seminar/seminar.module.js"></script>
+        <script src="/assets/js/ngapp/auth/auth.module.js"></script>
+        <script src="/assets/js/ngapp/app.module.js"></script>
+        <script src="/assets/js/ngapp/common/util.service.js"></script>
+        <script src="/assets/js/ngapp/common/search.factory.js?v1.43"></script>
+        <script src="/assets/js/ngapp/common/seminars.factory.js"></script>
+        <script src="/assets/js/ngapp/common/startFrom.filter.js"></script>
+        <script src="/assets/js/ngapp/common/months.factory.js"></script>
+        <script src="/assets/js/ngapp/common/cities.factory.js"></script>
+        <script src="/assets/js/ngapp/common/dropIn.animation.js"></script>
+        <script src="/assets/js/ngapp/common/slideToggle.animation.js"></script>
+        <script src="/assets/js/ngapp/components/cart/cart.directive.js"></script>
+        <script src="/assets/js/ngapp/common/stringToNumber.directive.js"></script>
+        <script src="/assets/js/ngapp/seminar/seminar.controller.js"></script>
+        <script src="/assets/js/ngapp/seminar/seminarItem.controller.js"></script>
+        <script src="/assets/js/ngapp/seminar/courseSearch.service.js"></script>
+        <script src="/assets/js/ngapp/auth/auth.controller.js"></script>
+        <script src="/assets/js/ngapp/auth/loginModal.controller.js"></script>
+        <script src="/assets/js/ngapp/register/register.controller.js"></script>
+        <script src="/assets/js/ngapp/core/lodash.factory.js"></script>
+        <script src="/assets/js/ngapp/components/mainSearch/mainSearch.directive.js"></script>
+        <script src="/assets/js/ngapp/components/mainSearch/mainSearch.controller.js"></script>
+        <script src="/assets/js/ngapp/components/cart/cart.service.js"></script>
+        <script src="/assets/js/ngapp/components/cart/cart.controller.js"></script>
 
         if (seminarDetailPage)
         {
-                  <script type="text/javascript">
+            <script type="text/javascript">
 
-                                  $('a[href^="#"]').click(function(e) {
-                                      e.preventDefault();
-                                      var hash = $(this).attr('href');
-                                      $('html, body').stop(true).animate({scrollTop: $(hash).offset().top - 125}, 500);
-                                  });
-                      </script>
+                $('a[href^="#"]').click(function (e) {
+                    e.preventDefault();
+                    var hash = $(this).attr('href');
+                    $('html, body').stop(true).animate({ scrollTop: $(hash).offset().top - 125 }, 500);
+                });
+            </script>
         }
 
     }
-    else if (cartPage)
+    @if (true == checkoutRegistration)
     {
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
-        <script type="text/javascript" src="/js/cart.js?@cacheVer"></script>
+        <script type="text/javascript" src="/assets/js/checkout2/registration.js"></script>
     }
-    else if (checkoutPage)
+    else if (true == checkoutPayment)
     {
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+        <script type="text/javascript" src="/assets/js/checkout2/payment.js"></script>
     }
-    @if (false == searchPage && false == homePage && false == seminarDetailPage)
+    else if (true == checkoutSummary)
+    {
+        <script type="text/javascript" src="/assets/js/checkout2/summary.js"></script>
+    }
+    else if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
         <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
         <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
         <script type="text/javascript">
-        $(window).load(function () {
+            $(window).load(function () {
             tpcAppObj = new TPCApp();
         });
         </script>
-     }
+    }
 
     @if (true == homePage)
     {

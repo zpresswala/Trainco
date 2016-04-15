@@ -15,9 +15,14 @@
 </div>
 <div class="ng-cloak register-page" ng-controller="RegisterController as ctrl">
   <div class="responsive-sidebar-toggle">
-    <img class="img-left" src="/images/icon-search.png" alt="Search Icon" /> Search By
+    <img class="img-left" src="/assets/images/icon-search.png" alt="Search Icon" /> Search By
     <img ng-click="ctrl.sbIsCollapsed = !ctrl.sbIsCollapsed" class="img-right" src="/assets/images/icon-arrow-down.png" alt="Toggle Arrow" />
     <div class="register-sidebar--sm" uib-collapse="ctrl.sbIsCollapsed">
+      <div class="filter-location">
+        <label class="sidebar-label">Seminar Search by Title</label>
+        <select ng-model="ctrl.selectedSeminar.id" ng-options="seminar.id as seminar.title for seminar in ctrl.listingData" ng-change="ctrl.seminarDropDownWatcher()"></select>
+      </div>
+              <hr class="divider" />
       <div class="filter-location">
         <label class="sidebar-label">Keyword Search</label>
         <input type="search" ng-init="ctrl.kwFilter.word = ''" ng-keydown="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
@@ -68,6 +73,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3 register-sidebar">
+        <div class="filter-location">
+          <label class="sidebar-label">Seminar Search by Title</label>
+          <select ng-model="ctrl.selectedSeminar.id" ng-options="seminar.id as seminar.title for seminar in ctrl.listingData" ng-change="ctrl.seminarDropDownWatcher()"></select>
+        </div>
+                <hr class="divider" />
         <div class="filter-location">
           <label class="sidebar-label">Keyword Search</label>
           <input type="search" ng-keyup="ctrl.manualTextBoxHandler($event)" ng-blur="ctrl.manualTextBoxHandler($event)" ng-keydown="ctrl.typingTextBoxHandler($event, 'kw')" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
@@ -144,7 +154,7 @@
     <div class="faceted-result" ng-if="!ctrl.initialDirections && ctrl.seminarLocations.length" ng-repeat="course in ctrl.seminarLocations | flatten | startFrom: ctrl.mainCurrentPage * 4 | limitTo:4" dw-loading="courses" dw-loading-options="ctrl.options">
       <section class="row">
         <div class="col-md-2">
-          <img src="http://placehold.it/75/75" ng-src="http://tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
+          <img ng-src="//tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
           <h4 class="result-price">${{course.price}}</h4>
         </div>
         <div class="col-md-10" style="padding-left: 15px;">
@@ -179,7 +189,8 @@
                   ng-click="ctrl.addItemToCart(location, location.qty, $event)"/>
           </div>
         </div>
-        <span class="additional-showing" ng-if="course.locationSchedules.length > 10" ng-click="ctrl.numLimit=30"><i class="fa fa-plus-circle"></i> Show additional seminars for this topic</span>
+        <span class="additional-showing" ng-if="course.locationSchedules.length > 10" ng-click="ctrl.additionalClick()"><i class="fa fa-plus-circle"></i> Show additional seminars for this topic</span>
+
       </section>
     </div>
     <ul class="pagination-btn-wrapper" ng-hide="ctrl.showDirections">

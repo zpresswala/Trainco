@@ -6,11 +6,12 @@ using System.Data.Entity.Spatial;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
 using MaxMind.GeoIP2;
 using System.Web;
+using System.Configuration;
+using Umbraco.Core.Persistence;
 
 namespace TPCTrainco.Umbraco.Extensions.Objects
 {
@@ -35,7 +36,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 try
                 {
                     // DEBUG
-                    if (false == string.IsNullOrEmpty(ipAddress) && ipAddress.Length > 3 && ipAddress.Substring(0,3) == "10.")
+                    if (false == string.IsNullOrEmpty(ipAddress) && ipAddress.Length > 3 && ipAddress.Substring(0, 3) == "10.")
                     {
                         geoLocation = new GeoLocationLookup();
 
@@ -106,7 +107,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                                     }
                                 }
 
-                                
+
                                 geoLocation.Ip = dbIpLookup.Address;
                                 geoLocation.CountryCode = dbIpLookup.Country;
 
@@ -194,9 +195,20 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         {
             CoordinateDetails coordinateDetails = null;
 
-            MapPoint mapPoint = GetCoordinatesFromCityState(cityState);
+            coordinateDetails = GetCoordinatesByCityStateLookup(cityState);
 
-            coordinateDetails = GetCoordinateDetailsFromLatLong(mapPoint);
+            if (coordinateDetails == null)
+            {
+                MapPoint mapPoint = GetCoordinatesFromCityState(cityState);
+
+                coordinateDetails = GetCoordinateDetailsFromLatLong(mapPoint);
+            }
+
+            if (coordinateDetails == null)
+            {
+                coordinateDetails = GetCoordinateDetailsFromIp(HttpContext.Current.Request.UserHostAddress);
+            }
+
 
             return coordinateDetails;
         }
@@ -210,10 +222,101 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         public static MapPoint GetCoordinatesFromCityState(string cityState)
         {
             GoogleLocationService locationService = new GoogleLocationService();
+            MapPoint mapPoint = null;
+            string debug = "";
 
-            MapPoint mapPoint = locationService.GetLatLongFromAddress(cityState);
+            try
+            {
+                mapPoint = locationService.GetLatLongFromAddress(cityState);
+
+                if (mapPoint != null)
+                {
+                    debug += "mapPoint.Latitude: " + mapPoint.Latitude + "\r\n";
+                    debug += "mapPoint.Longitude: " + mapPoint.Longitude + "\r\n";
+                }
+                else
+                {
+                    debug += "mapPoint IS NULL!\r\n";
+                }
+                //SendDebugEmail(debug, "TPCTrainco.com Google Location Service Debug");
+            }
+            catch (Exception ex)
+            {
+                SendDebugEmail(ex.ToString(), "TPCTrainco.com Google Location Service Error");
+            }
+
 
             return mapPoint;
+        }
+
+
+        public static CoordinateDetails GetCoordinatesByCityStateLookup(string cityState)
+        {
+            CoordinateDetails coordinateDetails = null;
+
+            string city = "";
+            string state = "";
+            string stateCode = "";
+
+            if (cityState.IndexOf(",") >= 0)
+            {
+                List<string> cityStateArray = cityState.Split(',').ToList();
+
+                city = cityStateArray[0].Trim();
+
+                if (cityStateArray[1].Trim().Length == 2)
+                {
+                    stateCode = cityStateArray[1].Trim();
+                }
+                else
+                {
+                    state = cityStateArray[1].Trim();
+                }
+            }
+
+            if (false == string.IsNullOrWhiteSpace(city))
+            {
+                LocationLookup locationLookup = null;
+
+                using (Database db = new Database("umbracoDbDSN"))
+                {
+                    string sql = "";
+
+                    if (false == string.IsNullOrWhiteSpace(stateCode))
+                    {
+                        sql = "SELECT * FROM CacheLocationLookup WHERE City = @city AND StateCode = @stateCode";
+
+                        locationLookup = db.Query<LocationLookup>(sql, new { city = city, stateCode = stateCode }).FirstOrDefault();
+                    }
+                    else if (false == string.IsNullOrWhiteSpace(state))
+                    {
+                        sql = "SELECT * FROM CacheLocationLookup WHERE City = @city AND StateCode = @state";
+
+                        locationLookup = db.Query<LocationLookup>(sql, new { city = city, state = state }).FirstOrDefault();
+                    }
+
+                    if (locationLookup == null)
+                    {
+                        sql = "SELECT * FROM CacheLocationLookup WHERE City = @city";
+
+                        locationLookup = db.Query<LocationLookup>(sql, new { city = city }).FirstOrDefault();
+                    }
+                }
+
+                if (locationLookup != null)
+                {
+                    coordinateDetails = new CoordinateDetails();
+
+                    coordinateDetails.City = locationLookup.City;
+                    coordinateDetails.DbGeography = DbGeography.FromText("POINT(" + locationLookup.Longitude + " " + locationLookup.Latitude + ")", 4326);
+                    coordinateDetails.Latitude = locationLookup.Latitude;
+                    coordinateDetails.Longitude = locationLookup.Longitude;
+                    coordinateDetails.State = locationLookup.State;
+                    coordinateDetails.StateCode = locationLookup.StateCode;
+                }
+            }
+
+            return coordinateDetails;
         }
 
 
@@ -312,6 +415,47 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             Debug.WriteLine(sb.ToString());
 
             return result;
+        }
+
+
+        private static void SendDebugEmail(string emailBody, string subject = "")
+        {
+            List<string> emailToList = null;
+
+            if (ConfigurationManager.AppSettings["LogToEmail:CCError"] != null && ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Length > 0)
+            {
+                emailToList = new List<string>();
+
+                emailToList = ConfigurationManager.AppSettings.Get("LogToEmail:CCError").Split(';').ToList();
+
+                Helpers.Email email = new Email();
+
+                email.EmailFrom = "website@tpctrainco.com";
+                email.EmailToList = emailToList;
+                if (false == string.IsNullOrEmpty(subject))
+                {
+                    email.Subject = subject;
+                }
+                else
+                {
+                    email.Subject = "TPCTrainco.com Registration Error";
+                }
+                email.IsBodyHtml = false;
+
+                string body = emailBody;
+
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.Url.AbsoluteUri;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserHostAddress;
+                body += "\r\n\r\n";
+                body += HttpContext.Current.Request.UserAgent;
+                body += "\r\n\r\n";
+
+                email.Body = body;
+
+                email.SendEmail();
+            }
         }
     }
 }
