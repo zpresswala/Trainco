@@ -1,0 +1,66 @@
+﻿@using Umbraco.Core.Models
+@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
+    IPublishedContent currentPage = Model.Content;
+
+    IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
+    IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
+
+    IEnumerable<IPublishedContent> onsiteCoursesList = Nodes.OnSiteTraining().Children.FirstOrDefault().Children;
+
+    string message = "";
+
+    if (false == string.IsNullOrEmpty(Request.QueryString["form"]))
+    {
+        if (Request.QueryString.Get("form") == "success")
+        {
+            message = "<div class=\"alert alert-success\">Thank you for contacting us. We will respond to your inquiry within two business days.</div>";
+        }
+    }
+}
+
+<div class="container-fluid headline-section onsite">
+    <div class="row">
+        <div class="jumbotron">
+            <h1>@(currentPage.GetPropertyValue<string>("pageTitle", currentPage.Name))</h1>
+        </div>
+        <a href="#cfcontainer" class="btn-reg" role="button">Get a Quote</a>
+    </div>
+</div>
+<div class="container-fluid gradient-bg main-content">
+    <div class="container">
+        @Html.Raw(message)
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-wrap">
+
+                <div class="page-content">
+                    @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="caro-form-container" id="cfcontainer">
+    <div class="container">
+        <div class="form-wrap pull-right col-xs-12 col-md-6">
+            @CurrentPage.form
+        </div>
+
+        @Html.Partial("Seminars/SeminarList")
+
+
+    </div>
+</div> <!-- end container -->
+                  <script type="text/javascript">
+
+                                  $('a[href^="#"]').click(function(e) {
+                                      e.preventDefault();
+                                      var hash = $(this).attr('href');
+                                      $('html, body').stop(true).animate({scrollTop: $(hash).offset().top - 125}, 500);
+                                  });
+                      </script>

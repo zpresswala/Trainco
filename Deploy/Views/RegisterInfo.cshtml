@@ -1,0 +1,25 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    List<TPCTrainco.Umbraco.Extensions.temp_Reg> cartList = null;
+    string cartGuid = null;
+
+    cartGuid = TPCTrainco.Umbraco.Extensions.Objects.Carts.GetCartGuid(Session);
+
+    if (false == string.IsNullOrWhiteSpace(cartGuid))
+    {
+        TPCTrainco.Umbraco.Extensions.Objects.Carts cartsObj = new TPCTrainco.Umbraco.Extensions.Objects.Carts();
+
+        cartList = cartsObj.GetCart(cartGuid);
+    }
+    else
+    {
+        Response.Redirect("/search-seminars/");
+    }
+}
+
+@if (false == string.IsNullOrWhiteSpace(cartGuid))
+{
+    @Html.Action("Index", "CheckoutCustomerSurface")
+}

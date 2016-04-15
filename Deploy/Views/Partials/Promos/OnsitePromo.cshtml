@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
+@{
+    IPublishedContent siteSettings = TPCTrainco.Umbraco.Extensions.Helpers.Nodes.Instance.SiteSettings;
+    IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
+
+    if (onsitePromo != null && onsitePromo.Id > 0)
+    {
+        if (true == Model.GetPropertyValue<bool>("displayPromo"))
+        {
+            string headline = onsitePromo.GetPropertyValue<string>("promoHeadline");
+            string message = onsitePromo.GetPropertyValue<string>("promoText");
+            string buttonText = onsitePromo.GetPropertyValue<string>("promoButtonText");
+            UrlPicker.Umbraco.Models.UrlPicker link = onsitePromo.GetPropertyValue<UrlPicker.Umbraco.Models.UrlPicker>("promoLink");
+            var promoMedia = Umbraco.Media(onsitePromo.GetPropertyValue<int>("promoImage"));
+            string promoImageUrl = null;
+
+            if (promoMedia != null)
+            {
+                promoImageUrl = promoMedia.Url;
+            }
+
+            <div class="container-fluid onsite-section">
+                <div class="left-skew">
+                    <div class="skewed-side">
+                        <div class="inner">
+                            <h2 class="callout-headline">@headline</h2>
+                            @Html.Raw(message)
+                            <a href="@link.Url" class="btn-reg btn-white" role="button">@buttonText</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-img">
+                    <img src="/assets/images/on-site.jpg" alt="See our on-site programs">
+                    @*@if (false == string.IsNullOrEmpty(promoImageUrl))
+                    {
+                        <img src="/assets/images/on-site.jpg" alt="@headline">
+                    }*@
+                </div>
+            </div>
+        }
+    }
+}

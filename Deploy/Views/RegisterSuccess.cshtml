@@ -1,0 +1,91 @@
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Models
+@using TPCTrainco.Umbraco.Extensions.Objects
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    CheckoutDetails checkoutDetails = new CheckoutDetails();
+    List<temp_Reg> tempRegList = null;
+    string cartGuid = null;
+    string registrationId = "";
+    string userCreateOption = "";
+
+    if (false == string.IsNullOrEmpty(Request.QueryString["u"]))
+    {
+        userCreateOption = Request.QueryString.Get("u");
+    }
+
+    cartGuid = Carts.GetCartGuid(Session);
+
+    if (false == string.IsNullOrWhiteSpace(cartGuid))
+    {
+        Carts cartsObj = new Carts();
+
+        tempRegList = cartsObj.GetCart(cartGuid);
+
+        if (Session["RegistrationId"] != null && Session["RegistrationId"].ToString().Length > 0)
+        {
+            registrationId = Session["RegistrationId"].ToString();
+        }
+
+        CartCookies.Remove();
+        Session.Abandon();
+    }
+
+
+    if (tempRegList == null)
+    {
+        Response.Redirect("/search-seminars/");
+    }
+}
+
+@if (tempRegList != null)
+{
+    <div class="thanksRegister-container">
+        <div class="thanks-container">
+            <h1 class="thanks">Thank You!</h1>
+            <p class="thanks-body">Emails have been sent to the registrant and attendees.</p>
+            @if (false == string.IsNullOrEmpty(registrationId))
+            {
+                <div class="confirmation-container">
+                    <span class="confirmation-number-lead">Confirmation Number:</span>
+                    <span class="confirmation-number">#@(registrationId)</span>
+                </div>
+            }
+        </div>
+
+        @if (false == string.IsNullOrEmpty(userCreateOption))
+        {
+            <div class="registerAccount-container">
+                @if (userCreateOption == "1" || userCreateOption == "0")
+                {
+                    <h2 class="registerAccount-head">Your account has been created.</h2>
+                    <p class="registerAccount-body">Please check your email to validate and complete your website account.</p>
+                }
+                else if (userCreateOption == "-1")
+                {
+                    <h2 class="registerAccount-head">There was a problem creating your account.</h2>
+                    <p class="registerAccount-body">Please try creating your account again..</p>
+                    <div class="button-container">
+                        <form method="get" action="/dashboard/signup/">
+                            <button class="registerAccount-button">Create an account</button>
+                        </form>
+                    </div>
+                }
+                else if (userCreateOption == "2")
+                {
+                    <h2 class="registerAccount-head">Create an account for faster checkout.</h2>
+                    <p class="registerAccount-body">Creating an account takes only a few minutes and will save time for future registrations by saving your information.</p>
+                    <div class="button-container">
+                        <form method="get" action="/dashboard/signup/">
+                            <button class="registerAccount-button">Create an account</button>
+                        </form>
+                    </div>
+                }
+
+            </div>
+        }
+    </div>
+
+}

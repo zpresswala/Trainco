@@ -1,0 +1,14 @@
+{
+  "id": "e0fba3ab-bd2c-40d1-b4d6-123c5671d8e7",
+  "name": "Send email john@imulus.com",
+  "form": "955ed780-006e-42c4-947a-a33abfbeb032",
+  "active": true,
+  "workflowTypeId": "e96badd7-05be-4978-b8d9-b3d733de70a5",
+  "executesOn": "Submitted",
+  "settings": {
+    "Email": "john@imulus.com",
+    "Subject": "On Site Submission",
+    "Message": "On Site Submission"
+  },
+  "sortOrder": 1
+}

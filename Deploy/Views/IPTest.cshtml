@@ -1,0 +1,74 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
+    IPublishedContent currentPage = Model.Content;
+
+    string output = "";
+    string ipAddress = Request.UserHostAddress;
+
+    if (Request.QueryString["ip"] != null && Request.QueryString.Get("ip").Length > 0)
+    {
+        ipAddress = Request.QueryString.Get("ip");
+    }
+
+    if (false == string.IsNullOrEmpty(ipAddress) && ipAddress.Length > 3 && ipAddress.Substring(0, 3) == "10.")
+    {
+        output += "<p><strong>Internal</strong><br />Englewood, CO</p>\n\r";
+    }
+    else
+    {
+        string maxMind = "";
+
+        using (var reader = new MaxMind.GeoIP2.DatabaseReader(HttpContext.Current.Server.MapPath("/ip-db/GeoLite2-City.mmdb")))
+        {
+            MaxMind.GeoIP2.Responses.CityResponse cityResponse = reader.City(ipAddress);
+
+            if (cityResponse != null)
+            {
+                maxMind += cityResponse.City.Name + " " + cityResponse.MostSpecificSubdivision.Name;
+            }
+        }
+
+        string dbIp = "";
+
+        using (var objClient = new WebDownload())
+        {
+            dbIp = objClient.DownloadString("http://api.db-ip.com/addrinfo?addr=" + ipAddress + "&api_key=723b0198c9093910bdcf5f0d91e1a845a2a38d97");
+        }
+
+        string freeGeoIp = "";
+
+        using (var objClient = new WebDownload())
+        {
+            freeGeoIp = objClient.DownloadString("http://freegeoip.net/json/" + ipAddress);
+        }
+
+        output += "<p><strong>MaxMind</strong><br />" + maxMind + "</p>\n\r";
+        output += "<p><strong>DB-IP</strong><br />" + dbIp + "</p>\n\r";
+        output += "<p><strong>FreeGeoIp.Net</strong><br />" + freeGeoIp + "</p>\n\r";
+    }
+
+}
+
+<div class="container-fluid headline-section">
+    <div class="container">
+        <div class="jumbotron">
+            <h1 id="js-counter-start">@(currentPage.GetPropertyValue<string>("pageHeadline", currentPage.Name))</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid gradient-bg main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-wrap">
+                <h2>@(currentPage.GetPropertyValue<string>("pageTitle", currentPage.Name))</h2>
+                <h3>Current IP: @(ipAddress)</h3>
+                @Html.Raw(output)
+            </div>
+        </div>
+    </div>
+</div>

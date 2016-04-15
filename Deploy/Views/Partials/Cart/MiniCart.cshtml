@@ -1,0 +1,64 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits UmbracoTemplatePage
+@{
+
+}
+
+<div class="slide-toggle" ng-controller="CartController as vm">
+  <div ng-show="slideToggle1">
+    <div class="row cart-top">
+      <div class="container">
+        <div class="col-xs-12">
+          <h3 ng-class="{'cart-left': vm.isActive}"><img src="/assets/images/icon-cart.png" alt="Cart"/>Cart</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <ul class="list-inline cart-item-list">
+        <li class="cart-item" ng-repeat="cartItem in vm.cartItemList track by $index">
+          <ul class="container">
+            <li class="class-title col-xs-12 col-sm-12 col-md-4">{{cartItem.title}}</li>
+
+            <li class="location col-xs-12 col-sm-4 col-md-2">{{cartItem.city}}, {{cartItem.state}}</li>
+            <li class="date col-xs-12 col-sm-4 col-md-2">{{cartItem.date}}</li>
+            <li class="col-xs-12 col-sm-4 col-md-2 remove-wrap">
+              <a href="javascript:void(0);" ng-click="vm.removeItemFromCart(cartItem.id)" class="remove">X Remove</a>
+            </li>
+            <li class="qty-wrap col-xs-12 col-sm-4 col-md-1">
+              <input class="class-qty" ng-model="cartItem.quantity" string-to-number value="{{qty}}" ng-keydown="vm.handleQuantInput($event, cartItem)" type="tel" min="1" name="qty">
+            </li>
+            <li class="sub-total col-xs-12 col-sm-4 col-md-1">
+              ${{cartItem.price * cartItem.quantity}}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="cart-bottom">
+      <div class="container">
+        <div class="col-xs-12 wrap">
+          <p class="cart-empty-msg" ng-if="vm.cartTotalPrice === 0">Your cart is currently empty.</p>
+      <ul class="cart-total col-xs-12 col-md-4">
+        <li class="items-total">{{ vm.cartItemList.length }} Items</li>
+        <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
+      </ul>
+          <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
+            <a href="javascript:void(0);" ng-click="vm.doPurchase()" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-visible">
+    <a class="cart-tab" href="javascript:void(0);" ng-click="slideToggle1 =! slideToggle1">
+        <img ng-click="vm.swapHere()" ng-src="{{ vm.cartImages.current }}"/>
+    </a>
+    <div class="container" ng-show="!slideToggle1">
+      <ul class="cart-total col-xs-12 col-md-4">
+        <li class="items-total">{{ vm.cartItemList.length }} Items</li>
+        <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>

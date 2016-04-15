@@ -1,0 +1,20 @@
+<ul>
+  <li class="seminar-loc--block" ng-repeat="location in seminar.seminarLocations | groupBy:'state'">
+    <h3 class="state-name"><strong>{{ location[0].state }}</strong></h3>
+    <div class="location-row">
+      <ul class="seminar-loc--row" ng-repeat="event in location | filter: { dateMonthYear: seminar.monthsSlider.minValue }">
+        <div class="result-table-body ">
+          <li class="faux-head--city col-md-4">
+            <span class="city-name">{{ event.city }}</span>
+          </li>
+          <li class="faux-head--date col-md-4">
+            <span class="event-date">{{ event.date}}</span>
+          </li>
+          <li class="faux-head--register col-md-4">
+            <a uib-popover-template="seminar.detailPop.templateUrl" class="register-link" ng-click="seminar.registerSem({id: event.id})">Register <i class="fa fa-chevron-down"></i></a>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </li>
+</ul>

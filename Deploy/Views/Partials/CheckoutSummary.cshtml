@@ -1,0 +1,216 @@
+﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions.Objects
+@model TPCTrainco.Umbraco.Extensions.Models.CheckoutDetails
+@{
+    temp_Cust tempCust = Model.tempCust;
+    IPublishedContent currentNode = UmbracoContext.Current.PublishedContentRequest.PublishedContent;
+}
+
+@if (tempCust != null && Model.tempRegList != null)
+{
+    using (Html.BeginUmbracoForm<TPCTrainco.Umbraco.Controllers.CheckoutSummarySurfaceController>("HandleFormSubmit"))
+                {
+        <div class="register-standalone">
+            <div class="container-fluid register-top">
+                <div class="container">
+                    <div class="jumbotron">
+                        <h1>Review Order</h1>
+                        <ul class="indicator">
+                            <li class="step Registration"></li>
+                            <li class="line line1"></li>
+                            <li class="step Payment"></li>
+                            <li class="line line2"></li>
+                            <li class="step Review Order"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="totalSubmit-container">
+                <div class="totalPrice-container">
+                    <span>Order Total:</span>
+                    <span>$@(String.Format("{0:N2}", tempCust.reg_Cost ?? 0))</span>
+                </div>
+                <div class="submitOrder-container">
+                    <div class="button-container">
+                        <button type="submit" id="button-submit" class="submit-button">Submit your order</button>
+                        <div class="spinner card-loader">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                        <p class="processing-msg"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="seminar-information-container">
+
+                @foreach (temp_Reg tempReg in Model.tempRegList.OrderBy(p => p.reg_SEQ))
+                {
+                    int regSeqId = tempReg.reg_SEQ;
+                    string[] semPlaceArray = tempReg.sem_Place.Split('-');
+
+                    string semLocation = semPlaceArray[0].Trim();
+                    string semDates = semPlaceArray.Length == 2 ? semPlaceArray[0].Trim() : "";
+
+
+                    <div class="top-info-container">
+                        <ul class="top-info">
+                            <li>
+                                <h2 class="seminar-title form-head">@tempReg.sem_Title</h2>
+                            </li>
+                            <li><p>@(semLocation)</p></li>
+                            <li class="date"><p>@(semDates)</p></li>
+                        </ul>
+                    </div>
+                    <div class="attendees-container">
+                        <h3 class="attendees-header">Attendees</h3>
+                        <div class="seminar-attendees-container">
+                            <div class="seminar-attendees">
+                                <div class="attendees-head">
+                                    <div class="head-info-container"><span class="head-name">Name</span></div>
+                                    <div class="head-info-container"><span class="head-email">Email</span></div>
+                                    <div class="head-info-container"><span class="head-title">Title</span></div>
+                                    <div class="head-info-container"><span class="head-cost">Individual Cost</span></div>
+                                </div>
+                                @foreach (temp_Att tempAtt in Model.tempAttList.Where(p => p.reg_SEQ == regSeqId))
+                                {
+                                    <ul class="attendees-attendee">
+                                        <li class="attendee">
+                                            <div class="attendee-info-container"><span class="attendee-name">@(tempAtt.att_FName + " " + tempAtt.att_LName)</span></div>
+                                            <div class="attendee-info-container"><span class="attendee-email">@(tempAtt.att_Email)</span></div>
+                                            <div class="attendee-info-container"><span class="attendee-title">@(tempAtt.att_Title)</span></div>
+                                            <div class="attendee-info-container"><span class="attendee-cost">$@(String.Format("{0:N2}", tempReg.sem_FeeAmt ?? 0))</span></div>
+                                        </li>
+                                    </ul>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="payment-information-container">
+            <div class="company-information-container">
+                <div class="company-profile">
+                    <h3>Company Profile</h3>
+                </div>
+                <div class="company-information">
+                    <span>@(tempCust.authFName + " " + tempCust.authLName)</span>
+                    <span>@(tempCust.authEmail)</span>
+                    <span>@(tempCust.CoName)</span>
+                    <span>@(tempCust.authAddr1 + " " + tempCust.authAddr2)</span>
+                    <span>@(tempCust.authCity + ", " + tempCust.authState + " " + tempCust.authZip + " " + tempCust.authCountry)</span>
+                    <span>(@(tempCust.authPhone1)) @(tempCust.authPhone2)-@(tempCust.authPhone3)</span>
+                </div>
+                <div class="edit-information">
+                    <span><a href="/register/info/">Edit Information</a></span>
+                </div>
+            </div>
+            <div class="creditCard-information-container">
+                <div class="payment-method">
+                    <h4>Payment Method</h4>
+                </div>
+                <div class="credit-card">
+                    <h4>@(tempCust.payMethod)</h4>
+                </div>
+            </div>
+            @if (true == string.IsNullOrEmpty(Model.UserToken))
+            {
+                <div class="speedCheckout-container">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="speedCheckout" name="speedCheckout">
+                        <label class="speedCheckout" for="speedCheckout">Save and create an account for faster checkout next time</label>
+                        @Html.HiddenFor(p => p.CreateAccount)
+                    </div>
+                    <div class="speedCheckout-form">
+                        <div class="form-container">
+                            <h2 class="form-intent">Please tell us a bit more about your training needs so we can serve you better.</h2>
+                                <div class="row-content-container">
+                                    <fieldset>
+                                        <legend class="form-helper">
+                                            Have you previously purchased or attended one or more of our courses?*
+                                        </legend>
+                                        <div class="radio-container">
+                                            <label class="form-label" for="radio-yes">
+                                                Yes
+                                                <input class="form-input" id="radio-yes" type="radio" name="attend" value="yes">
+                                            </label>
+                                            <label class="form-label" for="radio-no">
+                                                No
+                                                <input class="form-input" id="radio-no" type="radio" name="attend" value="no">
+                                            </label>
+                                        </div>
+                                    </fieldset>
+                                    
+                                </div>
+                                <div class="row-content-container">
+                                    <label class="form-helper" for="industry">Your Industry</label>
+                                    <div class="select-arrows">
+                                        @Html.DropDownListFor(p => p.Company.Industry, FormUtilities.IndustryList(), new { @class = "form-input" })
+                                        @Html.ValidationMessageFor(p => p.Company.Industry)
+                                    </div>
+                                </div>
+                                <div class="row-content-container">
+                                    <label class="form-helper" for="role">
+                                        How often do you use outside training, such as seminar courses, at your company/facility?*
+                                    </label>
+                                    <div class="select-arrows">
+                                        @Html.DropDownListFor(p => p.Company.ExternalTrainingUsageAmount, FormUtilities.ExternalTrainingUsageAmountList(), new { @class = "form-input" })
+                                        @Html.ValidationMessageFor(p => p.Company.ExternalTrainingUsageAmount)
+                                    </div>
+                                </div>
+                                <div class="row-content-container">
+                                    <label class="form-helper" for="frequency">
+                                        About how many employees in your facility need training each year?*
+                                    </label>
+                                    <div class="select-arrows">
+                                        @Html.DropDownListFor(p => p.Company.NumberOfEmployees, FormUtilities.ExternalTrainingUsageAmountList(), new { @class = "form-input" })
+                                        @Html.ValidationMessageFor(p => p.Company.NumberOfEmployees)
+                                    </div>
+                                </div>
+                                <div class="row-content-container">
+                                    <div class="form-helper">What training topics most interest you and/or your team?*</div>
+
+                                    @foreach (SelectListItem industryItem in FormUtilities.TopicsMostInterestList())
+                                    {
+                                        <div class="industry-checkbox-container">
+                                            <input type="checkbox" class="interested-topics" id="Industry@(industryItem.Value)" value="@(industryItem.Text)">
+                                            <label for="Industry@(industryItem.Value)">@(industryItem.Text)</label>
+                                        </div>
+                                    }
+
+                                    @Html.HiddenFor(p => p.Company.TrainingTopics)
+                                </div>
+                            <div class="required-helper">
+                                <span>* Indicates Required Field</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="totalSubmit-container">
+            <div class="totalPrice-container">
+                <span>Order Total:</span>
+                <span>$@(String.Format("{0:N2}", tempCust.reg_Cost ?? 0))</span>
+            </div>
+            <div class="submitOrder-container">
+                <div class="button-container">
+                    @Html.ValidationSummary()
+                    <button type="submit" id="button-submit2" class="submit-button">Submit your order</button>
+                    <div class="spinner card-loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <p class="processing-msg"></p>
+                </div>
+            </div>
+        </div>
+        }
+}

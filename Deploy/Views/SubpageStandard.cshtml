@@ -1,0 +1,35 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
+    IPublishedContent currentPage = Model.Content;
+
+    IPublishedContent onsitePromo = siteSettings.GetPropertyValue<IPublishedContent>("activePromo");
+    IEnumerable<IPublishedContent> activeSeminarList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("activeSeminars");
+    IEnumerable<IPublishedContent> userQuoteList = currentPage.GetPropertyValue<IEnumerable<IPublishedContent>>("userQuotes");
+}
+
+<div class="container-fluid headline-section">
+    <div class="container">
+        <div class="jumbotron">
+            <h1 id="js-counter-start">@(currentPage.GetPropertyValue<string>("pageHeadline", currentPage.Name))</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid gradient-bg main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-wrap">
+                <h2>@(currentPage.GetPropertyValue<string>("pageTitle", currentPage.Name))</h2>
+                @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Promos/OnsitePromo", currentPage)
+
+@Html.Partial("Quotes/UserQuotes", currentPage)

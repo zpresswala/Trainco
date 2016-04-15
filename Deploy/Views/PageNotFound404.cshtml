@@ -1,0 +1,36 @@
+﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Base.cshtml";
+
+    IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
+    IPublishedContent currentPage = Model.Content;
+
+    IPublishedContent redirects = null;
+
+    redirects = TPCTrainco.Umbraco.Extensions.Helpers.Nodes.RedirectFolder();
+
+    if (redirects != null)
+    {
+        TPCTrainco.Umbraco.Extensions.Helpers.RedirectHelper.TryRedirect(redirects);
+    }
+}
+
+<div class="container-fluid headline-section">
+    <div class="container">
+        <div class="jumbotron">
+            <h1 id="js-counter-start">@(currentPage.GetPropertyValue<string>("pageHeadline", currentPage.Name))</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid gradient-bg main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-wrap">
+                <h2>@(currentPage.GetPropertyValue<string>("pageTitle", ""))</h2>
+                @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))
+            </div>
+        </div>
+    </div>
+</div>
