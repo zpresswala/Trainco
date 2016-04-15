@@ -81,17 +81,17 @@
                 <h1>@CurrentPage.name</h1>
             }
             <ul class="indicator">
-                <li class="step Registration"></li>
+                <li class="step step1 Registration"></li>
                 <li class="line line1"></li>
-                <li class="step Payment"></li>
+                <li class="step step2 Payment"></li>
                 <li class="line line2"></li>
-                <li class="step Review Order"></li>
+                <li class="step step3 Review Order"></li>
             </ul>
         </div>
     </div>
 </div>
 
-<div class="container-fluid form-container gradient-bg" data-cart="@cartGuid">
+<div class="container-fluid form-container" data-cart="@cartGuid">
 
     @if (cartList != null)
     {

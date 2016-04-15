@@ -1370,7 +1370,6 @@ legend {
   line-height: inherit;
   color: #333333;
   border: 0;
-  border-bottom: 1px solid #e5e5e5;
 }
 
 label {
@@ -4205,6 +4204,7 @@ button.list-group-item-danger.active:focus {
   width: 2px;
   display: inline-block;
   cursor: pointer;
+  color: #fff;
 }
 
 .selector-container.open input,
@@ -7089,12 +7089,16 @@ select.form-input {
   color: #5c5c5c;
 }
 
+.register-standalone {
+  margin-top: 115px;
+  margin-bottom: 100px;
+}
+
 .register-standalone .form-control {
   border: 1px solid #dcdcdc;
 }
 
 .register-standalone .register-top {
-  background-color: #f1f1f1;
   padding-bottom: 20px;
 }
 
@@ -7141,14 +7145,13 @@ select.form-input {
 
 .register-standalone .register-top .jumbotron .step:after {
   position: relative;
-  bottom: -10px;
+  bottom: -35px;
+  left: -50%;
   font-style: italic;
   color: #3e3e3e;
-  width: 60px;
-  left: -50%;
   font-weight: 400;
   display: inline-block;
-  bottom: -35px;
+  width: 60px;
 }
 
 .register-standalone .register-top .jumbotron .active:after {
@@ -7265,7 +7268,9 @@ select.form-input {
 }
 
 .register-standalone .form-container {
-  background-color: #f1f1f1;
+  max-width: 1200px;
+  border-radius: 10px;
+  background-color: #fff;
   padding-top: 40px;
 }
 
@@ -7275,13 +7280,6 @@ select.form-input {
 
 .register-standalone .form-item-wrapper {
   padding: 0;
-}
-
-@media (min-width: 1025px) {
-  .register-standalone .form-item-wrapper {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
 }
 
 .register-standalone .form-item-wrapper .form-control {
@@ -7295,6 +7293,8 @@ select.form-input {
   color: #8a8a8a;
   margin-bottom: 30px;
   padding: 0 0 30px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .register-standalone .top-info {
@@ -7348,7 +7348,7 @@ select.form-input {
 }
 
 .register-standalone .register-two-top .line1, .register-standalone .register-two-top .step2 {
-  background-color: #c6211f;
+  background-color: #c6211f !important;
 }
 
 .register-standalone .register-two {
@@ -7370,12 +7370,41 @@ select.form-input {
 
 .register-standalone .billing-opts-wrapper {
   display: inline-block;
-  margin-bottom: 40px;
   width: 100%;
 }
 
 .register-standalone .billing-opts-wrapper h2 {
   margin-bottom: 6px;
+}
+
+.register-standalone .billing-opts-wrapper label {
+  margin-bottom: 25px;
+  padding-left: 30px;
+  margin-top: 10px;
+}
+
+.register-standalone input[type=checkbox] {
+  display: none;
+}
+
+.register-standalone input[type=checkbox] + label:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid #dcdcdc;
+  position: absolute;
+  left: 14px;
+}
+
+.register-standalone input[type=checkbox]:checked + label:before {
+  content: "\2713";
+  color: #008fc7;
+  text-align: center;
+  line-height: 17px;
+  text-shadow: 0 0 3px #eee;
 }
 
 .register-standalone .account-update {
@@ -7465,11 +7494,11 @@ select.form-input {
 }
 
 .register-standalone .summary-top .step, .register-standalone .summary-top .line {
-  background-color: #c6211f;
+  background-color: #c6211f !important;
 }
 
 .register-standalone .summary-top .container {
-  margin: 50px auto 10px;
+  margin: 80px auto;
 }
 
 .register-standalone .summary-top .jumbotron {
@@ -7588,7 +7617,8 @@ select.form-input {
 .register-standalone .card-submit-wrap {
   position: relative;
   height: 100px;
-  margin-bottom: 60px;
+  width: 100%;
+  margin-top: 50px;
 }
 
 .register-standalone .card-loader {
@@ -7648,13 +7678,6 @@ select.form-input {
   display: block;
 }
 
-.register-standalone .form-container {
-  max-width: 1200px;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  background-color: #fff;
-}
-
 .register-standalone .company-profile-container {
   margin-bottom: 40px;
 }
@@ -7682,6 +7705,10 @@ select.form-input {
   display: table-cell;
 }
 
+.register-standalone .extension-label-container {
+  width: 40px;
+}
+
 .register-standalone .extension-label-container label {
   bottom: 10px;
   margin-top: 0;
@@ -7692,7 +7719,7 @@ select.form-input {
 }
 
 .register-standalone .billing-opts-container {
-  margin-bottom: 15px;
+  margin-bottom: 50px;
 }
 
 .register-standalone .vcenter {
@@ -7721,6 +7748,17 @@ select.form-input {
   border-radius: 10px;
   max-width: 1000px;
   margin: 0 auto 20px;
+  background-color: #fff;
+}
+
+.totalSubmit-container {
+  border: none;
+  background-color: transparent;
+}
+
+.seminar-information-container.container {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .seminar-information-container .seminar-title.form-head {
@@ -7916,7 +7954,7 @@ select.form-input {
 }
 
 .payment-information-container .speedCheckout-container .checkbox-container {
-  padding: 40px 0;
+  margin: 40px 0;
   border-bottom: 1px solid transparent;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -7927,7 +7965,8 @@ select.form-input {
 }
 
 .payment-information-container .speedCheckout-container .speedCheckout {
-  padding-left: 40px;
+  position: relative;
+  padding-left: 45px;
 }
 
 .payment-information-container .speedCheckout-form {
@@ -8007,6 +8046,16 @@ select.form-input {
   white-space: nowrap;
 }
 
+@media (max-width: 480px) {
+  .totalSubmit-container {
+    display: block;
+  }
+  .totalSubmit-container > div {
+    display: block;
+    margin-bottom: 30px;
+  }
+}
+
 .totalSubmit-container button {
   padding: 10px 37px;
   color: #fff;
@@ -8052,6 +8101,12 @@ select.form-input {
   position: relative;
 }
 
+@media (max-width: 480px) {
+  .totalSubmit-container .totalPrice-container {
+    text-align: center;
+  }
+}
+
 .totalSubmit-container .totalPrice-container > span {
   font-size: 22px;
   color: #3e3e3e;
@@ -8060,6 +8115,18 @@ select.form-input {
 .totalSubmit-container .totalPrice-container > span:last-of-type {
   position: absolute;
   left: 180px;
+}
+
+@media (max-width: 480px) {
+  .totalSubmit-container .totalPrice-container > span:last-of-type {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  .totalSubmit-container .totalPrice-container > span:last-of-type {
+    left: 130px;
+  }
 }
 
 .thanksRegister-container {
@@ -8474,7 +8541,7 @@ select.form-input {
   position: relative;
   top: -10px;
   left: 50%;
-  margin-left: -12px;
+  margin-left: -16px;
 }
 
 .cart-top {
@@ -8898,16 +8965,6 @@ select.form-input {
   }
 }
 
-.read-only-cart {
-  margin-top: 50px;
-}
-
-@media (min-width: 1025px) {
-  .read-only-cart {
-    margin-top: 80px;
-  }
-}
-
 .onsite .btn-reg {
   text-align: center;
   margin: 0 auto;
@@ -9023,12 +9080,16 @@ select.form-input {
   float: left;
 }
 
+.register-standalone {
+  margin-top: 115px;
+  margin-bottom: 100px;
+}
+
 .register-standalone .form-control {
   border: 1px solid #dcdcdc;
 }
 
 .register-standalone .register-top {
-  background-color: #f1f1f1;
   padding-bottom: 20px;
 }
 
@@ -9060,12 +9121,12 @@ select.form-input {
 .register-standalone .register-top .jumbotron .line {
   width: 50%;
   height: 14px;
-  background-color: #d6d6d6;
+  background-color: #D6D6D6;
 }
 
 .register-standalone .register-top .jumbotron .step {
   position: absolute;
-  background-color: #d6d6d6;
+  background-color: #D6D6D6;
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -9075,14 +9136,13 @@ select.form-input {
 
 .register-standalone .register-top .jumbotron .step:after {
   position: relative;
-  bottom: -10px;
+  bottom: -35px;
+  left: -50%;
   font-style: italic;
   color: #3e3e3e;
-  width: 60px;
-  left: -50%;
   font-weight: 400;
   display: inline-block;
-  bottom: -35px;
+  width: 60px;
 }
 
 .register-standalone .register-top .jumbotron .active:after {
@@ -9138,12 +9198,12 @@ select.form-input {
 .register-standalone .line {
   width: 50%;
   height: 14px;
-  background-color: #d6d6d6;
+  background-color: #D6D6D6;
 }
 
 .register-standalone .step {
   position: absolute;
-  background-color: #d6d6d6;
+  background-color: #D6D6D6;
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -9153,7 +9213,6 @@ select.form-input {
 
 .register-standalone .step:after {
   position: relative;
-  bottom: -10px;
   font-style: italic;
   color: #3e3e3e;
   width: 60px;
@@ -9200,7 +9259,9 @@ select.form-input {
 }
 
 .register-standalone .form-container {
-  background-color: #f1f1f1;
+  max-width: 1200px;
+  border-radius: 10px;
+  background-color: #fff;
   padding-top: 40px;
 }
 
@@ -9212,15 +9273,8 @@ select.form-input {
   padding: 0;
 }
 
-@media (min-width: 1025px) {
-  .register-standalone .form-item-wrapper {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
 .register-standalone .form-item-wrapper .form-control {
-  background-color: #fcfcfc;
+  background-color: #FCFCFC;
 }
 
 .register-standalone .form-item-wrapper .container {
@@ -9230,6 +9284,8 @@ select.form-input {
   color: #8a8a8a;
   margin-bottom: 30px;
   padding: 0 0 30px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .register-standalone .top-info {
@@ -9237,13 +9293,12 @@ select.form-input {
   padding-right: 15px;
 }
 
-.register-standalone .top-info li,
-.register-standalone .top-info p {
+.register-standalone .top-info li, .register-standalone .top-info p {
   display: inline;
 }
 
 .register-standalone .top-info .date {
-  float: right;
+  margin-left: 25px;
   font-style: italic;
 }
 
@@ -9283,9 +9338,8 @@ select.form-input {
   margin-top: 80px;
 }
 
-.register-standalone .register-two-top .line1,
-.register-standalone .register-two-top .step2 {
-  background-color: #c6211f;
+.register-standalone .register-two-top .line1, .register-standalone .register-two-top .step2 {
+  background-color: #c6211f !important;
 }
 
 .register-standalone .register-two {
@@ -9307,7 +9361,6 @@ select.form-input {
 
 .register-standalone .billing-opts-wrapper {
   display: inline-block;
-  margin-bottom: 40px;
   width: 100%;
 }
 
@@ -9335,8 +9388,6 @@ select.form-input {
   border: 1px solid #dcdcdc;
   position: absolute;
   left: 14px;
-  bottom: 25px;
-  margin-top: -10px;
 }
 
 .register-standalone input[type=checkbox]:checked + label:before {
@@ -9344,7 +9395,12 @@ select.form-input {
   color: #008fc7;
   text-align: center;
   line-height: 17px;
-  text-shadow: 0px 0px 3px #eee;
+  text-shadow: 0 0 3px #eee;
+}
+
+.register-standalone .account-update {
+  margin-top: 30px;
+  margin-bottom: 0;
 }
 
 .register-standalone .hidden {
@@ -9428,13 +9484,12 @@ select.form-input {
   }
 }
 
-.register-standalone .summary-top .step,
-.register-standalone .summary-top .line {
-  background-color: #c6211f;
+.register-standalone .summary-top .step, .register-standalone .summary-top .line {
+  background-color: #c6211f !important;
 }
 
 .register-standalone .summary-top .container {
-  margin: 50px auto 10px;
+  margin: 80px auto;
 }
 
 .register-standalone .summary-top .jumbotron {
@@ -9492,8 +9547,7 @@ select.form-input {
   font-style: italic;
 }
 
-.register-standalone .name,
-.register-standalone .email {
+.register-standalone .name, .register-standalone .email {
   margin-bottom: 8px;
 }
 
@@ -9554,7 +9608,8 @@ select.form-input {
 .register-standalone .card-submit-wrap {
   position: relative;
   height: 100px;
-  margin-bottom: 60px;
+  width: 100%;
+  margin-top: 50px;
 }
 
 .register-standalone .card-loader {
@@ -9614,6 +9669,69 @@ select.form-input {
   display: block;
 }
 
+.register-standalone .company-profile-container {
+  margin-bottom: 40px;
+}
+
+.register-standalone .form-head {
+  font-size: 22px;
+}
+
+.register-standalone .immutable-account-info {
+  padding-bottom: 25px;
+  padding-top: 20px;
+}
+
+.register-standalone .immutable-account-info .account-data {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.register-standalone .extension-container {
+  display: table;
+  width: 100%;
+}
+
+.register-standalone .extension-container > div {
+  display: table-cell;
+}
+
+.register-standalone .extension-label-container {
+  width: 40px;
+}
+
+.register-standalone .extension-label-container label {
+  bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  font-size: 14px;
+  color: #9D9B93;
+}
+
+.register-standalone .billing-opts-container {
+  margin-bottom: 50px;
+}
+
+.register-standalone .vcenter {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.register-standalone .billing-opts-label {
+  margin-top: 0;
+  margin-right: 30px;
+  margin-bottom: 0;
+  padding-left: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .register-standalone .billing-opts-label {
+    margin-bottom: 20px;
+  }
+}
+
 input {
   outline: none !important;
 }
@@ -9636,7 +9754,6 @@ input {
     top: 1px;
     right: 70px;
     border: 0;
-    width: 100px;
     font-size: 12px;
   }
 }

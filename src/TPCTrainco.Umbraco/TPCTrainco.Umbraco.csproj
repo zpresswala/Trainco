@@ -422,6 +422,10 @@
     <Content Include="assets\js\vendor\respond.min.js" />
     <Content Include="assets\js\vendor\select2.js" />
     <Content Include="Config\grid.editors.config.js" />
+    <Content Include="css\bootstrap-sass\assets\stylesheets\bootstrap.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\vendor.css" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="js\cart.js" />
@@ -3163,7 +3167,6 @@
     <Folder Include="assets\scss\mixins\" />
     <Folder Include="assets\scss\variables\" />
     <Folder Include="assets\stylesheets\" />
-    <Folder Include="css\" />
     <Folder Include="img\" />
     <Folder Include="media\1001\" />
     <Folder Include="media\1002\" />
