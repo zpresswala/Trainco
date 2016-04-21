@@ -414,7 +414,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 billing = new BillingModel()
                 {
                     CompanyName = member.GetValue<string>("billingCompanyName"),
-                    FistName = member.GetValue<string>("billingFirstName"),
+                    FirstName = member.GetValue<string>("billingFirstName"),
                     LastName = member.GetValue<string>("billingLastName"),
                     Email = member.GetValue<string>("billingEmail"),
                     Address1 = member.GetValue<string>("billingAddress1"),
@@ -507,7 +507,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             if (member != null)
             {
                 member.SetValue("billingCompanyName", billing.CompanyName);
-                member.SetValue("billingFirstName", billing.FistName);
+                member.SetValue("billingFirstName", billing.FirstName);
                 member.SetValue("billingLastName", billing.LastName);
                 member.SetValue("billingEmail", billing.Email);
                 member.SetValue("billingAddress1", billing.Address1);

@@ -81,6 +81,9 @@ namespace TPCTrainco.Umbraco.Controllers
                     {
                         checkoutCustomer.SavedCompanyBilling = true;
 
+                        checkoutCustomer.BillFirstName = billing.FirstName;
+                        checkoutCustomer.BillLastName = billing.LastName;
+                        checkoutCustomer.BillEmail = billing.Email;
                         checkoutCustomer.BillAddress = billing.Address1;
                         checkoutCustomer.BillAddress2 = billing.Address2;
                         checkoutCustomer.BillCity = billing.City;
@@ -296,6 +299,9 @@ namespace TPCTrainco.Umbraco.Controllers
                                         {
                                             billing = new BillingModel();
 
+                                            billing.FirstName = model.BillFirstName;
+                                            billing.LastName = model.BillLastName;
+                                            billing.Email = model.BillEmail;
                                             billing.Address1 = model.BillAddress;
                                             billing.Address2 = model.BillAddress2;
                                             billing.City = model.BillCity;
