@@ -16,7 +16,7 @@
     var LOGIN_TPL = '<div class="modal-header">'+
         '<i style="float:right;" class="fa fa-close" ng-click="cancel()"></i>'+
         '<h1 class="modal-title">Log in to save this seminar</h1>' +
-        '</div>' +
+        '<h2 style="color:red">{{errorMessage}}</h2></div>' +
         '<div class="modal-body">'+
         '<form ng-submit="login()"><div class="form-group"><label class="form-label">Email</label>'+
         '<input class="form-control" ng-model="username" type="text"></div><div class"form-group">'+

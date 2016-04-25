@@ -23,6 +23,9 @@
         localStorage.setItem('tcJWT', token)
         $window.location.href = '/dashboard/saved';
       })
+      .catch(function(error) {
+        $scope.errorMessage = error.statusText;
+      })
     }
     $scope.ok = function () {
        $uibModalInstance.close();
