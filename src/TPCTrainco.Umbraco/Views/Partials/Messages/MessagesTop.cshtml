@@ -29,6 +29,11 @@
             alertMessage = "<strong>Registration Cart Empty</strong><br />\r\n";
             alertMessage += "Your registration cart is empty.<br />Please select a seminar and try again.";
         }
+        else if (error == "12")
+        {
+            alertMessage = "<strong>Registration Cart Invalid</strong><br />\r\n";
+            alertMessage += "Your registration cart contains seminars that are no longer available or the seminar is in the past.<br /><br /> Please remove these seminars from your registration cart.";
+        }
         else if (error == "90")
         {
             alertMessage = "<strong>Registration Error</strong><br />\r\n";

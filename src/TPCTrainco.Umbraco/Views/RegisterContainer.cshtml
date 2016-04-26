@@ -53,11 +53,36 @@
             Session["CartId"] = cartGuid;
             CartCookies.Set(cartGuid);
 
-            cartsObj.DeleteTempAtt(cartList[0].reg_ID);
-            cartsObj.DeleteTempCust(cartList[0].reg_ID);
+            bool hasOldItems = false;
 
-            totalItems = cartList.Count;
-            cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
+            if (cartList != null)
+            {
+                foreach (temp_Reg regItem in cartList)
+                {
+                    SCHEDULE scheduleFound = CacheObjects.GetScheduleList().Where(p => p.ScheduleID == regItem.sem_SID).FirstOrDefault();
+
+                    if (scheduleFound != null)
+                    {
+                        if (scheduleFound.ScheduleDate < DateTime.Now)
+                        {
+                            hasOldItems = true;
+                        }
+                    }
+                }
+            }
+
+            if (true == hasOldItems)
+            {
+                Response.Redirect("/search-seminars/?error=12");
+            }
+            else
+            {
+                cartsObj.DeleteTempAtt(cartList[0].reg_ID);
+                cartsObj.DeleteTempCust(cartList[0].reg_ID);
+
+                totalItems = cartList.Count;
+                cartTotal = cartList.Sum(p => p.sem_FeeAmt) ?? 0;
+            }
         }
     }
     else
@@ -68,120 +93,120 @@
 
 @Html.Partial("Cart/ReadOnlyCart")
 <div class="register-standalone">
-<div class="container-fluid register-top">
+    <div class="container-fluid register-top">
 
-    <div class="container">
-        <div class="jumbotron">
-            @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
+        <div class="container">
+            <div class="jumbotron">
+                @if (!String.IsNullOrEmpty(CurrentPage.pageHeadline))
             {
-                <h1>@CurrentPage.pageHeadline</h1>
-            }
-            else
-            {
-                <h1>@CurrentPage.name</h1>
-            }
-            <ul class="indicator">
-                <li class="step step1 Registration"></li>
-                <li class="line line1"></li>
-                <li class="step step2 Payment"></li>
-                <li class="line line2"></li>
-                <li class="step step3 Review Order"></li>
-            </ul>
+                    <h1>@CurrentPage.pageHeadline</h1>
+                }
+                else
+                {
+                    <h1>@CurrentPage.name</h1>
+                }
+                <ul class="indicator">
+                    <li class="step step1 Registration"></li>
+                    <li class="line line1"></li>
+                    <li class="step step2 Payment"></li>
+                    <li class="line line2"></li>
+                    <li class="step step3 Review Order"></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container-fluid form-container" data-cart="@cartGuid">
+    <div class="container-fluid form-container" data-cart="@cartGuid">
 
-    @if (cartList != null)
-    {
-        foreach (temp_Reg seminar in cartList)
+        @if (cartList != null)
         {
-            string courseFormatStr = null;
-
-            using (var db = new americantraincoEntities())
+            foreach (temp_Reg seminar in cartList)
             {
-                ScheduleCourseInstructor scheduleCourseInstructor = db.ScheduleCourseInstructors.Where(p => p.ScheduleID == seminar.sem_SID).FirstOrDefault();
+                string courseFormatStr = null;
 
-                if (scheduleCourseInstructor != null)
+                using (var db = new americantraincoEntities())
                 {
-                    COURS course = db.COURSES.Where(p => p.CourseID == scheduleCourseInstructor.CourseID).FirstOrDefault();
+                    ScheduleCourseInstructor scheduleCourseInstructor = db.ScheduleCourseInstructors.Where(p => p.ScheduleID == seminar.sem_SID).FirstOrDefault();
 
-                    if (course != null)
+                    if (scheduleCourseInstructor != null)
                     {
-                        CourseFormat courseFormat = db.CourseFormats.Where(p => p.CourseFormatID == course.CourseFormatID).FirstOrDefault();
+                        COURS course = db.COURSES.Where(p => p.CourseID == scheduleCourseInstructor.CourseID).FirstOrDefault();
 
-                        if (courseFormat != null)
+                        if (course != null)
                         {
-                            courseFormatStr = courseFormat.CourseFormatName;
+                            CourseFormat courseFormat = db.CourseFormats.Where(p => p.CourseFormatID == course.CourseFormatID).FirstOrDefault();
+
+                            if (courseFormat != null)
+                            {
+                                courseFormatStr = courseFormat.CourseFormatName;
+                            }
                         }
                     }
                 }
-            }
 
 
 
-            string[] locationDatesArray = seminar.sem_Place.Split(new string[] { " - " }, StringSplitOptions.None);
+                string[] locationDatesArray = seminar.sem_Place.Split(new string[] { " - " }, StringSplitOptions.None);
 
-            string location = locationDatesArray[0];
-            string seminarDates = locationDatesArray[1];
+                string location = locationDatesArray[0];
+                string seminarDates = locationDatesArray[1];
 
-            <div class="col-md-12 form-item-wrapper" data-seminar="@(seminar.sem_SID)">
-                <div class="container">
-                    <!-- top section for one workshop -->
-                    <ul class="top-info">
-                        <li><h2>Attendees for @(seminar.sem_Title + " - " + courseFormatStr)</h2><p></p></li>
-                        <li><p>@(location)</p></li>
-                        <li class="date"><p>@(seminarDates)</p></li>
-                    </ul>
-                    <!-- end -->
+                <div class="col-md-12 form-item-wrapper" data-seminar="@(seminar.sem_SID)">
+                    <div class="container">
+                        <!-- top section for one workshop -->
+                        <ul class="top-info">
+                            <li><h2>Attendees for @(seminar.sem_Title + " - " + courseFormatStr)</h2><p></p></li>
+                            <li><p>@(location)</p></li>
+                            <li class="date"><p>@(seminarDates)</p></li>
+                        </ul>
+                        <!-- end -->
 
-                    <div class="attendee-info-form-wrap">
-                        @for (int i = 1; i <= seminar.sem_Qty; i++)
-                        {
-                            attendeeInc++;
+                        <div class="attendee-info-form-wrap">
+                            @for (int i = 1; i <= seminar.sem_Qty; i++)
+                            {
+                                attendeeInc++;
 
-                            <p class="class-option">Attendee #@(attendeeInc)</p>
-                            <form class="reg-form">
-                                <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                                    <input id="firstname@(attendeeInc)" name="firstname" type="text" class="form-control" placeholder="First Name">
-                                </div>
+                                <p class="class-option">Attendee #@(attendeeInc)</p>
+                                <form class="reg-form">
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                                        <input id="firstname@(attendeeInc)" name="firstname" type="text" class="form-control" placeholder="First Name">
+                                    </div>
 
-                                <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                                    <input id="lastname@(attendeeInc)" name="lastname" type="text" class="form-control" placeholder="Last Name">
-                                </div>
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                                        <input id="lastname@(attendeeInc)" name="lastname" type="text" class="form-control" placeholder="Last Name">
+                                    </div>
 
-                                <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                                    <input id="title@(attendeeInc)" name="title" type="text" class="form-control" placeholder="Title">
-                                </div>
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                                        <input id="title@(attendeeInc)" name="title" type="text" class="form-control" placeholder="Title">
+                                    </div>
 
-                                <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                                    <input id="email@(attendeeInc)" name="email" type="email" class="form-control" placeholder="Email">
-                                </div>
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                                        <input id="email@(attendeeInc)" name="email" type="email" class="form-control" placeholder="Email">
+                                    </div>
 
-                                <input id="attendee@(i)" name="attendee" type="hidden" value="@(i)">
-                                <input id="attendeeInc@(i)" name="attendeeInc" type="hidden" value="@(attendeeInc)">
-                            </form>
-                        }
+                                    <input id="attendee@(i)" name="attendee" type="hidden" value="@(i)">
+                                    <input id="attendeeInc@(i)" name="attendeeInc" type="hidden" value="@(attendeeInc)">
+                                </form>
+                            }
+                        </div>
+
                     </div>
 
                 </div>
-
-            </div>
+            }
         }
-    }
 
-    <div class="col-md-12" style="min-height: 30px;">
-        <div class="spinner checkout-loader">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
+        <div class="col-md-12" style="min-height: 30px;">
+            <div class="spinner checkout-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+
         </div>
-
+        <div class="row">
+            <p class="checkout-err-msg" style="display: none; text-align:center;"></p>
+        </div>
+        <a id="reg-submit" class="btn-reg btn-blue-solid next-btn" href="/search-seminars/?error=900" data-page="1">Next</a>
     </div>
-    <div class="row">
-        <p class="checkout-err-msg" style="display: none; text-align:center;"></p>
-    </div>
-    <a id="reg-submit" class="btn-reg btn-blue-solid next-btn" href="/search-seminars/?error=900" data-page="1">Next</a>
-</div>
 </div>

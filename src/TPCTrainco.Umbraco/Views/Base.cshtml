@@ -7,7 +7,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.29";
+    string cacheVer = "1.321";
     string htmlArgs = "";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
@@ -346,6 +346,10 @@
     else if (true == checkoutSummary)
     {
         <script type="text/javascript" src="/assets/js/checkout2/summary.js"></script>
+    }
+    else if (true == checkoutSuccess)
+    {
+        <script type="text/javascript" src="/assets/js/checkout2/success.js"></script>
     }
     else if (false == searchPage && false == homePage && false == seminarDetailPage)
     {

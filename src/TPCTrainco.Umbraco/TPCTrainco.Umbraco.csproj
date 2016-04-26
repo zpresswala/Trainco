@@ -345,6 +345,7 @@
     <Content Include="assets\images\tcptraincologo.png" />
     <Content Include="assets\js\checkout2\payment.js" />
     <Content Include="assets\js\checkout2\registration.js" />
+    <Content Include="assets\js\checkout2\success.js" />
     <Content Include="assets\js\checkout2\summary.js" />
     <Content Include="assets\js\custom\cartApp\collections\cartCollection.js" />
     <Content Include="assets\js\custom\cartApp\collections\classCollection.js" />
