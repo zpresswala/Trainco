@@ -16,7 +16,7 @@
     var LOGIN_TPL = '<div class="modal-header">'+
         '<i style="float:right;" class="fa fa-close" ng-click="cancel()"></i>'+
         '<h1 class="modal-title">Log in to save this seminar</h1>' +
-        '<h4 style="color:red">{{errorMessage}}! Email and or password incorrect</h4></div>' +
+        '<h4 style="color:red">{{errorMessage}}</h4></div>' +
         '<div class="modal-body">'+
         '<form ng-submit="login()"><div class="form-group"><label class="form-label">Email</label>'+
         '<input class="form-control" ng-model="username" type="text"></div><div class"form-group">'+
@@ -26,20 +26,7 @@
         '<div class="modal-footer"><div class="row"><p>Create an account to save courses, get recommendations, and more.'+
         '</p></div><div class="row"><button class="btn-blue-modal" type="button">'+
         '<a href="/dashboard/signup">Create an Account</a></button></div></div>';
-    vm.open = function (size) {
-    var modalInstance = $uibModal.open({
-      animation: vm.animationsEnabled,
-      template: LOGIN_TPL,
-      controller: 'LoginModalController',
-      size: 'lg'
-    });
 
-    modalInstance.result.then(function() {
-      vm.selected = selectedItem;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
 
     vm.saveCourseToUser = function() {
       var data = {
