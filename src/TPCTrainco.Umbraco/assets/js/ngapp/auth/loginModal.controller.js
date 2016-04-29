@@ -24,7 +24,7 @@
         $window.location.href = '/dashboard/saved';
       })
       .catch(function(error) {
-        $scope.errorMessage = error.statusText;
+        $scope.errorMessage = error.statusText + '! Email and or password incorrect.';
       })
     }
     $scope.ok = function () {
