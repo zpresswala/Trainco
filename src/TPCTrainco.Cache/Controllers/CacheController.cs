@@ -436,7 +436,7 @@ namespace TPCTrainco.Cache.Controllers
                                     locationScheduleDetail.DaysTitle = CacheObjects.GetDaysTitle(course.CourseFormatID);
                                     locationScheduleDetail.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");
                                     locationScheduleDetail.Date = legacySchedule.ScheduleDateDescription;
-                                    locationScheduleDetail.Price = Convert.ToDouble(course.CourseFee);
+                                    locationScheduleDetail.Price = Convert.ToDouble(scheduleCourse.CourseFee);
                                     locationScheduleDetail.Description = course.GoogleDesc ?? course.TitlePlain;
 
                                     locationScheduleDetail.City = legacyCity.CityName;
