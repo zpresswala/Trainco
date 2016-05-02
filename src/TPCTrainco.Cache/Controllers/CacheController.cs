@@ -22,6 +22,7 @@ using Umbraco.Core.Models;
 using Newtonsoft.Json;
 using Umbraco.Core.Persistence;
 using Umbraco.Core;
+using System.Net;
 
 namespace TPCTrainco.Cache.Controllers
 {
@@ -36,6 +37,8 @@ namespace TPCTrainco.Cache.Controllers
         [HttpGet]
         public CacheMessage Index(string key)
         {
+            string apiDomain = ConfigurationManager.AppSettings.Get("Cache:UmbracoCourseApiDomain");
+
             DebugApp("-= CACHE PROCESS START =-", ref DebugStr);
             DebugApp("", ref DebugStr);
 
@@ -52,6 +55,13 @@ namespace TPCTrainco.Cache.Controllers
                 ProcessCourses();
 
                 ProcessSeminars();
+
+                DebugApp("Contact Website to Refresh Cache...", ref DebugStr);
+
+                HttpWebRequest webReq = (HttpWebRequest)WebRequest.Create(string.Format(apiDomain + "/api/cacheupdate/refresh"));
+                webReq.Method = "GET";
+                HttpWebResponse webResponse = (HttpWebResponse)webReq.GetResponse();
+                DebugApp("Done.", ref DebugStr);
 
                 DebugApp("", ref DebugStr);
                 DebugApp("-= ALL DONE! =-", ref DebugStr);
@@ -435,7 +445,7 @@ namespace TPCTrainco.Cache.Controllers
                                     locationScheduleDetail.DaysTitle = CacheObjects.GetDaysTitle(course.CourseFormatID);
                                     locationScheduleDetail.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");
                                     locationScheduleDetail.Date = legacySchedule.ScheduleDateDescription;
-                                    locationScheduleDetail.Price = Convert.ToDouble(course.CourseFee);
+                                    locationScheduleDetail.Price = Convert.ToDouble(scheduleCourse.CourseFee);
                                     locationScheduleDetail.Description = course.GoogleDesc ?? course.TitlePlain;
 
                                     locationScheduleDetail.City = legacyCity.CityName;

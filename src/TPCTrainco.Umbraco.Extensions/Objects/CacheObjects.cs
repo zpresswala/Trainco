@@ -334,7 +334,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
 
 
-        public static List<CourseDetail> GetCourseDetailList()
+        public static List<CourseDetail> GetCourseDetailList(bool forceCacheRefresh = false)
         {
             string cacheKey = "CourseDetailList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:CourseDetailList"));
@@ -342,7 +342,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<CourseDetail> courseDetailList = cache.Get(cacheKey) as List<CourseDetail>;
 
-            if (courseDetailList == null)
+            if (true == forceCacheRefresh || courseDetailList == null)
             {
                 Debug.WriteLine("Course Detail List to Cache...");
 
@@ -362,7 +362,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
         }
 
 
-        public static List<LocationScheduleDetail> GetLocationScheduleDetailList()
+        public static List<LocationScheduleDetail> GetLocationScheduleDetailList(bool forceCacheRefresh = false)
         {
             string cacheKey = "LocationScheduleDetailList";
             int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:LocationScheduleDetailList"));
@@ -371,7 +371,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             List<LocationScheduleDetail> locationScheduleDetailList = cache.Get(cacheKey) as List<LocationScheduleDetail>;
 
-            if (locationScheduleDetailList == null)
+            if (true == forceCacheRefresh || locationScheduleDetailList == null)
             {
                 Debug.WriteLine("Location Schedule Detail List to Cache...");
 
