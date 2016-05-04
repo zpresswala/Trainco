@@ -293,7 +293,7 @@
     <Compile Include="City.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CacheUpdateController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CourseApiController.cs" />
