@@ -145,7 +145,7 @@
     <div class="faceted-result" ng-if="!ctrl.initialDirections && ctrl.seminarLocations.length" ng-repeat="course in ctrl.seminarLocations | flatten | startFrom: ctrl.mainCurrentPage * 4 | limitTo:4" dw-loading="courses" dw-loading-options="ctrl.options">
       <section class="row">
         <div class="col-md-2">
-          <img ng-src="//tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
+          <img ng-src="/tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
           <h4 class="result-price">${{course.price}}</h4>
         </div>
         <div class="col-md-10" style="padding-left: 15px;">
