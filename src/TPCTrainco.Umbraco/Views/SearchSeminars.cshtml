@@ -20,11 +20,6 @@
     <img ng-click="ctrl.sbIsCollapsed = !ctrl.sbIsCollapsed" class="img-right" src="/assets/images/icon-arrow-down.png" alt="Toggle Arrow" />
     <div class="register-sidebar--sm" uib-collapse="ctrl.sbIsCollapsed">
       <div class="filter-location">
-        <label class="sidebar-label">Seminar Search by Title</label>
-        <select ng-model="ctrl.selectedSeminar.id" ng-options="seminar.id as seminar.title for seminar in ctrl.listingData" ng-change="ctrl.seminarDropDownWatcher()"></select>
-      </div>
-              <hr class="divider" />
-      <div class="filter-location">
         <label class="sidebar-label">Keyword Search</label>
         <input type="search" ng-init="ctrl.kwFilter.word = ''" ng-keydown="ctrl.handleKWInput($event)" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
       </div>

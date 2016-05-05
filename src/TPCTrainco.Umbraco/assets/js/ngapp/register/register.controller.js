@@ -31,16 +31,19 @@
       vm.listingData = res.seminars;
     });
     vm.selectedSeminar = {};
-
-    vm.seminarDropDownWatcher = function() {
-      var classId = vm.selectedSeminar.id;
-      requestSeminarData(classId);
-      emptyLocalStorage();
-      resetFields();
-      $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
-      vm.showDirections = false;
-      vm.searchFired = true;
-    }
+    /**
+     * THIS IS DISABLED DONT DELETE
+     * -- Seminar Dropdown search feature.
+     */
+    // vm.seminarDropDownWatcher = function() {
+    //   var classId = vm.selectedSeminar.id;
+    //   requestSeminarData(classId);
+    //   emptyLocalStorage();
+    //   resetFields();
+    //   $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+    //   vm.showDirections = false;
+    //   vm.searchFired = true;
+    // }
     function requestSeminarData(classId) {
       var classId = vm.selectedSeminar.id;
 
