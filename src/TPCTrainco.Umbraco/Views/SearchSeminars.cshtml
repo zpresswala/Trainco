@@ -68,11 +68,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3 register-sidebar">
-        <div class="filter-location">
-          <label class="sidebar-label">Seminar Search by Title</label>
-          <select ng-model="ctrl.selectedSeminar.id" ng-options="seminar.id as seminar.title for seminar in ctrl.listingData" ng-change="ctrl.seminarDropDownWatcher()"></select>
-        </div>
-                <hr class="divider" />
+
         <div class="filter-location">
           <label class="sidebar-label">Keyword Search</label>
           <input type="search" ng-keyup="ctrl.manualTextBoxHandler($event)" ng-blur="ctrl.manualTextBoxHandler($event)" ng-keydown="ctrl.typingTextBoxHandler($event, 'kw')" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
