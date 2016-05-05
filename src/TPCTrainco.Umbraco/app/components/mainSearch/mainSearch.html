@@ -44,13 +44,14 @@
 
         </li>
       </ul>
-		<select selector
-			model="vm.courseSearch.location"
-			multi="false"
-			options="vm.cities"
-			value-attr="label"
-			placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations'"
-			create="vm.createFunction(input)"
+    <select selector
+      model="vm.courseSearch.location"
+      multi="false"
+      onBlur="vm.createFunction(input)"
+      options="vm.cities"
+      value-attr="label"
+      placeholder="Choose a City, Enter a Zip Code, or Select 'All Locations'"
+      create="vm.createFunction(input)"
       required>
     </select>
       <rzslider rz-slider-model="vm.sliderValues.minValue" rz-slider-high="vm.sliderValues.maxValue" rz-slider-options="vm.sliderValues.options"></rzslider>
