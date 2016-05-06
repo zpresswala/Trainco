@@ -7,7 +7,7 @@
 @{
     Layout = null;
 
-    string cacheVer = "1.321";
+    string cacheVer = "1.60";
     string htmlArgs = "";
 
     IPublishedContent siteSettings = Nodes.Instance.SiteSettings;
@@ -337,19 +337,19 @@
     }
     @if (true == checkoutRegistration)
     {
-        <script type="text/javascript" src="/assets/js/checkout2/registration.js"></script>
+        <script type="text/javascript" src="/assets/js/checkout2/registration.js?@cacheVer"></script>
     }
     else if (true == checkoutPayment)
     {
-        <script type="text/javascript" src="/assets/js/checkout2/payment.js"></script>
+        <script type="text/javascript" src="/assets/js/checkout2/payment.js?@cacheVer"></script>
     }
     else if (true == checkoutSummary)
     {
-        <script type="text/javascript" src="/assets/js/checkout2/summary.js"></script>
+        <script type="text/javascript" src="/assets/js/checkout2/summary.js?@cacheVer"></script>
     }
     else if (true == checkoutSuccess)
     {
-        <script type="text/javascript" src="/assets/js/checkout2/success.js"></script>
+        <script type="text/javascript" src="/assets/js/checkout2/success.js?@cacheVer"></script>
     }
     else if (false == searchPage && false == homePage && false == seminarDetailPage)
     {

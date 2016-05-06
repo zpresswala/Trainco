@@ -293,6 +293,7 @@
     <Compile Include="City.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheUpdateController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
@@ -404,6 +405,7 @@
     <Compile Include="Models\StateLookup.cs" />
     <Compile Include="Models\UmbracoCourseDetail.cs" />
     <Compile Include="Objects\CacheObjects.cs" />
+    <Compile Include="Objects\RegCookies.cs" />
     <Compile Include="Objects\CartCookies.cs" />
     <Compile Include="Objects\Carts.cs" />
     <Compile Include="Objects\EncryptString.cs" />

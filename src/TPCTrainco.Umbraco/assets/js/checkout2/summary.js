@@ -43,6 +43,6 @@ function SubmitOrder() {
                 $('.processing-msg').text('There was an error processing your order. Please try again.');
                 $submit_button.fadeIn();
             });
-        }, 10000);
+        }, 30000);
     });
 }

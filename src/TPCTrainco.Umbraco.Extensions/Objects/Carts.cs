@@ -957,8 +957,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             else
             {
                 output = CartCookies.Get();
-            }
 
+                if (false == string.IsNullOrEmpty(output))
+                {
+                    session["CartId"] = output;
+                }
+            }
 
             return output;
         }
@@ -993,6 +997,17 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 RefreshCartCache(cartGuid, regId);
             }
+            else
+            {
+                regIdStr = RegCookies.Get();
+
+                if (false == string.IsNullOrEmpty(regIdStr) && false == string.IsNullOrEmpty(cartGuid))
+                {
+                    regId = Convert.ToInt32(regIdStr);
+
+                    RefreshCartCache(cartGuid, regId);
+                }
+            }
 
             return regId;
         }
@@ -1007,6 +1022,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
             cache.Add(cacheKey, regId, policy);
+
+            RegCookies.Set(regId.ToString());
         }
 
 

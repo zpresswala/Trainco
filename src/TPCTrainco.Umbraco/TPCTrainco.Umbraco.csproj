@@ -3207,7 +3207,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56628</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://trainco-phase1.axial-client.local</IISUrl>
+          <IISUrl>http://trainco-phase1.axial-client.com</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

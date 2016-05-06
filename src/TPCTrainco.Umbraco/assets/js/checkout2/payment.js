@@ -50,12 +50,16 @@ function CheckoutCustomer() {
     }
 
 
-    if ($('#SavedCompanyBilling').val().toLowerCase() == 'true') {
+    if ($('#SavedCompanyBilling').val().toLowerCase() == 'true' || $('.input-validation-error').length > 0) {
         $('.hidden-different-check').show();
         $('#supervisor-diff').prop('checked', true);
         $('#BillingDifferent').val('true');
     }
 
+    if ($('.input-validation-error').length > 0) {
+        $('.company-profile-wrap').slideDown();
+        $('.immutable-account-info').slideUp();
+    }
 
     $('#UpdateCompanyProfile').val('false');
 
@@ -179,5 +183,5 @@ CheckoutCustomer.prototype.cardProcessingMessage = function (submitBtn) {
             $('.processing-msg').text('There was an error processing your order. Please try again.');
             submitBtn.fadeIn();
         });
-    }, 15000);
+    }, 30000);
 };

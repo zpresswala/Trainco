@@ -11,7 +11,7 @@
 
     if (Request.QueryString["cart"] != null && Request.QueryString.Get("cart").Length > 0)
     {
-        cartGuid = Request.QueryString.Get("cart").ToLower();
+        cartGuid = Request.QueryString.Get("cart").ToLower().Trim().Replace("\"","");
     }
     else
     {
