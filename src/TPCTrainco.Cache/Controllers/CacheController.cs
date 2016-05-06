@@ -192,6 +192,83 @@ namespace TPCTrainco.Cache.Controllers
         }
 
 
+        [HttpGet]
+        public CacheMessage MemberExport(string key2)
+        {
+            DebugApp("-= CACHE PROCESS START =-", ref DebugStr);
+            DebugApp("", ref DebugStr);
+
+            CacheMessage.Success = false;
+
+            if (key2.ToLower() != ConfigurationManager.AppSettings.Get("Cache:ApiKey").ToLower())
+            {
+                CacheMessage.Message = "Invalid Key";
+                return CacheMessage;
+            }
+
+            try
+            {
+                var webAccounts = default(List<WebAccount>);
+
+                using (var db = new americantraincoEntities())
+                {
+                    webAccounts = db.WebAccounts.ToList();
+
+                    var members = ApplicationContext.Current.Services.MemberService.GetAllMembers();
+
+                    var isNew = false;
+                    foreach (var member in members)
+                    {
+                        WebAccount webAccount = webAccounts.FirstOrDefault(wa => wa.EmailAddress == member.Email);
+                        if (webAccount == null)
+                        {
+                            webAccount = new WebAccount();
+                            isNew = true;
+                        }
+                        
+                        webAccount.Updated = DateTime.Now;
+                        webAccount.EmailAddress = member.Email;
+                        webAccount.FirstName = member.GetValue<string>("firstName");
+                        webAccount.LastName = member.GetValue<string>("lastName");
+                        webAccount.Title = member.GetValue<string>("title");
+                        webAccount.PhoneNumber = String.Join(" | ", member.GetValue<string>("phone"), member.GetValue<string>("phoneExtension"));
+                        webAccount.CompanyName = member.GetValue<string>("companyName");
+                        webAccount.AddressLn1 = member.GetValue<string>("address1");
+                        webAccount.AddressLn2 = member.GetValue<string>("address2");
+                        webAccount.Country = member.GetValue<string>("country");
+                        webAccount.StateProvince = member.GetValue<string>("state");
+                        webAccount.PostalCode = member.GetValue<string>("postalCode");
+                        webAccount.City = member.GetValue<string>("city");
+                        webAccount.PriorCustomer = member.GetValue<string>("hasMakePreviousPurchase");
+                        webAccount.Industry = member.GetValue<string>("industry");
+                        webAccount.OutsideTrainingFrequency = member.GetValue<string>("extentalTrianingUsageAmount");
+                        webAccount.NbrEmplforTraining = member.GetValue<string>("numberOfEmployees");
+                        webAccount.TrainingTopics = member.GetValue<string>("trainingTopics");
+
+                        if (isNew)
+                        {
+                            webAccount.Created = DateTime.Now;
+                            db.WebAccounts.Add(webAccount);
+                        }
+                        
+                        isNew = false;
+                    }
+
+                    db.SaveChanges();
+
+                }
+
+                CacheMessage.Success = true;
+            }
+            catch (Exception ex)
+            {
+                CacheMessage.Message = DebugStr.ToString() + "\r\n\r\n" + ex.ToString();
+            }
+
+            return CacheMessage;
+        }
+
+
         private void ProcessCourses()
         {
             var db = new Database("umbracoDbDSN");
