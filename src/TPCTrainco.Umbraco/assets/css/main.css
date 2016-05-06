@@ -6039,6 +6039,8 @@ ul.pagination-btn-wrapper li {
 @media (min-width: 1025px) {
   .headline-section {
     background-image: url("/assets/images/content-pg-header-large.jpg");
+    padding-top: 80px;
+    padding-bottom: 40px;
   }
 }
 
