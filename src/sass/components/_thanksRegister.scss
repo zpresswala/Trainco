@@ -16,6 +16,7 @@
   color: $charcoal;
   font-weight: 200;
   margin-bottom: 25px;
+  margin-top: 80px;
 }
 
 .thanks-body {
@@ -59,5 +60,3 @@
 .registerAccount-button {
   @include default-button(#fff, $blue, transparent, $blue);
 }
-
-

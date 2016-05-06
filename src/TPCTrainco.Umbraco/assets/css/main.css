@@ -7164,7 +7164,7 @@ select.form-input {
 }
 
 .register-standalone .register-top .jumbotron .step1:after {
-  content: 'Step 1';
+  content: 'Registration';
 }
 
 .register-standalone .register-top .jumbotron .step2 {
@@ -7173,7 +7173,7 @@ select.form-input {
 }
 
 .register-standalone .register-top .jumbotron .step2:after {
-  content: 'Step 2';
+  content: 'Payment';
 }
 
 .register-standalone .register-top .jumbotron .step3 {
@@ -7181,7 +7181,7 @@ select.form-input {
 }
 
 .register-standalone .register-top .jumbotron .step3:after {
-  content: 'Step 3';
+  content: 'Review Order';
 }
 
 .register-standalone .register-top .container {
@@ -7241,7 +7241,7 @@ select.form-input {
 }
 
 .register-standalone .step1:after {
-  content: 'Step 1';
+  content: 'Registration';
 }
 
 .register-standalone .step2 {
@@ -7250,7 +7250,7 @@ select.form-input {
 }
 
 .register-standalone .step2:after {
-  content: 'Step 2';
+  content: 'Payment';
 }
 
 .register-standalone .step3 {
@@ -7258,7 +7258,7 @@ select.form-input {
 }
 
 .register-standalone .step3:after {
-  content: 'Step 3';
+  content: 'Reivew Order';
 }
 
 .register-standalone .form-group span {
@@ -8147,6 +8147,7 @@ select.form-input {
   color: #3e3e3e;
   font-weight: 200;
   margin-bottom: 25px;
+  margin-top: 80px;
 }
 
 .thanks-body, .registerAccount-body {
@@ -9155,7 +9156,7 @@ select.form-input {
 }
 
 .register-standalone .register-top .jumbotron .step1:after {
-  content: 'Step 1';
+  content: 'Registration';
 }
 
 .register-standalone .register-top .jumbotron .step2 {
@@ -9164,7 +9165,7 @@ select.form-input {
 }
 
 .register-standalone .register-top .jumbotron .step2:after {
-  content: 'Step 2';
+  content: 'Payment';
 }
 
 .register-standalone .register-top .jumbotron .step3 {
@@ -9172,7 +9173,7 @@ select.form-input {
 }
 
 .register-standalone .register-top .jumbotron .step3:after {
-  content: 'Step 3';
+  content: 'Review Order';
 }
 
 .register-standalone .register-top .container {
@@ -9232,7 +9233,7 @@ select.form-input {
 }
 
 .register-standalone .step1:after {
-  content: 'Step 1';
+  content: 'Registration';
 }
 
 .register-standalone .step2 {
@@ -9241,7 +9242,7 @@ select.form-input {
 }
 
 .register-standalone .step2:after {
-  content: 'Step 2';
+  content: 'Payment';
 }
 
 .register-standalone .step3 {
@@ -9249,7 +9250,7 @@ select.form-input {
 }
 
 .register-standalone .step3:after {
-  content: 'Step 3';
+  content: 'Reivew Order';
 }
 
 .register-standalone .form-group span {
