@@ -6,7 +6,6 @@
     Layout = "Base.cshtml";
 
     IPublishedContent currentPage = Model.Content;
-    IPublishedContent settingsPage = Nodes.SiteSettingsDirect();
 }
 
 
@@ -69,11 +68,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3 register-sidebar">
-        <div class="filter-location">
-          <label class="sidebar-label">Seminar Search by Title</label>
-          <select ng-model="ctrl.selectedSeminar.id" ng-options="seminar.id as seminar.title for seminar in ctrl.listingData" ng-change="ctrl.seminarDropDownWatcher()"></select>
-        </div>
-                <hr class="divider" />
+
         <div class="filter-location">
           <label class="sidebar-label">Keyword Search</label>
           <input type="search" ng-keyup="ctrl.manualTextBoxHandler($event)" ng-blur="ctrl.manualTextBoxHandler($event)" ng-keydown="ctrl.typingTextBoxHandler($event, 'kw')" ng-model="ctrl.kwFilter.word" placeholder="Enter Keyword">
@@ -128,28 +123,21 @@
             Try refining your search, starting a new search or begin browsing below.
           </p>
         </div>
-        @if (settingsPage != null && false == string.IsNullOrEmpty(settingsPage.GetPropertyValue<string>("noResultsText")))
-                    {
-            @Html.Raw(settingsPage.GetPropertyValue<string>("noResultsText"))
-        }
-        else
-        {
-            <h3>Use the menu on the left side to:</h3>
-            <div class="empty-results-instructions">
-                <span class="empty-results-number">1</span> Choose a topic or select a specific seminar title.
-            </div>
-            <div class="empty-results-instructions">
-                <span class="empty-results-number">2</span> Choose a location or check "All Locations" to view all.
-            </div>
-            <div class="empty-results-instructions">
-                <span class="empty-results-number">3</span> Adjust the date range as needed.
-            </div>
+          <h3>Use the menu on the left side to:</h3>
+          <div class="empty-results-instructions">
+            <span class="empty-results-number">1</span> Choose a topic or select a specific seminar title.
+          </div>
+          <div class="empty-results-instructions">
+            <span class="empty-results-number">2</span> Choose a location or check "All Locations" to view all.
+          </div>
+          <div class="empty-results-instructions">
+            <span class="empty-results-number">3</span> Adjust the date range as needed.
+          </div>
 
-            <p class="empty-results-promo">
-                All of our public seminars are just $495 a day, and most are two days in length. All are also available for
-                <a href="/on-site-training/">on-site training</a>.
-            </p>
-        }
+          <p class="empty-results-promo">
+            All of our public seminars are just $495 a day, and most are two days in length. All are also available for
+            <a href="/on-site-training/">on-site training</a>.
+          </p>
         </div>
         <!-- END No Results -->
 
@@ -157,7 +145,7 @@
     <div class="faceted-result" ng-if="!ctrl.initialDirections && ctrl.seminarLocations.length" ng-repeat="course in ctrl.seminarLocations | flatten | startFrom: ctrl.mainCurrentPage * 4 | limitTo:4" dw-loading="courses" dw-loading-options="ctrl.options">
       <section class="row">
         <div class="col-md-2">
-          <img ng-src="//tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
+          <img ng-src="/tpctrainco.com{{course.imageUrl}}" class="course-img img-circle">
           <h4 class="result-price">${{course.price}}</h4>
         </div>
         <div class="col-md-10" style="padding-left: 15px;">
