@@ -61,6 +61,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [StringLength(12)]
         public string Zip { get; set; }
 
+        [Required]
         [StringLength(200)]
         public string Country { get; set; }
 
@@ -117,6 +118,7 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [DisplayName("Billing Postal Code")]
         public string BillZip { get; set; }
 
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Country is required.")]
         [StringLength(250)]
         [DisplayName("Billing Country")]
         public string BillCountry { get; set; }

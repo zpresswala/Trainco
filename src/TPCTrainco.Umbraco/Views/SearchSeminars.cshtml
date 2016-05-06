@@ -6,6 +6,7 @@
     Layout = "Base.cshtml";
 
     IPublishedContent currentPage = Model.Content;
+    IPublishedContent settingsPage = Nodes.SiteSettingsDirect();
 }
 
 
@@ -123,21 +124,28 @@
             Try refining your search, starting a new search or begin browsing below.
           </p>
         </div>
-          <h3>Use the menu on the left side to:</h3>
-          <div class="empty-results-instructions">
-            <span class="empty-results-number">1</span> Choose a topic or select a specific seminar title.
-          </div>
-          <div class="empty-results-instructions">
-            <span class="empty-results-number">2</span> Choose a location or check "All Locations" to view all.
-          </div>
-          <div class="empty-results-instructions">
-            <span class="empty-results-number">3</span> Adjust the date range as needed.
-          </div>
+        @if (settingsPage != null && false == string.IsNullOrEmpty(settingsPage.GetPropertyValue<string>("noResultsText")))
+        {
+          @Html.Raw(settingsPage.GetPropertyValue<string>("noResultsText"))
+        }
+        else
+        {
+            <h3>Use the menu on the left side to:</h3>
+            <div class="empty-results-instructions">
+                <span class="empty-results-number">1</span> Choose a topic or select a specific seminar title.
+            </div>
+            <div class="empty-results-instructions">
+                <span class="empty-results-number">2</span> Choose a location or check "All Locations" to view all.
+            </div>
+            <div class="empty-results-instructions">
+                <span class="empty-results-number">3</span> Adjust the date range as needed.
+            </div>
 
-          <p class="empty-results-promo">
-            All of our public seminars are just $495 a day, and most are two days in length. All are also available for
-            <a href="/on-site-training/">on-site training</a>.
-          </p>
+            <p class="empty-results-promo">
+                All of our public seminars are just $495 a day, and most are two days in length. All are also available for
+                <a href="/on-site-training/">on-site training</a>.
+            </p>
+        }
         </div>
         <!-- END No Results -->
 
