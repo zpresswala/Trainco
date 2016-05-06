@@ -496,6 +496,9 @@
     <Compile Include="ViewModels\Search\SeminarSimple.cs" />
     <Compile Include="ViewModels\Seminar.cs" />
     <Compile Include="ViewModels\Search\SeminarListResponse.cs" />
+    <Compile Include="WebAccount.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WebSignup.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>

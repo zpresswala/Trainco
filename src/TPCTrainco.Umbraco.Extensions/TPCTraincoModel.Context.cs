@@ -53,6 +53,7 @@ namespace TPCTrainco.Umbraco.Extensions
         public virtual DbSet<Seminar_Catalog> Seminar_Catalog { get; set; }
         public virtual DbSet<RegistrationAttendee> RegistrationAttendees { get; set; }
         public virtual DbSet<RegistrationAttendeeSchedule> RegistrationAttendeeSchedules { get; set; }
+        public virtual DbSet<WebAccount> WebAccounts { get; set; }
     
         public virtual int add_CC_Log(Nullable<int> p1, Nullable<int> p2, string p3, string p4, Nullable<decimal> p5, string p6, string p7)
         {

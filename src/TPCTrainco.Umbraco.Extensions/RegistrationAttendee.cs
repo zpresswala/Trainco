@@ -40,5 +40,8 @@ namespace TPCTrainco.Umbraco.Extensions
         public Nullable<bool> CodeSummarized { get; set; }
         public Nullable<long> ML_RcdNbr { get; set; }
         public string Flag { get; set; }
+        public Nullable<System.DateTime> LocationEmailSent { get; set; }
+        public Nullable<bool> Contact_Required { get; set; }
+        public Nullable<System.DateTime> MktgFollowupEmailSent { get; set; }
     }
 }

@@ -51,5 +51,13 @@ namespace TPCTrainco.Umbraco.Extensions
         public string PPTLink { get; set; }
         public string BrochureLink { get; set; }
         public string Keywords { get; set; }
+        public string RefGuideLink { get; set; }
+        public string StudyGuideLink { get; set; }
+        public string WorkBookLink { get; set; }
+        public Nullable<decimal> InstructorCost { get; set; }
+        public Nullable<decimal> MtgRmCost { get; set; }
+        public Nullable<decimal> OtherFixedCost { get; set; }
+        public Nullable<decimal> PerStudentCost { get; set; }
+        public Nullable<decimal> TotalFixedCost { get; set; }
     }
 }

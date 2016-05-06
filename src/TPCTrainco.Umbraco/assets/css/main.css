@@ -6039,6 +6039,8 @@ ul.pagination-btn-wrapper li {
 @media (min-width: 1025px) {
   .headline-section {
     background-image: url("/assets/images/content-pg-header-large.jpg");
+    padding-top: 80px;
+    padding-bottom: 40px;
   }
 }
 
@@ -7103,12 +7105,13 @@ select.form-input {
 }
 
 .register-standalone .register-top .jumbotron {
-  max-width: 435px;
+  max-width: 500px;
   margin: 80px auto;
 }
 
 .register-standalone .register-top .jumbotron h1 {
   color: #3e3e3e;
+  font-size: 30px !important;
 }
 
 .register-standalone .register-top .jumbotron h1:before, .register-standalone .register-top .jumbotron h1:after {
@@ -9095,12 +9098,13 @@ select.form-input {
 }
 
 .register-standalone .register-top .jumbotron {
-  max-width: 435px;
+  max-width: 500px;
   margin: 80px auto;
 }
 
 .register-standalone .register-top .jumbotron h1 {
   color: #3e3e3e;
+  font-size: 30px !important;
 }
 
 .register-standalone .register-top .jumbotron h1:before, .register-standalone .register-top .jumbotron h1:after {
