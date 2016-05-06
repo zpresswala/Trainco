@@ -3177,6 +3177,12 @@
     <Folder Include="usercontrols\" />
     <Folder Include="xslt\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TPCTrainco.Umbraco.Extensions\TPCTrainco.Umbraco.Extensions.csproj">
+      <Project>{593c0f16-ed8f-43e1-902d-eb86861179d8}</Project>
+      <Name>TPCTrainco.Umbraco.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -3197,7 +3203,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56628</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
