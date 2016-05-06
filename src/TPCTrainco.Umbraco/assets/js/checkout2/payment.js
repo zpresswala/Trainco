@@ -50,16 +50,18 @@ function CheckoutCustomer() {
     }
 
 
-    if ($('#SavedCompanyBilling').val().toLowerCase() == 'true' || $('.input-validation-error').length > 0) {
+    if ($('#SavedCompanyBilling').val().toLowerCase() == 'true' || $('.hidden-different-check').find('.input-validation-error').length > 0) {
         $('.hidden-different-check').show();
         $('#supervisor-diff').prop('checked', true);
         $('#BillingDifferent').val('true');
     }
 
-    if ($('.input-validation-error').length > 0) {
+    if ($('.hidden-different-check').find('.input-validation-error').length > 0) {
         $('.company-profile-wrap').slideDown();
         $('.immutable-account-info').slideUp();
     }
+
+    updatePromoField();
 
     $('#UpdateCompanyProfile').val('false');
 
@@ -115,33 +117,42 @@ CheckoutCustomer.prototype.showOtherInfo = function () {
 CheckoutCustomer.prototype.showPromoField = function () {
     var _this = this;
     _this.$hearAbout.on('change', function () {
-        var selectedOption = _this.$hearAbout.val();
-
-        _this.$promoWrap.hide();
-        _this.$promoCode.hide();
-        _this.$hearAboutOther.hide();
-
-        if (selectedOption === 'Direct Mail' || selectedOption === 'Print Ad' || selectedOption === 'Email' || selectedOption === 'Web search') {
-            if (selectedOption == 'Direct Mail') {
-                _this.$promoCode.attr('placeholder', 'Promo Code on mailer');
-            } else if (selectedOption == 'Print Ad') {
-                _this.$promoCode.attr('placeholder', 'Promo Code');
-            } else if (selectedOption == 'Email') {
-                _this.$promoCode.attr('placeholder', 'Promo Code in email');
-            } else if (selectedOption == 'Web search') {
-                _this.$promoCode.attr('placeholder', 'Search Term');
-            } else {
-                _this.$promoCode.attr('placeholder', 'Promo Code or description of mailer');
-            }
-
-            _this.$promoWrap.show();
-            _this.$promoCode.slideDown().addClass('showing');
-        }
-        else if (selectedOption == 'Other' || selectedOption == 'Referral') {
-            _this.$promoWrap.show();
-            _this.$hearAboutOther.slideDown().addClass('showing');
-        }
+        updatePromoField();
     });
+};
+
+function updatePromoField() {
+    var $promoWrap = $('.promo-wrap');
+    var $hearAbout = $('#HearAbout');
+    var $promoCode = $('#PromoCode');
+    var $hearAboutOther = $('#HearAboutOther');
+
+    var selectedOption = $hearAbout.val();
+
+    $promoWrap.hide();
+    $promoCode.hide();
+    $hearAboutOther.hide();
+
+    if (selectedOption === 'Direct Mail' || selectedOption === 'Print Ad' || selectedOption === 'Email' || selectedOption === 'Web search') {
+        if (selectedOption == 'Direct Mail') {
+            $promoCode.attr('placeholder', 'Promo Code on mailer');
+        } else if (selectedOption == 'Print Ad') {
+            $promoCode.attr('placeholder', 'Promo Code');
+        } else if (selectedOption == 'Email') {
+            $promoCode.attr('placeholder', 'Promo Code in email');
+        } else if (selectedOption == 'Web search') {
+            $promoCode.attr('placeholder', 'Search Term');
+        } else {
+            $promoCode.attr('placeholder', 'Promo Code or description of mailer');
+        }
+
+        $promoWrap.show();
+        $promoCode.slideDown().addClass('showing');
+    }
+    else if (selectedOption == 'Other' || selectedOption == 'Referral') {
+        $promoWrap.show();
+        $hearAboutOther.slideDown().addClass('showing');
+    }
 };
 
 CheckoutCustomer.prototype.billingOptions = function () {

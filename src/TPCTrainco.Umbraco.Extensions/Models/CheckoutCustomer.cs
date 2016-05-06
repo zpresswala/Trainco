@@ -65,7 +65,6 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [StringLength(200)]
         public string Country { get; set; }
 
-        [Required]
         [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please enter a valid phone number. Dashes are optional.")]
         public string Phone { get; set; }
 
@@ -123,7 +122,6 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [DisplayName("Billing Country")]
         public string BillCountry { get; set; }
 
-        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Phone Number is required.")]
         [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please enter a valid phone number. Dashes are optional.")]
         public string BillPhone { get; set; }
 

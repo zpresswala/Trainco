@@ -151,11 +151,12 @@ using (Html.BeginUmbracoForm
                 </div>
               </fieldset>
 
+                @Html.HiddenFor(p => p.Company.HasMakePreviousPurchase)
+                @Html.ValidationMessageFor(p => p.Company.HasMakePreviousPurchase)
             </div>
             <div class="row-content-container">
               <label class="form-helper" for="industry">Your Industry</label>
-                @Html.DropDownListFor(p => p.Company.Industry, FormUtilities.IndustryList(), new { @class = "form-input"
-                })
+                @Html.DropDownListFor(p => p.Company.Industry, FormUtilities.IndustryList(), new { @class = "form-input" })
                 @Html.ValidationMessageFor(p => p.Company.Industry)
             </div>
             <div class="row-content-container">
@@ -187,6 +188,7 @@ using (Html.BeginUmbracoForm
               }
 
               @Html.HiddenFor(p => p.Company.TrainingTopics)
+              @Html.ValidationMessageFor(p => p.Company.TrainingTopics)
             </div>
             <div class="required-helper">
               <span>* Indicates Required Field</span>
