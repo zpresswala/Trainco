@@ -69,7 +69,7 @@
         left: -10px;
         background-color: $red-button;
         &:after {
-          content: 'Step 1';
+          content: 'Registration';
         }
       }
 
@@ -77,14 +77,14 @@
         left: 50%;
         margin-left: -14px;
         &:after {
-          content: 'Step 2';
+          content: 'Payment';
         }
       }
 
       .step3 {
         right: -10px;
         &:after {
-          content: 'Step 3';
+          content: 'Review Order';
         }
       }
     }
@@ -146,7 +146,7 @@
     left: -10px;
     background-color: $red-button;
     &:after {
-      content: 'Step 1';
+      content: 'Registration';
     }
   }
 
@@ -154,14 +154,14 @@
     left: 50%;
     margin-left: -14px;
     &:after {
-      content: 'Step 2';
+      content: 'Payment';
     }
   }
 
   .step3 {
     right: -10px;
     &:after {
-      content: 'Step 3';
+      content: 'Reivew Order';
     }
   }
 
