@@ -46,7 +46,7 @@
     <div class="thanksRegister-container">
         <div class="thanks-container">
             <h1 class="thanks">Thank You!</h1>
-            <p class="thanks-body">Emails have been sent to the registrant and attendees.</p>
+            <p class="thanks-body">Confirmation emails have been sent to the registrant and to all attendees.</p>
             @if (false == string.IsNullOrEmpty(registrationId))
             {
                 <div class="confirmation-container">
@@ -77,7 +77,7 @@
                 else if (userCreateOption == "2")
                 {
                     <h2 class="registerAccount-head">Create an account for faster checkout.</h2>
-                    <p class="registerAccount-body">Creating an account takes only a few minutes and will save time for future registrations by saving your information.</p>
+                    <p class="registerAccount-body">Creating an account allows us to prefill your contact information on future orders, saving you time. It also allows you to keep track of past and future registrations and save courses for future purchase.</p>
                     <div class="button-container">
                         <form method="get" action="/dashboard/signup/">
                             <button class="registerAccount-button">Create an account</button>
