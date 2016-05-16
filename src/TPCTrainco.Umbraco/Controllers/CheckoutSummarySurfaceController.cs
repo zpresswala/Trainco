@@ -297,6 +297,47 @@ namespace TPCTrainco.Umbraco.Controllers
 
                                             debug.AppendLine("Redirecting to: /register/success/");
 
+                                            
+                                        }
+                                        else
+                                        {
+                                            debug.AppendLine("CAN'T FIND REGISTRATION!");
+
+                                            cartsObj.SendCartErrorEmail("ERROR: 95\n\rCan't Find Registration: (reg == null || reg.RegistrationID <= 0)\r\n\r\nDebug:\r\n" + debug.ToString());
+
+                                            return Redirect("/register/error/?error=95&regid=" + tempCust.reg_ID);
+                                        }
+                                    }
+                                    else
+                                    {
+
+
+
+                                        // convert temp to registration
+                                        debug.AppendLine("Convert temp to registration...");
+
+                                        debug.AppendLine("tempCust.reg_ID: " + tempCust.reg_ID ?? 0 + ")");
+
+                                        reg = Registrations.AddRegistrationByTempCart(tempCust.reg_ID ?? 0);
+
+                                        debug.AppendLine("reg: " + reg == null ? "NULL!" : "RegistrationID: " + reg.RegistrationID);
+
+                                        if (reg != null && reg.RegistrationID > 0)
+                                        {
+                                            Session["RegistrationId"] = reg.RegistrationID;
+                                            Session["RegistrationTotal"] = string.Format("{0:N2}", reg.RegOrderTotal ?? 0);
+
+                                            debug.AppendLine("reg.RegistrationID: " + reg.RegistrationID + ")");
+                                            debug.AppendLine("reg.RegOrderTotal: " + reg.RegOrderTotal ?? 0 + ")");
+
+                                            // Email Registrar and Billing
+                                            debug.AppendLine("Email order confirmations...");
+                                            Registrations.EmailOrderConfirmations(checkoutDetails, reg);
+
+                                            // Email Attendees
+                                            debug.AppendLine("Email attendee confirmations...");
+                                            Registrations.EmailAttendeeConfirmations(checkoutDetails, reg);
+
                                             // Create User?
                                             if (true == model.CreateAccount)
                                             {
@@ -347,46 +388,8 @@ namespace TPCTrainco.Umbraco.Controllers
                                             }
                                             else
                                             {
-                                                return Redirect("/register/success//?u=2"); // Suggest creating an account
+                                                return Redirect("/register/success/?u=2"); // Suggest creating an account
                                             }
-                                        }
-                                        else
-                                        {
-                                            debug.AppendLine("CAN'T FIND REGISTRATION!");
-
-                                            cartsObj.SendCartErrorEmail("ERROR: 95\n\rCan't Find Registration: (reg == null || reg.RegistrationID <= 0)\r\n\r\nDebug:\r\n" + debug.ToString());
-
-                                            return Redirect("/register/error/?error=95&regid=" + tempCust.reg_ID);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        // convert temp to registration
-                                        debug.AppendLine("Convert temp to registration...");
-
-                                        debug.AppendLine("tempCust.reg_ID: " + tempCust.reg_ID ?? 0 + ")");
-
-                                        reg = Registrations.AddRegistrationByTempCart(tempCust.reg_ID ?? 0);
-
-                                        debug.AppendLine("reg: " + reg == null ? "NULL!" : "RegistrationID: " + reg.RegistrationID);
-
-                                        if (reg != null && reg.RegistrationID > 0)
-                                        {
-                                            Session["RegistrationId"] = reg.RegistrationID;
-                                            Session["RegistrationTotal"] = string.Format("{0:N2}", reg.RegOrderTotal ?? 0);
-
-                                            debug.AppendLine("reg.RegistrationID: " + reg.RegistrationID + ")");
-                                            debug.AppendLine("reg.RegOrderTotal: " + reg.RegOrderTotal ?? 0 + ")");
-
-                                            // Email Registrar and Billing
-                                            debug.AppendLine("Email order confirmations...");
-                                            Registrations.EmailOrderConfirmations(checkoutDetails, reg);
-
-                                            // Email Attendees
-                                            debug.AppendLine("Email attendee confirmations...");
-                                            Registrations.EmailAttendeeConfirmations(checkoutDetails, reg);
-
-                                            return Redirect("/register/success/");
                                         }
                                         else
                                         {

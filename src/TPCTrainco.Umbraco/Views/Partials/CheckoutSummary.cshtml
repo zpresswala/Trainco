@@ -1,5 +1,6 @@
 ﻿@using TPCTrainco.Umbraco.Extensions
 @using TPCTrainco.Umbraco.Extensions.Objects
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @model TPCTrainco.Umbraco.Extensions.Models.CheckoutDetails
 @{
 temp_Cust tempCust = Model.tempCust;
@@ -123,7 +124,7 @@ using (Html.BeginUmbracoForm
           <h4>Payment Method</h4>
         </div>
         <div class="credit-card">
-          <h4>@(tempCust.payMethod)</h4>
+          <h4>@(tempCust.payMethod.IndexOf("Invoice") >= 0 ? tempCust.payMethod : tempCust.ccType +" ending in " + StringUtilities.GetLast(tempCust.ccNumber, 4))</h4>
         </div>
       </div>
       @if (true == string.IsNullOrEmpty(Model.UserToken))
