@@ -16,7 +16,17 @@
 }
 <div id="authbar" ng-controller="AuthbarController as vm">
 <div class="container">
-  <div ng-if="vm.isLoggedIn">
+  <div ng-if="!vm.isLoggedIn">
+    <ul class="inline-list">
+    <li>
+      <a class="authbar-link" href="/dashboard/signup">Create an account</a>
+    </li>
+    <li>
+      <a class="authbar-link" href="/dashboard/login">Log in</a>
+    </li>
+  </ul>
+  </div>
+  <div ng-if="vm.isLoggedIn" ng-cloak>
     <ul class="inline-list">
         <li ng-cloak>
             Welcome, <strong>{{vm.user.firstName}} {{vm.user.lastName}}</strong>
@@ -29,16 +39,7 @@
       </li>
     </ul>
   </div>
-  <div ng-if="!vm.isLoggedIn">
-    <ul class="inline-list">
-    <li>
-      <a class="authbar-link" href="/dashboard/signup">Create an account</a>
-    </li>
-    <li>
-      <a class="authbar-link" href="/dashboard/login">Log in</a>
-    </li>
-  </ul>
-  </div>
+
   </div>
 </div>
 <nav class="navbar navbar-default">
