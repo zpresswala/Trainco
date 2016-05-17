@@ -206,6 +206,15 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return user;
         }
 
+        public static bool CheckUserAccount(string email)
+        {
+            bool exists = false;
+
+            exists = ApplicationContext.Current.Services.MemberService.Exists(email);
+
+            return exists;
+        }
+
         public static bool ForgottenPassword(string email, Uri uri)
         {
             var success = true;

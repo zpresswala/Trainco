@@ -42,7 +42,7 @@ function CheckSpeedCheckout() {
 }
 
 function CheckPreviousPurchases() {
-    var $HasMakePreviousPurchase = $('#HasMakePreviousPurchase');
+    var $HasMakePreviousPurchase = $('#Company_HasMakePreviousPurchase');
     var $attendRadio = $('input:radio[name=attend]');
 
     if ($attendRadio.is(':checked')) {

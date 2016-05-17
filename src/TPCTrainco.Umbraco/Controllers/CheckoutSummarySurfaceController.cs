@@ -297,7 +297,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                                             debug.AppendLine("Redirecting to: /register/success/");
 
-                                            
+
                                         }
                                         else
                                         {
@@ -376,6 +376,10 @@ namespace TPCTrainco.Umbraco.Controllers
                                                 {
                                                     return Redirect("/register/success/?u=0"); // User account created but couldn't update the company
                                                 }
+                                                else if (userKey == "1")
+                                                {
+                                                    return Redirect("/register/success/?u=-2"); // User account was already created
+                                                }
                                                 else
                                                 {
                                                     return Redirect("/register/success/?u=1"); // User account created successfully
@@ -434,25 +438,32 @@ namespace TPCTrainco.Umbraco.Controllers
         {
             string userKey = "";
 
-            var user = AccountHelper.CreateUser(model.User, Request.Url);
-
-            if (!String.IsNullOrEmpty(user.Key))
+            if (false == AccountHelper.CheckUserAccount(model.User.Email))
             {
-                if (!String.IsNullOrEmpty(model.Company.Username) && !model.Company.Username.Equals(model.User.Email))
-                {
-                    model.Company = AccountHelper.GetCompany(model.Company.Username);
-                }
+                var user = AccountHelper.CreateUser(model.User, Request.Url);
 
-                var success = AccountHelper.UpdateCompany(user.Key, model.Company);
+                if (!String.IsNullOrEmpty(user.Key))
+                {
+                    if (!String.IsNullOrEmpty(model.Company.Username) && !model.Company.Username.Equals(model.User.Email))
+                    {
+                        model.Company = AccountHelper.GetCompany(model.Company.Username);
+                    }
 
-                if (true == success)
-                {
-                    userKey = user.Key;
+                    var success = AccountHelper.UpdateCompany(user.Key, model.Company);
+
+                    if (true == success)
+                    {
+                        userKey = user.Key;
+                    }
+                    else
+                    {
+                        userKey = "0";
+                    }
                 }
-                else
-                {
-                    userKey = "0";
-                }
+            }
+            else
+            {
+                userKey = "1";
             }
 
             return userKey;
