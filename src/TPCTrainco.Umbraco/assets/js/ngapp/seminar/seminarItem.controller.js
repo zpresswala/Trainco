@@ -34,7 +34,7 @@
       };
       $http.put(apiSave + '/UpdateSaveForLater', data, {
         headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('tcJWT')
+          'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('tcJWT'))
         }
       }).then(function(response) {
         vm.saveBtn = false;
