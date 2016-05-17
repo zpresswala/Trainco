@@ -193,7 +193,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                         smtp.EmailBccList = bcc.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                         smtp.IsBodyHtml = true;
                         smtp.Subject = subject;
-                        smtp.Body = body.Replace("{{FIRSTNAME}}", user.FirstName).Replace("{{LASTNAME}}", user.LastName).Replace("{{VALIDATIONCODE}}", validationCode).Replace("{{SITEBASEURL}}", siteUrlBase);
+                        smtp.Body = body.Replace("{{FIRSTNAME}}", user.FirstName).Replace("{{LASTNAME}}", user.LastName).Replace("{{VALIDATIONCODE}}", validationCode).Replace("{{SITEBASEURL}}", siteUrlBase).Replace("{{EMAIL}}", user.Email);
                         smtp.SendEmail();
                     }
                 }

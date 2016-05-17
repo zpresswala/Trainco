@@ -190,3 +190,4 @@ pkg/
 _ReSharper.*/
 src/TPCTrainco.Cache/App_Data/ClientDependency/
 >>>>>>> 7cdcd9c1aaaaa851e72c0cb2eddc16c91c7483b0
+/Deploy

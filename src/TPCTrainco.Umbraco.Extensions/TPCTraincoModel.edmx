@@ -585,6 +585,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="Title" Type="varchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneExtension" Type="varchar" MaxLength="50" />
           <Property Name="CompanyName" Type="varchar" MaxLength="50" />
           <Property Name="AddressLn1" Type="varchar" MaxLength="50" />
           <Property Name="AddressLn2" Type="varchar" MaxLength="50" />
@@ -1460,6 +1461,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneExtension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AddressLn1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AddressLn2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -2140,6 +2142,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySetMapping Name="WebAccounts">
             <EntityTypeMapping TypeName="americantraincoModel.WebAccount">
               <MappingFragment StoreEntitySet="WebAccounts">
+                <ScalarProperty Name="PhoneExtension" ColumnName="PhoneExtension" />
                 <ScalarProperty Name="TrainingTopics" ColumnName="TrainingTopics" />
                 <ScalarProperty Name="NbrEmplforTraining" ColumnName="NbrEmplforTraining" />
                 <ScalarProperty Name="OutsideTrainingFrequency" ColumnName="OutsideTrainingFrequency" />

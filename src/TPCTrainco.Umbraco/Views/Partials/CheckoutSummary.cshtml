@@ -186,8 +186,7 @@ using (Html.BeginUmbracoForm
               @foreach (SelectListItem industryItem in FormUtilities.TopicsMostInterestList())
               {
               <div class="industry-checkbox-container">
-                <input type="checkbox" class="interested-topics" id="Industry@(industryItem.Value)"
-                       value="@(industryItem.Text)">
+                <input type="checkbox" class="interested-topics" id="Industry@(industryItem.Value)" value="@(industryItem.Text)"> 
                 <label for="Industry@(industryItem.Value)">@(industryItem.Text)</label>
               </div>
               }

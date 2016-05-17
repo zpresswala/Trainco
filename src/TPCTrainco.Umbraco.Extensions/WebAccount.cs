@@ -22,6 +22,7 @@ namespace TPCTrainco.Umbraco.Extensions
         public string LastName { get; set; }
         public string Title { get; set; }
         public string PhoneNumber { get; set; }
+        public string PhoneExtension { get; set; }
         public string CompanyName { get; set; }
         public string AddressLn1 { get; set; }
         public string AddressLn2 { get; set; }
