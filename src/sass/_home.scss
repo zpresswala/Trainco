@@ -219,10 +219,10 @@
 
     .quote {
       position: relative;
-      font-size: 1.1rem;
+      font-size: 17px;
 
      @include respond-to(normal) {
-        @include rem(font-size, 22px);
+        font-size:  22px;
       }
 
       &:before {
@@ -237,7 +237,7 @@
     }
 
     .citation {
-      @include rem(font-size, 19px);
+      font-size: 19px;
       font-style: italic;
       margin-top: 50px;
 
@@ -398,7 +398,7 @@
 }
 
 .seminar-title {
-  font-size: 1.1rem;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: 4px;
 }

@@ -5816,13 +5816,12 @@ ul.pagination-btn-wrapper li {
 
 .carousel .carousel-caption .quote {
   position: relative;
-  font-size: 1.1rem;
+  font-size: 17px;
 }
 
 @media only screen and (min-width: 61.25rem) {
   .carousel .carousel-caption .quote {
     font-size: 22px;
-    font-size: 22/strip-units(16px)0;
   }
 }
 
@@ -5838,7 +5837,6 @@ ul.pagination-btn-wrapper li {
 
 .carousel .carousel-caption .citation {
   font-size: 19px;
-  font-size: 19/strip-units(16px)0;
   font-style: italic;
   margin-top: 50px;
 }
@@ -6019,7 +6017,7 @@ ul.pagination-btn-wrapper li {
 }
 
 .seminar-title {
-  font-size: 1.1rem;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: 4px;
 }

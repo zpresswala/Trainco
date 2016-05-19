@@ -1,4 +1,4 @@
-﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions
 @using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
@@ -33,7 +33,7 @@
 
 <div class="container-fluid headline-section">
     <div class="container">
-        <div class="jumbotron">
+        <div id="top" class="jumbotron">
             <h1>@(currentPage.GetPropertyValue<string>("pageHeadline", currentPage.Name))</h1>
         </div>
     </div>

@@ -1,4 +1,4 @@
-﻿@using TPCTrainco.Umbraco.Extensions.Helpers
+@using TPCTrainco.Umbraco.Extensions.Helpers
 @using TPCTrainco.Umbraco.Extensions.Models
 @using TPCTrainco.Umbraco.Extensions.Objects
 @using Umbraco.Core.Models
@@ -321,18 +321,28 @@
         <script src="/assets/js/ngapp/components/mainSearch/mainSearch.controller.js"></script>
         <script src="/assets/js/ngapp/components/cart/cart.service.js"></script>
         <script src="/assets/js/ngapp/components/cart/cart.controller.js"></script>
-
-        if (seminarDetailPage)
-        {
-            <script type="text/javascript">
-
-                $('a[href^="#"]').click(function (e) {
-                    e.preventDefault();
-                    var hash = $(this).attr('href');
-                    $('html, body').stop(true).animate({ scrollTop: $(hash).offset().top - 125 }, 500);
+        <script>
+            $(function() {
+                $(".dropdown").hover(
+                    function(){ $(this).addClass('open') },
+                    function(){ $(this).removeClass('open') }
+                );
+            });
+              $(function() {
+                $('a[href*="#"]:not([href="#"])').click(function() {
+                  if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                    if (target.length) {
+                      $('html, body').animate({
+                        scrollTop: target.offset().top
+                      }, 1000);
+                      return false;
+                    }
+                  }
                 });
-            </script>
-        }
+              });
+        </script>
 
     }
     @if (true == checkoutRegistration)
