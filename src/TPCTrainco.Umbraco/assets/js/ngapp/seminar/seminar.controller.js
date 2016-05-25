@@ -124,9 +124,10 @@
       if (maxValue > 11) {
         thisYear = thisYear + 1;
         maxValue = maxValue - 11;
-      }
+        vm.filterMax = maxValue + '-' + thisYear;
+      } else {
       vm.filterMax = maxValue + '-' + thisYear;
-
+      }
 
       function fixFormat(badDate) {
         var x = badDate.replace(/^(\d+\-)/, '$11-').replace(/\-/g, '/');
