@@ -49,6 +49,7 @@
     bool searchPage = false;
     bool homePage = false;
     bool seminarDetailPage = false;
+    bool seminarCatalog = false;
 
     if (currentPage.DocumentTypeAlias == "HomePage")
     {
@@ -83,11 +84,17 @@
     {
         cartPage = true;
     }
+    else if (currentPage.DocumentTypeAlias == "SeminarCatalog")
+    {
+        seminarCatalog = true;
+    }
+
 
     if (searchPage || homePage || seminarDetailPage)
     {
         bodyId = " id=\"page-top\"";
     }
+
 
     bool clearSession = false;
     string trackItemListStr = "";
@@ -193,7 +200,7 @@
     <meta name="twitter:description" content="@(currentPage.GetPropertyValue<string>("pageDescription"))" />
     <meta name="twitter:title" content="TPC Trainco training" />
     <meta name="twitter:domain" content="TPC Trainco" />
-	<base href="/" />
+    <base href="/" />
     <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
@@ -259,7 +266,7 @@
     @Html.Raw(pageHeaderScript)
 </head>
 
-<body class="gradient-bg"@(bodyId)>
+<body class="gradient-bg" @(bodyId)>
 
     @Html.Partial("Navigation/Top")
 
@@ -294,44 +301,29 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 
-  <script src="/app/core/core.module.js"></script>
-  <script src="/app/common/common.module.js"></script>
-  <script src="/app/components/components.module.js"></script>
-  <script src="/app/register/register.module.js?v1.43"></script>
-  <script src="/app/seminar/seminar.module.js"></script>
-  <script src="/app/app.module.js"></script>
-  <script src="/app/common/util.service.js"></script>
-  <script src="/app/common/search.factory.js?v1.43"></script>
-  <script src="/app/common/startFrom.filter.js"></script>
-  <script src="/app/common/months.factory.js"></script>
-  <script src="/app/common/cities.factory.js"></script>
-  <script src="/app/common/dropIn.animation.js"></script>
-  <script src="/app/common/slideToggle.animation.js"></script>
-  <script src="/app/components/cart/cart.directive.js"></script>
-  <script src="/app/common/stringToNumber.directive.js"></script>
-  <script src="/app/seminar/seminar.controller.js"></script>
-  <script src="/app/seminar/courseSearch.service.js"></script>
-  <script src="/app/register/register.controller.js?v1.43"></script>
-  <script src="/app/core/lodash.factory.js"></script>
-  <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
-  <script src="/app/components/mainSearch/mainSearch.controller.js"></script>
-  <script src="/app/components/cart/cart.service.js"></script>
-  <script src="/app/components/cart/cart.controller.js"></script>
-
-
-
-        if (seminarDetailPage)
-        {
-                  <script type="text/javascript">
-
-                                  $('a[href^="#"]').click(function(e) {
-                                      e.preventDefault();
-                                      var hash = $(this).attr('href');
-                                      $('html, body').stop(true).animate({scrollTop: $(hash).offset().top - 125}, 500);
-                                  });
-                      </script>
-        }
-
+        <script src="/app/core/core.module.js"></script>
+        <script src="/app/common/common.module.js"></script>
+        <script src="/app/components/components.module.js"></script>
+        <script src="/app/register/register.module.js?v1.43"></script>
+        <script src="/app/seminar/seminar.module.js"></script>
+        <script src="/app/app.module.js"></script>
+        <script src="/app/common/util.service.js"></script>
+        <script src="/app/common/search.factory.js?v1.43"></script>
+        <script src="/app/common/startFrom.filter.js"></script>
+        <script src="/app/common/months.factory.js"></script>
+        <script src="/app/common/cities.factory.js"></script>
+        <script src="/app/common/dropIn.animation.js"></script>
+        <script src="/app/common/slideToggle.animation.js"></script>
+        <script src="/app/components/cart/cart.directive.js"></script>
+        <script src="/app/common/stringToNumber.directive.js"></script>
+        <script src="/app/seminar/seminar.controller.js"></script>
+        <script src="/app/seminar/courseSearch.service.js"></script>
+        <script src="/app/register/register.controller.js?v1.43"></script>
+        <script src="/app/core/lodash.factory.js"></script>
+        <script src="/app/components/mainSearch/mainSearch.directive.js"></script>
+        <script src="/app/components/mainSearch/mainSearch.controller.js"></script>
+        <script src="/app/components/cart/cart.service.js"></script>
+        <script src="/app/components/cart/cart.controller.js"></script>
     }
     else if (cartPage)
     {
@@ -346,16 +338,29 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
     }
+
+    @if (seminarCatalog || searchPage || homePage || seminarDetailPage)
+    {
+        <script type="text/javascript">
+
+            $('a[href^="#"]').click(function (e) {
+                e.preventDefault();
+                var hash = $(this).attr('href');
+                $('html, body').stop(true).animate({ scrollTop: $(hash).offset().top - 125 }, 500);
+            });
+        </script>
+    }
+
     @if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
         <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
         <script type="text/javascript" src="/js/main.js?@cacheVer"></script>
         <script type="text/javascript">
-        $(window).load(function () {
-            tpcAppObj = new TPCApp();
-        });
+            $(window).load(function () {
+                tpcAppObj = new TPCApp();
+            });
         </script>
-     }
+    }
 
     @if (true == homePage)
     {
