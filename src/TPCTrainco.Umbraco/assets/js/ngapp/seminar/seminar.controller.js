@@ -116,20 +116,28 @@
     }, 300);
     function watchHandles() {
       var mapNum = parseInt(combinedMonthValues[0]);
+
       var thisYear = (new Date()).getFullYear();
       var minValue = (parseInt(vm.monthsSlider.minValue) + mapNum);
       var maxValue = (parseInt(vm.monthsSlider.maxValue) + mapNum);
 
-      vm.filterMin = minValue + '-' + thisYear;
+      if (minValue > 12) {
+        vm.filterMin = (minValue - 12) + '-' + (thisYear + 1);
+      } else {
+        vm.filterMin = minValue + '-' + thisYear;
+      }
+
+
       if (maxValue > 11) {
         thisYear = thisYear + 1;
         maxValue = maxValue - 11;
         vm.filterMax = maxValue + '-' + thisYear;
       } else {
-      vm.filterMax = maxValue + '-' + thisYear;
+        vm.filterMax = maxValue + '-' + thisYear;
       }
 
       function fixFormat(badDate) {
+        // 10-2016 -> 10-1-2016 -> 10/1/2016
         var x = badDate.replace(/^(\d+\-)/, '$11-').replace(/\-/g, '/');
         return x;
       }
@@ -142,6 +150,7 @@
           var endDate = vm.filterMax;
 
           var fixTest = new Date(fixFormat(testDate));
+          console.log('begin date is', beginDate);
           var fixBegin = new Date(fixFormat(beginDate));
           var fixEnd = new Date(fixFormat(endDate));
           var testMonth = fixTest.getMonth();
@@ -151,6 +160,10 @@
           var beginYear = fixBegin.getFullYear();
           var endYear = fixEnd.getFullYear();
           // only chrome makes it past
+          // console.log(fixBegin, 'fixBegin date');
+          // console.log(beginMonth, 'NAN');
+          // console.log(endDate, 'endDate');
+
           if (testYear >= beginYear && testYear <= endYear) {
             if (testYear < endYear) {
               if (testMonth >= beginMonth) {

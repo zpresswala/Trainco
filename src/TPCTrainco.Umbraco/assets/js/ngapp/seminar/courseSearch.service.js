@@ -20,9 +20,14 @@
     return service;
     function getSeminars(classId) {
       var d = new Date();
+      var thisMonth = d.getMonth() + 1;
+      var today = d.getDate();
       var y = d.getFullYear();
       var ny = d.getFullYear() + 1;
-      return $http.get(apiHost + '/' + classId + '?date-start=01/01/' + y + '&date-end=12/31/' + ny)
+
+      d.setYear(d.getYear() + 1);
+      d.setDate(0);
+      return $http.get(apiHost + '/' + classId + '?date-start=' + thisMonth + '/' + today + '/' + y + '&date-end=' + (d.getMonth() + 1) + '/' + d.getDate() + '/' + ny)
         .then(function(response) {
           return response.data;
         })
