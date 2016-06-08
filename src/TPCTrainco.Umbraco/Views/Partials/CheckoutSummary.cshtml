@@ -135,6 +135,7 @@ using (Html.BeginUmbracoForm
           <label class="speedCheckout" for="speedCheckout">Save and create an account for faster checkout next
             time</label>
           @Html.HiddenFor(p => p.CreateAccount)
+          @Html.HiddenFor(p => p.Company.SaveAccount)
         </div>
         <div class="speedCheckout-form">
           <div class="form-container">

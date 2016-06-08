@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Foolproof;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -22,25 +23,22 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
         public string HowDidYouAboutUs { get; set; }
         public string PromCode { get; set; }
 
-        [Required]
-        [DisplayName("'your industry'")]
+        public bool SaveAccount { get; set; }
+
+        [RequiredIfTrue("CreateNewAccount", ErrorMessage = "'Your industry' is requied.")]
         public string Industry { get; set; }
         public string Role { get; set; }
 
-        [Required]
-        [DisplayName("'how often do you use outside training'")]
+        [RequiredIfTrue("CreateNewAccount", ErrorMessage = "The 'how often do you use outside training' is requied.")]
         public string ExternalTrainingUsageAmount { get; set; }
 
-        [Required]
-        [DisplayName("'number of employees in your facility need training'")]
+        [RequiredIfTrue("CreateNewAccount", ErrorMessage = "The 'number of employees in your facility need training' is requied.")]
         public string NumberOfEmployees { get; set; }
 
-        [Required]
-        [DisplayName("'training topics most interested in'")]
+        [RequiredIfTrue("CreateNewAccount", ErrorMessage = "The 'training topics most interested in' is requied.")]
         public string TrainingTopics { get; set; }
 
-        [Required]
-        [DisplayName("'previously purchased or attended courses'")]
+        [RequiredIfTrue("CreateNewAccount", ErrorMessage = "The 'previously purchased or attended courses' is requied.")]
         public string HasMakePreviousPurchase { get; set; }
 
 

@@ -215,7 +215,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             {
                 trackItemListFilter = trackItemList.DistinctBy(p => p.Code).ToList();
 
-                foreach(RegistrationTrackItem trackItem in trackItemListFilter)
+                foreach (RegistrationTrackItem trackItem in trackItemListFilter)
                 {
                     int itemCount = trackItemList.Where(p => p.Code == trackItem.Code).Count();
 
@@ -229,211 +229,225 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
         public static void EmailOrderConfirmations(CheckoutDetails checkout, REGISTRATION reg)
         {
-            IEnumerable<IPublishedContent> emailTemplates = null;
-
-            emailTemplates = Helpers.Nodes.SiteSettingsDirect().Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
-
-            if (emailTemplates != null)
+            try
             {
-                IPublishedContent emailTemplateOrderConfirm = emailTemplates.Where(p => p.Name == "Order Confirm").FirstOrDefault();
-                IPublishedContent emailTemplateOrderConfirmATI = emailTemplates.Where(p => p.Name == "Order Confirm ATI").FirstOrDefault();
-                IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Seminar Details Template").FirstOrDefault();
-                IPublishedContent emailTemplateOrderSummaryTemplate = emailTemplates.Where(p => p.Name == "Order Summary Template").FirstOrDefault();
+                IEnumerable<IPublishedContent> emailTemplates = null;
 
-                if (emailTemplateOrderConfirm != null && emailTemplateOrderConfirmATI != null && emailTemplateOrderConfirmDetail != null)
+                emailTemplates = Helpers.Nodes.SiteSettingsDirect().Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
+
+                if (emailTemplates != null)
                 {
-                    Helpers.Email email = new Helpers.Email();
+                    IPublishedContent emailTemplateOrderConfirm = emailTemplates.Where(p => p.Name == "Order Confirm").FirstOrDefault();
+                    IPublishedContent emailTemplateOrderConfirmATI = emailTemplates.Where(p => p.Name == "Order Confirm ATI").FirstOrDefault();
+                    IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Seminar Details Template").FirstOrDefault();
+                    IPublishedContent emailTemplateOrderSummaryTemplate = emailTemplates.Where(p => p.Name == "Order Summary Template").FirstOrDefault();
 
-                    email.IsBodyHtml = true;
-
-                    string fromOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailFrom").Value.ToString();
-                    string emailOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailBody").Value.ToString();
-                    string subjectOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailSubject").Value.ToString();
-                    string toAltOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString();
-
-                    string fromOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailFrom").Value.ToString();
-                    string emailOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailBody").Value.ToString();
-                    string subjectOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailSubject").Value.ToString();
-                    string toAltOrderConfirmATI = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString();
-
-                    string emailDetailTemplate = emailTemplateOrderConfirmDetail.GetProperty("emailBody").Value.ToString();
-                    string emailOrderSummaryTemplate = emailTemplateOrderSummaryTemplate.GetProperty("emailBody").Value.ToString();
-
-                    // replace the email tags
-                    emailOrderConfirm = ReplaceEmailTags(emailOrderConfirm, checkout, reg);
-                    emailOrderConfirmATI = ReplaceEmailTags(emailOrderConfirmATI, checkout, reg);
-
-                    string emailOrderAttendeeDetailsList = "";
-                    string emailOrderSummaryList = "";
-                    bool isCourseCancelling = false;
-
-                    // Loop through attendees
-                    foreach (temp_Reg tempReg in checkout.tempRegList)
+                    if (emailTemplateOrderConfirm != null && emailTemplateOrderConfirmATI != null && emailTemplateOrderConfirmDetail != null)
                     {
-                        string attendeeDetails = emailDetailTemplate;
-                        string attendeeSummary = emailOrderSummaryTemplate;
+                        Helpers.Email email = new Helpers.Email();
 
-                        SCHEDULE schedule = CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
+                        email.IsBodyHtml = true;
 
-                        if (schedule != null && schedule.ScheduleStatus != null && schedule.ScheduleStatus > 0)
+                        string fromOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailFrom").Value.ToString();
+                        string emailOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailBody").Value.ToString();
+                        string subjectOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailSubject").Value.ToString();
+                        string toAltOrderConfirm = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString();
+
+                        string fromOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailFrom").Value.ToString();
+                        string emailOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailBody").Value.ToString();
+                        string subjectOrderConfirmATI = emailTemplateOrderConfirmATI.GetProperty("emailSubject").Value.ToString();
+                        string toAltOrderConfirmATI = emailTemplateOrderConfirm.GetProperty("emailToAlt").Value.ToString();
+
+                        string emailDetailTemplate = emailTemplateOrderConfirmDetail.GetProperty("emailBody").Value.ToString();
+                        string emailOrderSummaryTemplate = emailTemplateOrderSummaryTemplate.GetProperty("emailBody").Value.ToString();
+
+                        // replace the email tags
+                        emailOrderConfirm = ReplaceEmailTags(emailOrderConfirm, checkout, reg);
+                        emailOrderConfirmATI = ReplaceEmailTags(emailOrderConfirmATI, checkout, reg);
+
+                        string emailOrderAttendeeDetailsList = "";
+                        string emailOrderSummaryList = "";
+                        bool isCourseCancelling = false;
+
+                        // Loop through attendees
+                        foreach (temp_Reg tempReg in checkout.tempRegList)
                         {
-                            isCourseCancelling = true;
-                        }
+                            string attendeeDetails = emailDetailTemplate;
+                            string attendeeSummary = emailOrderSummaryTemplate;
 
-                        string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
-                        emailOrderSummaryList += "<tr><td colspan=\"3\">" + seminarTitle + "</td></tr><tr><td colspan=\"3\" height=\"15\"></td></tr>";
+                            SCHEDULE schedule = CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
 
-
-                        List<temp_Att> tempAttList = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).ToList();
-
-                        if (tempAttList != null && tempAttList.Count > 0)
-                        {
-                            foreach (temp_Att tempAtt in tempAttList)
+                            if (schedule != null && schedule.ScheduleStatus != null && schedule.ScheduleStatus > 0)
                             {
-                                if (tempAtt != null)
+                                isCourseCancelling = true;
+                            }
+
+                            string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+                            emailOrderSummaryList += "<tr><td colspan=\"3\">" + seminarTitle + "</td></tr><tr><td colspan=\"3\" height=\"15\"></td></tr>";
+
+
+                            List<temp_Att> tempAttList = checkout.tempAttList.Where(p => p.reg_SEQ == tempReg.reg_SEQ).ToList();
+
+                            if (tempAttList != null && tempAttList.Count > 0)
+                            {
+                                foreach (temp_Att tempAtt in tempAttList)
                                 {
-                                    attendeeDetails = emailDetailTemplate;
-                                    attendeeSummary = emailOrderSummaryTemplate;
+                                    if (tempAtt != null)
+                                    {
+                                        attendeeDetails = emailDetailTemplate;
+                                        attendeeSummary = emailOrderSummaryTemplate;
 
-                                    attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                                    attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
-                                    attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
+                                        attendeeDetails = attendeeDetails.Replace("{{ATTENDEE}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                                        attendeeDetails = attendeeDetails.Replace("{{FEE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+                                        attendeeDetails = GenerateSeminarDetails(attendeeDetails, tempReg);
 
-                                    emailOrderAttendeeDetailsList += attendeeDetails;
+                                        emailOrderAttendeeDetailsList += attendeeDetails;
 
 
-                                    attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                                    attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
+                                        attendeeSummary = attendeeSummary.Replace("{{FULL_NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                                        attendeeSummary = attendeeSummary.Replace("{{PRICE}}", string.Format("{0:C0}", tempReg.sem_FeeAmt));
 
-                                    emailOrderSummaryList += attendeeSummary;
+                                        emailOrderSummaryList += attendeeSummary;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    emailOrderConfirm = emailOrderConfirm.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
-                    emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
+                        emailOrderConfirm = emailOrderConfirm.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
+                        emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{DETAILINFO}}", emailOrderAttendeeDetailsList);
 
-                    emailOrderConfirm = emailOrderConfirm.Replace("{{ORDERSUMMARY}}", emailOrderSummaryList);
-                    emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{ORDERSUMMARY}}", emailOrderSummaryList);
+                        emailOrderConfirm = emailOrderConfirm.Replace("{{ORDERSUMMARY}}", emailOrderSummaryList);
+                        emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{ORDERSUMMARY}}", emailOrderSummaryList);
 
-                    if (true == isCourseCancelling)
-                    {
-                        string courseCancelling = "<div style=\"font-weight: bold; color: #800000; font-style: italic; text-align: center;\">";
-                        courseCancelling += "** CLASS IS PENDING CANCELLATION **</div>";
+                        if (true == isCourseCancelling)
+                        {
+                            string courseCancelling = "<div style=\"font-weight: bold; color: #800000; font-style: italic; text-align: center;\">";
+                            courseCancelling += "** CLASS IS PENDING CANCELLATION **</div>";
 
-                        emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", courseCancelling);
-                    }
-                    else
-                    {
-                        emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", "");
-                    }
+                            emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", courseCancelling);
+                        }
+                        else
+                        {
+                            emailOrderConfirmATI = emailOrderConfirmATI.Replace("{{XXMSG}}", "");
+                        }
 
-                    // Send email to Regsitrar
-                    email.EmailFrom = fromOrderConfirm;
-                    email.EmailToList = reg.RegAuthEmail.Split(';').ToList();
-                    email.Subject = subjectOrderConfirm;
-                    email.Body = emailOrderConfirm;
-
-                    email.SendEmail();
-
-                    // Send to billing email if different
-                    if (reg.RegAuthEmail.Trim().ToLower() != reg.RegBillEmail.Trim().ToLower())
-                    {
-                        email.EmailToList = reg.RegBillEmail.Split(';').ToList();
+                        // Send email to Regsitrar
+                        email.EmailFrom = fromOrderConfirm;
+                        email.EmailToList = reg.RegAuthEmail.Split(';').ToList();
+                        email.Subject = subjectOrderConfirm;
+                        email.Body = emailOrderConfirm;
 
                         email.SendEmail();
-                    }
 
-                    // Send to Admins
-                    if (false == string.IsNullOrWhiteSpace(toAltOrderConfirmATI))
-                    {
-                        email.EmailFrom = fromOrderConfirmATI;
-                        email.EmailToList = toAltOrderConfirmATI.Split(';').ToList();
-                        email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
-                        email.Body = emailOrderConfirmATI;
+                        // Send to billing email if different
+                        if (reg.RegAuthEmail.Trim().ToLower() != reg.RegBillEmail.Trim().ToLower())
+                        {
+                            email.EmailToList = reg.RegBillEmail.Split(';').ToList();
 
-                        email.SendEmail();
-                    }
+                            email.SendEmail();
+                        }
 
-                    if (true == isCourseCancelling && ConfigurationManager.AppSettings["Registration:CancelPendingEmail"] != null &&
-                            ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Length > 0)
-                    {
-                        email.EmailFrom = fromOrderConfirmATI;
-                        email.EmailToList = ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Split(';').ToList();
-                        email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
-                        email.Body = emailOrderConfirmATI;
+                        // Send to Admins
+                        if (false == string.IsNullOrWhiteSpace(toAltOrderConfirmATI))
+                        {
+                            email.EmailFrom = fromOrderConfirmATI;
+                            email.EmailToList = toAltOrderConfirmATI.Split(';').ToList();
+                            email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
+                            email.Body = emailOrderConfirmATI;
 
-                        email.SendEmail();
+                            email.SendEmail();
+                        }
+
+                        if (true == isCourseCancelling && ConfigurationManager.AppSettings["Registration:CancelPendingEmail"] != null &&
+                                ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Length > 0)
+                        {
+                            email.EmailFrom = fromOrderConfirmATI;
+                            email.EmailToList = ConfigurationManager.AppSettings.Get("Registration:CancelPendingEmail").Split(';').ToList();
+                            email.Subject = (isCourseCancelling ? "** PENDING CANCELLATION **  " : "") + subjectOrderConfirmATI;
+                            email.Body = emailOrderConfirmATI;
+
+                            email.SendEmail();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error<Registrations>("ERROR on Email Send (EmailOrderConfirmations): ", ex);
             }
         }
 
 
         public static void EmailAttendeeConfirmations(CheckoutDetails checkout, REGISTRATION reg)
         {
-            StringBuilder authText = new StringBuilder();
-
-            if (checkout != null && reg != null)
+            try
             {
-                IEnumerable<IPublishedContent> emailTemplates = null;
+                StringBuilder authText = new StringBuilder();
 
-                emailTemplates = Helpers.Nodes.Instance.SiteSettings.Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
-
-                if (emailTemplates != null)
+                if (checkout != null && reg != null)
                 {
-                    IPublishedContent emailTemplateAttendeeConfirm = emailTemplates.Where(p => p.Name == "Order Attendee Confirm").FirstOrDefault();
-                    IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Attendee Details").FirstOrDefault();
+                    IEnumerable<IPublishedContent> emailTemplates = null;
 
-                    string emailAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailBody").Value.ToString();
-                    string fromtAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailFrom").Value.ToString();
-                    string toAltAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailToAlt").Value.ToString();
-                    string subjectAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailSubject").Value.ToString();
+                    emailTemplates = Helpers.Nodes.Instance.SiteSettings.Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children;
 
-                    string emailDetailTemplate = emailTemplateOrderConfirmDetail.GetProperty("emailBody").Value.ToString();
-
-                    foreach (temp_Att tempAtt in checkout.tempAttList)
+                    if (emailTemplates != null)
                     {
-                        temp_Reg tempReg = checkout.tempRegList.Where(p => p.reg_SEQ == tempAtt.reg_SEQ).FirstOrDefault();
-                        string attEmailBody = emailAttendeeConfirm;
+                        IPublishedContent emailTemplateAttendeeConfirm = emailTemplates.Where(p => p.Name == "Order Attendee Confirm").FirstOrDefault();
+                        IPublishedContent emailTemplateOrderConfirmDetail = emailTemplates.Where(p => p.Name == "Order Attendee Details").FirstOrDefault();
 
-                        attEmailBody = attEmailBody.Replace("{{NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
-                        attEmailBody = attEmailBody.Replace("{{TITLE}}", tempAtt.att_Title);
-                        attEmailBody = attEmailBody.Replace("{{COMPANY}}", reg.RegCompanyName);
-                        attEmailBody = attEmailBody.Replace("{{DATE}}", DateTime.Now.ToShortDateString());
-                        attEmailBody = attEmailBody.Replace("{{TRANSNO}}", reg.RegistrationID.ToString());
-                        attEmailBody = attEmailBody.Replace("{{DETAILINFO}}", GenerateSeminarDetails(emailDetailTemplate, tempReg));
+                        string emailAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailBody").Value.ToString();
+                        string fromtAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailFrom").Value.ToString();
+                        string toAltAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailToAlt").Value.ToString();
+                        string subjectAttendeeConfirm = emailTemplateAttendeeConfirm.GetProperty("emailSubject").Value.ToString();
 
-                        // Send Email to Attendee
-                        Helpers.Email email = new Helpers.Email();
+                        string emailDetailTemplate = emailTemplateOrderConfirmDetail.GetProperty("emailBody").Value.ToString();
 
-                        if (false == string.IsNullOrEmpty(tempAtt.att_Email))
+                        foreach (temp_Att tempAtt in checkout.tempAttList)
                         {
-                            email.EmailFrom = fromtAttendeeConfirm;
-                            email.Subject = subjectAttendeeConfirm;
-                            email.Body = attEmailBody;
-                            email.IsBodyHtml = true;
-                            email.EmailToList = tempAtt.att_Email.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            temp_Reg tempReg = checkout.tempRegList.Where(p => p.reg_SEQ == tempAtt.reg_SEQ).FirstOrDefault();
+                            string attEmailBody = emailAttendeeConfirm;
 
-                            email.SendEmail();
-                        }
+                            attEmailBody = attEmailBody.Replace("{{NAME}}", tempAtt.att_FName + " " + tempAtt.att_LName);
+                            attEmailBody = attEmailBody.Replace("{{TITLE}}", tempAtt.att_Title);
+                            attEmailBody = attEmailBody.Replace("{{COMPANY}}", reg.RegCompanyName);
+                            attEmailBody = attEmailBody.Replace("{{DATE}}", DateTime.Now.ToShortDateString());
+                            attEmailBody = attEmailBody.Replace("{{TRANSNO}}", reg.RegistrationID.ToString());
+                            attEmailBody = attEmailBody.Replace("{{DETAILINFO}}", GenerateSeminarDetails(emailDetailTemplate, tempReg));
 
-                        // Send email to Admins
-                        if (false == string.IsNullOrWhiteSpace(toAltAttendeeConfirm))
-                        {
-                            Helpers.Email emailAdmin = new Helpers.Email();
+                            // Send Email to Attendee
+                            Helpers.Email email = new Helpers.Email();
 
-                            emailAdmin.EmailFrom = fromtAttendeeConfirm;
-                            emailAdmin.Subject = subjectAttendeeConfirm;
-                            emailAdmin.Body = attEmailBody;
-                            emailAdmin.IsBodyHtml = true;
-                            emailAdmin.EmailToList = toAltAttendeeConfirm.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            if (false == string.IsNullOrEmpty(tempAtt.att_Email))
+                            {
+                                email.EmailFrom = fromtAttendeeConfirm;
+                                email.Subject = subjectAttendeeConfirm;
+                                email.Body = attEmailBody;
+                                email.IsBodyHtml = true;
+                                email.EmailToList = tempAtt.att_Email.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                            emailAdmin.SendEmail();
+                                email.SendEmail();
+                            }
+
+                            // Send email to Admins
+                            if (false == string.IsNullOrWhiteSpace(toAltAttendeeConfirm))
+                            {
+                                Helpers.Email emailAdmin = new Helpers.Email();
+
+                                emailAdmin.EmailFrom = fromtAttendeeConfirm;
+                                emailAdmin.Subject = subjectAttendeeConfirm;
+                                emailAdmin.Body = attEmailBody;
+                                emailAdmin.IsBodyHtml = true;
+                                emailAdmin.EmailToList = toAltAttendeeConfirm.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                                emailAdmin.SendEmail();
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error<Registrations>("ERROR on Email Send (EmailAttendeeConfirmations): ", ex);
             }
         }
 
