@@ -9,7 +9,6 @@ function CreateAccount() {
     var $speedCheckout = $('#speedCheckout');
     var $attendRadio = $('input:radio[name=attend]');
     var $speedCheckoutForm = $('.speedCheckout-form');
-    var $CreateAccount = $('#CreateAccount');
 
     $speedCheckout.on('change', function () {
         CheckSpeedCheckout();
@@ -30,14 +29,17 @@ function CheckSpeedCheckout() {
     var $speedCheckout = $('#speedCheckout');
     var $speedCheckoutForm = $('.speedCheckout-form');
     var $CreateAccount = $('#CreateAccount');
+    var $SaveAccount = $('#Company_SaveAccount');
 
     if ($speedCheckout.is(':checked')) {
         $speedCheckoutForm.slideDown('fast');
         $CreateAccount.val('true');
+        $SaveAccount.val('true');
 
     } else {
         $speedCheckoutForm.slideUp('fast');
         $CreateAccount.val('false');
+        $SaveAccount.val('false');
     }
 }
 
