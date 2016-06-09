@@ -59,11 +59,3 @@
 
     </div>
 </div>
-<script>
-$('a[href^="#"]').click(function(e) {
-   e.preventDefault();
-   var hash = $(this).attr('href');
-   $('html, body').stop(true).animate({scrollTop:
-    $(hash).offset().top - 125}, 500);
-   });
-</script>

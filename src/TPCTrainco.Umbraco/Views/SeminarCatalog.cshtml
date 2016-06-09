@@ -69,7 +69,7 @@
         </div>
 
         <div class="col-xs-12 country-toggle">
-            <a href="#" data-country-sort="ca" data-active-country="us"><img src="/assets/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars</a>
+            <a data-country-sort="ca" data-active-country="us"><img src="/assets/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars</a>
         </div>
 
     </div>
@@ -176,14 +176,7 @@
         }
     }
 </div>
-<script>
-$('a[href^="#"]').click(function(e) {
-   e.preventDefault();
-   var hash = $(this).attr('href');
-   $('html, body').stop(true).animate({scrollTop:
-    $(hash).offset().top - 125}, 500);
-   });
-</script>
+
 @functions {
     public static string GetCountryName(List<Country> countries, IPublishedContent node)
     {

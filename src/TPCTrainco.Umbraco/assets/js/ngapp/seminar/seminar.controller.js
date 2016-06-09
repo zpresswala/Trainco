@@ -150,7 +150,6 @@
           var endDate = vm.filterMax;
 
           var fixTest = new Date(fixFormat(testDate));
-          console.log('begin date is', beginDate);
           var fixBegin = new Date(fixFormat(beginDate));
           var fixEnd = new Date(fixFormat(endDate));
           var testMonth = fixTest.getMonth();
@@ -167,7 +166,6 @@
           if (testYear >= beginYear && testYear <= endYear) {
             if (testYear < endYear) {
               if (testMonth >= beginMonth) {
-
                 return true;
               }
             } else {
