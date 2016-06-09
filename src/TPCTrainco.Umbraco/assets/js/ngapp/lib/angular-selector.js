@@ -251,6 +251,7 @@
 				scope.createOption = function (value) {
 					var option = {};
 					if (angular.isFunction(scope.create)) {
+
 						option = scope.create({ input: value });
 					} else {
 						option[scope.labelAttr] = value;
@@ -432,10 +433,9 @@
 						});
 					})
 					.on('blur', function (e) {
-            if (!scope.selectedValues.length) {
+            if (e.target.value && !scope.selectedValues.length) {
               scope.createOption(e.target.value);
             }
-
 						scope.$apply(scope.close);
 					})
 					.on('keydown', function (e) {
