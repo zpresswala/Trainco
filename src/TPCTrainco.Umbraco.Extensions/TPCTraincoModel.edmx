@@ -632,6 +632,35 @@
           <Property Name="find_CoText" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'americantrainco.dbo.Attendees_ClassHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Attendees_ClassHistory">
+          <Key>
+            <PropertyRef Name="AttendeeID" />
+            <PropertyRef Name="RegistrationID" />
+            <PropertyRef Name="ScheduleID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="AttendeeID" Type="int" Nullable="false" />
+          <Property Name="RegistrationID" Type="int" Nullable="false" />
+          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="AuthFirstName" Type="varchar" MaxLength="255" />
+          <Property Name="AuthLastName" Type="varchar" MaxLength="255" />
+          <Property Name="AuthEmail" Type="varchar" MaxLength="255" />
+          <Property Name="Acronym" Type="varchar" MaxLength="5" />
+          <Property Name="ClassTitle" Type="varchar" MaxLength="255" />
+          <Property Name="ClassStart" Type="datetime" />
+          <Property Name="ClassDates" Type="varchar" MaxLength="255" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Seminar_Catalog">
           <Key>
@@ -718,6 +747,27 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySet Name="temp_Reg" EntityType="Self.temp_Reg" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebAccounts" EntityType="Self.WebAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebSignups" EntityType="Self.WebSignups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attendees_ClassHistory" EntityType="Self.Attendees_ClassHistory" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Attendees_ClassHistory].[AttendeeID] AS [AttendeeID], 
+    [Attendees_ClassHistory].[RegistrationID] AS [RegistrationID], 
+    [Attendees_ClassHistory].[ScheduleID] AS [ScheduleID], 
+    [Attendees_ClassHistory].[CourseID] AS [CourseID], 
+    [Attendees_ClassHistory].[FirstName] AS [FirstName], 
+    [Attendees_ClassHistory].[LastName] AS [LastName], 
+    [Attendees_ClassHistory].[Title] AS [Title], 
+    [Attendees_ClassHistory].[Email] AS [Email], 
+    [Attendees_ClassHistory].[AuthFirstName] AS [AuthFirstName], 
+    [Attendees_ClassHistory].[AuthLastName] AS [AuthLastName], 
+    [Attendees_ClassHistory].[AuthEmail] AS [AuthEmail], 
+    [Attendees_ClassHistory].[Acronym] AS [Acronym], 
+    [Attendees_ClassHistory].[ClassTitle] AS [ClassTitle], 
+    [Attendees_ClassHistory].[ClassStart] AS [ClassStart], 
+    [Attendees_ClassHistory].[ClassDates] AS [ClassDates], 
+    [Attendees_ClassHistory].[City] AS [City], 
+    [Attendees_ClassHistory].[State] AS [State]
+    FROM [dbo].[Attendees_ClassHistory] AS [Attendees_ClassHistory]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Seminar_Catalog" EntityType="Self.Seminar_Catalog" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Seminar_Catalog].[SchID] AS [SchID], 
@@ -1282,6 +1332,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySet Name="RegistrationAttendees" EntityType="americantraincoModel.RegistrationAttendee" />
           <EntitySet Name="RegistrationAttendeeSchedules" EntityType="americantraincoModel.RegistrationAttendeeSchedule" />
           <EntitySet Name="WebAccounts" EntityType="americantraincoModel.WebAccount" />
+          <EntitySet Name="Attendees_ClassHistory" EntityType="americantraincoModel.Attendees_ClassHistory" />
         </EntityContainer>
         <EntityType Name="CourseTopic">
           <Key>
@@ -1474,6 +1525,33 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="OutsideTrainingFrequency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NbrEmplforTraining" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TrainingTopics" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Attendees_ClassHistory">
+          <Key>
+            <PropertyRef Name="AttendeeID" />
+            <PropertyRef Name="RegistrationID" />
+            <PropertyRef Name="ScheduleID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="AttendeeID" Type="Int32" Nullable="false" />
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AuthFirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AuthLastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AuthEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Acronym" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="ClassTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ClassStart" Type="DateTime" Precision="3" />
+          <Property Name="ClassDates" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2163,6 +2241,29 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
                 <ScalarProperty Name="Updated" ColumnName="Updated" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="PKID" ColumnName="PKID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attendees_ClassHistory">
+            <EntityTypeMapping TypeName="americantraincoModel.Attendees_ClassHistory">
+              <MappingFragment StoreEntitySet="Attendees_ClassHistory">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ClassDates" ColumnName="ClassDates" />
+                <ScalarProperty Name="ClassStart" ColumnName="ClassStart" />
+                <ScalarProperty Name="ClassTitle" ColumnName="ClassTitle" />
+                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
+                <ScalarProperty Name="AuthEmail" ColumnName="AuthEmail" />
+                <ScalarProperty Name="AuthLastName" ColumnName="AuthLastName" />
+                <ScalarProperty Name="AuthFirstName" ColumnName="AuthFirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+                <ScalarProperty Name="AttendeeID" ColumnName="AttendeeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

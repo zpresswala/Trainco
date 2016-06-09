@@ -634,9 +634,9 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                         if (!expired && matches)
                         {
-                            success = ResetPassword(member, password);                            
-                        } 
-                        else if(expired)
+                            success = ResetPassword(member, password);
+                        }
+                        else if (expired)
                         {
                             member.SetValue("validationCode", String.Empty);
                             ApplicationContext.Current.Services.MemberService.Save(member);
@@ -728,16 +728,78 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             return supervisorsMemberKey;
         }
 
-        public static IEnumerable<CourseModel> GetUpcomingCourses(string memberKey)
+        public static IEnumerable<CourseModel> GetUpcomingCourses(string memberKey, string memberEmail)
         {
-            var courses = GetCourses(memberKey);
+            var courses = GetCoursesByEmail(memberEmail);
             return courses.Where(c => c.ScheduleDate > DateTime.Now);
         }
 
-        public static IEnumerable<CourseModel> GetPastCourses(string memberKey)
+        public static IEnumerable<CourseModel> GetPastCourses(string memberKey, string memberEmail)
         {
-            var courses = GetCourses(memberKey);
+            var courses = GetCoursesByEmail(memberEmail);
             return courses.Where(c => c.ScheduleDate <= DateTime.Now);
+        }
+
+        private static List<CourseModel> GetCoursesByEmail(string memberEmail)
+        {
+            var courses = new List<CourseModel>();
+
+            var historyRecords = Registrations.GetAttendeesClassHistory(memberEmail);
+
+            foreach (var historyGroup in historyRecords.GroupBy(h => h.CourseID))
+            {
+                var courseDetail = CacheObjects.GetCourseDetailList().FirstOrDefault(c => c.Id == historyGroup.First().CourseID);
+                var scheduleDetail = CacheObjects.GetScheduleListAll().FirstOrDefault(c => c.ScheduleID == historyGroup.First().ScheduleID);
+
+                if (courseDetail != null && scheduleDetail != null)
+                {
+                    var content = ApplicationContext.Current.Services.ContentService.GetById(courseDetail.NodeId);
+
+                    var materials = new List<MaterialModel>();
+
+                    var materialIdsRaw = content.GetValue<string>("materials");
+
+                    if (!String.IsNullOrEmpty(materialIdsRaw))
+                    {
+                        var materialIds = materialIdsRaw.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
+                        foreach (var materialId in materialIds)
+                        {
+                            var media = ApplicationContext.Current.Services.MediaService.GetById(materialId);
+                            if (media != null)
+                            {
+                                materials.Add(new MaterialModel()
+                                {
+                                    Url = media.GetValue<string>("umbracoFile")
+                                });
+                            }
+                        }
+                    }
+
+                    var attendeeList = new List<AttendeeModel>();
+                    foreach (var history in historyGroup)
+                    {
+                        attendeeList.Add(new AttendeeModel()
+                        {
+                            Email = history.Email,
+                            FirstName = history.FirstName,
+                            LastName = history.LastName,
+                            Title = history.Title
+                        });
+                    }
+
+                    courses.Add(new CourseModel()
+                    {
+                        CourseDetail = courseDetail,
+                        ScheduleId = scheduleDetail.ScheduleID,
+                        ScheduleDate = scheduleDetail.ScheduleDate,
+                        ScheduleDateDescription = scheduleDetail.ScheduleDateDescription,
+                        Materials = materials,
+                        Attendees = attendeeList
+                    });
+                }
+            }
+
+            return courses;
         }
 
         private static List<CourseModel> GetCourses(string memberKey)
