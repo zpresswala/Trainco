@@ -51,3 +51,22 @@ function buildVendor() {
     .pipe($.size())
     .pipe(gulp.dest(path.join(conf.paths.umb, 'assets/js/ngapp/lib')));
 };
+
+var config = {
+
+    jsPaths: [
+                'src/TPCTrainco.Umbraco/assets/js/custom/TPCApp.js',
+                'src/TPCTrainco.Umbraco/assets/js/custom/*.js'
+            ],
+            jsDest: 'src/TPCTrainco.Umbraco/js'
+}
+gulp.task('js', function() {
+    return gulp.src(config.jsPaths)
+        .pipe($.concat('main.js').on('error', function(err) {
+            console.log(err);
+        }))
+        .pipe($.uglify({mangle: false}).on('error', function(err) {
+            console.log(err);
+        }))
+        .pipe(gulp.dest(config.jsDest));
+});
