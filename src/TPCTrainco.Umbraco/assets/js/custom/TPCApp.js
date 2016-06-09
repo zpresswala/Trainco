@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 window.app = window.app || {};
 var ApiDomain = 'http://trainco-dev.imulus-client.com';
@@ -86,12 +86,25 @@ function TPCApp() {
 	var hash = window.location.hash;
 
 	// if one clicks "browse courses", go to that page and scroll to hash
-	if($('.course-section').length || $('.onsite').length && hash) {
-		_this.$page.animate({
-			scrollTop: $(hash).offset().top - 140
-		}, 300);
-	}
-
+	// if($('.course-section').length || $('.onsite').length && hash) {
+	// 	_this.$page.animate({
+	// 		scrollTop: $(hash).offset().top - 140
+	// 	}, 300);
+	// }
+$(function() {
+  $('a[href*="#"]:not([href="#"])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html, body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+    }
+  });
+});
 	if (hash || $('.detail-page-app').length) {
 		if(hash != '#cf-container') {
 			// this is all the search stuff.
