@@ -369,8 +369,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         public HttpResponseMessage GetUpcomingCourses()
         {
             var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
+            var memberEmail = AccountHelper.GetEmailFromToken(Request.Headers.Authorization.Parameter);
 
-            var courses = AccountHelper.GetUpcomingCourses(memberKey);
+            var courses = AccountHelper.GetUpcomingCourses(memberKey, memberEmail);
 
             var responseModel = new GetUpcomingEventsResponseModel()
             {
@@ -393,8 +394,9 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         public HttpResponseMessage GetPastCourses()
         {
             var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
+            var memberEmail = AccountHelper.GetEmailFromToken(Request.Headers.Authorization.Parameter);
 
-            var courses = AccountHelper.GetPastCourses(memberKey);
+            var courses = AccountHelper.GetPastCourses(memberKey, memberEmail);
 
             var responseModel = new GetPastEventsResponseModel()
             {

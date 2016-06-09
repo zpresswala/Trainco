@@ -68,6 +68,21 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             return reg;
         }
 
+        public static List<Attendees_ClassHistory> GetAttendeesClassHistory(string email)
+        {
+            List<Attendees_ClassHistory> history = new List<Attendees_ClassHistory>();
+
+            if (!String.IsNullOrEmpty(email))
+            {
+                using (var db = new americantraincoEntities())
+                {
+                    history = db.Attendees_ClassHistory.Where(h => h.AuthEmail == email || h.Email == email).ToList();
+                }
+            }
+
+            return history;
+        }
+
         public static List<REGISTRATION> GetRegistrationsByEmail(string email)
         {
             List<REGISTRATION> registrations = new List<REGISTRATION>();

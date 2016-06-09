@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99551c79835e4ca2a753942e7fd636bc" Name="Diagram1" ZoomLevel="83">
+      <Diagram DiagramId="99551c79835e4ca2a753942e7fd636bc" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="americantraincoModel.cart" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="americantraincoModel.cartLine" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="americantraincoModel.CATEGORY" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="americantraincoModel.CourseInstructor" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="americantraincoModel.COURS" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="americantraincoModel.Location" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="americantraincoModel.LocationType" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="americantraincoModel.LocationType" Width="1.5" PointX="8.625" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="americantraincoModel.REGISTRATION" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="americantraincoModel.State" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="americantraincoModel.temp_Att" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
@@ -30,9 +30,10 @@
         <EntityTypeShape EntityType="americantraincoModel.SCHEDULE" Width="1.5" PointX="17.375" PointY="4.75" />
         <EntityTypeShape EntityType="americantraincoModel.ScheduleCourseInstructor" Width="1.5" PointX="0.75" PointY="15.75" />
         <EntityTypeShape EntityType="americantraincoModel.Seminar_Catalog" Width="1.5" PointX="11.375" PointY="17.75" />
-        <EntityTypeShape EntityType="americantraincoModel.RegistrationAttendee" Width="1.5" PointX="17.375" PointY="12.75" />
+        <EntityTypeShape EntityType="americantraincoModel.RegistrationAttendee" Width="1.5" PointX="17.125" PointY="12" />
         <EntityTypeShape EntityType="americantraincoModel.RegistrationAttendeeSchedule" Width="1.5" PointX="13.375" PointY="17.75" />
         <EntityTypeShape EntityType="americantraincoModel.WebAccount" Width="1.5" PointX="12.875" PointY="0.75" />
+        <EntityTypeShape EntityType="americantraincoModel.Attendees_ClassHistory" Width="1.5" PointX="19.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

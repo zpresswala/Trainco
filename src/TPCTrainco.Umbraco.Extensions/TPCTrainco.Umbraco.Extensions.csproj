@@ -274,6 +274,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attendees_ClassHistory.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Attributes\TokenAuthorizationAttribute.cs" />
     <Compile Include="cart.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
