@@ -113,27 +113,30 @@
           $item.html(html.replace(numTest, '<span class="monthblock">$1</span><span class="yearblock">$2</span>'));
         }
       })
-    }, 300);
+    }, 3000);
+
     function watchHandles() {
       var mapNum = parseInt(combinedMonthValues[0]);
-
       var thisYear = (new Date()).getFullYear();
+      var thisYearCopy = thisYear;
       var minValue = (parseInt(vm.monthsSlider.minValue) + mapNum);
       var maxValue = (parseInt(vm.monthsSlider.maxValue) + mapNum);
 
       if (minValue > 12) {
-        vm.filterMin = (minValue - 12) + '-' + (thisYear + 1);
+        thisYear = thisYear + 1;
+        minValue = minValue - 12;
+        vm.filterMin = minValue + '-' + thisYear;
       } else {
         vm.filterMin = minValue + '-' + thisYear;
       }
 
 
       if (maxValue > 11) {
-        thisYear = thisYear + 1;
+        thisYearCopy = thisYearCopy + 1;
         maxValue = maxValue - 11;
-        vm.filterMax = maxValue + '-' + thisYear;
+        vm.filterMax = maxValue + '-' + thisYearCopy;
       } else {
-        vm.filterMax = maxValue + '-' + thisYear;
+        vm.filterMax = maxValue + '-' + thisYearCopy;
       }
 
       function fixFormat(badDate) {
@@ -158,24 +161,21 @@
           var testYear = fixTest.getFullYear();
           var beginYear = fixBegin.getFullYear();
           var endYear = fixEnd.getFullYear();
-          // only chrome makes it past
-          // console.log(fixBegin, 'fixBegin date');
-          // console.log(beginMonth, 'NAN');
-          // console.log(endDate, 'endDate');
-
           if (testYear >= beginYear && testYear <= endYear) {
+             // $log.debug(testYear, beginYear, endYear)
             if (testYear < endYear) {
               if (testMonth >= beginMonth) {
                 return true;
               }
             } else {
-              if (testMonth >= beginMonth && testMonth <= endMonth) {
 
+              if (testMonth >= beginMonth && testMonth <= endMonth) {
+                return true;
+              } else if (testYear > beginYear) {
                 return true;
               }
             }
           }
-          return false;
         }
       }
     }
