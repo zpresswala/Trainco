@@ -131,9 +131,9 @@
       }
 
 
-      if (maxValue > 11) {
+      if (maxValue > 12) {
         thisYearCopy = thisYearCopy + 1;
-        maxValue = maxValue - 11;
+        maxValue = maxValue - 12;
         vm.filterMax = maxValue + '-' + thisYearCopy;
       } else {
         vm.filterMax = maxValue + '-' + thisYearCopy;
@@ -145,7 +145,7 @@
         return x;
       }
 
-      vm.isBetween = function(testDate) {
+      vm.isBetween = function() {
         return function(item) {
 
           var testDate = item.dateMonthYear;
@@ -161,19 +161,37 @@
           var testYear = fixTest.getFullYear();
           var beginYear = fixBegin.getFullYear();
           var endYear = fixEnd.getFullYear();
+
+          // To be between dates, the test year has to be bigger than or equal to
+          // the begin year and also it has to be smaller than or equal to the end year.
           if (testYear >= beginYear && testYear <= endYear) {
-             // $log.debug(testYear, beginYear, endYear)
+
+            // If the test year is smaller than the end year, then it is between
+            // dates if the test month is >= the begin month.
             if (testYear < endYear) {
               if (testMonth >= beginMonth) {
                 return true;
               }
-            } else {
 
-              if (testMonth >= beginMonth && testMonth <= endMonth) {
-                return true;
-              } else if (testYear > beginYear) {
-                return true;
+            // If we hit the else case, then the test year MUST BE equal to the end year.
+            // but the begin year MIGHT BE less than or equal to the end year.
+            } else {
+              // When all dates are in the same year, the test month has to be
+              // between the begin month and the end month.
+              if (testYear === beginYear) {
+                if (testMonth >= beginMonth && testMonth <= endMonth) {
+                  return true;
+                }
+              // In the else case, the begin year MUST BE less than the test year.
+              // In a case where both years are the same, we only need to know that
+              // the test month is less than or equal to the end month.
+              } else {
+                if (testMonth <= endMonth) {
+                  return true;
+                }
               }
+
+
             }
           }
         }
