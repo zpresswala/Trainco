@@ -237,14 +237,14 @@ namespace TPCTrainco.Umbraco.Controllers
                                     // check for duplicate
                                     debug.AppendLine("Checking for duplicate... (tempCust.reg_ID: " + tempCust.reg_ID ?? 0 + ")");
 
-                                    reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
+                                    //reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
 
-                                    if (reg != null)
-                                    {
-                                        debug.AppendLine("Already processed!");
+                                    //if (reg != null)
+                                    //{
+                                    //    debug.AppendLine("Already processed!");
 
-                                        isAlreadyProcessed = true;
-                                    }
+                                    //    isAlreadyProcessed = true;
+                                    //}
                                 }
 
                                 debug.AppendLine("Checking for Error...");
