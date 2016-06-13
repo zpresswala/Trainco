@@ -37,7 +37,7 @@
         <li class="cost-total">Total: $<span class="total-cost">{{vm.cartTotalPrice}}</span></li>
       </ul>
           <div class="col-xs-6 col-xs-offset-6 btn-wrapper">
-            <a href="javascript:void(0);" ng-click="vm.doPurchase()" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
+            <a href="javascript:void(0);" ng-hide="!vm.cartItemList.length" ng-click="vm.doPurchase()" class="btn-reg btn-blue-solid" id="check-out">Check Out</a>
           </div>
         </div>
       </div>
