@@ -11,6 +11,8 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
 {
     public class CompanyModel
     {
+        private bool _SaveAccount = true;
+
         public string Username { get; set; }
         public string Name { get; set; }
         public string Address1 { get; set; }
@@ -23,7 +25,11 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
         public string HowDidYouAboutUs { get; set; }
         public string PromCode { get; set; }
 
-        public bool SaveAccount { get; set; }
+        public bool SaveAccount
+        {
+            get { return _SaveAccount; }
+            set { _SaveAccount = value; }
+        }
 
         [RequiredIfTrue("SaveAccount", ErrorMessage = "'Your industry' is requied.")]
         public string Industry { get; set; }
