@@ -39,6 +39,15 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
                 if (false == string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["location"]))
                 {
                     searchRequest.Location = HttpContext.Current.Request.QueryString.Get("location");
+
+                    if (false == string.IsNullOrEmpty(searchRequest.Location))
+                    {
+                        if (searchRequest.Location.ToLower() == "all locations")
+                        {
+                            searchRequest.Location = "";
+                        }
+                    }
+                    
                 }
                 if (false == string.IsNullOrWhiteSpace(HttpContext.Current.Request.QueryString["radius"]))
                 {
