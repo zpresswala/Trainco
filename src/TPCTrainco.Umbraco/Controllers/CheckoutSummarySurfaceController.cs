@@ -105,6 +105,30 @@ namespace TPCTrainco.Umbraco.Controllers
 
             debug.AppendLine("-=Cart Checkout=-\r\n");
 
+            if (true == model.Company.SaveAccount)
+            {
+                if (true == string.IsNullOrEmpty(model.Company.Industry))
+                {
+                    ModelState.AddModelError("Industry", "'Your industry' is required.");
+                }
+                if (true == string.IsNullOrEmpty(model.Company.ExternalTrainingUsageAmount))
+                {
+                    ModelState.AddModelError("ExternalTrainingUsageAmount", "The 'how often do you use outside training' is required.");
+                }
+                if (true == string.IsNullOrEmpty(model.Company.NumberOfEmployees))
+                {
+                    ModelState.AddModelError("NumberOfEmployees", "The 'number of employees in your facility need training' is required.");
+                }
+                if (true == string.IsNullOrEmpty(model.Company.TrainingTopics))
+                {
+                    ModelState.AddModelError("TrainingTopics", "The 'training topics most interested in' is required.");
+                }
+                if (true == string.IsNullOrEmpty(model.Company.HasMakePreviousPurchase))
+                {
+                    ModelState.AddModelError("HasMakePreviousPurchase", "The 'previously purchased or attended courses' is required.");
+                }
+            }
+
             if (false == ModelState.IsValid)
             {
                 return CurrentUmbracoPage();
@@ -310,9 +334,6 @@ namespace TPCTrainco.Umbraco.Controllers
                                     }
                                     else
                                     {
-
-
-
                                         // convert temp to registration
                                         debug.AppendLine("Convert temp to registration...");
 

@@ -177,7 +177,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     user.Key = member.Key.ToString();
                     user.ValidationCode = validationCode;
 
-                    var emailTemplete = GetEmailTemplate("New Account Verificaton");
+                    var emailTemplete = GetEmailTemplate("New Account Verification");
 
                     if (emailTemplete != null)
                     {
@@ -195,6 +195,19 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                         smtp.Subject = subject;
                         smtp.Body = body.Replace("{{FIRSTNAME}}", user.FirstName).Replace("{{LASTNAME}}", user.LastName).Replace("{{VALIDATIONCODE}}", validationCode).Replace("{{SITEBASEURL}}", siteUrlBase).Replace("{{EMAIL}}", user.Email);
                         smtp.SendEmail();
+
+                        if (false == string.IsNullOrEmpty(user.Email))
+                        {
+                            LogHelper.Info(typeof(AccountHelper), "New Account Verification Email Sent: " + user.Email);
+                        }
+                        else
+                        {
+                            LogHelper.Error(typeof(AccountHelper), "New Account Verification: To Email is empty", null);
+                        }
+                    }
+                    else
+                    {
+                        LogHelper.Error(typeof(AccountHelper), "Could not find Email Template: New Account Verification", null);
                     }
                 }
             }

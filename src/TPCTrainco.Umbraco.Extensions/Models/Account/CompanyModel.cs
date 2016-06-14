@@ -31,20 +31,15 @@ namespace TPCTrainco.Umbraco.Extensions.Models.Account
             set { _SaveAccount = value; }
         }
 
-        [RequiredIfTrue("SaveAccount", ErrorMessage = "'Your industry' is requied.")]
         public string Industry { get; set; }
         public string Role { get; set; }
 
-        [RequiredIfTrue("SaveAccount", ErrorMessage = "The 'how often do you use outside training' is requied.")]
         public string ExternalTrainingUsageAmount { get; set; }
 
-        [RequiredIfTrue("SaveAccount", ErrorMessage = "The 'number of employees in your facility need training' is requied.")]
         public string NumberOfEmployees { get; set; }
 
-        [RequiredIfTrue("SaveAccount", ErrorMessage = "The 'training topics most interested in' is requied.")]
         public string TrainingTopics { get; set; }
 
-        [RequiredIfTrue("SaveAccount", ErrorMessage = "The 'previously purchased or attended courses' is requied.")]
         public string HasMakePreviousPurchase { get; set; }
 
 

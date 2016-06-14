@@ -108,7 +108,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             items.Add(new SelectListItem { Text = "More than once per year", Value = "More than once per year" });
             items.Add(new SelectListItem { Text = "About once per year", Value = "About once per year" });
             items.Add(new SelectListItem { Text = "Less than once per year", Value = "Less than once per year" });
-            items.Add(new SelectListItem { Text = "Once very few years", Value = "Once very few years" });
+            items.Add(new SelectListItem { Text = "Once every few years", Value = "Once every few years" });
             items.Add(new SelectListItem { Text = "Rarely/never", Value = "Rarely/never" });
 
             return items;
