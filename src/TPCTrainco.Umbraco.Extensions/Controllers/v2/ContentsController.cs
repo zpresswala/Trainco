@@ -19,7 +19,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
             UmbracoCourseDetail seminarDetails = new UmbracoCourseDetail();
             IPublishedContent contentResponse = null;
 
-            seminarDetails.ImageUrl = "/images/default-seminar.gif";
+            seminarDetails.ImageUrl = "/assets/images/default-seminar.gif";
             seminarDetails.DetailsUrl = "#";
             try
             {
@@ -31,7 +31,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
 
                     if (contentResponse != null)
                     {
-                        seminarDetails.ImageUrl = "/images/default-seminar.gif";
+                        seminarDetails.ImageUrl = "/assets/images/default-seminar.gif";
                         seminarDetails.DetailsUrl = contentResponse.Url;
 
                         if (contentResponse != null)
@@ -78,12 +78,14 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers.v2
                         UmbracoCourseDetail courseDetail = new UmbracoCourseDetail();
 
                         courseDetail.CourseId = 0;
-                        courseDetail.ImageUrl = "/images/default-seminar.gif";
+                        courseDetail.NodeId = 0;
+                        courseDetail.ImageUrl = "/assets/images/default-seminar.gif";
                         courseDetail.DetailsUrl = "#";
 
                         if (seminarItem != null)
                         {
                             courseDetail.CourseId = seminarItem.GetPropertyValue<int>("courseLink");
+                            courseDetail.NodeId = seminarItem.Id;
 
                             courseDetail.ImageUrl = seminarItem.GetCropUrl("image", "Image");
                             courseDetail.DetailsUrl = seminarItem.Url;

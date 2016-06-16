@@ -5,6 +5,8 @@
 	background-size: cover;
 	@include tablet-landscape-and-up {
 		background-image: url('/assets/images/content-pg-header-large.jpg');
+    padding-top: 80px;
+padding-bottom: 40px;
 	}
 
 	.jumbotron {

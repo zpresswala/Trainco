@@ -6,7 +6,9 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Mvc;
 using TPCTrainco.Umbraco.Extensions;
+using TPCTrainco.Umbraco.Extensions.Helpers;
 using TPCTrainco.Umbraco.Extensions.Models;
+using TPCTrainco.Umbraco.Extensions.Models.Account;
 using TPCTrainco.Umbraco.Extensions.Objects;
 using Umbraco.Web.Mvc;
 
@@ -20,8 +22,28 @@ namespace TPCTrainco.Umbraco.Controllers
             List<temp_Reg> tempRegList = null;
             List<temp_Att> tempAttList = null;
             string cartGuid = null;
+            string tokenKey = null;
 
+            tokenKey = Users.GetToken(Session);
             cartGuid = Carts.GetCartGuid(Session);
+
+            if (false == string.IsNullOrEmpty(tokenKey))
+            {
+                string memberKey = AccountHelper.GetMemberKeyFromToken(tokenKey);
+
+                UserModel user = null;
+
+                if (false == string.IsNullOrEmpty(memberKey))
+                {
+                    user = AccountHelper.GetUser(memberKey);
+
+                    if (user != null)
+                    {
+                        checkoutDetails.UserToken = tokenKey;
+                    }
+                }
+            }
+
 
             if (false == string.IsNullOrWhiteSpace(cartGuid))
             {
@@ -37,7 +59,9 @@ namespace TPCTrainco.Umbraco.Controllers
                 {
                     if (false == cartsObj.IsValidCart(tempRegList[0].reg_ID, "/register/summary/"))
                     {
-                        return Redirect("/register/?cart=" + cartGuid);
+                        checkoutDetails.Redirect = "/register/?cart=" + cartGuid;
+
+                        return PartialView("CheckoutSummary", checkoutDetails);
                     }
 
                     Session["CartId"] = cartGuid;
@@ -80,6 +104,30 @@ namespace TPCTrainco.Umbraco.Controllers
             StringBuilder debug = new StringBuilder();
 
             debug.AppendLine("-=Cart Checkout=-\r\n");
+
+            if (true == model.Company.SaveAccount)
+            {
+                if (true == string.IsNullOrEmpty(model.Company.Industry))
+                {
+                    ModelState.AddModelError("Industry", "'Your industry' is required.");
+                }
+                if (true == string.IsNullOrEmpty(model.Company.ExternalTrainingUsageAmount))
+                {
+                    ModelState.AddModelError("ExternalTrainingUsageAmount", "The 'how often do you use outside training' is required.");
+                }
+                if (true == string.IsNullOrEmpty(model.Company.NumberOfEmployees))
+                {
+                    ModelState.AddModelError("NumberOfEmployees", "The 'number of employees in your facility need training' is required.");
+                }
+                if (true == string.IsNullOrEmpty(model.Company.TrainingTopics))
+                {
+                    ModelState.AddModelError("TrainingTopics", "The 'training topics most interested in' is required.");
+                }
+                if (true == string.IsNullOrEmpty(model.Company.HasMakePreviousPurchase))
+                {
+                    ModelState.AddModelError("HasMakePreviousPurchase", "The 'previously purchased or attended courses' is required.");
+                }
+            }
 
             if (false == ModelState.IsValid)
             {
@@ -213,14 +261,14 @@ namespace TPCTrainco.Umbraco.Controllers
                                     // check for duplicate
                                     debug.AppendLine("Checking for duplicate... (tempCust.reg_ID: " + tempCust.reg_ID ?? 0 + ")");
 
-                                    reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
+                                    //reg = Registrations.GetRegistrationByCartId(tempCust.reg_ID ?? 0);
 
-                                    if (reg != null)
-                                    {
-                                        debug.AppendLine("Already processed!");
+                                    //if (reg != null)
+                                    //{
+                                    //    debug.AppendLine("Already processed!");
 
-                                        isAlreadyProcessed = true;
-                                    }
+                                    //    isAlreadyProcessed = true;
+                                    //}
                                 }
 
                                 debug.AppendLine("Checking for Error...");
@@ -273,7 +321,7 @@ namespace TPCTrainco.Umbraco.Controllers
 
                                             debug.AppendLine("Redirecting to: /register/success/");
 
-                                            return Redirect("/register/success/");
+
                                         }
                                         else
                                         {
@@ -311,7 +359,62 @@ namespace TPCTrainco.Umbraco.Controllers
                                             debug.AppendLine("Email attendee confirmations...");
                                             Registrations.EmailAttendeeConfirmations(checkoutDetails, reg);
 
-                                            return Redirect("/register/success/");
+                                            // Create User?
+                                            if (true == model.CreateAccount)
+                                            {
+                                                if (model.User == null)
+                                                {
+                                                    model.User = new Extensions.Models.Account.UserModel();
+                                                }
+                                                model.User.Email = reg.RegAuthEmail;
+                                                model.User.FirstName = reg.RegAuthFirstName;
+                                                model.User.LastName = reg.RegAuthLastName;
+                                                model.User.Password = "";
+                                                model.User.Phone = reg.RegAuthPhone;
+                                                model.User.PhoneExtension = reg.RegAuthPhoneExt;
+                                                model.User.Title = reg.RegAuthTitle;
+
+                                                if (model.Company == null)
+                                                {
+                                                    model.Company = new Extensions.Models.Account.CompanyModel();
+                                                }
+                                                model.Company.Address1 = reg.RegAuthAddress1;
+                                                model.Company.Address2 = reg.RegAuthAddress2;
+                                                model.Company.City = reg.RegAuthCity;
+                                                model.Company.Country = reg.RegAuthCountry;
+                                                model.Company.Name = reg.RegCompanyName;
+                                                model.Company.PostalCode = reg.RegAuthZipcode;
+                                                model.Company.State = tempCust.authState;
+                                                model.Company.Username = model.User.Email;
+
+                                                string userKey = CreateUser(model);
+
+                                                if (true == string.IsNullOrEmpty(userKey))
+                                                {
+                                                    return Redirect("/register/success/?u=-1"); // User account wasn't created
+                                                }
+                                                else if (userKey == "0")
+                                                {
+                                                    return Redirect("/register/success/?u=0"); // User account created but couldn't update the company
+                                                }
+                                                else if (userKey == "1")
+                                                {
+                                                    return Redirect("/register/success/?u=-2"); // User account was already created
+                                                }
+                                                else
+                                                {
+                                                    return Redirect("/register/success/?u=1"); // User account created successfully
+                                                }
+
+                                            }
+                                            else if (false == string.IsNullOrEmpty(model.UserToken))
+                                            {
+                                                return Redirect("/register/success"); // user account already created
+                                            }
+                                            else
+                                            {
+                                                return Redirect("/register/success/?u=2"); // Suggest creating an account
+                                            }
                                         }
                                         else
                                         {
@@ -349,6 +452,42 @@ namespace TPCTrainco.Umbraco.Controllers
 
                 return Redirect("/register/error/?error=93");
             }
+        }
+
+
+        private string CreateUser(CheckoutDetails model)
+        {
+            string userKey = "";
+
+            if (false == AccountHelper.CheckUserAccount(model.User.Email))
+            {
+                var user = AccountHelper.CreateUser(model.User, Request.Url);
+
+                if (!String.IsNullOrEmpty(user.Key))
+                {
+                    if (!String.IsNullOrEmpty(model.Company.Username) && !model.Company.Username.Equals(model.User.Email))
+                    {
+                        model.Company = AccountHelper.GetCompany(model.Company.Username);
+                    }
+
+                    var success = AccountHelper.UpdateCompany(user.Key, model.Company);
+
+                    if (true == success)
+                    {
+                        userKey = user.Key;
+                    }
+                    else
+                    {
+                        userKey = "0";
+                    }
+                }
+            }
+            else
+            {
+                userKey = "1";
+            }
+
+            return userKey;
         }
     }
 }

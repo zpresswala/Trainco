@@ -1,7 +1,10 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+﻿@using Umbraco.Web
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Base.cshtml";
+    IPublishedContent currentPage = Model.Content;
 }
+
 
 <div class="container-fluid headline-section">
     <div class="row">
@@ -21,50 +24,56 @@
 <div class="container-fluid main-content sitemap gradient-bg">
     <div class="container">
         <div class="row">
-            @foreach (var page in CurrentPage.AncestorOrSelf(1).Children.Where("Visible"))
+            @foreach (IPublishedContent page in currentPage.AncestorOrSelf(1).Children.Where(p => p.IsVisible() && false == p.GetPropertyValue<bool>("hideInSiteMap") && false == p.IsDocumentType("Sitemapxml")))
             {
+                string pageTitle = page.GetPropertyValue<string>("pageTitle");
+
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                     <div class="sitemap-section">
                         <a href="@page.Url">
-                            @if (!String.IsNullOrEmpty(Page.pageTitle))
+                            @if (!String.IsNullOrEmpty(pageTitle))
                             {
-                                <h2>@page.pageTitle</h2>
+                                <h2>@pageTitle</h2>
                             }
                             else
                             {
-                                <h2>@page.name</h2>
+                                <h2>@page.Name</h2>
                             }
                         </a>
-                        @if (page.Children.Where("Visible").Count() > 0)
+                        @if (page.Children.Where(p => p.IsVisible() && false == p.GetPropertyValue<bool>("hideInSiteMap")).Count() > 0)
                         {
                             <ul style="margin-left:15px;">
-                                @foreach (var subpage in page.Children.Where("Visible"))
+                                @foreach (var subpage in page.Children.Where(p => p.IsVisible() && false == p.GetPropertyValue<bool>("hideInSiteMap")))
                                 {
-                                    if (subpage.Children.Where("Visible").Count() > 0)
+                                    string subpageTitle = subpage.GetPropertyValue<string>("pageTitle");
+
+                                    if (subpage.Children.Where(p => p.IsVisible() && false == p.GetPropertyValue<bool>("hideInSiteMap")).Count() > 0)
                                     {
                                         <li>
                                             <a href="@subpage.Url">
-                                                @if (!String.IsNullOrEmpty(subpage.pageTitle))
+                                                @if (!String.IsNullOrEmpty(subpageTitle))
                                                 {
-                                                    @subpage.pageTitle
+                                                    @subpageTitle
                                                 }
                                                 else
                                                 {
-                                                    @subpage.name
+                                                    @subpage.Name
                                                 }
                                             </a>
                                             <ul style="margin-left:15px;">
-                                                @foreach (var lvl3 in subpage.Children.Where("Visible"))
+                                                @foreach (var lvl3 in subpage.Children.Where(p => p.IsVisible() && false == p.GetPropertyValue<bool>("hideInSiteMap")))
                                                 {
+                                                    string subSubpageTitle = lvl3.GetPropertyValue<string>("pageTitle");
+
                                                     <li>
                                                         <a href="@subpage.Url">
-                                                            @if (!String.IsNullOrEmpty(lvl3.pageTitle))
+                                                            @if (!String.IsNullOrEmpty(subSubpageTitle))
                                                             {
-                                                                @lvl3.pageTitle
+                                                                @subSubpageTitle
                                                             }
                                                             else
                                                             {
-                                                                @lvl3.name
+                                                                @lvl3.Name
                                                             }
                                                         </a>
                                                     </li>
@@ -76,13 +85,13 @@
                                     {
                                         <li>
                                             <a href="@subpage.Url">
-                                                @if (!String.IsNullOrEmpty(subpage.pageTitle))
+                                                @if (!String.IsNullOrEmpty(subpageTitle))
                                                 {
-                                                    @subpage.pageTitle
+                                                    @subpageTitle
                                                 }
                                                 else
                                                 {
-                                                    @subpage.name
+                                                    @subpage.Name
                                                 }
                                             </a>
                                         </li>

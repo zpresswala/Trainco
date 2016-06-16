@@ -1,4 +1,4 @@
-﻿@using Umbraco.Core.Models
+@using Umbraco.Core.Models
 @using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
@@ -23,12 +23,12 @@
     }
 }
 
-<div class="container-fluid headline-section onsite">
+<div class="container-fluid headline-section onsite" id="top">
     <div class="row">
         <div class="jumbotron">
             <h1>@(currentPage.GetPropertyValue<string>("pageTitle", currentPage.Name))</h1>
         </div>
-        <a href="#cfcontainer" class="btn-reg" role="button">Get a Quote</a>
+        <a href="#cf-container" class="btn-reg" role="button">Get a Quote</a>
     </div>
 </div>
 <div class="container-fluid gradient-bg main-content">
@@ -39,13 +39,16 @@
 
                 <div class="page-content">
                     @Html.Raw(currentPage.GetPropertyValue<string>("mainContent"))
+ <a name="cf-container"></a>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
-<div class="caro-form-container" id="cfcontainer">
+<div class="caro-form-container" id="cf-container">
+
     <div class="container">
         <div class="form-wrap pull-right col-xs-12 col-md-6">
             @CurrentPage.form
@@ -55,12 +58,4 @@
 
 
     </div>
-</div> <!-- end container -->
-                  <script type="text/javascript">
-
-                                  $('a[href^="#"]').click(function(e) {
-                                      e.preventDefault();
-                                      var hash = $(this).attr('href');
-                                      $('html, body').stop(true).animate({scrollTop: $(hash).offset().top - 125}, 500);
-                                  });
-                      </script>
+</div>

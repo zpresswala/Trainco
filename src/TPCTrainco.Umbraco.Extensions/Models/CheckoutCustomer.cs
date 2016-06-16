@@ -15,6 +15,15 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public int RegId { get; set; }
 
         public string CartGuid { get; set; }
+        public string UserToken { get; set; }
+        public string Redirect { get; set; }
+
+        public bool LoggedIn { get; set; }
+
+        public bool UpdateCompanyProfile { get; set; }
+        public bool UpdateCompanyBilling { get; set; }
+
+        public bool SavedCompanyBilling { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -52,16 +61,16 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [StringLength(12)]
         public string Zip { get; set; }
 
+        [Required]
         [StringLength(200)]
         public string Country { get; set; }
 
-        [Required]
         [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please enter a valid phone number. Dashes are optional.")]
         public string Phone { get; set; }
 
         public string PhoneExt { get; set; }
 
-        [Required]
+        [RequiredIfFalse("LoggedIn", ErrorMessage = "The Email Address is requied.")]
         [RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9][\-a-zA-Z0-9]{0,22}[a-zA-Z0-9]))$", ErrorMessage = "Email address is invalid.")]
         public string Email { get; set; }
 
@@ -108,18 +117,18 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         [DisplayName("Billing Postal Code")]
         public string BillZip { get; set; }
 
+        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Country is required.")]
         [StringLength(250)]
         [DisplayName("Billing Country")]
         public string BillCountry { get; set; }
 
-        [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Phone Number is required.")]
         [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}", ErrorMessage = "Please enter a valid phone number. Dashes are optional.")]
         public string BillPhone { get; set; }
 
         public string BillPhoneExt { get; set; }
 
         [RequiredIfTrue("BillingDifferent", ErrorMessage = "Billing Email is required.")]
-        [RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$", ErrorMessage = "Email address is invalid.")]
+        [RegularExpression(@"^(?("")("".+?(?<!\\)""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9][\-a-zA-Z0-9]{0,22}[a-zA-Z0-9]))$", ErrorMessage = "Email address is invalid.")]
         public string BillEmail { get; set; }
 
         [DisplayName("Payment Type")]

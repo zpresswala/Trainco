@@ -1,4 +1,4 @@
-﻿@using TPCTrainco.Umbraco.Extensions
+@using TPCTrainco.Umbraco.Extensions
 @using TPCTrainco.Umbraco.Extensions.Helpers
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
@@ -33,7 +33,7 @@
 
 <div class="container-fluid headline-section">
     <div class="container">
-        <div class="jumbotron">
+        <div id="top" class="jumbotron">
             <h1>@(currentPage.GetPropertyValue<string>("pageHeadline", currentPage.Name))</h1>
         </div>
     </div>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="col-xs-12 country-toggle">
-            <a href="#" data-country-sort="ca" data-active-country="us"><img src="/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars</a>
+            <a data-country-sort="ca" data-active-country="us" style="cursor: pointer;"><img src="/assets/images/icon-canada-flag.png" class="flag-icon" /> Click to view Canadian seminars</a>
         </div>
 
     </div>
@@ -131,7 +131,7 @@
 
                                 if (true == string.IsNullOrEmpty(imageUrl) || (imageUrl.IndexOf(".jpg") < 0 && imageUrl.IndexOf(".png") < 0))
                                 {
-                                    imageUrl = "/images/selectall-icon.jpg";
+                                    imageUrl = "/assets/images/selectall-icon.jpg";
                                 }
 
                                 <li class="seminar-topic col-xs-6 col-sm-4 col-md-3" data-type="@(subAnchorText)" data-country="@(countryName)">
@@ -155,7 +155,7 @@
 
                                 if (true == string.IsNullOrEmpty(imageUrl) || (imageUrl.IndexOf(".jpg") < 0 && imageUrl.IndexOf(".png") < 0))
                                 {
-                                    imageUrl = "/images/selectall-icon.jpg";
+                                    imageUrl = "/assets/images/selectall-icon.jpg";
                                 }
 
                                 <li class="seminar-topic col-xs-6 col-sm-4 col-md-3" data-country="@(countryName)">

@@ -2,12 +2,491 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d4f0c07-dcdd-4c2a-9885-853ea554abfd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/css/main.css" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/sass/main.scss" afterPath="$PROJECT_DIR$/client/sass/main.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/columns-bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/electricalHover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/electricalSelected.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-arrow-down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-search.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/mechanicalHover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/mechanicalSelected.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/plantHover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/plantSelected.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/selectAllHover.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/selectAllHover.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/selectAllSelected.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/dashboard/c80c8d74e67ec71f07caa9f12a7b2968.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/dashboard/favicon.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/c80c8d74e67ec71f07caa9f12a7b2968.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/TPCTrainco.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/TPCTrainco_node_modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gulp.config.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gulp/utilities.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Attributes/TokenAuthorizationAttribute.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Controllers/AccountController.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Events/UmbracoApplicationStartUp.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Helpers/AccountHelper.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Helpers/UtilitiesHelper.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/CreateCompanyRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/CreateUserRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/DeleteSaveForLaterRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/EmailVerificationRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/ForgottenPasswordRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/GetCompanyRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/GetPastEventsRequestModelcs.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/HasTakenCourseRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/LoginRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/RequestBaseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/ResetPasswordRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/ShareCourseRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/UpdateBillingRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/UpdateCompanyRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/UpdateSaveForLaterRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/UpdateUserRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Request/UserExistsRequestModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/CreateUserResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/DeleteSaveForLaterResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/GetBillingResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/GetClientIpAddressResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/GetCompanyResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/GetPastEventsResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/GetSaveForLaterResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/GetUpcomingEventsResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/GetUserResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/HasTakenCourseResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/LoginResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/ResetPasswordResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/ResponseBaseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/UpdateBillingResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/UpdateCompanyResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/UpdateUserResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/API/Response/UserExistsResponseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/Account/BillingModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/Account/CompanyModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/Account/CourseModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/Account/LoginModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/Account/NavigationItem.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/Account/UserModel.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/LocationLookup.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/StateLookup.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/Users.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Pipeline/ReactContentFinder.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/ViewModels/Search/SeminarListResponse.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/ViewModels/Search/SeminarSimple.cs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Properties/PublishProfiles/Local.pubxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Dashboard.cshtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Logout.cshtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterPayment.cshtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/css/main.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/css/main.css.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/checkout2/payment.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/checkout2/registration.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/checkout2/summary.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/dashboard/app.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/dashboard/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/dashboard/humans.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/dashboard/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/dashboard/robots.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/dashboard/vendor.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/app.module.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/auth/auth.controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/auth/auth.module.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/auth/loginModal.controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/auth/loginModal.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/cities.factory.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/common.module.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/dropIn.animation.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/months.factory.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/search.factory.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/seminars.factory.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/slideToggle.animation.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/startFrom.filter.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/stringToNumber.directive.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/common/util.service.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/components/cart/cart.controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/components/cart/cart.directive.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/components/cart/cart.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/components/cart/cart.service.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/components/components.module.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/components/mainSearch/mainSearch.controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/components/mainSearch/mainSearch.directive.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/components/mainSearch/mainSearch.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/core/core.config.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/core/core.module.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/core/lodash.factory.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/lib/angular-loading.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/lib/angular-selector.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/register/register.controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/seminar/courseSearch.service.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/seminar/seminar.controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/seminar/seminar.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/seminar/seminarItem.controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/seminar/seminarPop.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sass/components/_form.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sass/components/_registerToSubmit.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sass/components/_thanksRegister.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sass/util/_functions.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sass/util/_variables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/static/checkout-static/checkout-attendees.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/static/checkout-static/checkout-existing-user.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/static/checkout-static/checkout-login-options.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/static/checkout-static/checkout-register.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/static/checkout-static/checkout-review-submit.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/static/checkout-static/checkout-thanks.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/static/checkout-static/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trainco.sublime-project" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trainco.sublime-workspace" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/App_Data/0b0101f7-9394-48f3-a581-dd3f18480265/package.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/RegisterForm1.cshtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/app.module.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/cities.factory.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/common.module.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/dropIn.animation.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/months.factory.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/search.factory.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/slideToggle.animation.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/startFrom.filter.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/stringToNumber.directive.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/common/util.service.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/components/cart/cart.controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/components/cart/cart.directive.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/components/cart/cart.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/components/cart/cart.service.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/components/components.module.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/components/mainSearch/mainSearch.controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/components/mainSearch/mainSearch.directive.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/components/mainSearch/mainSearch.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/core/core.config.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/core/core.module.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/core/lodash.factory.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/lib/angular-loading.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/lib/angular-selector.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/main.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/main.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/register/register.controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/seminar/courseSearch.service.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/seminar/seminar.controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/seminar/seminar.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/seminar/seminarPop.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/CHANGELOG.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/CONTRIBUTING.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap-sprockets.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/affix.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/alert.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/button.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/carousel.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/collapse.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/modal.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/popover.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/tab.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/javascripts/bootstrap/transition.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/_bootstrap-compass.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/_bootstrap-mincer.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_alerts.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_badges.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_breadcrumbs.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_button-groups.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_buttons.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_carousel.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_close.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_code.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_component-animations.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_dropdowns.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_forms.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_grid.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_input-groups.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_jumbotron.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_labels.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_list-group.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_media.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_modals.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_navbar.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_navs.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_normalize.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_pager.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_pagination.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_panels.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_popovers.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_print.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_progress-bars.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_responsive-embed.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_responsive-utilities.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_scaffolding.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_tables.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_theme.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_thumbnails.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_tooltip.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_type.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_utilities.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/_wells.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_alerts.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_background-variant.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_border-radius.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_buttons.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_center-block.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_clearfix.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_forms.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_gradients.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_grid-framework.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_grid.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_hide-text.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_image.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_labels.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_list-group.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_nav-divider.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_nav-vertical-align.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_opacity.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_pagination.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_panels.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_progress-bar.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_reset-filter.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_reset-text.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_resize.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_responsive-visibility.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_size.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_tab-focus.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_table-row.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_text-emphasis.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_text-overflow.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_vendor-prefixes.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/bower.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/composer.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/bootstrap-sass/sache.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/fonts/arial-black.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/email/logo-trainco-dark.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/svg/checkmark.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/svg/dropdown-arrow.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/svg/icon-facebook-icon.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/svg/icon-linkedin.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/svg/icon-twitter.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/svg/icon-youtube.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/classic-min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/iThing.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/icons-classic/label.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/icons-classic/resultset_next.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/icons-classic/resultset_previous.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/jquery-ui.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/jquery-ui.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/jquery-ui.structure.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/jquery-ui.structure.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/jquery-range-slider-css/select2.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/sass/_register.scss" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/register/register.module.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/register/register.module.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/app/seminar/seminar.module.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/ngapp/seminar/seminar.module.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-144x144.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-144x144.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-192x192.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-192x192.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-36x36.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-36x36.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-48x48.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-48x48.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-72x72.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-72x72.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-96x96.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/android-icon-96x96.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-114x114.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-114x114.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-120x120.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-120x120.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-144x144.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-144x144.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-152x152.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-152x152.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-180x180.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-180x180.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-57x57.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-57x57.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-60x60.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-60x60.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-72x72.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-72x72.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-76x76.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-76x76.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-precomposed.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon-precomposed.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/apple-icon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/bear.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/bear.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/bg-large.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/bg-large.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/bg-small.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/bg-small.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/carousel-bg.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/carousel-bg.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/carousel-mobile-bg.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/carousel-mobile-bg.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/content-pg-header-large.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/content-pg-header-large.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/content-pg-header-small.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/content-pg-header-small.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/default-seminar.gif" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/default-seminar.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/electrical-hvac.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/electrical-hvac.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/electrical.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/electrical.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/favicon-16x16.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/favicon-16x16.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/favicon-32x32.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/favicon-32x32.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/favicon-96x96.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/favicon-96x96.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/hvac-icon.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/hvac-icon.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/hvac.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/hvac.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-2x.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-2x.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-close-arrow-2x.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-close-arrow-2x.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-close-arrow.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-close-arrow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-retina.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-retina.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-tab.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart-tab.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-cart.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-info.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-info.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-leaf.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-leaf.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-question.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/icon-question.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/line.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/line.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/logo-trainco-1x.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/logo-trainco-1x.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/logo-trainco-2x.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/logo-trainco-2x.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/logo-trainco-dark.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/logo-trainco-dark.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/mechanical-icon.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/mechanical-icon.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/mechanical.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/mechanical.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/ms-icon-144x144.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/ms-icon-144x144.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/ms-icon-150x150.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/ms-icon-150x150.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/ms-icon-310x310.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/ms-icon-310x310.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/ms-icon-70x70.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/ms-icon-70x70.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/on-site.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/on-site.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/plantmgmt-icon.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/plantmgmt-icon.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/plantmgmt.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/plantmgmt.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/selectall-icon.jpg" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/selectall-icon.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/tcptraincologo.png" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/images/tcptraincologo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.stylelintrc" afterPath="$PROJECT_DIR$/.stylelintrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulp/conf.js" afterPath="$PROJECT_DIR$/gulp/conf.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulp/inject.js" afterPath="$PROJECT_DIR$/gulp/inject.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulp/scripts.js" afterPath="$PROJECT_DIR$/gulp/scripts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulp/server.js" afterPath="$PROJECT_DIR$/gulp/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulp/styles.js" afterPath="$PROJECT_DIR$/gulp/styles.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulp/watch.js" afterPath="$PROJECT_DIR$/gulp/watch.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/main.scss" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/main.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/register2.html" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/register2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/straw/tasks/styles.js" afterPath="$PROJECT_DIR$/straw/tasks/styles.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/.vs/config/applicationhost.config" afterPath="$PROJECT_DIR$/src/.vs/config/applicationhost.config" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Cache/Controllers/CacheController.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Cache/Controllers/CacheController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Cache/StoredProcedures/cache-seminar-tables-create.sql" afterPath="$PROJECT_DIR$/src/TPCTrainco.Cache/StoredProcedures/cache-seminar-tables-create.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Cache/TPCTrainco.Cache.csproj" afterPath="$PROJECT_DIR$/src/TPCTrainco.Cache/TPCTrainco.Cache.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Cache/Web.config" afterPath="$PROJECT_DIR$/src/TPCTrainco.Cache/Web.config" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Cache/packages.config" afterPath="$PROJECT_DIR$/src/TPCTrainco.Cache/packages.config" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Controllers/v2/ContentsController.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Controllers/v2/ContentsController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Controllers/v2/Seminars2Controller.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Controllers/v2/Seminars2Controller.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Helpers/RedirectHelper.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Helpers/RedirectHelper.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/CheckoutCustomer.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/CheckoutCustomer.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/CheckoutDetails.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/CheckoutDetails.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/CoordinateDetails.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/CoordinateDetails.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/CourseDetail.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/CourseDetail.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/UmbracoCourseDetail.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Models/UmbracoCourseDetail.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/CacheObjects.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/CacheObjects.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/CartCookies.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/CartCookies.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/Carts.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/Carts.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/FormUtilities.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/FormUtilities.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/GeoCoordinates.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/GeoCoordinates.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/Registrations.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/Registrations.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/SeminarCommon.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/SeminarCommon.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/SeminarDetails.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/SeminarDetails.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/SeminarSearch.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/SeminarSearch.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/Seminars.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/Objects/Seminars.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/TPCTrainco.Umbraco.Extensions.csproj" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/TPCTrainco.Umbraco.Extensions.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/app.config" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/app.config" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/packages.config" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco.Extensions/packages.config" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/App_Start/WebApiConfig.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/App_Start/WebApiConfig.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Controllers/CheckoutCustomerSurfaceController.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Controllers/CheckoutCustomerSurfaceController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Controllers/CheckoutSummarySurfaceController.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Controllers/CheckoutSummarySurfaceController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/MyGlobal.cs" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/MyGlobal.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/TPCTrainco.Umbraco.csproj" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/TPCTrainco.Umbraco.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Base.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Base.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Contact.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Contact.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/PageNotFound404.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/PageNotFound404.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/Cart/MiniCart.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/Cart/MiniCart.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/CheckoutCustomer.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/CheckoutCustomer.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/CheckoutSummary.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/CheckoutSummary.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/Navigation/Top.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/Navigation/Top.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/Promos/OnsitePromo.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/Promos/OnsitePromo.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/Quotes/UserQuotes.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/Quotes/UserQuotes.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/SeminarSearch/JavascriptTemplates.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/SeminarSearch/JavascriptTemplates.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/SeminarSearch/MainSearch.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Partials/SeminarSearch/MainSearch.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterContainer.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterContainer.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterInfo.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterInfo.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterSuccess.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterSuccess.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterSummary.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/RegisterSummary.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/SearchSeminars.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/SearchSeminars.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/SeminarCatalog.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/SeminarCatalog.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/SeminarItem.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/SeminarItem.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Seminars.cshtml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Views/Seminars.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Web.config" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/Web.config" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/browserconfig.xml" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/browserconfig.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/Catalog.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/Catalog.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/Checkout.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/Checkout.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/CheckoutCustomer.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/CheckoutCustomer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/CountUp.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/CountUp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/DatePicker.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/DatePicker.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/FormStyles.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/FormStyles.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/HomePage.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/HomePage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/MainSearchSelect.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/MainSearchSelect.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/cartCollection.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/cartCollection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/classCollection.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/classCollection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/locationCollection.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/locationCollection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/scheduleCollection.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/collections/scheduleCollection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/cartItemModel.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/cartItemModel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/classModel.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/classModel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/locationModel.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/locationModel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/scheduleModel.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/models/scheduleModel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/cartItemView.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/cartItemView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/cartNotifyView.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/cartNotifyView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/classView.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/classView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/locationView.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/locationView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/scheduleView.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/scheduleView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/singleSeminarView.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/custom/cartApp/views/singleSeminarView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-carousel.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-carousel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-collapse.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-collapse.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-dropdown.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-dropdown.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-popover.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-popover.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-tooltip.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-tooltip.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-transition.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/bootstrap-transition.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/jQDateRangeSlider-withRuler-min.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/jQDateRangeSlider-withRuler-min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/jquery-ui.min.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/jquery-ui.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/modernizr-touch.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/modernizr-touch.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/respond.min.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/respond.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/select2.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/js/vendor/select2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/manifest.json" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/manifest.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/js/main.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/js/vendor.js" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/js/vendor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/packages.config" afterPath="$PROJECT_DIR$/src/TPCTrainco.Umbraco/packages.config" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_blog.scss" afterPath="$PROJECT_DIR$/src/sass/_blog.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_cart.scss" afterPath="$PROJECT_DIR$/src/sass/_cart.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_content.scss" afterPath="$PROJECT_DIR$/src/sass/_content.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_detail.scss" afterPath="$PROJECT_DIR$/src/sass/_detail.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_faceted-search.scss" afterPath="$PROJECT_DIR$/src/sass/_faceted-search.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_home.scss" afterPath="$PROJECT_DIR$/src/sass/_home.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_main-search.scss" afterPath="$PROJECT_DIR$/src/sass/_main-search.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_nav.scss" afterPath="$PROJECT_DIR$/src/sass/_nav.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_onsite.scss" afterPath="$PROJECT_DIR$/src/sass/_onsite.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_success.scss" afterPath="$PROJECT_DIR$/src/sass/_success.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/_universal.scss" afterPath="$PROJECT_DIR$/src/sass/_universal.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/main.scss" afterPath="$PROJECT_DIR$/src/sass/main.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/mixins/_mediaqueries.scss" afterPath="$PROJECT_DIR$/src/sass/mixins/_mediaqueries.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/mixins/_mixins.scss" afterPath="$PROJECT_DIR$/src/sass/mixins/_mixins.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/vendor/_selector.scss" afterPath="$PROJECT_DIR$/src/sass/vendor/_selector.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/vendor/bootstrap/_forms.scss" afterPath="$PROJECT_DIR$/src/sass/vendor/bootstrap/_forms.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/vendor/bootstrap/_modals.scss" afterPath="$PROJECT_DIR$/src/sass/vendor/bootstrap/_modals.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/blog.html" afterPath="$PROJECT_DIR$/src/static/blog.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/campaign_landing.html" afterPath="$PROJECT_DIR$/src/static/campaign_landing.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/catalog.html" afterPath="$PROJECT_DIR$/src/static/catalog.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/contact.html" afterPath="$PROJECT_DIR$/src/static/contact.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/content.html" afterPath="$PROJECT_DIR$/src/static/content.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/index.html" afterPath="$PROJECT_DIR$/src/static/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/onsite.html" afterPath="$PROJECT_DIR$/src/static/onsite.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/post.html" afterPath="$PROJECT_DIR$/src/static/post.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/register1.html" afterPath="$PROJECT_DIR$/src/static/register1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/register2.html" afterPath="$PROJECT_DIR$/src/static/register2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/search.html" afterPath="$PROJECT_DIR$/src/static/search.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/sitemap.html" afterPath="$PROJECT_DIR$/src/static/sitemap.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/success.html" afterPath="$PROJECT_DIR$/src/static/success.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/static/summary.html" afterPath="$PROJECT_DIR$/src/static/summary.html" />
     </list>
     <ignored path="TPCTrainco.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,22 +506,62 @@
     <favorites_list name="TPCTrainco" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="register2.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/register2.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.797136">
-              <caret line="249" column="81" selection-start-line="249" selection-start-column="81" selection-end-line="249" selection-end-column="81" />
-              <folding>
-                <element signature="n#select#0;n#div#5;n#div#1;n#div#13;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#body#0;n#html#0;n#html#0;n#!!top" expanded="false" />
-                <marker date="1457040743000" expanded="true" signature="1616:1861" placeholder="..." />
-                <marker date="1457040743000" expanded="true" signature="1920:1925" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="_register.scss" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/sass/_register.scss">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.35597485">
+                  <caret line="258" column="14" selection-start-line="258" selection-start-column="5" selection-end-line="258" selection-end-column="14" />
+                  <folding>
+                    <element signature="e#144#1623#0" expanded="false" />
+                    <element signature="e#1685#1828#0" expanded="false" />
+                    <element signature="e#1838#1908#0" expanded="false" />
+                    <element signature="e#1918#2288#0" expanded="false" />
+                    <element signature="e#2300#2355#0" expanded="false" />
+                    <element signature="e#2366#2468#0" expanded="false" />
+                    <element signature="e#2479#2568#0" expanded="false" />
+                    <element signature="e#2579#2647#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SLAVE.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/static/SLAVE.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-11.791667">
+                  <caret line="165" column="77" selection-start-line="165" selection-start-column="69" selection-end-line="165" selection-end-column="77" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="_registerToSubmit.scss" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/sass/components/_registerToSubmit.scss">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.3773585">
+                  <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,13 +571,24 @@
       <list>
         <option value="$PROJECT_DIR$/dist/register2.html" />
         <option value="$PROJECT_DIR$/straw/config.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/straw/tasks/styles.js" />
         <option value="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/_quickCheckout.scss" />
         <option value="$PROJECT_DIR$/client/sass/main.scss" />
         <option value="$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/main.scss" />
         <option value="$PROJECT_DIR$/src/TPCTrainco.Umbraco/css/main.css" />
+        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/TPCTrainco.Umbraco/register2.html" />
+        <option value="$PROJECT_DIR$/straw/tasks/styles.js" />
+        <option value="$PROJECT_DIR$/src/static/register2.html" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/sass/main.scss" />
+        <option value="$PROJECT_DIR$/src/sass/components/_register.scss" />
+        <option value="$PROJECT_DIR$/src/static/post.html" />
+        <option value="$PROJECT_DIR$/src/sass/_cart.scss" />
+        <option value="$PROJECT_DIR$/src/sass/vendor/bootstrap/_forms.scss" />
+        <option value="$PROJECT_DIR$/src/static/onsite.html" />
+        <option value="$PROJECT_DIR$/src/static/SLAVE.html" />
+        <option value="$PROJECT_DIR$/src/sass/_register.scss" />
+        <option value="$PROJECT_DIR$/src/sass/components/_registerToSubmit.scss" />
       </list>
     </option>
   </component>
@@ -66,16 +596,11 @@
   <component name="JsBuildToolPackageJson" detection-done="true" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
-    <gulpfiles>
-      <GulpfileState>
-        <gulpfile-path>$PROJECT_DIR$/gulpfile.babel.js</gulpfile-path>
-      </GulpfileState>
-    </gulpfiles>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="2556" />
-    <option name="height" value="1417" />
+    <option name="width" value="2044" />
+    <option name="height" value="1129" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -102,7 +627,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scope">
+        <subPane subId="Project Files" />
+      </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -118,56 +646,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TPCTrainco" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TPCTrainco" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TPCTrainco" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="straw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TPCTrainco" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TPCTrainco" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="straw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TPCTrainco" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TPCTrainco" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="straw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tasks" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -203,24 +681,182 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco.Umbraco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco.Umbraco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sass" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sass" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sass" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bootstrap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPCTrainco" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sass" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Trainco-Login" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="editor.config.accepted" value="true" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/sass" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/client/sass" />
     </key>
   </component>
@@ -285,27 +921,46 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="2556" height="1417" extended-state="6" />
+    <frame x="0" y="23" width="2044" height="1129" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18224852" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11616411" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32981133" sideWeight="0.5013807" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916266" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32931423" sideWeight="0.49861932" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962926" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18479307" sideWeight="0.49861932" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32981133" sideWeight="0.5013807" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10776187" sideWeight="0.49861932" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11637081" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-    </layout>
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -315,7 +970,15 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/_register.scss">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/main.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -323,11 +986,101 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/main.scss">
+    <entry file="file://$PROJECT_DIR$/src/static/register2.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
+          <caret line="101" column="34" selection-start-line="93" selection-start-column="28" selection-end-line="101" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/register2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/register1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="98" column="19" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/register2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="101" column="34" selection-start-line="93" selection-start-column="28" selection-end-line="101" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/register2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/register1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="98" column="19" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/vendor/bootstrap/_forms.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/register2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/vendor/bootstrap/_forms.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/register2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -335,60 +1088,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="342" column="30" selection-start-line="342" selection-start-column="30" selection-end-line="342" selection-end-column="30" />
-          <folding>
-            <marker date="1457040458000" expanded="true" signature="1616:1861" placeholder="..." />
-            <marker date="1457040458000" expanded="true" signature="1920:1925" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/straw/tasks/styles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/old.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.8953488">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/register1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="32.666668">
-          <caret line="171" column="46" selection-start-line="171" selection-start-column="46" selection-end-line="171" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/_ie8.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/straw/tasks/watch.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76744187">
-          <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/straw/tasks/default.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/straw/tasks/serve.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -399,105 +1098,210 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/css/main.css">
+    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.354067">
-          <caret line="3164" column="39" selection-start-line="3164" selection-start-column="37" selection-end-line="3164" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.35441527">
+          <caret line="3607" column="6" selection-start-line="3607" selection-start-column="6" selection-end-line="3607" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26849642">
-          <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
-          <folding />
+        <state vertical-scroll-proportion="0.22526501">
+          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/straw/config.js">
+    <entry file="file://$PROJECT_DIR$/src/sass/_onsite.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12180974">
-          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/straw/tasks/styles.js">
+    <entry file="file://$PROJECT_DIR$/src/static/summary.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47795823">
-          <caret line="49" column="41" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/_nav.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.97962797">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/register2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-63.125">
+          <caret line="101" column="34" selection-start-line="93" selection-start-column="28" selection-end-line="101" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dist/register2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.470167">
-          <caret line="342" column="30" selection-start-line="342" selection-start-column="30" selection-end-line="342" selection-end-column="30" />
+        <state vertical-scroll-proportion="-37.625">
+          <caret line="114" column="73" selection-start-line="114" selection-start-column="73" selection-end-line="114" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/register1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.013250884">
+          <caret line="98" column="19" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4945055">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.2087133">
+          <caret line="3164" column="39" selection-start-line="3164" selection-start-column="37" selection-end-line="3164" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.tmp/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14322917">
+          <caret line="7333" column="1" selection-start-line="7260" selection-start-column="1" selection-end-line="7260" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulp/conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulp.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulp/styles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/block.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4871795">
+          <caret line="227" column="12" selection-start-line="227" selection-start-column="12" selection-end-line="227" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/post.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13207547">
+          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/_cart.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.9166665">
+          <caret line="250" column="1" selection-start-line="250" selection-start-column="1" selection-end-line="250" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.875">
+          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/onsite.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7358491">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/vendor/bootstrap/_forms.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5283019">
+          <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static/SLAVE.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.791667">
+          <caret line="165" column="77" selection-start-line="165" selection-start-column="69" selection-end-line="165" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sass/_register.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35597485">
+          <caret line="258" column="14" selection-start-line="258" selection-start-column="5" selection-end-line="258" selection-end-column="14" />
           <folding>
-            <marker date="1457040458000" expanded="true" signature="1616:1861" placeholder="..." />
-            <marker date="1457040458000" expanded="true" signature="1920:1925" placeholder="..." />
+            <element signature="e#144#1623#0" expanded="false" />
+            <element signature="e#1685#1828#0" expanded="false" />
+            <element signature="e#1838#1908#0" expanded="false" />
+            <element signature="e#1918#2288#0" expanded="false" />
+            <element signature="e#2300#2355#0" expanded="false" />
+            <element signature="e#2366#2468#0" expanded="false" />
+            <element signature="e#2479#2568#0" expanded="false" />
+            <element signature="e#2579#2647#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/main.scss">
+    <entry file="file://$PROJECT_DIR$/src/sass/components/_registerToSubmit.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28639618">
-          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.3773585">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35441527">
-          <caret line="3607" column="6" selection-start-line="3607" selection-start-column="6" selection-end-line="3607" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/sass/main.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25059667">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/sass/_quickCheckout.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39379475">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.babel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13921113">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/assets/scss/_register.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21121718">
-          <caret line="212" column="1" selection-start-line="212" selection-start-column="1" selection-end-line="212" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TPCTrainco.Umbraco/register2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.797136">
-          <caret line="249" column="81" selection-start-line="249" selection-start-column="81" selection-end-line="249" selection-end-column="81" />
-          <folding>
-            <element signature="n#select#0;n#div#5;n#div#1;n#div#13;n#div#0;n#div#0;n#form#0;n#div#0;n#div#1;n#body#0;n#html#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1457040743000" expanded="true" signature="1616:1861" placeholder="..." />
-            <marker date="1457040743000" expanded="true" signature="1920:1925" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>

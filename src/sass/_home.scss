@@ -1,405 +1,409 @@
 .course-cost {
-	margin-bottom: 25px;
-	@include font-italic(18px, $headline-black);
+  @include font-italic(18px, $headline-black);
+  margin-bottom: 25px;
 }
 
 .topic-circles {
-	background-color: rgba(0,0,0,0.75);
-	opacity: 0.75;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	margin: 0 auto;
-	float: none;
+  float: none;
+  background-color: $black75;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin: 0 auto;
 
-	h3 {
-		font-size: 20px;
-		letter-spacing: 0.5px;
-		color: $white;
-		text-align: center;
-	}
 
-	ul {
-		padding: 0;
-		text-align: center;
-	}
+  h3 {
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: $white;
+    text-align: center;
+  }
 
-	.btn-white {
-		margin: 0 auto;
-		display: block;
-		text-align: center;
-		width: 150px;
-	}
+  ul {
+    padding: 0;
+    text-align: center;
+  }
 
-	.seminar-topic {
-		vertical-align: top;
-		margin: 5px 5px 10px;
-		@include tablet-portrait-and-up {
-			margin: 30px 1%;
-		}
-	}
+  .btn-white {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    width: 150px;
+  }
+
+  .seminar-topic {
+    @include respond-to(small) {
+    vertical-align: top;
+    margin: 5px 5px 10px;
+    }
+  }
 }
 
 .seminar-topic {
-	margin: 5px;
-	list-style-type: none;
-	display: inline-block;
+  margin: 5px;
+  list-style-type: none;
+  display: inline-block;
 
-	@include tablet-portrait-and-up {
-		margin: 30px;
-	}
+  p {
+    color: $white;
+    width: 140px;
+  }
 
-	p {
-		color: $white;
-		width: 140px;
-	}
+   @include respond-to(small) {
+    margin: 30px;
+  }
 }
 
 // the hover + active overlays on the circles
 .overlay-contain {
-	border: 5px solid $white;
-	display: inline-block;
-	background-color: $white;
-	border-radius: 50%;
-	position: relative;
-	cursor: pointer;
+  @include transition(all 0.25s ease-in-out);
+  border: 5px solid $white;
+  display: inline-block;
+  background-color: $white;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
   overflow: hidden;
-	@include transition(all 0.25s ease-in-out);
 
-	&:hover > .overlay, &.chosen > .overlay {
-		background-color: $blue; // ie8 fallback
-		opacity: 1;
-		background-color: rgba(240, 75, 73, 0.8);
-		@include transition(all 0.3s ease-in-out);
-		@include transform(scale(1.01, 1.01));
-	}
+  &:hover > .overlay,
+  &.chosen > .overlay {
+    @include transition(all 0.3s ease-in-out);
+    @include transform(scale(1.01, 1.01));
+    opacity: 1;
+    background-color: rgba(240, 75, 73, .8);
+  }
 
-	&.touch > .overlay {
-		background-color: transparent !important;
+  &.touch > .overlay {
+    background-color: transparent !important;
 
-		&:after {
-			content: ' ';
-		}
-	}
+    &:after {
+      content: '';
+    }
+  }
 
-	// on click, chosen class is added, different color than the hover state
-	&.chosen > .overlay {
-		background-color: $red-button-hover; //ie8 fallback
-		background-color: rgba(0, 144, 197, 0.8);
-	}
+  // on click, chosen class is added, different color than the hover state
+  &.chosen > .overlay {
+    background-color: rgba(0, 144, 197, .8);
+  }
 
-	img {
-		width: 100%;
-		max-width: 120px;
-		border-radius: 50%;
-	}
+  img {
+    width: 100%;
+    max-width: 120px;
+    border-radius: 50%;
+  }
 
-	.overlay {
-		width: 100%;
-		max-width: 120px;
-		max-height: 120px;
-		background-color: rgba(0, 144, 197, 0);
-		opacity: 0;
-		height: 100%;
-		position: absolute;
-		border-radius: 50%;
-		z-index: 1;
-		@include transform(scale(0, 0));
-		@include transition(all 0.3s ease-in-out);
+  .overlay {
+    @include transform(scale(0, 0));
+    @include transition(all 0.3s ease-in-out);
+    width: 100%;
+    max-width: 120px;
+    max-height: 120px;
+    background-color: rgba(0, 144, 197, 0);
+    opacity: 0;
+    height: 100%;
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1;
 
-		&:after {
-			content: url('/images/icon-checkmark.png');
-			position: relative;
-			top: 50%;
-			left: 50%;
-			margin-top: -10px;
-			margin-left: -95%;
-			display: block;
-		}
-	}
+    &:after {
+      content: url('/assets/images/icon-checkmark.png');
+      position: relative;
+      top: 50%;
+      left: 50%;
+      margin-top: -10px;
+      margin-left: -95%;
+      display: block;
+    }
+  }
 }
 
 .home-highlight-circle {
-	border-radius: 50%;
-	margin: 40px auto 0;
-	max-width: 300px;
-	@include tablet-portrait-and-up {
-		max-width: 100%;
-	}
-
-	@include medium-sizes {
-		margin-top: 10px;
-	}
-
-	@include tablet-landscape-and-up {
-		float: left;
-	}
+  border-radius: 50%;
+  margin: 40px auto 0;
+  max-width: 300px;
+  @include respond-to(small) {
+    max-width: 100%;
+  }
+  @include respond-to(medium) {
+    margin-top: 10px;
+  }
+  @include respond-to(normal) {
+    float: left;
+  }
 }
 
 .img-with-text {
-	.container {
-		margin: 50px auto;
-	}
+  .container {
+    margin: 50px auto;
+  }
 }
 
 // offwhite sections have the slightly gray background color
 .offwhite-section {
-	.home-highlight-circle {
-		@include tablet-landscape-and-up {
-			float: right;
-		}
-	}
+  .home-highlight-circle {
+      @include respond-to(normal) {
+      float: right;
+    }
+  }
 }
 
 // blurred image section
 .intro-section {
-	background-color: rgba(0, 0, 0, 0.75);
-	background-image: url('/assets/images/bg-small.jpg');
-	background-position: center top;
-	background-size: cover;
-	background-repeat: no-repeat;
-	padding-top: 60px;
-	position: relative;
-	z-index: 2;
-	@include tablet-portrait-and-up {
-		background-image: url('/assets/images/bg-large.jpg');
-	}
+  background-color: rgba(0, 0, 0, 0.75);
+  background-image: url('/assets/images/bg-small.jpg');
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 60px;
+  position: relative;
+  z-index: 2;
 
-	.jumbotron {
-		 h1 {
-			&:after {
-				right: -15%;
-			}
+  @include respond-to(normal) {
+    background-image: url('/assets/images/bg-large.jpg');
+  }
 
-			&:before {
-				left: -15%;
-			}
-		}
-		a {
-			color: $white;
-			&:active, &:hover {
-				color: darken($white, 15%);
-				@include transition(0.25s);
-			}
-		}
-	}
+  .jumbotron {
+    h1 {
+      &:after {
+        right: -15%;
+      }
 
-	.row {
-		margin: 0 auto 60px;
-		max-width: 1200px;
-		@include tablet-landscape-and-up {
-			margin: 45px auto 60px;
-		}
-	}
+      &:before {
+        left: -15%;
+      }
+    }
+
+    a {
+      color: $white;
+
+      &:active,
+      &:hover {
+        color: darken($white, 15%);
+        @include transition(0.25s);
+      }
+    }
+  }
+
+  .row {
+    margin: 0 auto 60px;
+    max-width: 1200px;
+    @include respond-to(normal) {
+      margin: 45px auto 60px;
+    }
+  }
 }
 
 // overriding bootstrap's carousel styles. override here, do not modify.
 .carousel {
-	background-image: url("/assets/images/carousel-mobile-bg.jpg");
-	background-position: center top;
-	background-size: cover;
-	background-repeat: no-repeat;
-	width: 100%;
-	height: 100%;
-	max-height: 400px;
+  background-image: url('/assets/images/carousel-mobile-bg.jpg');
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  max-height: 400px;
+  @include respond-to(normal) {
+    background-image: url('/assets/images/carousel-bg.jpg');
+  }
 
-	@include tablet-portrait-and-up {
-		background-image: url("/assets/images/carousel-bg.jpg");
-	}
+  .item {
+    height: 300px;
+  }
 
-	.item {
-		height: 300px;
-	}
+  .carousel-caption {
+    @include transform(translateY(50%));
+    max-width: 700px;
+    margin: 0 auto;
+    bottom: 50%;
+    text-shadow: none;
+    padding-top: 35px;
 
-	.carousel-caption {
-		max-width: 700px;
-		margin: 0 auto;
-		bottom: 50%;
-		text-shadow: none;
-		padding-top: 35px;
-		@include transform(translateY(50%));
+    .quote {
+      position: relative;
+      font-size: 17px;
 
-		.quote {
-			position: relative;
-			font-size: 17px;
-			@include tablet-landscape-and-up {
-				font-size: 22px;
-			}
+     @include respond-to(normal) {
+        font-size:  22px;
+      }
 
-			&:before {
-				content: '';
-				position: absolute;
-				left: 0;
-				bottom: -35px;
-				background: url("/assets/images/line.png") center bottom / cover no-repeat;
-				height: 16px;
-				width: 100%;
-			}
-		}
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -35px;
+        background: url('/assets/images/line.png') center bottom / cover no-repeat;
+        height: 16px;
+        width: 100%;
+      }
+    }
 
-		.citation {
-			font-size: 19px;
-			font-style: italic;
-			margin-top: 50px;
+    .citation {
+      font-size: 19px;
+      font-style: italic;
+      margin-top: 50px;
 
-			span {
-				font-weight: 400;
-			}
-		}
-	}
+      span {
+        font-weight: 400;
+      }
+    }
+  }
 
-	.carousel-indicators {
-		z-index: 2;
-	}
+  .carousel-indicators {
+    z-index: 2;
+  }
 
-	.arrow {
-		width: 70px;
-		height: 70px;
-		position: absolute;
-		top: 50%;
-		margin-top: -35px;
-		@include rotate(-45deg);
-	}
+  .arrow {
+    @include rotate(-45deg);
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 50%;
+    margin-top: -35px;
+  }
 
-	.left, .right {
+  .left,
+  .right {
+    img {
+      position: absolute;
+      top: 50%;
+      margin-top: -40px;
+    }
+  }
 
-		img {
-			position: absolute;
-			top: 50%;
-			margin-top: -40px;
-		}
-	}
+  .left img {
+    margin-left: -15px;
+  }
 
-	.left img {
-		margin-left: -15px;
-	}
-
-	.right img {
-		margin-left: -15px;
-	}
+  .right img {
+    margin-left: -15px;
+  }
 }
 
-.carousel-control.right, .carousel-control.left {
-	background-image: none;
+.carousel-control.right,
+.carousel-control.left {
+  background-image: none;
 }
 
 .jumbotron {
-	text-align: center;
-	max-width: 90%;
-	margin: 40px auto;
-	letter-spacing: 0.5px;
-	color: $white;
-	h1 {
-		@include font-headline(38px, $white);
-	}
-	p {
-		max-width: 700px;
-		margin: 0 auto;
-		line-height: 1.7;
-		@include font-headline(16px, $white);
-	}
+  text-align: center;
+  max-width: 90%;
+  margin: 40px auto;
+  letter-spacing: 0.5px;
+  color: $white;
+
+  h1 {
+    @include font-headline(36px, $white);
+  }
+
+  p {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+    @include font-headline(16px, $white);
+  }
 }
 
 // the red section
 .onsite-section {
-	position: relative;
-	padding: 0;
-	color: $white;
-	overflow: hidden;
-	@include tablet-landscape-and-up {
-		height: 350px;
-		padding-left: 0;
-	}
+  position: relative;
+  padding: 0;
+  color: $white;
+  overflow: hidden;
+  @include tablet-landscape-and-up {
+    height: 350px;
+    padding-left: 0;
+  }
 
-	.left-skew {
-		background-color: $red-background;
-		float: left;
-		width: 100%;
-		height: 100%;
-		position: relative;
-		z-index: 1;
-		@include tablet-landscape-and-up {
-			width: 75%;
-			@include skew(-15deg, 0);
-		}
-	}
-
-	.skewed-side {
-		width: 100%;
-		height: 100%;
-		margin: 0 0 40px;
-		background-color: $red-background;
-		@include tablet-landscape-and-up {
-			width: 90%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			@include skew(15deg, 0);
-		}
-	}
-
-	.inner {
-		width: 80%;
-		margin: 0 auto;
-		max-width: 700px;
-		@include tablet-landscape-and-up {
-			padding-left: 5.5%;
-		}
-    .btn-reg {
-        @media screen and (max-width: 500px) {
-          margin-left: 24%;
-        }
+  .left-skew {
+    background-color: $red-background;
+    float: left;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    @include respond-to(normal) {
+      width: 75%;
+      @include skew(-15deg, 0);
     }
-	}
+  }
 
-	.right-img {
-		display: none;
-		@include tablet-portrait-and-up {
-			position: absolute;
-			right: 0;
-			z-index: 0;
-			height: 350px;
-			display: block;
-		}
-		@include large-desktop {
-			width: 35%;
-		}
+  .skewed-side {
+    width: 100%;
+    height: 100%;
+    margin: 0 0 40px;
+    background-color: $red-background;
 
-		img {
-			float: right;
-			width: 100%;
-		}
-	}
+    @include respond-to(normal) {
+      @include skew(15deg, 0);
+      width: 90%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
 
-	h2 {
-		color: $white;
-		max-width: 500px;
+  .inner {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 700px;
+    @include respond-to(normal) {
+      padding-left: 5.5%;
+    }
 
-		&:after {
-			background-color: $white;
-			opacity: 0.4;
-			bottom: -20px;
-		}
+    .btn-reg {
+      @include respond-to(small) {
+        margin-left: 24%;
+      }
+    }
+  }
 
-	}
+  .right-img {
+    display: none;
+    @include respond-to(normal) {
+      position: absolute;
+      right: 0;
+      z-index: 0;
+      height: 350px;
+      display: block;
+    }
+   @include respond-to(large) {
+      width: 35%;
+    }
 
-	p {
-		line-height: 1.75;
-		letter-spacing: 0.65px;
-		margin: 36px 0;
-	}
+    img {
+      float: right;
+      width: 100%;
+    }
+  }
+
+  h2 {
+    color: $white;
+    max-width: 500px;
+
+    &:after {
+      background-color: $white;
+      opacity: 0.4;
+      bottom: -20px;
+    }
+  }
+
+  p {
+    line-height: 1.75;
+    letter-spacing: 0.65px;
+    margin: 36px 0;
+  }
 }
 
 .select-location-instruction {
-	display: none;
+  display: none;
 }
 
 .seminar-title {
-	font-size: 17px;
-	font-weight: 700;
-	margin-bottom: 4px;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
 .num-seminars {
-	font-style: italic;
-	margin-top: 0;
+  font-style: italic;
+  margin-top: 0;
 }

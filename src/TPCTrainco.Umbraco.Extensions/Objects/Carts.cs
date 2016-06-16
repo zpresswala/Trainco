@@ -302,10 +302,16 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 tempCust.authZip = checkoutCust.Zip;
                 tempCust.authCountry = checkoutCust.Country;
 
-                List<string> phoneArray = StringUtilities.SplitPhoneNumber(checkoutCust.Phone);
-                tempCust.authPhone1 = phoneArray[0];
-                tempCust.authPhone2 = phoneArray[1];
-                tempCust.authPhone3 = phoneArray[2];
+                if (!String.IsNullOrEmpty(checkoutCust.Phone))
+                {
+                    List<string> phoneArray = StringUtilities.SplitPhoneNumber(checkoutCust.Phone);
+                    if (phoneArray.Count() == 3)
+                    {
+                        tempCust.authPhone1 = phoneArray[0];
+                        tempCust.authPhone2 = phoneArray[1];
+                        tempCust.authPhone3 = phoneArray[2];
+                    }
+                }
 
                 tempCust.authPhoneExt = checkoutCust.PhoneExt;
                 tempCust.authFax1 = "";
@@ -315,7 +321,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 if (true == checkoutCust.BillingDifferent)
                 {
-                    List<string> billPhoneArray = StringUtilities.SplitPhoneNumber(checkoutCust.BillPhone);
+                    
 
                     tempCust.billFName = checkoutCust.BillFirstName;
                     tempCust.billLName = checkoutCust.BillLastName;
@@ -327,9 +333,18 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                     tempCust.billState = checkoutCust.BillState;
                     tempCust.billZip = checkoutCust.BillZip;
                     tempCust.billCountry = checkoutCust.BillCountry;
-                    tempCust.billPhone1 = billPhoneArray[0];
-                    tempCust.billPhone2 = billPhoneArray[1];
-                    tempCust.billPhone3 = billPhoneArray[2];
+
+                    if (!String.IsNullOrEmpty(checkoutCust.BillPhone))
+                    {
+                        List<string> billPhoneArray = StringUtilities.SplitPhoneNumber(checkoutCust.BillPhone);
+                        if (billPhoneArray.Count() == 3)
+                        {
+                            tempCust.billPhone1 = billPhoneArray[0];
+                            tempCust.billPhone2 = billPhoneArray[1];
+                            tempCust.billPhone3 = billPhoneArray[2];
+                        }
+                    }
+
                     tempCust.billPhoneExt = checkoutCust.BillPhoneExt;
                     tempCust.billFax1 = "";
                     tempCust.billFax2 = "";
@@ -957,8 +972,12 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             else
             {
                 output = CartCookies.Get();
-            }
 
+                if (false == string.IsNullOrEmpty(output))
+                {
+                    session["CartId"] = output;
+                }
+            }
 
             return output;
         }
@@ -993,6 +1012,17 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 RefreshCartCache(cartGuid, regId);
             }
+            else
+            {
+                regIdStr = RegCookies.Get();
+
+                if (false == string.IsNullOrEmpty(regIdStr) && false == string.IsNullOrEmpty(cartGuid))
+                {
+                    regId = Convert.ToInt32(regIdStr);
+
+                    RefreshCartCache(cartGuid, regId);
+                }
+            }
 
             return regId;
         }
@@ -1007,6 +1037,8 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
             cache.Add(cacheKey, regId, policy);
+
+            RegCookies.Set(regId.ToString());
         }
 
 

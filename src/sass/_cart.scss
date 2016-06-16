@@ -13,17 +13,15 @@
 .cart-gray {
   background-color: #f2f2f2;
 }
-.register-cart-wrap{
+.register-cart-wrap {
   background-color: #F2F2F2;
   z-index: 1200;
   position: fixed;
   width: 100%;
-  top: 50px;
-  @include tablet-portrait-and-up() {
-    top: 80px;
-  }
-  @media screen and (max-width: 1024px) {
-    top: 50px;
+  top: 85px;
+
+  @include respond-to(normal) {
+    top: 115px;
   }
 }
 .attendee-input--cart {
@@ -280,7 +278,7 @@
     position: relative;
     top: -10px;
     left: 50%;
-    margin-left: -12px;
+    margin-left: -16px;
   }
 }
 
@@ -626,7 +624,7 @@
 }
 
 .checkout-err-msg {
-  float: right;
+  text-align: center;
   margin-top: 0;
   color: $red-button-hover;
   font-size: 1.1em;
@@ -691,9 +689,9 @@
 }
 
 .read-only-cart {
-  margin-top: 50px;
-
-  @include tablet-landscape-and-up {
-    margin-top: 80px;
-  }
+  //margin-top: 50px;
+  //
+  //@include tablet-landscape-and-up {
+  //  margin-top: 80px;
+  //}
 }
