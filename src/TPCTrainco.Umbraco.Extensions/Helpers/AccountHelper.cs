@@ -22,6 +22,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         public static string GenerateToken(string memberKey, string email, string host, string ip, string userAgent, long ticks)
         {
             var member = ApplicationContext.Current.Services.MemberService.GetByKey(new Guid(memberKey));
+
             var rawPassword = member.RawPasswordValue;
 
             string hash = string.Join(":", new string[] { rawPassword, memberKey.ToString(), email, ip, userAgent, ticks.ToString() });
@@ -140,6 +141,22 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
         {
             try
             {
+                // Check if user has been verified
+                if (ApplicationContext.Current.Services.MemberService.Exists(user.Email))
+                {
+                    LogHelper.Info(typeof(AccountHelper), "Create User: Email Found: " + user.Email);
+
+                    var member = ApplicationContext.Current.Services.MemberService.GetByEmail(user.Email);
+
+                    if (false == member.IsApproved)
+                    {
+                        LogHelper.Info(typeof(AccountHelper), "Create User: Member not approved. Deleting: " + user.Email);
+
+                        ApplicationContext.Current.Services.MemberService.Delete(member);
+                    }
+                }
+
+
                 if (!ApplicationContext.Current.Services.MemberService.Exists(user.Email))
                 {
                     var member = ApplicationContext.Current.Services.MemberService.CreateMember(
@@ -198,22 +215,26 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                         if (false == string.IsNullOrEmpty(user.Email))
                         {
-                            LogHelper.Info(typeof(AccountHelper), "New Account Verification Email Sent: " + user.Email);
+                            LogHelper.Info(typeof(AccountHelper), "Create User: New Account Verification Email Sent: " + user.Email);
                         }
                         else
                         {
-                            LogHelper.Error(typeof(AccountHelper), "New Account Verification: To Email is empty", null);
+                            LogHelper.Error(typeof(AccountHelper), "Create User: New Account Verification: To Email is empty", null);
                         }
                     }
                     else
                     {
-                        LogHelper.Error(typeof(AccountHelper), "Could not find Email Template: New Account Verification", null);
+                        LogHelper.Error(typeof(AccountHelper), "Create User: Could not find Email Template: New Account Verification", null);
                     }
+                }
+                else
+                {
+                    LogHelper.Info(typeof(AccountHelper), "Create User: Member found and already verified: " + user.Email);
                 }
             }
             catch (Exception ex)
             {
-                LogHelper.Error(typeof(AccountHelper), "Error creating new trainco member account.", ex);
+                LogHelper.Error(typeof(AccountHelper), "Create User: Error creating new trainco member account.", ex);
             }
 
             return user;
@@ -319,19 +340,38 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             if (member != null && member.GetValue<string>("ValidationCode").StartsWith(validationCode))
             {
-                member.SetValue("umbracoMemberApproved", true);
+                LogHelper.Info(typeof(AccountHelper), "Email Verification: Member found and validation code accepted: " + email + " | Code: " + validationCode);
+
                 try
                 {
+                    LogHelper.Info(typeof(AccountHelper), "Email Verification: Saving member: " + email);
+
+                    member.IsApproved = true;
+                    member.SetValue("umbracoMemberApproved", true);
                     ApplicationContext.Current.Services.MemberService.Save(member);
+
+                    member = ApplicationContext.Current.Services.MemberService.GetByUsername(email);
+
+                    if (true == member.IsApproved)
+                    {
+                        LogHelper.Info(typeof(AccountHelper), "Email Verification: Member set to approved: " + email);
+                    }
+                    else
+                    {
+                        LogHelper.Error(typeof(AccountHelper), "Email Verification: ERROR! Member NOT set to approved: " + email, null);
+                    }
+                    member.IsApproved = true;
                 }
-                catch
+                catch (Exception ex)
                 {
                     success = false;
+                    LogHelper.Error(typeof(AccountHelper), "Email Verification: ERROR saving member: " + email, ex);
                 }
             }
             else
             {
                 success = false;
+                LogHelper.Warn(typeof(AccountHelper), "Email Verification: Could not find user by email address: " + email);
             }
 
             return success;
@@ -672,6 +712,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
             {
                 ApplicationContext.Current.Services.MemberService.SavePassword(member, password);
 
+                member.IsApproved = true;
                 member.SetValue("validationCode", String.Empty);
                 ApplicationContext.Current.Services.MemberService.Save(member);
             }

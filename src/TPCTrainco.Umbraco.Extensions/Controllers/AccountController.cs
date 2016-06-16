@@ -13,6 +13,7 @@ using TPCTrainco.Umbraco.Extensions.Models.API.Request;
 using TPCTrainco.Umbraco.Extensions.Models.API.Response;
 using TPCTrainco.Umbraco.Extensions.Objects;
 using Umbraco.Core;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
@@ -45,14 +46,15 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
                 authToken = AccountHelper.GenerateToken(member.Key.ToString(), member.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), expiration);
             }
 
-            var responseModel = new LoginResponseModel() {
+            var responseModel = new LoginResponseModel()
+            {
                 Status = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized.ToString() : System.Net.HttpStatusCode.OK.ToString(),
                 StatusCode = String.IsNullOrEmpty(authToken) ? System.Net.HttpStatusCode.Unauthorized : System.Net.HttpStatusCode.OK,
                 Result = authToken
             };
 
             return Request.CreateResponse(responseModel.StatusCode, responseModel);
-        }        
+        }
 
         /// <summary>
         /// Sends a password reset email to the user.
@@ -75,24 +77,39 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         [HttpPost]
         public HttpResponseMessage CreateUser(CreateUserRequestModel request)
         {
-            var user = AccountHelper.CreateUser(request.User, Request.RequestUri);
+            var exists = ApplicationContext.Current.Services.MemberService.Exists(request.User.Email);
+            CreateUserResponseModel responseModel = null;
 
-            if (!String.IsNullOrEmpty(user.Key))
+            if (false == exists)
             {
-                if (!String.IsNullOrEmpty(request.Company.Username) && !request.Company.Username.Equals(request.User.Email))
+                var user = AccountHelper.CreateUser(request.User, Request.RequestUri);
+
+                if (!String.IsNullOrEmpty(user.Key))
                 {
-                    request.Company = AccountHelper.GetCompany(request.Company.Username);
+                    if (!String.IsNullOrEmpty(request.Company.Username) && !request.Company.Username.Equals(request.User.Email))
+                    {
+                        request.Company = AccountHelper.GetCompany(request.Company.Username);
+                    }
+
+                    var success = AccountHelper.UpdateCompany(user.Key, request.Company);
                 }
 
-                var success = AccountHelper.UpdateCompany(user.Key, request.Company);
+                responseModel = new CreateUserResponseModel()
+                {
+                    Status = String.IsNullOrEmpty(user.ValidationCode) ? System.Net.HttpStatusCode.NotModified.ToString() : System.Net.HttpStatusCode.Created.ToString(),
+                    StatusCode = String.IsNullOrEmpty(user.ValidationCode) ? System.Net.HttpStatusCode.NotModified : System.Net.HttpStatusCode.Created,
+                    Result = user != null
+                };
             }
-
-            var responseModel = new CreateUserResponseModel()
+            else
             {
-                Status = String.IsNullOrEmpty(user.ValidationCode) ? System.Net.HttpStatusCode.NotModified.ToString() : System.Net.HttpStatusCode.Created.ToString(),
-                StatusCode = String.IsNullOrEmpty(user.ValidationCode) ? System.Net.HttpStatusCode.NotModified : System.Net.HttpStatusCode.Created,
-                Result = user != null
-            };
+                responseModel = new CreateUserResponseModel()
+                {
+                    Status = System.Net.HttpStatusCode.NotModified.ToString(),
+                    StatusCode = System.Net.HttpStatusCode.NotModified,
+                    Result = false
+                };
+            }
 
             return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
@@ -110,9 +127,20 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             IMember member = null;
 
-            if (AccountHelper.EmailVerification(request.Email, request.ValidationCode, out member))
+            try
             {
-                authToken = AccountHelper.GenerateToken(member.Key.ToString(), member.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
+                if (AccountHelper.EmailVerification(request.Email, request.ValidationCode, out member))
+                {
+                    authToken = AccountHelper.GenerateToken(member.Key.ToString(), member.Email, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString(), DateTime.UtcNow.Ticks);
+                }
+                else
+                {
+                    LogHelper.Warn(typeof(AccountController), "Email Verification: Invalid verification: " + request.Email);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(typeof(AccountController), "Email Verification: Error on verification", ex);
             }
 
             var responseModel = new LoginResponseModel()
@@ -194,7 +222,8 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
                     }
                     else
                     {
-                        navigation.Add(new NavigationItem() {
+                        navigation.Add(new NavigationItem()
+                        {
                             Name = item.GetPropertyValue<string>("navigationTitle", item.Name),
                             Url = item.Url,
                             Children = new List<NavigationItem>()
@@ -215,6 +244,20 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         public HttpResponseMessage UserExists([FromUri] UserExistsRequestModel request)
         {
             var exists = ApplicationContext.Current.Services.MemberService.Exists(request.Email);
+
+            if (true == exists)
+            {
+                var member = ApplicationContext.Current.Services.MemberService.GetByEmail(request.Email);
+
+                if (false == member.IsApproved)
+                {
+                    LogHelper.Info(typeof(AccountHelper), "User Exists: Member not approved. Deleting: " + request.Email);
+
+                    ApplicationContext.Current.Services.MemberService.Delete(member);
+
+                    exists = false;
+                }
+            }
 
             var responseModel = new UserExistsResponseModel()
             {
@@ -304,7 +347,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
         {
             var memberKey = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
 
-            var company = AccountHelper.GetCompany(memberKey);      
+            var company = AccountHelper.GetCompany(memberKey);
 
             var responseModel = new GetCompanyResponseModel()
             {
@@ -351,7 +394,8 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var courses = AccountHelper.GetSaveForLater(memberKey);
 
-            var responseModel = new GetSaveForLaterResponseModel() {
+            var responseModel = new GetSaveForLaterResponseModel()
+            {
                 Status = System.Net.HttpStatusCode.OK.ToString(),
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Result = courses
@@ -425,7 +469,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             IMember member = null;
 
-            if(String.IsNullOrEmpty(request.ValidationCode) && AccountHelper.IsTokenValid(Request.Headers.Authorization.Parameter, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString()))
+            if (String.IsNullOrEmpty(request.ValidationCode) && AccountHelper.IsTokenValid(Request.Headers.Authorization.Parameter, Request.RequestUri.Host, UtilitiesHelper.GetClientIpAddress(Request), Request.Headers.UserAgent.ToString()))
             {
                 request.ValidationCode = AccountHelper.GetMemberKeyFromToken(Request.Headers.Authorization.Parameter);
             }
@@ -458,7 +502,8 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             var success = AccountHelper.UpdateCompany(memberKey, request.Company);
 
-            var responseModel = new UpdateCompanyResponseModel() {
+            var responseModel = new UpdateCompanyResponseModel()
+            {
                 Status = System.Net.HttpStatusCode.Accepted.ToString(),
                 StatusCode = System.Net.HttpStatusCode.Accepted,
                 Success = success,
@@ -523,7 +568,7 @@ namespace TPCTrainco.Umbraco.Extensions.Controllers
 
             return Request.CreateResponse(responseModel.StatusCode, responseModel);
         }
-        
+
         /// <summary>
         /// Update the saved list of courses for the user
         /// </summary>
