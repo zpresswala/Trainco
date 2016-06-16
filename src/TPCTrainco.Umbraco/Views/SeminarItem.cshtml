@@ -71,7 +71,7 @@
             <div class="button-wrapper">
                 <ul class="list-inline">
                   <li>
-                    <a href="#register-seminars" class="btn-reg btn-first" role="button">Check Dates and Locations</a>
+                    <a href="#checkDates" class="btn-reg btn-first" role="button">Check Dates and Locations</a>
                   </li>
                   <li>
                     <a href="/on-site-training/#cf-container" class="btn-reg btn-white" role="button">Get an On-Site Quote</a>
@@ -190,11 +190,11 @@
                         <div class="col-xs-12 col-md-6">
                             @if (!String.IsNullOrEmpty(CurrentPage.day4Header))
                             {
-                                <h2>Day Four - @CurrentPage.day4Header</h2>
+                                <h3>Day Four - @CurrentPage.day4Header</h3>
                             }
                             else
                             {
-                                <h2>Day Four</h2>
+                                <h3>Day Four</h3>
                             }
                             @CurrentPage.day4Copy
                         </div>
@@ -241,11 +241,34 @@
                 </div>
             }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 
 </div>
-
+<a id="checkDates" name="checkDates"></a>
 @Html.Partial("SeminarSearch/SeminarDetailsSearch", Model.Content)
 
 <div class="container-fluid results-container detail-page-app">
@@ -283,3 +306,19 @@
         }
     </div>
 }
+<script>
+              $(function() {
+                $('a[href*="#"]:not([href="#"])').click(function() {
+                  if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                    if (target.length) {
+                      $('html, body').animate({
+                        scrollTop: target.offset().top+500
+                      }, 1000);
+                      return false;
+                    }
+                  }
+                });
+              });
+</script>
