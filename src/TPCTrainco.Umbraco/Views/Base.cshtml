@@ -31,6 +31,10 @@
     IPublishedContent siteSettingsActive = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("SiteSettings"));
 
     string siteName = siteSettings.GetPropertyValue<string>("siteName");
+
+    string globalHeaderScript = siteSettingsActive.GetPropertyValue<string>("globalHeaderScript");
+    string globalFooterScript = siteSettingsActive.GetPropertyValue<string>("globalFooterScript");
+
     string htmlTitle = currentPage.GetPropertyValue<string>("htmlTitle", currentPage.Name);
     string canonical = Request.Url.AbsoluteUri;
 
@@ -258,6 +262,7 @@
     <![endif]-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+    @Html.Raw(globalHeaderScript)
     @Html.Raw(pageHeaderScript)
 </head>
 
@@ -373,6 +378,7 @@
         @Html.Partial("SeminarSearch/JavascriptHomepage")
     }
 
+    @Html.Raw(globalFooterScript)
     @Html.Raw(pageFooterScript)
 </body>
 </html>
