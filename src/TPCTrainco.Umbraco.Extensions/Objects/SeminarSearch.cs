@@ -52,7 +52,10 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
             FilterByClass(ref courseDetailList, ref locationScheduleDetailList, request);
             FilterByDate(ref locationScheduleDetailList, request);
-            FilterByLocation(ref locationScheduleDetailList, request);
+            if (!request.Simulcast)
+                FilterByLocation(ref locationScheduleDetailList, request);
+            else
+                locationScheduleDetailList = locationScheduleDetailList.Where(x => x.ScheduleType.ToLower() == "simulcast" || x.ScheduleType.ToLower() == "liveonline").ToList();
             FilterByTopic(ref courseDetailList, ref locationScheduleDetailList, request);
             FilterByKeyword(ref locationScheduleDetailList, request);
 
@@ -84,33 +87,47 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 Seminar seminar = ConvertCourseDetailToViewModel(courseDetail);
 
                 seminar.LocationSchedules = new List<LocationSchedule>();
-
-                //locationScheduleDetailList = locationScheduleDetailList.Where(p => p.ParentId == 0).ToList();
+                seminar.SimulcastSchedules = new List<LocationSchedule>();
+                seminar.LiveOnlineSchedules = new List<LocationSchedule>();
 
                 locationScheduleDetailList = locationScheduleDetailList.OrderBy(p => p.Distance).ThenBy(p => p.DateFilter).ToList();
 
-                List<LocationScheduleDetail> filteredSeminarsByCourseList = locationScheduleDetailList.Where(p => p.CourseId == courseDetail.Id).ToList();
+                List<LocationScheduleDetail> filteredLocations = locationScheduleDetailList.Where(p => p.CourseId == courseDetail.Id).ToList();
 
-                foreach (LocationScheduleDetail locationScheduleDetail in filteredSeminarsByCourseList)
+                foreach (LocationScheduleDetail locationScheduleDetail in filteredLocations)
                 {
                     LocationSchedule locationSchedule = new LocationSchedule();
 
                     locationScheduleDetail.SeminarId = seminar.Id;
                     locationScheduleDetail.SeminarTitle = seminar.Title;
-
                     locationSchedule = ConvertLocationScheduleToViewModel(locationScheduleDetail);
-
-                    seminar.LocationSchedules.Add(locationSchedule);
+                    string scheduleType = !string.IsNullOrEmpty(locationScheduleDetail.ScheduleType) ? locationScheduleDetail.ScheduleType.ToLower() : "";
+                    bool bSimulcast = scheduleType == "simulcast";
+                    bool bOnline = scheduleType == "liveonline";
+                    if((bSimulcast || bOnline) && request.bLocationPage)
+                        continue;
+                    if (bSimulcast)
+                    {
+                        locationSchedule.City = "Simulcast";
+                        locationSchedule.State = "";
+                        seminar.SimulcastSchedules.Add(locationSchedule);
+                    }
+                    else if (bOnline)
+                    {
+                        if (string.IsNullOrEmpty(locationScheduleDetail.TrainingKey) || !Registrations.DoesOnlineTrainingExist(locationScheduleDetail.TrainingKey))
+                            continue;
+                        locationSchedule.City = "Goto Training";
+                        locationSchedule.State = "";
+                        seminar.LiveOnlineSchedules.Add(locationSchedule);
+                    }
+                    else
+                        seminar.LocationSchedules.Add(locationSchedule);
                 }
-
-                int pageTotal = Convert.ToInt32(Math.Ceiling((double)seminar.LocationSchedules.Count / (double)SchedulePageCount));
-
+                int count = seminar.LocationSchedules.Count + seminar.SimulcastSchedules.Count + seminar.LiveOnlineSchedules.Count;
+                int pageTotal = Convert.ToInt32(Math.Ceiling((double) count/ (double)SchedulePageCount));
                 seminar.PageTotal = pageTotal - 1;
-
                 if (seminar.PageTotal < 0)
-                {
                     seminar.PageTotal = 0;
-                }
 
                 if (true == string.IsNullOrWhiteSpace(request.Location))
                 {
@@ -137,8 +154,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                 seminarViewModelList.Add(seminar);
             }
 
-            seminarViewModelList = seminarViewModelList.Where(p => p.LocationSchedules.Count > 0).ToList();
-
+            seminarViewModelList = seminarViewModelList.Where(p => p.LocationSchedules.Count > 0 || p.SimulcastSchedules.Count > 0 || p.LiveOnlineSchedules.Count > 0).ToList();
             return seminarViewModelList;
         }
 

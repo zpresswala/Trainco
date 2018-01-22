@@ -38,8 +38,8 @@ namespace TPCTrainco.Cache.Controllers
         [HttpGet]
         public CacheMessage Index(string key)
         {
+            logCacheLog();
             string apiDomain = ConfigurationManager.AppSettings.Get("Cache:UmbracoCourseApiDomain");
-
             DebugApp("-= CACHE PROCESS START =-", ref DebugStr);
             DebugApp("", ref DebugStr);
 
@@ -54,7 +54,6 @@ namespace TPCTrainco.Cache.Controllers
             try
             {
                 ProcessCourses();
-
                 ProcessSeminars();
 
                 DebugApp("Contact Website to Refresh Cache...", ref DebugStr);
@@ -79,7 +78,6 @@ namespace TPCTrainco.Cache.Controllers
 
             return CacheMessage;
         }
-
 
         [HttpGet]
         public CacheMessage LocationLookup(string key2)
@@ -267,9 +265,8 @@ namespace TPCTrainco.Cache.Controllers
         private void ProcessSeminars()
         {
             var db = new Database("umbracoDbDSN");
-
+            Dictionary<int, int> courseRelations = CacheObjects.GetCourseRelations().ToDictionary(x => x.SimulcastID.Value, x => x.OpenID.Value);
             List<LocationScheduleDetail> locationScheduleDetailListCurrent = null;
-
             DebugApp("GETTING CURRENT SEMINARS...", ref DebugStr);
             locationScheduleDetailListCurrent = db.Query<LocationScheduleDetail>("SELECT * FROM CacheLocationScheduleDetail").ToList();
             DebugApp("CURRENT SEMINARS - Done: " + (locationScheduleDetailListCurrent != null ? locationScheduleDetailListCurrent.Count.ToString() : "null"), ref DebugStr);
@@ -277,7 +274,7 @@ namespace TPCTrainco.Cache.Controllers
             DebugApp("", ref DebugStr);
 
             DebugApp("GETTING UPDATED SEMINARS...", ref DebugStr);
-            List<LocationScheduleDetail> locationScheduleDetailList = GetLocationScheduleDetailList();
+            List<LocationScheduleDetail> locationScheduleDetailList = GetLocationScheduleDetailList(courseRelations);
             DebugApp("UPDATED SEMINARS - Done: " + (locationScheduleDetailList != null ? locationScheduleDetailList.Count.ToString() : "null"), ref DebugStr);
 
             DebugApp("", ref DebugStr);
@@ -290,17 +287,15 @@ namespace TPCTrainco.Cache.Controllers
                 foreach (LocationScheduleDetail seminar in locationScheduleDetailList)
                 {
                     DebugApp(" - Seminar Id: " + seminar.Id, ref DebugStr);
-
                     LocationScheduleDetail checkCurrentSeminar = locationScheduleDetailListCurrent.Where(p => p.Id == seminar.Id).FirstOrDefault();
-
                     if (checkCurrentSeminar != null)
                     {
                         DebugApp(" - Updated Seminar: " + seminar.Id, ref DebugStr);
-
+                        if (seminar.ScheduleType.ToLower() == "simulcast" && courseRelations.ContainsKey(seminar.CourseId))
+                            seminar.CourseId = courseRelations[seminar.CourseId];
                         using (var db2 = new Database("umbracoDbDSN"))
                         {
                             db2.Update(seminar);
-
                             locationScheduleDetailListCurrent.Remove(checkCurrentSeminar);
                         }
                     }
@@ -400,16 +395,11 @@ namespace TPCTrainco.Cache.Controllers
         }
 
 
-        private List<LocationScheduleDetail> GetLocationScheduleDetailList()
+        private List<LocationScheduleDetail> GetLocationScheduleDetailList(Dictionary<int,int> courseRelations)
         {
             int inc = 0;
-
-            string defaultSearchLocationText = GetUmbracoSummaryText();
-
             List<ScheduleCourseInstructor> scheduleCourseInstructorList = CacheObjects.GetScheduleCourseList(true);
-
             List<LocationScheduleDetail> locationScheduleDetailList = null;
-
             if (locationScheduleDetailList == null)
             {
                 DebugApp("Location Schedule Detail List to Cache...", ref DebugStr);
@@ -421,13 +411,17 @@ namespace TPCTrainco.Cache.Controllers
                     DebugApp(" - Count: " + seminarList.Count, ref DebugStr);
 
                     locationScheduleDetailList = new List<LocationScheduleDetail>();
-
                     foreach (SCHEDULE legacySchedule in seminarList)
                     {
                         LocationScheduleDetail locationScheduleDetail = new LocationScheduleDetail();
 
                         ScheduleCourseInstructor scheduleCourse = scheduleCourseInstructorList.Where(p => p.ScheduleID == legacySchedule.ScheduleID).FirstOrDefault();
-                        COURS legacyCourse = CacheObjects.GetCourseList().Where(p => p.CourseID == scheduleCourse.CourseID).FirstOrDefault();
+                        int courseID = scheduleCourse.CourseID;
+                        bool bSimulcast = legacySchedule.ScheduleType.ToLower() == "simulcast";
+                        bool bOnline = legacySchedule.ScheduleType.ToLower() == "liveonline";
+                        if ((bSimulcast || bOnline) && courseRelations.ContainsKey(courseID))
+                            courseID = courseRelations[courseID];
+                        COURS legacyCourse = CacheObjects.GetCourseList().Where(p => p.CourseID == courseID).FirstOrDefault();
                         State legacyState = CacheObjects.GetStateList().Where(p => p.StateID == legacySchedule.StateID).FirstOrDefault();
                         City legacyCity = CacheObjects.GetCityAllList().Where(p => p.CityID == legacySchedule.CityID).FirstOrDefault();
 
@@ -443,7 +437,7 @@ namespace TPCTrainco.Cache.Controllers
                                     locationScheduleDetail.ParentId = legacySchedule.ScheduleParentID ?? 0;
                                     locationScheduleDetail.ScheduleSeminarNumber = legacySchedule.ScheduleSeminarNumber;
                                     locationScheduleDetail.TopicId = legacyCourse.CourseTopicID;
-                                    locationScheduleDetail.CourseId = scheduleCourse.CourseID;
+                                    locationScheduleDetail.CourseId = courseID;
                                     locationScheduleDetail.DaysTitle = CacheObjects.GetDaysTitle(course.CourseFormatID);
                                     locationScheduleDetail.DaysDescription = course.CertTitle1 + (false == string.IsNullOrWhiteSpace(course.CertTitle2) ? " - " + course.CertTitle2 : "");
                                     locationScheduleDetail.Date = legacySchedule.ScheduleDateDescription;
@@ -453,28 +447,25 @@ namespace TPCTrainco.Cache.Controllers
                                     locationScheduleDetail.City = legacyCity.CityName;
                                     locationScheduleDetail.StateCode = legacyState.StateAbbreviation;
                                     locationScheduleDetail.State = legacyState.StateName;
-
+                                    locationScheduleDetail.ScheduleType = legacySchedule.ScheduleType;
+                                    locationScheduleDetail.TrainingKey = legacySchedule.TrainingKey;
                                     // get exact location
                                     Location locationDetail = CacheObjects.GetLocationList().Where(p => p.LocationID == legacySchedule.LocationID).FirstOrDefault();
-
-                                    if (locationDetail != null)
-                                    {
-                                        locationScheduleDetail.LocationDetails = CacheObjects.GetLocationDetails(locationDetail, locationScheduleDetail);
-                                    }
-                                    else
-                                    {
-                                        locationScheduleDetail.LocationDetails = defaultSearchLocationText;
-                                    }
-
+                                    string sLocationDetails = GetUmbracoSummaryText();
+                                    if (!bSimulcast && !bOnline && locationDetail != null)
+                                        sLocationDetails = CacheObjects.GetLocationDetails(locationDetail, locationScheduleDetail);
+                                    else if (bSimulcast)
+                                        sLocationDetails = GetUmbracoSummaryText(1);
+                                    else if(bOnline)
+                                        sLocationDetails = GetUmbracoSummaryText(2);
+                                    locationScheduleDetail.LocationDetails = sLocationDetails;
                                     locationScheduleDetail.CoordinatesObj = legacyCity.Coordinates;
                                     locationScheduleDetail.DateFilter = legacySchedule.ScheduleDate;
                                     locationScheduleDetail.DateMonthYear = locationScheduleDetail.DateFilter.ToString("M-yyyy");
                                     locationScheduleDetail.Distance = 0;
-
-                                    locationScheduleDetail.SeminarId = scheduleCourse.CourseID;
+                                    locationScheduleDetail.SeminarId = courseID;
                                     locationScheduleDetail.SeminarTitle = legacyCourse.TitlePlain;
                                 }
-
                                 locationScheduleDetailList.Add(locationScheduleDetail);
                             }
                         }
@@ -506,7 +497,7 @@ namespace TPCTrainco.Cache.Controllers
         }
 
 
-        private string GetUmbracoSummaryText()
+        private string GetUmbracoSummaryText(int iType = 0)
         {
             string output = null;
 
@@ -515,18 +506,15 @@ namespace TPCTrainco.Cache.Controllers
 
             try
             {
-                HttpResponseMessage response = client.GetAsync(apiDomain + "/api/contents/SummaryText").Result;
+                HttpResponseMessage response = client.GetAsync(apiDomain + "/api/contents/SummaryText" + (iType > 0 ? "/" + iType : "")).Result;
                 response.EnsureSuccessStatusCode();
-
                 output = response.Content.ReadAsStringAsync().Result;
-
                 output = output.Trim("\"");
             }
             catch (Exception ex)
             {
                 output = "Specific location will be provided via email approximately 4 weeks prior to seminar date.";
             }
-
             return output;
         }
 
@@ -536,6 +524,19 @@ namespace TPCTrainco.Cache.Controllers
             Debug.WriteLine(line);
             debug.AppendLine(line);
         }
+
+        private void logCacheLog()
+        {
+            string referrer = HttpContext.Current.Request.Headers["Referer"];
+            using (var db = new americantraincoEntities())
+            {
+                Cache_Log oObj = new Cache_Log();
+                oObj.triggered_on = DateTime.Now;
+                oObj.triggered_by = referrer;
+                db.Cache_Log.Add(oObj);
+                db.SaveChanges();
+            }
+        } 
     }
 
     public class CacheMessage

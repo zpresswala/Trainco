@@ -8,14 +8,10 @@
 
     Html.RequiresJs("/assets/js/dashboard/vendor.js", 1);
     Html.RequiresJs("/assets/js/dashboard/app.js", 2);
-
-    IPublishedContent siteSettingsActive = Umbraco.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("SiteSettings"));
-    string globalHeaderScript = siteSettingsActive.GetPropertyValue<string>("globalHeaderScript");
-    string globalFooterScript = siteSettingsActive.GetPropertyValue<string>("globalFooterScript");
 }
 <html>
 <head>
-	<meta charset="utf-8">
+	    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Maintenance Training with TPC Trainco | TPC Trainco</title>
@@ -60,12 +56,9 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
-
-    @Html.Raw(globalHeaderScript)
 </head>
 <body>
 	<div id="root" style="height: 100%"></div>
 	@Html.RenderJsHere()
-    @Html.Raw(globalFooterScript)
 </body>
 </html>

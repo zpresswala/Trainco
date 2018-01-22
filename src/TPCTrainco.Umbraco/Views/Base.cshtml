@@ -31,10 +31,6 @@
     IPublishedContent siteSettingsActive = umbHelper.TypedContentAtRoot().FirstOrDefault(n => n.IsDocumentType("SiteSettings"));
 
     string siteName = siteSettings.GetPropertyValue<string>("siteName");
-
-    string globalHeaderScript = siteSettingsActive.GetPropertyValue<string>("globalHeaderScript");
-    string globalFooterScript = siteSettingsActive.GetPropertyValue<string>("globalFooterScript");
-
     string htmlTitle = currentPage.GetPropertyValue<string>("htmlTitle", currentPage.Name);
     string canonical = Request.Url.AbsoluteUri;
 
@@ -57,6 +53,7 @@
     bool homePage = false;
     bool seminarDetailPage = false;
     bool dashboard = false;
+    bool offlinePayment = false;
 
     if (currentPage.DocumentTypeAlias != "Dashboard")
     {
@@ -100,6 +97,10 @@
     else if (currentPage.DocumentTypeAlias == "RegisterSuccess")
     {
         checkoutSuccess = true;
+    }
+    else if (currentPage.DocumentTypeAlias == "OfflinePayment" || currentPage.DocumentTypeAlias == "LiveOnlineTraining")
+    {
+        offlinePayment = true;
     }
 
     if (searchPage || homePage || seminarDetailPage)
@@ -262,7 +263,6 @@
     <![endif]-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-    @Html.Raw(globalHeaderScript)
     @Html.Raw(pageHeaderScript)
 </head>
 
@@ -334,17 +334,36 @@
                     function(){ $(this).addClass('open') },
                     function(){ $(this).removeClass('open') }
                 );
+
+                $('a[href^="#"]:not(.link-geolocation):not([data-toggle="collapse"])').click(function (e) {
+                    e.preventDefault();
+                    var hash = $(this).attr('href');
+                    if ($(hash).length == 0)
+                        return false;
+                    $('html, body').stop(true).animate({
+                        scrollTop:
+                         $(hash).offset().top - 125
+                    }, 500);
+                });
+
+                $(document).on('click', 'a.link-geolocation', function (e) {
+                    e.preventDefault();
+                    if (typeof window.geoLocationLink === 'undefined' || window.geoLocationLink == '')
+                        return false;
+                    window.location.href = window.location.origin + window.geoLocationLink;
+                });
+
+                if ($('.alert-visible').length > 0) {
+                    $('html body').animate({ scrollTop: $('.alert-visible:first').offset().top - 125 });
+                }
+
+                if ($('.alert-success').length > 0) {
+                    setTimeout(function () {
+                        $('.alert-success').fadeOut(400, function () { $(this).remove(); });
+                    }, 5000);
+                }
             });
         </script>
-        <script>
-        $('a[href^="#"]').click(function(e) {
-           e.preventDefault();
-           var hash = $(this).attr('href');
-           $('html, body').stop(true).animate({scrollTop:
-            $(hash).offset().top - 125}, 500);
-           });
-        </script>
-
     }
     @if (true == checkoutRegistration)
     {
@@ -362,6 +381,10 @@
     {
         <script type="text/javascript" src="/assets/js/checkout2/success.js?@cacheVer"></script>
     }
+    else if (offlinePayment)
+    {
+        <script type="text/javascript" src="/assets/js/custom/offlinePayment.js?@cacheVer"></script>
+    }
     else if (false == searchPage && false == homePage && false == seminarDetailPage)
     {
         <script type="text/javascript" src="/js/vendor.js?@cacheVer"></script>
@@ -378,7 +401,6 @@
         @Html.Partial("SeminarSearch/JavascriptHomepage")
     }
 
-    @Html.Raw(globalFooterScript)
     @Html.Raw(pageFooterScript)
 </body>
 </html>

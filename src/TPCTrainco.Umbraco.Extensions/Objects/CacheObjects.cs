@@ -63,7 +63,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 using (var db = new americantraincoEntities())
                 {
-                    DateTime dateStart = DateTime.Now.AddDays(-7);
+                    DateTime dateStart = DateTime.Now.AddDays(-1);
                     DateTime dateEnd = DateTime.Now.AddMonths(18);
 
                     scheduleList = db.SCHEDULES.Where(p => p.Active == 1 && p.ScheduleDate >= dateStart && p.ScheduleDate < dateEnd).ToList();
@@ -93,7 +93,7 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
                 using (var db = new americantraincoEntities())
                 {
-                    DateTime dateStart = DateTime.Now.AddDays(-7);
+                    DateTime dateStart = DateTime.Now.AddDays(-1);
                     DateTime dateEnd = DateTime.Now.AddMonths(18);
 
                     scheduleList = db.SCHEDULES.ToList();
@@ -528,6 +528,36 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
 
 
             return output;
+        }
+
+        public static List<CourseRelation> GetCourseRelations()
+        {
+            List<CourseRelation> courseRelations = new List<CourseRelation>();
+            using (var db = new americantraincoEntities())
+            {
+                courseRelations = db.CourseRelations.Where(p => p.OpenID.HasValue && p.SimulcastID.HasValue).ToList();
+            }
+            return courseRelations;
+        }
+
+
+        public static List<SeminarCitiesActive> GetAcitveCitiesList()
+        {
+            string cacheKey = "ActiveCitiesList";
+            int cacheUpdateInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings.Get("Caching:Minutes:ActiveCitiesList"));
+            ObjectCache cache = MemoryCache.Default;
+            List<SeminarCitiesActive> cityList = cache.Get(cacheKey) as List<SeminarCitiesActive>;
+            if (cityList != null)
+                return cityList;
+            Debug.WriteLine("Adding Active Cities List to Cache...");
+            using (var db = new americantraincoEntities())
+            {
+                cityList = db.SeminarCitiesActives.OrderBy(x => x.CityName).ToList();
+            }
+            CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(cacheUpdateInMinutes) };
+            cache.Add(cacheKey, cityList, policy);
+            Debug.WriteLine(" - Active Cities List Cache Updated");
+            return cityList;
         }
     }
 }

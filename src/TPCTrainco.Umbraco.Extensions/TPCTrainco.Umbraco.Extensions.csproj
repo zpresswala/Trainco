@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -278,6 +279,9 @@
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Attributes\TokenAuthorizationAttribute.cs" />
+    <Compile Include="Cache_Log.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="cart.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
@@ -293,11 +297,15 @@
     <Compile Include="CC_Log.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CC_Payments.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="City.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheUpdateController.cs" />
+    <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CourseApiController.cs" />
@@ -324,6 +332,9 @@
     <Compile Include="CourseInstructor.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CourseRelation.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CourseTopic.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
@@ -331,6 +342,9 @@
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Events\UmbracoApplicationStartUp.cs" />
+    <Compile Include="GotoTrainingRegistration.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AccountHelper.cs" />
     <Compile Include="Helpers\Email.cs" />
     <Compile Include="Helpers\GenerateJavascript.cs" />
@@ -440,6 +454,9 @@
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ScheduleCourseInstructor.cs">
+      <DependentUpon>TPCTraincoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeminarCitiesActive.cs">
       <DependentUpon>TPCTraincoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Seminar_Catalog.cs">

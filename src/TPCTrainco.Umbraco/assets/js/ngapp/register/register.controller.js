@@ -9,7 +9,9 @@
   function RegisterController($rootScope, $scope, $log, Search, $localStorage, cartService, UtilitySvc, courseSearch, MonthSvc, $loading, $timeout, $document, $window, SeminarsSvc, CONSTANTS) {
     var vm = this;
 
-    vm.kwFilter = {};
+    vm.kwFilter = {
+        word: ''
+    };
     vm.mileRange = {};
     vm.locSearchFilter = {};
     vm.categories = {
@@ -20,6 +22,8 @@
         all: false
       }
     vm.locSearchFilter.locationAll = false;
+    vm.locSearchFilter.simulcast = false;
+    vm.locSearchFilter.locationPage = false;
     var searchAPI = CONSTANTS.API_URL;
     vm.dateRange = {};
     vm.$storage = $localStorage;
@@ -31,6 +35,8 @@
       vm.listingData = res.seminars;
     });
     vm.selectedSeminar = {};
+    var startMonth = 1;
+    var endMonth = 6;
     /**
      * THIS IS DISABLED DONT DELETE
      * -- Seminar Dropdown search feature.
@@ -53,22 +59,53 @@
       });
     }
 
-    vm.additionalClick = function () {
-      vm.numLimit = 50;
+    vm.additionalClick = function (id,e) {
+        var obj = vm.limits[id];
+        obj.limit = obj.total;
     }
 
-    vm.lessClick = function () {
-      vm.numLimit = 10;
+    vm.lessClick = function (id, e) {
+        var obj = vm.limits[id];
+        obj.limit = vm.numLimit;
+        angular.element($window).scrollTop(angular.element(e.target).parents('section').offset().top);
+    }
+
+    vm.showAdditional = function (id) {
+        return vm.limits[id].limit < vm.limits[id].total;
+    }
+
+    vm.showLess = function (id) {
+        return vm.limits[id].total == vm.limits[id].limit;
+    }
+
+    vm.setLimit = function (id, length) {
+        vm.limits[id] = {
+            'limit': vm.numLimit,
+            'total': length
+        };
     }
 
     activate();
 
     function receiveSeminarData(seminarsData) {
-      vm.initialDirections = false;
-      var seminarLocations = [];
-      vm.seminarLocations = seminarsData;
-      // below is to calculate the pagination
-      vm.semLocLength = vm.seminarLocations.length / 4;
+        vm.initialDirections = false;
+        var seminarLocations = [];
+        var bLoc = angular.element('input[type="hidden"][name="location"]').length > 0;
+        if (!bLoc) {
+            // below is to calculate the pagination
+            seminarLocations = seminarsData;
+            var length = seminarLocations.length / 4
+            if (length < 1 && seminarLocations.length > 0)
+                length = 1;
+            vm.semLocLength = length;
+        }
+        else {
+            for (var i = 0; i < seminarsData.length; i += 2) {
+                seminarLocations.push(seminarsData.slice(i, i + 2));
+            }
+        }
+        vm.seminarLocations = seminarLocations;
+        
     }
 
     /**
@@ -96,15 +133,26 @@
     function activate() {
       var keywordParam = '';
       vm.initialDirections = true;
-      vm.locSearchFilter.location = vm.$storage.SearchLocation;
-      vm.categories.hvac = !!vm.$storage.SearchTopic1;
-      vm.categories.electrical = !!vm.$storage.SearchTopic2;
-      vm.categories.mechanical = !!vm.$storage.SearchTopic3;
-      vm.categories.management = !!vm.$storage.SearchTopic4;
-      vm.categories.all = !!vm.$storage.SearchTopic5;
+      var oLoc = angular.element('input[type="hidden"][name="location"]');
+      var bLoc = oLoc.length > 0;
+      if (bLoc > 0) {
+          vm.locSearchFilter.location = oLoc.val();
+          vm.locSearchFilter.locationPage = true;
+          vm.mileRange.value = 100;
+          var today = new Date();
+          vm.dateRange.start = today.getMonth() + startMonth;
+          vm.dateRange.end = today.getMonth() + endMonth;
+      }
+      else {
+          vm.locSearchFilter.location = vm.$storage.SearchLocation;
+          vm.categories.hvac = !!vm.$storage.SearchTopic1;
+          vm.categories.electrical = !!vm.$storage.SearchTopic2;
+          vm.categories.mechanical = !!vm.$storage.SearchTopic3;
+          vm.categories.management = !!vm.$storage.SearchTopic4;
+          vm.categories.all = !!vm.$storage.SearchTopic5;
+      }
 
-
-      if (!vm.$storage.SearchLocation) {
+      if (!bLoc && !vm.$storage.SearchLocation) {
         // showDirections displays the default blank state message
         vm.showDirections = true;
       } else {
@@ -112,8 +160,10 @@
         vm.topicParam2 = vm.$storage.SearchTopic2;
         vm.topicParam3 = vm.$storage.SearchTopic3;
         vm.topicParam4 = vm.$storage.SearchTopic4;
-        vm.dateRange.end = vm.$storage.SearchDRmax;
-        vm.dateRange.start = vm.$storage.SearchDRmin;
+        if (!bLoc) {
+            vm.dateRange.end = vm.$storage.SearchDRmax;
+            vm.dateRange.start = vm.$storage.SearchDRmin;
+        }
         doParamSearch();
       }
 
@@ -160,7 +210,7 @@
      * @return {method}   doParamSearch()
      */
     vm.manualTextBoxHandler = function(e) {
-      if (e.keyCode === 13 || e.type === 'blur') {
+      if (e.keyCode === 13) {
         doParamSearch();
       }
     }
@@ -172,20 +222,18 @@
      * @param  {object} e the event
      * @return {method}   doParamSearch()
      */
-    vm.typingTextBoxHandler = function(e, field) {
-      if (field === 'loc') {
-        vm.locSearchFilter.locationAll = false;
-      }
-      if (e.keyCode != 13) {
-        if (vm.typingTimeout) {
-          clearTimeout(vm.typingTimeout)
-        }
-
+    vm.typingTextBoxHandler = function (e, field) {
+        if (e.keyCode == 9 || e.keyCode == 13)
+            return;
+        if (field === 'loc')
+            vm.locSearchFilter.locationAll = false;
+        if (field === 'loc' && vm.locSearchFilter.location.length < 4)
+            return;
+        if (vm.typingTimeout)
+            clearTimeout(vm.typingTimeout);
         vm.typingTimeout = $timeout(function(e) {
-          // $log.debug('typingTextBoxHandler running');
-          doParamSearch();
+            doParamSearch();
         }, 1000)
-      }
     }
 
     vm.locWatcher = function() {
@@ -201,6 +249,9 @@
     }
     vm.dateWatcher = function() {
       doParamSearch();
+    }
+    vm.simulcastWatcher = function () {
+        doParamSearch();
     }
 
     /**
@@ -329,19 +380,21 @@
 
       $loading.start('courses');
       var today = new Date();
-      var thisMonth = today.getMonth();
+      var thisMonth = today.getMonth() + 1;
       var searchObj = {
         keywordParam: vm.kwFilter.word,
         locParam: vm.locSearchFilter.location,
+        simulcast: vm.locSearchFilter.simulcast ? '1' : '0',
         radiusParam: vm.mileRange.value || '500',
         topicParam1: vm.topicParam1,
         topicParam2: vm.topicParam2,
         topicParam3: vm.topicParam3,
         topicParam4: vm.topicParam4,
-        defStart: vm.dateRange.start || today.getMonth(),
+        defStart: vm.dateRange.start || thisMonth,
         startYear: checkYear('start'),
-        defEnd: vm.dateRange.end || (today.getMonth() + 3),
-        endYear: checkYear('end')
+        defEnd: vm.dateRange.end || (thisMonth + 11),
+        endYear: checkYear('end'),
+        locationPage: vm.locSearchFilter.locationPage ? '1' : '0'
       }
 
       // $log.debug(searchObj, vm.topicParam2)
@@ -353,7 +406,7 @@
          * @return {any}          its going to happen regardless of whether or not theres values in LS.
          */
         //emptyLocalStorage();
-        if (data.seminars.length) {
+        if (data.seminars != null && data.seminars.length) {
           // Set showDirections to false because a search has now been executed
           // and that search returns results.
           vm.showDirections = false;
@@ -364,10 +417,11 @@
           // the error message.
           vm.showDirections = true;
         }
-        var seminarsData = data.seminars;
+        var seminarsData = data.seminars || [];
         receiveSeminarData(seminarsData);
         // Set true to show error.
         vm.searchFired = true;
+        $loading.finish('courses');
         return seminarsData;
       });
     }
@@ -384,15 +438,19 @@
       vm.categories.management = false;
       vm.categories.mechanical = false;
       vm.categories.all = false;
+      vm.topicParam1 = vm.topicParam2 = vm.topicParam3 = vm.topicParam4 = '';
       vm.locSearchFilter.locationAll = false;
+      vm.locSearchFilter.simulcast = false;
+      vm.locSearchFilter.locationPage = false;
     }
 
-    vm.clearFilters = function() {
+    vm.clearFilters = function () {
+      vm.showDirections = true;
       emptyLocalStorage();
       resetFields();
       $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
-      vm.showDirections = true;
       vm.searchFired = false;
+      doParamSearch();
     }
 
     vm.numLimit = 10;
@@ -427,5 +485,49 @@
         position: 'relative' // Element position
       }
     }
+    vm.limits = {};
+    vm.toggleSimulcastDescription = function ($e) {
+        var obj = angular.element($e.target);
+        var parent = obj.parents('section.simulcast');
+        var ele = angular.element('div.text-learnmore', parent);
+        ele.toggleClass('hide');
+        if (ele.is(':visible'))
+            angular.element('span.action', obj).text('x');
+        else
+            angular.element('span.action', obj).text('+');
+    };
+    var today = new Date();
+    var thisMonth = today.getMonth();
+    var monthAbrvNames = MonthSvc.getAbrvMonths();
+    var startingMonthArray = monthAbrvNames.slice(thisMonth);
+    function fixEndingArray(endingMonthArray) {
+        var first = endingMonthArray[0];
+        var num = parseInt(first.name.slice(3))
+        var trunc = first.name.slice(0, 3)
+        first.name = trunc + (num + 1);
+        return endingMonthArray;
+    }
+    var endingMonthArray = thisMonth > 0 ? fixEndingArray(monthAbrvNames.slice(0, thisMonth)) : [];
+    var combinedMonthsArray = startingMonthArray.concat(endingMonthArray);
+    var combinedMonthNames = _.map(combinedMonthsArray, _.property('name'));
+    vm.monthsSlider = {
+        minValue: 0,
+        maxValue: 5,
+        options: {
+            floor: 0,
+            ceil: 11,
+            showTicks: true,
+            showSelectionBarEnd: true,
+            showTicksValues: true,
+            stepsArray: combinedMonthNames,
+            onEnd: function (sliderId, modelValue, highValue) {
+                if (modelValue == null || highValue == null)
+                    return;
+                startMonth = modelValue + 1;
+                endMonth = highValue + 1;
+                activate();
+            }
+        }
+    };
   }
 })();
