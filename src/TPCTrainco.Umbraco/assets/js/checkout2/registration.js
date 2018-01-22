@@ -1,4 +1,7 @@
-﻿var BASEURL = 'http://trainco-phase1.axial-client.com/api';
+﻿//var BASEURL = 'https://www.tpctrainco.com/api';
+
+//var BASEURL = 'http://test.tpctrainco.com/api';
+var BASEURL = window.location.origin + "/api";
 
 $(document).ready(function () {
     SubmitRegForm();
@@ -9,9 +12,19 @@ function SubmitRegForm() {
     // checkout
     $('#reg-submit').on('click', function (e) {
         e.preventDefault();
-
+        $('.form-control.error').removeClass('error');
+        $('.error-text').remove();
+        var bError = false;
+        $('.form-item-wrapper .required').each(function () {
+            if ($(this).val() == '') {
+                bError = true;
+                $(this).addClass('error');
+                $(this).after('<span class="error-text">' + $(this).attr('placeholder') + ' is required</span>')
+            }
+        });
+        if (bError)
+            return false;
         var formData = CreateFormPostString();
-
         CheckoutPost(formData);
     });
 }
@@ -60,7 +73,7 @@ function CheckoutPost(checkoutData) {
 
     $regSubmit.css('opacity', 0);
     $loader.show();
-
+    $checkoutErrMsg.hide();
     $('input').next('span').remove().css('border-color', '#d7d7d7');
 
     $.ajax({
@@ -88,14 +101,23 @@ function CheckoutPost(checkoutData) {
                 for (var i = 0, l = formElArray.length; i < l; i++) {
                     var formEl = formElArray[i];
 
-                    $('#' + formEl.elementId).after('<span>' + formEl.message + '</span>');
+                    $('#' + formEl.elementId).after('<span class="error-text">' + formEl.message + '</span>');
                     $('#' + formEl.elementId).css('border-color', 'red');
                 }
             }
 
         }
     }).fail(function (error) {
-        $regSubmit.css('opacity', 1).prepend('<p class="checkout-err-msg">An error occurred. Please try again later.</p>');
+        $regSubmit.css('opacity', 1);
+        $checkoutErrMsg.html('An error occurred. Please try again later.').show();
         $loader.hide();
     });
 };
+
+$(document).on('keydown', '.form-control.error', function (e) {
+    var obj = $(this);
+    if (obj.val().length == 0)
+        return;
+    obj.removeClass('error');
+    obj.siblings('span.error-text').remove();
+});

@@ -18,8 +18,8 @@
       '</ul><p ng-bind=event.locationDetails><div class=result-popover><div class="row result-table-head"><div class=col-xs-5>Training Days</div>' +
       '<div class=col-xs-3>Price</div><div class="col-xs-4 attendees-txt">Attendees</div></div><div class="row result-table-body">' +
       '<div class=col-xs-5><em>{{event.daysTitle}}</em></div><div class=col-xs-3>${{event.price}}</div><div class="col-xs-4 attendees">' +
-      '<input class=attendee-input type=tel min=1 ng-model=qty string-to-number></div></div>' +
-      '<input class="btn btn-blue-solid btn-reg"type=button ng-click="seminar.addItemToCart(event, qty, $event)"value="Add to Cart"></div></div>';
+      '<a class="btn btn-reg btn-blue-solid btn-event-register" href="{{ event.registerUri }}">Register</a></div></div>' +
+      '</div></div>';
 
     vm.detailPop = {
       templateUrl: '/assets/js/ngapp/seminar/seminarPop.html'
@@ -32,6 +32,9 @@
       vm.popoverIsOpen = false;
     }
     vm.location = {};
+    vm.seminarLocations = [];
+    vm.seminarSimulcast = [];
+    vm.seminarLiveOnline = [];
 
     /**
      * adds item to the cart or updates the quantity
@@ -47,7 +50,7 @@
      *
      */
     vm.addItemToCart = function(item, qty, $event) {
-      cartService.addItem(item, qty)
+      cartService.addItem(item, (qty || 1))
 
       vm.cartItemList = cartService.getCartItems() || [];
       vm.cartTotalPrice = UtilitySvc.calculateTotalPrice(vm.cartItemList);
@@ -80,7 +83,7 @@
 
       return endingMonthArray;
     }
-    var endingMonthArray = fixEndingArray(monthNames.slice(0, (thisMonth)));
+    var endingMonthArray = thisMonth > 0 ? fixEndingArray(monthNames.slice(0, thisMonth)) : [];
 
     var combinedMonthsArray = startingMonthArray.concat(endingMonthArray)
 
@@ -88,7 +91,7 @@
     var combinedMonthValues = _.map(combinedMonthsArray, _.property('value'));
     vm.monthsSlider = {
       minValue: 0,
-      maxValue: 5,
+      maxValue: 7,
       options: {
         floor: 0,
         ceil: 11,
@@ -97,7 +100,7 @@
         showTicksValues: true,
         stepsArray: combinedMonthNames,
         onEnd: function(modelValue) {
-          watchHandles()
+            watchHandles()
         }
       }
     };
@@ -197,7 +200,7 @@
         }
       }
     }
-    watchHandles()
+    watchHandles();
     function activate() {
       var classId = localStorage.getItem('classId');
     }
@@ -213,12 +216,20 @@
     }
 
     function receiveSeminarData(seminarsData) {
-      vm.seminarLocations = seminarsData.locationSchedules;
-      var seminarLocationsArray = vm.seminarLocations;
-      seminarLocationsArray.forEach(function(location, index) {
-        var dateF = location.dateFilter;
-        return dateF;
-      });
+        vm.seminarLocations = seminarsData.locationSchedules;
+        vm.seminarSimulcast = seminarsData.simulcastSchedules;
+        vm.seminarLiveOnline = seminarsData.liveOnlineSchedules;
     }
+
+    vm.toggleSimulcastDescription = function ($e) {
+        var obj = angular.element($e.target);
+        var parent = obj.parents('li.simulcast');
+        var ele = angular.element('div.text-learnmore', parent);
+        ele.toggleClass('hide');
+        if (ele.is(':visible'))
+            angular.element('span.action', obj).text('x');
+        else
+            angular.element('span.action', obj).text('+');
+    };
   }
 })();

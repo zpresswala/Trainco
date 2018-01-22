@@ -156,5 +156,15 @@ namespace TPCTrainco.Umbraco.Extensions.Models
         public string CVVCode { get; set; }
 
         public string PONumber { get; set; }
+
+        public bool OfflinePayment { get; set; }
+
+        [RequiredIfTrue("OfflinePayment",ErrorMessage = "Invoice Number is required")]
+        [DisplayName("Invoice Number")]
+        public string InvoiceNumber { get;set; }
+
+        [RequiredIfTrue("OfflinePayment", ErrorMessage = "Amount is required")]
+        [DisplayName("Amount")]
+        public int? Amount { get; set; }
     }
 }

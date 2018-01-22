@@ -9,6 +9,7 @@ using TPCTrainco.Umbraco.Extensions.Objects;
 using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Models;
+using System.Data.Entity.Validation;
 
 namespace TPCTrainco.Umbraco.Extensions.Helpers
 {
@@ -193,7 +194,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
                     user.Key = member.Key.ToString();
                     user.ValidationCode = validationCode;
-
+                    UpdateUserTrainco(user);
                     var emailTemplete = GetEmailTemplate("New Account Verification");
 
                     if (emailTemplete != null)
@@ -546,6 +547,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 try
                 {
                     ApplicationContext.Current.Services.MemberService.Save(member);
+                    UpdateCompanyTrainco(member.Email, company);
                 }
                 catch
                 {
@@ -616,6 +618,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                 try
                 {
                     ApplicationContext.Current.Services.MemberService.Save(member);
+                    UpdateUserTrainco(user, false);
                 }
                 catch
                 {
@@ -810,8 +813,9 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                     var content = ApplicationContext.Current.Services.ContentService.GetById(courseDetail.NodeId);
 
                     var materials = new List<MaterialModel>();
-
-                    var materialIdsRaw = content.GetValue<string>("materials");
+                    string materialIdsRaw = "";
+                    if(content != null && content.HasProperty("materials"))
+                        materialIdsRaw = content.GetValue<string>("materials");
 
                     if (!String.IsNullOrEmpty(materialIdsRaw))
                     {
@@ -823,7 +827,7 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
                             {
                                 materials.Add(new MaterialModel()
                                 {
-                                    Url = media.GetValue<string>("umbracoFile")
+                                    Url = media.HasProperty("umbracoFile") ? media.GetValue<string>("umbracoFile") : ""
                                 });
                             }
                         }
@@ -991,6 +995,74 @@ namespace TPCTrainco.Umbraco.Extensions.Helpers
 
             return success;
 
+        }
+
+        public static void UpdateUserTrainco(UserModel user,bool bCreate = true)
+        {            
+            using (var db = new americantraincoEntities())
+            {
+                try
+                {
+                    DateTime dtUTC = DateTime.UtcNow;
+                    WebAccount account = new WebAccount();
+                    if (!bCreate)
+                    {
+                        account = db.WebAccounts.Where(x => x.EmailAddress == user.Email).FirstOrDefault();
+                        if (account == null)
+                            return;
+                    }
+                    account.Updated = dtUTC;
+                    account.EmailAddress = user.Email;
+                    account.FirstName = user.FirstName;
+                    account.LastName = user.LastName;
+                    account.Title = user.Title;
+                    account.PhoneNumber = user.Phone;
+                    account.PhoneExtension = user.PhoneExtension;
+                    if (bCreate)
+                    {
+                        account.Created = dtUTC;
+                        db.WebAccounts.Add(account);
+                    }
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+
+        public static string truncateString(this string str, int maxLength = 50)
+        {
+            return !string.IsNullOrEmpty(str) ? str.Substring(0, Math.Min(str.Length, maxLength)) : "";
+        }
+
+        public static void UpdateCompanyTrainco(string userEmail, CompanyModel company)
+        {
+            using (var db = new americantraincoEntities())
+            {
+                try
+                {
+                    WebAccount account = db.WebAccounts.Where(x => x.EmailAddress == userEmail).FirstOrDefault();
+                    if (account == null)
+                        return;
+                    account.CompanyName = company.Name;
+                    account.AddressLn1 = company.Address1.truncateString();
+                    account.AddressLn2 = company.Address2.truncateString();
+                    account.Country = company.Country.truncateString();
+                    account.StateProvince = company.State.truncateString();
+                    account.PostalCode = company.PostalCode.truncateString();
+                    account.City = company.City.truncateString();
+                    account.PriorCustomer = company.HasMakePreviousPurchase;
+                    account.Industry = company.Industry;
+                    account.OutsideTrainingFrequency = company.ExternalTrainingUsageAmount;
+                    account.NbrEmplforTraining = company.NumberOfEmployees;
+                    account.TrainingTopics = company.TrainingTopics;
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
         }
     }
 }

@@ -20,14 +20,18 @@
     return service;
 
     function performSearch(searchObj) {
-      var theTopics = [searchObj.topicParam1, searchObj.topicParam2, searchObj.topicParam3, searchObj.topicParam4];
+        var theTopics = [searchObj.topicParam1, searchObj.topicParam2, searchObj.topicParam3, searchObj.topicParam4];
+        var endDate = new Date(searchObj.endYear, searchObj.defEnd, 0);
+        var startDate = new Date(searchObj.startYear, searchObj.defStart, 0);
       return $http.get(apiHost + '?' +
           'keyword=' + searchObj.keywordParam +
           '&location=' + searchObj.locParam +
           '&radius=' + searchObj.radiusParam +
           '&topics=' + theTopics +
-          '&date-start=' + searchObj.defStart + '-01-' + searchObj.startYear +
-          '&date-end=' + searchObj.defEnd + '-30-' + searchObj.endYear)
+          '&date-start=' + startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-01' +
+          '&date-end=' + endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate() +
+          '&simulcast=' + searchObj.simulcast + 
+          '&locationPage=' + searchObj.locationPage)
         .then(getSearchComplete)
         .catch(getSearchFailed);
 

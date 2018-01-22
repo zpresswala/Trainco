@@ -1,8 +1,11 @@
 ﻿using MoreLinq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -291,13 +294,14 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
                             string attendeeSummary = emailOrderSummaryTemplate;
 
                             SCHEDULE schedule = CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
-
+                            bool bSimulcast = schedule.ScheduleType.ToLower() == "simulcast";
+                            bool bOnline = schedule.ScheduleType.ToLower() == "liveonline";
                             if (schedule != null && schedule.ScheduleStatus != null && schedule.ScheduleStatus > 0)
                             {
                                 isCourseCancelling = true;
                             }
-
-                            string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br /> - " + tempReg.sem_Place + "  " + tempReg.sem_FeeName;
+                            string[] sParts = tempReg.sem_Place.Split(new string[] { " - " }, StringSplitOptions.None);
+                            string seminarTitle = tempReg.sem_SID.ToString() + ": <strong>" + tempReg.sem_Title + "</strong><br />" + (!bSimulcast && !bOnline ? tempReg.sem_Place : (bSimulcast ? "Simulcast" : "Goto Training") + (sParts.Length == 2 ? " - " + sParts[1] : "")) + " - " + tempReg.sem_FeeName;
                             emailOrderSummaryList += "<tr><td colspan=\"3\">" + seminarTitle + "</td></tr><tr><td colspan=\"3\" height=\"15\"></td></tr>";
 
 
@@ -658,38 +662,33 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             if (tempReg != null)
             {
                 SCHEDULE schedule = Objects.CacheObjects.GetScheduleList().Where(p => p.ScheduleID == tempReg.sem_SID).First();
+                bool bSimulcast = schedule.ScheduleType.ToLower() == "simulcast";
+                bool bOnline = schedule.ScheduleType.ToLower() == "liveonline";
                 ScheduleCourseInstructor schCourse = Objects.CacheObjects.GetScheduleCourseList().Where(p => p.ScheduleID == tempReg.sem_SID).FirstOrDefault();
                 Location location = Objects.CacheObjects.GetLocationList().Where(p => p.LocationID == schedule.LocationID).FirstOrDefault();
                 COURS course = Objects.CacheObjects.GetCourseList().Where(p => p.CourseID == schCourse.CourseID).FirstOrDefault();
-
                 string tempStr = emailTemplate;
-
-                tempStr = tempStr.Replace("{{SEMINAR}}", tempReg.sem_SID + ": " + tempReg.sem_Title + " - " + tempReg.sem_Place + " " + tempReg.sem_FeeName);
-
-                if (course != null)
-                {
-                    tempStr = tempStr.Replace("{{TIME}}", course.CourseTimes);
-                }
-
                 IPublishedContent searchSeminarNode = null;
-                string defaultSearchLocationText = "";
-
                 searchSeminarNode = Nodes.Instance.SeminarSearch;
-
-                if (searchSeminarNode.GetProperty("locationMessage").HasValue)
-                {
-                    defaultSearchLocationText = searchSeminarNode.GetProperty("locationMessage").Value.ToString();
+                string[] sParts = tempReg.sem_Place.Split(new string[] { " - " }, StringSplitOptions.None);
+                tempStr = tempStr.Replace("{{SEMINAR}}", tempReg.sem_SID + ": " + tempReg.sem_Title + " - " + (!bSimulcast && !bOnline ? tempReg.sem_Place : (bSimulcast ? "Simulcast" : "Goto Training") + (sParts.Length == 2 ? " - " + sParts[1] : "")) + " - " + tempReg.sem_FeeName);
+                string timeStr = "";
+                if((!bSimulcast && !bOnline) && course != null)
+                    timeStr = course.CourseTimes;
+                else if(bSimulcast && searchSeminarNode.GetProperty("simulcastInfoMessage").HasValue)
+                    timeStr = searchSeminarNode.GetProperty("simulcastInfoMessage").Value.ToString();
+                else if (bOnline && searchSeminarNode.GetProperty("liveOnlineTimeMessage").HasValue)
+                    timeStr = searchSeminarNode.GetProperty("liveOnlineTimeMessage").Value.ToString();
+                tempStr = tempStr.Replace("{{TIME}}", timeStr);
+                string locationStr = " - ";
+                if (location != null && !string.IsNullOrEmpty(location.LocationNotes))
+                    locationStr = FixLocationNotes(location.LocationNotes);
+                else {
+                    string key = !bSimulcast && !bOnline ? "locationMessage" : (bSimulcast ? "simulcastLocationMessage" : "liveOnlineLocationMessage");
+                    if(searchSeminarNode.GetProperty(key).HasValue)
+                        locationStr = searchSeminarNode.GetProperty(key).Value.ToString();
                 }
-
-                if (location != null && false == string.IsNullOrEmpty(location.LocationNotes))
-                {
-                    tempStr = tempStr.Replace("{{LOCATION}}", FixLocationNotes(location.LocationNotes));
-                }
-                else
-                {
-                    tempStr = tempStr.Replace("{{LOCATION}}", defaultSearchLocationText);
-                }
-
+                tempStr = tempStr.Replace("{{LOCATION}}",locationStr);
                 detailsText.AppendLine(tempStr);
             }
             else
@@ -719,6 +718,144 @@ namespace TPCTrainco.Umbraco.Extensions.Objects
             }
 
             return output;
+        }
+
+        public static void EmailPaymentConfirmation(CheckoutCustomer model)
+        {
+            try
+            {
+                StringBuilder emailText = new StringBuilder();
+                if (model == null || string.IsNullOrEmpty(model.Email))
+                    return;
+                IPublishedContent template = Helpers.Nodes.Instance.SiteSettings.Children.FirstOrDefault(n => n.DocumentTypeAlias == "EmailTemplates").Children.Where(p => p.Name == "Payment Confirmation").FirstOrDefault();
+                if (template == null)
+                    return;
+                string emailBody = template.GetProperty("emailBody").Value.ToString();
+                string toAlt = template.GetProperty("emailToAlt").Value.ToString();
+                emailBody = emailBody.Replace("{{DOMAIN}}", HttpContext.Current.Request.Url.Authority)
+                                     .Replace("{{COMPANY}}", model.Company)
+                                     .Replace("{{NAME}}", model.FirstName + " " + model.LastName)
+                                     .Replace("{{INVOICE}}", model.InvoiceNumber)
+                                     .Replace("{{DATE}}", DateTime.Now.ToShortDateString())
+                                     .Replace("{{AMOUNT}}", model.Amount.Value.ToString("C", new CultureInfo("en-US")))
+                                     .Replace("{{CARDTYPE}}", StringUtilities.CreditCardType(model.CCNumber))
+                                     .Replace("{{CARDNUM}}", "***" + model.CCNumber.Substring(model.CCNumber.Length - 4, 4));
+                Helpers.Email email = new Helpers.Email();
+                email.EmailFrom = template.GetProperty("emailFrom").Value.ToString();
+                email.Subject = template.GetProperty("emailSubject").Value.ToString();
+                email.Body = emailBody;
+                email.IsBodyHtml = true;
+                List<string> emails = new List<string> { model.Email };
+                if(!string.IsNullOrEmpty(toAlt))
+                    emails.AddRange(toAlt.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList());
+                email.EmailToList = emails;
+                email.SendEmail();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error<Registrations>("ERROR on Email Send (PaymentConfirmation): ", ex);
+            }
+        }
+
+        public static bool DoesOnlineTrainingExist(string trainingKey)
+        {
+            bool bExists = false;
+            try
+            {
+                string baseAddress = ConfigurationManager.AppSettings.Get("GotoTraining:BaseAddress");
+                string organizerKey = ConfigurationManager.AppSettings.Get("GotoTraining:OrganizerKey");
+                string accessToken = ConfigurationManager.AppSettings.Get("GotoTraining:AccessToken");
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseAddress + organizerKey + "/trainings/" + trainingKey);
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("OAuth", "oauth_token=" + accessToken);
+                HttpResponseMessage response = client.GetAsync("").Result;
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception(response.ReasonPhrase);
+                IDictionary<string, object> result = JsonConvert.DeserializeObject<Dictionary<string, object>>(response.Content.ReadAsStringAsync().Result);
+                if (!result.ContainsKey("trainingKey") || result["trainingKey"].ToString() != trainingKey)
+                    throw new Exception("Training Does not exists");
+                Dictionary<string,string> dtTime = JsonConvert.DeserializeObject<List<Dictionary<string,string>>>(result["times"].ToString()).FirstOrDefault();
+                if(dtTime == null)
+                    throw new Exception("Training Does not exists");
+                DateTime startDate = Convert.ToDateTime(dtTime["startDate"]);
+                int iDiff = DateTime.Compare(startDate, DateTime.UtcNow);
+                if (iDiff < 0)
+                    throw new Exception("Training has expired");
+                bExists = true;
+            }
+            catch (Exception ex) {
+                LogHelper.Error<Registrations>("ERROR on Retrieving Online Training from Goto Training: ", ex);
+                bExists = false; 
+            }
+            return bExists;
+        }
+
+        public static string RegisterTrainingAttendee(string trainingKey,Dictionary<string,string> attendeeDetails)
+        {
+            string registrantKey = "";
+            try
+            {
+                string baseAddress = ConfigurationManager.AppSettings.Get("GotoTraining:BaseAddress");
+                string organizerKey = ConfigurationManager.AppSettings.Get("GotoTraining:OrganizerKey");
+                string accessToken = ConfigurationManager.AppSettings.Get("GotoTraining:AccessToken");
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseAddress + organizerKey + "/trainings/" + trainingKey + "/registrants");
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("OAuth", "oauth_token=" + accessToken);
+                var content = new StringContent(JsonConvert.SerializeObject(attendeeDetails),Encoding.UTF8,"application/json");
+                HttpResponseMessage response = client.PostAsync("", content).Result;
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception(response.ReasonPhrase);
+                IDictionary<string, string> result = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.Content.ReadAsStringAsync().Result);
+                if (!result.ContainsKey("registrantKey") || string.IsNullOrEmpty(result["registrantKey"]))
+                    throw new Exception("Unknown error occurred while registering attendee");
+                registrantKey = result["registrantKey"];
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error<Registrations>("ERROR on Registering Attendee on Goto Training: ", ex);
+            }
+            return registrantKey;
+        }
+
+        public static bool CheckRegistrantExists(string trainingKey, string email)
+        {
+            bool bExists = false;
+            try
+            {
+                using (var db = new americantraincoEntities())
+                {
+                    if (db.GotoTrainingRegistrations.Where(x => x.TrainingKey == trainingKey && x.Email == email).Count() > 0)
+                        bExists = true;
+                }
+            }
+            catch (Exception ex){}
+            return bExists;
+        }
+
+        public static void AddGotoTrainingRegistrant(CheckoutCustomer model, string registrantKey)
+        {
+            GotoTrainingRegistration oObj = new GotoTrainingRegistration();
+            oObj.TrainingKey = model.InvoiceNumber;
+            oObj.FirstName = model.FirstName;
+            oObj.LastName = model.LastName;
+            oObj.Email = model.Email;
+            oObj.CompanyName = model.Company;
+            oObj.BillingAddress = model.Address;
+            oObj.CountryCode = model.Country;
+            oObj.City = model.City;
+            oObj.StateCode = model.State;
+            oObj.ZipCode = model.Zip;
+            oObj.PhoneNumber = model.Phone;
+            oObj.PhoneExt = model.PhoneExt;
+            oObj.RegistrantKey = registrantKey;
+            oObj.RegisteredAt = DateTime.Now;
+            using (var db = new americantraincoEntities())
+            {
+                db.GotoTrainingRegistrations.Add(oObj);
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -4,7 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="americantraincoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="americantraincoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cache_Log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="triggered_on" Type="datetime" Nullable="false" />
+          <Property Name="triggered_by" Type="varchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="cart">
           <Key>
             <PropertyRef Name="cartSeq" />
@@ -103,6 +111,24 @@
           <Property Name="ProcessedFrom" Type="varchar" MaxLength="50" />
           <Property Name="Approval" Type="int" StoreGeneratedPattern="Computed" />
         </EntityType>
+        <EntityType Name="CC_Payments">
+          <Key>
+            <PropertyRef Name="Seq" />
+          </Key>
+          <Property Name="Seq" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcessedDate" Type="datetime" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="varchar" MaxLength="50" />
+          <Property Name="InvoiceAmount" Type="money" />
+          <Property Name="PaymentAmount" Type="money" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="255" />
+          <Property Name="ContactName" Type="varchar" MaxLength="255" />
+          <Property Name="ContactPhone" Type="varchar" MaxLength="255" />
+          <Property Name="ContactEmail" Type="varchar" MaxLength="255" />
+          <Property Name="InvoiceDescription" Type="varchar(max)" />
+          <Property Name="AppliedDate" Type="datetime" />
+          <Property Name="AppliedAmount" Type="money" />
+          <Property Name="AppliedReference" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Cities">
           <Key>
             <PropertyRef Name="CityID" />
@@ -122,6 +148,32 @@
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Coordinates" Type="geography" />
+        </EntityType>
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="ContactID" />
+          </Key>
+          <Property Name="ContactID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactTypeID" Type="int" Nullable="false" />
+          <Property Name="ContactCode" Type="varchar" MaxLength="20" />
+          <Property Name="ContactSalutation" Type="varchar" MaxLength="20" />
+          <Property Name="ContactFirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ContactMiddleName" Type="varchar" MaxLength="255" />
+          <Property Name="ContactLastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ContactSuffix" Type="varchar" MaxLength="255" />
+          <Property Name="ContactFullName" Type="varchar" MaxLength="255" />
+          <Property Name="ContactTitle" Type="varchar" MaxLength="255" />
+          <Property Name="ContactNotes" Type="text" />
+          <Property Name="ContactAirport" Type="varchar" MaxLength="255" />
+          <Property Name="ContactSpouseName" Type="varchar" MaxLength="255" />
+          <Property Name="ContactKidsNames" Type="varchar" MaxLength="255" />
+          <Property Name="IMGContactPhoto" Type="varchar" MaxLength="255" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="Changed" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="float" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="int" />
         </EntityType>
         <EntityType Name="Countries">
           <Key>
@@ -160,11 +212,22 @@
           <Property Name="MngtNotes" Type="varchar(max)" />
           <Property Name="PreferredText" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="CourseRelations">
+          <Key>
+            <PropertyRef Name="CourseRelationID" />
+          </Key>
+          <Property Name="CourseRelationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OpenID" Type="int" />
+          <Property Name="SimulcastID" Type="int" />
+          <Property Name="LiveOnlineID" Type="int" />
+          <Property Name="EventCode" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="COURSES">
           <Key>
             <PropertyRef Name="CourseID" />
           </Key>
           <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArloID" Type="varchar" MaxLength="100" />
           <Property Name="CourseTitle" Type="varchar" MaxLength="255" />
           <Property Name="CourseSubtitle" Type="varchar" MaxLength="400" />
           <Property Name="CourseTypeID" Type="int" Nullable="false" />
@@ -209,6 +272,9 @@
           <Property Name="OtherFixedCost" Type="numeric" Precision="8" Scale="0" />
           <Property Name="PerStudentCost" Type="numeric" Precision="10" Scale="2" />
           <Property Name="TotalFixedCost" Type="numeric" Precision="10" Scale="0" StoreGeneratedPattern="Computed" />
+          <Property Name="ViewUri" Type="varchar" MaxLength="200" />
+          <Property Name="RegisterUri" Type="varchar" MaxLength="200" />
+          <Property Name="EventCode" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CourseTopics">
           <Key>
@@ -236,9 +302,58 @@
           <Property Name="CreatedMemberID" Type="int" Nullable="false" />
           <Property Name="ModifiedMemberID" Type="int" />
         </EntityType>
+        <EntityType Name="GotoTrainingRegistrations">
+          <Key>
+            <PropertyRef Name="RegistrationID" />
+          </Key>
+          <Property Name="RegistrationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrainingKey" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="255" />
+          <Property Name="BillingAddress" Type="varchar" MaxLength="500" />
+          <Property Name="CountryCode" Type="varchar" MaxLength="10" />
+          <Property Name="City" Type="varchar" MaxLength="255" />
+          <Property Name="StateCode" Type="varchar" MaxLength="10" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="100" />
+          <Property Name="PhoneExt" Type="varchar" MaxLength="10" />
+          <Property Name="RegisteredAt" Type="datetime" />
+          <Property Name="RegistrantKey" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="INSTRUCTORS">
+          <Key>
+            <PropertyRef Name="InstructorID" />
+          </Key>
+          <Property Name="InstructorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="ContactID" Type="float" Nullable="false" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="InstructorAnniversaryDate" Type="smalldatetime" />
+          <Property Name="InstructorAvailability" Type="varchar" MaxLength="255" />
+          <Property Name="InstructorCredentials" Type="text" />
+          <Property Name="PriceCode" Type="smallint" Nullable="false" />
+          <Property Name="InstructorTeachingExperience" Type="text" />
+          <Property Name="InstructorPubAuthorships" Type="text" />
+          <Property Name="InstructorAgreement" Type="text" />
+          <Property Name="InstructorNotes" Type="text" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Created" Type="smalldatetime" Nullable="false" />
+          <Property Name="Modified" Type="smalldatetime" />
+          <Property Name="CreatedMemberID" Type="float" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'americantrainco.dbo.Locations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Locations">
           <Key>
             <PropertyRef Name="LocationID" />
+            
+            
+            
+            
           </Key>
           <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationTypeID" Type="int" Nullable="false" />
@@ -252,6 +367,11 @@
           <Property Name="Modified" Type="smalldatetime" />
           <Property Name="CreatedMemberID" Type="int" Nullable="false" />
           <Property Name="ModifiedMemberID" Type="int" />
+          <Property Name="TimeZone" Type="varchar" MaxLength="50" />
+          <Property Name="ContactName" Type="varchar" MaxLength="50" />
+          <Property Name="ContactPhone" Type="varchar" MaxLength="50" />
+          <Property Name="ContactFax" Type="varchar" MaxLength="50" />
+          <Property Name="ContactEmail" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="LocationTypes">
           <Key>
@@ -264,6 +384,29 @@
           <Property Name="Modified" Type="smalldatetime" />
           <Property Name="CreatedMemberID" Type="int" Nullable="false" />
           <Property Name="ModifiedMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="MEMBERS">
+          <Key>
+            <PropertyRef Name="MEMBERID" />
+          </Key>
+          <Property Name="MEMBERID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LOGIN" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="INSTRUCTORID" Type="int" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PriceCode" Type="int" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="255" />
+          <Property Name="STATUS" Type="int" />
+          <Property Name="PREFIX" Type="varchar" MaxLength="10" />
+          <Property Name="FIRSTNAME" Type="varchar" MaxLength="255" />
+          <Property Name="LASTNAME" Type="varchar" MaxLength="255" />
+          <Property Name="MIDDLEINITIAL" Type="varchar" MaxLength="4" />
+          <Property Name="CREATED" Type="datetime" />
+          <Property Name="MODIFIED" Type="datetime" />
+          <Property Name="Menu" Type="varchar" MaxLength="255" />
+          <Property Name="INACTIVE" Type="int" />
+          <Property Name="LOGIN_DATE" Type="datetime" />
+          <Property Name="FTP_ROOT" Type="varchar" MaxLength="255" />
+          <Property Name="FullName" Type="varchar" MaxLength="511" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="RegistrationAttendees">
           <Key>
@@ -378,12 +521,13 @@
           <Property Name="RegPaidTotal" Type="money" />
           <Property Name="RegBalanceDue" Type="money" StoreGeneratedPattern="Computed" />
           <Property Name="MktgFollowupEmailSent" Type="datetime" />
+          <Property Name="BlockSeq" Type="bigint" />
         </EntityType>
         <EntityType Name="ScheduleCourseInstructors">
           <Key>
             <PropertyRef Name="ScheduleCourseID" />
           </Key>
-          <Property Name="ScheduleCourseID" Type="int" Nullable="false" />
+          <Property Name="ScheduleCourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ScheduleID" Type="int" Nullable="false" />
           <Property Name="CourseID" Type="int" Nullable="false" />
           <Property Name="InstructorID" Type="int" Nullable="false" />
@@ -397,7 +541,7 @@
           <Key>
             <PropertyRef Name="ScheduleID" />
           </Key>
-          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationID" Type="int" Nullable="false" />
           <Property Name="CityID" Type="int" Nullable="false" />
           <Property Name="StateID" Type="int" Nullable="false" />
@@ -427,6 +571,13 @@
           <Property Name="Display_Ops" Type="bit" />
           <Property Name="Ops_Status" Type="varchar" MaxLength="255" />
           <Property Name="CorpDisk_Processed" Type="datetime" />
+          <Property Name="TrainingKey" Type="varchar" MaxLength="50" />
+          <Property Name="ArloIdentifier" Type="varchar" MaxLength="200" />
+          <Property Name="ArloSessionID" Type="int" />
+          <Property Name="ViewUri" Type="varchar" MaxLength="200" />
+          <Property Name="RegisterUri" Type="varchar" MaxLength="200" />
+          <Property Name="EventCode" Type="varchar" MaxLength="50" />
+          <Property Name="CourseID" Type="int" />
         </EntityType>
         <EntityType Name="States">
           <Key>
@@ -659,6 +810,7 @@ warning 6002: The table/view 'americantrainco.dbo.Attendees_ClassHistory' does n
           <Property Name="ClassDates" Type="varchar" MaxLength="255" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="State" Type="varchar" MaxLength="5" />
+          <Property Name="BlockSeq" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -696,6 +848,18 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="Coordinates" Type="geography" />
           <Property Name="CourseTier" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'americantrainco.dbo.SeminarCitiesActive' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SeminarCitiesActive">
+          <Key>
+            <PropertyRef Name="CityID" />
+            <PropertyRef Name="CityName" />
+            <PropertyRef Name="StateAbbrv" />
+          </Key>
+          <Property Name="CityID" Type="int" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StateAbbrv" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
         <Association Name="FK__CATEGORY__CATEGO__457442E6">
           <End Role="CATEGORYTYPE" Type="Self.CATEGORYTYPE" Multiplicity="1" />
           <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="*" />
@@ -721,20 +885,26 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Parameter Name="cartID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="americantraincoModelStoreContainer">
+          <EntitySet Name="Cache_Log" EntityType="Self.Cache_Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cart" EntityType="Self.cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cartLine" EntityType="Self.cartLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORYTYPE" EntityType="Self.CATEGORYTYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CC_Log" EntityType="Self.CC_Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CC_Payments" EntityType="Self.CC_Payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseFormats" EntityType="Self.CourseFormats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseInstructors" EntityType="Self.CourseInstructors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseRelations" EntityType="Self.CourseRelations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COURSES" EntityType="Self.COURSES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseTopics" EntityType="Self.CourseTopics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseTypes" EntityType="Self.CourseTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GotoTrainingRegistrations" EntityType="Self.GotoTrainingRegistrations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INSTRUCTORS" EntityType="Self.INSTRUCTORS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationTypes" EntityType="Self.LocationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEMBERS" EntityType="Self.MEMBERS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegistrationAttendees" EntityType="Self.RegistrationAttendees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegistrationAttendeeSchedules" EntityType="Self.RegistrationAttendeeSchedules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REGISTRATIONS" EntityType="Self.REGISTRATIONS" Schema="dbo" store:Type="Tables" />
@@ -747,6 +917,27 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySet Name="temp_Reg" EntityType="Self.temp_Reg" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebAccounts" EntityType="Self.WebAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebSignups" EntityType="Self.WebSignups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Locations].[LocationID] AS [LocationID], 
+    [Locations].[LocationTypeID] AS [LocationTypeID], 
+    [Locations].[LocationCode] AS [LocationCode], 
+    [Locations].[LocationName] AS [LocationName], 
+    [Locations].[LocationNotes] AS [LocationNotes], 
+    [Locations].[HotelSleepRate] AS [HotelSleepRate], 
+    [Locations].[HotelMeetingRate] AS [HotelMeetingRate], 
+    [Locations].[Active] AS [Active], 
+    [Locations].[Created] AS [Created], 
+    [Locations].[Modified] AS [Modified], 
+    [Locations].[CreatedMemberID] AS [CreatedMemberID], 
+    [Locations].[ModifiedMemberID] AS [ModifiedMemberID], 
+    [Locations].[TimeZone] AS [TimeZone], 
+    [Locations].[ContactName] AS [ContactName], 
+    [Locations].[ContactPhone] AS [ContactPhone], 
+    [Locations].[ContactFax] AS [ContactFax], 
+    [Locations].[ContactEmail] AS [ContactEmail]
+    FROM [dbo].[Locations] AS [Locations]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Attendees_ClassHistory" EntityType="Self.Attendees_ClassHistory" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Attendees_ClassHistory].[AttendeeID] AS [AttendeeID], 
@@ -765,7 +956,8 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
     [Attendees_ClassHistory].[ClassStart] AS [ClassStart], 
     [Attendees_ClassHistory].[ClassDates] AS [ClassDates], 
     [Attendees_ClassHistory].[City] AS [City], 
-    [Attendees_ClassHistory].[State] AS [State]
+    [Attendees_ClassHistory].[State] AS [State], 
+    [Attendees_ClassHistory].[BlockSeq] AS [BlockSeq]
     FROM [dbo].[Attendees_ClassHistory] AS [Attendees_ClassHistory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Seminar_Catalog" EntityType="Self.Seminar_Catalog" store:Type="Views" store:Schema="dbo">
@@ -796,6 +988,13 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
     [Seminar_Catalog].[Coordinates] AS [Coordinates], 
     [Seminar_Catalog].[CourseTier] AS [CourseTier]
     FROM [dbo].[Seminar_Catalog] AS [Seminar_Catalog]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SeminarCitiesActive" EntityType="Self.SeminarCitiesActive" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SeminarCitiesActive].[CityID] AS [CityID], 
+    [SeminarCitiesActive].[CityName] AS [CityName], 
+    [SeminarCitiesActive].[StateAbbrv] AS [StateAbbrv]
+    FROM [dbo].[SeminarCitiesActive] AS [SeminarCitiesActive]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__CATEGORY__CATEGO__457442E6" Association="Self.FK__CATEGORY__CATEGO__457442E6">
             <End Role="CATEGORYTYPE" EntitySet="CATEGORYTYPE" />
@@ -997,6 +1196,10 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="OtherFixedCost" Type="Decimal" Precision="8" Scale="0" />
           <Property Name="PerStudentCost" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="TotalFixedCost" Type="Decimal" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ArloID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ViewUri" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RegisterUri" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EventCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -1014,6 +1217,11 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="Modified" Type="DateTime" Precision="0" />
           <Property Name="CreatedMemberID" Type="Int32" Nullable="false" />
           <Property Name="ModifiedMemberID" Type="Int32" />
+          <Property Name="TimeZone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactFax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="LocationType">
           <Key>
@@ -1098,6 +1306,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="RegPaidTotal" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="RegBalanceDue" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="MktgFollowupEmailSent" Type="DateTime" Precision="3" />
+          <Property Name="BlockSeq" Type="Int64" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -1333,6 +1542,14 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySet Name="RegistrationAttendeeSchedules" EntityType="americantraincoModel.RegistrationAttendeeSchedule" />
           <EntitySet Name="WebAccounts" EntityType="americantraincoModel.WebAccount" />
           <EntitySet Name="Attendees_ClassHistory" EntityType="americantraincoModel.Attendees_ClassHistory" />
+          <EntitySet Name="CC_Payments" EntityType="americantraincoModel.CC_Payments" />
+          <EntitySet Name="CourseRelations" EntityType="americantraincoModel.CourseRelation" />
+          <EntitySet Name="SeminarCitiesActives" EntityType="americantraincoModel.SeminarCitiesActive" />
+          <EntitySet Name="Cache_Log" EntityType="americantraincoModel.Cache_Log" />
+          <EntitySet Name="GotoTrainingRegistrations" EntityType="americantraincoModel.GotoTrainingRegistration" />
+          <EntitySet Name="MEMBERS" EntityType="americantraincoModel.MEMBER" />
+          <EntitySet Name="Contacts" EntityType="americantraincoModel.Contact" />
+          <EntitySet Name="INSTRUCTORS" EntityType="americantraincoModel.INSTRUCTOR" />
         </EntityContainer>
         <EntityType Name="CourseTopic">
           <Key>
@@ -1409,6 +1626,13 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="Display_Ops" Type="Boolean" />
           <Property Name="Ops_Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="CorpDisk_Processed" Type="DateTime" Precision="3" />
+          <Property Name="TrainingKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ArloIdentifier" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ArloSessionID" Type="Int32" />
+          <Property Name="ViewUri" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RegisterUri" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EventCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CourseID" Type="Int32" />
         </EntityType>
         <EntityType Name="ScheduleCourseInstructor">
           <Key>
@@ -1552,6 +1776,145 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <Property Name="ClassDates" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="BlockSeq" Type="Int64" />
+        </EntityType>
+        <EntityType Name="CC_Payments">
+          <Key>
+            <PropertyRef Name="Seq" />
+          </Key>
+          <Property Name="Seq" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CompanyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AppliedDate" Type="DateTime" Precision="3" />
+          <Property Name="AppliedAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AppliedReference" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CourseRelation">
+          <Key>
+            <PropertyRef Name="CourseRelationID" />
+          </Key>
+          <Property Name="CourseRelationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OpenID" Type="Int32" />
+          <Property Name="SimulcastID" Type="Int32" />
+          <Property Name="LiveOnlineID" Type="Int32" />
+          <Property Name="EventCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SeminarCitiesActive">
+          <Key>
+            <PropertyRef Name="CityID" />
+            <PropertyRef Name="CityName" />
+            <PropertyRef Name="StateAbbrv" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <Property Name="CityName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StateAbbrv" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Cache_Log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="triggered_on" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="triggered_by" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="GotoTrainingRegistration">
+          <Key>
+            <PropertyRef Name="RegistrationID" />
+          </Key>
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrainingKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BillingAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StateCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneExt" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RegisteredAt" Type="DateTime" Precision="3" />
+          <Property Name="RegistrantKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MEMBER">
+          <Key>
+            <PropertyRef Name="MEMBERID" />
+          </Key>
+          <Property Name="MEMBERID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LOGIN" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="INSTRUCTORID" Type="Int32" Nullable="false" />
+          <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PriceCode" Type="Int32" />
+          <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="Int32" />
+          <Property Name="PREFIX" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LASTNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MIDDLEINITIAL" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED" Type="DateTime" Precision="3" />
+          <Property Name="MODIFIED" Type="DateTime" Precision="3" />
+          <Property Name="Menu" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="INACTIVE" Type="Int32" />
+          <Property Name="LOGIN_DATE" Type="DateTime" Precision="3" />
+          <Property Name="FTP_ROOT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="511" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactID" />
+          </Key>
+          <Property Name="ContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ContactCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ContactSalutation" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ContactFirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactMiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactLastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactSuffix" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactFullName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContactAirport" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactSpouseName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactKidsNames" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IMGContactPhoto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="Changed" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Double" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="INSTRUCTOR">
+          <Key>
+            <PropertyRef Name="InstructorID" />
+          </Key>
+          <Property Name="InstructorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="ContactID" Type="Double" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="InstructorAnniversaryDate" Type="DateTime" Precision="0" />
+          <Property Name="InstructorAvailability" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="InstructorCredentials" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PriceCode" Type="Int16" Nullable="false" />
+          <Property Name="InstructorTeachingExperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InstructorPubAuthorships" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InstructorAgreement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InstructorNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Modified" Type="DateTime" Precision="0" />
+          <Property Name="CreatedMemberID" Type="Double" Nullable="false" />
+          <Property Name="ModifiedMemberID" Type="Double" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1710,6 +2073,10 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySetMapping Name="COURSES">
             <EntityTypeMapping TypeName="americantraincoModel.COURS">
               <MappingFragment StoreEntitySet="COURSES">
+                <ScalarProperty Name="EventCode" ColumnName="EventCode" />
+                <ScalarProperty Name="RegisterUri" ColumnName="RegisterUri" />
+                <ScalarProperty Name="ViewUri" ColumnName="ViewUri" />
+                <ScalarProperty Name="ArloID" ColumnName="ArloID" />
                 <ScalarProperty Name="TotalFixedCost" ColumnName="TotalFixedCost" />
                 <ScalarProperty Name="PerStudentCost" ColumnName="PerStudentCost" />
                 <ScalarProperty Name="OtherFixedCost" ColumnName="OtherFixedCost" />
@@ -1761,6 +2128,11 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="americantraincoModel.Location">
               <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ContactFax" ColumnName="ContactFax" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="LocationTypeID" ColumnName="LocationTypeID" />
                 <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
@@ -1792,6 +2164,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySetMapping Name="REGISTRATIONS">
             <EntityTypeMapping TypeName="americantraincoModel.REGISTRATION">
               <MappingFragment StoreEntitySet="REGISTRATIONS">
+                <ScalarProperty Name="BlockSeq" ColumnName="BlockSeq" />
                 <ScalarProperty Name="MktgFollowupEmailSent" ColumnName="MktgFollowupEmailSent" />
                 <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
                 <ScalarProperty Name="RegPromoCode" ColumnName="RegPromoCode" />
@@ -2094,6 +2467,13 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySetMapping Name="SCHEDULES">
             <EntityTypeMapping TypeName="americantraincoModel.SCHEDULE">
               <MappingFragment StoreEntitySet="SCHEDULES">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="EventCode" ColumnName="EventCode" />
+                <ScalarProperty Name="RegisterUri" ColumnName="RegisterUri" />
+                <ScalarProperty Name="ViewUri" ColumnName="ViewUri" />
+                <ScalarProperty Name="ArloSessionID" ColumnName="ArloSessionID" />
+                <ScalarProperty Name="ArloIdentifier" ColumnName="ArloIdentifier" />
+                <ScalarProperty Name="TrainingKey" ColumnName="TrainingKey" />
                 <ScalarProperty Name="CorpDisk_Processed" ColumnName="CorpDisk_Processed" />
                 <ScalarProperty Name="Ops_Status" ColumnName="Ops_Status" />
                 <ScalarProperty Name="Display_Ops" ColumnName="Display_Ops" />
@@ -2247,6 +2627,7 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
           <EntitySetMapping Name="Attendees_ClassHistory">
             <EntityTypeMapping TypeName="americantraincoModel.Attendees_ClassHistory">
               <MappingFragment StoreEntitySet="Attendees_ClassHistory">
+                <ScalarProperty Name="BlockSeq" ColumnName="BlockSeq" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="ClassDates" ColumnName="ClassDates" />
@@ -2264,6 +2645,150 @@ warning 6002: The table/view 'americantrainco.dbo.Seminar_Catalog' does not have
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
                 <ScalarProperty Name="AttendeeID" ColumnName="AttendeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CC_Payments">
+            <EntityTypeMapping TypeName="americantraincoModel.CC_Payments">
+              <MappingFragment StoreEntitySet="CC_Payments">
+                <ScalarProperty Name="AppliedReference" ColumnName="AppliedReference" />
+                <ScalarProperty Name="AppliedAmount" ColumnName="AppliedAmount" />
+                <ScalarProperty Name="AppliedDate" ColumnName="AppliedDate" />
+                <ScalarProperty Name="InvoiceDescription" ColumnName="InvoiceDescription" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="ProcessedDate" ColumnName="ProcessedDate" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseRelations">
+            <EntityTypeMapping TypeName="americantraincoModel.CourseRelation">
+              <MappingFragment StoreEntitySet="CourseRelations">
+                <ScalarProperty Name="EventCode" ColumnName="EventCode" />
+                <ScalarProperty Name="LiveOnlineID" ColumnName="LiveOnlineID" />
+                <ScalarProperty Name="SimulcastID" ColumnName="SimulcastID" />
+                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
+                <ScalarProperty Name="CourseRelationID" ColumnName="CourseRelationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeminarCitiesActives">
+            <EntityTypeMapping TypeName="americantraincoModel.SeminarCitiesActive">
+              <MappingFragment StoreEntitySet="SeminarCitiesActive">
+                <ScalarProperty Name="StateAbbrv" ColumnName="StateAbbrv" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cache_Log">
+            <EntityTypeMapping TypeName="americantraincoModel.Cache_Log">
+              <MappingFragment StoreEntitySet="Cache_Log">
+                <ScalarProperty Name="triggered_by" ColumnName="triggered_by" />
+                <ScalarProperty Name="triggered_on" ColumnName="triggered_on" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GotoTrainingRegistrations">
+            <EntityTypeMapping TypeName="americantraincoModel.GotoTrainingRegistration">
+              <MappingFragment StoreEntitySet="GotoTrainingRegistrations">
+                <ScalarProperty Name="RegistrantKey" ColumnName="RegistrantKey" />
+                <ScalarProperty Name="RegisteredAt" ColumnName="RegisteredAt" />
+                <ScalarProperty Name="PhoneExt" ColumnName="PhoneExt" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="TrainingKey" ColumnName="TrainingKey" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEMBERS">
+            <EntityTypeMapping TypeName="americantraincoModel.MEMBER">
+              <MappingFragment StoreEntitySet="MEMBERS">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="FTP_ROOT" ColumnName="FTP_ROOT" />
+                <ScalarProperty Name="LOGIN_DATE" ColumnName="LOGIN_DATE" />
+                <ScalarProperty Name="INACTIVE" ColumnName="INACTIVE" />
+                <ScalarProperty Name="Menu" ColumnName="Menu" />
+                <ScalarProperty Name="MODIFIED" ColumnName="MODIFIED" />
+                <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+                <ScalarProperty Name="MIDDLEINITIAL" ColumnName="MIDDLEINITIAL" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="PREFIX" ColumnName="PREFIX" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="PriceCode" ColumnName="PriceCode" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="INSTRUCTORID" ColumnName="INSTRUCTORID" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="MEMBERID" ColumnName="MEMBERID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="americantraincoModel.Contact">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Changed" ColumnName="Changed" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IMGContactPhoto" ColumnName="IMGContactPhoto" />
+                <ScalarProperty Name="ContactKidsNames" ColumnName="ContactKidsNames" />
+                <ScalarProperty Name="ContactSpouseName" ColumnName="ContactSpouseName" />
+                <ScalarProperty Name="ContactAirport" ColumnName="ContactAirport" />
+                <ScalarProperty Name="ContactNotes" ColumnName="ContactNotes" />
+                <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
+                <ScalarProperty Name="ContactFullName" ColumnName="ContactFullName" />
+                <ScalarProperty Name="ContactSuffix" ColumnName="ContactSuffix" />
+                <ScalarProperty Name="ContactLastName" ColumnName="ContactLastName" />
+                <ScalarProperty Name="ContactMiddleName" ColumnName="ContactMiddleName" />
+                <ScalarProperty Name="ContactFirstName" ColumnName="ContactFirstName" />
+                <ScalarProperty Name="ContactSalutation" ColumnName="ContactSalutation" />
+                <ScalarProperty Name="ContactCode" ColumnName="ContactCode" />
+                <ScalarProperty Name="ContactTypeID" ColumnName="ContactTypeID" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INSTRUCTORS">
+            <EntityTypeMapping TypeName="americantraincoModel.INSTRUCTOR">
+              <MappingFragment StoreEntitySet="INSTRUCTORS">
+                <ScalarProperty Name="ModifiedMemberID" ColumnName="ModifiedMemberID" />
+                <ScalarProperty Name="CreatedMemberID" ColumnName="CreatedMemberID" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="InstructorNotes" ColumnName="InstructorNotes" />
+                <ScalarProperty Name="InstructorAgreement" ColumnName="InstructorAgreement" />
+                <ScalarProperty Name="InstructorPubAuthorships" ColumnName="InstructorPubAuthorships" />
+                <ScalarProperty Name="InstructorTeachingExperience" ColumnName="InstructorTeachingExperience" />
+                <ScalarProperty Name="PriceCode" ColumnName="PriceCode" />
+                <ScalarProperty Name="InstructorCredentials" ColumnName="InstructorCredentials" />
+                <ScalarProperty Name="InstructorAvailability" ColumnName="InstructorAvailability" />
+                <ScalarProperty Name="InstructorAnniversaryDate" ColumnName="InstructorAnniversaryDate" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
